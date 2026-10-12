@@ -1,0 +1,75 @@
+using System;
+using System.Linq;
+using MW.EditorTools.Services;
+using MW.EditorTools.History;
+using MW.EditorTools.Settings;
+namespace MW.EditorTools { internal static class Mod { internal static readonly Logger Log = new Logger(); internal sealed class Logger { public void Warn(string value) {} } } }
+internal static class Program {
+    private static int checks;
+    private static void Check(bool result, string name) { if(!result) throw new Exception(name); checks++; }
+    private static int Shortcut(bool enabled=true,bool available=true,bool typing=false,bool dialog=false,bool repeat=false,bool ctrl=true,bool shift=false,bool alt=false,bool meta=false,bool undo=true,bool redo=true) =>
+        ShortcutPolicy.Resolve(enabled,available,typing,dialog,repeat,ctrl,shift,alt,meta,undo,redo);
+    public static void Main() {
+        Check(Shortcut()==0,"Undo"); Check(Shortcut(shift:true)==1,"Redo");
+        Check(Shortcut(enabled:false)==-1,"disabled"); Check(Shortcut(available:false)==-1,"outside editor");
+        Check(Shortcut(typing:true)==-1,"typing"); Check(Shortcut(dialog:true)==-1,"dialog");
+        Check(Shortcut(repeat:true)==-1,"repeat"); Check(Shortcut(ctrl:false)==-1,"control required");
+        Check(Shortcut(alt:true)==-1,"alt rejected"); Check(Shortcut(meta:true)==-1,"meta rejected");
+        Check(Shortcut(undo:false)==-1,"wrong undo key"); Check(Shortcut(shift:true,redo:false)==-1,"wrong redo key");
+        var settings = new EditorToolsSettings {historyDepth=900,undoKey="a",redoKey="F12",windowX=float.NaN,windowY=9};
+        settings.Normalize();
+        Check(settings.historyDepth==50,"limit upper bound"); Check(settings.undoKey=="A" && settings.redoKey=="Z","key validation");
+        Check(settings.windowX==.4f && settings.windowY==1,"position validation");
+        settings.historyDepth=0; settings.Normalize(); Check(settings.historyDepth==20,"limit lower bound");
+        var previousCulture = System.Globalization.CultureInfo.CurrentCulture;
+        try {
+            System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("fr-FR");
+            settings.windowX=.4f; settings.undoKey="\""; settings.confirmation=false;
+            using var json = System.Text.Json.JsonDocument.Parse(settings.ToJson());
+            var root = json.RootElement;
+            Check(root.EnumerateObject().Count()==24,"all frontend settings included");
+            Check(root.GetProperty("windowX").GetSingle()==.4f,"JSON decimal invariant");
+            Check(root.GetProperty("undoKey").GetString()=="Z","unsafe key normalized before JSON");
+            Check(!root.GetProperty("confirmation").GetBoolean() && root.GetProperty("recovery").GetBoolean(),"JSON boolean values");
+        } finally { System.Globalization.CultureInfo.CurrentCulture=previousCulture; }
+        Check(settings.ApplyOptions(false,"37"," x ","r"),"text limit change clears history");
+        Check(settings.historyDepth==37 && settings.undoKey=="X" && settings.redoKey=="R" && !settings.shortcuts,"text options apply normalized");
+        Check(!settings.ApplyOptions(true,"37","X","R"),"unchanged limit retains history");
+        foreach (var bad in new[]{"19","51","abc","20.5","999999999999"}) {
+            Check(!settings.ApplyOptions(true,bad,"F12","Ctrl+Z") && settings.historyDepth==37 && settings.undoKey=="X" && settings.redoKey=="R","invalid text retains settings");
+        }
+        settings.propsKey="\"";settings.propsModifiers=99;settings.Normalize();Check(settings.propsKey=="P"&&settings.propsModifiers==5,"invalid browser settings normalised"); settings.SetBrowserShortcut(1,"Q",7);using(var browserJson=System.Text.Json.JsonDocument.Parse(settings.ToJson()))Check(browserJson.RootElement.GetProperty("propsKey").GetString()=="Q"&&browserJson.RootElement.GetProperty("propsModifiers").GetInt32()==7,"browser JSON saves complete combination"); settings.MigrateModifiers("{}");Check(settings.propsKey=="P"&&settings.propsModifiers==5,"old file migrates browser defaults");
+        var conflicts=new EditorToolsSettings{browserShortcuts=true};Check(!conflicts.BrowserConflict("P",5,1),"distinct browser shortcut allowed");conflicts.SetBrowserShortcut(2,"P",5);Check(conflicts.BrowserConflict("P",5,1)&&conflicts.BrowserConflict("P",5,2),"both duplicate browser shortcuts suppressed");conflicts.SetBrowserShortcut(1,"Z",1);Check(conflicts.BrowserConflict("Z",1,1)&&conflicts.BrowserConflict("Z",1),"recovery and browser conflict suppressed both ways");conflicts.shortcuts=false;Check(!conflicts.BrowserConflict("Z",1,1),"disabled recovery does not reserve its binding");conflicts.browserShortcuts=false;Check(!conflicts.BrowserConflict("Z",1),"disabled browser does not reserve its binding");
+        var history = new TransactionHistory<int>(50); for(int i=0;i<50;i++) history.Record(i);
+        for(int expected=0;expected<16;expected++) for(int actual=0;actual<16;actual++) {
+            var result=ShortcutPolicy.Resolve(true,true,false,false,false,(actual&1)!=0,(actual&2)!=0,(actual&4)!=0,(actual&8)!=0,true,false,expected,3);
+            Check(result==(expected==actual?0:-1),"exact configurable modifier mask");
+        }
+        Check(ShortcutPolicy.Resolve(true,true,false,false,false,true,false,true,false,true,true,5,5)==-1,"identical shortcut suppressed");
+        Check(ShortcutPolicy.Resolve(true,true,true,false,false,false,false,true,false,true,false,4,3)==-1,"custom shortcut typing suppressed");
+        settings.undoModifiers=0;settings.redoModifiers=0;settings.MigrateModifiers("{\"historyDepth\":37}");
+        Check(settings.undoModifiers==1 && settings.redoModifiers==3,"old settings get default modifiers");
+        settings.undoModifiers=0;settings.redoModifiers=8;settings.MigrateModifiers("{\"undoModifiers\":0,\"redoModifiers\":8}");
+        Check(settings.undoModifiers==0 && settings.redoModifiers==8,"configured modifiers preserved");
+        history.SetDepth(20); Check(history.UndoCount==20 && history.Recent[0]==30,"retains newest undo");
+        for(int i=0;i<20;i++) Check(history.Undo(_=>true),"undo after resize");
+        history.SetDepth(5); Check(history.RedoCount==5 && history.NextRedo==30,"retains immediate redo");
+        Check(!history.Redo(_=>false) && history.RedoCount==5,"failed redo preserves cursor");
+        var queue=new DeferredShortcut();int executions=0,last=-1;
+        Action<int> dispatch=value=>{executions++;last=value;};
+        Check(!queue.Request(-1,10)&&!queue.Request(2,10),"invalid shortcut rejected");
+        Check(queue.Request(0,10),"undo queued");
+        Check(!queue.Request(1,10),"repeated or competing request cannot overwrite pending undo");
+        queue.Drain(10,true,dispatch);Check(executions==0,"no structural operation in input update frame");
+        queue.Drain(11,true,dispatch);Check(executions==1&&last==0,"undo dispatched next frame");
+        queue.Drain(12,true,dispatch);Check(executions==1,"consumed request cannot repeat");
+        queue.Request(1,20);queue.Drain(21,false,dispatch);queue.Drain(22,true,dispatch);Check(executions==1,"invalid focus or context discards request permanently");
+        queue.Request(0,30);queue.Cancel();queue.Drain(31,true,dispatch);Check(executions==1,"settings or asset invalidation cancels queued shortcut");
+        queue.Request(1,40);queue.Drain(44,true,dispatch);Check(executions==1,"stale request expires without execution");
+        queue.Request(1,50);queue.Drain(51,true,dispatch);Check(executions==2&&last==1,"redo uses same deferred path");
+        queue.Request(0,60);try{queue.Drain(61,true,_=>throw new InvalidOperationException());}catch(InvalidOperationException){}queue.Drain(62,true,dispatch);Check(executions==2,"failed dispatch is removed before callback");
+        Console.WriteLine("Phase 4 safety: "+checks+" assertions passed.");
+    }
+}
+
+

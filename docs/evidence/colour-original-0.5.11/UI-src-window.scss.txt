@@ -1,0 +1,159 @@
+.mw-native-window { width: 560rem; max-width: 90vw; height: 790rem; max-height: 88vh; font-family: var(--fontFamily); font-size: var(--fontSizeM); }
+.mw-native-window, .mw-native-window * { box-sizing: border-box; }
+.mw-native-content { display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; overflow: hidden; }
+.mw-toolbar { flex: 0 0 auto; padding: 10rem 14rem 5rem; display: flex; flex-direction: column; }
+.mw-toolbar .mw-button { width: 100%; }
+.mw-footer { padding: 10rem 14rem; flex: 0 0 auto; }
+.mw-resizable-footer { position: relative; }
+.mw-resize-handle { position: absolute; right: 0; bottom: 0; width: 24rem; height: 24rem; padding: 0; border: 0; background: transparent; color: #a8bac6; cursor: nwse-resize; }
+.mw-resize-handle::after { content: ''; display: block; width: 12rem; height: 12rem; margin-left: 7rem; border-right: 3rem solid #a8bac6; border-bottom: 3rem solid #a8bac6; }
+.mw-actions { display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; margin-bottom: 5rem; }
+.mw-actions > * { margin-right: 8rem; }
+.mw-footer-actions { flex-wrap: nowrap; }
+.mw-footer-actions > * { flex: 1 1 0; min-width: 0; }
+.mw-wide { width: 100%; margin-top: 5rem; }
+.mw-native-window h3 { font-size: var(--fontSizeM); text-transform: uppercase; margin: 10rem 0 3rem; }
+.mw-native-window p { margin: 2rem 0; line-height: 1.15; }
+.mw-native-window .mw-target-name { font-size: 20rem; line-height: 1.2; font-weight: bold; color: #ffd044; margin-bottom: 7rem; }
+.mw-target-choice { display: flex; align-items: center; }
+.mw-target-choice select { flex: 1 1 0; min-width: 0; margin-left: 8rem; font: inherit; }
+.mw-info { overflow-x: auto; }
+.mw-info p { white-space: nowrap; }
+.mw-status { margin: 4rem 0 6rem; }
+.mw-status, .mw-warning { color: #ffd044; font-size: var(--fontSizeS); }
+.mw-confirm { padding: 7rem; border: 1rem solid rgba(255,209,154,.5); margin-top: 6rem; }
+.mw-color-section { margin-top: 7rem; }
+.mw-section-toggle { display: flex; align-items: center; width: 100%; padding: 6rem 5rem; font: inherit; text-align: left; text-transform: uppercase; color: #fff; background-color: rgba(0,0,0,.15); border: 0; }
+.mw-section-toggle:hover, .mw-section-toggle:focus { background-color: rgba(255,255,255,.12); }
+.mw-collapse-arrow { display: block; flex-shrink: 0; width: 9rem; height: 9rem; margin: 0 14rem 0 5rem; border-right: 2rem solid #fff; border-bottom: 2rem solid #fff; transform: rotate(-45deg); }
+.mw-collapse-arrow.mw-expanded { transform: rotate(45deg); }
+.mw-section-details { padding-top: 2rem; }
+.mw-loaded { min-height: 0; margin-top: 2rem; flex-shrink: 0; }
+.mw-loaded-scroll { height: 180rem; }
+.mw-loaded-row { display: flex; align-items: center; padding: 3rem 0; min-height: 34rem; border-bottom: 1rem solid rgba(255,255,255,.10); }
+.mw-number { width: 25rem; font-size: var(--fontSizeS); opacity: .65; }
+.mw-color { display: flex; align-items: center; min-height: 27rem; }
+.mw-channel { width: 87rem; flex-shrink: 0; }
+.mw-swatch { width: 53rem; height: 21rem; border: 1rem solid rgba(255,255,255,.6); border-radius: 2rem; margin-right: 10rem; flex-shrink: 0; text-align: center; }
+.mw-value { color: #fff; flex: 1 1 auto; min-width: 0; overflow-wrap: break-word; }
+.mw-edit-swatch { flex: 1 1 0; min-width: 0; padding: 0; border: 0; background: transparent; color: #fff; font: inherit; text-align: left; cursor: pointer; }
+.mw-edit-swatch .mw-channel { display: none; }
+.mw-edit-swatch .mw-swatch { width: 74rem; height: 28rem; border-radius: 4rem; }
+.mw-edit-swatch:hover .mw-swatch, .mw-edit-swatch:focus .mw-swatch { border-color: #fff; outline: 2rem solid #a8bac6; }
+.mw-preview-button { margin-top: 10rem; }
+.mw-append { margin-top: 8rem; margin-bottom: 3rem; }
+.mw-preview-row { margin-top: 6rem; }
+.mw-slider-row { display: flex; align-items: center; min-height: 28rem; }
+.mw-slider-row > span:first-child { width: 82rem; }
+.mw-slider-row input { flex: 1 1 0; min-width: 0; margin: 0 10rem; }
+.mw-slider-row > span:last-child { width: 30rem; text-align: right; }
+.mw-picker-overlay { position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 10000; background: rgba(0,0,0,.4); display: flex; align-items: center; justify-content: center; font-family: var(--fontFamily); font-size: var(--fontSizeM); }
+.mw-picker-dialog { width: 320rem; max-width: 90vw; max-height: 90vh; overflow: auto; padding: 16rem; background: #253e4c; color: white; border: 2rem solid #91b4c3; border-radius: 6rem; }
+.mw-picker-heading { display: flex; align-items: center; justify-content: space-between; }
+.mw-picker-heading > button { background: transparent; color: white; border: 0; font: inherit; cursor: pointer; }
+.mw-wheel { display: block; width: 220rem; height: 220rem; margin: 10rem auto; cursor: crosshair; }
+.mw-picker-result { display: flex; align-items: center; margin: 14rem 0; }
+
+/* Compact text scale with the vanilla font and button appearance. */
+.mw-native-window { width: 500rem; height: 700rem; font-size: 14rem; }
+.mw-native-window h3 { font-size: 15rem; margin-top: 7rem; }
+.mw-native-window .mw-target-name { font-size: 18rem; }
+.mw-native-window .mw-button { font-size: 14rem; }
+.mw-native-window .mw-number, .mw-native-window .mw-status, .mw-native-window .mw-warning { font-size: 12rem; }
+.mw-loaded-row { min-height: 28rem; padding: 2rem 0; }
+.mw-edit-swatch .mw-swatch { width: 62rem; height: 24rem; }
+.mw-loaded-scroll { height: 140rem; }
+.mw-toolbar { padding-top: 7rem; }
+.mw-native-window > * { min-height: 0; }
+.mw-preview-hint { opacity: .7; }
+.mw-preview-row { display: flex; flex-direction: column; margin-top: 5rem; }
+.mw-preview-list { flex: 1 1 0; min-height: 0; margin-top: 5rem; }
+.mw-preview-list > div:first-child { height: 100%; }
+.mw-preview-row { border-bottom: 1rem solid rgba(255,255,255,.1); padding: 4rem 0; margin: 0; }
+.mw-preview-colors { display: flex; }
+.mw-preview-colors .mw-color { flex: 1 1 0; min-width: 0; flex-wrap: wrap; margin-right: 5rem; font-size: 12rem; }
+.mw-preview-colors .mw-channel { width: 100%; margin-bottom: 2rem; }
+.mw-preview-colors .mw-swatch { width: 28rem; height: 16rem; margin-right: 5rem; }
+.mw-preview-colors .mw-value { overflow-wrap: normal; white-space: nowrap; }
+.mw-native-window .mw-info p { display: block; margin: 0; padding: 0; line-height: 16rem; }
+.mw-native-window .mw-status { margin-top: 6rem; margin-bottom: 6rem; }
+
+/* Match component typography and keep preview in the ordinary content flow. */
+.mw-native-window { font-size: var(--fontSizeS); }
+.mw-native-window .mw-button, .mw-native-window .mw-number, .mw-native-window .mw-status, .mw-native-window .mw-warning { font-size: var(--fontSizeS); }
+.mw-native-window h3 { font-size: var(--fontSizeM); }
+.mw-native-window .mw-target-name { font-size: var(--fontSizeM); }
+.mw-native-window .mw-info p { line-height: 1.3em; }
+.mw-loaded-row { min-height: 38rem; }
+.mw-loaded-scroll { height: 190rem; }
+.mw-edit-swatch .mw-swatch { width: 76rem; height: 32rem; }
+.mw-preview-list { flex: none; height: 300rem; max-height: none; min-height: 0; }
+.mw-preview-colors { display: flex; flex-wrap: wrap; }
+.mw-preview-colors .mw-color { flex: 0 0 50%; margin-right: 0; padding-right: 8rem; margin-bottom: 6rem; font-size: var(--fontSizeS); }
+.mw-preview-colors .mw-swatch { width: 70rem; height: 30rem; margin-right: 8rem; }
+.mw-preview-colors .mw-value { flex: 1 1 0; }
+.mw-preview-colors .mw-channel { margin-bottom: 4rem; }
+.mw-picker-overlay { font-size: var(--fontSizeS); }
+
+/* Fixed window: only individual color lists and preview rows scroll. */
+.mw-native-window { width: 620rem; height: 1060rem; max-height: 94vh; max-width: 90vw; }
+.mw-channel-sections .mw-color-section { display: flex; flex-direction: column; flex: 0 0 auto; min-height: 0; }
+.mw-channel-sections .mw-section-expanded { flex: 1 1 0; }
+.mw-section-toggle { flex: 0 0 auto; }
+.mw-section-details { display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; }
+.mw-loaded-scroll { height: auto; flex: 1 1 0; min-height: 0; }
+.mw-preview-list { height: 160rem; }
+.mw-preview-colors .mw-swatch { width: 96rem; height: 32rem; }
+
+.mw-group-mode { margin: 8rem 0 4rem; }
+.mw-group-mode-label { display: block; margin-bottom: 4rem; }
+.mw-group-mode-options { display: flex; align-items: center; }
+.mw-radio-option { display: flex; align-items: center; margin-right: 12rem; padding: 6rem 10rem; cursor: pointer; color: #fff; background-color: rgba(0,0,0,.2); border: 2rem solid #718591; border-radius: 4rem; }
+.mw-radio-option > span { margin-left: 7rem; }
+.mw-radio-option.mw-radio-selected { color: #fff; background-color: #34596b; border-color: #ffc05f; }
+.mw-radio-option:hover { background-color: #34596b; }
+.mw-radio-option .mw-radio-indicator { display: flex; align-items: center; justify-content: center; width: 18rem; height: 18rem; margin-left: 0; flex-shrink: 0; border: 2rem solid #a8bac6; border-radius: 50%; }
+.mw-radio-selected .mw-radio-indicator { border-color: #ffc05f; }
+.mw-radio-indicator > span { width: 8rem; height: 8rem; border-radius: 50%; background-color: transparent; }
+.mw-radio-selected .mw-radio-indicator > span { background-color: #ffc05f; }
+
+/* Explicit list heights prevent nested flex layouts from collapsing the swatches. */
+.mw-native-window { width: 700rem; height: 1180rem; max-height: 96vh; }
+.mw-channel-sections .mw-color-section, .mw-channel-sections .mw-section-expanded { flex: 0 0 auto; }
+.mw-channel-sections .mw-section-details { flex: 0 0 auto; }
+.mw-channel-sections .mw-loaded-scroll { height: 112rem; min-height: 112rem; flex: 0 0 auto; }
+.mw-native-window .mw-info { overflow: visible; }
+.mw-native-window .mw-info p { white-space: normal; overflow-wrap: break-word; line-height: 1.3em; }
+.mw-target-name, .mw-radio-option > span { white-space: normal; overflow-wrap: break-word; }
+.mw-group-mode-options { flex-wrap: wrap; }
+.mw-radio-option { margin-bottom: 4rem; }
+
+/* Independent row beside Multi-save; neighbours retain their own layout. */
+.mw-colors-launcher { position: fixed; top: 65rem; z-index: 10; pointer-events: auto; }
+.mw-colors-launcher .mw-colors-launcher-button { display: block; width: 56rem; height: 56rem; padding: 0; border: 0; border-radius: 6rem; background: transparent; overflow: hidden; }
+.mw-colors-launcher-button:hover { opacity: .85; }
+.mw-colors-launcher-button:focus { outline: 2rem solid #ffc05f; outline-offset: 2rem; }
+.mw-colors-launcher-icon { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 6rem; }
+
+/* Fixed controls and paged results use ordinary document flow. */
+.mw-window-layout { display: block; width: 100%; }
+.mw-fixed-controls { display: block; padding: 0 14rem 8rem; }
+.mw-body-inner { display: block; height: auto; padding: 0; }
+.mw-channel-sections { display: flex; flex-direction: row; }
+.mw-channel-sections .mw-color-section { flex: 1 1 0; min-width: 0; margin-right: 6rem; }
+.mw-channel-sections .mw-section-details { display: block; }
+.mw-channel-sections .mw-loaded-scroll { height: 112rem; min-height: 112rem; }
+.mw-preview-panel { display: block; height: auto; padding: 8rem 14rem; margin: 0; border-top: 1rem solid rgba(255,255,255,.12); }
+.mw-preview-panel h3 { margin: 0 0 3rem; }
+.mw-preview-list { display: block; height: auto; min-height: 0; margin-top: 5rem; }
+.mw-preview-list > div:first-child { height: auto; }
+.mw-preview-row { display: flex; flex-direction: row; align-items: center; padding: 5rem 0; }
+.mw-preview-row > p { flex: 0 0 85rem; }
+.mw-preview-colors { display: flex; flex: 1 1 0; flex-wrap: nowrap; }
+.mw-preview-colors .mw-color { flex: 1 1 0; min-width: 0; }
+.mw-preview-colors .mw-swatch { width: 60rem; height: 24rem; }
+.mw-fixed-controls .mw-status { overflow: visible; }
+.mw-native-window { height: 880rem; }
+.mw-combination-summary { padding: 8rem 14rem; border-top: 1rem solid rgba(255,255,255,.12); }
+.mw-copy-actions { display: flex; flex-wrap: nowrap; margin-top: 6rem; } .mw-copy-actions .mw-button { flex: 1 1 0; min-height: 44rem; padding: 10rem 16rem; font-size: var(--fontSizeM); } .mw-copy-actions .mw-button:last-child { margin-right: 0; }
+.mw-picker-overlay { display: block; background: transparent; pointer-events: none; } .mw-picker-dialog { position: fixed; pointer-events: auto; } .mw-footer .mw-combination-summary { padding: 0 0 8rem; border: 0; } .mw-combination-summary p { margin: 0 0 3rem; white-space: normal; line-height: 1.3em; } .mw-native-window { height: 1020rem; }

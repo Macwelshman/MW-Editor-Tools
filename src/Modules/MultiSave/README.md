@@ -1,0 +1,1 @@
+Integrated from reviewed standalone MW Multi-Save 0.1.9. Source comparison, regression checks and native acceptance limits: docs/MULTISAVE_0.4.77_VALIDATION.md. Uses the shared Multi-Save tab with unique bindings; no extra mod entry point.

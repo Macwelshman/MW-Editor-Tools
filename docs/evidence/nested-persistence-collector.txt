@@ -1,0 +1,134 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.UI.Editor.PrefabAssetCollector
+FIELD Colossal.Logging.ILog Game.UI.Editor.PrefabAssetCollector::log
+FIELD Game.Prefabs.PrefabBase Game.UI.Editor.PrefabAssetCollector::m_SelectedPrefab
+FIELD System.Boolean Game.UI.Editor.PrefabAssetCollector::m_FilterPrefabs
+METHOD System.Void Game.UI.Editor.PrefabAssetCollector::.ctor(Game.Prefabs.PrefabBase,System.Boolean)
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Object::.ctor()
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: stfld Game.Prefabs.PrefabBase Game.UI.Editor.PrefabAssetCollector::m_SelectedPrefab
+IL_000d: ldarg.0
+IL_000e: ldarg.2
+IL_000f: stfld System.Boolean Game.UI.Editor.PrefabAssetCollector::m_FilterPrefabs
+IL_0014: ret
+METHOD System.Collections.Generic.IEnumerable`1<Game.UI.Editor.AssetItem> Game.UI.Editor.PrefabAssetCollector::GetItems()
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.PrefabAssetCollector/<GetItems>d__4::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.UI.Editor.PrefabAssetCollector Game.UI.Editor.PrefabAssetCollector/<GetItems>d__4::<>4__this
+IL_000e: ret
+METHOD System.Boolean Game.UI.Editor.PrefabAssetCollector::TryGetAssetItem(Colossal.IO.AssetDatabase.PrefabAsset,Game.UI.Editor.AssetItem&)
+IL_0000: ldarg.1
+IL_0001: callvirt !!0 Colossal.IO.AssetDatabase.PrefabAsset::GetInstance<Game.Prefabs.PrefabBase>()
+IL_0006: stloc.0
+IL_0007: ldarg.0
+IL_0008: ldfld System.Boolean Game.UI.Editor.PrefabAssetCollector::m_FilterPrefabs
+IL_000d: brfalse.s IL_0048
+IL_000f: ldarg.0
+IL_0010: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.PrefabAssetCollector::m_SelectedPrefab
+IL_0015: ldnull
+IL_0016: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_001b: brfalse.s IL_0048
+IL_001d: ldloc.0
+IL_001e: ldnull
+IL_001f: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0024: brfalse.s IL_0048
+IL_0026: ldloc.0
+IL_0027: callvirt System.Type System.Object::GetType()
+IL_002c: ldarg.0
+IL_002d: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.PrefabAssetCollector::m_SelectedPrefab
+IL_0032: callvirt System.Type System.Object::GetType()
+IL_0037: call System.Boolean System.Type::op_Inequality(System.Type,System.Type)
+IL_003c: brfalse.s IL_0048
+IL_003e: ldarg.2
+IL_003f: ldnull
+IL_0040: stind.ref
+IL_0041: ldc.i4.0
+IL_0042: stloc.2
+IL_0043: leave IL_00fc
+IL_0048: ldarg.1
+IL_0049: callvirt Colossal.IO.AssetDatabase.SourceMeta Colossal.IO.AssetDatabase.AssetData::GetMeta()
+IL_004e: stloc.1
+IL_004f: ldloca.s V_1
+IL_0051: call System.Boolean Colossal.IO.AssetDatabase.SourceMeta::get_packaged()
+IL_0056: brfalse.s IL_0062
+IL_0058: ldarg.2
+IL_0059: ldnull
+IL_005a: stind.ref
+IL_005b: ldc.i4.0
+IL_005c: stloc.2
+IL_005d: leave IL_00fc
+IL_0062: ldarg.2
+IL_0063: newobj System.Void Game.UI.Editor.AssetItem::.ctor()
+IL_0068: dup
+IL_0069: ldarg.1
+IL_006a: callvirt Colossal.IO.AssetDatabase.Identifier Colossal.IO.AssetDatabase.AssetData::get_id()
+IL_006f: call Colossal.Hash128 Colossal.IO.AssetDatabase.Identifier::op_Implicit(Colossal.IO.AssetDatabase.Identifier)
+IL_0074: callvirt System.Void Game.UI.Editor.AssetItem::set_guid(Colossal.Hash128)
+IL_0079: dup
+IL_007a: ldloc.1
+IL_007b: ldfld System.String Colossal.IO.AssetDatabase.SourceMeta::displayName
+IL_0080: callvirt System.Void Game.UI.Editor.AssetItem::set_fileName(System.String)
+IL_0085: dup
+IL_0086: ldloc.1
+IL_0087: ldfld System.String Colossal.IO.AssetDatabase.SourceMeta::displayName
+IL_008c: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::op_Implicit(System.String)
+IL_0091: callvirt System.Void Game.UI.Editor.IItemPicker/Item::set_displayName(Game.UI.Localization.LocalizedString)
+IL_0096: dup
+IL_0097: ldloc.0
+IL_0098: ldnull
+IL_0099: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_009e: brtrue.s IL_00a3
+IL_00a0: ldnull
+IL_00a1: br.s IL_00a9
+IL_00a3: ldloc.0
+IL_00a4: call System.String Game.UI.ImageSystem::GetThumbnail(Game.Prefabs.PrefabBase)
+IL_00a9: callvirt System.Void Game.UI.Editor.IItemPicker/Item::set_image(System.String)
+IL_00ae: dup
+IL_00af: ldarg.0
+IL_00b0: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.PrefabAssetCollector::m_SelectedPrefab
+IL_00b5: ldloc.0
+IL_00b6: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_00bb: brtrue.s IL_00da
+IL_00bd: ldloc.1
+IL_00be: ldfld System.String Colossal.IO.AssetDatabase.SourceMeta::remoteStorageSourceName
+IL_00c3: ldstr "Local"
+IL_00c8: call System.Boolean System.String::op_Inequality(System.String,System.String)
+IL_00cd: brtrue.s IL_00d2
+IL_00cf: ldnull
+IL_00d0: br.s IL_00df
+IL_00d2: ldloc.1
+IL_00d3: ldfld System.String Colossal.IO.AssetDatabase.SourceMeta::remoteStorageSourceName
+IL_00d8: br.s IL_00df
+IL_00da: ldstr "Media/Glyphs/Lock.svg"
+IL_00df: callvirt System.Void Game.UI.Editor.IItemPicker/Item::set_badge(System.String)
+IL_00e4: stind.ref
+IL_00e5: ldc.i4.1
+IL_00e6: stloc.2
+IL_00e7: leave.s IL_00fc
+IL_00e9: stloc.3
+IL_00ea: ldsfld Colossal.Logging.ILog Game.UI.Editor.PrefabAssetCollector::log
+IL_00ef: ldloc.3
+IL_00f0: callvirt System.Void Colossal.Logging.ILog::Error(System.Exception)
+IL_00f5: ldarg.2
+IL_00f6: ldnull
+IL_00f7: stind.ref
+IL_00f8: ldc.i4.0
+IL_00f9: stloc.2
+IL_00fa: leave.s IL_00fc
+IL_00fc: ldloc.2
+IL_00fd: ret
+METHOD System.Boolean Game.UI.Editor.PrefabAssetCollector::IsRelevant(System.String,System.Type)
+IL_0000: ldarg.2
+IL_0001: ldtoken Colossal.IO.AssetDatabase.PrefabAsset
+IL_0006: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)
+IL_000b: call System.Boolean System.Type::op_Equality(System.Type,System.Type)
+IL_0010: ret
+METHOD System.Void Game.UI.Editor.PrefabAssetCollector::.cctor()
+IL_0000: ldstr "Editor"
+IL_0005: call Colossal.Logging.ILog Colossal.Logging.LogManager::GetLogger(System.String)
+IL_000a: stsfld Colossal.Logging.ILog Game.UI.Editor.PrefabAssetCollector::log
+IL_000f: ret

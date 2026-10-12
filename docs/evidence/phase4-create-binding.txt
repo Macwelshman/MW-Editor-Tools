@@ -1,0 +1,260 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Settings.SettingsUIKeyboardBindingAttribute
+FIELD Game.Input.BindingKeyboard Game.Settings.SettingsUIKeyboardBindingAttribute::defaultKey=
+FIELD System.Boolean Game.Settings.SettingsUIKeyboardBindingAttribute::alt=
+FIELD System.Boolean Game.Settings.SettingsUIKeyboardBindingAttribute::ctrl=
+FIELD System.Boolean Game.Settings.SettingsUIKeyboardBindingAttribute::shift=
+PROPERTY System.String Game.Settings.SettingsUIKeyboardBindingAttribute::control()
+PROPERTY System.Collections.Generic.IEnumerable`1<System.String> Game.Settings.SettingsUIKeyboardBindingAttribute::modifierControls()
+METHOD System.String Game.Settings.SettingsUIKeyboardBindingAttribute::get_control()
+METHOD System.Collections.Generic.IEnumerable`1<System.String> Game.Settings.SettingsUIKeyboardBindingAttribute::get_modifierControls()
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(System.String)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.AxisComponent,System.String)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.Vector2Component,System.String)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.BindingKeyboard,System.String,System.Boolean,System.Boolean,System.Boolean)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.BindingKeyboard,Game.Input.AxisComponent,System.String,System.Boolean,System.Boolean,System.Boolean)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.BindingKeyboard,Game.Input.Vector2Component,System.String,System.Boolean,System.Boolean,System.Boolean)
+TYPE Game.Settings.SettingsUIInputActionAttribute
+FIELD Game.Input.RebindOptions Game.Settings.SettingsUIInputActionAttribute::kDefaultRebindOptions=3
+FIELD Game.Input.ModifierOptions Game.Settings.SettingsUIInputActionAttribute::kDefaultModifierOptions=1
+FIELD System.Boolean Game.Settings.SettingsUIInputActionAttribute::kDefaultCanBeEmpty=True
+FIELD System.Boolean Game.Settings.SettingsUIInputActionAttribute::kDefaultDeveloperOnly=False
+FIELD Game.Input.Mode Game.Settings.SettingsUIInputActionAttribute::kDefaultMode=0
+FIELD System.String Game.Settings.SettingsUIInputActionAttribute::name=
+FIELD Game.Input.InputManager/DeviceType Game.Settings.SettingsUIInputActionAttribute::device=
+FIELD Game.Input.ActionType Game.Settings.SettingsUIInputActionAttribute::type=
+FIELD Game.Input.RebindOptions Game.Settings.SettingsUIInputActionAttribute::rebindOptions=
+FIELD Game.Input.ModifierOptions Game.Settings.SettingsUIInputActionAttribute::modifierOptions=
+FIELD System.Boolean Game.Settings.SettingsUIInputActionAttribute::canBeEmpty=
+FIELD System.Boolean Game.Settings.SettingsUIInputActionAttribute::developerOnly=
+FIELD Game.Input.Mode Game.Settings.SettingsUIInputActionAttribute::mode=
+FIELD System.Collections.ObjectModel.ReadOnlyCollection`1<System.String> Game.Settings.SettingsUIInputActionAttribute::interactions=
+FIELD System.Collections.ObjectModel.ReadOnlyCollection`1<System.String> Game.Settings.SettingsUIInputActionAttribute::processors=
+PROPERTY Game.Input.Usages Game.Settings.SettingsUIInputActionAttribute::usages()
+METHOD Game.Input.Usages Game.Settings.SettingsUIInputActionAttribute::get_usages()
+METHOD System.Void Game.Settings.SettingsUIInputActionAttribute::.ctor(System.String,Game.Input.InputManager/DeviceType,Game.Input.ActionType,Game.Input.RebindOptions,Game.Input.ModifierOptions,System.Boolean,System.Boolean,Game.Input.Mode,System.String[],System.String[],System.String[])
+METHOD System.Void Game.Settings.SettingsUIInputActionAttribute::.ctor(System.String,Game.Input.InputManager/DeviceType,Game.Input.ActionType,Game.Input.Mode,System.String[])
+TYPE Game.Settings.SettingsUIKeyboardActionAttribute
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,Game.Input.ActionType,Game.Input.RebindOptions,Game.Input.ModifierOptions,System.Boolean,System.Boolean,Game.Input.Mode,System.String[],System.String[],System.String[])
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,Game.Input.ActionType,Game.Input.Mode,System.String[])
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,Game.Input.ActionType,System.String[])
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,Game.Input.Mode,System.String[])
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,System.String[])
+TYPE Game.Modding.ModSetting
+PROPERTY System.Collections.Generic.Dictionary`2<System.String,Game.Modding.ModSetting> Game.Modding.ModSetting::instances()
+PROPERTY Game.Modding.IMod Game.Modding.ModSetting::mod()
+PROPERTY System.Boolean Game.Modding.ModSetting::builtIn()
+PROPERTY System.String Game.Modding.ModSetting::id()
+PROPERTY System.String Game.Modding.ModSetting::name()
+PROPERTY System.Boolean Game.Modding.ModSetting::keyBindingRegistered()
+PROPERTY System.Reflection.PropertyInfo[] Game.Modding.ModSetting::keyBindingProperties()
+METHOD System.String Game.Modding.ModSetting::get_id()
+METHOD System.String Game.Modding.ModSetting::get_name()
+METHOD System.Boolean Game.Modding.ModSetting::get_keyBindingRegistered()
+METHOD System.Void Game.Modding.ModSetting::.ctor(Game.Modding.IMod)
+METHOD System.Void Game.Modding.ModSetting::RegisterInOptionsUI()
+METHOD System.Void Game.Modding.ModSetting::UnregisterInOptionsUI()
+METHOD System.Void Game.Modding.ModSetting::RegisterKeyBindings()
+METHOD Game.Input.ProxyBinding Game.Modding.ModSetting::CreateBinding(Game.Input.InputManager/DeviceType,System.String,Game.Input.ActionType,Game.Input.ActionComponent,System.String,System.Collections.Generic.IEnumerable`1<System.String>)
+IL_0000: newobj System.Void Game.Modding.ModSetting/<>c__DisplayClass28_0::.ctor()
+IL_0005: stloc.0
+IL_0006: ldloc.0
+IL_0007: ldarg.s component
+IL_0009: stfld Game.Input.ActionComponent Game.Modding.ModSetting/<>c__DisplayClass28_0::component
+IL_000e: ldarg.3
+IL_000f: ldloca.s V_1
+IL_0011: call System.Boolean Game.Input.InputManager::TryGetCompositeData(Game.Input.ActionType,Game.Input.InputManager/CompositeData&)
+IL_0016: brfalse.s IL_002d
+IL_0018: ldloca.s V_1
+IL_001a: ldloc.0
+IL_001b: ldfld Game.Input.ActionComponent Game.Modding.ModSetting/<>c__DisplayClass28_0::component
+IL_0020: ldloc.0
+IL_0021: ldflda Game.Input.InputManager/CompositeComponentData Game.Modding.ModSetting/<>c__DisplayClass28_0::componentData
+IL_0026: call System.Boolean Game.Input.InputManager/CompositeData::TryGetData(Game.Input.ActionComponent,Game.Input.InputManager/CompositeComponentData&)
+IL_002b: brtrue.s IL_0038
+IL_002d: ldloc.0
+IL_002e: ldsfld Game.Input.InputManager/CompositeComponentData Game.Input.InputManager/CompositeComponentData::defaultData
+IL_0033: stfld Game.Input.InputManager/CompositeComponentData Game.Modding.ModSetting/<>c__DisplayClass28_0::componentData
+IL_0038: ldarg.s modifierControls
+IL_003a: ldloc.0
+IL_003b: ldftn Game.Input.ProxyModifier Game.Modding.ModSetting/<>c__DisplayClass28_0::<CreateBinding>b__0(System.String)
+IL_0041: newobj System.Void System.Func`2<System.String,Game.Input.ProxyModifier>::.ctor(System.Object,System.IntPtr)
+IL_0046: call System.Collections.Generic.IEnumerable`1<!!1> System.Linq.Enumerable::Select<System.String,Game.Input.ProxyModifier>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,!!1>)
+IL_004b: call !!0[] System.Linq.Enumerable::ToArray<Game.Input.ProxyModifier>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0050: stloc.2
+IL_0051: ldloca.s V_3
+IL_0053: ldarg.0
+IL_0054: call System.String Game.Modding.ModSetting::get_id()
+IL_0059: ldarg.2
+IL_005a: ldloc.0
+IL_005b: ldfld Game.Input.ActionComponent Game.Modding.ModSetting/<>c__DisplayClass28_0::component
+IL_0060: ldloc.0
+IL_0061: ldflda Game.Input.InputManager/CompositeComponentData Game.Modding.ModSetting/<>c__DisplayClass28_0::componentData
+IL_0066: ldfld System.String Game.Input.InputManager/CompositeComponentData::m_BindingName
+IL_006b: ldarga.s device
+IL_006d: constrained. Game.Input.InputManager/DeviceType
+IL_0073: callvirt System.String System.Object::ToString()
+IL_0078: newobj System.Void Game.Input.CompositeInstance::.ctor(System.String)
+IL_007d: call System.Void Game.Input.ProxyBinding::.ctor(System.String,System.String,Game.Input.ActionComponent,System.String,Game.Input.CompositeInstance)
+IL_0082: ldloca.s V_3
+IL_0084: ldarg.1
+IL_0085: call System.Void Game.Input.ProxyBinding::set_device(Game.Input.InputManager/DeviceType)
+IL_008a: ldloca.s V_3
+IL_008c: ldarg.s control
+IL_008e: call System.Void Game.Input.ProxyBinding::set_path(System.String)
+IL_0093: ldloca.s V_3
+IL_0095: ldarg.s control
+IL_0097: call System.Void Game.Input.ProxyBinding::set_originalPath(System.String)
+IL_009c: ldloca.s V_3
+IL_009e: ldloc.2
+IL_009f: call System.Void Game.Input.ProxyBinding::set_modifiers(System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier>)
+IL_00a4: ldloca.s V_3
+IL_00a6: ldloc.2
+IL_00a7: call System.Void Game.Input.ProxyBinding::set_originalModifiers(System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier>)
+IL_00ac: ldloc.3
+IL_00ad: ret
+METHOD System.Void Game.Modding.ModSetting::ResetKeyBindings()
+METHOD Game.Input.ProxyAction Game.Modding.ModSetting::GetAction(System.String)
+METHOD System.Collections.Generic.IEnumerable`1<Game.Input.ProxyAction> Game.Modding.ModSetting::GetActions()
+METHOD System.String Game.Modding.ModSetting::GetSettingsLocaleID()
+METHOD System.String Game.Modding.ModSetting::GetOptionLabelLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetOptionDescLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetOptionWarningLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetOptionTabLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetOptionGroupLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetEnumValueLocaleID(T)
+METHOD System.String Game.Modding.ModSetting::GetOptionFormatLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,Game.Input.AxisComponent)
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,Game.Input.Vector2Component)
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyHintLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetBindingMapLocaleID()
+TYPE Game.Input.ActionType
+FIELD System.Int32 Game.Input.ActionType::value__=
+FIELD Game.Input.ActionType Game.Input.ActionType::Button=0
+FIELD Game.Input.ActionType Game.Input.ActionType::Axis=1
+FIELD Game.Input.ActionType Game.Input.ActionType::Vector2=2
+TYPE Game.Input.ActionComponent
+FIELD System.Int32 Game.Input.ActionComponent::value__=
+FIELD Game.Input.ActionComponent Game.Input.ActionComponent::None=0
+FIELD Game.Input.ActionComponent Game.Input.ActionComponent::Press=1
+FIELD Game.Input.ActionComponent Game.Input.ActionComponent::Negative=2
+FIELD Game.Input.ActionComponent Game.Input.ActionComponent::Positive=3
+FIELD Game.Input.ActionComponent Game.Input.ActionComponent::Down=4
+FIELD Game.Input.ActionComponent Game.Input.ActionComponent::Up=5
+FIELD Game.Input.ActionComponent Game.Input.ActionComponent::Left=6
+FIELD Game.Input.ActionComponent Game.Input.ActionComponent::Right=7
+TYPE Game.Input.Mode
+FIELD System.Int32 Game.Input.Mode::value__=
+FIELD Game.Input.Mode Game.Input.Mode::DigitalNormalized=0
+FIELD Game.Input.Mode Game.Input.Mode::Digital=1
+FIELD Game.Input.Mode Game.Input.Mode::Analog=2
+TYPE Game.Input.RebindOptions
+FIELD System.Int32 Game.Input.RebindOptions::value__=
+FIELD Game.Input.RebindOptions Game.Input.RebindOptions::None=0
+FIELD Game.Input.RebindOptions Game.Input.RebindOptions::Key=1
+FIELD Game.Input.RebindOptions Game.Input.RebindOptions::Modifiers=2
+FIELD Game.Input.RebindOptions Game.Input.RebindOptions::All=3
+TYPE Game.Input.ModifierOptions
+FIELD System.Int32 Game.Input.ModifierOptions::value__=
+FIELD Game.Input.ModifierOptions Game.Input.ModifierOptions::Disallow=0
+FIELD Game.Input.ModifierOptions Game.Input.ModifierOptions::Allow=1
+FIELD Game.Input.ModifierOptions Game.Input.ModifierOptions::Ignore=2
+TYPE Game.Input.BindingKeyboard
+FIELD System.Int32 Game.Input.BindingKeyboard::value__=
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::None=0
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Space=1
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Enter=2
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Tab=3
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Backquote=4
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Quote=5
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Semicolon=6
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Comma=7
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Period=8
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Slash=9
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Backslash=10
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::LeftBracket=11
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::RightBracket=12
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Minus=13
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Equals=14
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::A=15
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::B=16
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::C=17
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::D=18
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::E=19
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F=20
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::G=21
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::H=22
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::I=23
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::J=24
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::K=25
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::L=26
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::M=27
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::N=28
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::O=29
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::P=30
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Q=31
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::R=32
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::S=33
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::T=34
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::U=35
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::V=36
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::W=37
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::X=38
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Y=39
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Z=40
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit1=41
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit2=42
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit3=43
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit4=44
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit5=45
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit6=46
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit7=47
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit8=48
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit9=49
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit0=50
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Escape=60
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::LeftArrow=61
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::RightArrow=62
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::UpArrow=63
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::DownArrow=64
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Backspace=65
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::PageDown=66
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::PageUp=67
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Home=68
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::End=69
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Delete=71
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadEnter=77
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadDivide=78
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadMultiply=79
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadPlus=80
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadMinus=81
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadPeriod=82
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadEquals=83
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad0=84
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad1=85
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad2=86
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad3=87
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad4=88
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad5=89
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad6=90
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad7=91
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad8=92
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad9=93
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F1=94
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F2=95
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F3=96
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F4=97
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F5=98
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F6=99
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F7=100
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F8=101
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F9=102
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F10=103
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F11=104
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F12=105
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM1=106
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM2=107
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM3=108
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM4=109
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM5=110

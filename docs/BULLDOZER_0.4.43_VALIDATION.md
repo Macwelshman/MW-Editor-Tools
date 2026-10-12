@@ -1,0 +1,11 @@
+# 0.4.43 Nested set preflight diagnostic
+
+VERIFIED-RUNTIME0.4.42 set test was armed at14:46:14 and deletion recorded. Undo native regeneration passed owner/payload/directGraph but exact set validation failed; seedsRestored=False shows typed restoration did not run. Preflight cause UNPROVEN because source-ID and individual property conditions were not logged. No successful set recovery claim. Earlier0.4.42 group-only test used wrong arm button and is separate. Evidence: evidence/bulldozer-0.4.42-set-undo-runtime.log.
+
+0.4.43 changes diagnostics only. At timeout reports mismatched root mapping, original source nodes still alive (up to12, including Deleted flag), or exact preflight property mismatch (parent/prefab/Surface/cache plus prefabSubIndex/semantic placement/unchanged Surface+custom-colour typed values/mesh buffer presence+length). Existing preflight, writes and exact completion checks unchanged. Native may reuse unchanged group nodes or normalize cache indices; both are HYPOTHESES until logged.
+
+VERIFIED-STATIC: Release zero warnings/errors, production UI/settings render and54 relevant existing safety assertions pass. Runtime set restoration, general nested history/persistence/deferred rollback remain UNPROVEN. Prior validated0.4.40 scopes retained; Phase5 paused/6publishing unauthorised.
+
+Test after full restart without saving: open disposable Test with Grill01; Create nested fixture/place THREE copies apart/Escape; Arm nested SET test; Everything delete last-placed group; Undo ONCE only; wait for result/error then stop. Finished keep CS2 open/no save/Redo.
+
+INSTALLED0.4.43 CS2closed; seven copied hashes verified; entire previous installation backed up/hash verified at C:\Users\ian\Documents\Development\MW Editor Tools\outputs\rollback\MWEditorTools-before-0.4.43-20261010-144948\MWEditorTools. Diagnostic only forfailedsetpreflight sourcealive/rootmapping/propertyflags/cacheindex; writes/checks unchanged. Release/UI/settings/54relevantpass; nativeSET recoveryunproven. NextfreshTestGrill01/Createfixture/placeTHREEapart/Escape/Arm nestedSET/EverythingdeleteLAST/UndoONCE/waitstop; finishedkeepopen/nosaveRedo. See docs/BULLDOZER_0.4.43_VALIDATION.md. Phase5paused/6publishing unauthorised.

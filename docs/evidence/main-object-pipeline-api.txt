@@ -1,0 +1,130 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Tools.ApplyObjectsSystem
+FIELD Game.Tools.ToolOutputBarrier Game.Tools.ApplyObjectsSystem::m_ToolOutputBarrier
+FIELD Game.Tools.ToolSystem Game.Tools.ApplyObjectsSystem::m_ToolSystem
+FIELD Game.Simulation.SimulationSystem Game.Tools.ApplyObjectsSystem::m_SimulationSystem
+FIELD Game.Triggers.TriggerSystem Game.Tools.ApplyObjectsSystem::m_TriggerSystem
+FIELD Game.Prefabs.InstanceCountSystem Game.Tools.ApplyObjectsSystem::m_InstanceCountSystem
+FIELD Unity.Entities.EntityQuery Game.Tools.ApplyObjectsSystem::m_TempQuery
+FIELD Unity.Entities.EntityQuery Game.Tools.ApplyObjectsSystem::m_EconomyParameterQuery
+FIELD Unity.Entities.EntityArchetype Game.Tools.ApplyObjectsSystem::m_PathTargetEventArchetype
+FIELD Unity.Entities.ComponentTypeSet Game.Tools.ApplyObjectsSystem::m_AppliedTypes
+FIELD Unity.Entities.ComponentTypeSet Game.Tools.ApplyObjectsSystem::m_TempAnimationTypes
+METHOD System.Void Game.Tools.ApplyObjectsSystem::OnCreate()
+METHOD System.Void Game.Tools.ApplyObjectsSystem::OnUpdate()
+METHOD System.Boolean Game.Tools.ApplyObjectsSystem::ShouldSaveInstance(Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.ComponentLookup`1<Game.Common.Owner>&,Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>&,Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade>&)
+METHOD System.Void Game.Tools.ApplyObjectsSystem::__AssignQueries(Unity.Entities.SystemState&)
+METHOD System.Void Game.Tools.ApplyObjectsSystem::.ctor()
+NESTED Game.Tools.ApplyObjectsSystem/PatchTempReferencesJob
+NESTED Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob
+METHOD System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::Delete(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+METHOD System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::Create(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+TYPE Game.Tools.GenerateObjectsSystem
+FIELD Game.Tools.ToolSystem Game.Tools.GenerateObjectsSystem::m_ToolSystem
+FIELD Game.Simulation.SimulationSystem Game.Tools.GenerateObjectsSystem::m_SimulationSystem
+FIELD Game.Common.ModificationBarrier1 Game.Tools.GenerateObjectsSystem::m_ModificationBarrier
+FIELD Game.Net.SearchSystem Game.Tools.GenerateObjectsSystem::m_NetSearchSystem
+FIELD Unity.Entities.EntityQuery Game.Tools.GenerateObjectsSystem::m_DefinitionQuery
+FIELD Unity.Entities.EntityQuery Game.Tools.GenerateObjectsSystem::m_DeletedQuery
+FIELD Unity.Entities.EntityQuery Game.Tools.GenerateObjectsSystem::m_EconomyParameterQuery
+FIELD Unity.Entities.ComponentTypeSet Game.Tools.GenerateObjectsSystem::m_SubTypes
+FIELD Unity.Entities.ComponentTypeSet Game.Tools.GenerateObjectsSystem::m_StoppedUpdateFrameTypes
+FIELD Unity.Entities.ComponentTypeSet Game.Tools.GenerateObjectsSystem::m_VehiclePreviewTypes
+FIELD Unity.Collections.NativeHashMap`2<Game.Tools.OwnerDefinition,Unity.Entities.Entity> Game.Tools.GenerateObjectsSystem::m_ReusedOwnerMap
+FIELD Unity.Jobs.JobHandle Game.Tools.GenerateObjectsSystem::m_OwnerMapReadDeps
+FIELD Unity.Jobs.JobHandle Game.Tools.GenerateObjectsSystem::m_OwnerMapWriteDeps
+METHOD System.Void Game.Tools.GenerateObjectsSystem::OnCreate()
+METHOD System.Void Game.Tools.GenerateObjectsSystem::OnDestroy()
+METHOD Unity.Collections.NativeHashMap`2<Game.Tools.OwnerDefinition,Unity.Entities.Entity> Game.Tools.GenerateObjectsSystem::GetReusedOwnerMap(Unity.Jobs.JobHandle&)
+METHOD System.Void Game.Tools.GenerateObjectsSystem::AddOwnerMapReader(Unity.Jobs.JobHandle)
+METHOD System.Void Game.Tools.GenerateObjectsSystem::OnStopRunning()
+METHOD System.Void Game.Tools.GenerateObjectsSystem::OnUpdate()
+METHOD System.Void Game.Tools.GenerateObjectsSystem::__AssignQueries(Unity.Entities.SystemState&)
+METHOD System.Void Game.Tools.GenerateObjectsSystem::.ctor()
+NESTED Game.Tools.GenerateObjectsSystem/FillOldObjectsJob
+NESTED Game.Tools.GenerateObjectsSystem/FillCreationListJob
+NESTED Game.Tools.GenerateObjectsSystem/CollectCreationDataJob
+NESTED Game.Tools.GenerateObjectsSystem/CreateObjectsJob
+METHOD System.Void Game.Tools.GenerateObjectsSystem/CreateObjectsJob::CreateObject(System.Int32,Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Tools.ObjectDefinition,Unity.Entities.Entity)
+METHOD Game.Objects.Attached Game.Tools.GenerateObjectsSystem/CreateObjectsJob::CreateAttached(Unity.Entities.Entity,Unity.Entities.Entity,Unity.Mathematics.float3)
+TYPE Game.Tools.ObjectToolBaseSystem
+FIELD Game.Tools.ToolOutputBarrier Game.Tools.ObjectToolBaseSystem::m_ToolOutputBarrier
+FIELD Game.Objects.SearchSystem Game.Tools.ObjectToolBaseSystem::m_ObjectSearchSystem
+FIELD Game.Simulation.WaterSystem Game.Tools.ObjectToolBaseSystem::m_WaterSystem
+FIELD Game.Simulation.TerrainSystem Game.Tools.ObjectToolBaseSystem::m_TerrainSystem
+METHOD System.Void Game.Tools.ObjectToolBaseSystem::OnCreate()
+METHOD Unity.Jobs.JobHandle Game.Tools.ObjectToolBaseSystem::CreateDefinitions(Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Collections.NativeList`1<Game.Tools.ControlPoint>,Unity.Collections.NativeReference`1<Game.Tools.ObjectToolBaseSystem/AttachmentData>,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Single,System.Single,System.Single,System.Single,System.Single,Game.Common.RandomSeed,Game.Tools.Snap,Game.Tools.AgeMask,System.Boolean,Game.Tools.PlacementOverrides,Unity.Jobs.JobHandle)
+METHOD System.Int32 Game.Tools.ObjectToolBaseSystem::GetFirstNodeIndex(Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>,Unity.Mathematics.int2)
+METHOD System.Void Game.Tools.ObjectToolBaseSystem::__AssignQueries(Unity.Entities.SystemState&)
+METHOD System.Void Game.Tools.ObjectToolBaseSystem::.ctor()
+NESTED Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob
+METHOD System.Void Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::CreateCurve(Game.Tools.ControlPoint,Game.Tools.ControlPoint,Game.Tools.ControlPoint,Unity.Entities.Entity,Game.Tools.OwnerDefinition,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>&,Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>,System.Boolean,System.Int32)
+METHOD System.Void Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::CreateBrushes(Game.Tools.ControlPoint,Game.Tools.ControlPoint,Unity.Entities.Entity,Game.Tools.OwnerDefinition,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>&,Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>,System.Boolean,System.Int32)
+METHOD System.Void Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::CreateSubNet(Unity.Entities.Entity,Unity.Entities.Entity,Colossal.Mathematics.Bezier4x3,Unity.Mathematics.int2,Unity.Mathematics.int2,Game.Prefabs.CompositionFlags,Unity.Collections.NativeList`1<Unity.Mathematics.float4>,Game.Objects.Transform,Game.Tools.OwnerDefinition,Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>,Game.Buildings.BuildingUtils/LotInfo,System.Boolean,System.Boolean,Unity.Mathematics.Random&)
+TYPE Game.Objects.ObjectUtils
+FIELD System.Single Game.Objects.ObjectUtils::MAX_SPAWN_LOCATION_CONNECTION_DISTANCE
+FIELD System.Single Game.Objects.ObjectUtils::MIN_TREE_WOOD_RESOURCE
+FIELD System.Single Game.Objects.ObjectUtils::MAX_TREE_AGE
+FIELD System.Single Game.Objects.ObjectUtils::TREE_AGE_PHASE_CHILD
+FIELD System.Single Game.Objects.ObjectUtils::TREE_AGE_PHASE_TEEN
+FIELD System.Single Game.Objects.ObjectUtils::TREE_AGE_PHASE_ADULT
+FIELD System.Single Game.Objects.ObjectUtils::TREE_AGE_PHASE_ELDERLY
+FIELD System.Single Game.Objects.ObjectUtils::TREE_AGE_PHASE_DEAD
+FIELD System.Single Game.Objects.ObjectUtils::TREE_WOOD_GROWTH_CHILD
+FIELD System.Single Game.Objects.ObjectUtils::TREE_WOOD_GROWTH_TEEN
+FIELD System.Single Game.Objects.ObjectUtils::TREE_WOOD_GROWTH_ADULT
+METHOD Unity.Mathematics.float3 Game.Objects.ObjectUtils::GetSize(Colossal.Mathematics.Bounds3)
+METHOD Colossal.Mathematics.Bounds3 Game.Objects.ObjectUtils::CalculateBounds(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Game.Prefabs.ObjectGeometryData)
+METHOD Colossal.Mathematics.Bounds3 Game.Objects.ObjectUtils::GetBounds(Game.Prefabs.ObjectGeometryData)
+METHOD Colossal.Mathematics.Bounds3 Game.Objects.ObjectUtils::GetBounds(Game.Objects.Stack,Game.Prefabs.ObjectGeometryData,Game.Prefabs.StackData)
+METHOD Colossal.Mathematics.Bounds3 Game.Objects.ObjectUtils::CalculateBounds(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Game.Objects.Stack,Game.Prefabs.ObjectGeometryData,Game.Prefabs.StackData)
+METHOD Colossal.Mathematics.Bounds3 Game.Objects.ObjectUtils::CalculateBounds(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Colossal.Mathematics.Bounds3)
+METHOD Colossal.Mathematics.Bounds3 Game.Objects.ObjectUtils::CalculateBounds(Colossal.Mathematics.Line3/Segment,Unity.Mathematics.quaternion,Colossal.Mathematics.Bounds3)
+METHOD Colossal.Mathematics.Quad3 Game.Objects.ObjectUtils::CalculateBaseCorners(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Colossal.Mathematics.Bounds3)
+METHOD Colossal.Mathematics.Quad3 Game.Objects.ObjectUtils::CalculateBaseCorners(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Unity.Mathematics.float2)
+METHOD Unity.Mathematics.float3 Game.Objects.ObjectUtils::CalculatePointVelocity(Unity.Mathematics.float3,Game.Objects.Moving)
+METHOD Unity.Mathematics.float3 Game.Objects.ObjectUtils::CalculateMomentOfInertia(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+METHOD Game.Objects.Transform Game.Objects.ObjectUtils::InverseTransform(Game.Objects.Transform)
+METHOD Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Unity.Mathematics.float3)
+METHOD Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+METHOD Colossal.Mathematics.Bezier4x3 Game.Objects.ObjectUtils::LocalToWorld(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Colossal.Mathematics.Bezier4x3)
+METHOD Game.Objects.Transform Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Unity.Mathematics.float3,Unity.Mathematics.quaternion)
+METHOD Game.Rendering.InterpolatedTransform Game.Objects.ObjectUtils::LocalToWorld(Game.Rendering.InterpolatedTransform,Unity.Mathematics.float3,Unity.Mathematics.quaternion)
+METHOD Game.Objects.Transform Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Game.Objects.Transform)
+METHOD Game.Objects.Transform Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Game.Objects.Transform)
+METHOD Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+METHOD Game.Common.CollisionMask Game.Objects.ObjectUtils::GetCollisionMask(Game.Prefabs.ObjectGeometryData,Game.Objects.Elevation,System.Boolean)
+METHOD Game.Common.CollisionMask Game.Objects.ObjectUtils::GetCollisionMask(Game.Prefabs.ObjectGeometryData,System.Boolean)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetContructionCost(System.Int32,Game.Objects.Tree,Game.Prefabs.EconomyParameterData&)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetRelocationCost(System.Int32,Game.Prefabs.EconomyParameterData)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetRelocationCost(System.Int32,Game.Tools.Recent,System.UInt32,Game.Prefabs.EconomyParameterData)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetRebuildCost(System.Int32)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetRebuildCost(System.Int32,Game.Tools.Recent,System.UInt32,Game.Prefabs.EconomyParameterData)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetUpgradeCost(System.Int32,System.Int32)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetUpgradeCost(System.Int32,System.Int32,Game.Tools.Recent,System.UInt32,Game.Prefabs.EconomyParameterData)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetRefundAmount(Game.Tools.Recent,System.UInt32,Game.Prefabs.EconomyParameterData)
+METHOD System.Single Game.Objects.ObjectUtils::CalculateWoodAmount(Game.Objects.Tree,Game.Objects.Plant,Game.Objects.Damaged,Game.Prefabs.TreeData,System.Boolean)
+METHOD System.Single Game.Objects.ObjectUtils::CalculateGrowthRate(Game.Objects.Tree,Game.Objects.Plant,Game.Prefabs.TreeData)
+METHOD Game.Objects.Tree Game.Objects.ObjectUtils::InitializeTreeState(System.Single)
+METHOD System.Void Game.Objects.ObjectUtils::UpdateAnimation(Unity.Entities.Entity,System.Single,Game.Common.PseudoRandomSeed,Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>,Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup>&,Unity.Entities.BufferLookup`1<Game.Prefabs.CharacterElement>&,Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh>&,Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationClip>&,Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationMotion>&,Game.Rendering.AnimatedPropID,Game.Rendering.AnimatedPropID,Game.Prefabs.ActivityCondition,System.Single&,System.Byte&,Unity.Mathematics.float3&,Unity.Mathematics.float3&,Game.Objects.Transform&,Game.Objects.TransformFrame&,Game.Objects.TransformFrame&)
+METHOD Game.Objects.Transform Game.Objects.ObjectUtils::GetActivityStartPosition(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>,Game.Objects.Transform,Game.Objects.TransformState,Game.Prefabs.ActivityType,Game.Common.PseudoRandomSeed,Game.Rendering.AnimatedPropID,Game.Prefabs.ActivityCondition,Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup>&,Unity.Entities.BufferLookup`1<Game.Prefabs.CharacterElement>&,Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh>&,Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationClip>&,Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationMotion>&,Game.Objects.ObjectUtils/ActivityStartPositionCache&)
+METHOD System.Byte Game.Objects.ObjectUtils::GetParentActivity(System.Byte)
+METHOD System.Void Game.Objects.ObjectUtils::ApplyRootMotion(Game.Objects.Transform&,Game.Objects.TransformFrame&,Unity.Entities.DynamicBuffer`1<Game.Prefabs.AnimationMotion>,Game.Rendering.BlendWeights,Unity.Mathematics.int2,Unity.Mathematics.float3)
+METHOD System.Single Game.Objects.ObjectUtils::GetStateDuration(Unity.Entities.Entity,Game.Objects.TransformState,System.Byte,Game.Common.PseudoRandomSeed,Game.Rendering.AnimatedPropID,Game.Prefabs.ActivityCondition,Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>,Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup>&,Unity.Entities.BufferLookup`1<Game.Prefabs.CharacterElement>&,Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh>&,Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationClip>&,Game.Prefabs.CharacterElement&,Game.Prefabs.AnimationClip&,System.Boolean&)
+METHOD System.Void Game.Objects.ObjectUtils::GetRootMotion(Unity.Entities.DynamicBuffer`1<Game.Prefabs.AnimationMotion>,Unity.Mathematics.int2,Game.Rendering.BlendWeights,System.Single,Unity.Mathematics.float3&,Unity.Mathematics.float3&,Unity.Mathematics.quaternion&)
+METHOD System.Void Game.Objects.ObjectUtils::GetRootMotion(Game.Prefabs.AnimationMotion,System.Single,Unity.Mathematics.float3&,Unity.Mathematics.float3&,Unity.Mathematics.quaternion&)
+METHOD System.Single Game.Objects.ObjectUtils::GetTotalDamage(Game.Objects.Damaged)
+METHOD System.Void Game.Objects.ObjectUtils::UpdateResourcesDamage(Unity.Entities.Entity,System.Single,Unity.Entities.BufferLookup`1<Game.Buildings.Renter>&,Unity.Entities.BufferLookup`1<Game.Economy.Resources>&)
+METHOD Game.Objects.Transform Game.Objects.ObjectUtils::AdjustPosition(Game.Objects.Transform,Game.Objects.Elevation&,Unity.Entities.Entity,System.Boolean&,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&,Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData>&,Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>&)
+METHOD System.Int32 Game.Objects.ObjectUtils::GetSubParentMesh(Game.Objects.ElevationFlags)
+METHOD System.Single Game.Objects.ObjectUtils::GetAttachedParentHeight(Game.Net.EdgeGeometry,Game.Objects.Transform)
+METHOD System.Void Game.Objects.ObjectUtils::GetAttachedParentHeight(Colossal.Mathematics.Bezier4x3,Game.Objects.Transform,System.Single&,System.Single&)
+METHOD System.Single Game.Objects.ObjectUtils::GetTerrainSmoothingWidth(Game.Prefabs.ObjectGeometryData)
+METHOD System.Single Game.Objects.ObjectUtils::GetTerrainSmoothingWidth(Unity.Mathematics.float2)
+METHOD System.UInt32 Game.Objects.ObjectUtils::GetRemainingConstructionFrames(Game.Objects.UnderConstruction)
+METHOD System.UInt32 Game.Objects.ObjectUtils::GetTripDelayFrames(Game.Objects.UnderConstruction,Game.Pathfind.PathInformation)
+METHOD System.Boolean Game.Objects.ObjectUtils::GetStandingLegCount(Game.Prefabs.ObjectGeometryData,System.Int32&)
+METHOD Unity.Mathematics.float3 Game.Objects.ObjectUtils::GetStandingLegPosition(Game.Prefabs.ObjectGeometryData,Game.Objects.Transform,System.Int32)
+METHOD Unity.Mathematics.float3 Game.Objects.ObjectUtils::GetStandingLegOffset(Game.Prefabs.ObjectGeometryData,System.Int32)
+TYPE Game.Prefabs.ObjectData
+FIELD Unity.Entities.EntityArchetype Game.Prefabs.ObjectData::m_Archetype

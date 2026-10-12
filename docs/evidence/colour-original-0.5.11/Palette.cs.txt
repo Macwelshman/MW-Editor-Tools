@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace MWColorVariationTool
+{
+    public struct Rgba : IEquatable<Rgba>
+    {
+        public float R, G, B, A;
+        public Rgba(float r, float g, float b, float a) { R = r; G = g; B = b; A = a; }
+        public bool Equals(Rgba x) { return R == x.R && G == x.G && B == x.B && A == x.A; }
+        public static Rgba Parse(string value)
+        {
+            string s = value.Trim().TrimStart('#');
+            uint n;
+            if ((s.Length != 6 && s.Length != 8) || !uint.TryParse(s, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out n))
+                throw new ArgumentException("Use #RRGGBB or #RRGGBBAA colors: " + value);
+            if (s.Length == 6) n = (n << 8) | 255;
+            return new Rgba(((n >> 24) & 255) / 255f, ((n >> 16) & 255) / 255f, ((n >> 8) & 255) / 255f, (n & 255) / 255f);
+        }
+        public string Hex()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", Byte(R), Byte(G), Byte(B), Byte(A));
+        }
+        static int Byte(float n) { return (int)Math.Round(Math.Max(0, Math.Min(1, n)) * 255); }
+    }
+    public static class Palette
+    {
+        public const int Limit = 2048;
+        public static List<Rgba[]> Generate(string pairs, string channel2, int[] bindings)
+        {
+            if (bindings == null || bindings.Length != 3) throw new ArgumentException("Exactly three channel bindings are required.");
+            foreach (int n in bindings) if (n < 0 || n > 2) throw new ArgumentException("Channel bindings must be between 0 and 2.");
+            var schemes = new List<Rgba[]>();
+            foreach (string line in Lines(pairs))
+            {
+                string[] cells = line.Split(new[] { ' ', '\t', ',', ';', '|' }, StringSplitOptions.RemoveEmptyEntries);
+                if (cells.Length != 2) throw new ArgumentException("Each Channel 0 / Channel 1 line needs two colors.");
+                schemes.Add(new[] { Rgba.Parse(cells[0]), Rgba.Parse(cells[1]) });
+            }
+            var trim = new List<Rgba>();
+            foreach (string line in Lines(channel2)) trim.Add(Rgba.Parse(line));
+            if (schemes.Count == 0 || trim.Count == 0) throw new ArgumentException("Add at least one Channel 0 / Channel 1 pair and one Channel 2 color.");
+            if ((long)schemes.Count * trim.Count > Limit) throw new ArgumentException("This version supports up to 2,048 combinations per operation.");
+            var result = new List<Rgba[]>();
+            foreach (Rgba[] pair in schemes)
+            foreach (Rgba channel2Color in trim)
+            {
+                Rgba[] outputs = { pair[0], pair[1], channel2Color };
+                var source = new Rgba[] { new Rgba(1,1,1,1), new Rgba(1,1,1,1), new Rgba(1,1,1,1) };
+                var assigned = new bool[3];
+                for (int channel = 0; channel < 3; channel++)
+                {
+                    int slot = bindings[channel];
+                    if (assigned[slot] && !source[slot].Equals(outputs[channel]))
+                        throw new ArgumentException("Two channels share a color slot but request different colors. Adjust the asset bindings first.");
+                    source[slot] = outputs[channel]; assigned[slot] = true;
+                }
+                result.Add(source);
+            }
+            return result;
+        }
+        static IEnumerable<string> Lines(string text)
+        {
+            foreach (string line in (text ?? "").Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                if (line.Trim().Length > 0) yield return line.Trim();
+        }
+    }
+}
+

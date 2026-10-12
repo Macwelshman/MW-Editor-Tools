@@ -1,0 +1,16 @@
+System.String Game.Tools.BulldozeToolSystem::toolID()
+System.Int32 Game.Tools.BulldozeToolSystem::uiModeIndex()
+System.Boolean Game.Tools.BulldozeToolSystem::allowUnderground()
+Game.Tools.BulldozeToolSystem/Mode Game.Tools.BulldozeToolSystem::mode()
+Game.Tools.BulldozeToolSystem/Mode Game.Tools.BulldozeToolSystem::actualMode()
+System.Boolean Game.Tools.BulldozeToolSystem::underground()
+System.Boolean Game.Tools.BulldozeToolSystem::allowManipulation()
+System.Boolean Game.Tools.BulldozeToolSystem::debugBypassBulldozeConfirmation()
+Game.Prefabs.BulldozePrefab Game.Tools.BulldozeToolSystem::prefab()
+System.Collections.Generic.IEnumerable`1<Game.Input.IProxyAction> Game.Tools.BulldozeToolSystem::toolActions()
+value__=
+MainElements=0
+SubElements=1
+Everything=2
+Unity.Collections.NativeQueue`1<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem::m_UpdateInstances
+Game.Prefabs.ReplacePrefabSystem/Finalize

@@ -1,0 +1,19 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Objects.StreetLight value=True
+FIELD Game.Objects.StreetLightState Game.Objects.StreetLight::m_State
+METHOD System.Void Game.Objects.StreetLight::Serialize(TWriter)
+IL_0000: ldarga.s writer
+IL_0002: ldarg.0
+IL_0003: ldfld Game.Objects.StreetLightState Game.Objects.StreetLight::m_State
+IL_0008: constrained. TWriter
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Byte)
+IL_0013: ret
+METHOD System.Void Game.Objects.StreetLight::Deserialize(TReader)
+IL_0000: ldarga.s reader
+IL_0002: ldloca.s V_0
+IL_0004: constrained. TReader
+IL_000a: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Byte&)
+IL_000f: ldarg.0
+IL_0010: ldloc.0
+IL_0011: stfld Game.Objects.StreetLightState Game.Objects.StreetLight::m_State
+IL_0016: ret

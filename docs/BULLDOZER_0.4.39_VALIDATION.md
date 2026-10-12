@@ -1,0 +1,11 @@
+# 0.4.39 Complete nested recovery mismatch diagnostic
+
+VERIFIED-RUNTIME 0.4.38: deletion recorded, native Undo recreated the root, but exact validation failed again. Root seed59023->45785; transform/localCache/prefab/parent/Surface presence matched. No "seed restored" message occurred, proving the correction did not run. Owner and prefab payload matched. Exact blocking condition remains UNPROVEN: previous logs combined direct and nested graph results and stopped at the first mismatching nested node. Evidence: evidence/bulldozer-0.4.38-nested-runtime.log.
+
+0.4.39 changes diagnostics only: separates directGraph/nestedGraph/seedsRestored flags, reports typed comparison for every captured node (including excludingSeed, Surface value, both colour buffer equality), and reports unmatched direct children rather than merely the first32 entries. Unmatched output capped8 expected/8 actual. Existing seed-only preflight and exact validation remain unchanged; any node mismatch still fails the whole graph. No new recovery writes/tolerance introduced.
+
+VERIFIED-STATIC: Release zero warnings/errors, production UI/settings render and54 existing relevant safety assertions pass. Native recovery still UNPROVEN. Earlier validated scopes retained. Phase5 paused; Phase6/publishing unauthorised.
+
+Test after full restart without saving: open disposable Test with Grill01, Create nested fixture/place once/Escape; keep another bound prop; Arm nested group test; Everything delete group; Undo once only; wait for completion/error and stop. Reply finished with CS2 open. No Redo/save for this diagnostic.
+
+INSTALLED0.4.39 CS2 closed; seven copied hashes verified; whole prior installation backed up/hash verified at C:\Users\ian\Documents\Development\MW Editor Tools\outputs\rollback\MWEditorTools-before-0.4.39-20261010-141147\MWEditorTools. Diagnostic only: direct/nested/seeds flags, allnode exact comparisons, unmatched direct children. Release/UI/settings/54relevantpass. Native nestedUndo stillUNPROVEN; 0.4.38seedcorrectionneverran, blockingconditionUNPROVEN. Next TestwithGrill01/Create/placeonce/Escape/keepanotherprop/Arm nestedgroup/Everythingdelete/UndoONCE thenstop; finishedkeepopen/nosaveRedo. See docs/BULLDOZER_0.4.39_VALIDATION.md. Phase5paused/6publishing unauthorised.

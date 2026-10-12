@@ -1,0 +1,3788 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.UI.Editor.EditorAssetCategorySystem
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_Categories
+FIELD System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_PathMap
+FIELD Game.Prefabs.PrefabSystem Game.UI.Editor.EditorAssetCategorySystem::m_PrefabSystem
+FIELD Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ServiceQuery
+FIELD Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ZoneQuery
+FIELD Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ThemeQuery
+FIELD Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_Overrides
+FIELD Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_PrefabModificationQuery
+FIELD System.Boolean Game.UI.Editor.EditorAssetCategorySystem::m_Dirty
+FIELD Game.UI.Editor.EditorAssetCategorySystem/TypeHandle Game.UI.Editor.EditorAssetCategorySystem::__TypeHandle
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::OnCreate() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_0012: stfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorAssetCategorySystem::m_PrefabSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: ldc.i4.1
+IL_001a: newarr Unity.Entities.ComponentType
+IL_001f: dup
+IL_0020: ldc.i4.0
+IL_0021: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ServiceData>()
+IL_0026: stelem.any Unity.Entities.ComponentType
+IL_002b: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0030: stfld Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ServiceQuery
+IL_0035: ldarg.0
+IL_0036: ldarg.0
+IL_0037: ldc.i4.1
+IL_0038: newarr Unity.Entities.ComponentType
+IL_003d: dup
+IL_003e: ldc.i4.0
+IL_003f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ZoneData>()
+IL_0044: stelem.any Unity.Entities.ComponentType
+IL_0049: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_004e: stfld Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ZoneQuery
+IL_0053: ldarg.0
+IL_0054: ldarg.0
+IL_0055: ldc.i4.1
+IL_0056: newarr Unity.Entities.ComponentType
+IL_005b: dup
+IL_005c: ldc.i4.0
+IL_005d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ThemeData>()
+IL_0062: stelem.any Unity.Entities.ComponentType
+IL_0067: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_006c: stfld Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ThemeQuery
+IL_0071: ldarg.0
+IL_0072: ldarg.0
+IL_0073: ldc.i4.1
+IL_0074: newarr Unity.Entities.ComponentType
+IL_0079: dup
+IL_007a: ldc.i4.0
+IL_007b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.EditorAssetCategoryOverrideData>()
+IL_0080: stelem.any Unity.Entities.ComponentType
+IL_0085: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_008a: stfld Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_Overrides
+IL_008f: ldarg.0
+IL_0090: ldarg.0
+IL_0091: ldc.i4.1
+IL_0092: newarr Unity.Entities.EntityQueryDesc
+IL_0097: dup
+IL_0098: ldc.i4.0
+IL_0099: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_009e: stloc.0
+IL_009f: ldloc.0
+IL_00a0: ldc.i4.1
+IL_00a1: newarr Unity.Entities.ComponentType
+IL_00a6: dup
+IL_00a7: ldc.i4.0
+IL_00a8: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PrefabData>()
+IL_00ad: stelem.any Unity.Entities.ComponentType
+IL_00b2: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00b7: ldloc.0
+IL_00b8: ldc.i4.2
+IL_00b9: newarr Unity.Entities.ComponentType
+IL_00be: dup
+IL_00bf: ldc.i4.0
+IL_00c0: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Created>()
+IL_00c5: stelem.any Unity.Entities.ComponentType
+IL_00ca: dup
+IL_00cb: ldc.i4.1
+IL_00cc: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_00d1: stelem.any Unity.Entities.ComponentType
+IL_00d6: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00db: ldloc.0
+IL_00dc: stelem.ref
+IL_00dd: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00e2: stfld Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_PrefabModificationQuery
+IL_00e7: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::OnUpdate() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_PrefabModificationQuery
+IL_0006: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_000b: brtrue.s IL_0014
+IL_000d: ldarg.0
+IL_000e: ldc.i4.1
+IL_000f: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem::m_Dirty
+IL_0014: ret
+METHOD System.Collections.Generic.IEnumerable`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::GetCategories(System.Boolean) PUBLIC True
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetCategories>d__11::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<GetCategories>d__11::<>4__this
+IL_000e: dup
+IL_000f: ldarg.1
+IL_0010: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<GetCategories>d__11::<>3__ignoreEmpty
+IL_0015: ret
+METHOD System.Collections.Generic.IEnumerable`1<Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>> Game.UI.Editor.EditorAssetCategorySystem::GetHierarchy(System.Boolean) PUBLIC True
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>4__this
+IL_000e: dup
+IL_000f: ldarg.1
+IL_0010: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>3__ignoreEmpty
+IL_0015: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: ldarg.1
+IL_0001: callvirt System.String Game.UI.Editor.EditorAssetCategory::get_id()
+IL_0006: ldc.i4.s 47
+IL_0008: callvirt System.String System.String::Trim(System.Char)
+IL_000d: stloc.0
+IL_000e: ldarg.1
+IL_000f: ldarg.2
+IL_0010: brtrue.s IL_0015
+IL_0012: ldloc.0
+IL_0013: br.s IL_0026
+IL_0015: ldarg.2
+IL_0016: callvirt System.String Game.UI.Editor.EditorAssetCategory::get_path()
+IL_001b: ldstr "/"
+IL_0020: ldloc.0
+IL_0021: call System.String System.String::Concat(System.String,System.String,System.String)
+IL_0026: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_path(System.String)
+IL_002b: ldarg.2
+IL_002c: brtrue.s IL_003c
+IL_002e: ldarg.0
+IL_002f: ldfld System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_Categories
+IL_0034: ldarg.1
+IL_0035: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory>::Add(!0)
+IL_003a: br.s IL_0043
+IL_003c: ldarg.2
+IL_003d: ldarg.1
+IL_003e: callvirt System.Void Game.UI.Editor.EditorAssetCategory::AddSubCategory(Game.UI.Editor.EditorAssetCategory)
+IL_0043: ldarg.0
+IL_0044: ldfld System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_PathMap
+IL_0049: ldarg.1
+IL_004a: callvirt System.String Game.UI.Editor.EditorAssetCategory::get_path()
+IL_004f: ldarg.1
+IL_0050: callvirt System.Void System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>::set_Item(!0,!1)
+IL_0055: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::ClearCategories() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_Categories
+IL_0006: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory>::Clear()
+IL_000b: ldarg.0
+IL_000c: ldfld System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_PathMap
+IL_0011: callvirt System.Void System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>::Clear()
+IL_0016: ret
+METHOD System.Collections.Generic.IEnumerable`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem::GetCategoriesImpl(System.Collections.Generic.IEnumerable`1<Game.UI.Editor.EditorAssetCategory>,System.Int32,System.Boolean) PUBLIC False
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/<__GetCategoriesImpl_17B9CE12>d__56::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<__GetCategoriesImpl_17B9CE12>d__56::<>4__this
+IL_000e: dup
+IL_000f: ldarg.1
+IL_0010: stfld System.Collections.Generic.IEnumerable`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem/<__GetCategoriesImpl_17B9CE12>d__56::<>3__categories
+IL_0015: dup
+IL_0016: ldarg.2
+IL_0017: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<__GetCategoriesImpl_17B9CE12>d__56::<>3__level
+IL_001c: dup
+IL_001d: ldarg.3
+IL_001e: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<__GetCategoriesImpl_17B9CE12>d__56::<>3__ignoreEmpty
+IL_0023: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateCategories() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorAssetCategorySystem::ClearCategories()
+IL_0006: ldarg.0
+IL_0007: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateBuildingCategories()
+IL_000c: ldarg.0
+IL_000d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateVehicleCategories()
+IL_0012: ldarg.0
+IL_0013: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePropCategories()
+IL_0018: ldarg.0
+IL_0019: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateFoliageCategories()
+IL_001e: ldarg.0
+IL_001f: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateCharacterCategories()
+IL_0024: ldarg.0
+IL_0025: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateAreaCategories()
+IL_002a: ldarg.0
+IL_002b: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateSurfaceCategories()
+IL_0030: ldarg.0
+IL_0031: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateBridgeCategory()
+IL_0036: ldarg.0
+IL_0037: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateRoadCategory()
+IL_003c: ldarg.0
+IL_003d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateTrackCategories()
+IL_0042: ldarg.0
+IL_0043: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateEffectCategories()
+IL_0048: ldarg.0
+IL_0049: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateLocationCategories()
+IL_004e: ldarg.0
+IL_004f: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateRenderPrefabCategory()
+IL_0054: ldarg.0
+IL_0055: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateCustomCategory()
+IL_005a: ldarg.0
+IL_005b: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateSubscribedCategory()
+IL_0060: ldarg.0
+IL_0061: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddOverrides()
+IL_0066: ldarg.0
+IL_0067: ldc.i4.0
+IL_0068: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem::m_Dirty
+IL_006d: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateBuildingCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Buildings"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.1
+IL_0014: newarr Unity.Entities.EntityQueryDesc
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0020: stloc.2
+IL_0021: ldloc.2
+IL_0022: ldc.i4.2
+IL_0023: newarr Unity.Entities.ComponentType
+IL_0028: dup
+IL_0029: ldc.i4.0
+IL_002a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingData>()
+IL_002f: stelem.any Unity.Entities.ComponentType
+IL_0034: dup
+IL_0035: ldc.i4.1
+IL_0036: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingExtensionData>()
+IL_003b: stelem.any Unity.Entities.ComponentType
+IL_0040: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0045: ldloc.2
+IL_0046: stelem.ref
+IL_0047: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_004c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0051: ldloc.1
+IL_0052: ldc.i4.0
+IL_0053: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean)
+IL_0058: ldloc.1
+IL_0059: stloc.0
+IL_005a: ldarg.0
+IL_005b: ldloc.0
+IL_005c: ldnull
+IL_005d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0062: ldarg.0
+IL_0063: ldloc.0
+IL_0064: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateServiceBuildingCategories(Game.UI.Editor.EditorAssetCategory)
+IL_0069: ldarg.0
+IL_006a: ldloc.0
+IL_006b: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateSpawnableBuildingCategories(Game.UI.Editor.EditorAssetCategory)
+IL_0070: ldarg.0
+IL_0071: ldloc.0
+IL_0072: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateMiscBuildingCategory(Game.UI.Editor.EditorAssetCategory)
+IL_0077: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateServiceBuildingCategories(Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: dup
+IL_0006: ldstr "Services"
+IL_000b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0010: stloc.0
+IL_0011: ldarg.0
+IL_0012: ldloc.0
+IL_0013: ldarg.1
+IL_0014: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0019: ldarg.0
+IL_001a: ldflda Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ServiceQuery
+IL_001f: ldc.i4.2
+IL_0020: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0025: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_002a: stloc.1
+IL_002b: ldc.i4.0
+IL_002c: stloc.2
+IL_002d: br IL_0152
+IL_0032: ldarg.0
+IL_0033: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorAssetCategorySystem::m_PrefabSystem
+IL_0038: ldloca.s V_1
+IL_003a: ldloc.2
+IL_003b: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0040: ldloca.s V_3
+IL_0042: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,T&)
+IL_0047: brfalse IL_014e
+IL_004c: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0051: stloc.s V_5
+IL_0053: ldloc.s V_5
+IL_0055: ldloc.3
+IL_0056: callvirt System.String UnityEngine.Object::get_name()
+IL_005b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0060: ldloc.s V_5
+IL_0062: ldarg.0
+IL_0063: ldc.i4.2
+IL_0064: newarr Unity.Entities.EntityQueryDesc
+IL_0069: dup
+IL_006a: ldc.i4.0
+IL_006b: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0070: stloc.s V_6
+IL_0072: ldloc.s V_6
+IL_0074: ldc.i4.2
+IL_0075: newarr Unity.Entities.ComponentType
+IL_007a: dup
+IL_007b: ldc.i4.0
+IL_007c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingData>()
+IL_0081: stelem.any Unity.Entities.ComponentType
+IL_0086: dup
+IL_0087: ldc.i4.1
+IL_0088: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ServiceObjectData>()
+IL_008d: stelem.any Unity.Entities.ComponentType
+IL_0092: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0097: ldloc.s V_6
+IL_0099: ldc.i4.1
+IL_009a: newarr Unity.Entities.ComponentType
+IL_009f: dup
+IL_00a0: ldc.i4.0
+IL_00a1: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.TrafficSpawnerData>()
+IL_00a6: stelem.any Unity.Entities.ComponentType
+IL_00ab: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_00b0: ldloc.s V_6
+IL_00b2: stelem.ref
+IL_00b3: dup
+IL_00b4: ldc.i4.1
+IL_00b5: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00ba: stloc.s V_6
+IL_00bc: ldloc.s V_6
+IL_00be: ldc.i4.1
+IL_00bf: newarr Unity.Entities.ComponentType
+IL_00c4: dup
+IL_00c5: ldc.i4.0
+IL_00c6: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ServiceUpgradeBuilding>()
+IL_00cb: stelem.any Unity.Entities.ComponentType
+IL_00d0: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00d5: ldloc.s V_6
+IL_00d7: ldc.i4.2
+IL_00d8: newarr Unity.Entities.ComponentType
+IL_00dd: dup
+IL_00de: ldc.i4.0
+IL_00df: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingData>()
+IL_00e4: stelem.any Unity.Entities.ComponentType
+IL_00e9: dup
+IL_00ea: ldc.i4.1
+IL_00eb: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingExtensionData>()
+IL_00f0: stelem.any Unity.Entities.ComponentType
+IL_00f5: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00fa: ldloc.s V_6
+IL_00fc: ldc.i4.1
+IL_00fd: newarr Unity.Entities.ComponentType
+IL_0102: dup
+IL_0103: ldc.i4.0
+IL_0104: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.TrafficSpawnerData>()
+IL_0109: stelem.any Unity.Entities.ComponentType
+IL_010e: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_0113: ldloc.s V_6
+IL_0115: stelem.ref
+IL_0116: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_011b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0120: ldloc.s V_5
+IL_0122: ldloca.s V_1
+IL_0124: ldloc.2
+IL_0125: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_012a: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/ServiceTypeFilter::.ctor(Unity.Entities.Entity)
+IL_012f: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_0134: ldloc.s V_5
+IL_0136: ldloc.3
+IL_0137: call System.String Game.UI.ImageSystem::GetIcon(Game.Prefabs.PrefabBase)
+IL_013c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0141: ldloc.s V_5
+IL_0143: stloc.s V_4
+IL_0145: ldarg.0
+IL_0146: ldloc.s V_4
+IL_0148: ldloc.0
+IL_0149: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_014e: ldloc.2
+IL_014f: ldc.i4.1
+IL_0150: add
+IL_0151: stloc.2
+IL_0152: ldloc.2
+IL_0153: ldloca.s V_1
+IL_0155: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_015a: blt IL_0032
+IL_015f: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateSpawnableBuildingCategories(Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldc.i4.1
+IL_0002: ldc.i4.0
+IL_0003: ldarg.1
+IL_0004: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateZoneCategories(Game.Zones.AreaType,System.Boolean,Game.UI.Editor.EditorAssetCategory)
+IL_0009: ldarg.0
+IL_000a: ldc.i4.2
+IL_000b: ldc.i4.0
+IL_000c: ldarg.1
+IL_000d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateZoneCategories(Game.Zones.AreaType,System.Boolean,Game.UI.Editor.EditorAssetCategory)
+IL_0012: ldarg.0
+IL_0013: ldc.i4.3
+IL_0014: ldc.i4.0
+IL_0015: ldarg.1
+IL_0016: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateZoneCategories(Game.Zones.AreaType,System.Boolean,Game.UI.Editor.EditorAssetCategory)
+IL_001b: ldarg.0
+IL_001c: ldc.i4.3
+IL_001d: ldc.i4.1
+IL_001e: ldarg.1
+IL_001f: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateZoneCategories(Game.Zones.AreaType,System.Boolean,Game.UI.Editor.EditorAssetCategory)
+IL_0024: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateZoneCategories(Game.Zones.AreaType,System.Boolean,Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: ldarg.2
+IL_0001: brtrue.s IL_0012
+IL_0003: ldarga.s areaType
+IL_0005: constrained. Game.Zones.AreaType
+IL_000b: callvirt System.String System.Object::ToString()
+IL_0010: br.s IL_0017
+IL_0012: ldstr "Office"
+IL_0017: stloc.0
+IL_0018: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_001d: dup
+IL_001e: ldloc.0
+IL_001f: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0024: stloc.1
+IL_0025: ldarg.0
+IL_0026: ldloc.1
+IL_0027: ldarg.3
+IL_0028: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_002d: ldarg.0
+IL_002e: ldflda Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ZoneQuery
+IL_0033: ldc.i4.2
+IL_0034: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0039: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_003e: stloc.2
+IL_003f: ldc.i4.0
+IL_0040: stloc.s V_5
+IL_0042: br IL_0124
+IL_0047: ldarg.0
+IL_0048: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorAssetCategorySystem::m_PrefabSystem
+IL_004d: ldloca.s V_2
+IL_004f: ldloc.s V_5
+IL_0051: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0056: ldloca.s V_6
+IL_0058: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.ZonePrefab>(Unity.Entities.Entity,T&)
+IL_005d: brfalse IL_011e
+IL_0062: ldloc.s V_6
+IL_0064: ldfld Game.Zones.AreaType Game.Prefabs.ZonePrefab::m_AreaType
+IL_0069: ldarg.1
+IL_006a: bne.un IL_011e
+IL_006f: ldloc.s V_6
+IL_0071: ldfld System.Boolean Game.Prefabs.ZonePrefab::m_Office
+IL_0076: ldarg.2
+IL_0077: bne.un IL_011e
+IL_007c: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0081: stloc.s V_8
+IL_0083: ldloc.s V_8
+IL_0085: ldloc.s V_6
+IL_0087: callvirt System.String UnityEngine.Object::get_name()
+IL_008c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0091: ldloc.s V_8
+IL_0093: ldarg.0
+IL_0094: ldc.i4.1
+IL_0095: newarr Unity.Entities.EntityQueryDesc
+IL_009a: dup
+IL_009b: ldc.i4.0
+IL_009c: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00a1: stloc.s V_9
+IL_00a3: ldloc.s V_9
+IL_00a5: ldc.i4.1
+IL_00a6: newarr Unity.Entities.ComponentType
+IL_00ab: dup
+IL_00ac: ldc.i4.0
+IL_00ad: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingData>()
+IL_00b2: stelem.any Unity.Entities.ComponentType
+IL_00b7: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00bc: ldloc.s V_9
+IL_00be: ldc.i4.2
+IL_00bf: newarr Unity.Entities.ComponentType
+IL_00c4: dup
+IL_00c5: ldc.i4.0
+IL_00c6: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.SpawnableBuildingData>()
+IL_00cb: stelem.any Unity.Entities.ComponentType
+IL_00d0: dup
+IL_00d1: ldc.i4.1
+IL_00d2: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PlaceholderBuildingData>()
+IL_00d7: stelem.any Unity.Entities.ComponentType
+IL_00dc: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00e1: ldloc.s V_9
+IL_00e3: stelem.ref
+IL_00e4: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00e9: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00ee: ldloc.s V_8
+IL_00f0: ldloca.s V_2
+IL_00f2: ldloc.s V_5
+IL_00f4: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_00f9: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/ZoneTypeFilter::.ctor(Unity.Entities.Entity)
+IL_00fe: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_0103: ldloc.s V_8
+IL_0105: ldloc.s V_6
+IL_0107: call System.String Game.UI.ImageSystem::GetIcon(Game.Prefabs.PrefabBase)
+IL_010c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0111: ldloc.s V_8
+IL_0113: stloc.s V_7
+IL_0115: ldarg.0
+IL_0116: ldloc.s V_7
+IL_0118: ldloc.1
+IL_0119: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_011e: ldloc.s V_5
+IL_0120: ldc.i4.1
+IL_0121: add
+IL_0122: stloc.s V_5
+IL_0124: ldloc.s V_5
+IL_0126: ldloca.s V_2
+IL_0128: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_012d: blt IL_0047
+IL_0132: ldarg.1
+IL_0133: ldc.i4.3
+IL_0134: bne.un.s IL_0184
+IL_0136: ldarg.2
+IL_0137: brtrue.s IL_0184
+IL_0139: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_013e: stloc.s V_8
+IL_0140: ldloc.s V_8
+IL_0142: ldstr "Extractors"
+IL_0147: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_014c: ldloc.s V_8
+IL_014e: ldarg.0
+IL_014f: ldc.i4.2
+IL_0150: newarr Unity.Entities.ComponentType
+IL_0155: dup
+IL_0156: ldc.i4.0
+IL_0157: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingData>()
+IL_015c: stelem.any Unity.Entities.ComponentType
+IL_0161: dup
+IL_0162: ldc.i4.1
+IL_0163: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ExtractorFacilityData>()
+IL_0168: stelem.any Unity.Entities.ComponentType
+IL_016d: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0172: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0177: ldloc.s V_8
+IL_0179: stloc.s V_10
+IL_017b: ldarg.0
+IL_017c: ldloc.s V_10
+IL_017e: ldloc.1
+IL_017f: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0184: ldarg.0
+IL_0185: ldflda Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ThemeQuery
+IL_018a: ldc.i4.2
+IL_018b: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0190: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0195: stloc.3
+IL_0196: ldc.i4.0
+IL_0197: stloc.s V_11
+IL_0199: br IL_0230
+IL_019e: ldarg.0
+IL_019f: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorAssetCategorySystem::m_PrefabSystem
+IL_01a4: ldloca.s V_3
+IL_01a6: ldloc.s V_11
+IL_01a8: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_01ad: ldloca.s V_12
+IL_01af: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.ThemePrefab>(Unity.Entities.Entity,T&)
+IL_01b4: brfalse.s IL_022a
+IL_01b6: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_01bb: stloc.s V_8
+IL_01bd: ldloc.s V_8
+IL_01bf: ldloc.s V_12
+IL_01c1: ldfld System.String Game.Prefabs.ThemePrefab::assetPrefix
+IL_01c6: ldstr " Signature"
+IL_01cb: call System.String System.String::Concat(System.String,System.String)
+IL_01d0: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_01d5: ldloc.s V_8
+IL_01d7: ldarg.0
+IL_01d8: ldc.i4.1
+IL_01d9: newarr Unity.Entities.ComponentType
+IL_01de: dup
+IL_01df: ldc.i4.0
+IL_01e0: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.SignatureBuildingData>()
+IL_01e5: stelem.any Unity.Entities.ComponentType
+IL_01ea: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_01ef: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_01f4: ldloc.s V_8
+IL_01f6: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/SignatureBuildingFilter::.ctor()
+IL_01fb: dup
+IL_01fc: ldarg.1
+IL_01fd: stfld Game.Zones.AreaType Game.UI.Editor.EditorAssetCategorySystem/SignatureBuildingFilter::m_AreaType
+IL_0202: dup
+IL_0203: ldarg.2
+IL_0204: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/SignatureBuildingFilter::m_Office
+IL_0209: dup
+IL_020a: ldloca.s V_3
+IL_020c: ldloc.s V_11
+IL_020e: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0213: stfld Unity.Entities.Entity Game.UI.Editor.EditorAssetCategorySystem/SignatureBuildingFilter::m_Theme
+IL_0218: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_021d: ldloc.s V_8
+IL_021f: stloc.s V_13
+IL_0221: ldarg.0
+IL_0222: ldloc.s V_13
+IL_0224: ldloc.1
+IL_0225: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_022a: ldloc.s V_11
+IL_022c: ldc.i4.1
+IL_022d: add
+IL_022e: stloc.s V_11
+IL_0230: ldloc.s V_11
+IL_0232: ldloca.s V_3
+IL_0234: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_0239: blt IL_019e
+IL_023e: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0243: stloc.s V_8
+IL_0245: ldloc.s V_8
+IL_0247: ldstr "Signature"
+IL_024c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0251: ldloc.s V_8
+IL_0253: ldarg.0
+IL_0254: ldc.i4.1
+IL_0255: newarr Unity.Entities.ComponentType
+IL_025a: dup
+IL_025b: ldc.i4.0
+IL_025c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.SignatureBuildingData>()
+IL_0261: stelem.any Unity.Entities.ComponentType
+IL_0266: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_026b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0270: ldloc.s V_8
+IL_0272: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/SignatureBuildingFilter::.ctor()
+IL_0277: dup
+IL_0278: ldarg.1
+IL_0279: stfld Game.Zones.AreaType Game.UI.Editor.EditorAssetCategorySystem/SignatureBuildingFilter::m_AreaType
+IL_027e: dup
+IL_027f: ldarg.2
+IL_0280: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/SignatureBuildingFilter::m_Office
+IL_0285: dup
+IL_0286: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_028b: stfld Unity.Entities.Entity Game.UI.Editor.EditorAssetCategorySystem/SignatureBuildingFilter::m_Theme
+IL_0290: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_0295: ldloc.s V_8
+IL_0297: stloc.s V_4
+IL_0299: ldarg.0
+IL_029a: ldloc.s V_4
+IL_029c: ldloc.1
+IL_029d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_02a2: ldloca.s V_2
+IL_02a4: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.Entity>::Dispose()
+IL_02a9: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateMiscBuildingCategory(Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Misc"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.6
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: dup
+IL_0026: ldc.i4.1
+IL_0027: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.ServiceObjectData>()
+IL_002c: stelem.any Unity.Entities.ComponentType
+IL_0031: dup
+IL_0032: ldc.i4.2
+IL_0033: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.SpawnableBuildingData>()
+IL_0038: stelem.any Unity.Entities.ComponentType
+IL_003d: dup
+IL_003e: ldc.i4.3
+IL_003f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.SignatureBuildingData>()
+IL_0044: stelem.any Unity.Entities.ComponentType
+IL_0049: dup
+IL_004a: ldc.i4.4
+IL_004b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.ServiceUpgradeBuilding>()
+IL_0050: stelem.any Unity.Entities.ComponentType
+IL_0055: dup
+IL_0056: ldc.i4.5
+IL_0057: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.ExtractorFacilityData>()
+IL_005c: stelem.any Unity.Entities.ComponentType
+IL_0061: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0066: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_006b: ldloc.1
+IL_006c: stloc.0
+IL_006d: ldarg.0
+IL_006e: ldloc.0
+IL_006f: ldarg.1
+IL_0070: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0075: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateVehicleCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Vehicles"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.1
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.VehicleData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_002a: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_002f: ldloc.1
+IL_0030: ldc.i4.0
+IL_0031: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean)
+IL_0036: ldloc.1
+IL_0037: stloc.0
+IL_0038: ldarg.0
+IL_0039: ldloc.0
+IL_003a: ldnull
+IL_003b: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0040: ldarg.0
+IL_0041: ldloc.0
+IL_0042: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateResidentialVehicleCategory(Game.UI.Editor.EditorAssetCategory)
+IL_0047: ldarg.0
+IL_0048: ldloc.0
+IL_0049: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateIndustrialVehicleCategory(Game.UI.Editor.EditorAssetCategory)
+IL_004e: ldarg.0
+IL_004f: ldloc.0
+IL_0050: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateServiceVehicleCategories(Game.UI.Editor.EditorAssetCategory)
+IL_0055: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateResidentialVehicleCategory(Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: dup
+IL_0006: ldstr "Residential"
+IL_000b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0010: stloc.0
+IL_0011: ldarg.0
+IL_0012: ldloc.0
+IL_0013: ldarg.1
+IL_0014: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0019: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_001e: stloc.3
+IL_001f: ldloc.3
+IL_0020: ldstr "Cars"
+IL_0025: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_002a: ldloc.3
+IL_002b: ldarg.0
+IL_002c: ldc.i4.2
+IL_002d: newarr Unity.Entities.ComponentType
+IL_0032: dup
+IL_0033: ldc.i4.0
+IL_0034: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.VehicleData>()
+IL_0039: stelem.any Unity.Entities.ComponentType
+IL_003e: dup
+IL_003f: ldc.i4.1
+IL_0040: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PersonalCarData>()
+IL_0045: stelem.any Unity.Entities.ComponentType
+IL_004a: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_004f: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0054: ldloc.3
+IL_0055: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/PassengerCountFilter::.ctor()
+IL_005a: dup
+IL_005b: ldc.i4.1
+IL_005c: stfld Game.UI.Editor.EditorAssetCategorySystem/PassengerCountFilter/FilterType Game.UI.Editor.EditorAssetCategorySystem/PassengerCountFilter::m_Type
+IL_0061: dup
+IL_0062: ldc.i4.1
+IL_0063: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/PassengerCountFilter::m_Count
+IL_0068: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_006d: ldloc.3
+IL_006e: ldstr "Media/Game/Icons/GenericVehicle.svg"
+IL_0073: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0078: ldloc.3
+IL_0079: stloc.1
+IL_007a: ldarg.0
+IL_007b: ldloc.1
+IL_007c: ldloc.0
+IL_007d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0082: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0087: stloc.3
+IL_0088: ldloc.3
+IL_0089: ldstr "Bikes"
+IL_008e: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0093: ldloc.3
+IL_0094: ldarg.0
+IL_0095: ldc.i4.2
+IL_0096: newarr Unity.Entities.ComponentType
+IL_009b: dup
+IL_009c: ldc.i4.0
+IL_009d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.VehicleData>()
+IL_00a2: stelem.any Unity.Entities.ComponentType
+IL_00a7: dup
+IL_00a8: ldc.i4.1
+IL_00a9: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PersonalCarData>()
+IL_00ae: stelem.any Unity.Entities.ComponentType
+IL_00b3: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_00b8: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00bd: ldloc.3
+IL_00be: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/PassengerCountFilter::.ctor()
+IL_00c3: dup
+IL_00c4: ldc.i4.0
+IL_00c5: stfld Game.UI.Editor.EditorAssetCategorySystem/PassengerCountFilter/FilterType Game.UI.Editor.EditorAssetCategorySystem/PassengerCountFilter::m_Type
+IL_00ca: dup
+IL_00cb: ldc.i4.1
+IL_00cc: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/PassengerCountFilter::m_Count
+IL_00d1: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_00d6: ldloc.3
+IL_00d7: ldstr "Media/Game/Icons/Bicycle.svg"
+IL_00dc: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_00e1: ldloc.3
+IL_00e2: stloc.2
+IL_00e3: ldarg.0
+IL_00e4: ldloc.2
+IL_00e5: ldloc.0
+IL_00e6: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_00eb: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateServiceVehicleCategories(Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: dup
+IL_0006: ldstr "Services"
+IL_000b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0010: stloc.0
+IL_0011: ldarg.0
+IL_0012: ldloc.0
+IL_0013: ldarg.1
+IL_0014: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0019: ldarg.0
+IL_001a: ldc.i4.0
+IL_001b: ldloc.0
+IL_001c: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePublicTransportVehicleCategory(Game.Prefabs.TransportType,Game.UI.Editor.EditorAssetCategory)
+IL_0021: ldarg.0
+IL_0022: ldc.i4.2
+IL_0023: ldloc.0
+IL_0024: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePublicTransportVehicleCategory(Game.Prefabs.TransportType,Game.UI.Editor.EditorAssetCategory)
+IL_0029: ldarg.0
+IL_002a: ldc.i4.3
+IL_002b: ldloc.0
+IL_002c: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePublicTransportVehicleCategory(Game.Prefabs.TransportType,Game.UI.Editor.EditorAssetCategory)
+IL_0031: ldarg.0
+IL_0032: ldc.i4.1
+IL_0033: ldloc.0
+IL_0034: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePublicTransportVehicleCategory(Game.Prefabs.TransportType,Game.UI.Editor.EditorAssetCategory)
+IL_0039: ldarg.0
+IL_003a: ldc.i4.8
+IL_003b: ldloc.0
+IL_003c: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePublicTransportVehicleCategory(Game.Prefabs.TransportType,Game.UI.Editor.EditorAssetCategory)
+IL_0041: ldarg.0
+IL_0042: ldc.i4.4
+IL_0043: ldloc.0
+IL_0044: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePublicTransportVehicleCategory(Game.Prefabs.TransportType,Game.UI.Editor.EditorAssetCategory)
+IL_0049: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_004e: stloc.s V_9
+IL_0050: ldloc.s V_9
+IL_0052: ldstr "Aircraft"
+IL_0057: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_005c: ldloc.s V_9
+IL_005e: ldarg.0
+IL_005f: ldc.i4.2
+IL_0060: newarr Unity.Entities.ComponentType
+IL_0065: dup
+IL_0066: ldc.i4.0
+IL_0067: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.AircraftData>()
+IL_006c: stelem.any Unity.Entities.ComponentType
+IL_0071: dup
+IL_0072: ldc.i4.1
+IL_0073: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.CargoTransportVehicleData>()
+IL_0078: stelem.any Unity.Entities.ComponentType
+IL_007d: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0082: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0087: ldloc.s V_9
+IL_0089: ldstr "Media/Game/Icons/Airplane.svg"
+IL_008e: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0093: ldloc.s V_9
+IL_0095: stloc.1
+IL_0096: ldarg.0
+IL_0097: ldloc.1
+IL_0098: ldloc.0
+IL_0099: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_009e: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_00a3: stloc.s V_9
+IL_00a5: ldloc.s V_9
+IL_00a7: ldstr "Healthcare"
+IL_00ac: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_00b1: ldloc.s V_9
+IL_00b3: ldarg.0
+IL_00b4: ldc.i4.1
+IL_00b5: newarr Unity.Entities.ComponentType
+IL_00ba: dup
+IL_00bb: ldc.i4.0
+IL_00bc: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.AmbulanceData>()
+IL_00c1: stelem.any Unity.Entities.ComponentType
+IL_00c6: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_00cb: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00d0: ldloc.s V_9
+IL_00d2: ldstr "Media/Game/Icons/Healthcare.svg"
+IL_00d7: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_00dc: ldloc.s V_9
+IL_00de: stloc.2
+IL_00df: ldarg.0
+IL_00e0: ldloc.2
+IL_00e1: ldloc.0
+IL_00e2: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_00e7: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_00ec: stloc.s V_9
+IL_00ee: ldloc.s V_9
+IL_00f0: ldstr "Police"
+IL_00f5: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_00fa: ldloc.s V_9
+IL_00fc: ldarg.0
+IL_00fd: ldc.i4.1
+IL_00fe: newarr Unity.Entities.EntityQueryDesc
+IL_0103: dup
+IL_0104: ldc.i4.0
+IL_0105: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_010a: stloc.s V_10
+IL_010c: ldloc.s V_10
+IL_010e: ldc.i4.1
+IL_010f: newarr Unity.Entities.ComponentType
+IL_0114: dup
+IL_0115: ldc.i4.0
+IL_0116: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.VehicleData>()
+IL_011b: stelem.any Unity.Entities.ComponentType
+IL_0120: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0125: ldloc.s V_10
+IL_0127: ldc.i4.2
+IL_0128: newarr Unity.Entities.ComponentType
+IL_012d: dup
+IL_012e: ldc.i4.0
+IL_012f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PoliceCarData>()
+IL_0134: stelem.any Unity.Entities.ComponentType
+IL_0139: dup
+IL_013a: ldc.i4.1
+IL_013b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PublicTransportVehicleData>()
+IL_0140: stelem.any Unity.Entities.ComponentType
+IL_0145: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_014a: ldloc.s V_10
+IL_014c: stelem.ref
+IL_014d: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0152: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0157: ldloc.s V_9
+IL_0159: ldstr "Media/Game/Icons/Police.svg"
+IL_015e: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0163: ldloc.s V_9
+IL_0165: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/PublicTransportTypeFilter::.ctor()
+IL_016a: dup
+IL_016b: ldc.i4.m1
+IL_016c: stfld Game.Prefabs.TransportType Game.UI.Editor.EditorAssetCategorySystem/PublicTransportTypeFilter::m_TransportType
+IL_0171: dup
+IL_0172: ldc.i4.4
+IL_0173: stfld Game.Prefabs.PublicTransportPurpose Game.UI.Editor.EditorAssetCategorySystem/PublicTransportTypeFilter::m_Purpose
+IL_0178: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_017d: ldloc.s V_9
+IL_017f: stloc.3
+IL_0180: ldarg.0
+IL_0181: ldloc.3
+IL_0182: ldloc.0
+IL_0183: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0188: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_018d: stloc.s V_9
+IL_018f: ldloc.s V_9
+IL_0191: ldstr "Deathcare"
+IL_0196: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_019b: ldloc.s V_9
+IL_019d: ldarg.0
+IL_019e: ldc.i4.1
+IL_019f: newarr Unity.Entities.ComponentType
+IL_01a4: dup
+IL_01a5: ldc.i4.0
+IL_01a6: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.HearseData>()
+IL_01ab: stelem.any Unity.Entities.ComponentType
+IL_01b0: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_01b5: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_01ba: ldloc.s V_9
+IL_01bc: ldstr "Media/Game/Icons/Deathcare.svg"
+IL_01c1: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_01c6: ldloc.s V_9
+IL_01c8: stloc.s V_4
+IL_01ca: ldarg.0
+IL_01cb: ldloc.s V_4
+IL_01cd: ldloc.0
+IL_01ce: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_01d3: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_01d8: stloc.s V_9
+IL_01da: ldloc.s V_9
+IL_01dc: ldstr "FireRescue"
+IL_01e1: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_01e6: ldloc.s V_9
+IL_01e8: ldarg.0
+IL_01e9: ldc.i4.1
+IL_01ea: newarr Unity.Entities.ComponentType
+IL_01ef: dup
+IL_01f0: ldc.i4.0
+IL_01f1: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.FireEngineData>()
+IL_01f6: stelem.any Unity.Entities.ComponentType
+IL_01fb: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0200: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0205: ldloc.s V_9
+IL_0207: ldstr "Media/Game/Icons/FireSafety.svg"
+IL_020c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0211: ldloc.s V_9
+IL_0213: stloc.s V_5
+IL_0215: ldarg.0
+IL_0216: ldloc.s V_5
+IL_0218: ldloc.0
+IL_0219: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_021e: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0223: stloc.s V_9
+IL_0225: ldloc.s V_9
+IL_0227: ldstr "Garbage"
+IL_022c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0231: ldloc.s V_9
+IL_0233: ldarg.0
+IL_0234: ldc.i4.1
+IL_0235: newarr Unity.Entities.ComponentType
+IL_023a: dup
+IL_023b: ldc.i4.0
+IL_023c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.GarbageTruckData>()
+IL_0241: stelem.any Unity.Entities.ComponentType
+IL_0246: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_024b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0250: ldloc.s V_9
+IL_0252: ldstr "Media/Game/Icons/Garbage.svg"
+IL_0257: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_025c: ldloc.s V_9
+IL_025e: stloc.s V_6
+IL_0260: ldarg.0
+IL_0261: ldloc.s V_6
+IL_0263: ldloc.0
+IL_0264: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0269: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_026e: stloc.s V_9
+IL_0270: ldloc.s V_9
+IL_0272: ldstr "Parks"
+IL_0277: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_027c: ldloc.s V_9
+IL_027e: ldarg.0
+IL_027f: ldc.i4.1
+IL_0280: newarr Unity.Entities.ComponentType
+IL_0285: dup
+IL_0286: ldc.i4.0
+IL_0287: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.MaintenanceVehicleData>()
+IL_028c: stelem.any Unity.Entities.ComponentType
+IL_0291: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0296: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_029b: ldloc.s V_9
+IL_029d: ldstr "Media/Game/Icons/ParksAndRecreation.svg"
+IL_02a2: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_02a7: ldloc.s V_9
+IL_02a9: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/MaintenanceTypeFilter::.ctor()
+IL_02ae: dup
+IL_02af: ldc.i4.1
+IL_02b0: stfld Game.Simulation.MaintenanceType Game.UI.Editor.EditorAssetCategorySystem/MaintenanceTypeFilter::m_Type
+IL_02b5: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_02ba: ldloc.s V_9
+IL_02bc: stloc.s V_7
+IL_02be: ldarg.0
+IL_02bf: ldloc.s V_7
+IL_02c1: ldloc.0
+IL_02c2: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_02c7: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_02cc: stloc.s V_9
+IL_02ce: ldloc.s V_9
+IL_02d0: ldstr "Roads"
+IL_02d5: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_02da: ldloc.s V_9
+IL_02dc: ldarg.0
+IL_02dd: ldc.i4.1
+IL_02de: newarr Unity.Entities.ComponentType
+IL_02e3: dup
+IL_02e4: ldc.i4.0
+IL_02e5: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.MaintenanceVehicleData>()
+IL_02ea: stelem.any Unity.Entities.ComponentType
+IL_02ef: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_02f4: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_02f9: ldloc.s V_9
+IL_02fb: ldstr "Media/Game/Icons/Roads.svg"
+IL_0300: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0305: ldloc.s V_9
+IL_0307: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/MaintenanceTypeFilter::.ctor()
+IL_030c: dup
+IL_030d: ldc.i4.s 14
+IL_030f: stfld Game.Simulation.MaintenanceType Game.UI.Editor.EditorAssetCategorySystem/MaintenanceTypeFilter::m_Type
+IL_0314: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_0319: ldloc.s V_9
+IL_031b: stloc.s V_8
+IL_031d: ldarg.0
+IL_031e: ldloc.s V_8
+IL_0320: ldloc.0
+IL_0321: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0326: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePublicTransportVehicleCategory(Game.Prefabs.TransportType,Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldarga.s transportType
+IL_0009: constrained. Game.Prefabs.TransportType
+IL_000f: callvirt System.String System.Object::ToString()
+IL_0014: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0019: ldloc.1
+IL_001a: ldarg.0
+IL_001b: ldc.i4.2
+IL_001c: newarr Unity.Entities.ComponentType
+IL_0021: dup
+IL_0022: ldc.i4.0
+IL_0023: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.VehicleData>()
+IL_0028: stelem.any Unity.Entities.ComponentType
+IL_002d: dup
+IL_002e: ldc.i4.1
+IL_002f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PublicTransportVehicleData>()
+IL_0034: stelem.any Unity.Entities.ComponentType
+IL_0039: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_003e: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0043: ldloc.1
+IL_0044: ldstr "Media/Game/Icons/{0}.svg"
+IL_0049: ldarg.1
+IL_004a: box Game.Prefabs.TransportType
+IL_004f: call System.String System.String::Format(System.String,System.Object)
+IL_0054: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0059: ldloc.1
+IL_005a: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/PublicTransportTypeFilter::.ctor()
+IL_005f: dup
+IL_0060: ldarg.1
+IL_0061: stfld Game.Prefabs.TransportType Game.UI.Editor.EditorAssetCategorySystem/PublicTransportTypeFilter::m_TransportType
+IL_0066: dup
+IL_0067: ldc.i4.1
+IL_0068: stfld Game.Prefabs.PublicTransportPurpose Game.UI.Editor.EditorAssetCategorySystem/PublicTransportTypeFilter::m_Purpose
+IL_006d: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_0072: ldloc.1
+IL_0073: stloc.0
+IL_0074: ldarg.0
+IL_0075: ldloc.0
+IL_0076: ldarg.2
+IL_0077: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_007c: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateIndustrialVehicleCategory(Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Industrial"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.1
+IL_0014: newarr Unity.Entities.EntityQueryDesc
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0020: stloc.2
+IL_0021: ldloc.2
+IL_0022: ldc.i4.1
+IL_0023: newarr Unity.Entities.ComponentType
+IL_0028: dup
+IL_0029: ldc.i4.0
+IL_002a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.VehicleData>()
+IL_002f: stelem.any Unity.Entities.ComponentType
+IL_0034: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0039: ldloc.2
+IL_003a: ldc.i4.3
+IL_003b: newarr Unity.Entities.ComponentType
+IL_0040: dup
+IL_0041: ldc.i4.0
+IL_0042: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.CargoTransportVehicleData>()
+IL_0047: stelem.any Unity.Entities.ComponentType
+IL_004c: dup
+IL_004d: ldc.i4.1
+IL_004e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.DeliveryTruckData>()
+IL_0053: stelem.any Unity.Entities.ComponentType
+IL_0058: dup
+IL_0059: ldc.i4.2
+IL_005a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.WorkVehicleData>()
+IL_005f: stelem.any Unity.Entities.ComponentType
+IL_0064: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0069: ldloc.2
+IL_006a: stelem.ref
+IL_006b: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0070: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0075: ldloc.1
+IL_0076: ldstr "Media/Game/Icons/ZoneIndustrial.svg"
+IL_007b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0080: ldloc.1
+IL_0081: stloc.0
+IL_0082: ldarg.0
+IL_0083: ldloc.0
+IL_0084: ldarg.1
+IL_0085: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_008a: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GeneratePropCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.2
+IL_0006: ldloc.2
+IL_0007: ldstr "Props"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.2
+IL_0012: ldarg.0
+IL_0013: ldc.i4.7
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.StaticObjectData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: dup
+IL_0026: ldc.i4.1
+IL_0027: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.BuildingData>()
+IL_002c: stelem.any Unity.Entities.ComponentType
+IL_0031: dup
+IL_0032: ldc.i4.2
+IL_0033: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.NetObjectData>()
+IL_0038: stelem.any Unity.Entities.ComponentType
+IL_003d: dup
+IL_003e: ldc.i4.3
+IL_003f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.BuildingExtensionData>()
+IL_0044: stelem.any Unity.Entities.ComponentType
+IL_0049: dup
+IL_004a: ldc.i4.4
+IL_004b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.PillarData>()
+IL_0050: stelem.any Unity.Entities.ComponentType
+IL_0055: dup
+IL_0056: ldc.i4.5
+IL_0057: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.PlantData>()
+IL_005c: stelem.any Unity.Entities.ComponentType
+IL_0061: dup
+IL_0062: ldc.i4.6
+IL_0063: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.BrandObjectData>()
+IL_0068: stelem.any Unity.Entities.ComponentType
+IL_006d: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0072: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0077: ldloc.2
+IL_0078: ldc.i4.0
+IL_0079: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean)
+IL_007e: ldloc.2
+IL_007f: stloc.0
+IL_0080: ldarg.0
+IL_0081: ldloc.0
+IL_0082: ldnull
+IL_0083: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0088: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_008d: stloc.2
+IL_008e: ldloc.2
+IL_008f: ldstr "Brand Graphics"
+IL_0094: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0099: ldloc.2
+IL_009a: ldarg.0
+IL_009b: ldc.i4.7
+IL_009c: newarr Unity.Entities.ComponentType
+IL_00a1: dup
+IL_00a2: ldc.i4.0
+IL_00a3: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.StaticObjectData>()
+IL_00a8: stelem.any Unity.Entities.ComponentType
+IL_00ad: dup
+IL_00ae: ldc.i4.1
+IL_00af: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BrandObjectData>()
+IL_00b4: stelem.any Unity.Entities.ComponentType
+IL_00b9: dup
+IL_00ba: ldc.i4.2
+IL_00bb: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.BuildingData>()
+IL_00c0: stelem.any Unity.Entities.ComponentType
+IL_00c5: dup
+IL_00c6: ldc.i4.3
+IL_00c7: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.NetObjectData>()
+IL_00cc: stelem.any Unity.Entities.ComponentType
+IL_00d1: dup
+IL_00d2: ldc.i4.4
+IL_00d3: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.BuildingExtensionData>()
+IL_00d8: stelem.any Unity.Entities.ComponentType
+IL_00dd: dup
+IL_00de: ldc.i4.5
+IL_00df: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.PillarData>()
+IL_00e4: stelem.any Unity.Entities.ComponentType
+IL_00e9: dup
+IL_00ea: ldc.i4.6
+IL_00eb: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.PlantData>()
+IL_00f0: stelem.any Unity.Entities.ComponentType
+IL_00f5: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_00fa: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00ff: ldloc.2
+IL_0100: stloc.1
+IL_0101: ldarg.0
+IL_0102: ldloc.1
+IL_0103: ldloc.0
+IL_0104: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0109: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateFoliageCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Foliage"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.1
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PlantData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_002a: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_002f: ldloc.1
+IL_0030: ldstr "Media/Game/Icons/Vegetation.svg"
+IL_0035: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_003a: ldloc.1
+IL_003b: ldc.i4.0
+IL_003c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean)
+IL_0041: ldloc.1
+IL_0042: stloc.0
+IL_0043: ldarg.0
+IL_0044: ldloc.0
+IL_0045: ldnull
+IL_0046: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_004b: ldarg.0
+IL_004c: ldloc.0
+IL_004d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateTreeCategories(Game.UI.Editor.EditorAssetCategory)
+IL_0052: ldarg.0
+IL_0053: ldloc.0
+IL_0054: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateBushCategories(Game.UI.Editor.EditorAssetCategory)
+IL_0059: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateTreeCategories(Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: dup
+IL_0006: ldstr "Trees"
+IL_000b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0010: stloc.0
+IL_0011: ldarg.0
+IL_0012: ldloc.0
+IL_0013: ldarg.1
+IL_0014: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0019: ldarg.0
+IL_001a: ldflda Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_ThemeQuery
+IL_001f: ldc.i4.2
+IL_0020: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0025: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_002a: stloc.1
+IL_002b: ldloca.s V_1
+IL_002d: call Unity.Collections.NativeArray`1/Enumerator<!0> Unity.Collections.NativeArray`1<Unity.Entities.Entity>::GetEnumerator()
+IL_0032: stloc.3
+IL_0033: br IL_00cc
+IL_0038: ldloca.s V_3
+IL_003a: call !0 Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>::get_Current()
+IL_003f: stloc.s V_4
+IL_0041: ldarg.0
+IL_0042: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorAssetCategorySystem::m_PrefabSystem
+IL_0047: ldloc.s V_4
+IL_0049: ldloca.s V_5
+IL_004b: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.ThemePrefab>(Unity.Entities.Entity,T&)
+IL_0050: brfalse.s IL_00cc
+IL_0052: ldloc.s V_5
+IL_0054: callvirt T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UIObject>()
+IL_0059: dup
+IL_005a: brtrue.s IL_0060
+IL_005c: pop
+IL_005d: ldnull
+IL_005e: br.s IL_0065
+IL_0060: ldfld System.String Game.Prefabs.UIObject::m_Icon
+IL_0065: stloc.s V_6
+IL_0067: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_006c: stloc.s V_8
+IL_006e: ldloc.s V_8
+IL_0070: ldloc.s V_5
+IL_0072: ldfld System.String Game.Prefabs.ThemePrefab::assetPrefix
+IL_0077: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_007c: ldloc.s V_8
+IL_007e: ldarg.0
+IL_007f: ldc.i4.1
+IL_0080: newarr Unity.Entities.ComponentType
+IL_0085: dup
+IL_0086: ldc.i4.0
+IL_0087: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.TreeData>()
+IL_008c: stelem.any Unity.Entities.ComponentType
+IL_0091: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0096: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_009b: ldloc.s V_8
+IL_009d: ldloc.s V_6
+IL_009f: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_00a4: ldloc.s V_8
+IL_00a6: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/ThemeFilter::.ctor()
+IL_00ab: dup
+IL_00ac: ldloc.s V_4
+IL_00ae: stfld Unity.Entities.Entity Game.UI.Editor.EditorAssetCategorySystem/ThemeFilter::m_Theme
+IL_00b3: dup
+IL_00b4: ldc.i4.0
+IL_00b5: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/ThemeFilter::m_DefaultResult
+IL_00ba: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_00bf: ldloc.s V_8
+IL_00c1: stloc.s V_7
+IL_00c3: ldarg.0
+IL_00c4: ldloc.s V_7
+IL_00c6: ldloc.0
+IL_00c7: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_00cc: ldloca.s V_3
+IL_00ce: call System.Boolean Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>::MoveNext()
+IL_00d3: brtrue IL_0038
+IL_00d8: leave.s IL_00e8
+IL_00da: ldloca.s V_3
+IL_00dc: constrained. Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>
+IL_00e2: callvirt System.Void System.IDisposable::Dispose()
+IL_00e7: endfinally
+IL_00e8: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_00ed: stloc.s V_8
+IL_00ef: ldloc.s V_8
+IL_00f1: ldstr "Shared"
+IL_00f6: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_00fb: ldloc.s V_8
+IL_00fd: ldarg.0
+IL_00fe: ldc.i4.1
+IL_00ff: newarr Unity.Entities.ComponentType
+IL_0104: dup
+IL_0105: ldc.i4.0
+IL_0106: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.TreeData>()
+IL_010b: stelem.any Unity.Entities.ComponentType
+IL_0110: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0115: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_011a: ldloc.s V_8
+IL_011c: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/ThemeFilter::.ctor()
+IL_0121: dup
+IL_0122: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0127: stfld Unity.Entities.Entity Game.UI.Editor.EditorAssetCategorySystem/ThemeFilter::m_Theme
+IL_012c: dup
+IL_012d: ldc.i4.1
+IL_012e: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/ThemeFilter::m_DefaultResult
+IL_0133: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_0138: ldloc.s V_8
+IL_013a: stloc.2
+IL_013b: ldarg.0
+IL_013c: ldloc.2
+IL_013d: ldloc.0
+IL_013e: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0143: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateBushCategories(Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Bushes"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.2
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PlantData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: dup
+IL_0026: ldc.i4.1
+IL_0027: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.TreeData>()
+IL_002c: stelem.any Unity.Entities.ComponentType
+IL_0031: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0036: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_003b: ldloc.1
+IL_003c: stloc.0
+IL_003d: ldarg.0
+IL_003e: ldloc.0
+IL_003f: ldarg.1
+IL_0040: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0045: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateRoadCategory() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: dup
+IL_0006: ldstr "Roads"
+IL_000b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0010: stloc.0
+IL_0011: ldarg.0
+IL_0012: ldloc.0
+IL_0013: ldnull
+IL_0014: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0019: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_001e: stloc.3
+IL_001f: ldloc.3
+IL_0020: ldstr "Roads"
+IL_0025: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_002a: ldloc.3
+IL_002b: ldarg.0
+IL_002c: ldc.i4.2
+IL_002d: newarr Unity.Entities.ComponentType
+IL_0032: dup
+IL_0033: ldc.i4.0
+IL_0034: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.RoadData>()
+IL_0039: stelem.any Unity.Entities.ComponentType
+IL_003e: dup
+IL_003f: ldc.i4.1
+IL_0040: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.BridgeData>()
+IL_0045: stelem.any Unity.Entities.ComponentType
+IL_004a: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_004f: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0054: ldloc.3
+IL_0055: ldstr "Media/Game/Icons/Roads.svg"
+IL_005a: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_005f: ldloc.3
+IL_0060: stloc.1
+IL_0061: ldarg.0
+IL_0062: ldloc.1
+IL_0063: ldloc.0
+IL_0064: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0069: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_006e: stloc.3
+IL_006f: ldloc.3
+IL_0070: ldstr "Intersections"
+IL_0075: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_007a: ldloc.3
+IL_007b: ldarg.0
+IL_007c: ldc.i4.2
+IL_007d: newarr Unity.Entities.ComponentType
+IL_0082: dup
+IL_0083: ldc.i4.0
+IL_0084: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.AssetStampData>()
+IL_0089: stelem.any Unity.Entities.ComponentType
+IL_008e: dup
+IL_008f: ldc.i4.1
+IL_0090: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.SubNet>()
+IL_0095: stelem.any Unity.Entities.ComponentType
+IL_009a: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_009f: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00a4: ldloc.3
+IL_00a5: stloc.2
+IL_00a6: ldarg.0
+IL_00a7: ldloc.2
+IL_00a8: ldloc.0
+IL_00a9: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_00ae: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateTrackCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Tracks"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.1
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.TrackData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_002a: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_002f: ldloc.1
+IL_0030: ldc.i4.0
+IL_0031: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean)
+IL_0036: ldloc.1
+IL_0037: stloc.0
+IL_0038: ldarg.0
+IL_0039: ldloc.0
+IL_003a: ldnull
+IL_003b: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0040: ldarg.0
+IL_0041: ldc.i4.1
+IL_0042: ldloc.0
+IL_0043: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateTrackTypeCategory(Game.Net.TrackTypes,Game.UI.Editor.EditorAssetCategory)
+IL_0048: ldarg.0
+IL_0049: ldc.i4.2
+IL_004a: ldloc.0
+IL_004b: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateTrackTypeCategory(Game.Net.TrackTypes,Game.UI.Editor.EditorAssetCategory)
+IL_0050: ldarg.0
+IL_0051: ldc.i4.4
+IL_0052: ldloc.0
+IL_0053: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateTrackTypeCategory(Game.Net.TrackTypes,Game.UI.Editor.EditorAssetCategory)
+IL_0058: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateTrackTypeCategory(Game.Net.TrackTypes,Game.UI.Editor.EditorAssetCategory) PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldarga.s trackTypes
+IL_0009: constrained. Game.Net.TrackTypes
+IL_000f: callvirt System.String System.Object::ToString()
+IL_0014: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0019: ldloc.1
+IL_001a: ldarg.0
+IL_001b: ldc.i4.1
+IL_001c: newarr Unity.Entities.ComponentType
+IL_0021: dup
+IL_0022: ldc.i4.0
+IL_0023: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.TrackData>()
+IL_0028: stelem.any Unity.Entities.ComponentType
+IL_002d: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0032: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0037: ldloc.1
+IL_0038: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/TrackTypeFilter::.ctor()
+IL_003d: dup
+IL_003e: ldarg.1
+IL_003f: stfld Game.Net.TrackTypes Game.UI.Editor.EditorAssetCategorySystem/TrackTypeFilter::m_TrackType
+IL_0044: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter)
+IL_0049: ldloc.1
+IL_004a: stloc.0
+IL_004b: ldarg.0
+IL_004c: ldloc.0
+IL_004d: ldarg.2
+IL_004e: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0053: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateEffectCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.s V_4
+IL_0007: ldloc.s V_4
+IL_0009: ldstr "Effects"
+IL_000e: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0013: ldloc.s V_4
+IL_0015: ldarg.0
+IL_0016: ldc.i4.1
+IL_0017: newarr Unity.Entities.ComponentType
+IL_001c: dup
+IL_001d: ldc.i4.0
+IL_001e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.EffectData>()
+IL_0023: stelem.any Unity.Entities.ComponentType
+IL_0028: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_002d: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0032: ldloc.s V_4
+IL_0034: stloc.0
+IL_0035: ldarg.0
+IL_0036: ldloc.0
+IL_0037: ldnull
+IL_0038: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_003d: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0042: stloc.s V_4
+IL_0044: ldloc.s V_4
+IL_0046: ldstr "VFX"
+IL_004b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0050: ldloc.s V_4
+IL_0052: ldarg.0
+IL_0053: ldc.i4.2
+IL_0054: newarr Unity.Entities.ComponentType
+IL_0059: dup
+IL_005a: ldc.i4.0
+IL_005b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.EffectData>()
+IL_0060: stelem.any Unity.Entities.ComponentType
+IL_0065: dup
+IL_0066: ldc.i4.1
+IL_0067: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.VFXData>()
+IL_006c: stelem.any Unity.Entities.ComponentType
+IL_0071: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0076: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_007b: ldloc.s V_4
+IL_007d: stloc.1
+IL_007e: ldarg.0
+IL_007f: ldloc.1
+IL_0080: ldloc.0
+IL_0081: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0086: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_008b: stloc.s V_4
+IL_008d: ldloc.s V_4
+IL_008f: ldstr "Audio"
+IL_0094: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0099: ldloc.s V_4
+IL_009b: ldarg.0
+IL_009c: ldc.i4.2
+IL_009d: newarr Unity.Entities.ComponentType
+IL_00a2: dup
+IL_00a3: ldc.i4.0
+IL_00a4: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.EffectData>()
+IL_00a9: stelem.any Unity.Entities.ComponentType
+IL_00ae: dup
+IL_00af: ldc.i4.1
+IL_00b0: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.AudioEffectData>()
+IL_00b5: stelem.any Unity.Entities.ComponentType
+IL_00ba: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_00bf: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00c4: ldloc.s V_4
+IL_00c6: stloc.2
+IL_00c7: ldarg.0
+IL_00c8: ldloc.2
+IL_00c9: ldloc.0
+IL_00ca: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_00cf: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_00d4: stloc.s V_4
+IL_00d6: ldloc.s V_4
+IL_00d8: ldstr "Lights"
+IL_00dd: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_00e2: ldloc.s V_4
+IL_00e4: ldarg.0
+IL_00e5: ldc.i4.2
+IL_00e6: newarr Unity.Entities.ComponentType
+IL_00eb: dup
+IL_00ec: ldc.i4.0
+IL_00ed: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.EffectData>()
+IL_00f2: stelem.any Unity.Entities.ComponentType
+IL_00f7: dup
+IL_00f8: ldc.i4.1
+IL_00f9: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.LightEffectData>()
+IL_00fe: stelem.any Unity.Entities.ComponentType
+IL_0103: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0108: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_010d: ldloc.s V_4
+IL_010f: stloc.3
+IL_0110: ldarg.0
+IL_0111: ldloc.3
+IL_0112: ldloc.0
+IL_0113: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0118: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateLocationCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: dup
+IL_0006: ldstr "Locations"
+IL_000b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0010: stloc.0
+IL_0011: ldarg.0
+IL_0012: ldloc.0
+IL_0013: ldnull
+IL_0014: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0019: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_001e: dup
+IL_001f: ldstr "Spawners"
+IL_0024: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0029: stloc.1
+IL_002a: ldarg.0
+IL_002b: ldloc.1
+IL_002c: ldloc.0
+IL_002d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0032: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0037: stloc.s V_4
+IL_0039: ldloc.s V_4
+IL_003b: ldstr "Animals"
+IL_0040: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0045: ldloc.s V_4
+IL_0047: ldarg.0
+IL_0048: ldc.i4.1
+IL_0049: newarr Unity.Entities.ComponentType
+IL_004e: dup
+IL_004f: ldc.i4.0
+IL_0050: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.CreatureSpawnData>()
+IL_0055: stelem.any Unity.Entities.ComponentType
+IL_005a: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_005f: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0064: ldloc.s V_4
+IL_0066: stloc.2
+IL_0067: ldarg.0
+IL_0068: ldloc.2
+IL_0069: ldloc.1
+IL_006a: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_006f: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0074: stloc.s V_4
+IL_0076: ldloc.s V_4
+IL_0078: ldstr "Vehicles"
+IL_007d: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0082: ldloc.s V_4
+IL_0084: ldarg.0
+IL_0085: ldc.i4.1
+IL_0086: newarr Unity.Entities.ComponentType
+IL_008b: dup
+IL_008c: ldc.i4.0
+IL_008d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.TrafficSpawnerData>()
+IL_0092: stelem.any Unity.Entities.ComponentType
+IL_0097: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_009c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00a1: ldloc.s V_4
+IL_00a3: stloc.3
+IL_00a4: ldarg.0
+IL_00a5: ldloc.3
+IL_00a6: ldloc.1
+IL_00a7: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_00ac: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateRenderPrefabCategory() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Render Prefabs"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.1
+IL_0014: newarr Unity.Entities.EntityQueryDesc
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0020: stloc.2
+IL_0021: ldloc.2
+IL_0022: ldc.i4.2
+IL_0023: newarr Unity.Entities.ComponentType
+IL_0028: dup
+IL_0029: ldc.i4.0
+IL_002a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.MeshData>()
+IL_002f: stelem.any Unity.Entities.ComponentType
+IL_0034: dup
+IL_0035: ldc.i4.1
+IL_0036: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.CharacterGroupData>()
+IL_003b: stelem.any Unity.Entities.ComponentType
+IL_0040: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0045: ldloc.2
+IL_0046: stelem.ref
+IL_0047: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_004c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0051: ldloc.1
+IL_0052: stloc.0
+IL_0053: ldarg.0
+IL_0054: ldloc.0
+IL_0055: ldnull
+IL_0056: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_005b: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateCustomCategory() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: dup
+IL_0006: ldstr "Custom Assets"
+IL_000b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0010: dup
+IL_0011: ldarg.0
+IL_0012: call System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategorySystem::GetCustomAssets()
+IL_0017: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_getter(System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity>)
+IL_001c: dup
+IL_001d: ldstr "Media/Editor/Folder.svg"
+IL_0022: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0027: stloc.0
+IL_0028: ldarg.0
+IL_0029: ldloc.0
+IL_002a: ldnull
+IL_002b: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0030: ret
+METHOD System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategorySystem::GetCustomAssets() PUBLIC False
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetCustomAssets>d__38::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<GetCustomAssets>d__38::<>4__this
+IL_000e: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateSubscribedCategory() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: dup
+IL_0006: ldstr "Subscribed"
+IL_000b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0010: dup
+IL_0011: ldarg.0
+IL_0012: call System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategorySystem::GetSubscribedAssets()
+IL_0017: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_getter(System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity>)
+IL_001c: dup
+IL_001d: ldstr "Media/Glyphs/ParadoxModsCloud.svg"
+IL_0022: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_0027: stloc.0
+IL_0028: ldarg.0
+IL_0029: ldloc.0
+IL_002a: ldnull
+IL_002b: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0030: ret
+METHOD System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategorySystem::GetSubscribedAssets() PUBLIC False
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetSubscribedAssets>d__40::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<GetSubscribedAssets>d__40::<>4__this
+IL_000e: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateBridgeCategory() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Bridges"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.1
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BridgeData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_002a: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_002f: ldloc.1
+IL_0030: ldstr "Media/Game/Icons/CableStayed.svg"
+IL_0035: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String)
+IL_003a: ldloc.1
+IL_003b: stloc.0
+IL_003c: ldarg.0
+IL_003d: ldloc.0
+IL_003e: ldnull
+IL_003f: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0044: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateCharacterCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.s V_6
+IL_0007: ldloc.s V_6
+IL_0009: ldstr "Characters"
+IL_000e: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0013: ldloc.s V_6
+IL_0015: ldarg.0
+IL_0016: ldc.i4.1
+IL_0017: newarr Unity.Entities.ComponentType
+IL_001c: dup
+IL_001d: ldc.i4.0
+IL_001e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.CreatureData>()
+IL_0023: stelem.any Unity.Entities.ComponentType
+IL_0028: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_002d: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0032: ldloc.s V_6
+IL_0034: ldc.i4.0
+IL_0035: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean)
+IL_003a: ldloc.s V_6
+IL_003c: stloc.0
+IL_003d: ldarg.0
+IL_003e: ldloc.0
+IL_003f: ldnull
+IL_0040: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0045: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_004a: stloc.s V_6
+IL_004c: ldloc.s V_6
+IL_004e: ldstr "People"
+IL_0053: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0058: ldloc.s V_6
+IL_005a: ldarg.0
+IL_005b: ldc.i4.1
+IL_005c: newarr Unity.Entities.ComponentType
+IL_0061: dup
+IL_0062: ldc.i4.0
+IL_0063: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.HumanData>()
+IL_0068: stelem.any Unity.Entities.ComponentType
+IL_006d: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0072: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_0077: ldloc.s V_6
+IL_0079: stloc.1
+IL_007a: ldarg.0
+IL_007b: ldloc.1
+IL_007c: ldloc.0
+IL_007d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0082: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0087: stloc.s V_6
+IL_0089: ldloc.s V_6
+IL_008b: ldstr "Animals"
+IL_0090: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0095: ldloc.s V_6
+IL_0097: ldarg.0
+IL_0098: ldc.i4.1
+IL_0099: newarr Unity.Entities.ComponentType
+IL_009e: dup
+IL_009f: ldc.i4.0
+IL_00a0: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.AnimalData>()
+IL_00a5: stelem.any Unity.Entities.ComponentType
+IL_00aa: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_00af: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00b4: ldloc.s V_6
+IL_00b6: stloc.2
+IL_00b7: ldarg.0
+IL_00b8: ldloc.2
+IL_00b9: ldloc.0
+IL_00ba: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_00bf: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_00c4: stloc.s V_6
+IL_00c6: ldloc.s V_6
+IL_00c8: ldstr "Pets"
+IL_00cd: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_00d2: ldloc.s V_6
+IL_00d4: ldarg.0
+IL_00d5: ldc.i4.1
+IL_00d6: newarr Unity.Entities.ComponentType
+IL_00db: dup
+IL_00dc: ldc.i4.0
+IL_00dd: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PetData>()
+IL_00e2: stelem.any Unity.Entities.ComponentType
+IL_00e7: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_00ec: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00f1: ldloc.s V_6
+IL_00f3: stloc.3
+IL_00f4: ldarg.0
+IL_00f5: ldloc.3
+IL_00f6: ldloc.2
+IL_00f7: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_00fc: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0101: stloc.s V_6
+IL_0103: ldloc.s V_6
+IL_0105: ldstr "Livestock"
+IL_010a: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_010f: ldloc.s V_6
+IL_0111: ldarg.0
+IL_0112: ldc.i4.1
+IL_0113: newarr Unity.Entities.ComponentType
+IL_0118: dup
+IL_0119: ldc.i4.0
+IL_011a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.DomesticatedData>()
+IL_011f: stelem.any Unity.Entities.ComponentType
+IL_0124: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0129: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_012e: ldloc.s V_6
+IL_0130: stloc.s V_4
+IL_0132: ldarg.0
+IL_0133: ldloc.s V_4
+IL_0135: ldloc.2
+IL_0136: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_013b: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0140: stloc.s V_6
+IL_0142: ldloc.s V_6
+IL_0144: ldstr "Wildlife"
+IL_0149: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_014e: ldloc.s V_6
+IL_0150: ldarg.0
+IL_0151: ldc.i4.1
+IL_0152: newarr Unity.Entities.ComponentType
+IL_0157: dup
+IL_0158: ldc.i4.0
+IL_0159: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.WildlifeData>()
+IL_015e: stelem.any Unity.Entities.ComponentType
+IL_0163: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0168: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_016d: ldloc.s V_6
+IL_016f: stloc.s V_5
+IL_0171: ldarg.0
+IL_0172: ldloc.s V_5
+IL_0174: ldloc.2
+IL_0175: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_017a: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateAreaCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Areas"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.2
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.AreaData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: dup
+IL_0026: ldc.i4.1
+IL_0027: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Prefabs.SurfaceData>()
+IL_002c: stelem.any Unity.Entities.ComponentType
+IL_0031: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0036: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_003b: ldloc.1
+IL_003c: stloc.0
+IL_003d: ldarg.0
+IL_003e: ldloc.0
+IL_003f: ldnull
+IL_0040: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0045: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateSurfaceCategories() PUBLIC False
+IL_0000: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0005: stloc.1
+IL_0006: ldloc.1
+IL_0007: ldstr "Surfaces"
+IL_000c: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0011: ldloc.1
+IL_0012: ldarg.0
+IL_0013: ldc.i4.1
+IL_0014: newarr Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.0
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.SurfaceData>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_002a: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_002f: ldloc.1
+IL_0030: stloc.0
+IL_0031: ldarg.0
+IL_0032: ldloc.0
+IL_0033: ldnull
+IL_0034: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0039: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::AddOverrides() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategorySystem::m_Overrides
+IL_0006: ldc.i4.2
+IL_0007: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_000c: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0011: stloc.0
+IL_0012: ldc.i4.0
+IL_0013: stloc.1
+IL_0014: br IL_00e9
+IL_0019: ldarg.0
+IL_001a: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorAssetCategorySystem::m_PrefabSystem
+IL_001f: ldloca.s V_0
+IL_0021: ldloc.1
+IL_0022: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0027: ldloca.s V_2
+IL_0029: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,T&)
+IL_002e: brfalse IL_00e5
+IL_0033: ldloc.2
+IL_0034: callvirt T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.EditorAssetCategoryOverride>()
+IL_0039: stloc.3
+IL_003a: ldloc.3
+IL_003b: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_IncludeCategories
+IL_0040: brfalse.s IL_009b
+IL_0042: ldc.i4.0
+IL_0043: stloc.s V_4
+IL_0045: br.s IL_008f
+IL_0047: ldloc.3
+IL_0048: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_IncludeCategories
+IL_004d: ldloc.s V_4
+IL_004f: ldelem.ref
+IL_0050: stloc.s V_5
+IL_0052: ldarg.0
+IL_0053: ldfld System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_PathMap
+IL_0058: ldloc.s V_5
+IL_005a: ldloca.s V_6
+IL_005c: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>::TryGetValue(!0,!1&)
+IL_0061: brfalse.s IL_0074
+IL_0063: ldloc.s V_6
+IL_0065: ldloca.s V_0
+IL_0067: ldloc.1
+IL_0068: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_006d: callvirt System.Void Game.UI.Editor.EditorAssetCategory::AddEntity(Unity.Entities.Entity)
+IL_0072: br.s IL_0089
+IL_0074: ldarg.0
+IL_0075: ldloc.s V_5
+IL_0077: call Game.UI.Editor.EditorAssetCategory Game.UI.Editor.EditorAssetCategorySystem::CreateCategory(System.String)
+IL_007c: ldloca.s V_0
+IL_007e: ldloc.1
+IL_007f: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0084: callvirt System.Void Game.UI.Editor.EditorAssetCategory::AddEntity(Unity.Entities.Entity)
+IL_0089: ldloc.s V_4
+IL_008b: ldc.i4.1
+IL_008c: add
+IL_008d: stloc.s V_4
+IL_008f: ldloc.s V_4
+IL_0091: ldloc.3
+IL_0092: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_IncludeCategories
+IL_0097: ldlen
+IL_0098: conv.i4
+IL_0099: blt.s IL_0047
+IL_009b: ldloc.3
+IL_009c: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_ExcludeCategories
+IL_00a1: brfalse.s IL_00e5
+IL_00a3: ldc.i4.0
+IL_00a4: stloc.s V_7
+IL_00a6: br.s IL_00d9
+IL_00a8: ldloc.3
+IL_00a9: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_ExcludeCategories
+IL_00ae: ldloc.s V_7
+IL_00b0: ldelem.ref
+IL_00b1: stloc.s V_8
+IL_00b3: ldarg.0
+IL_00b4: ldfld System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_PathMap
+IL_00b9: ldloc.s V_8
+IL_00bb: ldloca.s V_9
+IL_00bd: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>::TryGetValue(!0,!1&)
+IL_00c2: brfalse.s IL_00d3
+IL_00c4: ldloc.s V_9
+IL_00c6: ldloca.s V_0
+IL_00c8: ldloc.1
+IL_00c9: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_00ce: callvirt System.Void Game.UI.Editor.EditorAssetCategory::AddExclusion(Unity.Entities.Entity)
+IL_00d3: ldloc.s V_7
+IL_00d5: ldc.i4.1
+IL_00d6: add
+IL_00d7: stloc.s V_7
+IL_00d9: ldloc.s V_7
+IL_00db: ldloc.3
+IL_00dc: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_ExcludeCategories
+IL_00e1: ldlen
+IL_00e2: conv.i4
+IL_00e3: blt.s IL_00a8
+IL_00e5: ldloc.1
+IL_00e6: ldc.i4.1
+IL_00e7: add
+IL_00e8: stloc.1
+IL_00e9: ldloc.1
+IL_00ea: ldloca.s V_0
+IL_00ec: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_00f1: blt IL_0019
+IL_00f6: ret
+METHOD Game.UI.Editor.EditorAssetCategory Game.UI.Editor.EditorAssetCategorySystem::CreateCategory(System.String) PUBLIC False
+IL_0000: ldarg.1
+IL_0001: ldstr "/"
+IL_0006: ldc.i4.0
+IL_0007: callvirt System.String[] System.String::Split(System.String,System.StringSplitOptions)
+IL_000c: stloc.0
+IL_000d: ldnull
+IL_000e: stloc.1
+IL_000f: ldnull
+IL_0010: stloc.2
+IL_0011: ldc.i4.0
+IL_0012: stloc.3
+IL_0013: br.s IL_006d
+IL_0015: ldloc.2
+IL_0016: brtrue.s IL_001d
+IL_0018: ldloc.0
+IL_0019: ldloc.3
+IL_001a: ldelem.ref
+IL_001b: br.s IL_0037
+IL_001d: ldstr "/"
+IL_0022: ldc.i4.2
+IL_0023: newarr System.String
+IL_0028: dup
+IL_0029: ldc.i4.0
+IL_002a: ldloc.2
+IL_002b: stelem.ref
+IL_002c: dup
+IL_002d: ldc.i4.1
+IL_002e: ldloc.0
+IL_002f: ldloc.3
+IL_0030: ldelem.ref
+IL_0031: stelem.ref
+IL_0032: call System.String System.String::Join(System.String,System.String[])
+IL_0037: stloc.2
+IL_0038: ldarg.0
+IL_0039: ldfld System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_PathMap
+IL_003e: ldloc.2
+IL_003f: ldloca.s V_4
+IL_0041: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>::TryGetValue(!0,!1&)
+IL_0046: brfalse.s IL_004d
+IL_0048: ldloc.s V_4
+IL_004a: stloc.1
+IL_004b: br.s IL_0069
+IL_004d: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0052: dup
+IL_0053: ldloc.0
+IL_0054: ldloc.3
+IL_0055: ldelem.ref
+IL_0056: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_005b: stloc.s V_5
+IL_005d: ldarg.0
+IL_005e: ldloc.s V_5
+IL_0060: ldloc.1
+IL_0061: call System.Void Game.UI.Editor.EditorAssetCategorySystem::AddCategory(Game.UI.Editor.EditorAssetCategory,Game.UI.Editor.EditorAssetCategory)
+IL_0066: ldloc.s V_5
+IL_0068: stloc.1
+IL_0069: ldloc.3
+IL_006a: ldc.i4.1
+IL_006b: add
+IL_006c: stloc.3
+IL_006d: ldloc.3
+IL_006e: ldloc.0
+IL_006f: ldlen
+IL_0070: conv.i4
+IL_0071: blt.s IL_0015
+IL_0073: ldloc.1
+IL_0074: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::__AssignQueries(Unity.Entities.SystemState&) PUBLIC False
+IL_0000: ldloca.s V_0
+IL_0002: ldc.i4.2
+IL_0003: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0008: call System.Void Unity.Entities.EntityQueryBuilder::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_000d: ldloca.s V_0
+IL_000f: call System.Void Unity.Entities.EntityQueryBuilder::Dispose()
+IL_0014: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::OnCreateForCompiler() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Unity.Entities.ComponentSystemBase::OnCreateForCompiler()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_000d: call System.Void Game.UI.Editor.EditorAssetCategorySystem::__AssignQueries(Unity.Entities.SystemState&)
+IL_0012: ldarg.0
+IL_0013: ldflda Game.UI.Editor.EditorAssetCategorySystem/TypeHandle Game.UI.Editor.EditorAssetCategorySystem::__TypeHandle
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_001e: call System.Void Game.UI.Editor.EditorAssetCategorySystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+IL_0023: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem::.ctor() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: newobj System.Void System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory>::.ctor()
+IL_0006: stfld System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_Categories
+IL_000b: ldarg.0
+IL_000c: newobj System.Void System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>::.ctor()
+IL_0011: stfld System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_PathMap
+IL_0016: ldarg.0
+IL_0017: ldc.i4.1
+IL_0018: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem::m_Dirty
+IL_001d: ldarg.0
+IL_001e: call System.Void Game.GameSystemBase::.ctor()
+IL_0023: ret
+TYPE Game.UI.Editor.EditorAssetCategory
+FIELD System.String Game.UI.Editor.EditorAssetCategory::kNameFormat
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategory::m_SubCategories
+FIELD System.String Game.UI.Editor.EditorAssetCategory::<id>k__BackingField
+FIELD System.String Game.UI.Editor.EditorAssetCategory::<path>k__BackingField
+FIELD Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategory::<entityQuery>k__BackingField
+FIELD System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<getter>k__BackingField
+FIELD Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter Game.UI.Editor.EditorAssetCategory::<filter>k__BackingField
+FIELD System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<exclude>k__BackingField
+FIELD System.Collections.Generic.List`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<include>k__BackingField
+FIELD System.String Game.UI.Editor.EditorAssetCategory::<icon>k__BackingField
+FIELD System.Boolean Game.UI.Editor.EditorAssetCategory::<includeChildCategories>k__BackingField
+FIELD System.Boolean Game.UI.Editor.EditorAssetCategory::<defaultSelection>k__BackingField
+METHOD System.Collections.Generic.IReadOnlyList`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategory::get_subCategories() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategory::m_SubCategories
+IL_0006: ret
+METHOD System.String Game.UI.Editor.EditorAssetCategory::get_id() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.String Game.UI.Editor.EditorAssetCategory::<id>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.String Game.UI.Editor.EditorAssetCategory::<id>k__BackingField
+IL_0007: ret
+METHOD System.String Game.UI.Editor.EditorAssetCategory::get_path() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.String Game.UI.Editor.EditorAssetCategory::<path>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_path(System.String) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.String Game.UI.Editor.EditorAssetCategory::<path>k__BackingField
+IL_0007: ret
+METHOD Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategory::get_entityQuery() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategory::<entityQuery>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategory::<entityQuery>k__BackingField
+IL_0007: ret
+METHOD System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_getter() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<getter>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_getter(System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity>) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<getter>k__BackingField
+IL_0007: ret
+METHOD Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter Game.UI.Editor.EditorAssetCategory::get_filter() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter Game.UI.Editor.EditorAssetCategory::<filter>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_filter(Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter Game.UI.Editor.EditorAssetCategory::<filter>k__BackingField
+IL_0007: ret
+METHOD System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_exclude() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<exclude>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_exclude(System.Collections.Generic.HashSet`1<Unity.Entities.Entity>) PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<exclude>k__BackingField
+IL_0007: ret
+METHOD System.Collections.Generic.List`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_include() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<include>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_include(System.Collections.Generic.List`1<Unity.Entities.Entity>) PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Collections.Generic.List`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::<include>k__BackingField
+IL_0007: ret
+METHOD System.String Game.UI.Editor.EditorAssetCategory::get_icon() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.String Game.UI.Editor.EditorAssetCategory::<icon>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_icon(System.String) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.String Game.UI.Editor.EditorAssetCategory::<icon>k__BackingField
+IL_0007: ret
+METHOD System.Boolean Game.UI.Editor.EditorAssetCategory::get_includeChildCategories() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.UI.Editor.EditorAssetCategory::<includeChildCategories>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.UI.Editor.EditorAssetCategory::<includeChildCategories>k__BackingField
+IL_0007: ret
+METHOD System.Boolean Game.UI.Editor.EditorAssetCategory::get_defaultSelection() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.UI.Editor.EditorAssetCategory::<defaultSelection>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::set_defaultSelection(System.Boolean) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.UI.Editor.EditorAssetCategory::<defaultSelection>k__BackingField
+IL_0007: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::AddSubCategory(Game.UI.Editor.EditorAssetCategory) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategory::m_SubCategories
+IL_0006: ldarg.1
+IL_0007: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory>::Add(!0)
+IL_000c: ret
+METHOD System.Collections.Generic.HashSet`1<Game.Prefabs.PrefabBase> Game.UI.Editor.EditorAssetCategory::GetPrefabs(Unity.Entities.EntityManager,Game.Prefabs.PrefabSystem,Unity.Entities.EntityTypeHandle) PUBLIC True
+IL_0000: newobj System.Void System.Collections.Generic.HashSet`1<Game.Prefabs.PrefabBase>::.ctor()
+IL_0005: stloc.0
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: ldarg.2
+IL_0009: ldarg.3
+IL_000a: call System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::GetEntities(Unity.Entities.EntityManager,Game.Prefabs.PrefabSystem,Unity.Entities.EntityTypeHandle)
+IL_000f: callvirt System.Collections.Generic.IEnumerator`1<!0> System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity>::GetEnumerator()
+IL_0014: stloc.1
+IL_0015: br.s IL_0031
+IL_0017: ldloc.1
+IL_0018: callvirt !0 System.Collections.Generic.IEnumerator`1<Unity.Entities.Entity>::get_Current()
+IL_001d: stloc.2
+IL_001e: ldarg.2
+IL_001f: ldloc.2
+IL_0020: ldloca.s V_3
+IL_0022: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,T&)
+IL_0027: brfalse.s IL_0031
+IL_0029: ldloc.0
+IL_002a: ldloc.3
+IL_002b: callvirt System.Boolean System.Collections.Generic.HashSet`1<Game.Prefabs.PrefabBase>::Add(!0)
+IL_0030: pop
+IL_0031: ldloc.1
+IL_0032: callvirt System.Boolean System.Collections.IEnumerator::MoveNext()
+IL_0037: brtrue.s IL_0017
+IL_0039: leave.s IL_0045
+IL_003b: ldloc.1
+IL_003c: brfalse.s IL_0044
+IL_003e: ldloc.1
+IL_003f: callvirt System.Void System.IDisposable::Dispose()
+IL_0044: endfinally
+IL_0045: ldloc.0
+IL_0046: ret
+METHOD System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::GetEntities(Unity.Entities.EntityManager,Game.Prefabs.PrefabSystem,Unity.Entities.EntityTypeHandle) PUBLIC True
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.EditorAssetCategory/<GetEntities>d__46::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.UI.Editor.EditorAssetCategory Game.UI.Editor.EditorAssetCategory/<GetEntities>d__46::<>4__this
+IL_000e: dup
+IL_000f: ldarg.1
+IL_0010: stfld Unity.Entities.EntityManager Game.UI.Editor.EditorAssetCategory/<GetEntities>d__46::<>3__entityManager
+IL_0015: dup
+IL_0016: ldarg.2
+IL_0017: stfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorAssetCategory/<GetEntities>d__46::<>3__prefabSystem
+IL_001c: dup
+IL_001d: ldarg.3
+IL_001e: stfld Unity.Entities.EntityTypeHandle Game.UI.Editor.EditorAssetCategory/<GetEntities>d__46::<>3__entityType
+IL_0023: ret
+METHOD System.Boolean Game.UI.Editor.EditorAssetCategory::IsEmpty(Unity.Entities.EntityManager,Game.Prefabs.PrefabSystem,Unity.Entities.EntityTypeHandle) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategory::get_entityQuery()
+IL_0006: ldloca.s V_0
+IL_0008: initobj Unity.Entities.EntityQuery
+IL_000e: ldloc.0
+IL_000f: call System.Boolean Unity.Entities.EntityQuery::op_Inequality(Unity.Entities.EntityQuery,Unity.Entities.EntityQuery)
+IL_0014: brfalse.s IL_0038
+IL_0016: ldarg.0
+IL_0017: call Unity.Entities.EntityQuery Game.UI.Editor.EditorAssetCategory::get_entityQuery()
+IL_001c: stloc.0
+IL_001d: ldloca.s V_0
+IL_001f: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_0024: brtrue.s IL_0038
+IL_0026: ldarg.0
+IL_0027: call Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter Game.UI.Editor.EditorAssetCategory::get_filter()
+IL_002c: brtrue.s IL_0038
+IL_002e: ldarg.0
+IL_002f: call System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_exclude()
+IL_0034: brtrue.s IL_0038
+IL_0036: ldc.i4.0
+IL_0037: ret
+IL_0038: ldarg.0
+IL_0039: ldarg.1
+IL_003a: ldarg.2
+IL_003b: ldarg.3
+IL_003c: call System.Collections.Generic.IEnumerable`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::GetEntities(Unity.Entities.EntityManager,Game.Prefabs.PrefabSystem,Unity.Entities.EntityTypeHandle)
+IL_0041: call System.Boolean System.Linq.Enumerable::Any<Unity.Entities.Entity>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0046: ldc.i4.0
+IL_0047: ceq
+IL_0049: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::AddExclusion(Unity.Entities.Entity) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_exclude()
+IL_0006: brtrue.s IL_0014
+IL_0008: ldarg.0
+IL_0009: ldc.i4.1
+IL_000a: newobj System.Void System.Collections.Generic.HashSet`1<Unity.Entities.Entity>::.ctor(System.Int32)
+IL_000f: call System.Void Game.UI.Editor.EditorAssetCategory::set_exclude(System.Collections.Generic.HashSet`1<Unity.Entities.Entity>)
+IL_0014: ldarg.0
+IL_0015: call System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_exclude()
+IL_001a: ldarg.1
+IL_001b: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.Entity>::Add(!0)
+IL_0020: pop
+IL_0021: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::AddEntity(Unity.Entities.Entity) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Collections.Generic.List`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_include()
+IL_0006: brtrue.s IL_0014
+IL_0008: ldarg.0
+IL_0009: ldc.i4.1
+IL_000a: newobj System.Void System.Collections.Generic.List`1<Unity.Entities.Entity>::.ctor(System.Int32)
+IL_000f: call System.Void Game.UI.Editor.EditorAssetCategory::set_include(System.Collections.Generic.List`1<Unity.Entities.Entity>)
+IL_0014: ldarg.0
+IL_0015: call System.Collections.Generic.List`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_include()
+IL_001a: ldarg.1
+IL_001b: callvirt System.Void System.Collections.Generic.List`1<Unity.Entities.Entity>::Add(!0)
+IL_0020: ret
+METHOD System.String Game.UI.Editor.EditorAssetCategory::GetLocalizationID() PUBLIC True
+IL_0000: ldsfld System.String Game.UI.Editor.EditorAssetCategory::kNameFormat
+IL_0005: ldarg.0
+IL_0006: call System.String Game.UI.Editor.EditorAssetCategory::get_path()
+IL_000b: call System.String System.String::Format(System.String,System.Object)
+IL_0010: ret
+METHOD System.Boolean Game.UI.Editor.EditorAssetCategory::CheckFilters(Unity.Entities.Entity,Unity.Entities.EntityManager,Game.Prefabs.PrefabSystem) PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter Game.UI.Editor.EditorAssetCategory::get_filter()
+IL_0006: brfalse.s IL_0018
+IL_0008: ldarg.0
+IL_0009: call Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter Game.UI.Editor.EditorAssetCategory::get_filter()
+IL_000e: ldarg.1
+IL_000f: ldarg.2
+IL_0010: ldarg.3
+IL_0011: callvirt System.Boolean Game.UI.Editor.EditorAssetCategorySystem/IEditorAssetCategoryFilter::Contains(Unity.Entities.Entity,Unity.Entities.EntityManager,Game.Prefabs.PrefabSystem)
+IL_0016: brfalse.s IL_0032
+IL_0018: ldarg.0
+IL_0019: call System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_exclude()
+IL_001e: brfalse.s IL_0030
+IL_0020: ldarg.0
+IL_0021: call System.Collections.Generic.HashSet`1<Unity.Entities.Entity> Game.UI.Editor.EditorAssetCategory::get_exclude()
+IL_0026: ldarg.1
+IL_0027: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_002c: ldc.i4.0
+IL_002d: ceq
+IL_002f: ret
+IL_0030: ldc.i4.1
+IL_0031: ret
+IL_0032: ldc.i4.0
+IL_0033: ret
+METHOD Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategory::ToHierarchyItem(System.Int32) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.String Game.UI.Editor.EditorAssetCategory::GetLocalizationID()
+IL_0006: stloc.0
+IL_0007: ldloca.s V_1
+IL_0009: initobj Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>
+IL_000f: ldloca.s V_1
+IL_0011: ldarg.0
+IL_0012: stfld T Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>::m_Data
+IL_0017: ldloca.s V_1
+IL_0019: ldloc.0
+IL_001a: ldarg.0
+IL_001b: call System.String Game.UI.Editor.EditorAssetCategory::get_id()
+IL_0020: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::IdWithFallback(System.String,System.String)
+IL_0025: stfld Game.UI.Localization.LocalizedString Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>::m_DisplayName
+IL_002a: ldloca.s V_1
+IL_002c: ldarg.1
+IL_002d: stfld System.Int32 Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>::m_Level
+IL_0032: ldloca.s V_1
+IL_0034: ldarg.0
+IL_0035: call System.String Game.UI.Editor.EditorAssetCategory::get_icon()
+IL_003a: stfld System.String Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>::m_Icon
+IL_003f: ldloca.s V_1
+IL_0041: ldc.i4.1
+IL_0042: stfld System.Boolean Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>::m_Selectable
+IL_0047: ldloca.s V_1
+IL_0049: ldarg.0
+IL_004a: call System.Boolean Game.UI.Editor.EditorAssetCategory::get_defaultSelection()
+IL_004f: stfld System.Boolean Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>::m_Selected
+IL_0054: ldloca.s V_1
+IL_0056: ldarg.0
+IL_0057: ldfld System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategory::m_SubCategories
+IL_005c: callvirt System.Int32 System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory>::get_Count()
+IL_0061: ldc.i4.0
+IL_0062: cgt
+IL_0064: stfld System.Boolean Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>::m_Expandable
+IL_0069: ldloca.s V_1
+IL_006b: ldc.i4.0
+IL_006c: stfld System.Boolean Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>::m_Expanded
+IL_0071: ldloc.1
+IL_0072: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::.ctor() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: newobj System.Void System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory>::.ctor()
+IL_0006: stfld System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategory::m_SubCategories
+IL_000b: ldarg.0
+IL_000c: ldc.i4.1
+IL_000d: stfld System.Boolean Game.UI.Editor.EditorAssetCategory::<includeChildCategories>k__BackingField
+IL_0012: ldarg.0
+IL_0013: call System.Void System.Object::.ctor()
+IL_0018: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategory::.cctor() PUBLIC False
+IL_0000: ldstr "Editor.ASSET_CATEGORY_TITLE[{0}]"
+IL_0005: stsfld System.String Game.UI.Editor.EditorAssetCategory::kNameFormat
+IL_000a: ret
+TYPE Game.UI.Editor.EditorPanelUISystem
+FIELD System.String Game.UI.Editor.EditorPanelUISystem::kGroup
+FIELD Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::m_ActivePanel
+FIELD Colossal.UI.Binding.ValueBinding`1<System.Boolean> Game.UI.Editor.EditorPanelUISystem::m_ActiveBinding
+FIELD Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>> Game.UI.Editor.EditorPanelUISystem::m_TitleBinding
+FIELD Colossal.UI.Binding.ValueBinding`1<System.String> Game.UI.Editor.EditorPanelUISystem::m_UiTagBinding
+FIELD Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+METHOD Game.GameMode Game.UI.Editor.EditorPanelUISystem::get_gameMode() PUBLIC True
+IL_0000: ldc.i4.6
+IL_0001: ret
+METHOD Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::m_ActivePanel
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel) PUBLIC True
+IL_0000: ldarg.1
+IL_0001: ldarg.0
+IL_0002: ldfld Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::m_ActivePanel
+IL_0007: beq.s IL_0031
+IL_0009: ldarg.0
+IL_000a: ldfld Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::m_ActivePanel
+IL_000f: dup
+IL_0010: brtrue.s IL_0015
+IL_0012: pop
+IL_0013: br.s IL_001a
+IL_0015: callvirt System.Void Game.UI.Editor.IEditorPanel::StopRunning()
+IL_001a: ldarg.0
+IL_001b: ldarg.1
+IL_001c: stfld Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::m_ActivePanel
+IL_0021: ldarg.0
+IL_0022: ldfld Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::m_ActivePanel
+IL_0027: dup
+IL_0028: brtrue.s IL_002c
+IL_002a: pop
+IL_002b: ret
+IL_002c: callvirt System.Void Game.UI.Editor.IEditorPanel::StartRunning()
+IL_0031: ret
+METHOD Game.UI.Editor.EditorPanelWidgetRenderer Game.UI.Editor.EditorPanelUISystem::get_widgetRenderer() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_0006: brfalse.s IL_0014
+IL_0008: ldarg.0
+IL_0009: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_000e: callvirt Game.UI.Editor.EditorPanelWidgetRenderer Game.UI.Editor.IEditorPanel::get_widgetRenderer()
+IL_0013: ret
+IL_0014: ldc.i4.0
+IL_0015: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::OnCreate() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.UISystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: ldstr "editorPanel"
+IL_000d: ldstr "active"
+IL_0012: ldc.i4.0
+IL_0013: ldnull
+IL_0014: ldnull
+IL_0015: newobj System.Void Colossal.UI.Binding.ValueBinding`1<System.Boolean>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_001a: dup
+IL_001b: stloc.0
+IL_001c: stfld Colossal.UI.Binding.ValueBinding`1<System.Boolean> Game.UI.Editor.EditorPanelUISystem::m_ActiveBinding
+IL_0021: ldloc.0
+IL_0022: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0027: ldarg.0
+IL_0028: ldarg.0
+IL_0029: ldstr "editorPanel"
+IL_002e: ldstr "title"
+IL_0033: ldloca.s V_1
+IL_0035: initobj System.Nullable`1<Game.UI.Localization.LocalizedString>
+IL_003b: ldloc.1
+IL_003c: newobj System.Void Colossal.UI.Binding.ValueWriter`1<Game.UI.Localization.LocalizedString>::.ctor()
+IL_0041: call Colossal.UI.Binding.NullableStructWriter`1<!!0> Colossal.UI.Binding.ValueWritersStruct::Nullable<Game.UI.Localization.LocalizedString>(Colossal.UI.Binding.IWriter`1<!!0>)
+IL_0046: ldnull
+IL_0047: newobj System.Void Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_004c: dup
+IL_004d: stloc.2
+IL_004e: stfld Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>> Game.UI.Editor.EditorPanelUISystem::m_TitleBinding
+IL_0053: ldloc.2
+IL_0054: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0059: ldarg.0
+IL_005a: ldarg.0
+IL_005b: ldstr "editorPanel"
+IL_0060: ldstr "uiTag"
+IL_0065: ldsfld System.String System.String::Empty
+IL_006a: newobj System.Void Colossal.UI.Binding.StringWriter::.ctor()
+IL_006f: call Colossal.UI.Binding.NullableWriter`1<!!0> Colossal.UI.Binding.ValueWriters::Nullable<System.String>(Colossal.UI.Binding.IWriter`1<!!0>)
+IL_0074: ldnull
+IL_0075: newobj System.Void Colossal.UI.Binding.ValueBinding`1<System.String>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_007a: dup
+IL_007b: stloc.3
+IL_007c: stfld Colossal.UI.Binding.ValueBinding`1<System.String> Game.UI.Editor.EditorPanelUISystem::m_UiTagBinding
+IL_0081: ldloc.3
+IL_0082: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0087: ldarg.0
+IL_0088: ldstr "editorPanel"
+IL_008d: ldstr "width"
+IL_0092: ldarg.0
+IL_0093: ldftn System.Int32 Game.UI.Editor.EditorPanelUISystem::GetWidth()
+IL_0099: newobj System.Void System.Func`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_009e: ldnull
+IL_009f: ldnull
+IL_00a0: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.Int32>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00a5: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00aa: ldarg.0
+IL_00ab: ldstr "editorPanel"
+IL_00b0: ldstr "advisorHeight"
+IL_00b5: ldarg.0
+IL_00b6: ldftn System.Int32 Game.UI.Editor.EditorPanelUISystem::GetAdvisorHeight()
+IL_00bc: newobj System.Void System.Func`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_00c1: ldnull
+IL_00c2: ldnull
+IL_00c3: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.Int32>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00c8: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00cd: ldarg.0
+IL_00ce: ldstr "editorPanel"
+IL_00d3: ldstr "widgetRenderer"
+IL_00d8: ldarg.0
+IL_00d9: ldftn System.Int32 Game.UI.Editor.EditorPanelUISystem::<OnCreate>b__13_0()
+IL_00df: newobj System.Void System.Func`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_00e4: ldnull
+IL_00e5: ldnull
+IL_00e6: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.Int32>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00eb: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00f0: ldarg.0
+IL_00f1: ldstr "editorPanel"
+IL_00f6: ldstr "bulkSectionCommand"
+IL_00fb: ldarg.0
+IL_00fc: ldftn System.Int32 Game.UI.Editor.EditorPanelUISystem::GetBulkSectionCommand()
+IL_0102: newobj System.Void System.Func`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_0107: ldnull
+IL_0108: ldnull
+IL_0109: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.Int32>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_010e: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_0113: ldarg.0
+IL_0114: ldarg.0
+IL_0115: ldstr "editorPanel"
+IL_011a: ldstr "children"
+IL_011f: newobj System.Void Game.UI.Widgets.WidgetBindings::.ctor(System.String,System.String)
+IL_0124: dup
+IL_0125: stloc.s V_4
+IL_0127: stfld Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+IL_012c: ldloc.s V_4
+IL_012e: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_0133: ldarg.0
+IL_0134: ldfld Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+IL_0139: call System.Void Game.UI.Editor.EditorPanelUISystem::AddEditorWidgetBindings(Game.UI.Widgets.WidgetBindings)
+IL_013e: ldarg.0
+IL_013f: ldfld Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+IL_0144: ldarg.0
+IL_0145: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_014b: newobj System.Void Game.UI.Widgets.ValueChangedCallback::.ctor(System.Object,System.IntPtr)
+IL_0150: callvirt System.Void Game.UI.Widgets.WidgetBindings::add_EventValueChanged(Game.UI.Widgets.ValueChangedCallback)
+IL_0155: ldarg.0
+IL_0156: ldstr "editorPanel"
+IL_015b: ldstr "cancel"
+IL_0160: ldarg.0
+IL_0161: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::Cancel()
+IL_0167: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_016c: newobj System.Void Colossal.UI.Binding.TriggerBinding::.ctor(System.String,System.String,System.Action)
+IL_0171: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0176: ldarg.0
+IL_0177: ldstr "editorPanel"
+IL_017c: ldstr "close"
+IL_0181: ldarg.0
+IL_0182: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::Close()
+IL_0188: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_018d: newobj System.Void Colossal.UI.Binding.TriggerBinding::.ctor(System.String,System.String,System.Action)
+IL_0192: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0197: ldarg.0
+IL_0198: ldstr "editorPanel"
+IL_019d: ldstr "setWidth"
+IL_01a2: ldarg.0
+IL_01a3: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::SetWidth(System.Int32)
+IL_01a9: newobj System.Void System.Action`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_01ae: ldnull
+IL_01af: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<System.Int32>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)
+IL_01b4: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_01b9: ldarg.0
+IL_01ba: ldstr "editorPanel"
+IL_01bf: ldstr "setAdvisorHeight"
+IL_01c4: ldarg.0
+IL_01c5: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::SetAdvisorHeight(System.Int32)
+IL_01cb: newobj System.Void System.Action`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_01d0: ldnull
+IL_01d1: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<System.Int32>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)
+IL_01d6: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_01db: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::AddEditorWidgetBindings(Game.UI.Widgets.WidgetBindings) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddDefaultBindings()
+IL_0006: ldarg.0
+IL_0007: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.EditorSection/Bindings>()
+IL_000c: ldarg.0
+IL_000d: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.LocalizationSection/Bindings>()
+IL_0012: ldarg.0
+IL_0013: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.ClimateCurveBindings>()
+IL_0018: ldarg.0
+IL_0019: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.IItemPicker/Bindings>()
+IL_001e: ldarg.0
+IL_001f: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.PopupSearchField/Bindings>()
+IL_0024: ldarg.0
+IL_0025: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Widgets.AnimationCurveField/Bindings>()
+IL_002a: ldarg.0
+IL_002b: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.LocalizationField/Bindings>()
+IL_0030: ldarg.0
+IL_0031: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.FilterMenu/Bindings>()
+IL_0036: ldarg.0
+IL_0037: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.HierarchyMenu/Bindings>()
+IL_003c: ldarg.0
+IL_003d: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.ExternalLinkField/Bindings>()
+IL_0042: ldarg.0
+IL_0043: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.ListField/Bindings>()
+IL_0048: ldarg.0
+IL_0049: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.RemovableContainer/Bindings>()
+IL_004e: ldarg.0
+IL_004f: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.DualPopupValueField/Bindings>()
+IL_0054: ldarg.0
+IL_0055: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.SaveableStringInputField/Bindings>()
+IL_005a: ldarg.0
+IL_005b: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.ImportFileGroup/Bindings>()
+IL_0060: ldarg.0
+IL_0061: callvirt System.Void Game.UI.Widgets.WidgetBindings::AddBindings<Game.UI.Editor.ImportParametersHeader/Bindings>()
+IL_0066: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::OnGameLoaded(Colossal.Serialization.Entities.Context) PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.GameSystemBase::OnGameLoaded(Colossal.Serialization.Entities.Context)
+IL_0007: ldarg.0
+IL_0008: ldnull
+IL_0009: call System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_000e: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::OnUpdate() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_0006: brfalse.s IL_0068
+IL_0008: ldarg.0
+IL_0009: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_000e: callvirt System.Void Game.UI.Editor.IEditorPanel::Update()
+IL_0013: ldarg.0
+IL_0014: ldfld Colossal.UI.Binding.ValueBinding`1<System.Boolean> Game.UI.Editor.EditorPanelUISystem::m_ActiveBinding
+IL_0019: ldc.i4.1
+IL_001a: callvirt System.Void Colossal.UI.Binding.ValueBinding`1<System.Boolean>::Update(!0)
+IL_001f: ldarg.0
+IL_0020: ldfld Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>> Game.UI.Editor.EditorPanelUISystem::m_TitleBinding
+IL_0025: ldarg.0
+IL_0026: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_002b: callvirt Game.UI.Localization.LocalizedString Game.UI.Editor.IEditorPanel::get_title()
+IL_0030: newobj System.Void System.Nullable`1<Game.UI.Localization.LocalizedString>::.ctor(!0)
+IL_0035: callvirt System.Void Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>>::Update(!0)
+IL_003a: ldarg.0
+IL_003b: ldfld Colossal.UI.Binding.ValueBinding`1<System.String> Game.UI.Editor.EditorPanelUISystem::m_UiTagBinding
+IL_0040: ldarg.0
+IL_0041: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_0046: callvirt System.String Game.UI.Editor.IEditorPanel::get_uiTag()
+IL_004b: callvirt System.Void Colossal.UI.Binding.ValueBinding`1<System.String>::Update(!0)
+IL_0050: ldarg.0
+IL_0051: ldfld Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+IL_0056: ldarg.0
+IL_0057: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_005c: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.IEditorPanel::get_children()
+IL_0061: callvirt System.Void Game.UI.Widgets.WidgetBindings::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0066: br.s IL_00a8
+IL_0068: ldarg.0
+IL_0069: ldfld Colossal.UI.Binding.ValueBinding`1<System.Boolean> Game.UI.Editor.EditorPanelUISystem::m_ActiveBinding
+IL_006e: ldc.i4.0
+IL_006f: callvirt System.Void Colossal.UI.Binding.ValueBinding`1<System.Boolean>::Update(!0)
+IL_0074: ldarg.0
+IL_0075: ldfld Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>> Game.UI.Editor.EditorPanelUISystem::m_TitleBinding
+IL_007a: ldloca.s V_0
+IL_007c: initobj System.Nullable`1<Game.UI.Localization.LocalizedString>
+IL_0082: ldloc.0
+IL_0083: callvirt System.Void Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>>::Update(!0)
+IL_0088: ldarg.0
+IL_0089: ldfld Colossal.UI.Binding.ValueBinding`1<System.String> Game.UI.Editor.EditorPanelUISystem::m_UiTagBinding
+IL_008e: ldsfld System.String System.String::Empty
+IL_0093: callvirt System.Void Colossal.UI.Binding.ValueBinding`1<System.String>::Update(!0)
+IL_0098: ldarg.0
+IL_0099: ldfld Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+IL_009e: call !!0[] System.Array::Empty<Game.UI.Widgets.IWidget>()
+IL_00a3: callvirt System.Void Game.UI.Widgets.WidgetBindings::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_00a8: ldarg.0
+IL_00a9: call System.Void Game.UI.UISystemBase::OnUpdate()
+IL_00ae: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::OnStopRunning() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Colossal.Entities.COSystemBase::OnStopRunning()
+IL_0006: ldarg.0
+IL_0007: ldnull
+IL_0008: call System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_000d: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::OnValueChanged(Game.UI.Widgets.IWidget) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_0006: dup
+IL_0007: brtrue.s IL_000b
+IL_0009: pop
+IL_000a: ret
+IL_000b: ldarg.1
+IL_000c: callvirt System.Void Game.UI.Editor.IEditorPanel::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_0011: ret
+METHOD System.Int32 Game.UI.Editor.EditorPanelUISystem::GetWidth() PUBLIC False
+IL_0000: call Game.Settings.SharedSettings Game.Settings.SharedSettings::get_instance()
+IL_0005: dup
+IL_0006: brtrue.s IL_000c
+IL_0008: pop
+IL_0009: ldnull
+IL_000a: br.s IL_0011
+IL_000c: call Game.Settings.EditorSettings Game.Settings.SharedSettings::get_editor()
+IL_0011: dup
+IL_0012: brtrue.s IL_001b
+IL_0014: pop
+IL_0015: ldc.i4 450
+IL_001a: ret
+IL_001b: call System.Int32 Game.Settings.EditorSettings::get_inspectorWidth()
+IL_0020: ret
+METHOD System.Int32 Game.UI.Editor.EditorPanelUISystem::GetBulkSectionCommand() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_0006: isinst Game.UI.Editor.EditorPanelSystemBase
+IL_000b: dup
+IL_000c: brtrue.s IL_0011
+IL_000e: pop
+IL_000f: ldc.i4.0
+IL_0010: ret
+IL_0011: call System.Int32 Game.UI.Editor.EditorPanelSystemBase::get_bulkSectionCommand()
+IL_0016: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::SetWidth(System.Int32) PUBLIC False
+IL_0000: call Game.Settings.SharedSettings Game.Settings.SharedSettings::get_instance()
+IL_0005: dup
+IL_0006: brtrue.s IL_000c
+IL_0008: pop
+IL_0009: ldnull
+IL_000a: br.s IL_0011
+IL_000c: call Game.Settings.EditorSettings Game.Settings.SharedSettings::get_editor()
+IL_0011: stloc.0
+IL_0012: ldloc.0
+IL_0013: brfalse.s IL_001c
+IL_0015: ldloc.0
+IL_0016: ldarg.1
+IL_0017: callvirt System.Void Game.Settings.EditorSettings::set_inspectorWidth(System.Int32)
+IL_001c: ret
+METHOD System.Int32 Game.UI.Editor.EditorPanelUISystem::GetAdvisorHeight() PUBLIC False
+IL_0000: call Game.Settings.SharedSettings Game.Settings.SharedSettings::get_instance()
+IL_0005: dup
+IL_0006: brtrue.s IL_000c
+IL_0008: pop
+IL_0009: ldnull
+IL_000a: br.s IL_0011
+IL_000c: call Game.Settings.EditorSettings Game.Settings.SharedSettings::get_editor()
+IL_0011: dup
+IL_0012: brtrue.s IL_001b
+IL_0014: pop
+IL_0015: ldc.i4 350
+IL_001a: ret
+IL_001b: call System.Int32 Game.Settings.EditorSettings::get_advisorHeight()
+IL_0020: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::SetAdvisorHeight(System.Int32) PUBLIC False
+IL_0000: call Game.Settings.SharedSettings Game.Settings.SharedSettings::get_instance()
+IL_0005: dup
+IL_0006: brtrue.s IL_000c
+IL_0008: pop
+IL_0009: ldnull
+IL_000a: br.s IL_0011
+IL_000c: call Game.Settings.EditorSettings Game.Settings.SharedSettings::get_editor()
+IL_0011: stloc.0
+IL_0012: ldloc.0
+IL_0013: brfalse.s IL_001c
+IL_0015: ldloc.0
+IL_0016: ldarg.1
+IL_0017: callvirt System.Void Game.Settings.EditorSettings::set_advisorHeight(System.Int32)
+IL_001c: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::Cancel() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_0006: brfalse.s IL_001c
+IL_0008: ldarg.0
+IL_0009: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_000e: callvirt System.Boolean Game.UI.Editor.IEditorPanel::OnCancel()
+IL_0013: brfalse.s IL_001c
+IL_0015: ldarg.0
+IL_0016: ldnull
+IL_0017: call System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_001c: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::Close() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_0006: brfalse.s IL_001c
+IL_0008: ldarg.0
+IL_0009: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_000e: callvirt System.Boolean Game.UI.Editor.IEditorPanel::OnClose()
+IL_0013: brfalse.s IL_001c
+IL_0015: ldarg.0
+IL_0016: ldnull
+IL_0017: call System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_001c: ret
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::.ctor() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.UISystemBase::.ctor()
+IL_0006: ret
+METHOD System.Int32 Game.UI.Editor.EditorPanelUISystem::<OnCreate>b__13_0() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.EditorPanelWidgetRenderer Game.UI.Editor.EditorPanelUISystem::get_widgetRenderer()
+IL_0006: ret
+TYPE Game.UI.Editor.PrefabToolPanelSystem
+FIELD Game.Prefabs.PrefabSystem Game.UI.Editor.PrefabToolPanelSystem::m_PrefabSystem
+FIELD Game.Tools.ToolSystem Game.UI.Editor.PrefabToolPanelSystem::m_ToolSystem
+FIELD Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.PrefabToolPanelSystem::m_CategorySystem
+FIELD Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.PrefabToolPanelSystem::m_Workspace
+FIELD Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+FIELD Unity.Entities.EntityQuery Game.UI.Editor.PrefabToolPanelSystem::m_PrefabQuery
+FIELD Unity.Entities.EntityQuery Game.UI.Editor.PrefabToolPanelSystem::m_ModifiedPrefabQuery
+FIELD Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+FIELD Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.PrefabToolPanelSystem::m_CategoryMenu
+FIELD Game.UI.Editor.EditorAssetCategory Game.UI.Editor.PrefabToolPanelSystem::m_PlaceableCategory
+FIELD Game.UI.Editor.EditorAssetCategory Game.UI.Editor.PrefabToolPanelSystem::m_AllCategory
+FIELD System.Boolean Game.UI.Editor.PrefabToolPanelSystem::m_PrefabsDirty
+FIELD Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.PrefabToolPanelSystem::m_Platform
+FIELD Game.UI.Editor.PrefabToolPanelSystem/TypeHandle Game.UI.Editor.PrefabToolPanelSystem::__TypeHandle
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnCreate() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: call Colossal.PSI.Common.PlatformManager Colossal.PSI.Common.PlatformManager::get_instance()
+IL_000c: ldstr "PdxSdk"
+IL_0011: callvirt !!0 Colossal.PSI.Common.PlatformManager::GetPSI<Colossal.PSI.PdxSdk.PdxSdkPlatform>(System.String)
+IL_0016: stfld Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.PrefabToolPanelSystem::m_Platform
+IL_001b: call Colossal.PSI.Common.PlatformManager Colossal.PSI.Common.PlatformManager::get_instance()
+IL_0020: ldarg.0
+IL_0021: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::<OnCreate>b__14_0(Colossal.PSI.Common.IPlatformServiceIntegration)
+IL_0027: newobj System.Void Colossal.PSI.Common.PlatformRegisteredHandler::.ctor(System.Object,System.IntPtr)
+IL_002c: callvirt System.Void Colossal.PSI.Common.PlatformManager::add_onPlatformRegistered(Colossal.PSI.Common.PlatformRegisteredHandler)
+IL_0031: ldarg.0
+IL_0032: ldstr "UITagPrefab:PrefabToolPanel"
+IL_0037: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_uiTag(System.String)
+IL_003c: ldarg.0
+IL_003d: ldarg.0
+IL_003e: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0043: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_0048: stfld Game.Prefabs.PrefabSystem Game.UI.Editor.PrefabToolPanelSystem::m_PrefabSystem
+IL_004d: ldarg.0
+IL_004e: ldarg.0
+IL_004f: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0054: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0059: stfld Game.Tools.ToolSystem Game.UI.Editor.PrefabToolPanelSystem::m_ToolSystem
+IL_005e: ldarg.0
+IL_005f: ldarg.0
+IL_0060: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0065: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorAssetCategorySystem>()
+IL_006a: stfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.PrefabToolPanelSystem::m_CategorySystem
+IL_006f: ldarg.0
+IL_0070: ldarg.0
+IL_0071: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0076: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorHierarchyUISystem>()
+IL_007b: stfld Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.PrefabToolPanelSystem::m_Workspace
+IL_0080: ldarg.0
+IL_0081: ldarg.0
+IL_0082: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0087: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.InspectorPanelSystem>()
+IL_008c: stfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_0091: ldarg.0
+IL_0092: ldarg.0
+IL_0093: ldc.i4.1
+IL_0094: newarr Unity.Entities.EntityQueryDesc
+IL_0099: dup
+IL_009a: ldc.i4.0
+IL_009b: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00a0: stloc.1
+IL_00a1: ldloc.1
+IL_00a2: ldc.i4.1
+IL_00a3: newarr Unity.Entities.ComponentType
+IL_00a8: dup
+IL_00a9: ldc.i4.0
+IL_00aa: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PrefabData>()
+IL_00af: stelem.any Unity.Entities.ComponentType
+IL_00b4: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00b9: ldloc.1
+IL_00ba: ldc.i4.3
+IL_00bb: newarr Unity.Entities.ComponentType
+IL_00c0: dup
+IL_00c1: ldc.i4.0
+IL_00c2: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Created>()
+IL_00c7: stelem.any Unity.Entities.ComponentType
+IL_00cc: dup
+IL_00cd: ldc.i4.1
+IL_00ce: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_00d3: stelem.any Unity.Entities.ComponentType
+IL_00d8: dup
+IL_00d9: ldc.i4.2
+IL_00da: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_00df: stelem.any Unity.Entities.ComponentType
+IL_00e4: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00e9: ldloc.1
+IL_00ea: stelem.ref
+IL_00eb: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00f0: stfld Unity.Entities.EntityQuery Game.UI.Editor.PrefabToolPanelSystem::m_ModifiedPrefabQuery
+IL_00f5: ldarg.0
+IL_00f6: newobj System.Void Game.UI.Editor.PrefabPickerAdapter::.ctor()
+IL_00fb: stfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0100: ldarg.0
+IL_0101: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0106: dup
+IL_0107: ldfld System.Action`1<Game.Prefabs.PrefabBase> Game.UI.Editor.PrefabPickerAdapter::EventPrefabSelected
+IL_010c: ldarg.0
+IL_010d: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::OnPrefabSelected(Game.Prefabs.PrefabBase)
+IL_0113: newobj System.Void System.Action`1<Game.Prefabs.PrefabBase>::.ctor(System.Object,System.IntPtr)
+IL_0118: call System.Delegate System.Delegate::Combine(System.Delegate,System.Delegate)
+IL_011d: castclass System.Action`1<Game.Prefabs.PrefabBase>
+IL_0122: stfld System.Action`1<Game.Prefabs.PrefabBase> Game.UI.Editor.PrefabPickerAdapter::EventPrefabSelected
+IL_0127: ldarg.0
+IL_0128: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_012d: ldarg.0
+IL_012e: ldftn Game.UI.Editor.IContextualActionMenu Game.UI.Editor.PrefabToolPanelSystem::GetContextActions(Game.Prefabs.PrefabBase)
+IL_0134: newobj System.Void System.Func`2<Game.Prefabs.PrefabBase,Game.UI.Editor.IContextualActionMenu>::.ctor(System.Object,System.IntPtr)
+IL_0139: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::set_ContextMenuBuilder(System.Func`2<Game.Prefabs.PrefabBase,Game.UI.Editor.IContextualActionMenu>)
+IL_013e: ldarg.0
+IL_013f: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0144: ldarg.0
+IL_0145: ldftn Game.UI.Localization.LocalizedString Game.UI.Editor.PrefabToolPanelSystem::GetTooltip(Game.Prefabs.PrefabBase,System.Type)
+IL_014b: newobj System.Void System.Func`3<Game.Prefabs.PrefabBase,System.Type,Game.UI.Localization.LocalizedString>::.ctor(System.Object,System.IntPtr)
+IL_0150: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::set_TooltipBuilder(System.Func`3<Game.Prefabs.PrefabBase,System.Type,Game.UI.Localization.LocalizedString>)
+IL_0155: ldarg.0
+IL_0156: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_015b: dup
+IL_015c: ldfld System.Action`2<Game.Prefabs.PrefabBase,System.UInt64> Game.UI.Editor.PrefabPickerAdapter::EventContextMenuAction
+IL_0161: ldarg.0
+IL_0162: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::OnContextMenuAction(Game.Prefabs.PrefabBase,System.UInt64)
+IL_0168: newobj System.Void System.Action`2<Game.Prefabs.PrefabBase,System.UInt64>::.ctor(System.Object,System.IntPtr)
+IL_016d: call System.Delegate System.Delegate::Combine(System.Delegate,System.Delegate)
+IL_0172: castclass System.Action`2<Game.Prefabs.PrefabBase,System.UInt64>
+IL_0177: stfld System.Action`2<Game.Prefabs.PrefabBase,System.UInt64> Game.UI.Editor.PrefabPickerAdapter::EventContextMenuAction
+IL_017c: newobj System.Void Game.UI.Widgets.Column::.ctor()
+IL_0181: stloc.2
+IL_0182: ldloc.2
+IL_0183: ldc.i4.0
+IL_0184: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_padding(System.Boolean)
+IL_0189: ldloc.2
+IL_018a: call Game.UI.Widgets.FlexLayout Game.UI.Widgets.FlexLayout::get_Fill()
+IL_018f: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_flex(Game.UI.Widgets.FlexLayout)
+IL_0194: ldloc.2
+IL_0195: ldc.i4.5
+IL_0196: newarr Game.UI.Widgets.IWidget
+IL_019b: dup
+IL_019c: ldc.i4.0
+IL_019d: newobj System.Void Game.UI.Editor.PopupSearchField::.ctor()
+IL_01a2: dup
+IL_01a3: ldarg.0
+IL_01a4: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_01a9: callvirt System.Void Game.UI.Editor.PopupSearchField::set_adapter(Game.UI.Editor.PopupSearchField/IAdapter)
+IL_01ae: dup
+IL_01af: ldstr "UITagPrefab:SearchText"
+IL_01b4: callvirt System.Void Game.UI.Editor.PopupSearchField::set_uiTag(System.String)
+IL_01b9: stelem.ref
+IL_01ba: dup
+IL_01bb: ldc.i4.1
+IL_01bc: newobj System.Void Game.UI.Editor.FilterMenu::.ctor()
+IL_01c1: dup
+IL_01c2: ldarg.0
+IL_01c3: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_01c8: callvirt System.Void Game.UI.Editor.FilterMenu::set_adapter(Game.UI.Editor.FilterMenu/IAdapter)
+IL_01cd: stelem.ref
+IL_01ce: dup
+IL_01cf: ldc.i4.2
+IL_01d0: newobj System.Void Game.UI.Widgets.Row::.ctor()
+IL_01d5: stloc.3
+IL_01d6: ldloc.3
+IL_01d7: ldc.r4 1
+IL_01dc: ldc.r4 1
+IL_01e1: ldc.r4 -1
+IL_01e6: newobj System.Void Game.UI.Widgets.FlexLayout::.ctor(System.Single,System.Single,System.Single)
+IL_01eb: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_flex(Game.UI.Widgets.FlexLayout)
+IL_01f0: ldloc.3
+IL_01f1: ldc.i4.0
+IL_01f2: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_padding(System.Boolean)
+IL_01f7: ldloc.3
+IL_01f8: ldc.i4.2
+IL_01f9: newarr Game.UI.Widgets.IWidget
+IL_01fe: dup
+IL_01ff: ldc.i4.0
+IL_0200: ldarg.0
+IL_0201: newobj System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::.ctor()
+IL_0206: dup
+IL_0207: ldc.i4.0
+IL_0208: callvirt System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::set_selectionType(Game.UI.Editor.HierarchyMenu/SelectionType)
+IL_020d: dup
+IL_020e: ldarg.0
+IL_020f: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::UpdatePrefabs()
+IL_0215: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_021a: callvirt System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::set_onSelectionChange(System.Action)
+IL_021f: dup
+IL_0220: ldc.r4 1
+IL_0225: ldc.r4 0
+IL_022a: ldc.r4 0
+IL_022f: newobj System.Void Game.UI.Widgets.FlexLayout::.ctor(System.Single,System.Single,System.Single)
+IL_0234: callvirt System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::set_flex(Game.UI.Widgets.FlexLayout)
+IL_0239: dup
+IL_023a: ldstr "PrefabToolCategories"
+IL_023f: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_0244: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0249: dup
+IL_024a: ldstr "UITagPrefab:Categories"
+IL_024f: callvirt System.Void Game.UI.Editor.HierarchyMenu::set_uiTag(System.String)
+IL_0254: dup
+IL_0255: stloc.s V_4
+IL_0257: stfld Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.PrefabToolPanelSystem::m_CategoryMenu
+IL_025c: ldloc.s V_4
+IL_025e: stelem.ref
+IL_025f: dup
+IL_0260: ldc.i4.1
+IL_0261: newobj System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::.ctor()
+IL_0266: dup
+IL_0267: ldarg.0
+IL_0268: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_026d: callvirt System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::set_adapter(Game.UI.Editor.ItemPicker`1/IAdapter<T>)
+IL_0272: dup
+IL_0273: ldc.i4.1
+IL_0274: callvirt System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::set_hasFavorites(System.Boolean)
+IL_0279: dup
+IL_027a: ldc.r4 2
+IL_027f: ldc.r4 0
+IL_0284: ldc.r4 0
+IL_0289: newobj System.Void Game.UI.Widgets.FlexLayout::.ctor(System.Single,System.Single,System.Single)
+IL_028e: callvirt System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::set_flex(Game.UI.Widgets.FlexLayout)
+IL_0293: dup
+IL_0294: ldc.i4.1
+IL_0295: callvirt System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::set_selectOnFocus(System.Boolean)
+IL_029a: stelem.ref
+IL_029b: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_02a0: ldloc.3
+IL_02a1: stelem.ref
+IL_02a2: dup
+IL_02a3: ldc.i4.3
+IL_02a4: newobj System.Void Game.UI.Editor.ItemPickerFooter::.ctor()
+IL_02a9: dup
+IL_02aa: ldarg.0
+IL_02ab: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_02b0: callvirt System.Void Game.UI.Editor.ItemPickerFooter::set_adapter(Game.UI.Editor.ItemPickerFooter/IAdapter)
+IL_02b5: dup
+IL_02b6: ldstr "UITagPrefab:ThumbnailSlider"
+IL_02bb: callvirt System.Void Game.UI.Editor.ItemPickerFooter::set_uiTag(System.String)
+IL_02c0: stelem.ref
+IL_02c1: dup
+IL_02c2: ldc.i4.4
+IL_02c3: newobj System.Void Game.UI.Widgets.Button::.ctor()
+IL_02c8: dup
+IL_02c9: ldsfld Game.UI.Localization.LocalizedString Game.UI.Editor.PrefabToolPanelSystem/LocaleId::kCreateNewPrefab
+IL_02ce: callvirt System.Void Game.UI.Widgets.NamedWidget::set_displayName(Game.UI.Localization.LocalizedString)
+IL_02d3: dup
+IL_02d4: ldarg.0
+IL_02d5: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::OnCreatePrefabSelected()
+IL_02db: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_02e0: callvirt System.Void Game.UI.Widgets.Button::set_action(System.Action)
+IL_02e5: dup
+IL_02e6: ldsfld System.Func`1<System.Boolean> Game.UI.Editor.PrefabToolPanelSystem/<>c::<>9__14_1
+IL_02eb: dup
+IL_02ec: brtrue.s IL_0305
+IL_02ee: pop
+IL_02ef: ldsfld Game.UI.Editor.PrefabToolPanelSystem/<>c Game.UI.Editor.PrefabToolPanelSystem/<>c::<>9
+IL_02f4: ldftn System.Boolean Game.UI.Editor.PrefabToolPanelSystem/<>c::<OnCreate>b__14_1()
+IL_02fa: newobj System.Void System.Func`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_02ff: dup
+IL_0300: stsfld System.Func`1<System.Boolean> Game.UI.Editor.PrefabToolPanelSystem/<>c::<>9__14_1
+IL_0305: callvirt System.Void Game.UI.Widgets.Widget::set_hidden(System.Func`1<System.Boolean>)
+IL_030a: stelem.ref
+IL_030b: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0310: ldloc.2
+IL_0311: stloc.0
+IL_0312: ldarg.0
+IL_0313: ldc.i4.1
+IL_0314: newarr Game.UI.Widgets.IWidget
+IL_0319: dup
+IL_031a: ldc.i4.0
+IL_031b: ldloc.0
+IL_031c: stelem.ref
+IL_031d: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0322: ldarg.0
+IL_0323: call System.Void Game.UI.Editor.PrefabToolPanelSystem::GenerateCategories()
+IL_0328: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnGameLoaded(Colossal.Serialization.Entities.Context) PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.GameSystemBase::OnGameLoaded(Colossal.Serialization.Entities.Context)
+IL_0007: ldarg.0
+IL_0008: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_000d: ldsfld System.String System.String::Empty
+IL_0012: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::set_searchQuery(System.String)
+IL_0017: ldarg.0
+IL_0018: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_001d: ldnull
+IL_001e: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::set_selectedPrefab(Game.Prefabs.PrefabBase)
+IL_0023: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnStartRunning() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Colossal.Entities.COSystemBase::OnStartRunning()
+IL_0006: ldarg.0
+IL_0007: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_000c: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::LoadSettings()
+IL_0011: ldarg.0
+IL_0012: ldfld Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.PrefabToolPanelSystem::m_CategoryMenu
+IL_0017: ldarg.0
+IL_0018: call System.Collections.Generic.IEnumerable`1<Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>> Game.UI.Editor.PrefabToolPanelSystem::GetHierarchy()
+IL_001d: callvirt System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::set_items(System.Collections.Generic.IEnumerable`1<Game.UI.Editor.HierarchyItem`1<T>>)
+IL_0022: ldarg.0
+IL_0023: call System.Void Game.UI.Editor.PrefabToolPanelSystem::UpdatePrefabs()
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_002f: callvirt Game.Prefabs.PrefabBase Game.UI.Editor.PrefabPickerAdapter::get_selectedPrefab()
+IL_0034: call System.Void Game.UI.Editor.PrefabToolPanelSystem::OnPrefabSelected(Game.Prefabs.PrefabBase)
+IL_0039: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnUpdate() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnUpdate()
+IL_0006: ldarg.0
+IL_0007: ldflda Unity.Entities.EntityQuery Game.UI.Editor.PrefabToolPanelSystem::m_ModifiedPrefabQuery
+IL_000c: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_0011: brtrue.s IL_001a
+IL_0013: ldarg.0
+IL_0014: ldc.i4.1
+IL_0015: stfld System.Boolean Game.UI.Editor.PrefabToolPanelSystem::m_PrefabsDirty
+IL_001a: ldarg.0
+IL_001b: ldfld System.Boolean Game.UI.Editor.PrefabToolPanelSystem::m_PrefabsDirty
+IL_0020: brfalse.s IL_0030
+IL_0022: ldarg.0
+IL_0023: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelSystemBase::get_activeSubPanel()
+IL_0028: brtrue.s IL_0030
+IL_002a: ldarg.0
+IL_002b: call System.Void Game.UI.Editor.PrefabToolPanelSystem::UpdatePrefabs()
+IL_0030: ldarg.0
+IL_0031: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0036: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::Update()
+IL_003b: ldarg.0
+IL_003c: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0041: ldarg.0
+IL_0042: ldfld Game.Tools.ToolSystem Game.UI.Editor.PrefabToolPanelSystem::m_ToolSystem
+IL_0047: callvirt Game.Prefabs.PrefabBase Game.Tools.ToolSystem::get_activePrefab()
+IL_004c: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::set_selectedPrefab(Game.Prefabs.PrefabBase)
+IL_0051: ret
+METHOD System.Boolean Game.UI.Editor.PrefabToolPanelSystem::OnCancel() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0006: callvirt Game.Prefabs.PrefabBase Game.UI.Editor.PrefabPickerAdapter::get_selectedPrefab()
+IL_000b: ldnull
+IL_000c: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0011: brfalse.s IL_002e
+IL_0013: ldarg.0
+IL_0014: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0019: ldnull
+IL_001a: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::set_selectedPrefab(Game.Prefabs.PrefabBase)
+IL_001f: ldarg.0
+IL_0020: ldfld Game.Tools.ToolSystem Game.UI.Editor.PrefabToolPanelSystem::m_ToolSystem
+IL_0025: ldnull
+IL_0026: callvirt System.Boolean Game.Tools.ToolSystem::ActivatePrefabTool(Game.Prefabs.PrefabBase)
+IL_002b: pop
+IL_002c: ldc.i4.0
+IL_002d: ret
+IL_002e: ldarg.0
+IL_002f: call System.Boolean Game.UI.Editor.EditorPanelSystemBase::OnCancel()
+IL_0034: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnPrefabSelected(Game.Prefabs.PrefabBase) PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ToolSystem Game.UI.Editor.PrefabToolPanelSystem::m_ToolSystem
+IL_0006: ldarg.0
+IL_0007: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_000c: callvirt Game.Prefabs.PrefabBase Game.UI.Editor.PrefabPickerAdapter::get_selectedPrefab()
+IL_0011: callvirt System.Boolean Game.Tools.ToolSystem::ActivatePrefabTool(Game.Prefabs.PrefabBase)
+IL_0016: brtrue.s IL_0050
+IL_0018: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_001d: callvirt Game.GameMode Game.SceneFlow.GameManager::get_gameMode()
+IL_0022: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_0027: brfalse.s IL_0050
+IL_0029: ldarg.1
+IL_002a: ldnull
+IL_002b: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0030: brfalse.s IL_0050
+IL_0032: ldarg.0
+IL_0033: ldfld Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.PrefabToolPanelSystem::m_Workspace
+IL_0038: ldarg.1
+IL_0039: callvirt System.Void Game.UI.Editor.EditorHierarchyUISystem::AddPrefab(Game.Prefabs.PrefabBase)
+IL_003e: ldarg.0
+IL_003f: ldarg.1
+IL_0040: ldarg.0
+IL_0041: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_0046: call Game.UI.Editor.IEditorPanel Game.UI.Editor.CustomEditorPanelAttributes::GetEditorPanel(Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem)
+IL_004b: call System.Void Game.UI.Editor.EditorPanelSystemBase::set_activeSubPanel(Game.UI.Editor.IEditorPanel)
+IL_0050: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::UpdatePrefabs() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldc.i4.0
+IL_0002: stfld System.Boolean Game.UI.Editor.PrefabToolPanelSystem::m_PrefabsDirty
+IL_0007: ldarg.0
+IL_0008: ldfld Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.PrefabToolPanelSystem::m_CategoryMenu
+IL_000d: ldloca.s V_0
+IL_000f: callvirt System.Boolean Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::GetSelectedItem(T&)
+IL_0014: brfalse.s IL_004b
+IL_0016: ldloc.0
+IL_0017: ldarg.0
+IL_0018: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_001d: ldarg.0
+IL_001e: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.PrefabToolPanelSystem::m_PrefabSystem
+IL_0023: ldarg.0
+IL_0024: ldflda Game.UI.Editor.PrefabToolPanelSystem/TypeHandle Game.UI.Editor.PrefabToolPanelSystem::__TypeHandle
+IL_0029: ldflda Unity.Entities.EntityTypeHandle Game.UI.Editor.PrefabToolPanelSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_002e: ldarg.0
+IL_002f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0034: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_0039: callvirt System.Collections.Generic.HashSet`1<Game.Prefabs.PrefabBase> Game.UI.Editor.EditorAssetCategory::GetPrefabs(Unity.Entities.EntityManager,Game.Prefabs.PrefabSystem,Unity.Entities.EntityTypeHandle)
+IL_003e: stloc.1
+IL_003f: ldarg.0
+IL_0040: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0045: ldloc.1
+IL_0046: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::SetPrefabs(System.Collections.Generic.ICollection`1<Game.Prefabs.PrefabBase>)
+IL_004b: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::GenerateCategories() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: ldstr "All"
+IL_000d: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0012: ldloc.0
+IL_0013: ldstr "All"
+IL_0018: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_path(System.String)
+IL_001d: ldloc.0
+IL_001e: ldarg.0
+IL_001f: ldc.i4.1
+IL_0020: newarr Unity.Entities.EntityQueryDesc
+IL_0025: dup
+IL_0026: ldc.i4.0
+IL_0027: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_002c: stloc.1
+IL_002d: ldloc.1
+IL_002e: ldc.i4.1
+IL_002f: newarr Unity.Entities.ComponentType
+IL_0034: dup
+IL_0035: ldc.i4.0
+IL_0036: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PrefabData>()
+IL_003b: stelem.any Unity.Entities.ComponentType
+IL_0040: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0045: ldloc.1
+IL_0046: ldc.i4.6
+IL_0047: newarr Unity.Entities.ComponentType
+IL_004c: dup
+IL_004d: ldc.i4.0
+IL_004e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ObjectData>()
+IL_0053: stelem.any Unity.Entities.ComponentType
+IL_0058: dup
+IL_0059: ldc.i4.1
+IL_005a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.EffectData>()
+IL_005f: stelem.any Unity.Entities.ComponentType
+IL_0064: dup
+IL_0065: ldc.i4.2
+IL_0066: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ActivityLocationData>()
+IL_006b: stelem.any Unity.Entities.ComponentType
+IL_0070: dup
+IL_0071: ldc.i4.3
+IL_0072: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.NetData>()
+IL_0077: stelem.any Unity.Entities.ComponentType
+IL_007c: dup
+IL_007d: ldc.i4.4
+IL_007e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.NetLaneData>()
+IL_0083: stelem.any Unity.Entities.ComponentType
+IL_0088: dup
+IL_0089: ldc.i4.5
+IL_008a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.AreaData>()
+IL_008f: stelem.any Unity.Entities.ComponentType
+IL_0094: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0099: ldloc.1
+IL_009a: ldc.i4.4
+IL_009b: newarr Unity.Entities.ComponentType
+IL_00a0: dup
+IL_00a1: ldc.i4.0
+IL_00a2: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BrandObjectData>()
+IL_00a7: stelem.any Unity.Entities.ComponentType
+IL_00ac: dup
+IL_00ad: ldc.i4.1
+IL_00ae: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.CarLaneData>()
+IL_00b3: stelem.any Unity.Entities.ComponentType
+IL_00b8: dup
+IL_00b9: ldc.i4.2
+IL_00ba: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.TrackLaneData>()
+IL_00bf: stelem.any Unity.Entities.ComponentType
+IL_00c4: dup
+IL_00c5: ldc.i4.3
+IL_00c6: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ConnectionLaneData>()
+IL_00cb: stelem.any Unity.Entities.ComponentType
+IL_00d0: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_00d5: ldloc.1
+IL_00d6: stelem.ref
+IL_00d7: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00dc: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_00e1: ldloc.0
+IL_00e2: ldc.i4.1
+IL_00e3: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_defaultSelection(System.Boolean)
+IL_00e8: ldloc.0
+IL_00e9: ldc.i4.0
+IL_00ea: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean)
+IL_00ef: ldloc.0
+IL_00f0: stfld Game.UI.Editor.EditorAssetCategory Game.UI.Editor.PrefabToolPanelSystem::m_PlaceableCategory
+IL_00f5: ldarg.0
+IL_00f6: newobj System.Void Game.UI.Editor.EditorAssetCategory::.ctor()
+IL_00fb: stloc.0
+IL_00fc: ldloc.0
+IL_00fd: ldstr "All"
+IL_0102: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_id(System.String)
+IL_0107: ldloc.0
+IL_0108: ldstr "All"
+IL_010d: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_path(System.String)
+IL_0112: ldloc.0
+IL_0113: ldarg.0
+IL_0114: ldc.i4.1
+IL_0115: newarr Unity.Entities.EntityQueryDesc
+IL_011a: dup
+IL_011b: ldc.i4.0
+IL_011c: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0121: stloc.1
+IL_0122: ldloc.1
+IL_0123: ldc.i4.1
+IL_0124: newarr Unity.Entities.ComponentType
+IL_0129: dup
+IL_012a: ldc.i4.0
+IL_012b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PrefabData>()
+IL_0130: stelem.any Unity.Entities.ComponentType
+IL_0135: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_013a: ldloc.1
+IL_013b: ldc.i4.1
+IL_013c: newarr Unity.Entities.ComponentType
+IL_0141: dup
+IL_0142: ldc.i4.0
+IL_0143: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.MeshData>()
+IL_0148: stelem.any Unity.Entities.ComponentType
+IL_014d: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_0152: ldloc.1
+IL_0153: stelem.ref
+IL_0154: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0159: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_entityQuery(Unity.Entities.EntityQuery)
+IL_015e: ldloc.0
+IL_015f: ldc.i4.1
+IL_0160: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_defaultSelection(System.Boolean)
+IL_0165: ldloc.0
+IL_0166: ldc.i4.0
+IL_0167: callvirt System.Void Game.UI.Editor.EditorAssetCategory::set_includeChildCategories(System.Boolean)
+IL_016c: ldloc.0
+IL_016d: stfld Game.UI.Editor.EditorAssetCategory Game.UI.Editor.PrefabToolPanelSystem::m_AllCategory
+IL_0172: ret
+METHOD System.Collections.Generic.IEnumerable`1<Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>> Game.UI.Editor.PrefabToolPanelSystem::GetHierarchy() PUBLIC False
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.PrefabToolPanelSystem/<GetHierarchy>d__22::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.UI.Editor.PrefabToolPanelSystem Game.UI.Editor.PrefabToolPanelSystem/<GetHierarchy>d__22::<>4__this
+IL_000e: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnCreatePrefabSelected() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldsfld Game.UI.Localization.LocalizedString Game.UI.Editor.PrefabToolPanelSystem/LocaleId::kCreateNewPrefab
+IL_0006: ldsfld Game.UI.Localization.LocalizedString Game.UI.Editor.PrefabToolPanelSystem/LocaleId::kPrefabTypes
+IL_000b: ldarg.0
+IL_000c: call System.Collections.Generic.IEnumerable`1<Game.UI.Editor.Item> Game.UI.Editor.PrefabToolPanelSystem::GetPrefabTypeItems()
+IL_0011: call System.Collections.Generic.List`1<!!0> System.Linq.Enumerable::ToList<Game.UI.Editor.Item>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0016: ldarg.0
+IL_0017: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::OnCreatePrefab(System.Type)
+IL_001d: newobj System.Void Game.UI.Editor.TypePickerPanel/SelectCallback::.ctor(System.Object,System.IntPtr)
+IL_0022: ldarg.0
+IL_0023: ldftn System.Void Game.UI.Editor.EditorPanelSystemBase::CloseSubPanel()
+IL_0029: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_002e: newobj System.Void Game.UI.Editor.TypePickerPanel::.ctor(Game.UI.Localization.LocalizedString,Game.UI.Localization.LocalizedString,System.Collections.Generic.IEnumerable`1<Game.UI.Editor.Item>,Game.UI.Editor.TypePickerPanel/SelectCallback,System.Action)
+IL_0033: call System.Void Game.UI.Editor.EditorPanelSystemBase::set_activeSubPanel(Game.UI.Editor.IEditorPanel)
+IL_0038: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnCreatePrefab(System.Type) PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorPanelSystemBase::CloseSubPanel()
+IL_0006: ldarg.1
+IL_0007: ldarg.1
+IL_0008: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_000d: call Game.Prefabs.PrefabBase Game.Prefabs.PrefabBase::Create(System.Type,System.String)
+IL_0012: stloc.0
+IL_0013: ldarg.0
+IL_0014: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.PrefabToolPanelSystem::m_PrefabSystem
+IL_0019: ldloc.0
+IL_001a: ldnull
+IL_001b: ldnull
+IL_001c: ldnull
+IL_001d: callvirt System.Boolean Game.Prefabs.PrefabSystem::AddPrefab(Game.Prefabs.PrefabBase,System.String,Game.Prefabs.PrefabBase,Game.Prefabs.ComponentBase)
+IL_0022: pop
+IL_0023: ldarg.0
+IL_0024: ldloc.0
+IL_0025: call System.Void Game.UI.Editor.PrefabToolPanelSystem::OnPrefabSelected(Game.Prefabs.PrefabBase)
+IL_002a: ret
+METHOD System.Collections.Generic.IEnumerable`1<Game.UI.Editor.Item> Game.UI.Editor.PrefabToolPanelSystem::GetPrefabTypeItems() PUBLIC False
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.UI.Editor.PrefabToolPanelSystem/<GetPrefabTypeItems>d__25::.ctor(System.Int32)
+IL_0007: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnContextMenuAction(Game.Prefabs.PrefabBase,System.UInt64) PUBLIC False
+IL_0000: ldarg.2
+IL_0001: conv.i4
+IL_0002: stloc.0
+IL_0003: ldloc.0
+IL_0004: ldc.i4.8
+IL_0005: bgt.s IL_0027
+IL_0007: ldloc.0
+IL_0008: ldc.i4.1
+IL_0009: sub
+IL_000a: switch IL_0040,IL_0074,IL_013f,IL_0097
+IL_001f: ldloc.0
+IL_0020: ldc.i4.8
+IL_0021: beq IL_00b6
+IL_0026: ret
+IL_0027: ldloc.0
+IL_0028: ldc.i4.s 16
+IL_002a: beq IL_00c4
+IL_002f: ldloc.0
+IL_0030: ldc.i4.s 32
+IL_0032: beq IL_00e9
+IL_0037: ldloc.0
+IL_0038: ldc.i4.s 64
+IL_003a: beq IL_010d
+IL_003f: ret
+IL_0040: ldarg.0
+IL_0041: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.PrefabToolPanelSystem::m_PrefabSystem
+IL_0046: ldarg.1
+IL_0047: ldnull
+IL_0048: callvirt Game.Prefabs.PrefabBase Game.Prefabs.PrefabSystem::DuplicatePrefab(Game.Prefabs.PrefabBase,System.String)
+IL_004d: stloc.1
+IL_004e: ldarg.0
+IL_004f: ldfld Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.PrefabToolPanelSystem::m_Workspace
+IL_0054: ldloc.1
+IL_0055: callvirt System.Void Game.UI.Editor.EditorHierarchyUISystem::AddPrefab(Game.Prefabs.PrefabBase)
+IL_005a: ldarg.0
+IL_005b: ldloc.1
+IL_005c: ldarg.0
+IL_005d: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_0062: call Game.UI.Editor.IEditorPanel Game.UI.Editor.CustomEditorPanelAttributes::GetEditorPanel(Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem)
+IL_0067: call System.Void Game.UI.Editor.EditorPanelSystemBase::set_activeSubPanel(Game.UI.Editor.IEditorPanel)
+IL_006c: ldarg.0
+IL_006d: ldc.i4.1
+IL_006e: stfld System.Boolean Game.UI.Editor.PrefabToolPanelSystem::m_PrefabsDirty
+IL_0073: ret
+IL_0074: ldarg.0
+IL_0075: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.PrefabToolPanelSystem::m_PrefabSystem
+IL_007a: ldarg.1
+IL_007b: ldnull
+IL_007c: callvirt Game.Prefabs.PrefabBase Game.Prefabs.PrefabSystem::DuplicatePrefab(Game.Prefabs.PrefabBase,System.String)
+IL_0081: stloc.2
+IL_0082: ldarg.0
+IL_0083: ldfld Game.Tools.ToolSystem Game.UI.Editor.PrefabToolPanelSystem::m_ToolSystem
+IL_0088: ldloc.2
+IL_0089: callvirt System.Boolean Game.Tools.ToolSystem::ActivatePrefabTool(Game.Prefabs.PrefabBase)
+IL_008e: pop
+IL_008f: ldarg.0
+IL_0090: ldc.i4.1
+IL_0091: stfld System.Boolean Game.UI.Editor.PrefabToolPanelSystem::m_PrefabsDirty
+IL_0096: ret
+IL_0097: ldarg.0
+IL_0098: ldfld Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.PrefabToolPanelSystem::m_Workspace
+IL_009d: ldarg.1
+IL_009e: callvirt System.Void Game.UI.Editor.EditorHierarchyUISystem::AddPrefab(Game.Prefabs.PrefabBase)
+IL_00a3: ldarg.0
+IL_00a4: ldarg.1
+IL_00a5: ldarg.0
+IL_00a6: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_00ab: call Game.UI.Editor.IEditorPanel Game.UI.Editor.CustomEditorPanelAttributes::GetEditorPanel(Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem)
+IL_00b0: call System.Void Game.UI.Editor.EditorPanelSystemBase::set_activeSubPanel(Game.UI.Editor.IEditorPanel)
+IL_00b5: ret
+IL_00b6: ldarg.0
+IL_00b7: ldfld Game.Tools.ToolSystem Game.UI.Editor.PrefabToolPanelSystem::m_ToolSystem
+IL_00bc: ldarg.1
+IL_00bd: callvirt System.Boolean Game.Tools.ToolSystem::ActivatePrefabTool(Game.Prefabs.PrefabBase)
+IL_00c2: pop
+IL_00c3: ret
+IL_00c4: ldarg.0
+IL_00c5: ldarg.0
+IL_00c6: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_00cb: call System.Void Game.UI.Editor.EditorPanelSystemBase::set_activeSubPanel(Game.UI.Editor.IEditorPanel)
+IL_00d0: ldarg.0
+IL_00d1: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_00d6: ldarg.1
+IL_00d7: callvirt System.Void Game.UI.Editor.InspectorPanelSystem::SelectPrefab(Game.Prefabs.PrefabBase)
+IL_00dc: ldarg.0
+IL_00dd: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_00e2: ldnull
+IL_00e3: callvirt System.Void Game.UI.Editor.InspectorPanelSystem::ShowSaveAssetPanel(System.Action`1<Colossal.IO.AssetDatabase.AssetData>)
+IL_00e8: ret
+IL_00e9: ldarg.0
+IL_00ea: ldarg.0
+IL_00eb: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_00f0: call System.Void Game.UI.Editor.EditorPanelSystemBase::set_activeSubPanel(Game.UI.Editor.IEditorPanel)
+IL_00f5: ldarg.0
+IL_00f6: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_00fb: ldarg.1
+IL_00fc: callvirt System.Void Game.UI.Editor.InspectorPanelSystem::SelectPrefab(Game.Prefabs.PrefabBase)
+IL_0101: ldarg.0
+IL_0102: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_0107: callvirt System.Void Game.UI.Editor.InspectorPanelSystem::ShowShareAssetPanel()
+IL_010c: ret
+IL_010d: ldarg.1
+IL_010e: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_0113: ldnull
+IL_0114: call System.Boolean Colossal.IO.AssetDatabase.AssetData::op_Inequality(Colossal.IO.AssetDatabase.AssetData,Colossal.IO.AssetDatabase.IAssetData)
+IL_0119: brfalse.s IL_013f
+IL_011b: ldarg.1
+IL_011c: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_0121: callvirt System.Boolean Colossal.IO.AssetDatabase.AssetData::get_isPersistent()
+IL_0126: brfalse.s IL_013f
+IL_0128: call Colossal.IO.AssetDatabase.ILocalAssetDatabase Colossal.IO.AssetDatabase.AssetDatabase::get_user()
+IL_012d: ldarg.1
+IL_012e: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_0133: callvirt System.Void Colossal.IO.AssetDatabase.IAssetDatabase::DeleteAsset<Colossal.IO.AssetDatabase.PrefabAsset>(!!0)
+IL_0138: ldarg.0
+IL_0139: ldc.i4.1
+IL_013a: stfld System.Boolean Game.UI.Editor.PrefabToolPanelSystem::m_PrefabsDirty
+IL_013f: ret
+METHOD Game.UI.Editor.IContextualActionMenu Game.UI.Editor.PrefabToolPanelSystem::GetContextActions(Game.Prefabs.PrefabBase) PUBLIC False
+IL_0000: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_0005: callvirt Game.GameMode Game.SceneFlow.GameManager::get_gameMode()
+IL_000a: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_000f: brtrue.s IL_0013
+IL_0011: ldnull
+IL_0012: ret
+IL_0013: ldsfld System.Collections.Generic.HashSet`1<System.Type> Game.UI.Editor.EditorPrefabUtils::sPlaceablePrefabTypes
+IL_0018: ldarg.1
+IL_0019: callvirt System.Type System.Object::GetType()
+IL_001e: callvirt System.Boolean System.Collections.Generic.HashSet`1<System.Type>::Contains(!0)
+IL_0023: stloc.0
+IL_0024: ldarg.0
+IL_0025: ldfld Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.PrefabToolPanelSystem::m_Platform
+IL_002a: brfalse.s IL_0048
+IL_002c: ldarg.0
+IL_002d: ldfld Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.PrefabToolPanelSystem::m_Platform
+IL_0032: callvirt System.Boolean Colossal.PSI.PdxSdk.PdxSdkPlatform::get_cachedLoggedIn()
+IL_0037: brfalse.s IL_0048
+IL_0039: call Colossal.PSI.Common.PlatformManager Colossal.PSI.Common.PlatformManager::get_instance()
+IL_003e: callvirt System.Boolean Colossal.PSI.Common.PlatformManager::get_hasConnectivity()
+IL_0043: ldc.i4.0
+IL_0044: ceq
+IL_0046: br.s IL_0049
+IL_0048: ldc.i4.1
+IL_0049: stloc.1
+IL_004a: ldc.i4.s 127
+IL_004c: ldc.i4.0
+IL_004d: newobj System.Void Game.UI.Editor.ContextActions`1<Game.UI.Editor.PrefabToolPanelSystem/PrefabActions>::.ctor(TEnum,TEnum)
+IL_0052: stloc.2
+IL_0053: ldloca.s V_2
+IL_0055: ldc.i4.s 32
+IL_0057: ldloc.1
+IL_0058: call Game.UI.Editor.ContextActions`1<TEnum> Game.UI.Editor.ContextActions`1<Game.UI.Editor.PrefabToolPanelSystem/PrefabActions>::ConditionalDisable(TEnum,System.Boolean)
+IL_005d: stloc.2
+IL_005e: ldloca.s V_2
+IL_0060: ldc.i4.s 112
+IL_0062: ldarg.1
+IL_0063: callvirt System.Boolean Game.Prefabs.PrefabBase::get_isReadOnly()
+IL_0068: call Game.UI.Editor.ContextActions`1<TEnum> Game.UI.Editor.ContextActions`1<Game.UI.Editor.PrefabToolPanelSystem/PrefabActions>::ConditionalClear(TEnum,System.Boolean)
+IL_006d: stloc.2
+IL_006e: ldloca.s V_2
+IL_0070: ldc.i4.8
+IL_0071: ldloc.0
+IL_0072: ldc.i4.0
+IL_0073: ceq
+IL_0075: call Game.UI.Editor.ContextActions`1<TEnum> Game.UI.Editor.ContextActions`1<Game.UI.Editor.PrefabToolPanelSystem/PrefabActions>::ConditionalClear(TEnum,System.Boolean)
+IL_007a: stloc.2
+IL_007b: ldloca.s V_2
+IL_007d: ldc.i4.2
+IL_007e: ldloc.0
+IL_007f: ldc.i4.0
+IL_0080: ceq
+IL_0082: call Game.UI.Editor.ContextActions`1<TEnum> Game.UI.Editor.ContextActions`1<Game.UI.Editor.PrefabToolPanelSystem/PrefabActions>::ConditionalClear(TEnum,System.Boolean)
+IL_0087: call Game.UI.Editor.ContextualActionMenu`1<T> Game.UI.Editor.ContextualActionMenu`1<Game.UI.Editor.PrefabToolPanelSystem/PrefabActions>::Get(Game.UI.Editor.ContextActions`1<T>)
+IL_008c: ret
+METHOD Game.UI.Localization.LocalizedString Game.UI.Editor.PrefabToolPanelSystem::GetTooltip(Game.Prefabs.PrefabBase,System.Type) PUBLIC False
+IL_0000: ldsfld System.Collections.Generic.HashSet`1<System.Type> Game.UI.Editor.EditorPrefabUtils::sPlaceablePrefabTypes
+IL_0005: ldarg.2
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<System.Type>::Contains(!0)
+IL_000b: brtrue.s IL_0018
+IL_000d: ldstr "Editor.EDIT_PREFAB_TOOLTIP"
+IL_0012: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::Id(System.String)
+IL_0017: ret
+IL_0018: ldstr "Editor.PLACE_PREFAB_TOOLTIP"
+IL_001d: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::Id(System.String)
+IL_0022: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::__AssignQueries(Unity.Entities.SystemState&) PUBLIC False
+IL_0000: ldloca.s V_0
+IL_0002: ldc.i4.2
+IL_0003: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0008: call System.Void Unity.Entities.EntityQueryBuilder::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_000d: ldloca.s V_0
+IL_000f: call System.Void Unity.Entities.EntityQueryBuilder::Dispose()
+IL_0014: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnCreateForCompiler() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Unity.Entities.ComponentSystemBase::OnCreateForCompiler()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_000d: call System.Void Game.UI.Editor.PrefabToolPanelSystem::__AssignQueries(Unity.Entities.SystemState&)
+IL_0012: ldarg.0
+IL_0013: ldflda Game.UI.Editor.PrefabToolPanelSystem/TypeHandle Game.UI.Editor.PrefabToolPanelSystem::__TypeHandle
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_001e: call System.Void Game.UI.Editor.PrefabToolPanelSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+IL_0023: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::.ctor() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorPanelSystemBase::.ctor()
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::<OnCreate>b__14_0(Colossal.PSI.Common.IPlatformServiceIntegration) PUBLIC False
+IL_0000: ldarg.1
+IL_0001: isinst Colossal.PSI.PdxSdk.PdxSdkPlatform
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: brfalse.s IL_0011
+IL_000a: ldarg.0
+IL_000b: ldloc.0
+IL_000c: stfld Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.PrefabToolPanelSystem::m_Platform
+IL_0011: ret
+TYPE Game.Prefabs.EditorAssetCategoryOverride
+FIELD System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_IncludeCategories
+FIELD System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_ExcludeCategories
+METHOD System.Void Game.Prefabs.EditorAssetCategoryOverride::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_IncludeCategories
+IL_0006: brfalse.s IL_0011
+IL_0008: ldarg.0
+IL_0009: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_IncludeCategories
+IL_000e: ldlen
+IL_000f: brtrue.s IL_0022
+IL_0011: ldarg.0
+IL_0012: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_ExcludeCategories
+IL_0017: brfalse.s IL_002e
+IL_0019: ldarg.0
+IL_001a: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_ExcludeCategories
+IL_001f: ldlen
+IL_0020: brfalse.s IL_002e
+IL_0022: ldarg.1
+IL_0023: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.EditorAssetCategoryOverrideData>()
+IL_0028: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002d: pop
+IL_002e: ret
+METHOD System.Void Game.Prefabs.EditorAssetCategoryOverride::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>) PUBLIC True
+IL_0000: ret
+METHOD System.Void Game.Prefabs.EditorAssetCategoryOverride::.ctor() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Prefabs.ComponentBase::.ctor()
+IL_0006: ret
+TYPE Game.Prefabs.EditorAssetCategoryOverrideData

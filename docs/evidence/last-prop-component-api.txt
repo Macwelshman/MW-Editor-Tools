@@ -1,0 +1,134 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Tools.ApplyPrefabsSystem BASE Game.GameSystemBase
+FIELD Game.City.CityConfigurationSystem Game.Tools.ApplyPrefabsSystem::m_CityConfigurationSystem Private
+FIELD Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem Private
+FIELD Unity.Entities.EntityQuery Game.Tools.ApplyPrefabsSystem::m_SaveInstanceQuery Private
+METHOD T Game.Tools.ApplyPrefabsSystem::AddComponent(Game.Prefabs.PrefabBase) Public, Static, HideBySig
+IL_0000: ldarg.0
+IL_0001: callvirt T Game.Prefabs.PrefabBase::AddComponent<T>()
+IL_0006: ret
+METHOD System.Void Game.Tools.ApplyPrefabsSystem::RemoveComponent(Game.Prefabs.PrefabBase) Public, Static, HideBySig
+IL_0000: ldarg.0
+IL_0001: ldtoken T
+IL_0006: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)
+IL_000b: call System.Void Game.Tools.ApplyPrefabsSystem::RemoveComponent(Game.Prefabs.PrefabBase,System.Type)
+IL_0010: ret
+METHOD System.Void Game.Tools.ApplyPrefabsSystem::RemoveComponent(Game.Prefabs.PrefabBase,System.Type) Public, Static, HideBySig
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: callvirt Game.Prefabs.ComponentBase Game.Prefabs.ComponentBase::GetComponentExactly(System.Type)
+IL_0007: stloc.0
+IL_0008: ldloc.0
+IL_0009: ldnull
+IL_000a: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_000f: brfalse.s IL_0012
+IL_0011: ret
+IL_0012: ldarg.0
+IL_0013: ldarg.1
+IL_0014: callvirt System.Void Game.Prefabs.PrefabBase::Remove(System.Type)
+IL_0019: ldloc.0
+IL_001a: ldc.i4.1
+IL_001b: call System.Void UnityEngine.Object::DestroyImmediate(UnityEngine.Object,System.Boolean)
+IL_0020: ret
+TYPE Game.Prefabs.ComponentBase BASE UnityEngine.ScriptableObject
+FIELD Colossal.Logging.ILog Game.Prefabs.ComponentBase::baseLog Family, Static
+FIELD System.Boolean Game.Prefabs.ComponentBase::active Public
+FIELD Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::<prefab>k__BackingField Private
+TYPE Game.Prefabs.PrefabBase BASE Game.Prefabs.ComponentBase
+FIELD System.UInt16 Game.Prefabs.PrefabBase::version Public
+FIELD System.UInt16 Game.Prefabs.PrefabBase::m_prefabFormat Private
+FIELD System.Collections.Generic.List`1<Game.Prefabs.ComponentBase> Game.Prefabs.PrefabBase::components Public
+FIELD System.Boolean Game.Prefabs.PrefabBase::isDirty Public, NotSerialized
+FIELD Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::<asset>k__BackingField Private
+METHOD T Game.Prefabs.PrefabBase::AddComponent() Public, HideBySig
+IL_0000: ldarg.0
+IL_0001: ldtoken T
+IL_0006: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)
+IL_000b: call Game.Prefabs.ComponentBase Game.Prefabs.PrefabBase::AddComponent(System.Type)
+IL_0010: unbox.any T
+IL_0015: ret
+METHOD Game.Prefabs.ComponentBase Game.Prefabs.PrefabBase::AddComponent(System.Type) Public, HideBySig
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Boolean Game.Prefabs.PrefabBase::Has(System.Type)
+IL_0007: brfalse.s IL_0014
+IL_0009: ldstr "Component already exists"
+IL_000e: newobj System.Void System.InvalidOperationException::.ctor(System.String)
+IL_0013: throw
+IL_0014: ldarg.1
+IL_0015: call UnityEngine.ScriptableObject UnityEngine.ScriptableObject::CreateInstance(System.Type)
+IL_001a: castclass Game.Prefabs.ComponentBase
+IL_001f: stloc.0
+IL_0020: ldloc.0
+IL_0021: ldarg.1
+IL_0022: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_0027: callvirt System.Void UnityEngine.Object::set_name(System.String)
+IL_002c: ldloc.0
+IL_002d: ldarg.0
+IL_002e: callvirt System.Void Game.Prefabs.ComponentBase::set_prefab(Game.Prefabs.PrefabBase)
+IL_0033: ldarg.0
+IL_0034: ldfld System.Collections.Generic.List`1<Game.Prefabs.ComponentBase> Game.Prefabs.PrefabBase::components
+IL_0039: ldloc.0
+IL_003a: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::Add(!0)
+IL_003f: ldarg.0
+IL_0040: ldc.i4.1
+IL_0041: stfld System.Boolean Game.Prefabs.PrefabBase::isDirty
+IL_0046: ldloc.0
+IL_0047: ret
+METHOD Game.Prefabs.PrefabBase Game.Prefabs.PrefabBase::Clone(System.String) Public, HideBySig
+IL_0000: ldarg.0
+IL_0001: call System.Type System.Object::GetType()
+IL_0006: call UnityEngine.ScriptableObject UnityEngine.ScriptableObject::CreateInstance(System.Type)
+IL_000b: castclass Game.Prefabs.PrefabBase
+IL_0010: stloc.0
+IL_0011: ldarg.0
+IL_0012: call System.String UnityEngine.JsonUtility::ToJson(System.Object)
+IL_0017: call Colossal.Json.Variant Colossal.Json.JSON::Load(System.String)
+IL_001c: isinst Colossal.Json.ProxyObject
+IL_0021: stloc.1
+IL_0022: ldloc.1
+IL_0023: brfalse.s IL_003b
+IL_0025: ldloc.1
+IL_0026: ldstr "components"
+IL_002b: callvirt System.Void Colossal.Json.ProxyObject::Remove(System.String)
+IL_0030: ldloc.1
+IL_0031: ldstr "m_NameOverride"
+IL_0036: callvirt System.Void Colossal.Json.ProxyObject::Remove(System.String)
+IL_003b: ldloc.1
+IL_003c: callvirt System.String Colossal.Json.Variant::ToJSON()
+IL_0041: ldloc.0
+IL_0042: call System.Void UnityEngine.JsonUtility::FromJsonOverwrite(System.String,System.Object)
+IL_0047: ldloc.0
+IL_0048: ldarg.1
+IL_0049: dup
+IL_004a: brtrue.s IL_005d
+IL_004c: pop
+IL_004d: ldarg.0
+IL_004e: call System.String UnityEngine.Object::get_name()
+IL_0053: ldstr " (copy)"
+IL_0058: call System.String System.String::Concat(System.String,System.String)
+IL_005d: callvirt System.Void UnityEngine.Object::set_name(System.String)
+IL_0062: ldarg.0
+IL_0063: ldfld System.Collections.Generic.List`1<Game.Prefabs.ComponentBase> Game.Prefabs.PrefabBase::components
+IL_0068: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::GetEnumerator()
+IL_006d: stloc.2
+IL_006e: br.s IL_0080
+IL_0070: ldloca.s V_2
+IL_0072: call !0 System.Collections.Generic.List`1/Enumerator<Game.Prefabs.ComponentBase>::get_Current()
+IL_0077: stloc.3
+IL_0078: ldloc.0
+IL_0079: ldloc.3
+IL_007a: callvirt Game.Prefabs.ComponentBase Game.Prefabs.PrefabBase::AddComponentFrom(Game.Prefabs.ComponentBase)
+IL_007f: pop
+IL_0080: ldloca.s V_2
+IL_0082: call System.Boolean System.Collections.Generic.List`1/Enumerator<Game.Prefabs.ComponentBase>::MoveNext()
+IL_0087: brtrue.s IL_0070
+IL_0089: leave.s IL_0099
+IL_008b: ldloca.s V_2
+IL_008d: constrained. System.Collections.Generic.List`1/Enumerator<Game.Prefabs.ComponentBase>
+IL_0093: callvirt System.Void System.IDisposable::Dispose()
+IL_0098: endfinally
+IL_0099: ldloc.0
+IL_009a: ret
+TYPE Game.Prefabs.ObjectSubObjects BASE Game.Prefabs.ComponentBase
+FIELD Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects Public

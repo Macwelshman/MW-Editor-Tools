@@ -1,0 +1,32 @@
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_006c: ldloca.s V_0
+IL_006e: ldloc.3
+IL_006f: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0074: stloc.s V_5
+IL_0076: ldarg.0
+IL_0077: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_SourceInstance
+IL_007c: ldloc.s V_5
+IL_007e: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0083: brfalse.s IL_00aa
+IL_0085: ldarg.0
+IL_0086: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_CommandBuffer
+IL_008b: ldarg.2
+IL_008c: ldloc.s V_5
+IL_008e: ldloca.s V_6
+IL_0090: initobj Game.Common.Updated
+IL_0096: ldloc.s V_6
+IL_0098: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_009d: ldarg.0
+IL_009e: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_UpdateInstances
+IL_00a3: ldloc.s V_5
+IL_00a5: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity>::Enqueue(!0)
+IL_00aa: ldloc.3
+IL_00ab: ldc.i4.1
+IL_00ac: add
+IL_00ad: stloc.3
+IL_00ae: ldloc.3
+IL_00af: ldloca.s V_1
+IL_00b1: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>::get_Length()
+IL_00b6: blt IL_0037
+IL_00bb: ldc.i4.0
+IL_00bc: stloc.s V_7

@@ -1,0 +1,166 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12
+FIELD System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+FIELD Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>2__current
+FIELD System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>l__initialThreadId
+FIELD Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>4__this
+FIELD System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::ignoreEmpty
+FIELD System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>3__ignoreEmpty
+FIELD System.Collections.Generic.IEnumerator`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>7__wrap1
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::.ctor(System.Int32) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Object::.ctor()
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_000d: ldarg.0
+IL_000e: call System.Int32 System.Environment::get_CurrentManagedThreadId()
+IL_0013: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>l__initialThreadId
+IL_0018: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::System.IDisposable.Dispose() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: ldc.i4.s -3
+IL_000a: beq.s IL_0010
+IL_000c: ldloc.0
+IL_000d: ldc.i4.1
+IL_000e: bne.un.s IL_001a
+IL_0010: nop
+IL_0011: leave.s IL_001a
+IL_0013: ldarg.0
+IL_0014: call System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>m__Finally1()
+IL_0019: endfinally
+IL_001a: ret
+METHOD System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::MoveNext() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_0006: stloc.1
+IL_0007: ldarg.0
+IL_0008: ldfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>4__this
+IL_000d: stloc.2
+IL_000e: ldloc.1
+IL_000f: brfalse.s IL_001c
+IL_0011: ldloc.1
+IL_0012: ldc.i4.1
+IL_0013: beq.s IL_008b
+IL_0015: ldc.i4.0
+IL_0016: stloc.0
+IL_0017: leave IL_00b8
+IL_001c: ldarg.0
+IL_001d: ldc.i4.m1
+IL_001e: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_0023: ldloc.2
+IL_0024: ldfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem::m_Dirty
+IL_0029: brfalse.s IL_0031
+IL_002b: ldloc.2
+IL_002c: call System.Void Game.UI.Editor.EditorAssetCategorySystem::GenerateCategories()
+IL_0031: ldarg.0
+IL_0032: ldloc.2
+IL_0033: ldloc.2
+IL_0034: ldfld System.Collections.Generic.List`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem::m_Categories
+IL_0039: ldc.i4.0
+IL_003a: ldarg.0
+IL_003b: ldfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::ignoreEmpty
+IL_0040: call System.Collections.Generic.IEnumerable`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem::GetCategoriesImpl(System.Collections.Generic.IEnumerable`1<Game.UI.Editor.EditorAssetCategory>,System.Int32,System.Boolean)
+IL_0045: callvirt System.Collections.Generic.IEnumerator`1<!0> System.Collections.Generic.IEnumerable`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>>::GetEnumerator()
+IL_004a: stfld System.Collections.Generic.IEnumerator`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>7__wrap1
+IL_004f: ldarg.0
+IL_0050: ldc.i4.s -3
+IL_0052: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_0057: br.s IL_0093
+IL_0059: ldarg.0
+IL_005a: ldfld System.Collections.Generic.IEnumerator`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>7__wrap1
+IL_005f: callvirt !0 System.Collections.Generic.IEnumerator`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>>::get_Current()
+IL_0064: dup
+IL_0065: ldfld !0 System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>::Item1
+IL_006a: stloc.3
+IL_006b: ldfld !1 System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>::Item2
+IL_0070: stloc.s V_4
+IL_0072: ldarg.0
+IL_0073: ldloc.3
+IL_0074: ldloc.s V_4
+IL_0076: callvirt Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategory::ToHierarchyItem(System.Int32)
+IL_007b: stfld Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>2__current
+IL_0080: ldarg.0
+IL_0081: ldc.i4.1
+IL_0082: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_0087: ldc.i4.1
+IL_0088: stloc.0
+IL_0089: leave.s IL_00b8
+IL_008b: ldarg.0
+IL_008c: ldc.i4.s -3
+IL_008e: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_0093: ldarg.0
+IL_0094: ldfld System.Collections.Generic.IEnumerator`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>7__wrap1
+IL_0099: callvirt System.Boolean System.Collections.IEnumerator::MoveNext()
+IL_009e: brtrue.s IL_0059
+IL_00a0: ldarg.0
+IL_00a1: call System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>m__Finally1()
+IL_00a6: ldarg.0
+IL_00a7: ldnull
+IL_00a8: stfld System.Collections.Generic.IEnumerator`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>7__wrap1
+IL_00ad: ldc.i4.0
+IL_00ae: stloc.0
+IL_00af: leave.s IL_00b8
+IL_00b1: ldarg.0
+IL_00b2: call System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::System.IDisposable.Dispose()
+IL_00b7: endfinally
+IL_00b8: ldloc.0
+IL_00b9: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>m__Finally1() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldc.i4.m1
+IL_0002: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_0007: ldarg.0
+IL_0008: ldfld System.Collections.Generic.IEnumerator`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>7__wrap1
+IL_000d: brfalse.s IL_001a
+IL_000f: ldarg.0
+IL_0010: ldfld System.Collections.Generic.IEnumerator`1<System.ValueTuple`2<Game.UI.Editor.EditorAssetCategory,System.Int32>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>7__wrap1
+IL_0015: callvirt System.Void System.IDisposable::Dispose()
+IL_001a: ret
+METHOD Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::System.Collections.Generic.IEnumerator<Game.UI.Editor.HierarchyItem<Game.UI.Editor.EditorAssetCategory>>.get_Current() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>2__current
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::System.Collections.IEnumerator.Reset() PUBLIC False
+IL_0000: newobj System.Void System.NotSupportedException::.ctor()
+IL_0005: throw
+METHOD System.Object Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::System.Collections.IEnumerator.get_Current() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>2__current
+IL_0006: box Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>
+IL_000b: ret
+METHOD System.Collections.Generic.IEnumerator`1<Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::System.Collections.Generic.IEnumerable<Game.UI.Editor.HierarchyItem<Game.UI.Editor.EditorAssetCategory>>.GetEnumerator() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_0006: ldc.i4.s -2
+IL_0008: bne.un.s IL_0022
+IL_000a: ldarg.0
+IL_000b: ldfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>l__initialThreadId
+IL_0010: call System.Int32 System.Environment::get_CurrentManagedThreadId()
+IL_0015: bne.un.s IL_0022
+IL_0017: ldarg.0
+IL_0018: ldc.i4.0
+IL_0019: stfld System.Int32 Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>1__state
+IL_001e: ldarg.0
+IL_001f: stloc.0
+IL_0020: br.s IL_0035
+IL_0022: ldc.i4.0
+IL_0023: newobj System.Void Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::.ctor(System.Int32)
+IL_0028: stloc.0
+IL_0029: ldloc.0
+IL_002a: ldarg.0
+IL_002b: ldfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>4__this
+IL_0030: stfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>4__this
+IL_0035: ldloc.0
+IL_0036: ldarg.0
+IL_0037: ldfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::<>3__ignoreEmpty
+IL_003c: stfld System.Boolean Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::ignoreEmpty
+IL_0041: ldloc.0
+IL_0042: ret
+METHOD System.Collections.IEnumerator Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::System.Collections.IEnumerable.GetEnumerator() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Collections.Generic.IEnumerator`1<Game.UI.Editor.HierarchyItem`1<Game.UI.Editor.EditorAssetCategory>> Game.UI.Editor.EditorAssetCategorySystem/<GetHierarchy>d__12::System.Collections.Generic.IEnumerable<Game.UI.Editor.HierarchyItem<Game.UI.Editor.EditorAssetCategory>>.GetEnumerator()
+IL_0006: ret

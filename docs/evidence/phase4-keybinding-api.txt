@@ -1,0 +1,681 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Settings.SettingsUIKeyboardBindingAttribute
+FIELD Game.Input.BindingKeyboard Game.Settings.SettingsUIKeyboardBindingAttribute::defaultKey=
+FIELD System.Boolean Game.Settings.SettingsUIKeyboardBindingAttribute::alt=
+FIELD System.Boolean Game.Settings.SettingsUIKeyboardBindingAttribute::ctrl=
+FIELD System.Boolean Game.Settings.SettingsUIKeyboardBindingAttribute::shift=
+PROPERTY System.String Game.Settings.SettingsUIKeyboardBindingAttribute::control()
+PROPERTY System.Collections.Generic.IEnumerable`1<System.String> Game.Settings.SettingsUIKeyboardBindingAttribute::modifierControls()
+METHOD System.String Game.Settings.SettingsUIKeyboardBindingAttribute::get_control()
+METHOD System.Collections.Generic.IEnumerable`1<System.String> Game.Settings.SettingsUIKeyboardBindingAttribute::get_modifierControls()
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(System.String)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.AxisComponent,System.String)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.Vector2Component,System.String)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.BindingKeyboard,System.String,System.Boolean,System.Boolean,System.Boolean)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.BindingKeyboard,Game.Input.AxisComponent,System.String,System.Boolean,System.Boolean,System.Boolean)
+METHOD System.Void Game.Settings.SettingsUIKeyboardBindingAttribute::.ctor(Game.Input.BindingKeyboard,Game.Input.Vector2Component,System.String,System.Boolean,System.Boolean,System.Boolean)
+TYPE Game.Settings.SettingsUIInputActionAttribute
+FIELD Game.Input.RebindOptions Game.Settings.SettingsUIInputActionAttribute::kDefaultRebindOptions=3
+FIELD Game.Input.ModifierOptions Game.Settings.SettingsUIInputActionAttribute::kDefaultModifierOptions=1
+FIELD System.Boolean Game.Settings.SettingsUIInputActionAttribute::kDefaultCanBeEmpty=True
+FIELD System.Boolean Game.Settings.SettingsUIInputActionAttribute::kDefaultDeveloperOnly=False
+FIELD Game.Input.Mode Game.Settings.SettingsUIInputActionAttribute::kDefaultMode=0
+FIELD System.String Game.Settings.SettingsUIInputActionAttribute::name=
+FIELD Game.Input.InputManager/DeviceType Game.Settings.SettingsUIInputActionAttribute::device=
+FIELD Game.Input.ActionType Game.Settings.SettingsUIInputActionAttribute::type=
+FIELD Game.Input.RebindOptions Game.Settings.SettingsUIInputActionAttribute::rebindOptions=
+FIELD Game.Input.ModifierOptions Game.Settings.SettingsUIInputActionAttribute::modifierOptions=
+FIELD System.Boolean Game.Settings.SettingsUIInputActionAttribute::canBeEmpty=
+FIELD System.Boolean Game.Settings.SettingsUIInputActionAttribute::developerOnly=
+FIELD Game.Input.Mode Game.Settings.SettingsUIInputActionAttribute::mode=
+FIELD System.Collections.ObjectModel.ReadOnlyCollection`1<System.String> Game.Settings.SettingsUIInputActionAttribute::interactions=
+FIELD System.Collections.ObjectModel.ReadOnlyCollection`1<System.String> Game.Settings.SettingsUIInputActionAttribute::processors=
+PROPERTY Game.Input.Usages Game.Settings.SettingsUIInputActionAttribute::usages()
+METHOD Game.Input.Usages Game.Settings.SettingsUIInputActionAttribute::get_usages()
+METHOD System.Void Game.Settings.SettingsUIInputActionAttribute::.ctor(System.String,Game.Input.InputManager/DeviceType,Game.Input.ActionType,Game.Input.RebindOptions,Game.Input.ModifierOptions,System.Boolean,System.Boolean,Game.Input.Mode,System.String[],System.String[],System.String[])
+METHOD System.Void Game.Settings.SettingsUIInputActionAttribute::.ctor(System.String,Game.Input.InputManager/DeviceType,Game.Input.ActionType,Game.Input.Mode,System.String[])
+TYPE Game.Settings.SettingsUIKeyboardActionAttribute
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,Game.Input.ActionType,Game.Input.RebindOptions,Game.Input.ModifierOptions,System.Boolean,System.Boolean,Game.Input.Mode,System.String[],System.String[],System.String[])
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,Game.Input.ActionType,Game.Input.Mode,System.String[])
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,Game.Input.ActionType,System.String[])
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,Game.Input.Mode,System.String[])
+METHOD System.Void Game.Settings.SettingsUIKeyboardActionAttribute::.ctor(System.String,System.String[])
+TYPE Game.Modding.ModSetting
+PROPERTY System.Collections.Generic.Dictionary`2<System.String,Game.Modding.ModSetting> Game.Modding.ModSetting::instances()
+PROPERTY Game.Modding.IMod Game.Modding.ModSetting::mod()
+PROPERTY System.Boolean Game.Modding.ModSetting::builtIn()
+PROPERTY System.String Game.Modding.ModSetting::id()
+PROPERTY System.String Game.Modding.ModSetting::name()
+PROPERTY System.Boolean Game.Modding.ModSetting::keyBindingRegistered()
+PROPERTY System.Reflection.PropertyInfo[] Game.Modding.ModSetting::keyBindingProperties()
+METHOD System.String Game.Modding.ModSetting::get_id()
+METHOD System.String Game.Modding.ModSetting::get_name()
+METHOD System.Boolean Game.Modding.ModSetting::get_keyBindingRegistered()
+METHOD System.Void Game.Modding.ModSetting::.ctor(Game.Modding.IMod)
+METHOD System.Void Game.Modding.ModSetting::RegisterInOptionsUI()
+METHOD System.Void Game.Modding.ModSetting::UnregisterInOptionsUI()
+METHOD System.Void Game.Modding.ModSetting::RegisterKeyBindings()
+IL_0000: ldarg.0
+IL_0001: call System.Boolean Game.Modding.ModSetting::get_keyBindingRegistered()
+IL_0006: brfalse.s IL_0009
+IL_0008: ret
+IL_0009: ldarg.0
+IL_000a: call System.Reflection.PropertyInfo[] Game.Modding.ModSetting::get_keyBindingProperties()
+IL_000f: stloc.0
+IL_0010: newobj System.Void System.Collections.Generic.Dictionary`2<System.String,System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>>::.ctor()
+IL_0015: stloc.1
+IL_0016: newobj System.Void System.Collections.Generic.Dictionary`2<System.ValueTuple`2<System.String,Game.Input.InputManager/DeviceType>,Game.Settings.SettingsUIInputActionAttribute>::.ctor()
+IL_001b: stloc.2
+IL_001c: ldarg.0
+IL_001d: call System.Type System.Object::GetType()
+IL_0022: ldc.i4.0
+IL_0023: callvirt System.Object[] System.Reflection.MemberInfo::GetCustomAttributes(System.Boolean)
+IL_0028: call System.Collections.Generic.IEnumerable`1<!!0> Colossal.Reflection.ReflectionUtils::GetAttributes<Game.Settings.SettingsUIInputActionAttribute>(System.Object[])
+IL_002d: callvirt System.Collections.Generic.IEnumerator`1<!0> System.Collections.Generic.IEnumerable`1<Game.Settings.SettingsUIInputActionAttribute>::GetEnumerator()
+IL_0032: stloc.s V_4
+IL_0034: br.s IL_005b
+IL_0036: ldloc.s V_4
+IL_0038: callvirt !0 System.Collections.Generic.IEnumerator`1<Game.Settings.SettingsUIInputActionAttribute>::get_Current()
+IL_003d: stloc.s V_5
+IL_003f: ldloc.2
+IL_0040: ldloc.s V_5
+IL_0042: ldfld System.String Game.Settings.SettingsUIInputActionAttribute::name
+IL_0047: ldloc.s V_5
+IL_0049: ldfld Game.Input.InputManager/DeviceType Game.Settings.SettingsUIInputActionAttribute::device
+IL_004e: newobj System.Void System.ValueTuple`2<System.String,Game.Input.InputManager/DeviceType>::.ctor(!0,!1)
+IL_0053: ldloc.s V_5
+IL_0055: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.ValueTuple`2<System.String,Game.Input.InputManager/DeviceType>,Game.Settings.SettingsUIInputActionAttribute>::TryAdd(!0,!1)
+IL_005a: pop
+IL_005b: ldloc.s V_4
+IL_005d: callvirt System.Boolean System.Collections.IEnumerator::MoveNext()
+IL_0062: brtrue.s IL_0036
+IL_0064: leave.s IL_0072
+IL_0066: ldloc.s V_4
+IL_0068: brfalse.s IL_0071
+IL_006a: ldloc.s V_4
+IL_006c: callvirt System.Void System.IDisposable::Dispose()
+IL_0071: endfinally
+IL_0072: ldc.i4.0
+IL_0073: stloc.s V_6
+IL_0075: br IL_02dd
+IL_007a: newobj System.Void Game.Modding.ModSetting/<>c__DisplayClass27_0::.ctor()
+IL_007f: stloc.s V_7
+IL_0081: ldloc.0
+IL_0082: ldloc.s V_6
+IL_0084: ldelem.ref
+IL_0085: stloc.s V_8
+IL_0087: ldloc.s V_7
+IL_0089: ldloc.s V_8
+IL_008b: ldarg.0
+IL_008c: callvirt System.Object System.Reflection.PropertyInfo::GetValue(System.Object)
+IL_0091: unbox.any Game.Input.ProxyBinding
+IL_0096: stfld Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_009b: ldloc.1
+IL_009c: ldloc.s V_7
+IL_009e: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_00a3: call System.String Game.Input.ProxyBinding::get_actionName()
+IL_00a8: ldloca.s V_9
+IL_00aa: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.String,System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>>::TryGetValue(!0,!1&)
+IL_00af: brtrue.s IL_0111
+IL_00b1: ldloca.s V_11
+IL_00b3: initobj Game.Input.ProxyAction/Info
+IL_00b9: ldloca.s V_11
+IL_00bb: ldloc.s V_7
+IL_00bd: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_00c2: call System.String Game.Input.ProxyBinding::get_mapName()
+IL_00c7: stfld System.String Game.Input.ProxyAction/Info::m_Map
+IL_00cc: ldloca.s V_11
+IL_00ce: ldloc.s V_7
+IL_00d0: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_00d5: call System.String Game.Input.ProxyBinding::get_actionName()
+IL_00da: stfld System.String Game.Input.ProxyAction/Info::m_Name
+IL_00df: ldloca.s V_11
+IL_00e1: ldloc.s V_7
+IL_00e3: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_00e8: call Game.Input.ActionComponent Game.Input.ProxyBinding::get_component()
+IL_00ed: call Game.Input.ActionType Game.Input.CompositeUtility::GetActionType(Game.Input.ActionComponent)
+IL_00f2: stfld Game.Input.ActionType Game.Input.ProxyAction/Info::m_Type
+IL_00f7: ldloca.s V_11
+IL_00f9: newobj System.Void System.Collections.Generic.List`1<Game.Input.ProxyComposite/Info>::.ctor()
+IL_00fe: stfld System.Collections.Generic.List`1<Game.Input.ProxyComposite/Info> Game.Input.ProxyAction/Info::m_Composites
+IL_0103: ldloc.s V_11
+IL_0105: newobj System.Void System.Collections.Generic.List`1<System.Reflection.PropertyInfo>::.ctor()
+IL_010a: newobj System.Void System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>::.ctor(!0,!1)
+IL_010f: stloc.s V_9
+IL_0111: ldloc.s V_7
+IL_0113: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_0118: call Game.Input.ActionComponent Game.Input.ProxyBinding::get_component()
+IL_011d: call Game.Input.ActionType Game.Input.CompositeUtility::GetActionType(Game.Input.ActionComponent)
+IL_0122: ldloc.s V_9
+IL_0124: ldfld !0 System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>::Item1
+IL_0129: ldfld Game.Input.ActionType Game.Input.ProxyAction/Info::m_Type
+IL_012e: bne.un IL_02d7
+IL_0133: ldloc.s V_9
+IL_0135: ldfld !1 System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>::Item2
+IL_013a: ldloc.s V_8
+IL_013c: callvirt System.Void System.Collections.Generic.List`1<System.Reflection.PropertyInfo>::Add(!0)
+IL_0141: ldloc.s V_9
+IL_0143: ldfld !0 System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>::Item1
+IL_0148: ldfld System.Collections.Generic.List`1<Game.Input.ProxyComposite/Info> Game.Input.ProxyAction/Info::m_Composites
+IL_014d: ldloc.s V_7
+IL_014f: ldftn System.Boolean Game.Modding.ModSetting/<>c__DisplayClass27_0::<RegisterKeyBindings>b__1(Game.Input.ProxyComposite/Info)
+IL_0155: newobj System.Void System.Func`2<Game.Input.ProxyComposite/Info,System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_015a: call !!0 System.Linq.Enumerable::FirstOrDefault<Game.Input.ProxyComposite/Info>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,System.Boolean>)
+IL_015f: stloc.s V_10
+IL_0161: ldloc.s V_10
+IL_0163: ldfld Game.Input.CompositeInstance Game.Input.ProxyComposite/Info::m_Source
+IL_0168: brtrue IL_02b0
+IL_016d: ldloc.s V_7
+IL_016f: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_0174: call Game.Input.ActionComponent Game.Input.ProxyBinding::get_component()
+IL_0179: call Game.Input.ActionType Game.Input.CompositeUtility::GetActionType(Game.Input.ActionComponent)
+IL_017e: ldloca.s V_12
+IL_0180: call System.Boolean Game.Input.InputManager::TryGetCompositeData(Game.Input.ActionType,Game.Input.InputManager/CompositeData&)
+IL_0185: brfalse IL_02d7
+IL_018a: ldloc.s V_12
+IL_018c: ldfld System.String Game.Input.InputManager/CompositeData::m_TypeName
+IL_0191: newobj System.Void Game.Input.CompositeInstance::.ctor(System.String)
+IL_0196: dup
+IL_0197: ldc.i4.0
+IL_0198: callvirt System.Void Game.Input.CompositeInstance::set_builtIn(System.Boolean)
+IL_019d: stloc.s V_13
+IL_019f: ldloc.2
+IL_01a0: ldloc.s V_7
+IL_01a2: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_01a7: call System.String Game.Input.ProxyBinding::get_actionName()
+IL_01ac: ldloc.s V_7
+IL_01ae: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_01b3: call Game.Input.InputManager/DeviceType Game.Input.ProxyBinding::get_device()
+IL_01b8: newobj System.Void System.ValueTuple`2<System.String,Game.Input.InputManager/DeviceType>::.ctor(!0,!1)
+IL_01bd: ldloca.s V_14
+IL_01bf: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.ValueTuple`2<System.String,Game.Input.InputManager/DeviceType>,Game.Settings.SettingsUIInputActionAttribute>::TryGetValue(!0,!1&)
+IL_01c4: brfalse IL_0259
+IL_01c9: ldloc.s V_13
+IL_01cb: ldloc.s V_14
+IL_01cd: ldfld Game.Input.RebindOptions Game.Settings.SettingsUIInputActionAttribute::rebindOptions
+IL_01d2: callvirt System.Void Game.Input.CompositeInstance::set_rebindOptions(Game.Input.RebindOptions)
+IL_01d7: ldloc.s V_13
+IL_01d9: ldloc.s V_14
+IL_01db: ldfld Game.Input.ModifierOptions Game.Settings.SettingsUIInputActionAttribute::modifierOptions
+IL_01e0: callvirt System.Void Game.Input.CompositeInstance::set_modifierOptions(Game.Input.ModifierOptions)
+IL_01e5: ldloc.s V_13
+IL_01e7: ldloc.s V_14
+IL_01e9: ldfld System.Boolean Game.Settings.SettingsUIInputActionAttribute::developerOnly
+IL_01ee: callvirt System.Void Game.Input.CompositeInstance::set_developerOnly(System.Boolean)
+IL_01f3: ldloc.s V_13
+IL_01f5: ldloc.s V_14
+IL_01f7: ldfld Game.Input.Mode Game.Settings.SettingsUIInputActionAttribute::mode
+IL_01fc: callvirt System.Void Game.Input.CompositeInstance::set_mode(Game.Input.Mode)
+IL_0201: ldloc.s V_13
+IL_0203: ldloc.s V_14
+IL_0205: callvirt Game.Input.Usages Game.Settings.SettingsUIInputActionAttribute::get_usages()
+IL_020a: callvirt System.Void Game.Input.CompositeInstance::set_usages(Game.Input.Usages)
+IL_020f: ldloc.s V_13
+IL_0211: callvirt System.Collections.Generic.List`1<UnityEngine.InputSystem.Utilities.NameAndParameters> Game.Input.CompositeInstance::get_interactions()
+IL_0216: ldloc.s V_14
+IL_0218: ldfld System.Collections.ObjectModel.ReadOnlyCollection`1<System.String> Game.Settings.SettingsUIInputActionAttribute::interactions
+IL_021d: ldnull
+IL_021e: ldftn UnityEngine.InputSystem.Utilities.NameAndParameters UnityEngine.InputSystem.Utilities.NameAndParameters::Parse(System.String)
+IL_0224: newobj System.Void System.Func`2<System.String,UnityEngine.InputSystem.Utilities.NameAndParameters>::.ctor(System.Object,System.IntPtr)
+IL_0229: call System.Collections.Generic.IEnumerable`1<!!1> System.Linq.Enumerable::Select<System.String,UnityEngine.InputSystem.Utilities.NameAndParameters>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,!!1>)
+IL_022e: callvirt System.Void System.Collections.Generic.List`1<UnityEngine.InputSystem.Utilities.NameAndParameters>::AddRange(System.Collections.Generic.IEnumerable`1<!0>)
+IL_0233: ldloc.s V_13
+IL_0235: callvirt System.Collections.Generic.List`1<UnityEngine.InputSystem.Utilities.NameAndParameters> Game.Input.CompositeInstance::get_processors()
+IL_023a: ldloc.s V_14
+IL_023c: ldfld System.Collections.ObjectModel.ReadOnlyCollection`1<System.String> Game.Settings.SettingsUIInputActionAttribute::processors
+IL_0241: ldnull
+IL_0242: ldftn UnityEngine.InputSystem.Utilities.NameAndParameters UnityEngine.InputSystem.Utilities.NameAndParameters::Parse(System.String)
+IL_0248: newobj System.Void System.Func`2<System.String,UnityEngine.InputSystem.Utilities.NameAndParameters>::.ctor(System.Object,System.IntPtr)
+IL_024d: call System.Collections.Generic.IEnumerable`1<!!1> System.Linq.Enumerable::Select<System.String,UnityEngine.InputSystem.Utilities.NameAndParameters>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,!!1>)
+IL_0252: callvirt System.Void System.Collections.Generic.List`1<UnityEngine.InputSystem.Utilities.NameAndParameters>::AddRange(System.Collections.Generic.IEnumerable`1<!0>)
+IL_0257: br.s IL_0269
+IL_0259: ldloc.s V_13
+IL_025b: ldc.i4.3
+IL_025c: callvirt System.Void Game.Input.CompositeInstance::set_rebindOptions(Game.Input.RebindOptions)
+IL_0261: ldloc.s V_13
+IL_0263: ldc.i4.1
+IL_0264: callvirt System.Void Game.Input.CompositeInstance::set_modifierOptions(Game.Input.ModifierOptions)
+IL_0269: ldloca.s V_15
+IL_026b: initobj Game.Input.ProxyComposite/Info
+IL_0271: ldloca.s V_15
+IL_0273: ldloc.s V_7
+IL_0275: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_027a: call Game.Input.InputManager/DeviceType Game.Input.ProxyBinding::get_device()
+IL_027f: stfld Game.Input.InputManager/DeviceType Game.Input.ProxyComposite/Info::m_Device
+IL_0284: ldloca.s V_15
+IL_0286: ldloc.s V_13
+IL_0288: stfld Game.Input.CompositeInstance Game.Input.ProxyComposite/Info::m_Source
+IL_028d: ldloca.s V_15
+IL_028f: newobj System.Void System.Collections.Generic.List`1<Game.Input.ProxyBinding>::.ctor()
+IL_0294: stfld System.Collections.Generic.List`1<Game.Input.ProxyBinding> Game.Input.ProxyComposite/Info::m_Bindings
+IL_0299: ldloc.s V_15
+IL_029b: stloc.s V_10
+IL_029d: ldloc.s V_9
+IL_029f: ldfld !0 System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>::Item1
+IL_02a4: ldfld System.Collections.Generic.List`1<Game.Input.ProxyComposite/Info> Game.Input.ProxyAction/Info::m_Composites
+IL_02a9: ldloc.s V_10
+IL_02ab: callvirt System.Void System.Collections.Generic.List`1<Game.Input.ProxyComposite/Info>::Add(!0)
+IL_02b0: ldloc.s V_10
+IL_02b2: ldfld System.Collections.Generic.List`1<Game.Input.ProxyBinding> Game.Input.ProxyComposite/Info::m_Bindings
+IL_02b7: ldloc.s V_7
+IL_02b9: ldfld Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_02be: callvirt System.Void System.Collections.Generic.List`1<Game.Input.ProxyBinding>::Add(!0)
+IL_02c3: ldloc.1
+IL_02c4: ldloc.s V_7
+IL_02c6: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_0::binding
+IL_02cb: call System.String Game.Input.ProxyBinding::get_actionName()
+IL_02d0: ldloc.s V_9
+IL_02d2: callvirt System.Void System.Collections.Generic.Dictionary`2<System.String,System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>>::set_Item(!0,!1)
+IL_02d7: ldloc.s V_6
+IL_02d9: ldc.i4.1
+IL_02da: add
+IL_02db: stloc.s V_6
+IL_02dd: ldloc.s V_6
+IL_02df: ldloc.0
+IL_02e0: ldlen
+IL_02e1: conv.i4
+IL_02e2: blt IL_007a
+IL_02e7: ldloc.1
+IL_02e8: callvirt System.Collections.Generic.Dictionary`2/ValueCollection<!0,!1> System.Collections.Generic.Dictionary`2<System.String,System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>>::get_Values()
+IL_02ed: ldsfld System.Func`2<System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>,Game.Input.ProxyAction/Info> Game.Modding.ModSetting/<>c::<>9__27_0
+IL_02f2: dup
+IL_02f3: brtrue.s IL_030c
+IL_02f5: pop
+IL_02f6: ldsfld Game.Modding.ModSetting/<>c Game.Modding.ModSetting/<>c::<>9
+IL_02fb: ldftn Game.Input.ProxyAction/Info Game.Modding.ModSetting/<>c::<RegisterKeyBindings>b__27_0(System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>)
+IL_0301: newobj System.Void System.Func`2<System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>,Game.Input.ProxyAction/Info>::.ctor(System.Object,System.IntPtr)
+IL_0306: dup
+IL_0307: stsfld System.Func`2<System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>,Game.Input.ProxyAction/Info> Game.Modding.ModSetting/<>c::<>9__27_0
+IL_030c: call System.Collections.Generic.IEnumerable`1<!!1> System.Linq.Enumerable::Select<System.ValueTuple`2<Game.Input.ProxyAction/Info,System.Collections.Generic.List`1<System.Reflection.PropertyInfo>>,Game.Input.ProxyAction/Info>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,!!1>)
+IL_0311: call !!0[] System.Linq.Enumerable::ToArray<Game.Input.ProxyAction/Info>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0316: stloc.3
+IL_0317: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_031c: ldloc.3
+IL_031d: callvirt System.Void Game.Input.InputManager::AddActions(Game.Input.ProxyAction/Info[])
+IL_0322: ldloc.0
+IL_0323: stloc.s V_16
+IL_0325: ldc.i4.0
+IL_0326: stloc.s V_17
+IL_0328: br IL_03c6
+IL_032d: newobj System.Void Game.Modding.ModSetting/<>c__DisplayClass27_1::.ctor()
+IL_0332: stloc.s V_18
+IL_0334: ldloc.s V_18
+IL_0336: ldarg.0
+IL_0337: stfld Game.Modding.ModSetting Game.Modding.ModSetting/<>c__DisplayClass27_1::<>4__this
+IL_033c: ldloc.s V_18
+IL_033e: ldloc.s V_16
+IL_0340: ldloc.s V_17
+IL_0342: ldelem.ref
+IL_0343: stfld System.Reflection.PropertyInfo Game.Modding.ModSetting/<>c__DisplayClass27_1::property
+IL_0348: newobj System.Void Game.Modding.ModSetting/<>c__DisplayClass27_2::.ctor()
+IL_034d: stloc.s V_19
+IL_034f: ldloc.s V_19
+IL_0351: ldloc.s V_18
+IL_0353: ldfld System.Reflection.PropertyInfo Game.Modding.ModSetting/<>c__DisplayClass27_1::property
+IL_0358: ldarg.0
+IL_0359: callvirt System.Object System.Reflection.PropertyInfo::GetValue(System.Object)
+IL_035e: unbox.any Game.Input.ProxyBinding
+IL_0363: stfld Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_2::binding
+IL_0368: ldloc.s V_19
+IL_036a: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_2::binding
+IL_036f: ldloc.s V_18
+IL_0371: ldftn System.Void Game.Modding.ModSetting/<>c__DisplayClass27_1::<RegisterKeyBindings>b__2(Game.Input.ProxyBinding)
+IL_0377: newobj System.Void System.Action`1<Game.Input.ProxyBinding>::.ctor(System.Object,System.IntPtr)
+IL_037c: call Game.Input.ProxyBinding/Watcher Game.Input.ProxyBinding::CreateWatcher(System.Action`1<Game.Input.ProxyBinding>)
+IL_0381: pop
+IL_0382: ldarg.0
+IL_0383: ldloc.s V_18
+IL_0385: ldfld System.Reflection.PropertyInfo Game.Modding.ModSetting/<>c__DisplayClass27_1::property
+IL_038a: ldloc.s V_19
+IL_038c: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_2::binding
+IL_0391: call Game.Input.InputManager/DeviceType Game.Input.ProxyBinding::get_device()
+IL_0396: ldloc.s V_19
+IL_0398: ldflda Game.Input.ProxyBinding Game.Modding.ModSetting/<>c__DisplayClass27_2::binding
+IL_039d: call Game.Input.ActionComponent Game.Input.ProxyBinding::get_component()
+IL_03a2: ldloca.s V_20
+IL_03a4: call System.Boolean Game.Modding.ModSetting::TryGetSourceBindingForMimic(System.Reflection.PropertyInfo,Game.Input.InputManager/DeviceType,Game.Input.ActionComponent,Game.Input.ProxyBinding&)
+IL_03a9: brfalse.s IL_03c0
+IL_03ab: ldloca.s V_20
+IL_03ad: ldloc.s V_19
+IL_03af: ldftn System.Void Game.Modding.ModSetting/<>c__DisplayClass27_2::<RegisterKeyBindings>b__3(Game.Input.ProxyBinding)
+IL_03b5: newobj System.Void System.Action`1<Game.Input.ProxyBinding>::.ctor(System.Object,System.IntPtr)
+IL_03ba: call Game.Input.ProxyBinding/Watcher Game.Input.ProxyBinding::CreateWatcher(System.Action`1<Game.Input.ProxyBinding>)
+IL_03bf: pop
+IL_03c0: ldloc.s V_17
+IL_03c2: ldc.i4.1
+IL_03c3: add
+IL_03c4: stloc.s V_17
+IL_03c6: ldloc.s V_17
+IL_03c8: ldloc.s V_16
+IL_03ca: ldlen
+IL_03cb: conv.i4
+IL_03cc: blt IL_032d
+IL_03d1: ldarg.0
+IL_03d2: ldc.i4.1
+IL_03d3: call System.Void Game.Modding.ModSetting::set_keyBindingRegistered(System.Boolean)
+IL_03d8: ret
+METHOD System.Void Game.Modding.ModSetting::ResetKeyBindings()
+METHOD Game.Input.ProxyAction Game.Modding.ModSetting::GetAction(System.String)
+METHOD System.Collections.Generic.IEnumerable`1<Game.Input.ProxyAction> Game.Modding.ModSetting::GetActions()
+METHOD System.String Game.Modding.ModSetting::GetSettingsLocaleID()
+METHOD System.String Game.Modding.ModSetting::GetOptionLabelLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetOptionDescLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetOptionWarningLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetOptionTabLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetOptionGroupLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetEnumValueLocaleID(T)
+METHOD System.String Game.Modding.ModSetting::GetOptionFormatLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldc.i4.1
+IL_0003: call System.String Game.Input.InputManager::GetBindingName(Game.Input.ActionComponent)
+IL_0008: call System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,System.String)
+IL_000d: ret
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,Game.Input.AxisComponent)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.String Game.Input.InputManager::GetBindingName(Game.Input.ActionComponent)
+IL_0008: call System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,System.String)
+IL_000d: ret
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,Game.Input.Vector2Component)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.String Game.Input.InputManager::GetBindingName(Game.Input.ActionComponent)
+IL_0008: call System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,System.String)
+IL_000d: ret
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyHintLocaleID(System.String)
+METHOD System.String Game.Modding.ModSetting::GetBindingMapLocaleID()
+TYPE Game.Input.ProxyAction
+PROPERTY Game.Input.ProxyActionMap Game.Input.ProxyAction::map()
+PROPERTY UnityEngine.InputSystem.InputAction Game.Input.ProxyAction::sourceAction()
+PROPERTY System.Collections.Generic.IReadOnlyDictionary`2<Game.Input.InputManager/DeviceType,Game.Input.ProxyComposite> Game.Input.ProxyAction::composites()
+PROPERTY System.Int32 Game.Input.ProxyAction::compositesCount()
+PROPERTY System.Collections.Generic.IReadOnlyCollection`1<Game.Input.InputBarrier> Game.Input.ProxyAction::barriers()
+PROPERTY System.Collections.Generic.IReadOnlyCollection`1<Game.Input.InputActivator> Game.Input.ProxyAction::activators()
+PROPERTY System.Collections.Generic.IEnumerable`1<Game.Input.ProxyBinding> Game.Input.ProxyAction::bindings()
+PROPERTY System.Boolean Game.Input.ProxyAction::isSet()
+PROPERTY System.Boolean Game.Input.ProxyAction::isBuiltIn()
+PROPERTY System.Boolean Game.Input.ProxyAction::isDummy()
+PROPERTY System.Boolean Game.Input.ProxyAction::isSystemAction()
+PROPERTY Game.Input.InputManager/DeviceType Game.Input.ProxyAction::availableDevices()
+PROPERTY System.Boolean Game.Input.ProxyAction::isKeyboardAction()
+PROPERTY System.Boolean Game.Input.ProxyAction::isMouseAction()
+PROPERTY System.Boolean Game.Input.ProxyAction::isGamepadAction()
+PROPERTY System.Boolean Game.Input.ProxyAction::isOnlyKeyboardAction()
+PROPERTY System.Boolean Game.Input.ProxyAction::isOnlyMouseAction()
+PROPERTY System.Boolean Game.Input.ProxyAction::isOnlyGamepadAction()
+PROPERTY System.Boolean Game.Input.ProxyAction::isMultiDeviceAction()
+PROPERTY System.String Game.Input.ProxyAction::name()
+PROPERTY System.String Game.Input.ProxyAction::mapName()
+PROPERTY System.String Game.Input.ProxyAction::title()
+PROPERTY System.Type Game.Input.ProxyAction::valueType()
+PROPERTY System.Boolean Game.Input.ProxyAction::enabled()
+PROPERTY System.Boolean Game.Input.ProxyAction::shouldBeEnabled()
+PROPERTY System.Boolean Game.Input.ProxyAction::preResolvedEnable()
+PROPERTY Game.Input.InputManager/DeviceType Game.Input.ProxyAction::mask()
+PROPERTY Game.Input.InputManager/DeviceType Game.Input.ProxyAction::preResolvedMask()
+PROPERTY Game.Input.DisplayNameOverride Game.Input.ProxyAction::displayOverride()
+PROPERTY Game.Input.InputManager/DeviceType Game.Input.ProxyAction::displayMask()
+PROPERTY System.Collections.Generic.IEnumerable`1<System.String> Game.Input.ProxyAction::usedKeys()
+METHOD System.Void Game.Input.ProxyAction::add_onChanged(System.Action`1<Game.Input.ProxyAction>)
+METHOD System.Void Game.Input.ProxyAction::remove_onChanged(System.Action`1<Game.Input.ProxyAction>)
+METHOD Game.Input.ProxyActionMap Game.Input.ProxyAction::get_map()
+METHOD System.Collections.Generic.IReadOnlyDictionary`2<Game.Input.InputManager/DeviceType,Game.Input.ProxyComposite> Game.Input.ProxyAction::get_composites()
+METHOD System.Int32 Game.Input.ProxyAction::get_compositesCount()
+METHOD System.Collections.Generic.IEnumerable`1<Game.Input.ProxyBinding> Game.Input.ProxyAction::get_bindings()
+METHOD System.Boolean Game.Input.ProxyAction::get_isSet()
+METHOD System.Boolean Game.Input.ProxyAction::get_isBuiltIn()
+METHOD Game.Input.InputManager/DeviceType Game.Input.ProxyAction::get_availableDevices()
+METHOD System.Boolean Game.Input.ProxyAction::get_isKeyboardAction()
+METHOD System.Boolean Game.Input.ProxyAction::get_isMouseAction()
+METHOD System.Boolean Game.Input.ProxyAction::get_isGamepadAction()
+METHOD System.Boolean Game.Input.ProxyAction::get_isOnlyKeyboardAction()
+METHOD System.Boolean Game.Input.ProxyAction::get_isOnlyMouseAction()
+METHOD System.Boolean Game.Input.ProxyAction::get_isOnlyGamepadAction()
+METHOD System.Boolean Game.Input.ProxyAction::get_isMultiDeviceAction()
+METHOD System.String Game.Input.ProxyAction::get_name()
+METHOD System.String Game.Input.ProxyAction::get_mapName()
+METHOD System.String Game.Input.ProxyAction::get_title()
+METHOD System.Type Game.Input.ProxyAction::get_valueType()
+METHOD System.Boolean Game.Input.ProxyAction::get_enabled()
+METHOD System.Boolean Game.Input.ProxyAction::get_shouldBeEnabled()
+METHOD System.Void Game.Input.ProxyAction::set_shouldBeEnabled(System.Boolean)
+METHOD Game.Input.InputManager/DeviceType Game.Input.ProxyAction::get_mask()
+METHOD Game.Input.DisplayNameOverride Game.Input.ProxyAction::get_displayOverride()
+METHOD Game.Input.InputManager/DeviceType Game.Input.ProxyAction::get_displayMask()
+METHOD System.Collections.Generic.IEnumerable`1<System.String> Game.Input.ProxyAction::get_usedKeys()
+METHOD T Game.Input.ProxyAction::ReadValue()
+METHOD System.Object Game.Input.ProxyAction::ReadValueAsObject()
+METHOD System.Single Game.Input.ProxyAction::GetMagnitude()
+METHOD System.Boolean Game.Input.ProxyAction::IsPressed()
+METHOD System.Boolean Game.Input.ProxyAction::IsInProgress()
+METHOD System.Boolean Game.Input.ProxyAction::WasPressedThisFrame()
+METHOD System.Boolean Game.Input.ProxyAction::WasReleasedThisFrame()
+METHOD System.Boolean Game.Input.ProxyAction::WasPerformedThisFrame()
+METHOD System.Void Game.Input.ProxyAction::add_onInteraction(System.Action`2<Game.Input.ProxyAction,UnityEngine.InputSystem.InputActionPhase>)
+METHOD System.Void Game.Input.ProxyAction::remove_onInteraction(System.Action`2<Game.Input.ProxyAction,UnityEngine.InputSystem.InputActionPhase>)
+METHOD System.Boolean Game.Input.ProxyAction::TryGetComposite(Game.Input.InputManager/DeviceType,Game.Input.ProxyComposite&)
+METHOD System.Boolean Game.Input.ProxyAction::TryGetBinding(Game.Input.ProxyBinding,Game.Input.ProxyBinding&)
+METHOD Game.Input.InputBarrier Game.Input.ProxyAction::CreateBarrier(System.String,Game.Input.InputManager/DeviceType)
+METHOD Game.Input.InputActivator Game.Input.ProxyAction::CreateActivator(System.String,Game.Input.InputManager/DeviceType)
+METHOD System.Boolean Game.Input.ProxyAction::ContainsComposite(Game.Input.InputManager/DeviceType)
+METHOD System.String Game.Input.ProxyAction::ToString()
+TYPE Game.Input.ProxyBinding
+FIELD Game.Input.ProxyBinding/Comparer Game.Input.ProxyBinding::pathAndModifiersComparer=
+FIELD Game.Input.ProxyBinding/Comparer Game.Input.ProxyBinding::onlyPathComparer=
+PROPERTY Game.Input.ProxyBinding/Comparer Game.Input.ProxyBinding::defaultComparer()
+PROPERTY Game.Input.ProxyBinding/ModifiersListComparer Game.Input.ProxyBinding::defaultModifiersComparer()
+PROPERTY System.String Game.Input.ProxyBinding::mapName()
+PROPERTY System.String Game.Input.ProxyBinding::actionName()
+PROPERTY Game.Input.ActionComponent Game.Input.ProxyBinding::component()
+PROPERTY System.String Game.Input.ProxyBinding::name()
+PROPERTY Game.Input.ProxyAction Game.Input.ProxyBinding::action()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isBuiltIn()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isRebindable()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isKeyRebindable()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isModifiersRebindable()
+PROPERTY System.Boolean Game.Input.ProxyBinding::disallowModifiers()
+PROPERTY System.Boolean Game.Input.ProxyBinding::allowModifiers()
+PROPERTY System.Boolean Game.Input.ProxyBinding::ignoreModifiers()
+PROPERTY Game.Input.RebindOptions Game.Input.ProxyBinding::rebindOptions()
+PROPERTY Game.Input.ModifierOptions Game.Input.ProxyBinding::modifierOptions()
+PROPERTY System.Boolean Game.Input.ProxyBinding::canBeEmpty()
+PROPERTY System.Boolean Game.Input.ProxyBinding::developerOnly()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isDummy()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isHidden()
+PROPERTY Game.Input.OptionGroupOverride Game.Input.ProxyBinding::optionGroupOverride()
+PROPERTY Game.Input.Usages Game.Input.ProxyBinding::usages()
+PROPERTY Game.Input.ProxyBinding Game.Input.ProxyBinding::original()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isOriginal()
+PROPERTY Game.Input.ProxyBinding/ConflictType Game.Input.ProxyBinding::hasConflicts()
+PROPERTY System.Collections.Generic.IList`1<Game.Input.ProxyBinding> Game.Input.ProxyBinding::conflicts()
+PROPERTY System.String Game.Input.ProxyBinding::path()
+PROPERTY System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier> Game.Input.ProxyBinding::modifiers()
+PROPERTY System.String Game.Input.ProxyBinding::originalPath()
+PROPERTY System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier> Game.Input.ProxyBinding::originalModifiers()
+PROPERTY System.String Game.Input.ProxyBinding::group()
+PROPERTY Game.Input.InputManager/DeviceType Game.Input.ProxyBinding::device()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isKeyboard()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isMouse()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isGamepad()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isSet()
+PROPERTY Game.Input.UIBaseInputAction Game.Input.ProxyBinding::alies()
+PROPERTY System.Boolean Game.Input.ProxyBinding::isAlias()
+PROPERTY System.String Game.Input.ProxyBinding::title()
+METHOD Game.Input.ProxyBinding/Comparer Game.Input.ProxyBinding::get_defaultComparer()
+METHOD Game.Input.ProxyBinding/ModifiersListComparer Game.Input.ProxyBinding::get_defaultModifiersComparer()
+METHOD System.String Game.Input.ProxyBinding::get_mapName()
+METHOD System.String Game.Input.ProxyBinding::get_actionName()
+METHOD Game.Input.ActionComponent Game.Input.ProxyBinding::get_component()
+METHOD System.String Game.Input.ProxyBinding::get_name()
+METHOD System.Boolean Game.Input.ProxyBinding::get_isBuiltIn()
+METHOD System.Boolean Game.Input.ProxyBinding::get_isRebindable()
+METHOD System.Boolean Game.Input.ProxyBinding::get_isKeyRebindable()
+METHOD System.Boolean Game.Input.ProxyBinding::get_isModifiersRebindable()
+METHOD System.Boolean Game.Input.ProxyBinding::get_disallowModifiers()
+METHOD System.Boolean Game.Input.ProxyBinding::get_allowModifiers()
+METHOD System.Boolean Game.Input.ProxyBinding::get_ignoreModifiers()
+METHOD Game.Input.RebindOptions Game.Input.ProxyBinding::get_rebindOptions()
+METHOD Game.Input.ModifierOptions Game.Input.ProxyBinding::get_modifierOptions()
+METHOD System.Boolean Game.Input.ProxyBinding::get_canBeEmpty()
+METHOD System.Boolean Game.Input.ProxyBinding::get_developerOnly()
+METHOD Game.Input.Usages Game.Input.ProxyBinding::get_usages()
+METHOD Game.Input.ProxyBinding Game.Input.ProxyBinding::get_original()
+METHOD System.Boolean Game.Input.ProxyBinding::get_isOriginal()
+METHOD Game.Input.ProxyBinding/ConflictType Game.Input.ProxyBinding::get_hasConflicts()
+METHOD System.Collections.Generic.IList`1<Game.Input.ProxyBinding> Game.Input.ProxyBinding::get_conflicts()
+METHOD System.String Game.Input.ProxyBinding::get_path()
+METHOD System.Void Game.Input.ProxyBinding::set_path(System.String)
+METHOD System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier> Game.Input.ProxyBinding::get_modifiers()
+METHOD System.Void Game.Input.ProxyBinding::set_modifiers(System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier>)
+METHOD System.String Game.Input.ProxyBinding::get_originalPath()
+METHOD System.Void Game.Input.ProxyBinding::set_originalPath(System.String)
+METHOD System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier> Game.Input.ProxyBinding::get_originalModifiers()
+METHOD System.Void Game.Input.ProxyBinding::set_originalModifiers(System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier>)
+METHOD System.String Game.Input.ProxyBinding::get_group()
+METHOD System.Void Game.Input.ProxyBinding::set_group(System.String)
+METHOD Game.Input.InputManager/DeviceType Game.Input.ProxyBinding::get_device()
+METHOD System.Void Game.Input.ProxyBinding::set_device(Game.Input.InputManager/DeviceType)
+METHOD System.Boolean Game.Input.ProxyBinding::get_isKeyboard()
+METHOD System.Boolean Game.Input.ProxyBinding::get_isMouse()
+METHOD System.Boolean Game.Input.ProxyBinding::get_isGamepad()
+METHOD System.Boolean Game.Input.ProxyBinding::get_isSet()
+METHOD System.String Game.Input.ProxyBinding::get_title()
+METHOD System.Void Game.Input.ProxyBinding::.ctor(System.String,System.String,Game.Input.ActionComponent,System.String,Game.Input.CompositeInstance)
+METHOD System.Void Game.Input.ProxyBinding::.ctor(UnityEngine.InputSystem.InputAction,Game.Input.ActionComponent,System.String,Game.Input.CompositeInstance)
+METHOD Game.Input.ProxyBinding Game.Input.ProxyBinding::Copy()
+METHOD System.Boolean Game.Input.ProxyBinding::ConflictsWith(Game.Input.ProxyBinding,Game.Input.ProxyBinding,System.Boolean)
+METHOD System.Collections.Generic.IEnumerable`1<System.String> Game.Input.ProxyBinding::ToHumanReadablePath()
+METHOD Game.Input.ProxyBinding Game.Input.ProxyBinding::WithPath(System.String)
+METHOD Game.Input.ProxyBinding Game.Input.ProxyBinding::WithModifiers(System.Collections.Generic.IReadOnlyList`1<Game.Input.ProxyModifier>)
+METHOD System.Void Game.Input.ProxyBinding::ResetConflictCache()
+METHOD System.String Game.Input.ProxyBinding::ToString()
+METHOD System.Void Game.Input.ProxyBinding::Write(Colossal.UI.Binding.IJsonWriter)
+METHOD System.Boolean Game.Input.ProxyBinding::Equals(Game.Input.ProxyBinding)
+METHOD System.Int32 Game.Input.ProxyBinding::GetHashCode()
+METHOD System.Boolean Game.Input.ProxyBinding::PathEquals(Game.Input.ProxyBinding,Game.Input.ProxyBinding)
+METHOD System.Boolean Game.Input.ProxyBinding::Equals(System.Object)
+METHOD System.Boolean Game.Input.ProxyBinding::op_Equality(Game.Input.ProxyBinding,Game.Input.ProxyBinding)
+METHOD System.Boolean Game.Input.ProxyBinding::op_Inequality(Game.Input.ProxyBinding,Game.Input.ProxyBinding)
+TYPE Game.Input.ActionType
+FIELD System.Int32 Game.Input.ActionType::value__=
+FIELD Game.Input.ActionType Game.Input.ActionType::Button=0
+FIELD Game.Input.ActionType Game.Input.ActionType::Axis=1
+FIELD Game.Input.ActionType Game.Input.ActionType::Vector2=2
+TYPE Game.Input.Mode
+FIELD System.Int32 Game.Input.Mode::value__=
+FIELD Game.Input.Mode Game.Input.Mode::DigitalNormalized=0
+FIELD Game.Input.Mode Game.Input.Mode::Digital=1
+FIELD Game.Input.Mode Game.Input.Mode::Analog=2
+TYPE Game.Input.RebindOptions
+FIELD System.Int32 Game.Input.RebindOptions::value__=
+FIELD Game.Input.RebindOptions Game.Input.RebindOptions::None=0
+FIELD Game.Input.RebindOptions Game.Input.RebindOptions::Key=1
+FIELD Game.Input.RebindOptions Game.Input.RebindOptions::Modifiers=2
+FIELD Game.Input.RebindOptions Game.Input.RebindOptions::All=3
+TYPE Game.Input.ModifierOptions
+FIELD System.Int32 Game.Input.ModifierOptions::value__=
+FIELD Game.Input.ModifierOptions Game.Input.ModifierOptions::Disallow=0
+FIELD Game.Input.ModifierOptions Game.Input.ModifierOptions::Allow=1
+FIELD Game.Input.ModifierOptions Game.Input.ModifierOptions::Ignore=2
+TYPE Game.Input.BindingKeyboard
+FIELD System.Int32 Game.Input.BindingKeyboard::value__=
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::None=0
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Space=1
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Enter=2
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Tab=3
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Backquote=4
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Quote=5
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Semicolon=6
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Comma=7
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Period=8
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Slash=9
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Backslash=10
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::LeftBracket=11
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::RightBracket=12
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Minus=13
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Equals=14
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::A=15
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::B=16
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::C=17
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::D=18
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::E=19
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F=20
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::G=21
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::H=22
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::I=23
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::J=24
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::K=25
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::L=26
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::M=27
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::N=28
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::O=29
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::P=30
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Q=31
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::R=32
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::S=33
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::T=34
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::U=35
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::V=36
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::W=37
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::X=38
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Y=39
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Z=40
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit1=41
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit2=42
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit3=43
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit4=44
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit5=45
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit6=46
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit7=47
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit8=48
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit9=49
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Digit0=50
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Escape=60
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::LeftArrow=61
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::RightArrow=62
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::UpArrow=63
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::DownArrow=64
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Backspace=65
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::PageDown=66
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::PageUp=67
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Home=68
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::End=69
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Delete=71
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadEnter=77
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadDivide=78
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadMultiply=79
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadPlus=80
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadMinus=81
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadPeriod=82
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::NumpadEquals=83
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad0=84
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad1=85
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad2=86
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad3=87
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad4=88
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad5=89
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad6=90
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad7=91
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad8=92
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::Numpad9=93
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F1=94
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F2=95
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F3=96
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F4=97
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F5=98
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F6=99
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F7=100
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F8=101
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F9=102
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F10=103
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F11=104
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::F12=105
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM1=106
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM2=107
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM3=108
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM4=109
+FIELD Game.Input.BindingKeyboard Game.Input.BindingKeyboard::OEM5=110

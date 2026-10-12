@@ -1,0 +1,381 @@
+# MW Editor Tools — New Project Initialisation
+
+## Project overview
+
+Create a new C# mod project named **MW Editor Tools** for the Cities: Skylines II Asset Editor.
+
+MW Editor Tools will be a modular suite of utilities designed to improve the efficiency, usability and safety of the Asset Editor.
+
+The project will eventually incorporate several existing MW mods alongside new editing and recovery features.
+
+**Important: This is a new project. Begin with investigation, architecture and project setup. Do not immediately implement the entire suite.**
+
+## 1. Planned modules
+
+### Module 1 — Deletion Protection & Recovery (Highest Priority)
+
+Develop a system to protect against accidental deletion and provide undo/redo functionality.
+
+The Asset Editor currently allows deletion through several mechanisms:
+
+- Bulldozer tool
+- Object list
+- Area list
+- Net list
+- Effect list
+- Delete buttons at the top of individual components
+
+The component delete buttons are particularly dangerous because clicking one can delete the entire component, including its associated lists and settings, without confirmation.
+
+**Required functionality:**
+
+1. Intercept supported deletion operations before data is destroyed.
+2. Capture sufficient information to restore deleted elements.
+3. Provide undo/redo for supported deletion operations.
+4. Display a confirmation dialogue before deleting an entire component.
+5. Preserve all component settings, lists, references and associated entities when restoring.
+6. Support undo of surface, prop, network and effect deletions.
+7. Support multiple undo steps.
+8. Maintain a recent deletion history.
+9. Investigate automatic recovery snapshots as an additional safeguard.
+10. Ensure restored data survives saving and reopening the asset.
+
+**Default behaviour:**
+
+- Component deletion: confirmation required.
+- Object/Area/Net/Effect list deletion: undo enabled, confirmation optional.
+- Bulldozer deletion: no confirmation, but undo enabled.
+- Bulk deletion: confirmation when appropriate.
+
+These are target behaviours, subject to verifying the available game APIs.
+
+### Module 2 — MW Prop Replacer
+
+Copy the prefab identity from an already placed prop and replace another placed prop.
+
+Two replacement methods:
+
+**Normal mode**
+- Copy selected source prop.
+- Select destination prop.
+- Click Replace.
+
+**Rapid mode**
+- Copy source prop.
+- Activate rapid replacement.
+- Click existing props to replace them consecutively.
+- Escape cancels rapid mode.
+
+Additional requirements:
+
+- Multi-replace for multiple selected props.
+- Preserve each destination's position.
+- Preserve rotation.
+- Preserve compatible scale.
+- **Preserve each destination's probability exactly.**
+- Preserve other compatible destination-specific properties.
+- Support undo/redo.
+- Handle different prefab pivots safely.
+- Prevent replacement of incompatible entities.
+
+The copied source remains unchanged.
+
+### Module 3 — MW Component Manager
+
+Integrate the planned component copy/paste mod.
+
+Features:
+
+- Copy individual components.
+- Select which components to copy.
+- Paste settings only.
+- Paste components only.
+- Paste all.
+- Copy/paste between compatible assets.
+- Automatically add missing compatible components.
+- Reusable component presets.
+- Presets based on vanilla building, prop, surface and network assets.
+- Undo/redo for supported operations.
+
+### Module 4 — MW Colour Variation Tool
+
+Integrate the existing MW Color Variation Tool project.
+
+Existing functionality includes:
+
+- Independent draggable native-style UI.
+- Source asset selection.
+- Channel 0, Channel 1 and Channel 2 colour controls.
+- Palette generation combining paired Channel 0/1 colours with independent Channel 2 colours.
+- Editable RGB/RGBA hexadecimal values and colour swatches.
+- Paginated previews.
+- Copy/paste of complete Color Properties.
+- Preservation of variation groups, bindings, randomness, alpha ranges and external colour settings.
+- Automatic addition of compatible Color Properties.
+- Paste confirmation and undo.
+
+**Do not rewrite this module from scratch.**
+
+Locate and inspect the existing source when it is supplied or made available, then plan its migration into MW Editor Tools.
+
+### Module 5 — Multi-Save
+
+Integrate the existing Multi-Save functionality.
+
+Inspect the original implementation before planning integration.
+
+Preserve its working functionality and improve usability where appropriate.
+
+Do not invent assumptions about its existing internal architecture.
+
+## 2. Shared architecture
+
+Create a modular architecture with shared services.
+
+Suggested services:
+
+- Editor selection management
+- Entity and prefab validation
+- Component inspection and manipulation
+- Undo/redo transaction management
+- Deletion interception
+- Editor tool integration
+- Settings and presets
+- UI management
+- Logging and error handling
+
+Modules should be independently enabled or disabled.
+
+Avoid tightly coupling module-specific code.
+
+Prefer dependency injection or another lightweight, maintainable service architecture appropriate to the CS2 modding environment.
+
+## 3. User interface
+
+Create a unified native-style editor interface named **MW Editor Tools**.
+
+Requirements:
+
+- Independent draggable window.
+- Remains open when changing selected assets.
+- Compact layout.
+- Tabbed or sidebar navigation.
+- Consistent styling with the game's existing UI.
+- Clear indication of active editing modes.
+- Configurable keyboard shortcuts.
+- Minimal interference with vanilla editor controls.
+
+Proposed sections:
+
+1. History & Recovery
+2. Prop Replacer
+3. Components
+4. Colour Variations
+5. Multi-Save
+6. Settings
+
+Frequently used actions such as Undo, Redo and rapid prop replacement should be accessible without navigating through several panels.
+
+## 4. Critical technical investigation
+
+Before implementation, inspect the installed Cities: Skylines II game assemblies.
+
+Determine the exact systems, classes, components and methods responsible for:
+
+- Asset Editor selection
+- Bulldozer operations
+- Object list deletion
+- Area list deletion
+- Net list deletion
+- Effect list deletion
+- Component removal
+- Entity creation and destruction
+- Prefab instantiation
+- Component serialisation
+- Undo/redo, if available
+- Asset saving and loading
+- Native UI events and confirmation dialogues
+
+Investigate whether deletion can be intercepted safely before the relevant entity or component data is destroyed.
+
+Pay particular attention to the delete button at the top of each component.
+
+Determine whether a confirmation dialogue can be introduced without modifying game files.
+
+Investigate whether Harmony patches, native editor extension points, ECS systems or other mechanisms are appropriate.
+
+**Do not assume that a particular interception mechanism is available. Verify it against the installed assemblies.**
+
+If full undo of vanilla operations is impractical, identify the limitations and propose a safe alternative.
+
+Do not claim that a feature is feasible merely because it can be described conceptually.
+
+## 5. Safety requirements
+
+The mod must not corrupt assets or interfere with normal editor operation.
+
+Requirements:
+
+- Never modify Game.dll or other installed game assemblies.
+- Use installed assemblies for read-only API inspection.
+- Preserve complete data required for restoration.
+- Avoid restoring invalid entity references.
+- Handle parent-child entity relationships.
+- Handle deferred ECS operations correctly.
+- Avoid duplicate or orphaned entities.
+- Ensure failed operations do not leave partially modified assets.
+- Avoid conflicts with vanilla editor input.
+- Disable unsupported operations safely.
+- Keep recovery history scoped to the correct asset.
+- Clear or invalidate history when switching assets unless cross-asset recovery is proven safe.
+
+For destructive operations, prioritise data integrity over convenience.
+
+## 6. Undo/redo design
+
+Investigate native editor undo/redo first.
+
+If unavailable or insufficient, design a custom transaction system.
+
+Potential transaction types:
+
+- DeleteEntityTransaction
+- DeleteComponentTransaction
+- DeleteSurfaceTransaction
+- DeleteNetworkTransaction
+- ReplacePropTransaction
+- ModifyComponentTransaction
+- ModifyColorVariationTransaction
+
+These are conceptual names, not mandatory implementation classes.
+
+Each transaction should capture the data necessary for reversal.
+
+Support configurable history depth, initially targeting 20–50 operations.
+
+Undo and redo must correctly restore associated properties and references.
+
+Investigate whether recovery snapshots can protect against operations that cannot be safely intercepted.
+
+## 7. Project structure
+
+Create an appropriate C# project structure, initially considering:
+
+MW_Editor_Tools/
+- AGENTS.md
+- PROJECT_STATUS.md
+- README.md
+- docs/
+  - AI_WORKFLOW.md
+  - ARCHITECTURE.md
+  - API_FINDINGS.md
+  - DEVELOPMENT_PLAN.md
+  - TEST_PLAN.md
+- src/
+  - Core/
+  - Services/
+  - History/
+  - Modules/
+    - DeletionProtection/
+    - PropReplacer/
+    - ComponentManager/
+    - ColorVariations/
+    - MultiSave/
+  - UI/
+  - Settings/
+
+Adapt the structure to the actual build system and game APIs.
+
+## 8. Development workflow
+
+Use the existing `app-efficient-workflow` skill if available.
+
+Follow these operating principles:
+
+**INSPECT**
+Read existing files and investigate APIs without modifying code.
+
+**DEBUG**
+Diagnose specific problems without making changes.
+
+**IMPLEMENT**
+Make focused, verified changes.
+
+**REVIEW**
+Check correctness, compatibility, regressions and safety.
+
+**RELEASE**
+Prepare a validated build and release notes.
+
+Keep Codex usage efficient:
+
+- Inspect only relevant files.
+- Avoid repeatedly reading large assemblies or generated files.
+- Maintain API findings in documentation.
+- Reuse previously verified information.
+- Keep responses concise.
+- Report blockers clearly.
+- Do not perform unnecessary full rebuilds.
+- Do not repeatedly investigate previously resolved questions unless new evidence requires it.
+
+## 9. Development phases
+
+**Phase 1 — Project setup and API investigation**
+
+Create the project structure and documentation.
+
+Inspect the installed game environment and investigate deletion pathways.
+
+Produce a technical feasibility report.
+
+**Phase 2 — Component deletion protection**
+
+Implement confirmation before supported component deletion operations.
+
+Verify cancellation prevents deletion and confirmation preserves vanilla behaviour.
+
+**Phase 3 — Deletion recovery**
+
+Implement undo for supported Object, Area, Net and Effect list deletions.
+
+Investigate and implement bulldozer undo where safely possible.
+
+**Phase 4 — Shared editor framework**
+
+Develop shared UI, selection, history and settings infrastructure.
+
+**Phase 5 — Prop Replacer**
+
+Implement normal replacement, rapid replacement, multi-replace and undo.
+
+**Phase 6 — Existing mod integration**
+
+Integrate Component Manager, Colour Variation Tool and Multi-Save incrementally.
+
+Preserve the original projects until integration is tested.
+
+**Phase 7 — Testing and release**
+
+Validate functionality, persistence, compatibility and recovery behaviour.
+
+## 10. Initial Codex task
+
+Begin in **INSPECT mode**.
+
+1. Examine the current project directory.
+2. Identify the installed CS2 game assemblies and relevant modding dependencies.
+3. Investigate how the Asset Editor deletes components through its component-header delete buttons.
+4. Investigate deletion through the Object, Area, Net and Effect lists.
+5. Investigate the bulldozer's deletion pathway.
+6. Determine whether native undo/redo infrastructure exists.
+7. Identify viable interception mechanisms and associated risks.
+8. Create the initial project documentation.
+9. Produce an implementation-ready Phase 1 technical assessment.
+
+The assessment must distinguish between verified API findings, hypotheses and unsupported functionality.
+
+Identify the smallest safe proof of concept for protecting against accidental component deletion.
+
+**Do not implement gameplay or editor modifications yet.**
+
+Complete Phase 1 and present the findings before proceeding to Phase 2.

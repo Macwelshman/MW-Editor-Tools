@@ -1,0 +1,511 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.UI.Editor.EditorToolUISystem
+FIELD System.String Game.UI.Editor.EditorToolUISystem::kGroup
+FIELD Game.Tools.ToolSystem Game.UI.Editor.EditorToolUISystem::m_ToolSystem
+FIELD Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+FIELD Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+FIELD Game.Prefabs.PrefabSystem Game.UI.Editor.EditorToolUISystem::m_PrefabSystem
+FIELD Colossal.UI.Binding.GetterValueBinding`1<Game.UI.Editor.IEditorTool[]> Game.UI.Editor.EditorToolUISystem::m_ToolsBinding
+FIELD Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::m_Tools
+FIELD System.Boolean[] Game.UI.Editor.EditorToolUISystem::m_Disabled
+FIELD Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+FIELD Unity.Entities.Entity Game.UI.Editor.EditorToolUISystem::m_LastSelectedEntity
+METHOD Game.GameMode Game.UI.Editor.EditorToolUISystem::get_gameMode() PUBLIC True
+IL_0000: ldc.i4.4
+IL_0001: ret
+METHOD Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::get_tools() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::m_Tools
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::set_tools(Game.UI.Editor.IEditorTool[]) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::m_Tools
+IL_0007: ldarg.0
+IL_0008: ldarg.1
+IL_0009: ldsfld System.Func`2<Game.UI.Editor.IEditorTool,System.Boolean> Game.UI.Editor.EditorToolUISystem/<>c::<>9__5_0
+IL_000e: dup
+IL_000f: brtrue.s IL_0028
+IL_0011: pop
+IL_0012: ldsfld Game.UI.Editor.EditorToolUISystem/<>c Game.UI.Editor.EditorToolUISystem/<>c::<>9
+IL_0017: ldftn System.Boolean Game.UI.Editor.EditorToolUISystem/<>c::<set_tools>b__5_0(Game.UI.Editor.IEditorTool)
+IL_001d: newobj System.Void System.Func`2<Game.UI.Editor.IEditorTool,System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_0022: dup
+IL_0023: stsfld System.Func`2<Game.UI.Editor.IEditorTool,System.Boolean> Game.UI.Editor.EditorToolUISystem/<>c::<>9__5_0
+IL_0028: call System.Collections.Generic.IEnumerable`1<!!1> System.Linq.Enumerable::Select<Game.UI.Editor.IEditorTool,System.Boolean>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,!!1>)
+IL_002d: call !!0[] System.Linq.Enumerable::ToArray<System.Boolean>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0032: stfld System.Boolean[] Game.UI.Editor.EditorToolUISystem::m_Disabled
+IL_0037: ret
+METHOD Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::get_activeTool() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::set_activeTool(Game.UI.Editor.IEditorTool) PUBLIC True
+IL_0000: ldarg.1
+IL_0001: ldarg.0
+IL_0002: ldfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_0007: bne.un.s IL_001f
+IL_0009: ldarg.0
+IL_000a: ldfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_000f: brfalse.s IL_001e
+IL_0011: ldarg.0
+IL_0012: ldfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_0017: callvirt System.Boolean Game.UI.Editor.IEditorTool::get_active()
+IL_001c: brfalse.s IL_001f
+IL_001e: ret
+IL_001f: ldarg.0
+IL_0020: ldfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_0025: brfalse.s IL_0033
+IL_0027: ldarg.0
+IL_0028: ldfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_002d: ldc.i4.0
+IL_002e: callvirt System.Void Game.UI.Editor.IEditorTool::set_active(System.Boolean)
+IL_0033: ldarg.0
+IL_0034: ldarg.1
+IL_0035: stfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_003a: ldarg.0
+IL_003b: ldfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_0040: brfalse.s IL_004e
+IL_0042: ldarg.0
+IL_0043: ldfld Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::m_ActiveTool
+IL_0048: ldc.i4.1
+IL_0049: callvirt System.Void Game.UI.Editor.IEditorTool::set_active(System.Boolean)
+IL_004e: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::OnCreate() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.UISystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0012: stfld Game.Tools.ToolSystem Game.UI.Editor.EditorToolUISystem::m_ToolSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorPanelUISystem>()
+IL_0023: stfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.InspectorPanelSystem>()
+IL_0034: stfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0040: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_0045: stfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorToolUISystem::m_PrefabSystem
+IL_004a: ldarg.0
+IL_004b: ldc.i4.4
+IL_004c: newarr Game.UI.Editor.IEditorTool
+IL_0051: dup
+IL_0052: ldc.i4.0
+IL_0053: ldarg.0
+IL_0054: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0059: newobj System.Void Game.UI.Editor.EditorAssetImportTool::.ctor(Unity.Entities.World)
+IL_005e: stelem.ref
+IL_005f: dup
+IL_0060: ldc.i4.1
+IL_0061: ldarg.0
+IL_0062: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0067: newobj System.Void Game.UI.Editor.EditorPrefabTool::.ctor(Unity.Entities.World)
+IL_006c: stelem.ref
+IL_006d: dup
+IL_006e: ldc.i4.2
+IL_006f: ldarg.0
+IL_0070: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0075: newobj System.Void Game.UI.Editor.EditorPhotoTool::.ctor(Unity.Entities.World)
+IL_007a: stelem.ref
+IL_007b: dup
+IL_007c: ldc.i4.3
+IL_007d: ldarg.0
+IL_007e: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0083: newobj System.Void Game.UI.Editor.EditorBulldozeTool::.ctor(Unity.Entities.World)
+IL_0088: stelem.ref
+IL_0089: call System.Void Game.UI.Editor.EditorToolUISystem::set_tools(Game.UI.Editor.IEditorTool[])
+IL_008e: ldarg.0
+IL_008f: ldarg.0
+IL_0090: ldstr "editorTool"
+IL_0095: ldstr "tools"
+IL_009a: ldarg.0
+IL_009b: ldftn Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::<OnCreate>b__18_0()
+IL_00a1: newobj System.Void System.Func`1<Game.UI.Editor.IEditorTool[]>::.ctor(System.Object,System.IntPtr)
+IL_00a6: newobj System.Void Colossal.UI.Binding.ValueWriter`1<Game.UI.Editor.IEditorTool>::.ctor()
+IL_00ab: ldc.i4.0
+IL_00ac: newobj System.Void Colossal.UI.Binding.ArrayWriter`1<Game.UI.Editor.IEditorTool>::.ctor(Colossal.UI.Binding.IWriter`1<!0>,System.Boolean)
+IL_00b1: ldnull
+IL_00b2: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<Game.UI.Editor.IEditorTool[]>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00b7: dup
+IL_00b8: stloc.0
+IL_00b9: stfld Colossal.UI.Binding.GetterValueBinding`1<Game.UI.Editor.IEditorTool[]> Game.UI.Editor.EditorToolUISystem::m_ToolsBinding
+IL_00be: ldloc.0
+IL_00bf: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00c4: ldarg.0
+IL_00c5: ldstr "editorTool"
+IL_00ca: ldstr "activeTool"
+IL_00cf: ldarg.0
+IL_00d0: ldftn System.String Game.UI.Editor.EditorToolUISystem::<OnCreate>b__18_1()
+IL_00d6: newobj System.Void System.Func`1<System.String>::.ctor(System.Object,System.IntPtr)
+IL_00db: newobj System.Void Colossal.UI.Binding.StringWriter::.ctor()
+IL_00e0: call Colossal.UI.Binding.NullableWriter`1<!!0> Colossal.UI.Binding.ValueWriters::Nullable<System.String>(Colossal.UI.Binding.IWriter`1<!!0>)
+IL_00e5: ldnull
+IL_00e6: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.String>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00eb: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00f0: ldarg.0
+IL_00f1: ldstr "editorTool"
+IL_00f6: ldstr "selectTool"
+IL_00fb: ldarg.0
+IL_00fc: ldftn System.Void Game.UI.Editor.EditorToolUISystem::SelectTool(System.String)
+IL_0102: newobj System.Void System.Action`1<System.String>::.ctor(System.Object,System.IntPtr)
+IL_0107: ldnull
+IL_0108: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<System.String>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)
+IL_010d: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0112: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::OnUpdate() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.UISystemBase::OnUpdate()
+IL_0006: ldarg.0
+IL_0007: call Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::get_activeTool()
+IL_000c: brfalse.s IL_0022
+IL_000e: ldarg.0
+IL_000f: call Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::get_activeTool()
+IL_0014: callvirt System.Boolean Game.UI.Editor.IEditorTool::get_active()
+IL_0019: brtrue.s IL_0022
+IL_001b: ldarg.0
+IL_001c: ldnull
+IL_001d: call System.Void Game.UI.Editor.EditorToolUISystem::set_activeTool(Game.UI.Editor.IEditorTool)
+IL_0022: ldarg.0
+IL_0023: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorToolUISystem::m_ToolSystem
+IL_0028: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_002d: ldarg.0
+IL_002e: ldfld Unity.Entities.Entity Game.UI.Editor.EditorToolUISystem::m_LastSelectedEntity
+IL_0033: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0038: brfalse.s IL_004b
+IL_003a: ldarg.0
+IL_003b: ldarg.0
+IL_003c: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorToolUISystem::m_ToolSystem
+IL_0041: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0046: call System.Void Game.UI.Editor.EditorToolUISystem::SelectEntity(Unity.Entities.Entity)
+IL_004b: ldarg.0
+IL_004c: call System.Boolean Game.UI.Editor.EditorToolUISystem::UpdateToolState()
+IL_0051: brfalse.s IL_005e
+IL_0053: ldarg.0
+IL_0054: ldfld Colossal.UI.Binding.GetterValueBinding`1<Game.UI.Editor.IEditorTool[]> Game.UI.Editor.EditorToolUISystem::m_ToolsBinding
+IL_0059: callvirt System.Void Colossal.UI.Binding.GetterValueBinding`1<Game.UI.Editor.IEditorTool[]>::TriggerUpdate()
+IL_005e: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::SelectEntity(Unity.Entities.Entity) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Unity.Entities.Entity Game.UI.Editor.EditorToolUISystem::m_LastSelectedEntity
+IL_0007: ldarg.0
+IL_0008: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_000d: ldarg.1
+IL_000e: callvirt System.Boolean Game.UI.Editor.InspectorPanelSystem::SelectEntity(Unity.Entities.Entity)
+IL_0013: brfalse.s IL_002e
+IL_0015: ldarg.0
+IL_0016: ldnull
+IL_0017: call System.Void Game.UI.Editor.EditorToolUISystem::set_activeTool(Game.UI.Editor.IEditorTool)
+IL_001c: ldarg.0
+IL_001d: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0022: ldarg.0
+IL_0023: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_0028: callvirt System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_002d: ret
+IL_002e: ldarg.0
+IL_002f: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0034: callvirt Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_0039: ldarg.0
+IL_003a: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_003f: bne.un.s IL_004d
+IL_0041: ldarg.0
+IL_0042: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0047: ldnull
+IL_0048: callvirt System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_004d: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::SelectEntitySubMesh(Unity.Entities.Entity,System.Int32) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Unity.Entities.Entity Game.UI.Editor.EditorToolUISystem::m_LastSelectedEntity
+IL_0007: ldarg.0
+IL_0008: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_000d: ldarg.1
+IL_000e: ldarg.2
+IL_000f: callvirt System.Boolean Game.UI.Editor.InspectorPanelSystem::SelectMesh(Unity.Entities.Entity,System.Int32)
+IL_0014: brfalse.s IL_002f
+IL_0016: ldarg.0
+IL_0017: ldnull
+IL_0018: call System.Void Game.UI.Editor.EditorToolUISystem::set_activeTool(Game.UI.Editor.IEditorTool)
+IL_001d: ldarg.0
+IL_001e: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0023: ldarg.0
+IL_0024: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_0029: callvirt System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_002e: ret
+IL_002f: ldarg.0
+IL_0030: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0035: callvirt Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_003a: ldarg.0
+IL_003b: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_0040: bne.un.s IL_004e
+IL_0042: ldarg.0
+IL_0043: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0048: ldnull
+IL_0049: callvirt System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_004e: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::SelectPrefab(Unity.Entities.Entity) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorToolUISystem::m_ToolSystem
+IL_0006: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_000b: callvirt System.Void Game.Tools.ToolSystem::set_selected(Unity.Entities.Entity)
+IL_0010: ldarg.0
+IL_0011: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0016: stfld Unity.Entities.Entity Game.UI.Editor.EditorToolUISystem::m_LastSelectedEntity
+IL_001b: ldarg.0
+IL_001c: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorToolUISystem::m_PrefabSystem
+IL_0021: ldarg.1
+IL_0022: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity)
+IL_0027: stloc.0
+IL_0028: ldarg.0
+IL_0029: ldnull
+IL_002a: call System.Void Game.UI.Editor.EditorToolUISystem::set_activeTool(Game.UI.Editor.IEditorTool)
+IL_002f: ldarg.0
+IL_0030: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0035: ldloc.0
+IL_0036: ldarg.0
+IL_0037: ldfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_003c: call Game.UI.Editor.IEditorPanel Game.UI.Editor.CustomEditorPanelAttributes::GetEditorPanel(Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem)
+IL_0041: callvirt System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_0046: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::SelectTool(System.String) PUBLIC True
+IL_0000: newobj System.Void Game.UI.Editor.EditorToolUISystem/<>c__DisplayClass23_0::.ctor()
+IL_0005: stloc.0
+IL_0006: ldloc.0
+IL_0007: ldarg.1
+IL_0008: stfld System.String Game.UI.Editor.EditorToolUISystem/<>c__DisplayClass23_0::id
+IL_000d: ldarg.0
+IL_000e: ldarg.0
+IL_000f: call Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::get_tools()
+IL_0014: ldloc.0
+IL_0015: ldftn System.Boolean Game.UI.Editor.EditorToolUISystem/<>c__DisplayClass23_0::<SelectTool>b__0(Game.UI.Editor.IEditorTool)
+IL_001b: newobj System.Void System.Func`2<Game.UI.Editor.IEditorTool,System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_0020: call !!0 System.Linq.Enumerable::FirstOrDefault<Game.UI.Editor.IEditorTool>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,System.Boolean>)
+IL_0025: call System.Void Game.UI.Editor.EditorToolUISystem::set_activeTool(Game.UI.Editor.IEditorTool)
+IL_002a: ret
+METHOD System.Boolean Game.UI.Editor.EditorToolUISystem::UpdateToolState() PUBLIC False
+IL_0000: ldc.i4.0
+IL_0001: stloc.0
+IL_0002: ldc.i4.0
+IL_0003: stloc.1
+IL_0004: br.s IL_002e
+IL_0006: ldarg.0
+IL_0007: ldfld Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::m_Tools
+IL_000c: ldloc.1
+IL_000d: ldelem.ref
+IL_000e: callvirt System.Boolean Game.UI.Editor.IEditorTool::get_disabled()
+IL_0013: stloc.2
+IL_0014: ldloc.2
+IL_0015: ldarg.0
+IL_0016: ldfld System.Boolean[] Game.UI.Editor.EditorToolUISystem::m_Disabled
+IL_001b: ldloc.1
+IL_001c: ldelem.u1
+IL_001d: beq.s IL_002a
+IL_001f: ldarg.0
+IL_0020: ldfld System.Boolean[] Game.UI.Editor.EditorToolUISystem::m_Disabled
+IL_0025: ldloc.1
+IL_0026: ldloc.2
+IL_0027: stelem.i1
+IL_0028: ldc.i4.1
+IL_0029: stloc.0
+IL_002a: ldloc.1
+IL_002b: ldc.i4.1
+IL_002c: add
+IL_002d: stloc.1
+IL_002e: ldloc.1
+IL_002f: ldarg.0
+IL_0030: ldfld Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::m_Tools
+IL_0035: ldlen
+IL_0036: conv.i4
+IL_0037: blt.s IL_0006
+IL_0039: ldloc.0
+IL_003a: ret
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::.ctor() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.UISystemBase::.ctor()
+IL_0006: ret
+METHOD Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::<OnCreate>b__18_0() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::get_tools()
+IL_0006: ret
+METHOD System.String Game.UI.Editor.EditorToolUISystem::<OnCreate>b__18_1() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::get_activeTool()
+IL_0006: dup
+IL_0007: brtrue.s IL_000c
+IL_0009: pop
+IL_000a: ldnull
+IL_000b: ret
+IL_000c: callvirt System.String Game.UI.Editor.IEditorTool::get_id()
+IL_0011: ret
+TYPE Game.UI.Editor.EditorTool
+FIELD System.String Game.UI.Editor.EditorTool::<id>k__BackingField
+FIELD System.String Game.UI.Editor.EditorTool::<icon>k__BackingField
+FIELD System.Boolean Game.UI.Editor.EditorTool::<disabled>k__BackingField
+FIELD System.String Game.UI.Editor.EditorTool::<shortcut>k__BackingField
+FIELD System.String Game.UI.Editor.EditorTool::<uiTag>k__BackingField
+FIELD Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorTool::<panel>k__BackingField
+FIELD Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::<tool>k__BackingField
+FIELD Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+FIELD Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorTool::m_EditorPanelUISystem
+METHOD System.String Game.UI.Editor.EditorTool::get_id() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.String Game.UI.Editor.EditorTool::<id>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorTool::set_id(System.String) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.String Game.UI.Editor.EditorTool::<id>k__BackingField
+IL_0007: ret
+METHOD System.String Game.UI.Editor.EditorTool::get_icon() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.String Game.UI.Editor.EditorTool::<icon>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorTool::set_icon(System.String) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.String Game.UI.Editor.EditorTool::<icon>k__BackingField
+IL_0007: ret
+METHOD System.Boolean Game.UI.Editor.EditorTool::get_disabled() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.UI.Editor.EditorTool::<disabled>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorTool::set_disabled(System.Boolean) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.UI.Editor.EditorTool::<disabled>k__BackingField
+IL_0007: ret
+METHOD System.String Game.UI.Editor.EditorTool::get_shortcut() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.String Game.UI.Editor.EditorTool::<shortcut>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorTool::set_shortcut(System.String) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.String Game.UI.Editor.EditorTool::<shortcut>k__BackingField
+IL_0007: ret
+METHOD System.String Game.UI.Editor.EditorTool::get_uiTag() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld System.String Game.UI.Editor.EditorTool::<uiTag>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorTool::set_uiTag(System.String) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.String Game.UI.Editor.EditorTool::<uiTag>k__BackingField
+IL_0007: ret
+METHOD Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorTool::get_panel() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorTool::<panel>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorTool::set_panel(Game.UI.Editor.IEditorPanel) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorTool::<panel>k__BackingField
+IL_0007: ret
+METHOD Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::get_tool() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::<tool>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorTool::set_tool(Game.Tools.ToolBaseSystem) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::<tool>k__BackingField
+IL_0007: ret
+METHOD System.Boolean Game.UI.Editor.EditorTool::get_active() PUBLIC True
+IL_0000: ldarg.0
+IL_0001: callvirt System.Boolean Game.UI.Editor.EditorTool::IsActive()
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.EditorTool::set_active(System.Boolean) PUBLIC True
+IL_0000: ldarg.1
+IL_0001: brfalse.s IL_000a
+IL_0003: ldarg.0
+IL_0004: callvirt System.Void Game.UI.Editor.EditorTool::OnEnable()
+IL_0009: ret
+IL_000a: ldarg.0
+IL_000b: callvirt System.Void Game.UI.Editor.EditorTool::OnDisable()
+IL_0010: ret
+METHOD System.Void Game.UI.Editor.EditorTool::.ctor(Unity.Entities.World) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Object::.ctor()
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_000d: stfld Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+IL_0012: ldarg.0
+IL_0013: ldarg.1
+IL_0014: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorPanelUISystem>()
+IL_0019: stfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorTool::m_EditorPanelUISystem
+IL_001e: ret
+METHOD System.Boolean Game.UI.Editor.EditorTool::IsActive() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorTool::m_EditorPanelUISystem
+IL_0006: callvirt Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_000b: ldarg.0
+IL_000c: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorTool::get_panel()
+IL_0011: bne.un.s IL_0031
+IL_0013: ldarg.0
+IL_0014: call Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::get_tool()
+IL_0019: brfalse.s IL_002f
+IL_001b: ldarg.0
+IL_001c: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+IL_0021: callvirt Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::get_activeTool()
+IL_0026: ldarg.0
+IL_0027: call Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::get_tool()
+IL_002c: ceq
+IL_002e: ret
+IL_002f: ldc.i4.1
+IL_0030: ret
+IL_0031: ldc.i4.0
+IL_0032: ret
+METHOD System.Void Game.UI.Editor.EditorTool::OnEnable() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+IL_0006: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_000b: callvirt System.Void Game.Tools.ToolSystem::set_selected(Unity.Entities.Entity)
+IL_0010: ldarg.0
+IL_0011: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorTool::m_EditorPanelUISystem
+IL_0016: ldarg.0
+IL_0017: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorTool::get_panel()
+IL_001c: callvirt System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_0021: ldarg.0
+IL_0022: call Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::get_tool()
+IL_0027: brfalse.s IL_003a
+IL_0029: ldarg.0
+IL_002a: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+IL_002f: ldarg.0
+IL_0030: call Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::get_tool()
+IL_0035: callvirt System.Void Game.Tools.ToolSystem::set_activeTool(Game.Tools.ToolBaseSystem)
+IL_003a: ret
+METHOD System.Void Game.UI.Editor.EditorTool::OnDisable() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorTool::m_EditorPanelUISystem
+IL_0006: callvirt Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::get_activePanel()
+IL_000b: ldarg.0
+IL_000c: call Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorTool::get_panel()
+IL_0011: bne.un.s IL_001f
+IL_0013: ldarg.0
+IL_0014: ldfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorTool::m_EditorPanelUISystem
+IL_0019: ldnull
+IL_001a: callvirt System.Void Game.UI.Editor.EditorPanelUISystem::set_activePanel(Game.UI.Editor.IEditorPanel)
+IL_001f: ldarg.0
+IL_0020: call Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::get_tool()
+IL_0025: brfalse.s IL_0047
+IL_0027: ldarg.0
+IL_0028: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+IL_002d: callvirt Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::get_activeTool()
+IL_0032: ldarg.0
+IL_0033: call Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::get_tool()
+IL_0038: bne.un.s IL_0047
+IL_003a: ldarg.0
+IL_003b: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+IL_0040: ldnull
+IL_0041: callvirt System.Boolean Game.Tools.ToolSystem::ActivatePrefabTool(Game.Prefabs.PrefabBase)
+IL_0046: pop
+IL_0047: ret

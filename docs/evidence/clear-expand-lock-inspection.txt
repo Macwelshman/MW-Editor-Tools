@@ -1,0 +1,16 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+FIELD System.Collections.Generic.List`1<Game.Prefabs.EffectSource/EffectSettings> Game.Prefabs.EffectSource::m_Effects
+FIELD System.Collections.Generic.List`1<Game.Prefabs.EffectSource/AnimationProperties> Game.Prefabs.EffectSource::m_AnimationCurves
+FIELD Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+ATTRIBUTE Game.UI.Widgets.ExpandLockedAttribute
+FIELD Game.Prefabs.NetInvertMode Game.Prefabs.ObjectSubNets::m_InvertWhen
+FIELD Game.Prefabs.ObjectSubNetInfo[] Game.Prefabs.ObjectSubNets::m_SubNets
+ATTRIBUTE Game.UI.Widgets.ExpandLockedAttribute
+FIELD Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+ATTRIBUTE Game.UI.Widgets.ExpandLockedAttribute
+METHOD System.Boolean Game.UI.Widgets.EditorGenerator/<>c::<TryBuildList>b__13_0(System.Object)
+IL_0000: ldarg.1
+IL_0001: isinst Game.UI.Widgets.ExpandLockedAttribute
+IL_0006: ldnull
+IL_0007: cgt.un
+IL_0009: ret

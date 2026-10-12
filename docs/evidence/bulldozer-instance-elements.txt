@@ -1,0 +1,265 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::Execute(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeArray`1<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_Instances
+IL_0006: ldarg.1
+IL_0007: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_000c: stloc.0
+IL_000d: ldarg.0
+IL_000e: ldflda Game.Common.RandomSeed Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_RandomSeed
+IL_0013: ldarg.1
+IL_0014: call Unity.Mathematics.Random Game.Common.RandomSeed::GetRandom(System.Int32)
+IL_0019: stloc.1
+IL_001a: ldloca.s V_2
+IL_001c: initobj Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>
+IL_0022: ldarg.0
+IL_0023: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_TempData
+IL_0028: ldloc.0
+IL_0029: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_002e: brtrue IL_010d
+IL_0033: ldarg.0
+IL_0034: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_PrefabRefData
+IL_0039: ldloc.0
+IL_003a: ldloca.s V_3
+IL_003c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0041: brfalse IL_010d
+IL_0046: ldarg.0
+IL_0047: ldflda Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_ReplacePrefabData
+IL_004c: ldloc.3
+IL_004d: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0052: ldloca.s V_4
+IL_0054: call System.Boolean Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData>::TryGetValue(!0,!1&)
+IL_0059: brfalse IL_010d
+IL_005e: ldloc.s V_4
+IL_0060: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_SourceInstance
+IL_0065: ldloc.0
+IL_0066: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_006b: brfalse IL_010d
+IL_0070: ldarg.0
+IL_0071: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_TransformData
+IL_0076: ldloc.0
+IL_0077: ldloca.s V_5
+IL_0079: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_007e: brfalse IL_010d
+IL_0083: ldarg.0
+IL_0084: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_OwnerData
+IL_0089: ldloc.0
+IL_008a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_008f: brfalse.s IL_00aa
+IL_0091: ldarg.0
+IL_0092: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_0097: brfalse.s IL_00a7
+IL_0099: ldarg.0
+IL_009a: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_ServiceUpgradeData
+IL_009f: ldloc.0
+IL_00a0: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_00a5: br.s IL_00ab
+IL_00a7: ldc.i4.0
+IL_00a8: br.s IL_00ab
+IL_00aa: ldc.i4.1
+IL_00ab: stloc.s V_6
+IL_00ad: ldloc.s V_6
+IL_00af: brfalse.s IL_00c2
+IL_00b1: ldarg.0
+IL_00b2: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_00b7: brfalse.s IL_00c2
+IL_00b9: ldloc.s V_4
+IL_00bb: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_LanesUpdated
+IL_00c0: br.s IL_00c3
+IL_00c2: ldc.i4.0
+IL_00c3: stloc.s V_7
+IL_00c5: ldloc.s V_4
+IL_00c7: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_AreasUpdated
+IL_00cc: brfalse.s IL_00e4
+IL_00ce: ldarg.0
+IL_00cf: ldarg.1
+IL_00d0: ldloc.0
+IL_00d1: ldloc.3
+IL_00d2: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_00d7: ldloc.s V_5
+IL_00d9: ldloc.s V_6
+IL_00db: ldloca.s V_1
+IL_00dd: ldloca.s V_2
+IL_00df: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::UpdateAreas(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Boolean,Unity.Mathematics.Random&,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>&)
+IL_00e4: ldloc.s V_4
+IL_00e6: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_NetsUpdated
+IL_00eb: ldloc.s V_7
+IL_00ed: or
+IL_00ee: brfalse.s IL_010d
+IL_00f0: ldarg.0
+IL_00f1: ldarg.1
+IL_00f2: ldloc.0
+IL_00f3: ldloc.3
+IL_00f4: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_00f9: ldloc.s V_5
+IL_00fb: ldloc.s V_6
+IL_00fd: ldloc.s V_4
+IL_00ff: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_NetsUpdated
+IL_0104: ldloc.s V_7
+IL_0106: ldloca.s V_1
+IL_0108: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::UpdateNets(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Boolean,System.Boolean,System.Boolean,Unity.Mathematics.Random&)
+IL_010d: ldloca.s V_2
+IL_010f: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::get_IsCreated()
+IL_0114: brfalse.s IL_011d
+IL_0116: ldloca.s V_2
+IL_0118: call System.Void Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::Dispose()
+IL_011d: ret
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::UpdateAreas(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Boolean,Unity.Mathematics.Random&,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>&)
+IL_0009: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0017: call !0 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Item(System.Int32)
+IL_0036: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0042: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0052: call System.Boolean Unity.Entities.BufferLookup`1<Game.Areas.SubArea>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0069: call !0 Unity.Entities.DynamicBuffer`1<Game.Areas.SubArea>::get_Item(System.Int32)
+IL_0073: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity)
+IL_0082: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Areas.SubArea>::get_Length()
+IL_0092: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubArea>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_009b: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Areas.SubArea>::get_IsCreated()
+IL_00aa: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Areas.SubArea>(System.Int32,Unity.Entities.Entity)
+IL_00b2: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::get_IsCreated()
+IL_00bb: call System.Void Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::Clear()
+IL_00cd: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Prefabs.SubAreaNode>::get_Item(Unity.Entities.Entity)
+IL_00d6: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateAreas(System.Int32,Unity.Entities.Entity,Game.Objects.Transform,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>,Unity.Mathematics.Random&,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>&)
+IL_00ea: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Areas.SubArea>::get_IsCreated()
+IL_00f9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Areas.SubArea>(System.Int32,Unity.Entities.Entity)
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::UpdateNets(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Boolean,System.Boolean,System.Boolean,Unity.Mathematics.Random&)
+IL_0009: call System.Boolean Unity.Entities.BufferLookup`1<Game.Net.SubNet>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_001d: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Item(System.Int32)
+IL_0031: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::HasComponent(Unity.Entities.Entity)
+IL_005a: call System.Boolean Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0070: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>::get_Item(System.Int32)
+IL_0086: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0095: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00ac: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Deleted>::HasComponent(Unity.Entities.Entity)
+IL_00be: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Deleted>::HasComponent(Unity.Entities.Entity)
+IL_00d0: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Edge>::get_Item(Unity.Entities.Entity)
+IL_00e5: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00fa: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0117: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0129: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Deleted>::HasComponent(Unity.Entities.Entity)
+IL_0148: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_015a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Deleted>::HasComponent(Unity.Entities.Entity)
+IL_0179: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0188: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>::get_Length()
+IL_01a4: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity)
+IL_01b9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Common.Owner>(System.Int32,Unity.Entities.Entity)
+IL_01d6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01e2: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_01f5: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubNet>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0204: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubLane>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_020c: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::get_IsCreated()
+IL_0223: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>::get_IsCreated()
+IL_022f: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_IsCreated()
+IL_023e: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::SetBuffer<Game.Net.SubNet>(System.Int32,Unity.Entities.Entity)
+IL_0256: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Item(System.Int32)
+IL_026a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::HasComponent(Unity.Entities.Entity)
+IL_027f: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::Add(!0)
+IL_028f: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_02a0: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Net.SubNet>(System.Int32,Unity.Entities.Entity)
+IL_02ac: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::get_IsCreated()
+IL_02bb: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateNets(System.Int32,Unity.Entities.Entity,Game.Objects.Transform,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>,Unity.Mathematics.Random&)
+IL_02c6: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>::get_IsCreated()
+IL_02d5: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateLanes(System.Int32,Unity.Entities.Entity,Game.Objects.Transform,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>,Unity.Mathematics.Random&)
+IL_02dd: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_IsCreated()
+IL_02f7: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::SetBuffer<Game.Net.SubNet>(System.Int32,Unity.Entities.Entity)
+IL_0306: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Net.SubNet>(System.Int32,Unity.Entities.Entity)
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateAreas(System.Int32,Unity.Entities.Entity,Game.Objects.Transform,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>,Unity.Mathematics.Random&,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>&)
+IL_000a: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Item(System.Int32)
+IL_0026: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.PlaceholderObjectElement>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_002f: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::get_IsCreated()
+IL_003b: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0063: call System.Boolean Game.Areas.AreaUtils::SelectAreaPrefab(Unity.Entities.DynamicBuffer`1<Game.Prefabs.PlaceholderObjectElement>,Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData>,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>,Unity.Mathematics.Random&,Unity.Entities.Entity&,System.Int32&)
+IL_0071: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_007e: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32)
+IL_00c1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.CreationDefinition>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00d9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00e7: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Areas.Node>(System.Int32,Unity.Entities.Entity)
+IL_0109: call System.Void Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::ResizeUninitialized(System.Int32)
+IL_0127: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Tools.LocalNodeCache>(System.Int32,Unity.Entities.Entity)
+IL_0132: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::get_Length()
+IL_0137: call System.Void Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::ResizeUninitialized(System.Int32)
+IL_0144: call System.Int32 Game.Tools.ObjectToolBaseSystem::GetFirstNodeIndex(Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>,Unity.Mathematics.int2)
+IL_0164: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_0173: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_017e: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_019e: call System.Single Unity.Mathematics.math::select(System.Single,System.Single,System.Boolean)
+IL_01b2: call System.Void Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::set_Item(System.Int32,!0)
+IL_01df: call System.Void Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::set_Item(System.Int32,!0)
+IL_022a: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateNets(System.Int32,Unity.Entities.Entity,Game.Objects.Transform,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>,Unity.Mathematics.Random&)
+IL_0004: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::get_Length()
+IL_000c: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0011: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0020: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::get_Item(System.Int32)
+IL_0041: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::Add(!0&)
+IL_0048: call System.Int32 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Length()
+IL_0073: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_008d: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Addition(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0092: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::set_Item(System.Int32,!0)
+IL_00b2: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::Add(!0&)
+IL_00b9: call System.Int32 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Length()
+IL_00e4: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_00fe: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Addition(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0103: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::set_Item(System.Int32,!0)
+IL_010f: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::get_Length()
+IL_012e: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_013c: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_0146: call System.Single Unity.Mathematics.math::max(System.Single,System.Single)
+IL_014b: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Division(Unity.Mathematics.float4,System.Single)
+IL_0150: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::set_Item(System.Int32,!0)
+IL_015f: call System.Int32 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Length()
+IL_017b: call Game.Prefabs.SubNet Game.Net.NetUtils::GetSubNet(Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>,System.Int32,System.Boolean,Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData>&)
+IL_018b: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_01b1: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateSubNet(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Colossal.Mathematics.Bezier4x3,Unity.Mathematics.int2,Unity.Mathematics.int2,Game.Prefabs.CompositionFlags,Unity.Collections.NativeList`1<Unity.Mathematics.float4>,Unity.Entities.Entity,Game.Objects.Transform,Unity.Mathematics.Random&)
+IL_01c0: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::get_Length()
+IL_01c9: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::Dispose()
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateLanes(System.Int32,Unity.Entities.Entity,Game.Objects.Transform,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>,Unity.Mathematics.Random&)
+IL_0004: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>::get_Length()
+IL_000c: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0011: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0020: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>::get_Item(System.Int32)
+IL_0041: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::Add(!0&)
+IL_0048: call System.Int32 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Length()
+IL_0073: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_008d: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Addition(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0092: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::set_Item(System.Int32,!0)
+IL_00b2: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::Add(!0&)
+IL_00b9: call System.Int32 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Length()
+IL_00e4: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_00fe: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Addition(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0103: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::set_Item(System.Int32,!0)
+IL_010f: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>::get_Length()
+IL_012e: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_013c: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_0146: call System.Single Unity.Mathematics.math::max(System.Single,System.Single)
+IL_014b: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Division(Unity.Mathematics.float4,System.Single)
+IL_0150: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::set_Item(System.Int32,!0)
+IL_015f: call System.Int32 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Length()
+IL_016f: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>::get_Item(System.Int32)
+IL_01a9: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateSubNet(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Colossal.Mathematics.Bezier4x3,Unity.Mathematics.int2,Unity.Mathematics.int2,Game.Prefabs.CompositionFlags,Unity.Collections.NativeList`1<Unity.Mathematics.float4>,Unity.Entities.Entity,Game.Objects.Transform,Unity.Mathematics.Random&)
+IL_01b8: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>::get_Length()
+IL_01c1: call System.Void Unity.Collections.NativeList`1<Unity.Mathematics.float4>::Dispose()
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateSubNet(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Colossal.Mathematics.Bezier4x3,Unity.Mathematics.int2,Unity.Mathematics.int2,Game.Prefabs.CompositionFlags,Unity.Collections.NativeList`1<Unity.Mathematics.float4>,Unity.Entities.Entity,Game.Objects.Transform,Unity.Mathematics.Random&)
+IL_0007: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32)
+IL_0032: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0051: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.CreationDefinition>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0067: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0086: call Colossal.Mathematics.Bezier4x3 Game.Objects.ObjectUtils::LocalToWorld(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Colossal.Mathematics.Bezier4x3)
+IL_00b4: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::StartTangent(Colossal.Mathematics.Bezier4x3)
+IL_00c0: call Unity.Mathematics.quaternion Game.Net.NetUtils::GetNodeRotation(Unity.Mathematics.float3,Unity.Mathematics.quaternion)
+IL_00ee: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Implicit(System.Single)
+IL_0133: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_013c: call Unity.Mathematics.float3 Unity.Mathematics.float4::get_xyz()
+IL_0141: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_016f: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::EndTangent(Colossal.Mathematics.Bezier4x3)
+IL_017b: call Unity.Mathematics.quaternion Game.Net.NetUtils::GetNodeRotation(Unity.Mathematics.float3,Unity.Mathematics.quaternion)
+IL_01a9: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Implicit(System.Single)
+IL_01ee: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_01f7: call Unity.Mathematics.float3 Unity.Mathematics.float4::get_xyz()
+IL_01fc: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_020e: call System.Single Colossal.Mathematics.MathUtils::Length(Colossal.Mathematics.Bezier4x3)
+IL_0261: call System.Boolean Unity.Mathematics.float3::Equals(Unity.Mathematics.float3)
+IL_0293: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.NetCourse>(System.Int32,Unity.Entities.Entity,!!0)
+IL_02a4: call System.Boolean Game.Prefabs.CompositionFlags::op_Inequality(Game.Prefabs.CompositionFlags,Game.Prefabs.CompositionFlags)
+IL_02ca: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.Upgraded>(System.Int32,Unity.Entities.Entity,!!0)
+IL_02f2: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.LocalCurveCache>(System.Int32,Unity.Entities.Entity,!!0)

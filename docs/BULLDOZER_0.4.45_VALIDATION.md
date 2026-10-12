@@ -1,0 +1,13 @@
+# 0.4.45 Bounded root descriptor index transitions
+
+VERIFIED-RUNTIME0.4.44 last-placed set UndoRedoUndo passed with one recreated/two retained groups. Deleting first-placed group then passed exact owner descriptor removal but failed retained-group equality before recording, so no Undo. Evidence: evidence/bulldozer-0.4.44-first-runtime.log. Exact field difference not logged there; root cache index shift is HYPOTHESIS until new transition logging confirms.
+
+VERIFIED-STATIC recorded native ApplyPrefabsSystem.ListObjectSubObjects writes LocalTransformCache.m_PrefabSubIndex at detail.txt IL01cd/01f5/0205. For deleting exactly one captured owner-list descriptor,0.4.45 requires later retained ROOT cache indices to decrement exactly1, earlier ones unchanged; all other root cache fields and every child cache field, typed property, prefab and topology remain exact. No snapshot is mutated. Logs before/expectedAfter/actualAfter/allOtherValuesExact. Any other mismatch still rejects recording.
+
+On native Undo/Redo, whole retained source group IDs/Owner/data must match, permitting only root prefabSubIndex transition by at most1; independent full target-image validation requires the exact target index. No cache write or semantic data tolerance added. Retained groups remain unwritten; fresh groups use existing preflight/typed restoration; three exact completion frames retained. Native earlier-slot recovery remains UNPROVEN. Single history entry only. Earlier validated scopes retained; Phase5 paused/6publishing unauthorised.
+
+VERIFIED-STATIC: Release zero warnings/errors, production UI/settings render and54 existing relevant assertions pass; no simulated native transition test.
+
+Test after full restart without saving: Test with Grill01; Create nested fixture/placeTHREEapart/Escape; Arm nestedSET; Everything delete FIRST-placed group; UndoRedoUndo waiting each completion, stop if blocked/error. Finishedkeepopen/no save.
+
+INSTALLED0.4.45 CS2closed; seven copied hashes verified; entire previous installation backed up/hash verified at C:\Users\ian\Documents\Development\MW Editor Tools\outputs\rollback\MWEditorTools-before-0.4.45-20261010-150306\MWEditorTools. Exactboundedrootdescriptorindex transitions/laterroots-1 ondelete; retainedsemanticdataunchanged/targetcacheindexexact beforecursor. Release/UI/settings/54relevantpass; earlier-slotruntimeUNPROVEN/singleentryonly. NextfreshTestGrill01/Createfixture/placeTHREEapart/Escape/Arm nestedSET/EverythingdeleteFIRST/UndoRedoUndo; finishedkeepopen/nosave. See docs/BULLDOZER_0.4.45_VALIDATION.md. Phase5paused/6publishing unauthorised.

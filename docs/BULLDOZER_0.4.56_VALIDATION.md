@@ -1,0 +1,11 @@
+# 0.4.56 Nested elevation capture and validation
+
+VERIFIED-RUNTIME: 0.4.55 refused Carport01 because CaptureNestedImage encountered Game.Objects.Elevation. Selected Test 2 and Start command were recorded; no recovery armed or deletion requested. This is an implementation scope gap, not an invalid user setup. Prior discovery only proved prefab definition eligibility.
+
+VERIFIED-STATIC: read-only narrow inspection of Game.dll, Version 0.0.0.0, MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef confirms Game.Objects.Elevation is a value type containing System.Single m_Elevation and ElevationFlags m_Flags. Constructor writes at IL_0002/0009; Serialize reads height IL_0003 and flags IL_0016, writes flags as byte IL_0021. Full selected-type output saved in docs/evidence/bulldozer-elevation-type.txt. No entity references or mutable collections in the type.
+
+Nested capture now stores optional Elevation presence and the complete value. Exact equality of presence, height and flags is required in retained-group checks, preparation/index-alignment checks, single-group validation, forest completion and all-node preflight before any seed/transform/colour write. Native recreated elevation must already match: no elevation writes or additions/removals are attempted. Other unsupported components still refuse capture; Main recovery allowlist unchanged. Existing native deferred-completion and reference/owner guards remain. Native elevation recreation and Carport01 recovery remain UNPROVEN until the automatic test passes.
+
+Release/UI builds and settings render passed, zero compiler warnings/errors. 459 assertions passed (420 original plus39 runner/policy assertions), including six checks covering absent-state equality, presence mismatch both directions, matching height+flags, height-only difference and flags-only difference. Tests exercise actual equality policy source; they do not emulate native elevation generation.
+
+Next: install only after CS2 closes without saving, with full previous installation rollback/hash verification. Reopen disposable Test 2, use two list entries Grill01/Carport01, Start test. No deletion until Test ready; existing automatic Undo/Redo/Undo runner checks native completion. Capture precise refusal if another schema guard fails. Phase 5 remains paused; Phase 6/publishing unauthorised.

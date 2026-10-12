@@ -1,0 +1,19 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Void Game.Prefabs.PrefabSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: call System.Boolean Game.Prefabs.PrefabSystem::UpdatePrefabs()
+IL_0006: ldarg.0
+IL_0007: ldfld Game.UpdateSystem Game.Prefabs.PrefabSystem::m_UpdateSystem
+IL_000c: ldc.i4.s 24
+IL_000e: callvirt System.Void Game.UpdateSystem::Update(Game.SystemUpdatePhase)
+IL_0013: brfalse.s IL_0025
+IL_0015: ldarg.0
+IL_0016: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001b: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.ReplacePrefabSystem>()
+IL_0020: callvirt System.Void Game.Prefabs.ReplacePrefabSystem::FinalizeReplaces()
+IL_0025: ret
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem::FinalizeReplaces()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Prefabs.ReplacePrefabSystem/Finalize Game.Prefabs.ReplacePrefabSystem::m_FinalizeSystem
+IL_0006: callvirt System.Void Unity.Entities.ComponentSystemBase::Update()
+IL_000b: ret

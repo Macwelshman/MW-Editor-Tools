@@ -1,0 +1,1 @@
+Game, Version=0.0.0.0 MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef. VERIFIED-STATIC: Game.Objects.Placeholder value type, zero fields and zero declared methods. No serializable payload or references; capture and validate exact marker presence only. No marker writes.

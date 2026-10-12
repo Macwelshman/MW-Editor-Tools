@@ -1,0 +1,12 @@
+# 0.4.36 Nested deletion acceptance diagnostic
+
+VERIFIED-RUNTIME: 0.4.35 correctly armed the unique fixture and captured its three nodes. Native Everything deletion removed all three entities and changed the owning ObjectSubObjects list 77 -> 76, with component identity shape unchanged. The acceptance gate cleared history before recovery: Undo was unavailable and no restoration was attempted. Exact rejected condition is UNPROVEN. Evidence: evidence/bulldozer-0.4.35-nested-runtime.log.
+
+0.4.36 preserves the strict gate and existing recovery behavior. It logs shape/active/count/budget checks, reference payload mismatches, root descriptor occurrence count, and retained entry field differences (at most eight entries). This diagnostic neither relaxes equality nor writes additional scene data. Native list reconstruction could recompute retained entries; that is a HYPOTHESIS, not an established cause.
+
+Test: after a full restart without saving, open disposable Test containing Grill01; Create nested fixture; place once; Escape; Arm nested group test; Everything delete the group. Keep another bound prop. Stop here and reply finished with CS2 open for log capture. No Undo/Redo or saving needed for this diagnostic.
+
+Assembly identity remains Game 0.0.0.0 / MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef / SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A. Existing recorded evidence reused. Earlier validated recovery scopes retained; native nested restoration and deferred rollback remain UNPROVEN. Phase 5 paused; Phase 6/publishing unauthorised.
+VERIFIED-STATIC: Release zero warnings/errors, UI build/settings render and 54 existing relevant snapshot/history checks pass. These do not prove native nested recovery. Seven-file test package prepared.
+
+INSTALLED 0.4.36 with CS2 closed; all seven package hashes verified; entire previous installation backed up and hashes verified at C:\Users\ian\Documents\Development\MW Editor Tools\outputs\rollback\MWEditorTools-before-0.4.36-20261010-135138\MWEditorTools. Release/UI/settings render/54 relevant checks pass. Diagnostic retains strict nested acceptance gate; 0.4.35 rejected before recovery, exact mismatch UNPROVEN. Next: open disposable Test with Grill01, Create nested fixture/place once/Escape, keep another bound prop, Arm nested group test, Everything delete group only; finished keep CS2 open/no save/no recovery. Evidence docs/evidence/bulldozer-0.4.35-nested-runtime.log; validation docs/BULLDOZER_0.4.36_VALIDATION.md. Phase5 paused/6 publishing unauthorised.

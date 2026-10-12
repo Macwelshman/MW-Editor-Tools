@@ -1,0 +1,11 @@
+# 0.4.71 simple-only asset enablement
+
+VERIFIED-STATIC: Adoption uses BoundPropSelection: mixed assets retain the validated nested-first selection; when no direct nested object type exists, all direct ObjectPrefab identities are offered to the existing bounded schema/typed/ownership/reference preflight. There is no name-based acceptance or relaxed component schema. Empty assets explain why enabling is unavailable. Four total groups/types, known typed components, attachment refusal and snapshot/query limits remain unchanged.
+
+VERIFIED-STATIC: Release zero warnings/errors; all 602 C# assertions pass, including six actual-source selection checks for simple-only fallback, nested-first mixed selection, empty/null input and independent returned arrays. UI build and rendering checks pass. Existing native recovery algorithms are unchanged.
+
+UNPROVEN: simple-only adoption/native history on this version. One combined runtime batch can use a newly named disposable copy of the saved MW Mixed Nested Undo Test, removing only its two carport list entries BEFORE enabling, leaving the three grills. Save this simple-only baseline under MW Simple Prop Undo Test before deletion testing if desired for reuse. Select outer asset, diagnostics / Check two prop deletions / wait Test ready / Everything-delete Grill01 and Grill02 / wait automatic Undo2Redo2Undo2. Grill03 remains. Do not save test edits. This single batch exercises enablement, ordinary preparation, distinct simple types, index shifts and history ordering. A separate final-prop test is not implied by this run.
+
+0.4.70 mixed singleton/nested runtime passed and is preserved separately. No network/lane/area/effect recovery, arbitrary nested support or atomic rollback claim. Phase 5 remains paused; Phase 6/publishing unauthorised. No computer use. Continue development automatically after accepted runtime results.
+
+VERIFIED-RUNTIME 2026-10-11: MW Simple Prop Undo Test adopted Grill01, Grill02 and Grill03 (three groups, three nodes). Grill01 and Grill02 deletions completed automatic Undo2 / Redo2 / Undo2 with exact recorded data and ownership validation. PASS at 16:13:33.288. Evidence: docs/evidence/bulldozer-0.4.71-simple-only-runtime.log. Final-prop deletion was not part of this test.

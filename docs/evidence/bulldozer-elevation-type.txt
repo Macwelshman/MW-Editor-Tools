@@ -1,0 +1,47 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Objects.Elevation value=True
+FIELD System.Single Game.Objects.Elevation::m_Elevation
+FIELD Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+METHOD System.Void Game.Objects.Elevation::.ctor(System.Single,Game.Objects.ElevationFlags)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Single Game.Objects.Elevation::m_Elevation
+IL_0007: ldarg.0
+IL_0008: ldarg.2
+IL_0009: stfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_000e: ret
+METHOD System.Void Game.Objects.Elevation::Serialize(TWriter)
+IL_0000: ldarga.s writer
+IL_0002: ldarg.0
+IL_0003: ldfld System.Single Game.Objects.Elevation::m_Elevation
+IL_0008: constrained. TWriter
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Single)
+IL_0013: ldarga.s writer
+IL_0015: ldarg.0
+IL_0016: ldfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_001b: constrained. TWriter
+IL_0021: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Byte)
+IL_0026: ret
+METHOD System.Void Game.Objects.Elevation::Deserialize(TReader)
+IL_0000: ldarga.s reader
+IL_0002: ldarg.0
+IL_0003: ldflda System.Single Game.Objects.Elevation::m_Elevation
+IL_0008: constrained. TReader
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Single&)
+IL_0013: ldarga.s reader
+IL_0015: constrained. TReader
+IL_001b: callvirt Colossal.Serialization.Entities.Context Colossal.Serialization.Entities.IReader::get_context()
+IL_0020: stloc.0
+IL_0021: ldloca.s V_0
+IL_0023: call Colossal.Version Colossal.Serialization.Entities.Context::get_version()
+IL_0028: ldsfld Colossal.Version Game.Version::stackedObjects
+IL_002d: call System.Boolean Colossal.Version::op_GreaterThanOrEqual(Colossal.Version,Colossal.Version)
+IL_0032: brfalse.s IL_004a
+IL_0034: ldarga.s reader
+IL_0036: ldloca.s V_1
+IL_0038: constrained. TReader
+IL_003e: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Byte&)
+IL_0043: ldarg.0
+IL_0044: ldloc.1
+IL_0045: stfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_004a: ret

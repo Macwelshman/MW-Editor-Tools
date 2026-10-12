@@ -1,0 +1,142 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.UI.Editor.HierarchyMenu`1/<get_items>d__22
+FIELD System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::<>1__state
+FIELD Game.UI.Editor.HierarchyItem`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::<>2__current
+FIELD System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::<>l__initialThreadId
+FIELD Game.UI.Editor.HierarchyMenu`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::<>4__this
+FIELD System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::<>7__wrap1
+METHOD System.Void Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::.ctor(System.Int32) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Object::.ctor()
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: stfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_000d: ldarg.0
+IL_000e: call System.Int32 System.Environment::get_CurrentManagedThreadId()
+IL_0013: stfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>l__initialThreadId
+IL_0018: ret
+METHOD System.Void Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::System.IDisposable.Dispose() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: ldc.i4.s -3
+IL_000a: beq.s IL_0010
+IL_000c: ldloc.0
+IL_000d: ldc.i4.1
+IL_000e: bne.un.s IL_001a
+IL_0010: nop
+IL_0011: leave.s IL_001a
+IL_0013: ldarg.0
+IL_0014: call System.Void Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>m__Finally1()
+IL_0019: endfinally
+IL_001a: ret
+METHOD System.Boolean Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::MoveNext() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_0006: stloc.1
+IL_0007: ldarg.0
+IL_0008: ldfld Game.UI.Editor.HierarchyMenu`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>4__this
+IL_000d: stloc.2
+IL_000e: ldloc.1
+IL_000f: brfalse.s IL_0019
+IL_0011: ldloc.1
+IL_0012: ldc.i4.1
+IL_0013: beq.s IL_0059
+IL_0015: ldc.i4.0
+IL_0016: stloc.0
+IL_0017: leave.s IL_008b
+IL_0019: ldarg.0
+IL_001a: ldc.i4.m1
+IL_001b: stfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_0020: ldarg.0
+IL_0021: ldloc.2
+IL_0022: ldfld System.Collections.Generic.List`1<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1<T>::m_Items
+IL_0027: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<Game.UI.Editor.HierarchyItem`1<T>>::GetEnumerator()
+IL_002c: stfld System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>7__wrap1
+IL_0031: ldarg.0
+IL_0032: ldc.i4.s -3
+IL_0034: stfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_0039: br.s IL_0061
+IL_003b: ldarg.0
+IL_003c: ldflda System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>7__wrap1
+IL_0041: call !0 System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>>::get_Current()
+IL_0046: stloc.3
+IL_0047: ldarg.0
+IL_0048: ldloc.3
+IL_0049: stfld Game.UI.Editor.HierarchyItem`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>2__current
+IL_004e: ldarg.0
+IL_004f: ldc.i4.1
+IL_0050: stfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_0055: ldc.i4.1
+IL_0056: stloc.0
+IL_0057: leave.s IL_008b
+IL_0059: ldarg.0
+IL_005a: ldc.i4.s -3
+IL_005c: stfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_0061: ldarg.0
+IL_0062: ldflda System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>7__wrap1
+IL_0067: call System.Boolean System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>>::MoveNext()
+IL_006c: brtrue.s IL_003b
+IL_006e: ldarg.0
+IL_006f: call System.Void Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>m__Finally1()
+IL_0074: ldarg.0
+IL_0075: ldflda System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>7__wrap1
+IL_007a: initobj System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>>
+IL_0080: ldc.i4.0
+IL_0081: stloc.0
+IL_0082: leave.s IL_008b
+IL_0084: ldarg.0
+IL_0085: call System.Void Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::System.IDisposable.Dispose()
+IL_008a: endfinally
+IL_008b: ldloc.0
+IL_008c: ret
+METHOD System.Void Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::<>m__Finally1() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldc.i4.m1
+IL_0002: stfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_0007: ldarg.0
+IL_0008: ldflda System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>7__wrap1
+IL_000d: constrained. System.Collections.Generic.List`1/Enumerator<Game.UI.Editor.HierarchyItem`1<T>>
+IL_0013: callvirt System.Void System.IDisposable::Dispose()
+IL_0018: ret
+METHOD Game.UI.Editor.HierarchyItem`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::System.Collections.Generic.IEnumerator<Game.UI.Editor.HierarchyItem<T>>.get_Current() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.HierarchyItem`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>2__current
+IL_0006: ret
+METHOD System.Void Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::System.Collections.IEnumerator.Reset() PUBLIC False
+IL_0000: newobj System.Void System.NotSupportedException::.ctor()
+IL_0005: throw
+METHOD System.Object Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::System.Collections.IEnumerator.get_Current() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld Game.UI.Editor.HierarchyItem`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>2__current
+IL_0006: box Game.UI.Editor.HierarchyItem`1<T>
+IL_000b: ret
+METHOD System.Collections.Generic.IEnumerator`1<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::System.Collections.Generic.IEnumerable<Game.UI.Editor.HierarchyItem<T>>.GetEnumerator() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_0006: ldc.i4.s -2
+IL_0008: bne.un.s IL_0022
+IL_000a: ldarg.0
+IL_000b: ldfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>l__initialThreadId
+IL_0010: call System.Int32 System.Environment::get_CurrentManagedThreadId()
+IL_0015: bne.un.s IL_0022
+IL_0017: ldarg.0
+IL_0018: ldc.i4.0
+IL_0019: stfld System.Int32 Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>1__state
+IL_001e: ldarg.0
+IL_001f: stloc.0
+IL_0020: br.s IL_0035
+IL_0022: ldc.i4.0
+IL_0023: newobj System.Void Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::.ctor(System.Int32)
+IL_0028: stloc.0
+IL_0029: ldloc.0
+IL_002a: ldarg.0
+IL_002b: ldfld Game.UI.Editor.HierarchyMenu`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>4__this
+IL_0030: stfld Game.UI.Editor.HierarchyMenu`1<T> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::<>4__this
+IL_0035: ldloc.0
+IL_0036: ret
+METHOD System.Collections.IEnumerator Game.UI.Editor.HierarchyMenu`1/<get_items>d__22::System.Collections.IEnumerable.GetEnumerator() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Collections.Generic.IEnumerator`1<Game.UI.Editor.HierarchyItem`1<T>> Game.UI.Editor.HierarchyMenu`1/<get_items>d__22<T>::System.Collections.Generic.IEnumerable<Game.UI.Editor.HierarchyItem<T>>.GetEnumerator()
+IL_0006: ret

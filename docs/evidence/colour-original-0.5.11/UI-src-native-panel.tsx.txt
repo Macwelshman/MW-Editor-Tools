@@ -1,0 +1,64 @@
+import React, { useEffect, useRef } from "react";
+import { getModule } from "cs2/modding";
+import { PanelProps, Button } from "cs2/ui";
+import { AutoNavigationScope } from "cs2/input";
+
+type WindowProps = Omit<PanelProps, "draggable"> & { initialPosition?: { x: number; y: number }; onPositionChange?: (position: { x: number; y: number }) => void };
+
+export function EditorButton(props: React.ComponentProps<typeof Button>) {
+    const Component = getModule("game-ui/editor/widgets/button/button.tsx", "EditorButton") as React.ComponentType<React.ComponentProps<typeof Button>>;
+    return <Component {...props} />;
+}
+
+export function RadioOption({ label, checked, onSelect }: { label: string; checked: boolean; onSelect: () => void }) {
+    return <Button className={"mw-radio-option" + (checked ? " mw-radio-selected" : "")}
+        role="radio" aria-label={label} aria-checked={checked} selected={checked} onSelect={onSelect}>
+        <span className="mw-radio-indicator" aria-hidden="true"><span /></span>
+        <span>{label}</span>
+    </Button>;
+}
+
+// Native multiline input also handles game focus and keyboard routing.
+export function PaletteInput(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+    const TextInput = getModule("game-ui/common/input/text/text-input.tsx", "TextInput") as React.ComponentType<React.TextareaHTMLAttributes<HTMLTextAreaElement> & { multiline: number; selectAllOnFocus: boolean }>;
+    return <TextInput {...props} multiline={4} selectAllOnFocus={false} />;
+}
+
+// cs2/ui Panel inserts a Scrollable around every child. Use the underlying
+// native components so the toolbar stays outside the body scroll viewport.
+// These registry paths are verified against the installed game's UI bundle.
+export function NativePanel({ header, children, footer, onPositionChange, ...props }: WindowProps) {
+    const host = useRef<HTMLDivElement>(null);
+    const savePosition = useRef(onPositionChange);
+    savePosition.current = onPositionChange;
+    useEffect(() => {
+        const panel = host.current?.querySelector<HTMLElement>(".draggable-panel");
+        if (!panel) return;
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        let pending = false;
+        const save = () => {
+            if (!pending) return;
+            pending = false;
+            const rect = panel.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            const normalize = (offset: number, space: number) => space > 0 ? Math.max(0, Math.min(1, offset / space)) : 0;
+            savePosition.current?.({ x: normalize(rect.left, window.innerWidth - rect.width), y: normalize(rect.top, window.innerHeight - rect.height) });
+        };
+        // The native panel owns dragging; watch its position without replacing its input handling.
+        const observer = new MutationObserver(() => {
+            if (panel.style.visibility === "hidden") return;
+            pending = true;
+            clearTimeout(timer);
+            timer = setTimeout(save, 300);
+        });
+        observer.observe(panel, { attributes: true, attributeFilter: ["style"] });
+        window.addEventListener("mouseup", save);
+        return () => { observer.disconnect(); clearTimeout(timer); window.removeEventListener("mouseup", save); save(); };
+    }, []);
+    const DraggablePanel = getModule("game-ui/common/panel/draggable-panel/draggable-panel.tsx", "DraggablePanel") as React.ComponentType<WindowProps>;
+    const TitleBar = getModule("game-ui/common/panel/panel-title-bar.tsx", "PanelTitleBar") as React.ComponentType<React.PropsWithChildren<{}>>;
+    // Each native panel slot is a single-child KeyFocusController. A scope
+    // registers once with that slot and owns all of its focusable controls.
+    return <div ref={host} style={{ display: "contents" }}><DraggablePanel {...props} header={<TitleBar>{header}</TitleBar>}
+        footer={<AutoNavigationScope>{footer}</AutoNavigationScope>}><AutoNavigationScope>{children}</AutoNavigationScope></DraggablePanel></div>;
+}

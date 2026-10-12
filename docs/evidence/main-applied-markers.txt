@@ -1,0 +1,35 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+System.Void Game.Tools.ApplyObjectsSystem::OnCreate()
+IL_007b: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0080: stfld Unity.Entities.EntityQuery Game.Tools.ApplyObjectsSystem::m_TempQuery
+IL_0085: ldarg.0
+IL_0086: ldarg.0
+IL_0087: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_008c: stloc.0
+IL_008d: ldloca.s V_0
+IL_008f: ldc.i4.2
+IL_0090: newarr Unity.Entities.ComponentType
+IL_0095: dup
+IL_0096: ldc.i4.0
+IL_0097: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Event>()
+IL_009c: stelem.any Unity.Entities.ComponentType
+IL_00a1: dup
+IL_00a2: ldc.i4.1
+IL_00a3: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Pathfind.PathTargetMoved>()
+IL_00a8: stelem.any Unity.Entities.ComponentType
+IL_00ad: call Unity.Entities.EntityArchetype Unity.Entities.EntityManager::CreateArchetype(Unity.Entities.ComponentType[])
+IL_00b2: stfld Unity.Entities.EntityArchetype Game.Tools.ApplyObjectsSystem::m_PathTargetEventArchetype
+IL_00b7: ldarg.0
+IL_00b8: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Applied>()
+IL_00bd: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Created>()
+IL_00c2: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Updated>()
+IL_00c7: newobj System.Void Unity.Entities.ComponentTypeSet::.ctor(Unity.Entities.ComponentType,Unity.Entities.ComponentType,Unity.Entities.ComponentType)
+IL_00cc: stfld Unity.Entities.ComponentTypeSet Game.Tools.ApplyObjectsSystem::m_AppliedTypes
+TYPE Game.Rendering.ColorSet
+UnityEngine.Color Game.Rendering.ColorSet::m_Channel0
+UnityEngine.Color Game.Rendering.ColorSet::m_Channel1
+UnityEngine.Color Game.Rendering.ColorSet::m_Channel2
+TYPE Game.Rendering.MeshColor
+Game.Rendering.ColorSet Game.Rendering.MeshColor::m_ColorSet
+TYPE Game.Common.Created
+TYPE Game.Common.Updated

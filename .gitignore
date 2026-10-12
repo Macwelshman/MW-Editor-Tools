@@ -1,0 +1,15 @@
+bin/
+obj/
+*.user
+*.suo
+local.props
+
+node_modules/
+dist/
+outputs/
+*.log
+.vs/
+.idea/
+.env
+.env.*
+!.env.example

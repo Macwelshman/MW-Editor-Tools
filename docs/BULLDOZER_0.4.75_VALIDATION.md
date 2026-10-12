@@ -1,0 +1,11 @@
+# 0.4.75 expansion-lock correction
+
+VERIFIED-STATIC: Same Game.dll identity/hash as 0.4.74. ObjectSubObjects.m_SubObjects, ObjectSubAreas.m_SubAreas and ObjectSubNets.m_SubNets carry ExpandLockedAttribute. EditorGenerator/<>c.<TryBuildList>b__13_0 tests that attribute at IL_0001; TryBuildList assigns its result to PagedList.locked at IL_0057 and forces expanded at IL_0062. This flag controls expansion, not permission to Clear. Evidence docs/evidence/clear-expand-lock-inspection.txt and existing clear-list-inspection.txt.
+
+0.4.74 incorrectly refused the dialog and confirmation when PagedList.locked was true. 0.4.75 removes both expansion-lock guards. The native Clear bypass, token/deadline checks, exact context/storage/list-content checks, read-only refusal and Cancel/history preservation remain unchanged.
+
+VERIFIED-STATIC: Release zero warnings/errors; 646 C# assertions and UI build/settings/14 panel rendering checks pass. The actual-source Clear harness now uses locked=true throughout its initial cancel/confirm path and explicitly checks that this expansion state does not invalidate a pending request. Native integration remains UNPROVEN until the user's retry.
+
+Runtime retry on disposable asset: Object Sub Objects Clear / Cancel must leave props, then Clear / Clear all must empty list and update preview. Do not save. Existing 0.4.73 standalone control smoke check remains pending, not claimed passed. No phase expansion, no computer use or game-file changes.
+
+VERIFIED-RUNTIME 0.4.75: User confirms Clear works well. Log shows dialogs for ObjectSubAreas (2 entries) at16:49:55.884, ObjectSubNets (1) at16:50:03.872 and ObjectSubLanes (1) at16:51:40.981; confirmed lane Clear dispatched at16:51:43.481. No claim that every dialog was confirmed. Normal standalone control enabled16:52:46.825; standalone Grill01 capture/deletion recorded16:52:59.517; native Undo verified16:53:04.985 and Redo verified16:53:06.276. The preserved log does not contain a final Undo, so that final step is not claimed for this run. Evidence docs/evidence/bulldozer-0.4.75-clear-standalone-runtime.log. Prior bounded standalone recovery evidence remains valid. No need to repeat these passed operations for a display-only change.

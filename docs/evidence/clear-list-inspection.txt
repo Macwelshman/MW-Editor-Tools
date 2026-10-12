@@ -1,0 +1,220 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.UI.Widgets.PagedList
+FIELD System.Int32 Game.UI.Widgets.PagedList::m_Length
+FIELD System.Int32 Game.UI.Widgets.PagedList::m_CurrentPageIndex
+FIELD System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+FIELD System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+FIELD System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+FIELD System.Boolean Game.UI.Widgets.PagedList::m_Expanded
+FIELD System.Boolean Game.UI.Widgets.PagedList::<locked>k__BackingField
+FIELD Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::<adapter>k__BackingField
+FIELD System.Int32 Game.UI.Widgets.PagedList::<level>k__BackingField
+FIELD System.Int32 Game.UI.Widgets.PagedList::<pageSize>k__BackingField
+METHOD System.Void Game.UI.Widgets.PagedList::Clear()
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_0006: callvirt System.Void Game.UI.Widgets.IListAdapter::Clear()
+IL_000b: ret
+TYPE Game.UI.Widgets.IListAdapter
+METHOD System.Void Game.UI.Widgets.IListAdapter::Clear()
+TYPE Game.UI.Widgets.EditorGenerator
+FIELD System.Collections.Generic.List`1<Game.UI.Widgets.IFieldBuilderFactory> Game.UI.Widgets.EditorGenerator::kFactories
+FIELD Colossal.OdinSerializer.CustomSerializationPolicy Game.UI.Widgets.EditorGenerator::kMemberFilter
+FIELD System.Int32 Game.UI.Widgets.EditorGenerator::<maxLevel>k__BackingField
+FIELD System.Boolean Game.UI.Widgets.EditorGenerator::<sBypassValueLimits>k__BackingField
+METHOD Game.UI.Widgets.PagedList Game.UI.Widgets.EditorGenerator::TryBuildList(Game.Reflection.IValueAccessor,System.Int32,System.String,System.Object[])
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: ldarg.3
+IL_0004: ldarg.s attributes
+IL_0006: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.EditorGenerator::TryBuildListAdapter(Game.Reflection.IValueAccessor,System.Int32,System.String,System.Object[])
+IL_000b: stloc.0
+IL_000c: ldloc.0
+IL_000d: brfalse.s IL_0069
+IL_000f: ldarg.s attributes
+IL_0011: ldsfld System.Func`2<System.Object,System.Boolean> Game.UI.Widgets.EditorGenerator/<>c::<>9__13_0
+IL_0016: dup
+IL_0017: brtrue.s IL_0030
+IL_0019: pop
+IL_001a: ldsfld Game.UI.Widgets.EditorGenerator/<>c Game.UI.Widgets.EditorGenerator/<>c::<>9
+IL_001f: ldftn System.Boolean Game.UI.Widgets.EditorGenerator/<>c::<TryBuildList>b__13_0(System.Object)
+IL_0025: newobj System.Void System.Func`2<System.Object,System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_002a: dup
+IL_002b: stsfld System.Func`2<System.Object,System.Boolean> Game.UI.Widgets.EditorGenerator/<>c::<>9__13_0
+IL_0030: call System.Boolean System.Linq.Enumerable::Any<System.Object>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,System.Boolean>)
+IL_0035: stloc.1
+IL_0036: newobj System.Void Game.UI.Widgets.PagedList::.ctor()
+IL_003b: dup
+IL_003c: ldloc.0
+IL_003d: callvirt System.Void Game.UI.Widgets.PagedList::set_adapter(Game.UI.Widgets.IListAdapter)
+IL_0042: dup
+IL_0043: ldarg.2
+IL_0044: callvirt System.Void Game.UI.Widgets.PagedList::set_level(System.Int32)
+IL_0049: dup
+IL_004a: ldarg.3
+IL_004b: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_0050: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0055: dup
+IL_0056: ldloc.1
+IL_0057: callvirt System.Void Game.UI.Widgets.PagedList::set_locked(System.Boolean)
+IL_005c: stloc.2
+IL_005d: ldloc.1
+IL_005e: brfalse.s IL_0067
+IL_0060: ldloc.2
+IL_0061: ldc.i4.1
+IL_0062: callvirt System.Void Game.UI.Widgets.PagedList::set_expanded(System.Boolean)
+IL_0067: ldloc.2
+IL_0068: ret
+IL_0069: ldnull
+IL_006a: ret
+TYPE Game.UI.Widgets.ListAdapterBase`1
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::m_StartIndex
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::m_EndIndex
+FIELD System.String Game.UI.Widgets.ListAdapterBase`1::m_SearchQuery
+FIELD System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.ListAdapterBase`1::m_FilteredIndices
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::m_FilterVersion
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::m_BuiltFilterVersion
+FIELD Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1::<accessor>k__BackingField
+FIELD System.Type Game.UI.Widgets.ListAdapterBase`1::<elementType>k__BackingField
+FIELD Game.UI.Widgets.IEditorGenerator Game.UI.Widgets.ListAdapterBase`1::<generator>k__BackingField
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::<level>k__BackingField
+FIELD System.String Game.UI.Widgets.ListAdapterBase`1::<path>k__BackingField
+FIELD System.Object[] Game.UI.Widgets.ListAdapterBase`1::<attributes>k__BackingField
+FIELD System.Reflection.MemberInfo Game.UI.Widgets.ListAdapterBase`1::<labelMember>k__BackingField
+FIELD System.Boolean Game.UI.Widgets.ListAdapterBase`1::<resizable>k__BackingField
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::Clear()
+IL_0000: ldarg.0
+IL_0001: callvirt System.Void Game.UI.Widgets.ListAdapterBase`1<T>::ClearInternal()
+IL_0006: ldarg.0
+IL_0007: call System.Void Game.UI.Widgets.ListAdapterBase`1<T>::InvalidateFilter()
+IL_000c: ret
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::ClearInternal()
+TYPE Game.UI.Widgets.ArrayAdapter
+METHOD System.Void Game.UI.Widgets.ArrayAdapter::ClearInternal()
+IL_0000: ldarg.0
+IL_0001: call System.Type Game.UI.Widgets.ListAdapterBase`1<System.Array>::get_elementType()
+IL_0006: ldc.i4.0
+IL_0007: call System.Array System.Array::CreateInstance(System.Type,System.Int32)
+IL_000c: stloc.0
+IL_000d: ldarg.0
+IL_000e: call Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1<System.Array>::get_accessor()
+IL_0013: ldloc.0
+IL_0014: callvirt System.Void Game.Reflection.ITypedValueAccessor`1<System.Array>::SetTypedValue(T)
+IL_0019: ret
+TYPE Game.UI.Widgets.ListAdapter
+FIELD System.Type Game.UI.Widgets.ListAdapter::<listType>k__BackingField
+METHOD System.Void Game.UI.Widgets.ListAdapter::ClearInternal()
+IL_0000: ldarg.0
+IL_0001: call Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1<System.Collections.IList>::get_accessor()
+IL_0006: callvirt T Game.Reflection.ITypedValueAccessor`1<System.Collections.IList>::GetTypedValue()
+IL_000b: dup
+IL_000c: brtrue.s IL_0010
+IL_000e: pop
+IL_000f: ret
+IL_0010: callvirt System.Void System.Collections.IList::Clear()
+IL_0015: ret
+TYPE Game.UI.Editor.AssetSearchAdapter
+FIELD System.String Game.UI.Editor.AssetSearchAdapter::m_SearchQuery
+FIELD System.Action Game.UI.Editor.AssetSearchAdapter::<onSearchQueryChanged>k__BackingField
+TYPE Game.UI.Editor.AssetTypeFilterAdapter
+FIELD System.String Game.UI.Editor.AssetTypeFilterAdapter::kRenderPrefabFilter
+FIELD Colossal.Logging.ILog Game.UI.Editor.AssetTypeFilterAdapter::log
+FIELD System.String[] Game.UI.Editor.AssetTypeFilterAdapter::kAssetTypeNames
+FIELD System.Collections.Generic.List`1<System.String> Game.UI.Editor.AssetTypeFilterAdapter::m_AvailableFilters
+FIELD System.Collections.Generic.List`1<System.String> Game.UI.Editor.AssetTypeFilterAdapter::m_ActiveFilters
+FIELD System.Collections.Generic.List`1<System.String> Game.UI.Editor.AssetTypeFilterAdapter::m_ExcludedFilters
+FIELD System.Collections.Generic.Dictionary`2<Colossal.Hash128,System.Boolean> Game.UI.Editor.AssetTypeFilterAdapter::m_RenderPrefabCache
+FIELD System.Action Game.UI.Editor.AssetTypeFilterAdapter::<onFiltersChanged>k__BackingField
+FIELD System.Action Game.UI.Editor.AssetTypeFilterAdapter::<onAvailableFiltersChanged>k__BackingField
+METHOD System.Void Game.UI.Editor.AssetTypeFilterAdapter::ClearFilters()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<System.String> Game.UI.Editor.AssetTypeFilterAdapter::m_ActiveFilters
+IL_0006: callvirt System.Void System.Collections.Generic.List`1<System.String>::Clear()
+IL_000b: ldarg.0
+IL_000c: ldfld System.Collections.Generic.List`1<System.String> Game.UI.Editor.AssetTypeFilterAdapter::m_ExcludedFilters
+IL_0011: callvirt System.Void System.Collections.Generic.List`1<System.String>::Clear()
+IL_0016: ldarg.0
+IL_0017: call System.Action Game.UI.Editor.AssetTypeFilterAdapter::get_onFiltersChanged()
+IL_001c: dup
+IL_001d: brtrue.s IL_0021
+IL_001f: pop
+IL_0020: ret
+IL_0021: callvirt System.Void System.Action::Invoke()
+IL_0026: ret
+TYPE Game.UI.Editor.DirectoryAdapter
+FIELD Game.UI.Editor.DirectoryPanelBase Game.UI.Editor.DirectoryAdapter::m_Panel
+FIELD Game.UI.Editor.Item Game.UI.Editor.DirectoryAdapter::m_SelectedItem
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.Item> Game.UI.Editor.DirectoryAdapter::m_Items
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.Item> Game.UI.Editor.DirectoryAdapter::m_VisibleItems
+FIELD System.Boolean Game.UI.Editor.DirectoryAdapter::m_Dirty
+FIELD System.Boolean Game.UI.Editor.DirectoryAdapter::m_VisibleItemsDirty
+FIELD System.Collections.Generic.HashSet`1<System.String> Game.UI.Editor.DirectoryAdapter::m_FavoriteIds
+FIELD System.String Game.UI.Editor.DirectoryAdapter::m_SearchQuery
+FIELD System.String Game.UI.Editor.DirectoryAdapter::<directoryPath>k__BackingField
+TYPE Game.UI.Editor.DirectoryTreeAdapter
+TYPE Game.UI.Editor.AssetPickerAdapter
+FIELD System.String Game.UI.Editor.AssetPickerAdapter::m_SearchQuery
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.AssetItem> Game.UI.Editor.AssetPickerAdapter::m_Items
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.AssetItem> Game.UI.Editor.AssetPickerAdapter::m_FilteredItems
+FIELD System.Boolean Game.UI.Editor.AssetPickerAdapter::m_FilteredItemsChanged
+FIELD Game.UI.Editor.AssetItem Game.UI.Editor.AssetPickerAdapter::m_SelectedItem
+FIELD System.Int32 Game.UI.Editor.AssetPickerAdapter::m_ColumnCount
+FIELD System.Boolean Game.UI.Editor.AssetPickerAdapter::m_UseGlobalColumnCount
+FIELD System.Collections.Generic.HashSet`1<System.String> Game.UI.Editor.AssetPickerAdapter::m_FavoriteIds
+FIELD System.Action`1<Game.UI.Editor.AssetItem> Game.UI.Editor.AssetPickerAdapter::EventItemSelected
+TYPE Game.UI.Editor.IClimateCurveAdapter`1
+TYPE Game.UI.Editor.FilePickerAdapter
+FIELD System.String Game.UI.Editor.FilePickerAdapter::m_SearchQuery
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.FileItem> Game.UI.Editor.FilePickerAdapter::m_Items
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.FileItem> Game.UI.Editor.FilePickerAdapter::m_FilteredItems
+FIELD System.Boolean Game.UI.Editor.FilePickerAdapter::m_FilteredItemsChanged
+FIELD Game.UI.Editor.FileItem Game.UI.Editor.FilePickerAdapter::m_SelectedItem
+FIELD System.Int32 Game.UI.Editor.FilePickerAdapter::m_ColumnCount
+FIELD System.Action`1<Game.UI.Editor.FileItem> Game.UI.Editor.FilePickerAdapter::EventItemSelected
+TYPE Game.UI.Editor.PrefabPickerAdapter
+FIELD System.Int32 Game.UI.Editor.PrefabPickerAdapter::kMaxHistoryLength
+FIELD System.Int32 Game.UI.Editor.PrefabPickerAdapter::kMaxHistoryDisplayLength
+FIELD Game.UI.ImageSystem Game.UI.Editor.PrefabPickerAdapter::m_ImageSystem
+FIELD System.String Game.UI.Editor.PrefabPickerAdapter::m_SearchQuery
+FIELD System.Boolean Game.UI.Editor.PrefabPickerAdapter::m_SearchQueryIsFavorite
+FIELD System.Boolean Game.UI.Editor.PrefabPickerAdapter::m_SearchQueryChanged
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.PrefabItem> Game.UI.Editor.PrefabPickerAdapter::m_Items
+FIELD System.Boolean Game.UI.Editor.PrefabPickerAdapter::m_ItemsChanged
+FIELD System.Collections.Generic.List`1<System.String> Game.UI.Editor.PrefabPickerAdapter::m_AvailableFilters
+FIELD System.Collections.Generic.List`1<System.String> Game.UI.Editor.PrefabPickerAdapter::m_ActiveFilters
+FIELD System.Collections.Generic.List`1<System.String> Game.UI.Editor.PrefabPickerAdapter::m_ExcludedFilters
+FIELD System.Boolean Game.UI.Editor.PrefabPickerAdapter::m_ActiveFiltersChanged
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.PrefabItem> Game.UI.Editor.PrefabPickerAdapter::m_FilteredItems
+FIELD System.Boolean Game.UI.Editor.PrefabPickerAdapter::m_FilteredItemsChanged
+FIELD Game.UI.Editor.PrefabItem Game.UI.Editor.PrefabPickerAdapter::m_SelectedItem
+FIELD Game.Prefabs.PrefabBase Game.UI.Editor.PrefabPickerAdapter::m_SelectedPrefab
+FIELD System.Collections.Generic.List`1<System.String> Game.UI.Editor.PrefabPickerAdapter::m_SearchHistory
+FIELD System.Collections.Generic.HashSet`1<System.String> Game.UI.Editor.PrefabPickerAdapter::m_SearchFavorites
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.PopupSearchField/Suggestion> Game.UI.Editor.PrefabPickerAdapter::m_SearchSuggestions
+FIELD System.Collections.Generic.HashSet`1<System.String> Game.UI.Editor.PrefabPickerAdapter::m_FavoriteIds
+FIELD System.Int32 Game.UI.Editor.PrefabPickerAdapter::m_ColumnCount
+FIELD System.Action Game.UI.Editor.PrefabPickerAdapter::<onAvailableFiltersChanged>k__BackingField
+FIELD System.Action`1<Game.Prefabs.PrefabBase> Game.UI.Editor.PrefabPickerAdapter::EventPrefabSelected
+FIELD System.Action`2<Game.Prefabs.PrefabBase,System.UInt64> Game.UI.Editor.PrefabPickerAdapter::EventContextMenuAction
+FIELD System.Func`2<Game.Prefabs.PrefabBase,Game.UI.Editor.IContextualActionMenu> Game.UI.Editor.PrefabPickerAdapter::<ContextMenuBuilder>k__BackingField
+FIELD System.Func`3<Game.Prefabs.PrefabBase,System.Type,Game.UI.Localization.LocalizedString> Game.UI.Editor.PrefabPickerAdapter::<TooltipBuilder>k__BackingField
+METHOD System.Void Game.UI.Editor.PrefabPickerAdapter::ClearFilters()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<System.String> Game.UI.Editor.PrefabPickerAdapter::m_ActiveFilters
+IL_0006: callvirt System.Void System.Collections.Generic.List`1<System.String>::Clear()
+IL_000b: ldarg.0
+IL_000c: ldc.i4.1
+IL_000d: stfld System.Boolean Game.UI.Editor.PrefabPickerAdapter::m_ActiveFiltersChanged
+IL_0012: ret
+TYPE Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1
+FIELD System.Action`1<T> Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::onSelectedItemChanged
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.Widgets.ItemPickerPopup`1/Item<T>> Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::<filteredItems>k__BackingField
+FIELD System.Int32 Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::<columnCount>k__BackingField
+FIELD System.Collections.Generic.List`1<Game.UI.Editor.Widgets.ItemPickerPopup`1/Item<T>> Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::m_Items
+FIELD Game.UI.Editor.Widgets.ItemPickerPopup`1/Item<T> Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::m_SelectedItem
+FIELD System.String Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::m_SearchQuery
+FIELD System.Boolean Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::m_FilteredItemsDirty
+FIELD T Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::m_CachedSearchValue
+FIELD Game.UI.Localization.LocalizedString Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::m_CachedResult
+FIELD System.Boolean Game.UI.Editor.Widgets.ItemPickerPopupAdapter`1::m_InitialCache

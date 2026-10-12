@@ -1,0 +1,34 @@
+Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+Unity.Entities.ComponentType Unity.Entities.ComponentType::FromTypeIndex(Unity.Entities.TypeIndex) Public, Static, HideBySig
+System.Type Unity.Entities.ComponentType::GetManagedType() Public, HideBySig
+System.String Unity.Entities.ComponentType::ToString() Public, Virtual, HideBySig
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Tools.CreationDefinition
+FIELD Unity.Entities.Entity Game.Tools.CreationDefinition::m_Prefab
+FIELD Unity.Entities.Entity Game.Tools.CreationDefinition::m_SubPrefab
+FIELD Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+FIELD Unity.Entities.Entity Game.Tools.CreationDefinition::m_Owner
+FIELD Unity.Entities.Entity Game.Tools.CreationDefinition::m_Attached
+FIELD Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+FIELD System.Int32 Game.Tools.CreationDefinition::m_RandomSeed
+TYPE Game.Tools.ObjectDefinition
+FIELD Unity.Mathematics.float3 Game.Tools.ObjectDefinition::m_Position
+FIELD Unity.Mathematics.float3 Game.Tools.ObjectDefinition::m_LocalPosition
+FIELD Unity.Mathematics.float3 Game.Tools.ObjectDefinition::m_Scale
+FIELD Unity.Mathematics.quaternion Game.Tools.ObjectDefinition::m_Rotation
+FIELD Unity.Mathematics.quaternion Game.Tools.ObjectDefinition::m_LocalRotation
+FIELD System.Single Game.Tools.ObjectDefinition::m_Elevation
+FIELD System.Single Game.Tools.ObjectDefinition::m_Intensity
+FIELD System.Single Game.Tools.ObjectDefinition::m_Age
+FIELD System.Boolean Game.Tools.ObjectDefinition::m_IsDecoration
+FIELD System.Int32 Game.Tools.ObjectDefinition::m_ParentMesh
+FIELD System.Int32 Game.Tools.ObjectDefinition::m_GroupIndex
+FIELD System.Int32 Game.Tools.ObjectDefinition::m_Probability
+FIELD System.Int32 Game.Tools.ObjectDefinition::m_PrefabSubIndex
+TYPE Game.Tools.ObjectToolSystem
+METHOD System.Boolean Game.Tools.ObjectToolSystem::get_allowCreate()
+METHOD System.Void Game.Tools.ObjectToolSystem::set_allowCreate(System.Boolean)
+METHOD System.Void Game.Tools.ObjectToolSystem::OnCreate()
+METHOD Unity.Jobs.JobHandle Game.Tools.ObjectToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle)
+METHOD Unity.Jobs.JobHandle Game.Tools.ObjectToolSystem::UpdateSubReplacementDefinitions(Unity.Jobs.JobHandle)
+METHOD System.Void Game.Tools.ObjectToolSystem::OnCreateForCompiler()

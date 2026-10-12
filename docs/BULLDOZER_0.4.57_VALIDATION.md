@@ -1,0 +1,11 @@
+# 0.4.57 StreetLight state and complete schema inventory
+
+VERIFIED-RUNTIME: computer-use connected to Cities2 via the Windows sky API. Reproduced Carport01 Start refusal. Changed only the unsaved disposable Test 2 second descriptor to Gazebo01 via native picker and reproduced the same StreetLight refusal. No bulldozing or saving. Current Test 2 entries are Grill01/Gazebo01. Evidence docs/evidence/bulldozer-0.4.56-computer-use-runtime.log. User has authorised computer-use testing and does not want repeated manual setup instructions.
+
+VERIFIED-STATIC: Game.dll Version 0.0.0.0, MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef; Game.Objects.StreetLight is a value type with one StreetLightState m_State field. Serialize reads state at IL_0003 and writes byte IL_000e; Deserialize writes field IL_0011. Narrow inspection saved docs/evidence/bulldozer-streetlight-type.txt. No entity references or collections. Optional presence and full state now captured; existing auxiliary equality helper requires exact state and presence through all retained/preparation/preflight/completion checks. No light-state writes or synthesis; native state must already match. Main schema unchanged. Actual native recovery remains UNPROVEN.
+
+Ordinary adoption now first inventories every node's component types through bounded read-only traversal (32-node budget/cycle refusal) before typed capture. All component names are logged together even if typed capture refuses the first unsupported one; avoids diagnosing one unknown per restart. No new patches, systems, automatic deletions, saving or UI controls.
+
+Release/UI/settings render passed; all464 assertions passed (420 original plus44 runner/policy), including five actual-state policy checks for absent-state equality, both presence mismatch directions, matching state and changed flags. No native timing emulation.
+
+Next install after user closes CS2 without saving; full rollback/hash verification. Computer-use handles test setup and Start preflight on disposable Test 2. Don't ask user to repeat manual setup. No deletion until readiness, no unsupported recovery claim. Project forbids automatically terminating game or replacing files while running. Phase5 paused; Phase6/publishing unauthorised.

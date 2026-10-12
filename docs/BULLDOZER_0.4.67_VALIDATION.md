@@ -1,0 +1,11 @@
+# 0.4.67 preparation failure latch
+
+VERIFIED-STATIC: A failed nested preparation after preparingAsset is assigned now latches the existing disabled flag, clears pending automatic/manual test mode and invalidates bulldozer history. Repeated callbacks, settings changes or another Enable attempt cannot clear that flag; the existing CanArm and BeginApply gates refuse it until a new mod session. Preparation's native SaveInstance work cannot be safely cancelled here; no rollback claim is made. A successful completion explicitly passes successful=true and continues arming. Read-only preflight refusal before preparingAsset is assigned does not latch the failure.
+
+All failure call sites retain their default failure semantics: callback exception, deletion interruption, context/owner change, timeout and validation exception. The sole successful call site in TickNestedTestPreparation opts into success after its existing native fences, payload/graph/reference checks and three stable frames. Temporary snapshots, including the empty-lane set, are released in both paths. Recovery write algorithms and supported scope are unchanged.
+
+VERIFIED-STATIC: Release zero warnings/errors; UI build and Settings render pass; all 561 assertions pass. The new PreparationSafety suite executes the actual completion source with isolated surrounding-state stubs: 35 assertions cover five failure scenarios, latch persistence, temporary capture/fence cleanup, mode cancellation, successful completion and retryable preflight refusal. It does not run native ECS work or prove rollback. New package-free test restore required access to standard .NET user configuration; no toolchain or package installation occurred.
+
+UNPROVEN: native failure injection on 0.4.67. Do not deliberately corrupt the user's asset to reproduce a failure. Retain the automated evidence and run a normal-success smoke check only as part of the next meaningful batch. Completed 0.4.65 mixed batches and user-confirmed 0.4.66 ordinary restored-carport persistence remain separate evidence, not claims of 0.4.67 runtime validation.
+
+UNSUPPORTED/UNPROVEN: arbitrary nested recovery, attached lane/network/area/effect recovery and atomic deferred rollback. Phase 5 remains paused; no Phase 6 or publishing. No computer use.

@@ -1,0 +1,101 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Settings.OnSettingsAppliedHandler
+METHOD System.Void Game.Settings.OnSettingsAppliedHandler::.ctor(System.Object,System.IntPtr) virtual=False
+METHOD System.Void Game.Settings.OnSettingsAppliedHandler::Invoke(Game.Settings.Setting) virtual=True
+METHOD System.IAsyncResult Game.Settings.OnSettingsAppliedHandler::BeginInvoke(Game.Settings.Setting,System.AsyncCallback,System.Object) virtual=True
+METHOD System.Void Game.Settings.OnSettingsAppliedHandler::EndInvoke(System.IAsyncResult) virtual=True
+TYPE Game.Settings.Setting
+PROPERTY Game.Settings.SharedSettings Game.Settings.Setting::settings()
+PROPERTY System.Boolean Game.Settings.Setting::builtIn()
+METHOD Game.Settings.SharedSettings Game.Settings.Setting::get_settings() virtual=False
+METHOD System.Void Game.Settings.Setting::add_onSettingsApplied(Game.Settings.OnSettingsAppliedHandler) virtual=False
+METHOD System.Void Game.Settings.Setting::remove_onSettingsApplied(Game.Settings.OnSettingsAppliedHandler) virtual=False
+METHOD System.Boolean Game.Settings.Setting::Equals(Game.Settings.Setting) virtual=True
+METHOD System.Boolean Game.Settings.Setting::Equals(System.Object) virtual=True
+METHOD System.Int32 Game.Settings.Setting::GetHashCode() virtual=True
+METHOD System.Boolean Game.Settings.Setting::TryGetGameplayCameraController(Game.CameraController&) virtual=False
+METHOD System.Boolean Game.Settings.Setting::TryGetGameplayCamera(UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData&) virtual=False
+METHOD System.Boolean Game.Settings.Setting::TryGetGameplayCamera(UnityEngine.Camera&) virtual=False
+METHOD System.Boolean Game.Settings.Setting::TryGetSunLight(UnityEngine.Light&) virtual=False
+METHOD System.Boolean Game.Settings.Setting::TryGetSunLightData(UnityEngine.Rendering.HighDefinition.HDAdditionalLightData&) virtual=False
+METHOD System.Void Game.Settings.Setting::ApplyAndSave() virtual=True
+METHOD System.Void Game.Settings.Setting::Apply() virtual=True
+METHOD System.Void Game.Settings.Setting::SetDefaults() virtual=True
+METHOD System.Void Game.Settings.Setting::SetNewPlayerDefaults() virtual=True
+METHOD Game.UI.Menu.AutomaticSettings/SettingPageData Game.Settings.Setting::GetPageData(System.String,System.Boolean) virtual=True
+METHOD System.Void Game.Settings.Setting::.ctor() virtual=False
+TYPE Game.Settings.SettingsUIMultilineTextAttribute
+METHOD System.Void Game.Settings.SettingsUIMultilineTextAttribute::.ctor(System.String) virtual=False
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Attribute::.ctor()
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: stfld System.String Game.Settings.SettingsUIMultilineTextAttribute::icon
+IL_000d: ret
+TYPE Game.Settings.SettingsUITextInputAttribute
+METHOD System.Void Game.Settings.SettingsUITextInputAttribute::.ctor() virtual=False
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Attribute::.ctor()
+IL_0006: ret
+TYPE Game.Modding.ModSetting
+PROPERTY System.Collections.Generic.Dictionary`2<System.String,Game.Modding.ModSetting> Game.Modding.ModSetting::instances()
+PROPERTY Game.Modding.IMod Game.Modding.ModSetting::mod()
+PROPERTY System.Boolean Game.Modding.ModSetting::builtIn()
+PROPERTY System.String Game.Modding.ModSetting::id()
+PROPERTY System.String Game.Modding.ModSetting::name()
+PROPERTY System.Boolean Game.Modding.ModSetting::keyBindingRegistered()
+PROPERTY System.Reflection.PropertyInfo[] Game.Modding.ModSetting::keyBindingProperties()
+METHOD System.String Game.Modding.ModSetting::get_id() virtual=False
+METHOD System.String Game.Modding.ModSetting::get_name() virtual=False
+METHOD System.Boolean Game.Modding.ModSetting::get_keyBindingRegistered() virtual=False
+METHOD System.Void Game.Modding.ModSetting::.ctor(Game.Modding.IMod) virtual=False
+METHOD System.Void Game.Modding.ModSetting::RegisterInOptionsUI() virtual=False
+METHOD System.Void Game.Modding.ModSetting::UnregisterInOptionsUI() virtual=False
+METHOD System.Void Game.Modding.ModSetting::RegisterKeyBindings() virtual=False
+METHOD System.Void Game.Modding.ModSetting::ResetKeyBindings() virtual=False
+METHOD Game.Input.ProxyAction Game.Modding.ModSetting::GetAction(System.String) virtual=False
+METHOD System.Collections.Generic.IEnumerable`1<Game.Input.ProxyAction> Game.Modding.ModSetting::GetActions() virtual=False
+METHOD System.String Game.Modding.ModSetting::GetSettingsLocaleID() virtual=False
+METHOD System.String Game.Modding.ModSetting::GetOptionLabelLocaleID(System.String) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetOptionDescLocaleID(System.String) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetOptionWarningLocaleID(System.String) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetOptionTabLocaleID(System.String) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetOptionGroupLocaleID(System.String) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetEnumValueLocaleID(T) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetOptionFormatLocaleID(System.String) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,Game.Input.AxisComponent) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyLocaleID(System.String,Game.Input.Vector2Component) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetBindingKeyHintLocaleID(System.String) virtual=False
+METHOD System.String Game.Modding.ModSetting::GetBindingMapLocaleID() virtual=False
+Colossal.Localization, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID 70286dfa-8425-4e2e-9e53-32e2ec6bde04
+TYPE Colossal.Localization.LocalizationManager
+PROPERTY System.String Colossal.Localization.LocalizationManager::fallbackLocaleId()
+PROPERTY Colossal.Localization.LocalizationDictionary Colossal.Localization.LocalizationManager::activeDictionary()
+PROPERTY System.String Colossal.Localization.LocalizationManager::activeLocaleId()
+METHOD System.String Colossal.Localization.LocalizationManager::get_fallbackLocaleId() virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::add_onActiveDictionaryChanged(System.Action) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::remove_onActiveDictionaryChanged(System.Action) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::add_onSupportedLocalesChanged(System.Action) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::remove_onSupportedLocalesChanged(System.Action) virtual=False
+METHOD Colossal.Localization.LocalizationDictionary Colossal.Localization.LocalizationManager::get_activeDictionary() virtual=False
+METHOD System.String Colossal.Localization.LocalizationManager::get_activeLocaleId() virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::.ctor(System.String,UnityEngine.SystemLanguage,System.String) virtual=False
+METHOD System.Threading.Tasks.Task Colossal.Localization.LocalizationManager::PreloadAllLocales(System.Int32) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::UnloadUnusedLocales() virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::LoadAvailableLocales() virtual=False
+METHOD UnityEngine.SystemLanguage Colossal.Localization.LocalizationManager::LocaleIdToSystemLanguage(System.String) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::SetActiveLocale(System.String) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::ReloadActiveLocale() virtual=False
+METHOD System.Boolean Colossal.Localization.LocalizationManager::SupportsLocale(System.String) virtual=False
+METHOD System.String[] Colossal.Localization.LocalizationManager::GetSupportedLocales() virtual=False
+METHOD System.String Colossal.Localization.LocalizationManager::GetLocalizedName(System.String) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::AddLocale(Colossal.IO.AssetDatabase.LocaleAsset) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::AddLocale(System.String,UnityEngine.SystemLanguage,System.String) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::RemoveLocale(System.String) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::AddSource(System.String,Colossal.IDictionarySource) virtual=False
+METHOD System.Void Colossal.Localization.LocalizationManager::RemoveSource(System.String,Colossal.IDictionarySource) virtual=False
+Colossal.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID b5ff7e4e-51b0-4c1f-a177-2afdfc22906b
+TYPE Colossal.IDictionarySource
+METHOD System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> Colossal.IDictionarySource::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>) virtual=True
+METHOD System.Void Colossal.IDictionarySource::Unload() virtual=True

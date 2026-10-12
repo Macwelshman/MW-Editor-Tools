@@ -1,0 +1,76 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Tools.ApplyPrefabsSystem
+FIELD Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem
+FIELD Unity.Entities.EntityQuery Game.Tools.ApplyPrefabsSystem::m_SaveInstanceQuery
+TYPE Game.Tools.ToolBaseSystem
+FIELD System.Action`1<Game.Input.ProxyAction> Game.Tools.ToolBaseSystem::EventToolActionPerformed
+FIELD Game.Tools.ApplyMode Game.Tools.ToolBaseSystem::<applyMode>k__BackingField
+FIELD Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+FIELD Game.Prefabs.PrefabSystem Game.Tools.ToolBaseSystem::m_PrefabSystem
+FIELD Game.Tools.DefaultToolSystem Game.Tools.ToolBaseSystem::m_DefaultToolSystem
+FIELD Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+METHOD Game.Tools.ApplyMode Game.Tools.ToolBaseSystem::get_applyMode()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ApplyMode Game.Tools.ToolBaseSystem::<applyMode>k__BackingField
+IL_0006: ret
+METHOD System.Boolean Game.Tools.ToolBaseSystem::GetAllowApply()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_0006: callvirt System.Boolean Game.Tools.ToolSystem::get_ignoreErrors()
+IL_000b: brtrue.s IL_001a
+IL_000d: ldarg.0
+IL_000e: ldflda Unity.Entities.EntityQuery Game.Tools.ToolBaseSystem::m_ErrorQuery
+IL_0013: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_0018: brfalse.s IL_002a
+IL_001a: ldarg.0
+IL_001b: ldfld Game.Tools.OriginalDeletedSystem Game.Tools.ToolBaseSystem::m_OriginalDeletedSystem
+IL_0020: ldc.i4.0
+IL_0021: callvirt System.Boolean Game.Tools.OriginalDeletedSystem::GetOriginalDeletedResult(System.Int32)
+IL_0026: ldc.i4.0
+IL_0027: ceq
+IL_0029: ret
+IL_002a: ldc.i4.0
+IL_002b: ret
+TYPE Game.Tools.ToolSystem
+FIELD System.String Game.Tools.ToolSystem::kToolKeyGroup
+FIELD System.String Game.Tools.ToolSystem::kToolCancelKeyGroup
+FIELD System.String Game.Tools.ToolSystem::kToolApplyKeyAction
+FIELD System.String Game.Tools.ToolSystem::kToolCancelKeyAction
+FIELD System.Action`1<Game.Tools.ToolBaseSystem> Game.Tools.ToolSystem::EventToolChanged
+FIELD System.Action`1<Game.Prefabs.PrefabBase> Game.Tools.ToolSystem::EventPrefabChanged
+FIELD Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::m_ActiveTool
+FIELD Game.GameMode Game.Tools.ToolSystem::<actionMode>k__BackingField
+FIELD Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::m_LastTool
+FIELD Game.Prefabs.InfoviewPrefab Game.Tools.ToolSystem::m_LastToolInfoview
+FIELD Game.Prefabs.PrefabSystem Game.Tools.ToolSystem::m_PrefabSystem
+FIELD Game.Tools.ToolRaycastSystem Game.Tools.ToolSystem::m_ToolRaycastSystem
+FIELD Game.Tools.DefaultToolSystem Game.Tools.ToolSystem::m_DefaultToolSystem
+FIELD System.Collections.Generic.List`1<Game.Tools.ToolBaseSystem> Game.Tools.ToolSystem::m_Tools
+FIELD System.Collections.Generic.List`1<Game.Prefabs.InfomodePrefab> Game.Tools.ToolSystem::m_LastToolInfomodes
+FIELD Game.Input.InputBarrier Game.Tools.ToolSystem::m_ToolActionBarrier
+FIELD System.Collections.Generic.Dictionary`2<Game.Input.ProxyAction,Game.Input.InputBarrier> Game.Tools.ToolSystem::m_MouseToolBarriers
+METHOD Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::get_activeTool()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::m_ActiveTool
+IL_0006: ret
+METHOD Game.GameMode Game.Tools.ToolSystem::get_actionMode()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.GameMode Game.Tools.ToolSystem::<actionMode>k__BackingField
+IL_0006: ret
+TYPE Game.Prefabs.PrefabSystem
+FIELD System.Collections.Generic.List`1<Game.Prefabs.PrefabBase> Game.Prefabs.PrefabSystem::m_Prefabs
+FIELD System.Collections.Generic.Dictionary`2<System.String,Game.Prefabs.ContentPrefab> Game.Prefabs.PrefabSystem::m_ModsContentPrefabs
+FIELD System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabID,System.Int32> Game.Prefabs.PrefabSystem::m_PrefabIndices
+METHOD System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Unity.Entities.Entity> Game.Prefabs.PrefabSystem::m_UpdateMap
+IL_0006: ldarg.1
+IL_0007: ldarg.2
+IL_0008: callvirt System.Void System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Unity.Entities.Entity>::set_Item(!0,!1)
+IL_000d: ret
+METHOD Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Unity.Entities.Entity> Game.Prefabs.PrefabSystem::m_Entities
+IL_0006: ldarg.1
+IL_0007: callvirt !1 System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Unity.Entities.Entity>::get_Item(!0)
+IL_000c: ret

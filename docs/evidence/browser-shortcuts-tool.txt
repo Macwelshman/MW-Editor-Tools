@@ -1,0 +1,41 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.UI.Editor.EditorPrefabTool
+FIELD System.String Game.UI.Editor.EditorPrefabTool::kToolId
+FIELD Game.Prefabs.PrefabBase Game.UI.Editor.EditorPrefabTool::m_LastSelectedPrefab
+METHOD System.Void Game.UI.Editor.EditorPrefabTool::.ctor(Unity.Entities.World) PUBLIC True
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.UI.Editor.EditorTool::.ctor(Unity.Entities.World)
+IL_0007: ldarg.0
+IL_0008: ldstr "PrefabTool"
+IL_000d: call System.Void Game.UI.Editor.EditorTool::set_id(System.String)
+IL_0012: ldarg.0
+IL_0013: ldstr "Media/Editor/Object.svg"
+IL_0018: call System.Void Game.UI.Editor.EditorTool::set_icon(System.String)
+IL_001d: ldarg.0
+IL_001e: ldstr "UITagPrefab:AddObjectButton"
+IL_0023: call System.Void Game.UI.Editor.EditorTool::set_uiTag(System.String)
+IL_0028: ldarg.0
+IL_0029: ldarg.1
+IL_002a: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.PrefabToolPanelSystem>()
+IL_002f: call System.Void Game.UI.Editor.EditorTool::set_panel(Game.UI.Editor.IEditorPanel)
+IL_0034: ret
+METHOD System.Void Game.UI.Editor.EditorPrefabTool::OnEnable() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorTool::OnEnable()
+IL_0006: ldarg.0
+IL_0007: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+IL_000c: ldarg.0
+IL_000d: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.EditorPrefabTool::m_LastSelectedPrefab
+IL_0012: callvirt System.Boolean Game.Tools.ToolSystem::ActivatePrefabTool(Game.Prefabs.PrefabBase)
+IL_0017: pop
+IL_0018: ret
+METHOD System.Void Game.UI.Editor.EditorPrefabTool::OnDisable() PUBLIC False
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldfld Game.Tools.ToolSystem Game.UI.Editor.EditorTool::m_ToolSystem
+IL_0007: callvirt Game.Prefabs.PrefabBase Game.Tools.ToolSystem::get_activePrefab()
+IL_000c: stfld Game.Prefabs.PrefabBase Game.UI.Editor.EditorPrefabTool::m_LastSelectedPrefab
+IL_0011: ldarg.0
+IL_0012: call System.Void Game.UI.Editor.EditorTool::OnDisable()
+IL_0017: ret

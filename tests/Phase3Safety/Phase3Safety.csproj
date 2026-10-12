@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ManagedPath>C:\Program Files (x86)\Steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed</ManagedPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/History/*.cs" Link="History/%(Filename)%(Extension)" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/AreaGeometry.cs" Link="AreaGeometry.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/AreaRemovalPolicy.cs" Link="AreaRemovalPolicy.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/MainPropData.cs" Link="MainPropData.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/NestedPayloadPolicy.cs" Link="NestedPayloadPolicy.cs" />
+    <Reference Include="Game;UnityEngine.CoreModule;UnityEngine.AnimationModule;Unity.Mathematics;Colossal.Mathematics;Unity.Entities">
+      <HintPath>$(ManagedPath)\%(Identity).dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,1879 @@
+TYPE Game.Reflection.IValueAccessor BASE 
+METHOD System.Type Game.Reflection.IValueAccessor::get_valueType()
+
+METHOD System.Object Game.Reflection.IValueAccessor::GetValue()
+
+METHOD System.Void Game.Reflection.IValueAccessor::SetValue(System.Object)
+
+METHOD Game.Reflection.IValueAccessor Game.Reflection.IValueAccessor::get_parent()
+
+TYPE Game.Reflection.FieldAccessor BASE System.Object
+FIELD Game.Reflection.IValueAccessor Game.Reflection.FieldAccessor::m_Parent
+FIELD System.Reflection.FieldInfo Game.Reflection.FieldAccessor::m_Field
+METHOD System.Void Game.Reflection.FieldAccessor::.ctor(Game.Reflection.IValueAccessor,System.Reflection.FieldInfo)
+
+METHOD System.Type Game.Reflection.FieldAccessor::get_valueType()
+
+METHOD Game.Reflection.IValueAccessor Game.Reflection.FieldAccessor::get_parent()
+
+METHOD System.Object Game.Reflection.FieldAccessor::GetValue()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Reflection.IValueAccessor Game.Reflection.FieldAccessor::m_Parent
+IL_0006: callvirt System.Object Game.Reflection.IValueAccessor::GetValue()
+IL_000b: stloc.0
+IL_000c: ldarg.0
+IL_000d: ldfld System.Reflection.FieldInfo Game.Reflection.FieldAccessor::m_Field
+IL_0012: ldloc.0
+IL_0013: callvirt System.Object System.Reflection.FieldInfo::GetValue(System.Object)
+IL_0018: ret
+
+METHOD System.Void Game.Reflection.FieldAccessor::SetValue(System.Object)
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Reflection.IValueAccessor Game.Reflection.FieldAccessor::m_Parent
+IL_0006: callvirt System.Object Game.Reflection.IValueAccessor::GetValue()
+IL_000b: stloc.0
+IL_000c: ldarg.0
+IL_000d: ldfld System.Reflection.FieldInfo Game.Reflection.FieldAccessor::m_Field
+IL_0012: ldloc.0
+IL_0013: ldarg.1
+IL_0014: callvirt System.Void System.Reflection.FieldInfo::SetValue(System.Object,System.Object)
+IL_0019: ldarg.0
+IL_001a: ldfld Game.Reflection.IValueAccessor Game.Reflection.FieldAccessor::m_Parent
+IL_001f: callvirt System.Type Game.Reflection.IValueAccessor::get_valueType()
+IL_0024: callvirt System.Boolean System.Type::get_IsValueType()
+IL_0029: brfalse.s IL_0037
+IL_002b: ldarg.0
+IL_002c: ldfld Game.Reflection.IValueAccessor Game.Reflection.FieldAccessor::m_Parent
+IL_0031: ldloc.0
+IL_0032: callvirt System.Void Game.Reflection.IValueAccessor::SetValue(System.Object)
+IL_0037: ret
+
+METHOD System.Boolean Game.Reflection.FieldAccessor::Equals(Game.Reflection.FieldAccessor)
+
+METHOD System.Boolean Game.Reflection.FieldAccessor::Equals(System.Object)
+
+METHOD System.Int32 Game.Reflection.FieldAccessor::GetHashCode()
+
+TYPE Game.Reflection.CastAccessor`1 BASE System.Object
+FIELD Game.Reflection.IValueAccessor Game.Reflection.CastAccessor`1::m_Accessor
+FIELD System.Converter`2<System.Object,T> Game.Reflection.CastAccessor`1::m_FromObject
+FIELD System.Converter`2<T,System.Object> Game.Reflection.CastAccessor`1::m_ToObject
+METHOD System.Void Game.Reflection.CastAccessor`1::.ctor(Game.Reflection.IValueAccessor)
+
+METHOD System.Void Game.Reflection.CastAccessor`1::.ctor(Game.Reflection.IValueAccessor,System.Converter`2<System.Object,T>,System.Converter`2<T,System.Object>)
+
+METHOD System.Type Game.Reflection.CastAccessor`1::get_valueType()
+
+METHOD Game.Reflection.IValueAccessor Game.Reflection.CastAccessor`1::get_parent()
+
+METHOD System.Object Game.Reflection.CastAccessor`1::GetValue()
+IL_0000: ldarg.0
+IL_0001: call T Game.Reflection.CastAccessor`1<T>::GetTypedValue()
+IL_0006: box T
+IL_000b: ret
+
+METHOD System.Void Game.Reflection.CastAccessor`1::SetValue(System.Object)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: unbox.any T
+IL_0007: call System.Void Game.Reflection.CastAccessor`1<T>::SetTypedValue(T)
+IL_000c: ret
+
+METHOD T Game.Reflection.CastAccessor`1::GetTypedValue()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Converter`2<System.Object,T> Game.Reflection.CastAccessor`1<T>::m_FromObject
+IL_0006: ldarg.0
+IL_0007: ldfld Game.Reflection.IValueAccessor Game.Reflection.CastAccessor`1<T>::m_Accessor
+IL_000c: callvirt System.Object Game.Reflection.IValueAccessor::GetValue()
+IL_0011: callvirt !1 System.Converter`2<System.Object,T>::Invoke(!0)
+IL_0016: ret
+
+METHOD System.Void Game.Reflection.CastAccessor`1::SetTypedValue(T)
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Reflection.IValueAccessor Game.Reflection.CastAccessor`1<T>::m_Accessor
+IL_0006: ldarg.0
+IL_0007: ldfld System.Converter`2<T,System.Object> Game.Reflection.CastAccessor`1<T>::m_ToObject
+IL_000c: ldarg.1
+IL_000d: callvirt !1 System.Converter`2<T,System.Object>::Invoke(!0)
+IL_0012: callvirt System.Void Game.Reflection.IValueAccessor::SetValue(System.Object)
+IL_0017: ret
+
+METHOD System.Boolean Game.Reflection.CastAccessor`1::Equals(Game.Reflection.CastAccessor`1<T>)
+
+METHOD System.Boolean Game.Reflection.CastAccessor`1::Equals(System.Object)
+
+METHOD System.Int32 Game.Reflection.CastAccessor`1::GetHashCode()
+
+METHOD T Game.Reflection.CastAccessor`1::FromObject(System.Object)
+
+METHOD System.Object Game.Reflection.CastAccessor`1::ToObject(T)
+
+TYPE Game.UI.Widgets.PagedList BASE Game.UI.Widgets.NamedWidgetWithTooltip
+FIELD System.Int32 Game.UI.Widgets.PagedList::m_Length
+FIELD System.Int32 Game.UI.Widgets.PagedList::m_CurrentPageIndex
+FIELD System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+FIELD System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+FIELD System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+FIELD System.Boolean Game.UI.Widgets.PagedList::m_Expanded
+FIELD System.Boolean Game.UI.Widgets.PagedList::<locked>k__BackingField
+FIELD Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::<adapter>k__BackingField
+FIELD System.Int32 Game.UI.Widgets.PagedList::<level>k__BackingField
+FIELD System.Int32 Game.UI.Widgets.PagedList::<pageSize>k__BackingField
+METHOD System.Boolean Game.UI.Widgets.PagedList::get_expanded()
+
+METHOD System.Void Game.UI.Widgets.PagedList::set_expanded(System.Boolean)
+
+METHOD System.Boolean Game.UI.Widgets.PagedList::get_locked()
+
+METHOD System.Void Game.UI.Widgets.PagedList::set_locked(System.Boolean)
+
+METHOD Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+
+METHOD System.Void Game.UI.Widgets.PagedList::set_adapter(Game.UI.Widgets.IListAdapter)
+
+METHOD System.Int32 Game.UI.Widgets.PagedList::get_level()
+
+METHOD System.Void Game.UI.Widgets.PagedList::set_level(System.Int32)
+
+METHOD System.Int32 Game.UI.Widgets.PagedList::get_pageSize()
+
+METHOD System.Void Game.UI.Widgets.PagedList::set_pageSize(System.Int32)
+
+METHOD System.Int32 Game.UI.Widgets.PagedList::get_pageCount()
+
+METHOD System.Boolean Game.UI.Widgets.PagedList::get_searchable()
+
+METHOD System.String Game.UI.Widgets.PagedList::get_searchQuery()
+
+METHOD System.Void Game.UI.Widgets.PagedList::set_searchQuery(System.String)
+
+METHOD System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::get_children()
+
+METHOD System.Int32 Game.UI.Widgets.PagedList::get_currentPageIndex()
+
+METHOD System.Void Game.UI.Widgets.PagedList::set_currentPageIndex(System.Int32)
+
+METHOD System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::get_visibleChildren()
+
+METHOD System.Int32 Game.UI.Widgets.PagedList::AddElement()
+
+METHOD System.Void Game.UI.Widgets.PagedList::InsertElement(System.Int32)
+
+METHOD System.Int32 Game.UI.Widgets.PagedList::DuplicateElement(System.Int32)
+
+METHOD System.Void Game.UI.Widgets.PagedList::MoveElement(System.Int32,System.Int32)
+
+METHOD System.Void Game.UI.Widgets.PagedList::DeleteElement(System.Int32)
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_0006: ldarg.1
+IL_0007: callvirt System.Void Game.UI.Widgets.IListAdapter::DeleteElement(System.Int32)
+IL_000c: ret
+
+METHOD System.Void Game.UI.Widgets.PagedList::Clear()
+
+METHOD Game.UI.Widgets.WidgetChanges Game.UI.Widgets.PagedList::Update()
+
+METHOD System.Void Game.UI.Widgets.PagedList::DisableChildren(Game.UI.Widgets.IWidget)
+
+METHOD System.Void Game.UI.Widgets.PagedList::ShowElement(System.Int32)
+
+METHOD System.Void Game.UI.Widgets.PagedList::CalculateIndices(System.Int32,System.Int32,System.Int32&,System.Int32&,System.Int32&)
+
+METHOD System.Void Game.UI.Widgets.PagedList::CalculateChildIndices(System.Int32,System.Int32,System.Int32&,System.Int32&)
+
+METHOD System.Void Game.UI.Widgets.PagedList::WriteProperties(Colossal.UI.Binding.IJsonWriter)
+
+METHOD System.Void Game.UI.Widgets.PagedList::.ctor()
+
+TYPE Game.UI.Widgets.PagedList/<>c BASE System.Object
+FIELD Game.UI.Widgets.PagedList/<>c Game.UI.Widgets.PagedList/<>c::<>9
+FIELD System.Func`1<System.Boolean> Game.UI.Widgets.PagedList/<>c::<>9__46_0
+METHOD System.Void Game.UI.Widgets.PagedList/<>c::.cctor()
+
+METHOD System.Void Game.UI.Widgets.PagedList/<>c::.ctor()
+
+METHOD System.Boolean Game.UI.Widgets.PagedList/<>c::<DisableChildren>b__46_0()
+
+TYPE Game.UI.Widgets.ListAdapterBase`1 BASE System.Object
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::m_StartIndex
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::m_EndIndex
+FIELD System.String Game.UI.Widgets.ListAdapterBase`1::m_SearchQuery
+FIELD System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.ListAdapterBase`1::m_FilteredIndices
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::m_FilterVersion
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::m_BuiltFilterVersion
+FIELD Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1::<accessor>k__BackingField
+FIELD System.Type Game.UI.Widgets.ListAdapterBase`1::<elementType>k__BackingField
+FIELD Game.UI.Widgets.IEditorGenerator Game.UI.Widgets.ListAdapterBase`1::<generator>k__BackingField
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1::<level>k__BackingField
+FIELD System.String Game.UI.Widgets.ListAdapterBase`1::<path>k__BackingField
+FIELD System.Object[] Game.UI.Widgets.ListAdapterBase`1::<attributes>k__BackingField
+FIELD System.Reflection.MemberInfo Game.UI.Widgets.ListAdapterBase`1::<labelMember>k__BackingField
+FIELD System.Boolean Game.UI.Widgets.ListAdapterBase`1::<resizable>k__BackingField
+METHOD Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1::get_accessor()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_accessor(Game.Reflection.ITypedValueAccessor`1<T>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1<T>::<accessor>k__BackingField
+IL_0007: ret
+
+METHOD System.Type Game.UI.Widgets.ListAdapterBase`1::get_elementType()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_elementType(System.Type)
+
+METHOD Game.UI.Widgets.IEditorGenerator Game.UI.Widgets.ListAdapterBase`1::get_generator()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_generator(Game.UI.Widgets.IEditorGenerator)
+
+METHOD System.Int32 Game.UI.Widgets.ListAdapterBase`1::get_level()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_level(System.Int32)
+
+METHOD System.String Game.UI.Widgets.ListAdapterBase`1::get_path()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_path(System.String)
+
+METHOD System.Object[] Game.UI.Widgets.ListAdapterBase`1::get_attributes()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_attributes(System.Object[])
+
+METHOD System.Reflection.MemberInfo Game.UI.Widgets.ListAdapterBase`1::get_labelMember()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_labelMember(System.Reflection.MemberInfo)
+
+METHOD System.Int32 Game.UI.Widgets.ListAdapterBase`1::get_trueCount()
+
+METHOD System.Int32 Game.UI.Widgets.ListAdapterBase`1::get_length()
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1::get_resizable()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_resizable(System.Boolean)
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1::get_sortable()
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1::get_searchable()
+
+METHOD System.String Game.UI.Widgets.ListAdapterBase`1::get_searchQuery()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::set_searchQuery(System.String)
+
+METHOD System.Int32 Game.UI.Widgets.ListAdapterBase`1::ResolveIndex(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.ListAdapterBase`1<T>::m_FilteredIndices
+IL_0006: brfalse.s IL_001a
+IL_0008: ldarg.1
+IL_0009: ldc.i4.0
+IL_000a: blt.s IL_001a
+IL_000c: ldarg.1
+IL_000d: ldarg.0
+IL_000e: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.ListAdapterBase`1<T>::m_FilteredIndices
+IL_0013: callvirt System.Int32 System.Collections.Generic.List`1<System.Int32>::get_Count()
+IL_0018: blt.s IL_001c
+IL_001a: ldarg.1
+IL_001b: ret
+IL_001c: ldarg.0
+IL_001d: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.ListAdapterBase`1<T>::m_FilteredIndices
+IL_0022: ldarg.1
+IL_0023: callvirt !0 System.Collections.Generic.List`1<System.Int32>::get_Item(System.Int32)
+IL_0028: ret
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::RebuildFilter()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::InvalidateFilter()
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1::MatchesSearch(System.String,System.String[])
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1::UpdateRange(System.Int32,System.Int32)
+
+METHOD System.Collections.Generic.IEnumerable`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.ListAdapterBase`1::BuildElementsInRange()
+
+METHOD System.String Game.UI.Widgets.ListAdapterBase`1::GetMemberDisplayValue(System.Reflection.MemberInfo,System.Object)
+
+METHOD System.String Game.UI.Widgets.ListAdapterBase`1::GetElementName(System.Object)
+
+METHOD Game.UI.Localization.LocalizedString Game.UI.Widgets.ListAdapterBase`1::GetIndexLabel(System.Int32)
+
+METHOD Game.UI.Localization.LocalizedString Game.UI.Widgets.ListAdapterBase`1::GetElementLabel(System.Object,System.Int32)
+
+METHOD System.Int32 Game.UI.Widgets.ListAdapterBase`1::AddElement()
+
+METHOD System.Int32 Game.UI.Widgets.ListAdapterBase`1::DuplicateElement(System.Int32)
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::CopyData(System.Int32,System.Int32)
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::MoveElement(System.Int32,System.Int32)
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::InsertElement(System.Int32)
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::DeleteElement(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldarg.1
+IL_0003: call System.Int32 Game.UI.Widgets.ListAdapterBase`1<T>::ResolveIndex(System.Int32)
+IL_0008: callvirt System.Void Game.UI.Widgets.ListAdapterBase`1<T>::DeleteElementInternal(System.Int32)
+IL_000d: ldarg.0
+IL_000e: call System.Void Game.UI.Widgets.ListAdapterBase`1<T>::InvalidateFilter()
+IL_0013: ret
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::DeleteElementInternal(System.Int32)
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::Clear()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::ClearInternal()
+
+METHOD System.Object Game.UI.Widgets.ListAdapterBase`1::CreateInstance(System.Type)
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1::.ctor()
+
+TYPE Game.UI.Widgets.ListAdapterBase`1/<>c BASE System.Object
+FIELD Game.UI.Widgets.ListAdapterBase`1/<>c<T> Game.UI.Widgets.ListAdapterBase`1/<>c::<>9
+FIELD System.Func`2<System.String,System.Boolean> Game.UI.Widgets.ListAdapterBase`1/<>c::<>9__50_0
+FIELD System.Func`2<System.String,System.Boolean> Game.UI.Widgets.ListAdapterBase`1/<>c::<>9__52_0
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1/<>c::.cctor()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1/<>c::.ctor()
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1/<>c::<RebuildFilter>b__50_0(System.String)
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1/<>c::<MatchesSearch>b__52_0(System.String)
+
+TYPE Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass52_0 BASE System.Object
+FIELD System.String Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass52_0::name
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass52_0::.ctor()
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass52_0::<MatchesSearch>b__1(System.String)
+
+TYPE Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass54_0 BASE System.Object
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass54_0::index
+FIELD Game.Reflection.ListElementAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass54_0::elementAccessor
+FIELD Game.UI.Widgets.ListAdapterBase`1<T> Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass54_0::<>4__this
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass54_0::.ctor()
+
+METHOD Game.UI.Localization.LocalizedString Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass54_0::<BuildElementsInRange>b__0()
+
+METHOD System.String Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass54_0::<BuildElementsInRange>b__1()
+
+METHOD Game.UI.Localization.LocalizedString Game.UI.Widgets.ListAdapterBase`1/<>c__DisplayClass54_0::<BuildElementsInRange>b__2()
+
+TYPE Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54 BASE System.Object
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::<>1__state
+FIELD Game.UI.Widgets.IWidget Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::<>2__current
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::<>l__initialThreadId
+FIELD Game.UI.Widgets.ListAdapterBase`1<T> Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::<>4__this
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::<rangeLength>5__2
+FIELD System.Int32 Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::<i>5__3
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::.ctor(System.Int32)
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::System.IDisposable.Dispose()
+
+METHOD System.Boolean Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::MoveNext()
+
+METHOD Game.UI.Widgets.IWidget Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::System.Collections.Generic.IEnumerator<Game.UI.Widgets.IWidget>.get_Current()
+
+METHOD System.Void Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::System.Collections.IEnumerator.Reset()
+
+METHOD System.Object Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::System.Collections.IEnumerator.get_Current()
+
+METHOD System.Collections.Generic.IEnumerator`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::System.Collections.Generic.IEnumerable<Game.UI.Widgets.IWidget>.GetEnumerator()
+
+METHOD System.Collections.IEnumerator Game.UI.Widgets.ListAdapterBase`1/<BuildElementsInRange>d__54::System.Collections.IEnumerable.GetEnumerator()
+
+TYPE Game.UI.Widgets.ArrayAdapter BASE Game.UI.Widgets.ListAdapterBase`1<System.Array>
+METHOD System.Void Game.UI.Widgets.ArrayAdapter::InsertElement(System.Int32)
+
+METHOD System.Void Game.UI.Widgets.ArrayAdapter::DeleteElementInternal(System.Int32)
+IL_0000: ldarg.0
+IL_0001: call Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1<System.Array>::get_accessor()
+IL_0006: callvirt T Game.Reflection.ITypedValueAccessor`1<System.Array>::GetTypedValue()
+IL_000b: stloc.0
+IL_000c: ldarg.0
+IL_000d: call System.Type Game.UI.Widgets.ListAdapterBase`1<System.Array>::get_elementType()
+IL_0012: ldloc.0
+IL_0013: callvirt System.Int32 System.Array::get_Length()
+IL_0018: ldc.i4.1
+IL_0019: sub
+IL_001a: call System.Array System.Array::CreateInstance(System.Type,System.Int32)
+IL_001f: stloc.1
+IL_0020: ldloc.0
+IL_0021: ldc.i4.0
+IL_0022: ldloc.1
+IL_0023: ldc.i4.0
+IL_0024: ldarg.1
+IL_0025: call System.Void System.Array::Copy(System.Array,System.Int32,System.Array,System.Int32,System.Int32)
+IL_002a: ldloc.0
+IL_002b: ldarg.1
+IL_002c: ldc.i4.1
+IL_002d: add
+IL_002e: ldloc.1
+IL_002f: ldarg.1
+IL_0030: ldloc.0
+IL_0031: callvirt System.Int32 System.Array::get_Length()
+IL_0036: ldarg.1
+IL_0037: sub
+IL_0038: ldc.i4.1
+IL_0039: sub
+IL_003a: call System.Void System.Array::Copy(System.Array,System.Int32,System.Array,System.Int32,System.Int32)
+IL_003f: ldarg.0
+IL_0040: call Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1<System.Array>::get_accessor()
+IL_0045: ldloc.1
+IL_0046: callvirt System.Void Game.Reflection.ITypedValueAccessor`1<System.Array>::SetTypedValue(T)
+IL_004b: ret
+
+METHOD System.Void Game.UI.Widgets.ArrayAdapter::ClearInternal()
+
+METHOD System.Void Game.UI.Widgets.ArrayAdapter::.ctor()
+
+TYPE Game.UI.Widgets.ListAdapter BASE Game.UI.Widgets.ListAdapterBase`1<System.Collections.IList>
+FIELD System.Type Game.UI.Widgets.ListAdapter::<listType>k__BackingField
+METHOD System.Type Game.UI.Widgets.ListAdapter::get_listType()
+
+METHOD System.Void Game.UI.Widgets.ListAdapter::set_listType(System.Type)
+
+METHOD System.Void Game.UI.Widgets.ListAdapter::InsertElement(System.Int32)
+
+METHOD System.Void Game.UI.Widgets.ListAdapter::DeleteElementInternal(System.Int32)
+IL_0000: ldarg.0
+IL_0001: call Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1<System.Collections.IList>::get_accessor()
+IL_0006: callvirt T Game.Reflection.ITypedValueAccessor`1<System.Collections.IList>::GetTypedValue()
+IL_000b: ldarg.1
+IL_000c: callvirt System.Void System.Collections.IList::RemoveAt(System.Int32)
+IL_0011: ret
+
+METHOD System.Void Game.UI.Widgets.ListAdapter::ClearInternal()
+
+METHOD Game.UI.Widgets.ListAdapter Game.UI.Widgets.ListAdapter::FromList(System.Collections.Generic.List`1<T>,Game.UI.Widgets.IEditorGenerator)
+
+METHOD System.Void Game.UI.Widgets.ListAdapter::.ctor()
+
+TYPE Game.UI.Widgets.ListAdapter/<>c__DisplayClass7_0`1 BASE System.Object
+FIELD System.Collections.Generic.List`1<T> Game.UI.Widgets.ListAdapter/<>c__DisplayClass7_0`1::list
+METHOD System.Void Game.UI.Widgets.ListAdapter/<>c__DisplayClass7_0`1::.ctor()
+
+METHOD System.Collections.IList Game.UI.Widgets.ListAdapter/<>c__DisplayClass7_0`1::<FromList>b__0()
+
+TYPE Game.UI.Editor.InspectorPanelSystem BASE Game.UI.Editor.EditorPanelSystemBase
+FIELD Game.Prefabs.PrefabSystem Game.UI.Editor.InspectorPanelSystem::m_PrefabSystem
+FIELD Game.Tools.ToolSystem Game.UI.Editor.InspectorPanelSystem::m_ToolSystem
+FIELD Game.Tools.ObjectToolSystem Game.UI.Editor.InspectorPanelSystem::m_ObjectTool
+FIELD Game.Rendering.CameraUpdateSystem Game.UI.Editor.InspectorPanelSystem::m_CameraUpdateSystem
+FIELD Game.UI.Editor.EditorAssetUploadPanel Game.UI.Editor.InspectorPanelSystem::m_AssetUploadPanel
+FIELD Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.InspectorPanelSystem::m_Workspace
+FIELD Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+FIELD Game.UI.Editor.EditorErrorPanelSystem Game.UI.Editor.InspectorPanelSystem::m_EditorErrorPanelSystem
+FIELD Game.Input.IProxyAction Game.UI.Editor.InspectorPanelSystem::m_MoveAction
+FIELD Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_CloneAction
+FIELD Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AutoAlignAction
+FIELD Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AutoConnectAction
+FIELD Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AlignXAction
+FIELD Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AlignYAction
+FIELD Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AlignZAction
+FIELD Game.UI.Widgets.EditorGenerator Game.UI.Editor.InspectorPanelSystem::m_EditorGenerator
+FIELD Game.UI.Widgets.Button[] Game.UI.Editor.InspectorPanelSystem::m_Footer
+FIELD Unity.Entities.Entity Game.UI.Editor.InspectorPanelSystem::m_CurrentSelectedEntity
+FIELD System.Int32 Game.UI.Editor.InspectorPanelSystem::m_LastSelectedMeshIndex
+FIELD System.Int32 Game.UI.Editor.InspectorPanelSystem::m_CurrentSelectedMeshIndex
+FIELD System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+FIELD System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+FIELD Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+FIELD Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+FIELD Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::m_SelectedName
+FIELD Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::m_ParentName
+FIELD System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+FIELD System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields> Game.UI.Editor.InspectorPanelSystem::m_WipLocalization
+FIELD Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.InspectorPanelSystem::m_Platform
+FIELD System.String Game.UI.Editor.InspectorPanelSystem::kLocalizationSectionPath
+FIELD System.String Game.UI.Editor.InspectorPanelSystem::kLocalizationClipboardTag
+METHOD System.Object Game.UI.Editor.InspectorPanelSystem::get_selectedObject()
+
+METHOD Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::GetLockReason(Game.Prefabs.PrefabBase)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::DisableSection(System.Object,System.Object,System.Boolean,Game.UI.Localization.LocalizedString&)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::IsBuiltinAsset(Colossal.IO.AssetDatabase.AssetData)
+
+METHOD Game.UI.Editor.InspectorPanelSystem/Mode Game.UI.Editor.InspectorPanelSystem::get_mode()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_0012: stfld Game.Prefabs.PrefabSystem Game.UI.Editor.InspectorPanelSystem::m_PrefabSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0023: stfld Game.Tools.ToolSystem Game.UI.Editor.InspectorPanelSystem::m_ToolSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ObjectToolSystem>()
+IL_0034: stfld Game.Tools.ObjectToolSystem Game.UI.Editor.InspectorPanelSystem::m_ObjectTool
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0040: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.CameraUpdateSystem>()
+IL_0045: stfld Game.Rendering.CameraUpdateSystem Game.UI.Editor.InspectorPanelSystem::m_CameraUpdateSystem
+IL_004a: ldarg.0
+IL_004b: ldarg.0
+IL_004c: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0051: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorAssetUploadPanel>()
+IL_0056: stfld Game.UI.Editor.EditorAssetUploadPanel Game.UI.Editor.InspectorPanelSystem::m_AssetUploadPanel
+IL_005b: ldarg.0
+IL_005c: ldarg.0
+IL_005d: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0062: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorHierarchyUISystem>()
+IL_0067: stfld Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.InspectorPanelSystem::m_Workspace
+IL_006c: ldarg.0
+IL_006d: ldarg.0
+IL_006e: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0073: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.AnimationControlsPanel>()
+IL_0078: stfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_007d: ldarg.0
+IL_007e: ldarg.0
+IL_007f: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0084: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorErrorPanelSystem>()
+IL_0089: stfld Game.UI.Editor.EditorErrorPanelSystem Game.UI.Editor.InspectorPanelSystem::m_EditorErrorPanelSystem
+IL_008e: ldarg.0
+IL_008f: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_0094: callvirt Game.Input.UIInputActionCollection Game.Input.InputManager::get_uiActionCollection()
+IL_0099: ldstr "Move Selected"
+IL_009e: ldstr "InspectorPanelSystem"
+IL_00a3: callvirt Game.Input.IProxyAction Game.Input.UIInputActionCollection::GetActionState(System.String,System.String)
+IL_00a8: stfld Game.Input.IProxyAction Game.UI.Editor.InspectorPanelSystem::m_MoveAction
+IL_00ad: ldarg.0
+IL_00ae: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_00b3: ldstr "Editor"
+IL_00b8: ldstr "Clone"
+IL_00bd: callvirt Game.Input.ProxyAction Game.Input.InputManager::FindAction(System.String,System.String)
+IL_00c2: stfld Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_CloneAction
+IL_00c7: ldarg.0
+IL_00c8: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_00cd: ldstr "Editor"
+IL_00d2: ldstr "Auto Align"
+IL_00d7: callvirt Game.Input.ProxyAction Game.Input.InputManager::FindAction(System.String,System.String)
+IL_00dc: stfld Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AutoAlignAction
+IL_00e1: ldarg.0
+IL_00e2: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_00e7: ldstr "Editor"
+IL_00ec: ldstr "Auto Connect"
+IL_00f1: callvirt Game.Input.ProxyAction Game.Input.InputManager::FindAction(System.String,System.String)
+IL_00f6: stfld Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AutoConnectAction
+IL_00fb: ldarg.0
+IL_00fc: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_0101: ldstr "Editor"
+IL_0106: ldstr "Align X"
+IL_010b: callvirt Game.Input.ProxyAction Game.Input.InputManager::FindAction(System.String,System.String)
+IL_0110: stfld Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AlignXAction
+IL_0115: ldarg.0
+IL_0116: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_011b: ldstr "Editor"
+IL_0120: ldstr "Align Y"
+IL_0125: callvirt Game.Input.ProxyAction Game.Input.InputManager::FindAction(System.String,System.String)
+IL_012a: stfld Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AlignYAction
+IL_012f: ldarg.0
+IL_0130: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_0135: ldstr "Editor"
+IL_013a: ldstr "Align Z"
+IL_013f: callvirt Game.Input.ProxyAction Game.Input.InputManager::FindAction(System.String,System.String)
+IL_0144: stfld Game.Input.ProxyAction Game.UI.Editor.InspectorPanelSystem::m_AlignZAction
+IL_0149: ldarg.0
+IL_014a: ldc.i4.1
+IL_014b: newarr Game.UI.Widgets.Button
+IL_0150: dup
+IL_0151: ldc.i4.0
+IL_0152: newobj System.Void Game.UI.Widgets.Button::.ctor()
+IL_0157: dup
+IL_0158: ldsfld Game.UI.Localization.NameTooltipPair Game.UI.Editor.InspectorPanelSystem/LocaleId::kAddComponent
+IL_015d: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_displayNameAndTooltip(Game.UI.Localization.NameTooltipPair)
+IL_0162: dup
+IL_0163: ldarg.0
+IL_0164: ldftn System.Void Game.UI.Editor.InspectorPanelSystem::ShowAddComponentPicker()
+IL_016a: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_016f: callvirt System.Void Game.UI.Widgets.Button::set_action(System.Action)
+IL_0174: dup
+IL_0175: ldarg.0
+IL_0176: ldftn System.Boolean Game.UI.Editor.InspectorPanelSystem::<OnCreate>b__39_1()
+IL_017c: newobj System.Void System.Func`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_0181: callvirt System.Void Game.UI.Widgets.Widget::set_disabled(System.Func`1<System.Boolean>)
+IL_0186: stelem.ref
+IL_0187: stfld Game.UI.Widgets.Button[] Game.UI.Editor.InspectorPanelSystem::m_Footer
+IL_018c: ldarg.0
+IL_018d: call Colossal.PSI.Common.PlatformManager Colossal.PSI.Common.PlatformManager::get_instance()
+IL_0192: ldstr "PdxSdk"
+IL_0197: callvirt !!0 Colossal.PSI.Common.PlatformManager::GetPSI<Colossal.PSI.PdxSdk.PdxSdkPlatform>(System.String)
+IL_019c: stfld Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.InspectorPanelSystem::m_Platform
+IL_01a1: call Colossal.PSI.Common.PlatformManager Colossal.PSI.Common.PlatformManager::get_instance()
+IL_01a6: ldarg.0
+IL_01a7: ldftn System.Void Game.UI.Editor.InspectorPanelSystem::<OnCreate>b__39_0(Colossal.PSI.Common.IPlatformServiceIntegration)
+IL_01ad: newobj System.Void Colossal.PSI.Common.PlatformRegisteredHandler::.ctor(System.Object,System.IntPtr)
+IL_01b2: callvirt System.Void Colossal.PSI.Common.PlatformManager::add_onPlatformRegistered(Colossal.PSI.Common.PlatformRegisteredHandler)
+IL_01b7: ret
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnStopRunning()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_0007: ldarg.0
+IL_0008: ldarg.1
+IL_0009: ldloca.s V_0
+IL_000b: ldloca.s V_1
+IL_000d: ldloca.s V_2
+IL_000f: call System.Boolean Game.UI.Editor.InspectorPanelSystem::IsColorVariationField(Game.UI.Widgets.IWidget,System.Int32&,System.Int32&,Game.Prefabs.RenderPrefabBase&)
+IL_0014: brfalse.s IL_002a
+IL_0016: ldarg.0
+IL_0017: ldarg.0
+IL_0018: ldfld Game.Tools.ToolSystem Game.UI.Editor.InspectorPanelSystem::m_ToolSystem
+IL_001d: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0022: ldloc.2
+IL_0023: ldloc.0
+IL_0024: ldloc.1
+IL_0025: call System.Void Game.UI.Editor.InspectorPanelSystem::OnColorVariationChanged(Unity.Entities.Entity,Game.Prefabs.RenderPrefabBase,System.Int32,System.Int32)
+IL_002a: ldarg.0
+IL_002b: ldarg.1
+IL_002c: ldloca.s V_3
+IL_002e: ldloca.s V_4
+IL_0030: ldloca.s V_2
+IL_0032: call System.Boolean Game.UI.Editor.InspectorPanelSystem::IsEmissiveField(Game.UI.Widgets.IWidget,System.Int32&,System.Int32&,Game.Prefabs.RenderPrefabBase&)
+IL_0037: brfalse.s IL_004e
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: ldfld Game.Tools.ToolSystem Game.UI.Editor.InspectorPanelSystem::m_ToolSystem
+IL_0040: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0045: ldloc.2
+IL_0046: ldloc.3
+IL_0047: ldloc.s V_4
+IL_0049: call System.Void Game.UI.Editor.InspectorPanelSystem::OnEmissiveChanged(Unity.Entities.Entity,Game.Prefabs.RenderPrefabBase,System.Int32,System.Int32)
+IL_004e: ldarg.0
+IL_004f: ldc.i4.1
+IL_0050: call System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0055: ret
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnUpdate()
+IL_0006: ldarg.0
+IL_0007: call System.Void Game.UI.Editor.InspectorPanelSystem::RefreshContent()
+IL_000c: ldarg.0
+IL_000d: call System.Void Game.UI.Editor.InspectorPanelSystem::HandleInput()
+IL_0012: ret
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::SelectEntity(Unity.Entities.Entity)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::SelectPrefab(Game.Prefabs.PrefabBase)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::SelectObject(System.Object,System.String)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::SelectInUnityEditor(UnityEngine.Object)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::SelectObjectForEntity(Unity.Entities.Entity)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::SelectMesh(Unity.Entities.Entity,System.Int32)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::FindRenderPrefab(Game.Prefabs.ObjectGeometryPrefab,Game.Prefabs.PrefabBase,Game.Prefabs.RenderPrefab&)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::FindObjectMeshInfo(Game.Prefabs.ObjectGeometryPrefab,Game.Prefabs.PrefabBase,Game.Prefabs.ObjectMeshInfo&)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::RefreshContent()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.InspectorPanelSystem::RefreshTitle()
+IL_0006: ldarg.0
+IL_0007: call System.Void Game.UI.Editor.InspectorPanelSystem::RefreshSections()
+IL_000c: ret
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::RefreshTitle()
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_0007: call Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::GetObjectName(System.Object)
+IL_000c: stloc.0
+IL_000d: ldarg.0
+IL_000e: ldarg.0
+IL_000f: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_0014: call Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::GetObjectName(System.Object)
+IL_0019: stloc.1
+IL_001a: ldloca.s V_0
+IL_001c: ldarg.0
+IL_001d: ldfld Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::m_SelectedName
+IL_0022: call System.Boolean Game.UI.Localization.LocalizedString::Equals(Game.UI.Localization.LocalizedString)
+IL_0027: brfalse.s IL_0038
+IL_0029: ldloca.s V_1
+IL_002b: ldarg.0
+IL_002c: ldfld Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::m_ParentName
+IL_0031: call System.Boolean Game.UI.Localization.LocalizedString::Equals(Game.UI.Localization.LocalizedString)
+IL_0036: brtrue.s IL_007f
+IL_0038: ldarg.0
+IL_0039: ldloc.0
+IL_003a: stfld Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::m_SelectedName
+IL_003f: ldarg.0
+IL_0040: ldloc.1
+IL_0041: stfld Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::m_ParentName
+IL_0046: ldarg.0
+IL_0047: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_004c: ldarg.0
+IL_004d: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_0052: beq.s IL_0078
+IL_0054: ldarg.0
+IL_0055: ldloca.s V_1
+IL_0057: call System.String Game.UI.Localization.LocalizedString::get_value()
+IL_005c: ldstr " > "
+IL_0061: ldloca.s V_0
+IL_0063: call System.String Game.UI.Localization.LocalizedString::get_value()
+IL_0068: call System.String System.String::Concat(System.String,System.String,System.String)
+IL_006d: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::op_Implicit(System.String)
+IL_0072: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_title(Game.UI.Localization.LocalizedString)
+IL_0077: ret
+IL_0078: ldarg.0
+IL_0079: ldloc.0
+IL_007a: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_title(Game.UI.Localization.LocalizedString)
+IL_007f: ret
+
+METHOD Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem::GetObjectName(System.Object)
+
+METHOD System.String Game.UI.Editor.InspectorPanelSystem::GetTypeName(System.Object)
+
+METHOD Game.UI.Editor.EditorSection Game.UI.Editor.InspectorPanelSystem::RefreshObjectStatePanel()
+IL_0000: ldnull
+IL_0001: stloc.0
+IL_0002: ldarg.0
+IL_0003: call Game.UI.Editor.InspectorPanelSystem/Mode Game.UI.Editor.InspectorPanelSystem::get_mode()
+IL_0008: brtrue IL_009b
+IL_000d: ldarg.0
+IL_000e: ldfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_0013: ldarg.0
+IL_0014: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_0019: callvirt System.Boolean Game.UI.Editor.AnimationControlsPanel::HasControls(System.Object)
+IL_001e: brfalse.s IL_009b
+IL_0020: ldarg.0
+IL_0021: ldarg.0
+IL_0022: ldfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_0027: call System.String Game.UI.Editor.InspectorPanelSystem::GetTypeName(System.Object)
+IL_002c: stloc.1
+IL_002d: ldarg.0
+IL_002e: ldfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_0033: ldarg.0
+IL_0034: ldfld Unity.Entities.Entity Game.UI.Editor.InspectorPanelSystem::m_CurrentSelectedEntity
+IL_0039: ldarg.0
+IL_003a: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_003f: callvirt System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Editor.AnimationControlsPanel::Refresh(Unity.Entities.Entity,System.Object)
+IL_0044: stloc.2
+IL_0045: ldloc.2
+IL_0046: call System.Boolean System.Linq.Enumerable::Any<Game.UI.Widgets.IWidget>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_004b: brfalse.s IL_009b
+IL_004d: newobj System.Void Game.UI.Editor.EditorSection::.ctor()
+IL_0052: dup
+IL_0053: ldarg.0
+IL_0054: ldarg.0
+IL_0055: ldfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_005a: call System.String Game.UI.Editor.InspectorPanelSystem::GetTypeName(System.Object)
+IL_005f: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_0064: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0069: dup
+IL_006a: ldsfld Game.UI.Localization.LocalizedString Game.UI.Editor.InspectorPanelSystem/LocaleId::kObjectStatesPanel
+IL_006f: callvirt System.Void Game.UI.Widgets.NamedWidget::set_displayName(Game.UI.Localization.LocalizedString)
+IL_0074: dup
+IL_0075: ldloc.1
+IL_0076: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::op_Implicit(System.String)
+IL_007b: newobj System.Void System.Nullable`1<Game.UI.Localization.LocalizedString>::.ctor(!0)
+IL_0080: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_tooltip(System.Nullable`1<Game.UI.Localization.LocalizedString>)
+IL_0085: dup
+IL_0086: ldc.i4.0
+IL_0087: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_expanded(System.Boolean)
+IL_008c: dup
+IL_008d: ldloc.2
+IL_008e: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0093: dup
+IL_0094: ldc.i4.1
+IL_0095: callvirt System.Void Game.UI.Editor.EditorSection::set_pinned(System.Boolean)
+IL_009a: stloc.0
+IL_009b: ldloc.0
+IL_009c: ret
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::RefreshSections()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_0006: ldarg.0
+IL_0007: call System.Collections.Generic.IEnumerable`1<System.Object> Game.UI.Editor.InspectorPanelSystem::GetSectionObjects()
+IL_000c: call System.Boolean System.Linq.Enumerable::SequenceEqual<System.Object>(System.Collections.Generic.IEnumerable`1<!!0>,System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0011: brtrue IL_043f
+IL_0016: ldarg.0
+IL_0017: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_001c: callvirt System.Void System.Collections.Generic.List`1<System.Object>::Clear()
+IL_0021: ldarg.0
+IL_0022: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_0027: ldarg.0
+IL_0028: call System.Collections.Generic.IEnumerable`1<System.Object> Game.UI.Editor.InspectorPanelSystem::GetSectionObjects()
+IL_002d: callvirt System.Void System.Collections.Generic.List`1<System.Object>::AddRange(System.Collections.Generic.IEnumerable`1<!0>)
+IL_0032: ldarg.0
+IL_0033: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_0038: callvirt System.Int32 System.Collections.Generic.List`1<System.Object>::get_Count()
+IL_003d: newobj System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::.ctor(System.Int32)
+IL_0042: stloc.0
+IL_0043: ldc.i4.0
+IL_0044: stloc.3
+IL_0045: br IL_03dc
+IL_004a: newobj System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::.ctor()
+IL_004f: stloc.s V_4
+IL_0051: ldloc.s V_4
+IL_0053: ldarg.0
+IL_0054: stfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::<>4__this
+IL_0059: ldarg.0
+IL_005a: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_005f: ldloc.3
+IL_0060: callvirt !0 System.Collections.Generic.List`1<System.Object>::get_Item(System.Int32)
+IL_0065: stloc.s V_5
+IL_0067: ldarg.0
+IL_0068: ldloc.s V_5
+IL_006a: call System.String Game.UI.Editor.InspectorPanelSystem::GetTypeName(System.Object)
+IL_006f: stloc.s V_6
+IL_0071: ldarg.0
+IL_0072: ldfld Game.UI.Widgets.EditorGenerator Game.UI.Editor.InspectorPanelSystem::m_EditorGenerator
+IL_0077: ldloc.s V_5
+IL_0079: ldloc.s V_5
+IL_007b: callvirt System.Type System.Object::GetType()
+IL_0080: callvirt System.Boolean System.Type::get_IsValueType()
+IL_0085: ldc.i4.0
+IL_0086: ceq
+IL_0088: newobj System.Void Game.Reflection.ObjectAccessor`1<System.Object>::.ctor(T,System.Boolean)
+IL_008d: ldc.i4.0
+IL_008e: ldloc.s V_6
+IL_0090: ldnull
+IL_0091: callvirt System.Collections.Generic.IEnumerable`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.EditorGenerator::BuildMembers(Game.Reflection.IValueAccessor,System.Int32,System.String,Colossal.OdinSerializer.ISerializationPolicy)
+IL_0096: call !!0[] System.Linq.Enumerable::ToArray<Game.UI.Widgets.IWidget>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_009b: newobj System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::.ctor(System.Collections.Generic.IEnumerable`1<!0>)
+IL_00a0: stloc.s V_7
+IL_00a2: ldloc.s V_4
+IL_00a4: ldloc.s V_5
+IL_00a6: isinst Game.Prefabs.PrefabBase
+IL_00ab: stfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_00b0: ldloc.s V_4
+IL_00b2: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_00b7: ldnull
+IL_00b8: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_00bd: brfalse IL_0199
+IL_00c2: ldloc.s V_4
+IL_00c4: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_00c9: isinst Game.Prefabs.RenderPrefabBase
+IL_00ce: brtrue IL_0199
+IL_00d3: newobj System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::.ctor()
+IL_00d8: stloc.s V_12
+IL_00da: ldloc.s V_12
+IL_00dc: ldloc.s V_4
+IL_00de: stfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::CS$<>8__locals1
+IL_00e3: newobj System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::.ctor()
+IL_00e8: stloc.s V_13
+IL_00ea: ldarg.0
+IL_00eb: ldloc.s V_12
+IL_00ed: ldfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::CS$<>8__locals1
+IL_00f2: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_00f7: ldloc.s V_13
+IL_00f9: call System.Void Game.UI.Editor.InspectorPanelSystem::BuildLocalizationFields(Game.Prefabs.PrefabBase,System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>)
+IL_00fe: newobj System.Void Game.UI.Editor.LocalizationSection::.ctor()
+IL_0103: dup
+IL_0104: ldstr "localization"
+IL_0109: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_010e: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0113: dup
+IL_0114: ldsfld Game.UI.Localization.NameTooltipPair Game.UI.Editor.InspectorPanelSystem/LocaleId::kLocalizationGroup
+IL_0119: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_displayNameAndTooltip(Game.UI.Localization.NameTooltipPair)
+IL_011e: dup
+IL_011f: ldc.i4.0
+IL_0120: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_expanded(System.Boolean)
+IL_0125: dup
+IL_0126: ldloc.s V_13
+IL_0128: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_012d: dup
+IL_012e: ldloc.s V_12
+IL_0130: ldfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::CS$<>8__locals1
+IL_0135: ldftn System.Boolean Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::<RefreshSections>b__4()
+IL_013b: newobj System.Void System.Func`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_0140: callvirt System.Void Game.UI.Widgets.Widget::set_disabled(System.Func`1<System.Boolean>)
+IL_0145: stloc.s V_14
+IL_0147: ldarg.0
+IL_0148: ldfld System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields> Game.UI.Editor.InspectorPanelSystem::m_WipLocalization
+IL_014d: ldloc.s V_12
+IL_014f: ldfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::CS$<>8__locals1
+IL_0154: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_0159: ldloc.s V_12
+IL_015b: ldflda Game.UI.Editor.InspectorPanelSystem/LocalizationFields Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::localizationFields
+IL_0160: callvirt System.Boolean System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields>::TryGetValue(!0,!1&)
+IL_0165: brfalse.s IL_018f
+IL_0167: ldloc.s V_14
+IL_0169: ldloc.s V_12
+IL_016b: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::<RefreshSections>b__2()
+IL_0171: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_0176: callvirt System.Void Game.UI.Editor.LocalizationSection::set_onCopy(System.Action)
+IL_017b: ldloc.s V_14
+IL_017d: ldloc.s V_12
+IL_017f: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::<RefreshSections>b__3()
+IL_0185: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_018a: callvirt System.Void Game.UI.Editor.LocalizationSection::set_onPaste(System.Action)
+IL_018f: ldloc.s V_7
+IL_0191: ldc.i4.1
+IL_0192: ldloc.s V_14
+IL_0194: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Insert(System.Int32,!0)
+IL_0199: ldloc.s V_5
+IL_019b: isinst Game.Prefabs.ObjectSubObjectInfo
+IL_01a0: brfalse IL_0256
+IL_01a5: ldarg.0
+IL_01a6: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_01ab: isinst Game.Prefabs.PrefabBase
+IL_01b0: stloc.s V_8
+IL_01b2: ldloc.s V_8
+IL_01b4: brfalse IL_0256
+IL_01b9: ldloc.s V_8
+IL_01bb: ldloca.s V_9
+IL_01bd: callvirt System.Boolean Game.Prefabs.PrefabBase::TryGet<Game.Prefabs.ObjectSubObjects>(T&)
+IL_01c2: brfalse IL_0256
+IL_01c7: ldloc.s V_9
+IL_01c9: ldfld Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+IL_01ce: brfalse IL_0256
+IL_01d3: ldloc.s V_9
+IL_01d5: ldfld Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+IL_01da: stloc.s V_16
+IL_01dc: ldloc.s V_16
+IL_01de: ldloc.s V_5
+IL_01e0: call System.Int32 System.Array::IndexOf<System.Object>(!!0[],!!0)
+IL_01e5: stloc.s V_15
+IL_01e7: ldloc.s V_15
+IL_01e9: ldc.i4.0
+IL_01ea: blt.s IL_0256
+IL_01ec: ldloc.s V_7
+IL_01ee: ldc.i4.0
+IL_01ef: newobj System.Void Game.UI.Widgets.StringInputField::.ctor()
+IL_01f4: dup
+IL_01f5: ldstr "elementIndex"
+IL_01fa: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_01ff: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0204: dup
+IL_0205: ldsfld Game.UI.Localization.NameTooltipPair Game.UI.Editor.InspectorPanelSystem/LocaleId::kElementId
+IL_020a: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_displayNameAndTooltip(Game.UI.Localization.NameTooltipPair)
+IL_020f: dup
+IL_0210: ldstr "Element {0}"
+IL_0215: ldloc.s V_15
+IL_0217: box System.Int32
+IL_021c: call System.String System.String::Format(System.String,System.Object)
+IL_0221: ldc.i4.1
+IL_0222: newobj System.Void Game.Reflection.ObjectAccessor`1<System.String>::.ctor(T,System.Boolean)
+IL_0227: callvirt System.Void Game.UI.Widgets.ReadonlyField`1<System.String>::set_accessor(Game.Reflection.ITypedValueAccessor`1<T>)
+IL_022c: dup
+IL_022d: ldsfld System.Func`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem/<>c::<>9__56_5
+IL_0232: dup
+IL_0233: brtrue.s IL_024c
+IL_0235: pop
+IL_0236: ldsfld Game.UI.Editor.InspectorPanelSystem/<>c Game.UI.Editor.InspectorPanelSystem/<>c::<>9
+IL_023b: ldftn System.Boolean Game.UI.Editor.InspectorPanelSystem/<>c::<RefreshSections>b__56_5()
+IL_0241: newobj System.Void System.Func`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_0246: dup
+IL_0247: stsfld System.Func`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem/<>c::<>9__56_5
+IL_024c: callvirt System.Void Game.UI.Widgets.Widget::set_disabled(System.Func`1<System.Boolean>)
+IL_0251: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Insert(System.Int32,!0)
+IL_0256: newobj System.Void Game.UI.Editor.EditorSection::.ctor()
+IL_025b: dup
+IL_025c: ldloc.s V_6
+IL_025e: newobj System.Void Game.UI.Widgets.PathSegment::.ctor(System.String)
+IL_0263: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0268: dup
+IL_0269: ldloc.s V_6
+IL_026b: call System.String Game.UI.Widgets.WidgetReflectionUtils::NicifyVariableName(System.String)
+IL_0270: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::Value(System.String)
+IL_0275: callvirt System.Void Game.UI.Widgets.NamedWidget::set_displayName(Game.UI.Localization.LocalizedString)
+IL_027a: dup
+IL_027b: ldloc.s V_6
+IL_027d: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::op_Implicit(System.String)
+IL_0282: newobj System.Void System.Nullable`1<Game.UI.Localization.LocalizedString>::.ctor(!0)
+IL_0287: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_tooltip(System.Nullable`1<Game.UI.Localization.LocalizedString>)
+IL_028c: dup
+IL_028d: ldarg.0
+IL_028e: call System.Boolean Game.UI.Editor.EditorPanelSystemBase::get_DefaultSectionsExpanded()
+IL_0293: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_expanded(System.Boolean)
+IL_0298: dup
+IL_0299: ldloc.s V_7
+IL_029b: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_02a0: stloc.s V_10
+IL_02a2: ldarg.0
+IL_02a3: ldloc.s V_5
+IL_02a5: ldarg.0
+IL_02a6: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_02ab: ldc.i4.1
+IL_02ac: ldloca.s V_11
+IL_02ae: call System.Boolean Game.UI.Editor.InspectorPanelSystem::DisableSection(System.Object,System.Object,System.Boolean,Game.UI.Localization.LocalizedString&)
+IL_02b3: brfalse.s IL_0306
+IL_02b5: ldloc.s V_10
+IL_02b7: call System.Void Game.UI.Editor.InspectorPanelSystem::DisableAllFields(Game.UI.Widgets.IWidget)
+IL_02bc: ldloc.s V_4
+IL_02be: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_02c3: ldnull
+IL_02c4: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_02c9: brtrue.s IL_02d4
+IL_02cb: ldloc.s V_5
+IL_02cd: isinst Game.Prefabs.ComponentBase
+IL_02d2: brtrue.s IL_0306
+IL_02d4: ldloc.s V_7
+IL_02d6: ldc.i4.0
+IL_02d7: newobj System.Void Game.UI.Widgets.MultilineText::.ctor()
+IL_02dc: dup
+IL_02dd: ldloc.s V_11
+IL_02df: callvirt System.Void Game.UI.Widgets.NamedWidget::set_displayName(Game.UI.Localization.LocalizedString)
+IL_02e4: dup
+IL_02e5: ldstr "Media/Glyphs/Lock.svg"
+IL_02ea: callvirt System.Void Game.UI.Widgets.MultilineText::set_icon(System.String)
+IL_02ef: dup
+IL_02f0: ldstr "#fffd"
+IL_02f5: callvirt System.Void Game.UI.Widgets.MultilineText::set_iconTint(System.String)
+IL_02fa: dup
+IL_02fb: ldc.i4.1
+IL_02fc: callvirt System.Void Game.UI.Widgets.MultilineText::set_helpBox(System.Boolean)
+IL_0301: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Insert(System.Int32,!0)
+IL_0306: ldloc.s V_4
+IL_0308: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_030d: ldnull
+IL_030e: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0313: brfalse.s IL_0343
+IL_0315: ldloc.s V_10
+IL_0317: ldc.i4.1
+IL_0318: callvirt System.Void Game.UI.Editor.EditorSection::set_primary(System.Boolean)
+IL_031d: ldloc.s V_10
+IL_031f: ldsfld UnityEngine.Color Game.UI.Editor.EditorSection::kPrefabColor
+IL_0324: newobj System.Void System.Nullable`1<UnityEngine.Color>::.ctor(!0)
+IL_0329: callvirt System.Void Game.UI.Editor.EditorSection::set_color(System.Nullable`1<UnityEngine.Color>)
+IL_032e: ldloc.s V_10
+IL_0330: ldloc.s V_4
+IL_0332: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_0337: call Game.Reflection.ITypedValueAccessor`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem::GetActiveAccessor(Game.Prefabs.ComponentBase)
+IL_033c: callvirt System.Void Game.UI.Editor.EditorSection::set_active(Game.Reflection.ITypedValueAccessor`1<System.Boolean>)
+IL_0341: br.s IL_0391
+IL_0343: newobj System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::.ctor()
+IL_0348: stloc.s V_17
+IL_034a: ldloc.s V_17
+IL_034c: ldloc.s V_4
+IL_034e: stfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::CS$<>8__locals2
+IL_0353: ldloc.s V_17
+IL_0355: ldloc.s V_5
+IL_0357: isinst Game.Prefabs.ComponentBase
+IL_035c: stfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::component
+IL_0361: ldloc.s V_17
+IL_0363: ldfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::component
+IL_0368: brfalse.s IL_0391
+IL_036a: ldloc.s V_10
+IL_036c: ldloc.s V_17
+IL_036e: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::<RefreshSections>b__6()
+IL_0374: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_0379: callvirt System.Void Game.UI.Editor.EditorSection::set_onDelete(System.Action)
+IL_037e: ldloc.s V_10
+IL_0380: ldloc.s V_17
+IL_0382: ldfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::component
+IL_0387: call Game.Reflection.ITypedValueAccessor`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem::GetActiveAccessor(Game.Prefabs.ComponentBase)
+IL_038c: callvirt System.Void Game.UI.Editor.EditorSection::set_active(Game.Reflection.ITypedValueAccessor`1<System.Boolean>)
+IL_0391: ldloc.s V_4
+IL_0393: ldloc.s V_5
+IL_0395: isinst Game.Prefabs.ComponentBase
+IL_039a: stfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::comp
+IL_039f: ldloc.s V_4
+IL_03a1: ldfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::comp
+IL_03a6: brfalse.s IL_03d0
+IL_03a8: ldloc.s V_10
+IL_03aa: ldloc.s V_4
+IL_03ac: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::<RefreshSections>b__0()
+IL_03b2: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_03b7: callvirt System.Void Game.UI.Editor.EditorSection::set_onCopy(System.Action)
+IL_03bc: ldloc.s V_10
+IL_03be: ldloc.s V_4
+IL_03c0: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::<RefreshSections>b__1()
+IL_03c6: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_03cb: callvirt System.Void Game.UI.Editor.EditorSection::set_onPaste(System.Action)
+IL_03d0: ldloc.0
+IL_03d1: ldloc.s V_10
+IL_03d3: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_03d8: ldloc.3
+IL_03d9: ldc.i4.1
+IL_03da: add
+IL_03db: stloc.3
+IL_03dc: ldloc.3
+IL_03dd: ldarg.0
+IL_03de: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_03e3: callvirt System.Int32 System.Collections.Generic.List`1<System.Object>::get_Count()
+IL_03e8: blt IL_004a
+IL_03ed: newobj System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::.ctor()
+IL_03f2: stloc.1
+IL_03f3: ldloc.1
+IL_03f4: ldarg.0
+IL_03f5: call Game.UI.Widgets.ButtonRow Game.UI.Editor.EditorPanelSystemBase::CreateExpandCollapseButtonRow()
+IL_03fa: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_03ff: ldloc.1
+IL_0400: ldloc.0
+IL_0401: callvirt !0[] System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::ToArray()
+IL_0406: call Game.UI.Widgets.Scrollable Game.UI.Widgets.Scrollable::WithChildren(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_040b: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_0410: ldarg.0
+IL_0411: call Game.UI.Editor.EditorSection Game.UI.Editor.InspectorPanelSystem::RefreshObjectStatePanel()
+IL_0416: stloc.2
+IL_0417: ldloc.2
+IL_0418: brfalse.s IL_0421
+IL_041a: ldloc.1
+IL_041b: ldloc.2
+IL_041c: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_0421: ldloc.1
+IL_0422: ldarg.0
+IL_0423: ldfld Game.UI.Widgets.Button[] Game.UI.Editor.InspectorPanelSystem::m_Footer
+IL_0428: call Game.UI.Widgets.ButtonRow Game.UI.Widgets.ButtonRow::WithChildren(Game.UI.Widgets.Button[])
+IL_042d: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_0432: ldarg.0
+IL_0433: ldloc.1
+IL_0434: callvirt !0[] System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::ToArray()
+IL_0439: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_043e: ret
+IL_043f: ldarg.0
+IL_0440: call Game.UI.Editor.InspectorPanelSystem/Mode Game.UI.Editor.InspectorPanelSystem::get_mode()
+IL_0445: brtrue IL_052d
+IL_044a: ldarg.0
+IL_044b: ldfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_0450: ldarg.0
+IL_0451: ldfld Unity.Entities.Entity Game.UI.Editor.InspectorPanelSystem::m_CurrentSelectedEntity
+IL_0456: ldarg.0
+IL_0457: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_045c: callvirt System.Boolean Game.UI.Editor.AnimationControlsPanel::NeedRefresh(Unity.Entities.Entity,System.Object)
+IL_0461: brfalse IL_052d
+IL_0466: ldc.i4.m1
+IL_0467: stloc.s V_18
+IL_0469: ldc.i4.0
+IL_046a: stloc.s V_20
+IL_046c: br.s IL_04a4
+IL_046e: ldarg.0
+IL_046f: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_0474: ldloc.s V_20
+IL_0476: callvirt !0 System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>::get_Item(System.Int32)
+IL_047b: callvirt Game.UI.Widgets.PathSegment Game.UI.Widgets.IWidget::get_path()
+IL_0480: ldarg.0
+IL_0481: ldarg.0
+IL_0482: ldfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_0487: call System.String Game.UI.Editor.InspectorPanelSystem::GetTypeName(System.Object)
+IL_048c: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_0491: call System.Boolean Game.UI.Widgets.PathSegment::op_Inequality(Game.UI.Widgets.PathSegment,Game.UI.Widgets.PathSegment)
+IL_0496: brtrue.s IL_049e
+IL_0498: ldloc.s V_20
+IL_049a: stloc.s V_18
+IL_049c: br.s IL_04b3
+IL_049e: ldloc.s V_20
+IL_04a0: ldc.i4.1
+IL_04a1: add
+IL_04a2: stloc.s V_20
+IL_04a4: ldloc.s V_20
+IL_04a6: ldarg.0
+IL_04a7: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_04ac: callvirt System.Int32 System.Collections.Generic.ICollection`1<Game.UI.Widgets.IWidget>::get_Count()
+IL_04b1: blt.s IL_046e
+IL_04b3: ldarg.0
+IL_04b4: call Game.UI.Editor.EditorSection Game.UI.Editor.InspectorPanelSystem::RefreshObjectStatePanel()
+IL_04b9: stloc.s V_19
+IL_04bb: ldloc.s V_19
+IL_04bd: brfalse.s IL_04d4
+IL_04bf: ldloc.s V_18
+IL_04c1: ldc.i4.m1
+IL_04c2: beq.s IL_04d4
+IL_04c4: ldarg.0
+IL_04c5: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_04ca: ldloc.s V_18
+IL_04cc: ldloc.s V_19
+IL_04ce: callvirt System.Void System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>::set_Item(System.Int32,!0)
+IL_04d3: ret
+IL_04d4: ldloc.s V_19
+IL_04d6: brfalse.s IL_0501
+IL_04d8: ldloc.s V_18
+IL_04da: ldc.i4.m1
+IL_04db: bne.un.s IL_0501
+IL_04dd: ldarg.0
+IL_04de: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_04e3: call System.Collections.Generic.List`1<!!0> System.Linq.Enumerable::ToList<Game.UI.Widgets.IWidget>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_04e8: stloc.s V_21
+IL_04ea: ldloc.s V_21
+IL_04ec: ldloc.s V_19
+IL_04ee: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_04f3: ldarg.0
+IL_04f4: ldloc.s V_21
+IL_04f6: callvirt !0[] System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::ToArray()
+IL_04fb: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0500: ret
+IL_0501: ldloc.s V_19
+IL_0503: brtrue.s IL_052d
+IL_0505: ldloc.s V_18
+IL_0507: ldc.i4.m1
+IL_0508: beq.s IL_052d
+IL_050a: ldarg.0
+IL_050b: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_0510: call System.Collections.Generic.List`1<!!0> System.Linq.Enumerable::ToList<Game.UI.Widgets.IWidget>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0515: stloc.s V_22
+IL_0517: ldloc.s V_22
+IL_0519: ldloc.s V_18
+IL_051b: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::RemoveAt(System.Int32)
+IL_0520: ldarg.0
+IL_0521: ldloc.s V_22
+IL_0523: callvirt !0[] System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::ToArray()
+IL_0528: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_052d: ret
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::RemoveComponent(Game.Prefabs.ComponentBase)
+
+METHOD System.Type[] Game.UI.Editor.InspectorPanelSystem::CollectRequiringComponents(System.Type,Game.Prefabs.PrefabBase)
+
+METHOD System.Type[] Game.UI.Editor.InspectorPanelSystem::CollectRequiredComponents(System.Type,Game.Prefabs.PrefabBase)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::CollectRequiredComponents(System.Type,Game.Prefabs.PrefabBase,System.Collections.Generic.HashSet`1<System.Type>)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::DisableAllFields(Game.UI.Widgets.IWidget)
+
+METHOD System.Collections.Generic.IEnumerable`1<System.Object> Game.UI.Editor.InspectorPanelSystem::GetSectionObjects()
+
+METHOD Game.Reflection.ITypedValueAccessor`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem::GetActiveAccessor(Game.Prefabs.ComponentBase)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::ShowAddComponentPicker()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnAddComponent(System.Type)
+
+METHOD System.Collections.Generic.IEnumerable`1<Game.UI.Editor.Item> Game.UI.Editor.InspectorPanelSystem::GetComponentTypeItems()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::HandleInput()
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::get_canMoveSelected()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::MoveSelected()
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::get_canCloneSelected()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::CloneSelected()
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::get_canAlignSelected()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::AutoAlign()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::AutoConnect()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::AlignX()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::AlignY()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::AlignZ()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_0006: isinst Game.Prefabs.ObjectMeshInfo
+IL_000b: stloc.0
+IL_000c: ldloc.0
+IL_000d: brfalse.s IL_0048
+IL_000f: ldloc.0
+IL_0010: ldfld Game.Prefabs.RenderPrefabBase Game.Prefabs.ObjectMeshInfo::m_Mesh
+IL_0015: stloc.2
+IL_0016: ldarg.0
+IL_0017: ldfld Game.UI.Editor.EditorErrorPanelSystem Game.UI.Editor.InspectorPanelSystem::m_EditorErrorPanelSystem
+IL_001c: callvirt System.Void Game.UI.Editor.EditorErrorPanelSystem::OnPrefabModified()
+IL_0021: ldarg.0
+IL_0022: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.InspectorPanelSystem::m_PrefabSystem
+IL_0027: ldloc.2
+IL_0028: ldloca.s V_3
+IL_002a: initobj Unity.Entities.Entity
+IL_0030: ldloc.3
+IL_0031: callvirt System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)
+IL_0036: ldloc.2
+IL_0037: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_003c: dup
+IL_003d: brtrue.s IL_0042
+IL_003f: pop
+IL_0040: br.s IL_0048
+IL_0042: call System.Boolean Colossal.IO.AssetDatabase.AssetData::MarkDirty()
+IL_0047: pop
+IL_0048: ldarg.0
+IL_0049: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_004e: isinst Game.Prefabs.PrefabBase
+IL_0053: stloc.1
+IL_0054: ldloc.1
+IL_0055: brfalse.s IL_0092
+IL_0057: ldarg.1
+IL_0058: brfalse.s IL_0061
+IL_005a: ldarg.0
+IL_005b: ldloc.1
+IL_005c: call System.Void Game.UI.Editor.InspectorPanelSystem::MoveSubObjects(Game.Prefabs.PrefabBase)
+IL_0061: ldarg.0
+IL_0062: ldfld Game.UI.Editor.EditorErrorPanelSystem Game.UI.Editor.InspectorPanelSystem::m_EditorErrorPanelSystem
+IL_0067: callvirt System.Void Game.UI.Editor.EditorErrorPanelSystem::OnPrefabModified()
+IL_006c: ldarg.0
+IL_006d: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.InspectorPanelSystem::m_PrefabSystem
+IL_0072: ldloc.1
+IL_0073: ldloca.s V_3
+IL_0075: initobj Unity.Entities.Entity
+IL_007b: ldloc.3
+IL_007c: callvirt System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)
+IL_0081: ldloc.1
+IL_0082: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_0087: dup
+IL_0088: brtrue.s IL_008c
+IL_008a: pop
+IL_008b: ret
+IL_008c: call System.Boolean Colossal.IO.AssetDatabase.AssetData::MarkDirty()
+IL_0091: pop
+IL_0092: ret
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::MoveSubObjects(Game.Prefabs.PrefabBase)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnLocate()
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::IsColorVariationField(Game.UI.Widgets.IWidget,System.Int32&,System.Int32&,Game.Prefabs.RenderPrefabBase&)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::IsEmissiveField(Game.UI.Widgets.IWidget,System.Int32&,System.Int32&,Game.Prefabs.RenderPrefabBase&)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnColorVariationChanged(Unity.Entities.Entity,Game.Prefabs.RenderPrefabBase,System.Int32,System.Int32)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnEmissiveChanged(Unity.Entities.Entity,Game.Prefabs.RenderPrefabBase,System.Int32,System.Int32)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::ShowSaveAssetPanel(System.Action`1<Colossal.IO.AssetDatabase.AssetData>)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::ValidateAssetSelection(Colossal.Hash128)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnSaveAssetCheckDLC(Game.Prefabs.PrefabBase,System.String,System.Action`1<Colossal.IO.AssetDatabase.PrefabAsset>)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::SaveAsset(Game.Prefabs.PrefabBase,System.String,System.Action`1<Colossal.IO.AssetDatabase.PrefabAsset>)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::ShowShareAssetPanel()
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnShareAsset(Colossal.IO.AssetDatabase.AssetData)
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::ContentPrerequisiteChanged(Game.Prefabs.PrefabBase,Game.Prefabs.ContentPrefab&,Game.UI.Editor.InspectorPanelSystem/DLCReference&)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::ShowThumbnailPicker(System.Action`1<Colossal.Hash128>,System.Action`1<System.String>)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::BuildLocalizationFields(Game.Prefabs.PrefabBase,System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>)
+
+METHOD System.Collections.Generic.List`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry> Game.UI.Editor.InspectorPanelSystem::InitializeLocalization(Game.Prefabs.PrefabBase,System.String)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::SaveLocalization(Game.Prefabs.PrefabBase,System.String)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::CopyLocalizationToClipboard(Game.UI.Editor.InspectorPanelSystem/LocalizationFields)
+
+METHOD Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem::CaptureLocalizationEntries(Game.UI.Editor.LocalizationField)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::PasteLocalizationFromClipboard(Game.UI.Editor.InspectorPanelSystem/LocalizationFields)
+
+METHOD System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry> Game.UI.Editor.InspectorPanelSystem::ToLocalizationEntries(Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[])
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::IsLocalizationReadOnly(Game.Prefabs.PrefabBase)
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::.ctor()
+
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::<OnCreate>b__39_1()
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_0007: ldarg.0
+IL_0008: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_000d: ldc.i4.0
+IL_000e: ldloca.s V_0
+IL_0010: call System.Boolean Game.UI.Editor.InspectorPanelSystem::DisableSection(System.Object,System.Object,System.Boolean,Game.UI.Localization.LocalizedString&)
+IL_0015: ret
+
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::<OnCreate>b__39_0(Colossal.PSI.Common.IPlatformServiceIntegration)
+IL_0000: ldarg.1
+IL_0001: isinst Colossal.PSI.PdxSdk.PdxSdkPlatform
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: brfalse.s IL_0011
+IL_000a: ldarg.0
+IL_000b: ldloc.0
+IL_000c: stfld Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.InspectorPanelSystem::m_Platform
+IL_0011: ret
+
+TYPE Game.Prefabs.EffectSource BASE Game.Prefabs.ComponentBase
+FIELD System.Collections.Generic.List`1<Game.Prefabs.EffectSource/EffectSettings> Game.Prefabs.EffectSource::m_Effects
+FIELD System.Collections.Generic.List`1<Game.Prefabs.EffectSource/AnimationProperties> Game.Prefabs.EffectSource::m_AnimationCurves
+METHOD System.Void Game.Prefabs.EffectSource::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+
+METHOD System.Void Game.Prefabs.EffectSource::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+
+METHOD System.Void Game.Prefabs.EffectSource::GetDependencies(System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>)
+
+METHOD System.Void Game.Prefabs.EffectSource::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+
+METHOD System.Void Game.Prefabs.EffectSource::.ctor()
+
+TYPE Game.Prefabs.ObjectSubAreaInfo BASE System.Object
+FIELD Game.Prefabs.AreaPrefab Game.Prefabs.ObjectSubAreaInfo::m_AreaPrefab
+FIELD Unity.Mathematics.float3[] Game.Prefabs.ObjectSubAreaInfo::m_NodePositions
+FIELD System.Int32[] Game.Prefabs.ObjectSubAreaInfo::m_ParentMeshes
+METHOD System.Void Game.Prefabs.ObjectSubAreaInfo::.ctor()
+
+TYPE Game.Prefabs.ObjectSubAreas BASE Game.Prefabs.ComponentBase
+FIELD Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+METHOD System.Boolean Game.Prefabs.ObjectSubAreas::get_ignoreUnlockDependencies()
+
+METHOD System.Void Game.Prefabs.ObjectSubAreas::GetDependencies(System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>)
+
+METHOD System.Void Game.Prefabs.ObjectSubAreas::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+
+METHOD System.Void Game.Prefabs.ObjectSubAreas::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+
+METHOD System.Void Game.Prefabs.ObjectSubAreas::.ctor()
+
+TYPE Game.Prefabs.ObjectSubNetInfo BASE System.Object
+FIELD Game.Prefabs.NetPrefab Game.Prefabs.ObjectSubNetInfo::m_NetPrefab
+FIELD Colossal.Mathematics.Bezier4x3 Game.Prefabs.ObjectSubNetInfo::m_BezierCurve
+FIELD Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_NodeIndex
+FIELD Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_ParentMesh
+FIELD Game.Prefabs.NetPieceRequirements[] Game.Prefabs.ObjectSubNetInfo::m_Upgrades
+METHOD System.Void Game.Prefabs.ObjectSubNetInfo::.ctor()
+
+TYPE Game.Prefabs.ObjectSubNets BASE Game.Prefabs.ComponentBase
+FIELD Game.Prefabs.NetInvertMode Game.Prefabs.ObjectSubNets::m_InvertWhen
+FIELD Game.Prefabs.ObjectSubNetInfo[] Game.Prefabs.ObjectSubNets::m_SubNets
+METHOD System.Boolean Game.Prefabs.ObjectSubNets::get_ignoreUnlockDependencies()
+
+METHOD System.Void Game.Prefabs.ObjectSubNets::GetDependencies(System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>)
+
+METHOD System.Void Game.Prefabs.ObjectSubNets::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+
+METHOD System.Void Game.Prefabs.ObjectSubNets::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+
+METHOD System.Void Game.Prefabs.ObjectSubNets::.ctor()
+
+TYPE Game.Prefabs.ObjectSubObjectInfo BASE System.Object
+FIELD Game.Prefabs.ObjectPrefab Game.Prefabs.ObjectSubObjectInfo::m_Object
+FIELD Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+FIELD Unity.Mathematics.quaternion Game.Prefabs.ObjectSubObjectInfo::m_Rotation
+FIELD System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_ParentMesh
+FIELD System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_GroupIndex
+FIELD System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_Probability
+METHOD System.Void Game.Prefabs.ObjectSubObjectInfo::.ctor()
+
+TYPE Game.Prefabs.ObjectSubObjects BASE Game.Prefabs.ComponentBase
+FIELD Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+METHOD System.Boolean Game.Prefabs.ObjectSubObjects::get_ignoreUnlockDependencies()
+
+METHOD System.Void Game.Prefabs.ObjectSubObjects::GetDependencies(System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>)
+
+METHOD System.Void Game.Prefabs.ObjectSubObjects::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+
+METHOD System.Void Game.Prefabs.ObjectSubObjects::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+
+METHOD System.Void Game.Prefabs.ObjectSubObjects::.ctor()
+
+CALLER System.Void Game.UI.Editor.InspectorPanelSystem::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_0007: ldarg.0
+IL_0008: ldarg.1
+IL_0009: ldloca.s V_0
+IL_000b: ldloca.s V_1
+IL_000d: ldloca.s V_2
+IL_000f: call System.Boolean Game.UI.Editor.InspectorPanelSystem::IsColorVariationField(Game.UI.Widgets.IWidget,System.Int32&,System.Int32&,Game.Prefabs.RenderPrefabBase&)
+IL_0014: brfalse.s IL_002a
+IL_0016: ldarg.0
+IL_0017: ldarg.0
+IL_0018: ldfld Game.Tools.ToolSystem Game.UI.Editor.InspectorPanelSystem::m_ToolSystem
+IL_001d: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0022: ldloc.2
+IL_0023: ldloc.0
+IL_0024: ldloc.1
+IL_0025: call System.Void Game.UI.Editor.InspectorPanelSystem::OnColorVariationChanged(Unity.Entities.Entity,Game.Prefabs.RenderPrefabBase,System.Int32,System.Int32)
+IL_002a: ldarg.0
+IL_002b: ldarg.1
+IL_002c: ldloca.s V_3
+IL_002e: ldloca.s V_4
+IL_0030: ldloca.s V_2
+IL_0032: call System.Boolean Game.UI.Editor.InspectorPanelSystem::IsEmissiveField(Game.UI.Widgets.IWidget,System.Int32&,System.Int32&,Game.Prefabs.RenderPrefabBase&)
+IL_0037: brfalse.s IL_004e
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: ldfld Game.Tools.ToolSystem Game.UI.Editor.InspectorPanelSystem::m_ToolSystem
+IL_0040: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0045: ldloc.2
+IL_0046: ldloc.3
+IL_0047: ldloc.s V_4
+IL_0049: call System.Void Game.UI.Editor.InspectorPanelSystem::OnEmissiveChanged(Unity.Entities.Entity,Game.Prefabs.RenderPrefabBase,System.Int32,System.Int32)
+IL_004e: ldarg.0
+IL_004f: ldc.i4.1
+IL_0050: call System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0055: ret
+CALLER System.Void Game.UI.Editor.InspectorPanelSystem::AutoAlign()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0006: brfalse.s IL_0010
+IL_0008: ldarg.0
+IL_0009: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_000e: brtrue.s IL_0011
+IL_0010: ret
+IL_0011: ldarg.0
+IL_0012: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0017: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_001c: ldfld System.Single Unity.Mathematics.float3::x
+IL_0021: ldarg.0
+IL_0022: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_0027: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_002c: ldfld System.Single Unity.Mathematics.float3::x
+IL_0031: sub
+IL_0032: call System.Single UnityEngine.Mathf::Abs(System.Single)
+IL_0037: stloc.0
+IL_0038: ldarg.0
+IL_0039: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_003e: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0043: ldfld System.Single Unity.Mathematics.float3::y
+IL_0048: ldarg.0
+IL_0049: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_004e: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0053: ldfld System.Single Unity.Mathematics.float3::y
+IL_0058: sub
+IL_0059: call System.Single UnityEngine.Mathf::Abs(System.Single)
+IL_005e: stloc.1
+IL_005f: ldarg.0
+IL_0060: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0065: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_006a: ldfld System.Single Unity.Mathematics.float3::z
+IL_006f: ldarg.0
+IL_0070: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_0075: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_007a: ldfld System.Single Unity.Mathematics.float3::z
+IL_007f: sub
+IL_0080: call System.Single UnityEngine.Mathf::Abs(System.Single)
+IL_0085: stloc.2
+IL_0086: ldloc.0
+IL_0087: ldloc.1
+IL_0088: blt.s IL_008e
+IL_008a: ldloc.0
+IL_008b: ldloc.2
+IL_008c: bge.un.s IL_00ae
+IL_008e: ldarg.0
+IL_008f: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0094: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0099: ldarg.0
+IL_009a: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_009f: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00a4: ldfld System.Single Unity.Mathematics.float3::x
+IL_00a9: stfld System.Single Unity.Mathematics.float3::x
+IL_00ae: ldloc.1
+IL_00af: ldloc.0
+IL_00b0: blt.s IL_00b6
+IL_00b2: ldloc.1
+IL_00b3: ldloc.2
+IL_00b4: bge.un.s IL_00d6
+IL_00b6: ldarg.0
+IL_00b7: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_00bc: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00c1: ldarg.0
+IL_00c2: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_00c7: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00cc: ldfld System.Single Unity.Mathematics.float3::y
+IL_00d1: stfld System.Single Unity.Mathematics.float3::y
+IL_00d6: ldloc.2
+IL_00d7: ldloc.0
+IL_00d8: blt.s IL_00de
+IL_00da: ldloc.2
+IL_00db: ldloc.1
+IL_00dc: bge.un.s IL_00fe
+IL_00de: ldarg.0
+IL_00df: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_00e4: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00e9: ldarg.0
+IL_00ea: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_00ef: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00f4: ldfld System.Single Unity.Mathematics.float3::z
+IL_00f9: stfld System.Single Unity.Mathematics.float3::z
+IL_00fe: ldarg.0
+IL_00ff: ldc.i4.0
+IL_0100: call System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0105: ret
+CALLER System.Void Game.UI.Editor.InspectorPanelSystem::AutoConnect()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0006: brfalse.s IL_0010
+IL_0008: ldarg.0
+IL_0009: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_000e: brtrue.s IL_0011
+IL_0010: ret
+IL_0011: ldarg.0
+IL_0012: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.InspectorPanelSystem::m_PrefabSystem
+IL_0017: ldarg.0
+IL_0018: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_001d: ldfld Game.Prefabs.ObjectPrefab Game.Prefabs.ObjectSubObjectInfo::m_Object
+IL_0022: callvirt Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)
+IL_0027: stloc.0
+IL_0028: ldarg.0
+IL_0029: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.InspectorPanelSystem::m_PrefabSystem
+IL_002e: ldarg.0
+IL_002f: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0034: ldfld Game.Prefabs.ObjectPrefab Game.Prefabs.ObjectSubObjectInfo::m_Object
+IL_0039: callvirt Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)
+IL_003e: stloc.1
+IL_003f: ldarg.0
+IL_0040: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0045: ldloc.0
+IL_0046: ldloca.s V_2
+IL_0048: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.ObjectGeometryData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_004d: brfalse IL_02ea
+IL_0052: ldarg.0
+IL_0053: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0058: ldloc.1
+IL_0059: ldloca.s V_3
+IL_005b: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.ObjectGeometryData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0060: brfalse IL_02ea
+IL_0065: ldarg.0
+IL_0066: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_006b: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0070: ldfld System.Single Unity.Mathematics.float3::x
+IL_0075: ldarg.0
+IL_0076: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_007b: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0080: ldfld System.Single Unity.Mathematics.float3::x
+IL_0085: sub
+IL_0086: call System.Single UnityEngine.Mathf::Abs(System.Single)
+IL_008b: stloc.s V_4
+IL_008d: ldarg.0
+IL_008e: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0093: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0098: ldfld System.Single Unity.Mathematics.float3::y
+IL_009d: ldarg.0
+IL_009e: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_00a3: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00a8: ldfld System.Single Unity.Mathematics.float3::y
+IL_00ad: sub
+IL_00ae: call System.Single UnityEngine.Mathf::Abs(System.Single)
+IL_00b3: stloc.s V_5
+IL_00b5: ldarg.0
+IL_00b6: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_00bb: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00c0: ldfld System.Single Unity.Mathematics.float3::z
+IL_00c5: ldarg.0
+IL_00c6: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_00cb: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00d0: ldfld System.Single Unity.Mathematics.float3::z
+IL_00d5: sub
+IL_00d6: call System.Single UnityEngine.Mathf::Abs(System.Single)
+IL_00db: stloc.s V_6
+IL_00dd: ldloc.2
+IL_00de: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_00e3: ldarg.0
+IL_00e4: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_00e9: ldfld Unity.Mathematics.quaternion Game.Prefabs.ObjectSubObjectInfo::m_Rotation
+IL_00ee: ldarg.0
+IL_00ef: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_00f4: ldfld Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_00f9: call Colossal.Mathematics.Box3 Colossal.Mathematics.MathUtils::Box(Colossal.Mathematics.Bounds3,Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_00fe: call Colossal.Mathematics.Bounds3 Colossal.Mathematics.MathUtils::Bounds(Colossal.Mathematics.Box3)
+IL_0103: stloc.s V_7
+IL_0105: ldloc.3
+IL_0106: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_010b: ldarg.0
+IL_010c: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0111: ldfld Unity.Mathematics.quaternion Game.Prefabs.ObjectSubObjectInfo::m_Rotation
+IL_0116: ldarg.0
+IL_0117: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_011c: ldfld Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0121: call Colossal.Mathematics.Box3 Colossal.Mathematics.MathUtils::Box(Colossal.Mathematics.Bounds3,Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_0126: call Colossal.Mathematics.Bounds3 Colossal.Mathematics.MathUtils::Bounds(Colossal.Mathematics.Box3)
+IL_012b: stloc.s V_8
+IL_012d: ldloc.s V_4
+IL_012f: ldloc.s V_5
+IL_0131: ble.un IL_01c5
+IL_0136: ldloc.s V_4
+IL_0138: ldloc.s V_6
+IL_013a: ble.un IL_01c5
+IL_013f: ldarg.0
+IL_0140: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0145: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_014a: ldfld System.Single Unity.Mathematics.float3::x
+IL_014f: ldarg.0
+IL_0150: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_0155: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_015a: ldfld System.Single Unity.Mathematics.float3::x
+IL_015f: ble.un.s IL_0193
+IL_0161: ldarg.0
+IL_0162: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0167: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_016c: ldflda System.Single Unity.Mathematics.float3::x
+IL_0171: dup
+IL_0172: ldind.r4
+IL_0173: ldloc.s V_7
+IL_0175: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_017a: ldfld System.Single Unity.Mathematics.float3::x
+IL_017f: ldloc.s V_8
+IL_0181: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::min
+IL_0186: ldfld System.Single Unity.Mathematics.float3::x
+IL_018b: sub
+IL_018c: add
+IL_018d: stind.r4
+IL_018e: br IL_02ea
+IL_0193: ldarg.0
+IL_0194: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0199: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_019e: ldflda System.Single Unity.Mathematics.float3::x
+IL_01a3: dup
+IL_01a4: ldind.r4
+IL_01a5: ldloc.s V_7
+IL_01a7: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::min
+IL_01ac: ldfld System.Single Unity.Mathematics.float3::x
+IL_01b1: ldloc.s V_8
+IL_01b3: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_01b8: ldfld System.Single Unity.Mathematics.float3::x
+IL_01bd: sub
+IL_01be: add
+IL_01bf: stind.r4
+IL_01c0: br IL_02ea
+IL_01c5: ldloc.s V_5
+IL_01c7: ldloc.s V_4
+IL_01c9: ble.un IL_025d
+IL_01ce: ldloc.s V_5
+IL_01d0: ldloc.s V_6
+IL_01d2: ble.un IL_025d
+IL_01d7: ldarg.0
+IL_01d8: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_01dd: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_01e2: ldfld System.Single Unity.Mathematics.float3::y
+IL_01e7: ldarg.0
+IL_01e8: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_01ed: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_01f2: ldfld System.Single Unity.Mathematics.float3::y
+IL_01f7: ble.un.s IL_022b
+IL_01f9: ldarg.0
+IL_01fa: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_01ff: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0204: ldflda System.Single Unity.Mathematics.float3::y
+IL_0209: dup
+IL_020a: ldind.r4
+IL_020b: ldloc.s V_7
+IL_020d: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_0212: ldfld System.Single Unity.Mathematics.float3::y
+IL_0217: ldloc.s V_8
+IL_0219: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::min
+IL_021e: ldfld System.Single Unity.Mathematics.float3::y
+IL_0223: sub
+IL_0224: add
+IL_0225: stind.r4
+IL_0226: br IL_02ea
+IL_022b: ldarg.0
+IL_022c: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0231: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0236: ldflda System.Single Unity.Mathematics.float3::y
+IL_023b: dup
+IL_023c: ldind.r4
+IL_023d: ldloc.s V_7
+IL_023f: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::min
+IL_0244: ldfld System.Single Unity.Mathematics.float3::y
+IL_0249: ldloc.s V_8
+IL_024b: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_0250: ldfld System.Single Unity.Mathematics.float3::y
+IL_0255: sub
+IL_0256: add
+IL_0257: stind.r4
+IL_0258: br IL_02ea
+IL_025d: ldloc.s V_6
+IL_025f: ldloc.s V_4
+IL_0261: ble.un IL_02ea
+IL_0266: ldloc.s V_6
+IL_0268: ldloc.s V_5
+IL_026a: ble.un.s IL_02ea
+IL_026c: ldarg.0
+IL_026d: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0272: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0277: ldfld System.Single Unity.Mathematics.float3::z
+IL_027c: ldarg.0
+IL_027d: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_0282: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0287: ldfld System.Single Unity.Mathematics.float3::z
+IL_028c: ble.un.s IL_02bd
+IL_028e: ldarg.0
+IL_028f: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0294: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0299: ldflda System.Single Unity.Mathematics.float3::z
+IL_029e: dup
+IL_029f: ldind.r4
+IL_02a0: ldloc.s V_7
+IL_02a2: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_02a7: ldfld System.Single Unity.Mathematics.float3::z
+IL_02ac: ldloc.s V_8
+IL_02ae: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::min
+IL_02b3: ldfld System.Single Unity.Mathematics.float3::z
+IL_02b8: sub
+IL_02b9: add
+IL_02ba: stind.r4
+IL_02bb: br.s IL_02ea
+IL_02bd: ldarg.0
+IL_02be: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_02c3: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_02c8: ldflda System.Single Unity.Mathematics.float3::z
+IL_02cd: dup
+IL_02ce: ldind.r4
+IL_02cf: ldloc.s V_7
+IL_02d1: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::min
+IL_02d6: ldfld System.Single Unity.Mathematics.float3::z
+IL_02db: ldloc.s V_8
+IL_02dd: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_02e2: ldfld System.Single Unity.Mathematics.float3::z
+IL_02e7: sub
+IL_02e8: add
+IL_02e9: stind.r4
+IL_02ea: ldarg.0
+IL_02eb: ldc.i4.0
+IL_02ec: call System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_02f1: ret
+CALLER System.Void Game.UI.Editor.InspectorPanelSystem::AlignX()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0006: brfalse.s IL_0010
+IL_0008: ldarg.0
+IL_0009: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_000e: brtrue.s IL_0011
+IL_0010: ret
+IL_0011: ldarg.0
+IL_0012: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0017: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_001c: ldarg.0
+IL_001d: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_0022: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0027: ldfld System.Single Unity.Mathematics.float3::x
+IL_002c: stfld System.Single Unity.Mathematics.float3::x
+IL_0031: ldarg.0
+IL_0032: ldc.i4.0
+IL_0033: call System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0038: ret
+CALLER System.Void Game.UI.Editor.InspectorPanelSystem::AlignY()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0006: brfalse.s IL_0010
+IL_0008: ldarg.0
+IL_0009: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_000e: brtrue.s IL_0011
+IL_0010: ret
+IL_0011: ldarg.0
+IL_0012: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0017: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_001c: ldarg.0
+IL_001d: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_0022: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0027: ldfld System.Single Unity.Mathematics.float3::y
+IL_002c: stfld System.Single Unity.Mathematics.float3::y
+IL_0031: ldarg.0
+IL_0032: ldc.i4.0
+IL_0033: call System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0038: ret
+CALLER System.Void Game.UI.Editor.InspectorPanelSystem::AlignZ()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0006: brfalse.s IL_0010
+IL_0008: ldarg.0
+IL_0009: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_000e: brtrue.s IL_0011
+IL_0010: ret
+IL_0011: ldarg.0
+IL_0012: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_CurrentSubObject
+IL_0017: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_001c: ldarg.0
+IL_001d: ldfld Game.Prefabs.ObjectSubObjectInfo Game.UI.Editor.InspectorPanelSystem::m_LastSubObject
+IL_0022: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0027: ldfld System.Single Unity.Mathematics.float3::z
+IL_002c: stfld System.Single Unity.Mathematics.float3::z
+IL_0031: ldarg.0
+IL_0032: ldc.i4.0
+IL_0033: call System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0038: ret

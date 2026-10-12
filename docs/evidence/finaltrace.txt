@@ -1,0 +1,156 @@
+METHOD System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Delete(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0000: ldarg.3
+IL_0001: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0006: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_000b: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0010: brfalse.s IL_002d
+IL_0012: ldarg.0
+IL_0013: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0018: ldarg.1
+IL_0019: ldarg.3
+IL_001a: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_001f: ldloca.s V_0
+IL_0021: initobj Game.Common.Deleted
+IL_0027: ldloc.0
+IL_0028: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity,!!0)
+IL_002d: ldarg.0
+IL_002e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0033: ldarg.1
+IL_0034: ldarg.2
+IL_0035: ldloca.s V_0
+IL_0037: initobj Game.Common.Deleted
+IL_003d: ldloc.0
+IL_003e: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0043: ret
+METHOD System.Void Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::Delete(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0000: ldarg.3
+IL_0001: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0006: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_000b: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0010: brfalse.s IL_002d
+IL_0012: ldarg.0
+IL_0013: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0018: ldarg.1
+IL_0019: ldarg.3
+IL_001a: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_001f: ldloca.s V_0
+IL_0021: initobj Game.Common.Deleted
+IL_0027: ldloc.0
+IL_0028: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity,!!0)
+IL_002d: ldarg.0
+IL_002e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0033: ldarg.1
+IL_0034: ldarg.2
+IL_0035: ldloca.s V_0
+IL_0037: initobj Game.Common.Deleted
+IL_003d: ldloc.0
+IL_003e: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0043: ret
+METHOD System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::Delete(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_PrefabRefData
+IL_0006: ldarg.3
+IL_0007: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_000c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::HasComponent(Unity.Entities.Entity)
+IL_0011: brfalse IL_00a8
+IL_0016: ldarg.0
+IL_0017: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_001c: ldarg.1
+IL_001d: ldarg.3
+IL_001e: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0023: ldloca.s V_0
+IL_0025: initobj Game.Common.Deleted
+IL_002b: ldloc.0
+IL_002c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0031: ldarg.0
+IL_0032: ldflda Unity.Entities.BufferLookup`1<Game.Net.SubNet> Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_SubNets
+IL_0037: ldarg.3
+IL_0038: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_003d: call System.Boolean Unity.Entities.BufferLookup`1<Game.Net.SubNet>::HasBuffer(Unity.Entities.Entity)
+IL_0042: brfalse.s IL_00a8
+IL_0044: ldarg.0
+IL_0045: ldflda Unity.Entities.BufferLookup`1<Game.Net.SubNet> Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_SubNets
+IL_004a: ldarg.3
+IL_004b: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0050: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Net.SubNet>::get_Item(Unity.Entities.Entity)
+IL_0055: stloc.1
+IL_0056: ldc.i4.0
+IL_0057: stloc.2
+IL_0058: br.s IL_009e
+IL_005a: ldloca.s V_1
+IL_005c: ldloc.2
+IL_005d: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Item(System.Int32)
+IL_0062: ldfld Unity.Entities.Entity Game.Net.SubNet::m_SubNet
+IL_0067: stloc.3
+IL_0068: ldarg.0
+IL_0069: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_HiddenData
+IL_006e: ldloc.3
+IL_006f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Hidden>::HasComponent(Unity.Entities.Entity)
+IL_0074: brtrue.s IL_009a
+IL_0076: ldarg.0
+IL_0077: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_007c: ldarg.1
+IL_007d: ldloc.3
+IL_007e: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Common.Owner>(System.Int32,Unity.Entities.Entity)
+IL_0083: ldarg.0
+IL_0084: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0089: ldarg.1
+IL_008a: ldloc.3
+IL_008b: ldloca.s V_4
+IL_008d: initobj Game.Common.Updated
+IL_0093: ldloc.s V_4
+IL_0095: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_009a: ldloc.2
+IL_009b: ldc.i4.1
+IL_009c: add
+IL_009d: stloc.2
+IL_009e: ldloc.2
+IL_009f: ldloca.s V_1
+IL_00a1: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_00a6: blt.s IL_005a
+IL_00a8: ldarg.0
+IL_00a9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_00ae: ldarg.1
+IL_00af: ldarg.2
+IL_00b0: ldloca.s V_0
+IL_00b2: initobj Game.Common.Deleted
+IL_00b8: ldloc.0
+IL_00b9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00be: ret
+METHOD System.Void Game.UI.Widgets.ArrayAdapter::DeleteElementInternal(System.Int32)
+IL_0000: ldarg.0
+IL_0001: call Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1<System.Array>::get_accessor()
+IL_0006: callvirt T Game.Reflection.ITypedValueAccessor`1<System.Array>::GetTypedValue()
+IL_000b: stloc.0
+IL_000c: ldarg.0
+IL_000d: call System.Type Game.UI.Widgets.ListAdapterBase`1<System.Array>::get_elementType()
+IL_0012: ldloc.0
+IL_0013: callvirt System.Int32 System.Array::get_Length()
+IL_0018: ldc.i4.1
+IL_0019: sub
+IL_001a: call System.Array System.Array::CreateInstance(System.Type,System.Int32)
+IL_001f: stloc.1
+IL_0020: ldloc.0
+IL_0021: ldc.i4.0
+IL_0022: ldloc.1
+IL_0023: ldc.i4.0
+IL_0024: ldarg.1
+IL_0025: call System.Void System.Array::Copy(System.Array,System.Int32,System.Array,System.Int32,System.Int32)
+IL_002a: ldloc.0
+IL_002b: ldarg.1
+IL_002c: ldc.i4.1
+IL_002d: add
+IL_002e: ldloc.1
+IL_002f: ldarg.1
+IL_0030: ldloc.0
+IL_0031: callvirt System.Int32 System.Array::get_Length()
+IL_0036: ldarg.1
+IL_0037: sub
+IL_0038: ldc.i4.1
+IL_0039: sub
+IL_003a: call System.Void System.Array::Copy(System.Array,System.Int32,System.Array,System.Int32,System.Int32)
+IL_003f: ldarg.0
+IL_0040: call Game.Reflection.ITypedValueAccessor`1<T> Game.UI.Widgets.ListAdapterBase`1<System.Array>::get_accessor()
+IL_0045: ldloc.1
+IL_0046: callvirt System.Void Game.Reflection.ITypedValueAccessor`1<System.Array>::SetTypedValue(T)
+IL_004b: ret

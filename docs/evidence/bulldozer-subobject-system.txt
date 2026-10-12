@@ -1,0 +1,1484 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Void Game.Objects.SubObjectSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Simulation.TerrainSystem>()
+IL_0012: stfld Game.Simulation.TerrainSystem Game.Objects.SubObjectSystem::m_TerrainSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Simulation.WaterSystem>()
+IL_0023: stfld Game.Simulation.WaterSystem Game.Objects.SubObjectSystem::m_WaterSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0034: stfld Game.Tools.ToolSystem Game.Objects.SubObjectSystem::m_ToolSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0040: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.City.CityConfigurationSystem>()
+IL_0045: stfld Game.City.CityConfigurationSystem Game.Objects.SubObjectSystem::m_CityConfigurationSystem
+IL_004a: ldarg.0
+IL_004b: ldarg.0
+IL_004c: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0051: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Common.ModificationBarrier2B>()
+IL_0056: stfld Game.Common.ModificationBarrier2B Game.Objects.SubObjectSystem::m_ModificationBarrier
+IL_005b: ldarg.0
+IL_005c: ldarg.0
+IL_005d: ldc.i4.2
+IL_005e: newarr Unity.Entities.EntityQueryDesc
+IL_0063: dup
+IL_0064: ldc.i4.0
+IL_0065: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_006a: stloc.0
+IL_006b: ldloc.0
+IL_006c: ldc.i4.1
+IL_006d: newarr Unity.Entities.ComponentType
+IL_0072: dup
+IL_0073: ldc.i4.0
+IL_0074: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.SubObject>()
+IL_0079: stelem.any Unity.Entities.ComponentType
+IL_007e: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0083: ldloc.0
+IL_0084: ldc.i4.2
+IL_0085: newarr Unity.Entities.ComponentType
+IL_008a: dup
+IL_008b: ldc.i4.0
+IL_008c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_0091: stelem.any Unity.Entities.ComponentType
+IL_0096: dup
+IL_0097: ldc.i4.1
+IL_0098: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_009d: stelem.any Unity.Entities.ComponentType
+IL_00a2: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00a7: ldloc.0
+IL_00a8: stelem.ref
+IL_00a9: dup
+IL_00aa: ldc.i4.1
+IL_00ab: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00b0: stloc.0
+IL_00b1: ldloc.0
+IL_00b2: ldc.i4.1
+IL_00b3: newarr Unity.Entities.ComponentType
+IL_00b8: dup
+IL_00b9: ldc.i4.0
+IL_00ba: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Event>()
+IL_00bf: stelem.any Unity.Entities.ComponentType
+IL_00c4: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00c9: ldloc.0
+IL_00ca: ldc.i4.2
+IL_00cb: newarr Unity.Entities.ComponentType
+IL_00d0: dup
+IL_00d1: ldc.i4.0
+IL_00d2: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Buildings.RentersUpdated>()
+IL_00d7: stelem.any Unity.Entities.ComponentType
+IL_00dc: dup
+IL_00dd: ldc.i4.1
+IL_00de: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.SubObjectsUpdated>()
+IL_00e3: stelem.any Unity.Entities.ComponentType
+IL_00e8: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00ed: ldloc.0
+IL_00ee: stelem.ref
+IL_00ef: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00f4: stfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_UpdateQuery
+IL_00f9: ldarg.0
+IL_00fa: ldarg.0
+IL_00fb: ldc.i4.1
+IL_00fc: newarr Unity.Entities.EntityQueryDesc
+IL_0101: dup
+IL_0102: ldc.i4.0
+IL_0103: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0108: stloc.0
+IL_0109: ldloc.0
+IL_010a: ldc.i4.4
+IL_010b: newarr Unity.Entities.ComponentType
+IL_0110: dup
+IL_0111: ldc.i4.0
+IL_0112: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_0117: stelem.any Unity.Entities.ComponentType
+IL_011c: dup
+IL_011d: ldc.i4.1
+IL_011e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.Object>()
+IL_0123: stelem.any Unity.Entities.ComponentType
+IL_0128: dup
+IL_0129: ldc.i4.2
+IL_012a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Owner>()
+IL_012f: stelem.any Unity.Entities.ComponentType
+IL_0134: dup
+IL_0135: ldc.i4.3
+IL_0136: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_013b: stelem.any Unity.Entities.ComponentType
+IL_0140: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0145: ldloc.0
+IL_0146: ldc.i4.1
+IL_0147: newarr Unity.Entities.ComponentType
+IL_014c: dup
+IL_014d: ldc.i4.0
+IL_014e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_0153: stelem.any Unity.Entities.ComponentType
+IL_0158: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_015d: ldloc.0
+IL_015e: stelem.ref
+IL_015f: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0164: stfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_TempQuery
+IL_0169: ldarg.0
+IL_016a: ldarg.0
+IL_016b: ldc.i4.2
+IL_016c: newarr Unity.Entities.ComponentType
+IL_0171: dup
+IL_0172: ldc.i4.0
+IL_0173: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.EditorContainerData>()
+IL_0178: stelem.any Unity.Entities.ComponentType
+IL_017d: dup
+IL_017e: ldc.i4.1
+IL_017f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ObjectData>()
+IL_0184: stelem.any Unity.Entities.ComponentType
+IL_0189: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_018e: stfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_ContainerQuery
+IL_0193: ldarg.0
+IL_0194: ldarg.0
+IL_0195: ldc.i4.1
+IL_0196: newarr Unity.Entities.ComponentType
+IL_019b: dup
+IL_019c: ldc.i4.0
+IL_019d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.BuildingConfigurationData>()
+IL_01a2: stelem.any Unity.Entities.ComponentType
+IL_01a7: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_01ac: stfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_BuildingSettingsQuery
+IL_01b1: ldarg.0
+IL_01b2: ldarg.0
+IL_01b3: ldc.i4.1
+IL_01b4: newarr Unity.Entities.ComponentType
+IL_01b9: dup
+IL_01ba: ldc.i4.0
+IL_01bb: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.CitizenHappinessParameterData>()
+IL_01c0: stelem.any Unity.Entities.ComponentType
+IL_01c5: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_01ca: stfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_HappinessParameterQuery
+IL_01cf: ldarg.0
+IL_01d0: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Applied>()
+IL_01d5: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Created>()
+IL_01da: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Updated>()
+IL_01df: newobj System.Void Unity.Entities.ComponentTypeSet::.ctor(Unity.Entities.ComponentType,Unity.Entities.ComponentType,Unity.Entities.ComponentType)
+IL_01e4: stfld Unity.Entities.ComponentTypeSet Game.Objects.SubObjectSystem::m_AppliedTypes
+IL_01e9: ldarg.0
+IL_01ea: ldarg.0
+IL_01eb: ldfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_UpdateQuery
+IL_01f0: call System.Void Unity.Entities.ComponentSystemBase::RequireForUpdate(Unity.Entities.EntityQuery)
+IL_01f5: ldarg.0
+IL_01f6: ldc.i4.4
+IL_01f7: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_01fc: newobj System.Void Unity.Collections.NativeQueue`1<Unity.Entities.Entity>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0201: stfld Unity.Collections.NativeQueue`1<Unity.Entities.Entity> Game.Objects.SubObjectSystem::m_LoopErrorPrefabs
+IL_0206: ret
+METHOD System.Void Game.Objects.SubObjectSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Objects.SubObjectSystem::ShowLoopErrors()
+IL_0006: ldloca.s V_0
+IL_0008: ldc.i4.3
+IL_0009: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_000e: call System.Void Unity.Collections.NativeQueue`1<Game.Objects.SubObjectSystem/SubObjectOwnerData>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0013: ldloca.s V_1
+IL_0015: ldc.i4.3
+IL_0016: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_001b: call System.Void Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/SubObjectOwnerData>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0020: ldloca.s V_2
+IL_0022: ldc.i4.s 100
+IL_0024: ldc.i4.3
+IL_0025: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_002a: call System.Void Unity.Collections.NativeParallelHashSet`1<Unity.Entities.Entity>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_002f: ldloca.s V_3
+IL_0031: ldc.i4.s 100
+IL_0033: ldc.i4.3
+IL_0034: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0039: call System.Void Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,Game.Objects.SubObjectSystem/SubObjectOwnerData>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_003e: ldloca.s V_13
+IL_0040: initobj Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob
+IL_0046: ldloca.s V_13
+IL_0048: ldarg.0
+IL_0049: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_004e: ldflda Unity.Entities.EntityTypeHandle Game.Objects.SubObjectSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_0053: ldarg.0
+IL_0054: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0059: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_005e: stfld Unity.Entities.EntityTypeHandle Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_EntityType
+IL_0063: ldloca.s V_13
+IL_0065: ldarg.0
+IL_0066: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_006b: ldflda Unity.Entities.BufferTypeHandle`1<Game.Objects.SubObject> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_SubObject_RO_BufferTypeHandle
+IL_0070: ldarg.0
+IL_0071: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0076: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Objects.SubObject>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_007b: stfld Unity.Entities.BufferTypeHandle`1<Game.Objects.SubObject> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_SubObjectType
+IL_0080: ldloca.s V_13
+IL_0082: ldarg.0
+IL_0083: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0088: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_008d: ldarg.0
+IL_008e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0093: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0098: stfld Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_TempType
+IL_009d: ldloca.s V_13
+IL_009f: ldarg.0
+IL_00a0: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_00a5: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Created> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Created_RO_ComponentTypeHandle
+IL_00aa: ldarg.0
+IL_00ab: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00b0: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Created>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00b5: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Created> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_CreatedType
+IL_00ba: ldloca.s V_13
+IL_00bc: ldarg.0
+IL_00bd: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_00c2: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentTypeHandle
+IL_00c7: ldarg.0
+IL_00c8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00cd: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00d2: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_DeletedType
+IL_00d7: ldloca.s V_13
+IL_00d9: ldarg.0
+IL_00da: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_00df: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Object> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Object_RO_ComponentTypeHandle
+IL_00e4: ldarg.0
+IL_00e5: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00ea: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Object>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00ef: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Object> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_ObjectType
+IL_00f4: ldloca.s V_13
+IL_00f6: ldarg.0
+IL_00f7: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_00fc: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Owner_RO_ComponentTypeHandle
+IL_0101: ldarg.0
+IL_0102: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0107: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Owner>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_010c: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_OwnerType
+IL_0111: ldloca.s V_13
+IL_0113: ldarg.0
+IL_0114: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0119: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.SubObjectsUpdated> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_SubObjectsUpdated_RO_ComponentTypeHandle
+IL_011e: ldarg.0
+IL_011f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0124: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.SubObjectsUpdated>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0129: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.SubObjectsUpdated> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_SubObjectsUpdatedType
+IL_012e: ldloca.s V_13
+IL_0130: ldarg.0
+IL_0131: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0136: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Buildings.RentersUpdated> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_RentersUpdated_RO_ComponentTypeHandle
+IL_013b: ldarg.0
+IL_013c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0141: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Buildings.RentersUpdated>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0146: stfld Unity.Entities.ComponentTypeHandle`1<Game.Buildings.RentersUpdated> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_RentersUpdatedType
+IL_014b: ldloca.s V_13
+IL_014d: ldarg.0
+IL_014e: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0153: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Buildings.ServiceUpgrade> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_ServiceUpgrade_RO_ComponentTypeHandle
+IL_0158: ldarg.0
+IL_0159: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_015e: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Buildings.ServiceUpgrade>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0163: stfld Unity.Entities.ComponentTypeHandle`1<Game.Buildings.ServiceUpgrade> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_ServiceUpgradeType
+IL_0168: ldloca.s V_13
+IL_016a: ldarg.0
+IL_016b: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0170: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_Building_RO_ComponentTypeHandle
+IL_0175: ldarg.0
+IL_0176: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_017b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Buildings.Building>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0180: stfld Unity.Entities.ComponentTypeHandle`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_BuildingType
+IL_0185: ldloca.s V_13
+IL_0187: ldarg.0
+IL_0188: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_018d: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Vehicles.Vehicle> Game.Objects.SubObjectSystem/TypeHandle::__Game_Vehicles_Vehicle_RO_ComponentTypeHandle
+IL_0192: ldarg.0
+IL_0193: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0198: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Vehicles.Vehicle>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_019d: stfld Unity.Entities.ComponentTypeHandle`1<Game.Vehicles.Vehicle> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_VehicleType
+IL_01a2: ldloca.s V_13
+IL_01a4: ldarg.0
+IL_01a5: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_01aa: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Creatures.Creature> Game.Objects.SubObjectSystem/TypeHandle::__Game_Creatures_Creature_RO_ComponentTypeHandle
+IL_01af: ldarg.0
+IL_01b0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01b5: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Creatures.Creature>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_01ba: stfld Unity.Entities.ComponentTypeHandle`1<Game.Creatures.Creature> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_CreatureType
+IL_01bf: ldloca.s V_13
+IL_01c1: ldarg.0
+IL_01c2: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_01c7: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Created> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Created_RO_ComponentLookup
+IL_01cc: ldarg.0
+IL_01cd: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01d2: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Created>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_01d7: stfld Unity.Entities.ComponentLookup`1<Game.Common.Created> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_CreatedData
+IL_01dc: ldloca.s V_13
+IL_01de: ldarg.0
+IL_01df: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_01e4: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Deleted> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentLookup
+IL_01e9: ldarg.0
+IL_01ea: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01ef: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Deleted>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_01f4: stfld Unity.Entities.ComponentLookup`1<Game.Common.Deleted> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_DeletedData
+IL_01f9: ldloca.s V_13
+IL_01fb: ldarg.0
+IL_01fc: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0201: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Owner_RO_ComponentLookup
+IL_0206: ldarg.0
+IL_0207: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_020c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Owner>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0211: stfld Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_OwnerData
+IL_0216: ldloca.s V_13
+IL_0218: ldarg.0
+IL_0219: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_021e: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Objects.SubObjectSystem/TypeHandle::__Game_Tools_Hidden_RO_ComponentLookup
+IL_0223: ldarg.0
+IL_0224: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0229: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.Hidden>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_022e: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_HiddenData
+IL_0233: ldloca.s V_13
+IL_0235: ldarg.0
+IL_0236: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_023b: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Attached_RO_ComponentLookup
+IL_0240: ldarg.0
+IL_0241: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0246: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Attached>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_024b: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_AttachedData
+IL_0250: ldloca.s V_13
+IL_0252: ldarg.0
+IL_0253: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0258: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Secondary> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Secondary_RO_ComponentLookup
+IL_025d: ldarg.0
+IL_025e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0263: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Secondary>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0268: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Secondary> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_SecondaryData
+IL_026d: ldloca.s V_13
+IL_026f: ldarg.0
+IL_0270: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0275: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Object> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Object_RO_ComponentLookup
+IL_027a: ldarg.0
+IL_027b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0280: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Object>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0285: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Object> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_ObjectData
+IL_028a: ldloca.s V_13
+IL_028c: ldarg.0
+IL_028d: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0292: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_ServiceUpgrade_RO_ComponentLookup
+IL_0297: ldarg.0
+IL_0298: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_029d: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.ServiceUpgrade>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02a2: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_ServiceUpgradeData
+IL_02a7: ldloca.s V_13
+IL_02a9: ldarg.0
+IL_02aa: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_02af: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_Building_RO_ComponentLookup
+IL_02b4: ldarg.0
+IL_02b5: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02ba: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.Building>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02bf: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_BuildingData
+IL_02c4: ldloca.s V_13
+IL_02c6: ldarg.0
+IL_02c7: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_02cc: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_SubObject_RO_BufferLookup
+IL_02d1: ldarg.0
+IL_02d2: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02d7: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Objects.SubObject>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02dc: stfld Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_SubObjects
+IL_02e1: ldloca.s V_13
+IL_02e3: ldarg.0
+IL_02e4: ldfld Unity.Entities.ComponentTypeSet Game.Objects.SubObjectSystem::m_AppliedTypes
+IL_02e9: stfld Unity.Entities.ComponentTypeSet Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_AppliedTypes
+IL_02ee: ldloca.s V_13
+IL_02f0: ldarg.0
+IL_02f1: ldfld Game.Common.ModificationBarrier2B Game.Objects.SubObjectSystem::m_ModificationBarrier
+IL_02f6: callvirt Unity.Entities.EntityCommandBuffer Game.SafeCommandBufferSystem::CreateCommandBuffer()
+IL_02fb: stloc.s V_14
+IL_02fd: ldloca.s V_14
+IL_02ff: call Unity.Entities.EntityCommandBuffer/ParallelWriter Unity.Entities.EntityCommandBuffer::AsParallelWriter()
+IL_0304: stfld Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_CommandBuffer
+IL_0309: ldloca.s V_13
+IL_030b: ldloca.s V_0
+IL_030d: call Unity.Collections.NativeQueue`1/ParallelWriter<!0> Unity.Collections.NativeQueue`1<Game.Objects.SubObjectSystem/SubObjectOwnerData>::AsParallelWriter()
+IL_0312: stfld Unity.Collections.NativeQueue`1/ParallelWriter<Game.Objects.SubObjectSystem/SubObjectOwnerData> Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob::m_OwnerQueue
+IL_0317: ldloc.s V_13
+IL_0319: stloc.s V_4
+IL_031b: ldloca.s V_15
+IL_031d: initobj Game.Objects.SubObjectSystem/CollectSubObjectOwnersJob
+IL_0323: ldloca.s V_15
+IL_0325: ldloc.0
+IL_0326: stfld Unity.Collections.NativeQueue`1<Game.Objects.SubObjectSystem/SubObjectOwnerData> Game.Objects.SubObjectSystem/CollectSubObjectOwnersJob::m_OwnerQueue
+IL_032b: ldloca.s V_15
+IL_032d: ldloc.1
+IL_032e: stfld Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/SubObjectOwnerData> Game.Objects.SubObjectSystem/CollectSubObjectOwnersJob::m_OwnerList
+IL_0333: ldloca.s V_15
+IL_0335: ldloc.3
+IL_0336: stfld Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,Game.Objects.SubObjectSystem/SubObjectOwnerData> Game.Objects.SubObjectSystem/CollectSubObjectOwnersJob::m_OwnerMap
+IL_033b: ldloc.s V_15
+IL_033d: stloc.s V_5
+IL_033f: ldloca.s V_16
+IL_0341: initobj Game.Objects.SubObjectSystem/FillIgnoreSetJob
+IL_0347: ldloca.s V_16
+IL_0349: ldarg.0
+IL_034a: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_034f: ldflda Unity.Entities.EntityTypeHandle Game.Objects.SubObjectSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_0354: ldarg.0
+IL_0355: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_035a: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_035f: stfld Unity.Entities.EntityTypeHandle Game.Objects.SubObjectSystem/FillIgnoreSetJob::m_EntityType
+IL_0364: ldloca.s V_16
+IL_0366: ldarg.0
+IL_0367: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_036c: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_0371: ldarg.0
+IL_0372: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0377: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_037c: stfld Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/FillIgnoreSetJob::m_TempType
+IL_0381: ldloca.s V_16
+IL_0383: ldloc.2
+IL_0384: stfld Unity.Collections.NativeParallelHashSet`1<Unity.Entities.Entity> Game.Objects.SubObjectSystem/FillIgnoreSetJob::m_IgnoreSet
+IL_0389: ldloc.s V_16
+IL_038b: stloc.s V_6
+IL_038d: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0392: stloc.s V_7
+IL_0394: ldarg.0
+IL_0395: ldfld Game.Tools.ToolSystem Game.Objects.SubObjectSystem::m_ToolSystem
+IL_039a: callvirt Game.GameMode Game.Tools.ToolSystem::get_actionMode()
+IL_039f: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_03a4: brfalse.s IL_03c0
+IL_03a6: ldarg.0
+IL_03a7: ldflda Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_ContainerQuery
+IL_03ac: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_03b1: brtrue.s IL_03c0
+IL_03b3: ldarg.0
+IL_03b4: ldflda Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_ContainerQuery
+IL_03b9: call Unity.Entities.Entity Unity.Entities.EntityQuery::GetSingletonEntity()
+IL_03be: stloc.s V_7
+IL_03c0: ldloca.s V_17
+IL_03c2: initobj Game.Objects.SubObjectSystem/UpdateSubObjectsJob
+IL_03c8: ldloca.s V_17
+IL_03ca: ldarg.0
+IL_03cb: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_03d0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_PrefabRef_RO_ComponentLookup
+IL_03d5: ldarg.0
+IL_03d6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_03db: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_03e0: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabRefData
+IL_03e5: ldloca.s V_17
+IL_03e7: ldarg.0
+IL_03e8: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_03ed: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_PrefabData_RO_ComponentLookup
+IL_03f2: ldarg.0
+IL_03f3: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_03f8: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PrefabData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_03fd: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabData
+IL_0402: ldloca.s V_17
+IL_0404: ldarg.0
+IL_0405: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_040a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_ObjectData_RO_ComponentLookup
+IL_040f: ldarg.0
+IL_0410: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0415: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.ObjectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_041a: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectData
+IL_041f: ldloca.s V_17
+IL_0421: ldarg.0
+IL_0422: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0427: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_ObjectGeometryData_RO_ComponentLookup
+IL_042c: ldarg.0
+IL_042d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0432: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.ObjectGeometryData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0437: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_043c: ldloca.s V_17
+IL_043e: ldarg.0
+IL_043f: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0444: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_NetGeometryData_RO_ComponentLookup
+IL_0449: ldarg.0
+IL_044a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_044f: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.NetGeometryData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0454: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabNetGeometryData
+IL_0459: ldloca.s V_17
+IL_045b: ldarg.0
+IL_045c: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0461: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PillarData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_PillarData_RO_ComponentLookup
+IL_0466: ldarg.0
+IL_0467: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_046c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PillarData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0471: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PillarData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPillarData
+IL_0476: ldloca.s V_17
+IL_0478: ldarg.0
+IL_0479: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_047e: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_SpawnableObjectData_RO_ComponentLookup
+IL_0483: ldarg.0
+IL_0484: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0489: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.SpawnableObjectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_048e: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSpawnableObjectData
+IL_0493: ldloca.s V_17
+IL_0495: ldarg.0
+IL_0496: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_049b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ThemeData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_ThemeData_RO_ComponentLookup
+IL_04a0: ldarg.0
+IL_04a1: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04a6: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.ThemeData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_04ab: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.ThemeData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabThemeData
+IL_04b0: ldloca.s V_17
+IL_04b2: ldarg.0
+IL_04b3: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_04b8: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.MovingObjectData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_MovingObjectData_RO_ComponentLookup
+IL_04bd: ldarg.0
+IL_04be: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04c3: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.MovingObjectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_04c8: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.MovingObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabMovingObjectData
+IL_04cd: ldloca.s V_17
+IL_04cf: ldarg.0
+IL_04d0: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_04d5: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.QuantityObjectData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_QuantityObjectData_RO_ComponentLookup
+IL_04da: ldarg.0
+IL_04db: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04e0: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.QuantityObjectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_04e5: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.QuantityObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabQuantityObjectData
+IL_04ea: ldloca.s V_17
+IL_04ec: ldarg.0
+IL_04ed: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_04f2: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.WorkVehicleData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_WorkVehicleData_RO_ComponentLookup
+IL_04f7: ldarg.0
+IL_04f8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04fd: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.WorkVehicleData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0502: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.WorkVehicleData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabWorkVehicleData
+IL_0507: ldloca.s V_17
+IL_0509: ldarg.0
+IL_050a: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_050f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_EffectData_RO_ComponentLookup
+IL_0514: ldarg.0
+IL_0515: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_051a: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.EffectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_051f: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabEffectData
+IL_0524: ldloca.s V_17
+IL_0526: ldarg.0
+IL_0527: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_052c: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StreetLightData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_StreetLightData_RO_ComponentLookup
+IL_0531: ldarg.0
+IL_0532: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0537: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.StreetLightData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_053c: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.StreetLightData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabStreetLightData
+IL_0541: ldloca.s V_17
+IL_0543: ldarg.0
+IL_0544: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0549: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_PlaceableObjectData_RO_ComponentLookup
+IL_054e: ldarg.0
+IL_054f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0554: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PlaceableObjectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0559: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceableObjectData
+IL_055e: ldloca.s V_17
+IL_0560: ldarg.0
+IL_0561: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0566: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableNetData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_PlaceableNetData_RO_ComponentLookup
+IL_056b: ldarg.0
+IL_056c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0571: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PlaceableNetData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0576: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableNetData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceableNetData
+IL_057b: ldloca.s V_17
+IL_057d: ldarg.0
+IL_057e: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0583: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.CargoTransportVehicleData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_CargoTransportVehicleData_RO_ComponentLookup
+IL_0588: ldarg.0
+IL_0589: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_058e: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.CargoTransportVehicleData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0593: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.CargoTransportVehicleData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabCargoTransportVehicleData
+IL_0598: ldloca.s V_17
+IL_059a: ldarg.0
+IL_059b: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_05a0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.AreaGeometryData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_AreaGeometryData_RO_ComponentLookup
+IL_05a5: ldarg.0
+IL_05a6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_05ab: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.AreaGeometryData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_05b0: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.AreaGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabAreaGeometryData
+IL_05b5: ldloca.s V_17
+IL_05b7: ldarg.0
+IL_05b8: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_05bd: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceholderObjectData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_PlaceholderObjectData_RO_ComponentLookup
+IL_05c2: ldarg.0
+IL_05c3: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_05c8: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PlaceholderObjectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_05cd: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceholderObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceholderObjectData
+IL_05d2: ldloca.s V_17
+IL_05d4: ldarg.0
+IL_05d5: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_05da: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_BuildingData_RO_ComponentLookup
+IL_05df: ldarg.0
+IL_05e0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_05e5: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.BuildingData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_05ea: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabBuildingData
+IL_05ef: ldloca.s V_17
+IL_05f1: ldarg.0
+IL_05f2: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_05f7: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_BuildingExtensionData_RO_ComponentLookup
+IL_05fc: ldarg.0
+IL_05fd: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0602: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.BuildingExtensionData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0607: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabBuildingExtensionData
+IL_060c: ldloca.s V_17
+IL_060e: ldarg.0
+IL_060f: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0614: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_StackData_RO_ComponentLookup
+IL_0619: ldarg.0
+IL_061a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_061f: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.StackData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0624: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabStackData
+IL_0629: ldloca.s V_17
+IL_062b: ldarg.0
+IL_062c: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0631: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_TreeData_RO_ComponentLookup
+IL_0636: ldarg.0
+IL_0637: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_063c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.TreeData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0641: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabTreeData
+IL_0646: ldloca.s V_17
+IL_0648: ldarg.0
+IL_0649: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_064e: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnLocationData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_SpawnLocationData_RO_ComponentLookup
+IL_0653: ldarg.0
+IL_0654: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0659: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.SpawnLocationData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_065e: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnLocationData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSpawnLocationData
+IL_0663: ldloca.s V_17
+IL_0665: ldarg.0
+IL_0666: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_066b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.MeshData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_MeshData_RO_ComponentLookup
+IL_0670: ldarg.0
+IL_0671: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0676: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.MeshData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_067b: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.MeshData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabMeshData
+IL_0680: ldloca.s V_17
+IL_0682: ldarg.0
+IL_0683: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0688: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StorageCompanyData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_StorageCompanyData_RO_ComponentLookup
+IL_068d: ldarg.0
+IL_068e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0693: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.StorageCompanyData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0698: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.StorageCompanyData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_StorageCompanyData
+IL_069d: ldloca.s V_17
+IL_069f: ldarg.0
+IL_06a0: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_06a5: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ActivityPropData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_ActivityPropData_RO_ComponentLookup
+IL_06aa: ldarg.0
+IL_06ab: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06b0: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.ActivityPropData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_06b5: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.ActivityPropData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ActivityPropData
+IL_06ba: ldloca.s V_17
+IL_06bc: ldarg.0
+IL_06bd: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_06c2: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.TransportStopData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_TransportStopData_RO_ComponentLookup
+IL_06c7: ldarg.0
+IL_06c8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06cd: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.TransportStopData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_06d2: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.TransportStopData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransportStopData
+IL_06d7: ldloca.s V_17
+IL_06d9: ldarg.0
+IL_06da: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_06df: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Transform_RO_ComponentLookup
+IL_06e4: ldarg.0
+IL_06e5: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06ea: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Transform>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_06ef: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformData
+IL_06f4: ldloca.s V_17
+IL_06f6: ldarg.0
+IL_06f7: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_06fc: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Owner_RO_ComponentLookup
+IL_0701: ldarg.0
+IL_0702: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0707: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Owner>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_070c: stfld Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OwnerData
+IL_0711: ldloca.s V_17
+IL_0713: ldarg.0
+IL_0714: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0719: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Updated_RO_ComponentLookup
+IL_071e: ldarg.0
+IL_071f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0724: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Updated>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0729: stfld Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UpdatedData
+IL_072e: ldloca.s V_17
+IL_0730: ldarg.0
+IL_0731: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0736: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Created> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Created_RO_ComponentLookup
+IL_073b: ldarg.0
+IL_073c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0741: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Created>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0746: stfld Unity.Entities.ComponentLookup`1<Game.Common.Created> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CreatedData
+IL_074b: ldloca.s V_17
+IL_074d: ldarg.0
+IL_074e: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0753: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Elevation_RO_ComponentLookup
+IL_0758: ldarg.0
+IL_0759: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_075e: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Elevation>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0763: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ElevationData
+IL_0768: ldloca.s V_17
+IL_076a: ldarg.0
+IL_076b: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0770: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Aligned> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Aligned_RO_ComponentLookup
+IL_0775: ldarg.0
+IL_0776: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_077b: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Aligned>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0780: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Aligned> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AlignedData
+IL_0785: ldloca.s V_17
+IL_0787: ldarg.0
+IL_0788: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_078d: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Secondary> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Secondary_RO_ComponentLookup
+IL_0792: ldarg.0
+IL_0793: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0798: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Secondary>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_079d: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Secondary> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_SecondaryData
+IL_07a2: ldloca.s V_17
+IL_07a4: ldarg.0
+IL_07a5: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_07aa: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Tree_RO_ComponentLookup
+IL_07af: ldarg.0
+IL_07b0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_07b5: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Tree>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_07ba: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TreeData
+IL_07bf: ldloca.s V_17
+IL_07c1: ldarg.0
+IL_07c2: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_07c7: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_StreetLight_RO_ComponentLookup
+IL_07cc: ldarg.0
+IL_07cd: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_07d2: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.StreetLight>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_07d7: stfld Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_StreetLightData
+IL_07dc: ldloca.s V_17
+IL_07de: ldarg.0
+IL_07df: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_07e4: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_PseudoRandomSeed_RO_ComponentLookup
+IL_07e9: ldarg.0
+IL_07ea: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_07ef: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.PseudoRandomSeed>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_07f4: stfld Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PseudoRandomSeedData
+IL_07f9: ldloca.s V_17
+IL_07fb: ldarg.0
+IL_07fc: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0801: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Attachment_RO_ComponentLookup
+IL_0806: ldarg.0
+IL_0807: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_080c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Attachment>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0811: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AttachmentData
+IL_0816: ldloca.s V_17
+IL_0818: ldarg.0
+IL_0819: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_081e: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Attached_RO_ComponentLookup
+IL_0823: ldarg.0
+IL_0824: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0829: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Attached>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_082e: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AttachedData
+IL_0833: ldloca.s V_17
+IL_0835: ldarg.0
+IL_0836: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_083b: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Relative> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Relative_RO_ComponentLookup
+IL_0840: ldarg.0
+IL_0841: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0846: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Relative>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_084b: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Relative> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_RelativeData
+IL_0850: ldloca.s V_17
+IL_0852: ldarg.0
+IL_0853: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0858: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Native> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Native_RO_ComponentLookup
+IL_085d: ldarg.0
+IL_085e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0863: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Native>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0868: stfld Unity.Entities.ComponentLookup`1<Game.Common.Native> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_NativeData
+IL_086d: ldloca.s V_17
+IL_086f: ldarg.0
+IL_0870: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0875: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Overridden> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Overridden_RO_ComponentLookup
+IL_087a: ldarg.0
+IL_087b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0880: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Overridden>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0885: stfld Unity.Entities.ComponentLookup`1<Game.Common.Overridden> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OverriddenData
+IL_088a: ldloca.s V_17
+IL_088c: ldarg.0
+IL_088d: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0892: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Surface> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Surface_RO_ComponentLookup
+IL_0897: ldarg.0
+IL_0898: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_089d: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Surface>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_08a2: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Surface> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_SurfaceData
+IL_08a7: ldloca.s V_17
+IL_08a9: ldarg.0
+IL_08aa: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_08af: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Stack> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_Stack_RO_ComponentLookup
+IL_08b4: ldarg.0
+IL_08b5: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_08ba: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Stack>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_08bf: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Stack> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_StackData
+IL_08c4: ldloca.s V_17
+IL_08c6: ldarg.0
+IL_08c7: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_08cc: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_UnderConstruction_RO_ComponentLookup
+IL_08d1: ldarg.0
+IL_08d2: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_08d7: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.UnderConstruction>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_08dc: stfld Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UnderConstructionData
+IL_08e1: ldloca.s V_17
+IL_08e3: ldarg.0
+IL_08e4: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_08e9: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Destroyed_RO_ComponentLookup
+IL_08ee: ldarg.0
+IL_08ef: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_08f4: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Destroyed>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_08f9: stfld Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DestroyedData
+IL_08fe: ldloca.s V_17
+IL_0900: ldarg.0
+IL_0901: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0906: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Objects.SubObjectSystem/TypeHandle::__Game_Rendering_InterpolatedTransform_RO_ComponentLookup
+IL_090b: ldarg.0
+IL_090c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0911: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Rendering.InterpolatedTransform>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0916: stfld Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_InterpolatedTransformData
+IL_091b: ldloca.s V_17
+IL_091d: ldarg.0
+IL_091e: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0923: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_ServiceUpgrade_RO_ComponentLookup
+IL_0928: ldarg.0
+IL_0929: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_092e: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.ServiceUpgrade>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0933: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ServiceUpgradeData
+IL_0938: ldloca.s V_17
+IL_093a: ldarg.0
+IL_093b: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0940: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.MailProducer> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_MailProducer_RO_ComponentLookup
+IL_0945: ldarg.0
+IL_0946: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_094b: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.MailProducer>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0950: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.MailProducer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_MailProducerData
+IL_0955: ldloca.s V_17
+IL_0957: ldarg.0
+IL_0958: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_095d: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.GarbageProducer> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_GarbageProducer_RO_ComponentLookup
+IL_0962: ldarg.0
+IL_0963: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0968: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.GarbageProducer>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_096d: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.GarbageProducer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_GarbageProducerData
+IL_0972: ldloca.s V_17
+IL_0974: ldarg.0
+IL_0975: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_097a: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.GarbageFacility> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_GarbageFacility_RO_ComponentLookup
+IL_097f: ldarg.0
+IL_0980: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0985: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.GarbageFacility>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_098a: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.GarbageFacility> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_GarbageFacilityData
+IL_098f: ldloca.s V_17
+IL_0991: ldarg.0
+IL_0992: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0997: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_Building_RO_ComponentLookup
+IL_099c: ldarg.0
+IL_099d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_09a2: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.Building>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_09a7: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_BuildingData
+IL_09ac: ldloca.s V_17
+IL_09ae: ldarg.0
+IL_09af: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_09b4: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ResidentialProperty> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_ResidentialProperty_RO_ComponentLookup
+IL_09b9: ldarg.0
+IL_09ba: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_09bf: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.ResidentialProperty>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_09c4: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.ResidentialProperty> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ResidentialPropertyData
+IL_09c9: ldloca.s V_17
+IL_09cb: ldarg.0
+IL_09cc: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_09d1: ldflda Unity.Entities.ComponentLookup`1<Game.City.CityServiceUpkeep> Game.Objects.SubObjectSystem/TypeHandle::__Game_City_CityServiceUpkeep_RO_ComponentLookup
+IL_09d6: ldarg.0
+IL_09d7: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_09dc: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.City.CityServiceUpkeep>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_09e1: stfld Unity.Entities.ComponentLookup`1<Game.City.CityServiceUpkeep> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CityServiceUpkeepData
+IL_09e6: ldloca.s V_17
+IL_09e8: ldarg.0
+IL_09e9: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_09ee: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_Node_RO_ComponentLookup
+IL_09f3: ldarg.0
+IL_09f4: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_09f9: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Node>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_09fe: stfld Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_NetNodeData
+IL_0a03: ldloca.s V_17
+IL_0a05: ldarg.0
+IL_0a06: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0a0b: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_Edge_RO_ComponentLookup
+IL_0a10: ldarg.0
+IL_0a11: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a16: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Edge>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0a1b: stfld Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_NetEdgeData
+IL_0a20: ldloca.s V_17
+IL_0a22: ldarg.0
+IL_0a23: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0a28: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_Curve_RO_ComponentLookup
+IL_0a2d: ldarg.0
+IL_0a2e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a33: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Curve>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0a38: stfld Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_NetCurveData
+IL_0a3d: ldloca.s V_17
+IL_0a3f: ldarg.0
+IL_0a40: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0a45: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeGeometry> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_EdgeGeometry_RO_ComponentLookup
+IL_0a4a: ldarg.0
+IL_0a4b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a50: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.EdgeGeometry>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0a55: stfld Unity.Entities.ComponentLookup`1<Game.Net.EdgeGeometry> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EdgeGeometryData
+IL_0a5a: ldloca.s V_17
+IL_0a5c: ldarg.0
+IL_0a5d: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0a62: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_Elevation_RO_ComponentLookup
+IL_0a67: ldarg.0
+IL_0a68: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a6d: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Elevation>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0a72: stfld Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_NetElevationData
+IL_0a77: ldloca.s V_17
+IL_0a79: ldarg.0
+IL_0a7a: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0a7f: ldflda Unity.Entities.ComponentLookup`1<Game.Net.OutsideConnection> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_OutsideConnection_RO_ComponentLookup
+IL_0a84: ldarg.0
+IL_0a85: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a8a: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.OutsideConnection>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0a8f: stfld Unity.Entities.ComponentLookup`1<Game.Net.OutsideConnection> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OutsideConnectionData
+IL_0a94: ldloca.s V_17
+IL_0a96: ldarg.0
+IL_0a97: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0a9c: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Fixed> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_Fixed_RO_ComponentLookup
+IL_0aa1: ldarg.0
+IL_0aa2: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0aa7: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Fixed>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0aac: stfld Unity.Entities.ComponentLookup`1<Game.Net.Fixed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_FixedData
+IL_0ab1: ldloca.s V_17
+IL_0ab3: ldarg.0
+IL_0ab4: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0ab9: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Upgraded> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_Upgraded_RO_ComponentLookup
+IL_0abe: ldarg.0
+IL_0abf: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ac4: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Upgraded>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0ac9: stfld Unity.Entities.ComponentLookup`1<Game.Net.Upgraded> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UpgradedData
+IL_0ace: ldloca.s V_17
+IL_0ad0: ldarg.0
+IL_0ad1: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0ad6: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentLookup
+IL_0adb: ldarg.0
+IL_0adc: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ae1: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.Temp>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0ae6: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_0aeb: ldloca.s V_17
+IL_0aed: ldarg.0
+IL_0aee: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0af3: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Objects.SubObjectSystem/TypeHandle::__Game_Tools_Hidden_RO_ComponentLookup
+IL_0af8: ldarg.0
+IL_0af9: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0afe: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.Hidden>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b03: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_HiddenData
+IL_0b08: ldloca.s V_17
+IL_0b0a: ldarg.0
+IL_0b0b: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0b10: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache> Game.Objects.SubObjectSystem/TypeHandle::__Game_Tools_LocalTransformCache_RO_ComponentLookup
+IL_0b15: ldarg.0
+IL_0b16: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0b1b: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.LocalTransformCache>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b20: stfld Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_LocalTransformCacheData
+IL_0b25: ldloca.s V_17
+IL_0b27: ldarg.0
+IL_0b28: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0b2d: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Objects.SubObjectSystem/TypeHandle::__Game_Tools_EditorContainer_RO_ComponentLookup
+IL_0b32: ldarg.0
+IL_0b33: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0b38: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.EditorContainer>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b3d: stfld Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorContainerData
+IL_0b42: ldloca.s V_17
+IL_0b44: ldarg.0
+IL_0b45: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0b4a: ldflda Unity.Entities.ComponentLookup`1<Game.Companies.CompanyData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Companies_CompanyData_RO_ComponentLookup
+IL_0b4f: ldarg.0
+IL_0b50: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0b55: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Companies.CompanyData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b5a: stfld Unity.Entities.ComponentLookup`1<Game.Companies.CompanyData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CompanyData
+IL_0b5f: ldloca.s V_17
+IL_0b61: ldarg.0
+IL_0b62: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0b67: ldflda Unity.Entities.ComponentLookup`1<Game.Citizens.Citizen> Game.Objects.SubObjectSystem/TypeHandle::__Game_Citizens_Citizen_RO_ComponentLookup
+IL_0b6c: ldarg.0
+IL_0b6d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0b72: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Citizens.Citizen>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b77: stfld Unity.Entities.ComponentLookup`1<Game.Citizens.Citizen> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CitizenData
+IL_0b7c: ldloca.s V_17
+IL_0b7e: ldarg.0
+IL_0b7f: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0b84: ldflda Unity.Entities.ComponentLookup`1<Game.Citizens.Household> Game.Objects.SubObjectSystem/TypeHandle::__Game_Citizens_Household_RO_ComponentLookup
+IL_0b89: ldarg.0
+IL_0b8a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0b8f: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Citizens.Household>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b94: stfld Unity.Entities.ComponentLookup`1<Game.Citizens.Household> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_HouseholdData
+IL_0b99: ldloca.s V_17
+IL_0b9b: ldarg.0
+IL_0b9c: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0ba1: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.PropertyRenter> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_PropertyRenter_RO_ComponentLookup
+IL_0ba6: ldarg.0
+IL_0ba7: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0bac: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.PropertyRenter>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0bb1: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.PropertyRenter> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PropertyRenterData
+IL_0bb6: ldloca.s V_17
+IL_0bb8: ldarg.0
+IL_0bb9: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0bbe: ldflda Unity.Entities.ComponentLookup`1<Game.Citizens.HomelessHousehold> Game.Objects.SubObjectSystem/TypeHandle::__Game_Citizens_HomelessHousehold_RO_ComponentLookup
+IL_0bc3: ldarg.0
+IL_0bc4: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0bc9: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Citizens.HomelessHousehold>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0bce: stfld Unity.Entities.ComponentLookup`1<Game.Citizens.HomelessHousehold> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_HomelessHousehold
+IL_0bd3: ldloca.s V_17
+IL_0bd5: ldarg.0
+IL_0bd6: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0bdb: ldflda Unity.Entities.ComponentLookup`1<Game.Creatures.Human> Game.Objects.SubObjectSystem/TypeHandle::__Game_Creatures_Human_RO_ComponentLookup
+IL_0be0: ldarg.0
+IL_0be1: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0be6: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Creatures.Human>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0beb: stfld Unity.Entities.ComponentLookup`1<Game.Creatures.Human> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_HumanData
+IL_0bf0: ldloca.s V_17
+IL_0bf2: ldarg.0
+IL_0bf3: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0bf8: ldflda Unity.Entities.ComponentLookup`1<Game.Areas.Area> Game.Objects.SubObjectSystem/TypeHandle::__Game_Areas_Area_RO_ComponentLookup
+IL_0bfd: ldarg.0
+IL_0bfe: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c03: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Areas.Area>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c08: stfld Unity.Entities.ComponentLookup`1<Game.Areas.Area> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AreaData
+IL_0c0d: ldloca.s V_17
+IL_0c0f: ldarg.0
+IL_0c10: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0c15: ldflda Unity.Entities.ComponentLookup`1<Game.Areas.Geometry> Game.Objects.SubObjectSystem/TypeHandle::__Game_Areas_Geometry_RO_ComponentLookup
+IL_0c1a: ldarg.0
+IL_0c1b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c20: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Areas.Geometry>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c25: stfld Unity.Entities.ComponentLookup`1<Game.Areas.Geometry> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AreaGeometryData
+IL_0c2a: ldloca.s V_17
+IL_0c2c: ldarg.0
+IL_0c2d: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0c32: ldflda Unity.Entities.ComponentLookup`1<Game.Areas.Clear> Game.Objects.SubObjectSystem/TypeHandle::__Game_Areas_Clear_RO_ComponentLookup
+IL_0c37: ldarg.0
+IL_0c38: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c3d: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Areas.Clear>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c42: stfld Unity.Entities.ComponentLookup`1<Game.Areas.Clear> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AreaClearData
+IL_0c47: ldloca.s V_17
+IL_0c49: ldarg.0
+IL_0c4a: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0c4f: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.DeliveryTruck> Game.Objects.SubObjectSystem/TypeHandle::__Game_Vehicles_DeliveryTruck_RO_ComponentLookup
+IL_0c54: ldarg.0
+IL_0c55: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c5a: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Vehicles.DeliveryTruck>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c5f: stfld Unity.Entities.ComponentLookup`1<Game.Vehicles.DeliveryTruck> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DeliveryTruckData
+IL_0c64: ldloca.s V_17
+IL_0c66: ldarg.0
+IL_0c67: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0c6c: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Watercraft> Game.Objects.SubObjectSystem/TypeHandle::__Game_Vehicles_Watercraft_RO_ComponentLookup
+IL_0c71: ldarg.0
+IL_0c72: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c77: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Vehicles.Watercraft>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c7c: stfld Unity.Entities.ComponentLookup`1<Game.Vehicles.Watercraft> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_WatercraftData
+IL_0c81: ldloca.s V_17
+IL_0c83: ldarg.0
+IL_0c84: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0c89: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Deleted> Game.Objects.SubObjectSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentLookup
+IL_0c8e: ldarg.0
+IL_0c8f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c94: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Deleted>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c99: stfld Unity.Entities.ComponentLookup`1<Game.Common.Deleted> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_Deleteds
+IL_0c9e: ldloca.s V_17
+IL_0ca0: ldarg.0
+IL_0ca1: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0ca6: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.Renter> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_Renter_RO_BufferLookup
+IL_0cab: ldarg.0
+IL_0cac: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0cb1: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Buildings.Renter>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0cb6: stfld Unity.Entities.BufferLookup`1<Game.Buildings.Renter> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_BuildingRenters
+IL_0cbb: ldloca.s V_17
+IL_0cbd: ldarg.0
+IL_0cbe: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0cc3: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Objects.SubObjectSystem/TypeHandle::__Game_Buildings_InstalledUpgrade_RO_BufferLookup
+IL_0cc8: ldarg.0
+IL_0cc9: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0cce: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Buildings.InstalledUpgrade>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0cd3: stfld Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_InstalledUpgrades
+IL_0cd8: ldloca.s V_17
+IL_0cda: ldarg.0
+IL_0cdb: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0ce0: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_SubObject_RO_BufferLookup
+IL_0ce5: ldarg.0
+IL_0ce6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ceb: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Objects.SubObject>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0cf0: stfld Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_SubObjects
+IL_0cf5: ldloca.s V_17
+IL_0cf7: ldarg.0
+IL_0cf8: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0cfd: ldflda Unity.Entities.BufferLookup`1<Game.Objects.TransformFrame> Game.Objects.SubObjectSystem/TypeHandle::__Game_Objects_TransformFrame_RO_BufferLookup
+IL_0d02: ldarg.0
+IL_0d03: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0d08: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Objects.TransformFrame>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0d0d: stfld Unity.Entities.BufferLookup`1<Game.Objects.TransformFrame> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformFrames
+IL_0d12: ldloca.s V_17
+IL_0d14: ldarg.0
+IL_0d15: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0d1a: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubObject> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_SubObject_RO_BufferLookup
+IL_0d1f: ldarg.0
+IL_0d20: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0d25: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.SubObject>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0d2a: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.SubObject> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSubObjects
+IL_0d2f: ldloca.s V_17
+IL_0d31: ldarg.0
+IL_0d32: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0d37: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubLane> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_SubLane_RO_BufferLookup
+IL_0d3c: ldarg.0
+IL_0d3d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0d42: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.SubLane>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0d47: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.SubLane> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSubLanes
+IL_0d4c: ldloca.s V_17
+IL_0d4e: ldarg.0
+IL_0d4f: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0d54: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.PlaceholderObjectElement> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_PlaceholderObjectElement_RO_BufferLookup
+IL_0d59: ldarg.0
+IL_0d5a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0d5f: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.PlaceholderObjectElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0d64: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.PlaceholderObjectElement> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PlaceholderObjects
+IL_0d69: ldloca.s V_17
+IL_0d6b: ldarg.0
+IL_0d6c: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0d71: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.ObjectRequirementElement> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_ObjectRequirementElement_RO_BufferLookup
+IL_0d76: ldarg.0
+IL_0d77: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0d7c: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.ObjectRequirementElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0d81: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.ObjectRequirementElement> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ObjectRequirements
+IL_0d86: ldloca.s V_17
+IL_0d88: ldarg.0
+IL_0d89: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0d8e: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_Effect_RO_BufferLookup
+IL_0d93: ldarg.0
+IL_0d94: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0d99: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.Effect>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0d9e: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabEffects
+IL_0da3: ldloca.s V_17
+IL_0da5: ldarg.0
+IL_0da6: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0dab: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.ActivityLocationElement> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_ActivityLocationElement_RO_BufferLookup
+IL_0db0: ldarg.0
+IL_0db1: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0db6: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.ActivityLocationElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0dbb: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.ActivityLocationElement> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabActivityLocations
+IL_0dc0: ldloca.s V_17
+IL_0dc2: ldarg.0
+IL_0dc3: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0dc8: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.CompanyBrandElement> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_CompanyBrandElement_RO_BufferLookup
+IL_0dcd: ldarg.0
+IL_0dce: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0dd3: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.CompanyBrandElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0dd8: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.CompanyBrandElement> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CompanyBrands
+IL_0ddd: ldloca.s V_17
+IL_0ddf: ldarg.0
+IL_0de0: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0de5: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.AffiliatedBrandElement> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_AffiliatedBrandElement_RO_BufferLookup
+IL_0dea: ldarg.0
+IL_0deb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0df0: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.AffiliatedBrandElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0df5: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.AffiliatedBrandElement> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AffiliatedBrands
+IL_0dfa: ldloca.s V_17
+IL_0dfc: ldarg.0
+IL_0dfd: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0e02: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_SubMesh_RO_BufferLookup
+IL_0e07: ldarg.0
+IL_0e08: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0e0d: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.SubMesh>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0e12: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSubMeshes
+IL_0e17: ldloca.s V_17
+IL_0e19: ldarg.0
+IL_0e1a: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0e1f: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.ProceduralBone> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_ProceduralBone_RO_BufferLookup
+IL_0e24: ldarg.0
+IL_0e25: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0e2a: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.ProceduralBone>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0e2f: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.ProceduralBone> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabProceduralBones
+IL_0e34: ldloca.s V_17
+IL_0e36: ldarg.0
+IL_0e37: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0e3c: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.ServiceUpkeepData> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_ServiceUpkeepData_RO_BufferLookup
+IL_0e41: ldarg.0
+IL_0e42: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0e47: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.ServiceUpkeepData>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0e4c: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.ServiceUpkeepData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabServiceUpkeepDatas
+IL_0e51: ldloca.s V_17
+IL_0e53: ldarg.0
+IL_0e54: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0e59: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_SubMeshGroup_RO_BufferLookup
+IL_0e5e: ldarg.0
+IL_0e5f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0e64: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.SubMeshGroup>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0e69: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSubMeshGroups
+IL_0e6e: ldloca.s V_17
+IL_0e70: ldarg.0
+IL_0e71: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0e76: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.CharacterElement> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_CharacterElement_RO_BufferLookup
+IL_0e7b: ldarg.0
+IL_0e7c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0e81: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.CharacterElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0e86: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.CharacterElement> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabCharacterElements
+IL_0e8b: ldloca.s V_17
+IL_0e8d: ldarg.0
+IL_0e8e: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0e93: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationClip> Game.Objects.SubObjectSystem/TypeHandle::__Game_Prefabs_AnimationClip_RO_BufferLookup
+IL_0e98: ldarg.0
+IL_0e99: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0e9e: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.AnimationClip>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0ea3: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationClip> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabAnimationClips
+IL_0ea8: ldloca.s V_17
+IL_0eaa: ldarg.0
+IL_0eab: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0eb0: ldflda Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge> Game.Objects.SubObjectSystem/TypeHandle::__Game_Net_ConnectedEdge_RO_BufferLookup
+IL_0eb5: ldarg.0
+IL_0eb6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ebb: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Net.ConnectedEdge>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0ec0: stfld Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_Edges
+IL_0ec5: ldloca.s V_17
+IL_0ec7: ldarg.0
+IL_0ec8: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0ecd: ldflda Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Objects.SubObjectSystem/TypeHandle::__Game_Areas_Node_RO_BufferLookup
+IL_0ed2: ldarg.0
+IL_0ed3: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ed8: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Areas.Node>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0edd: stfld Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AreaNodes
+IL_0ee2: ldloca.s V_17
+IL_0ee4: ldarg.0
+IL_0ee5: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0eea: ldflda Unity.Entities.BufferLookup`1<Game.Areas.Triangle> Game.Objects.SubObjectSystem/TypeHandle::__Game_Areas_Triangle_RO_BufferLookup
+IL_0eef: ldarg.0
+IL_0ef0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ef5: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Areas.Triangle>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0efa: stfld Unity.Entities.BufferLookup`1<Game.Areas.Triangle> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AreaTriangles
+IL_0eff: ldloca.s V_17
+IL_0f01: ldarg.0
+IL_0f02: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0f07: ldflda Unity.Entities.BufferLookup`1<Game.Areas.SubArea> Game.Objects.SubObjectSystem/TypeHandle::__Game_Areas_SubArea_RO_BufferLookup
+IL_0f0c: ldarg.0
+IL_0f0d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f12: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Areas.SubArea>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f17: stfld Unity.Entities.BufferLookup`1<Game.Areas.SubArea> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_SubAreas
+IL_0f1c: ldloca.s V_17
+IL_0f1e: ldarg.0
+IL_0f1f: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0f24: ldflda Unity.Entities.BufferLookup`1<Game.Economy.Resources> Game.Objects.SubObjectSystem/TypeHandle::__Game_Economy_Resources_RO_BufferLookup
+IL_0f29: ldarg.0
+IL_0f2a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f2f: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Economy.Resources>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f34: stfld Unity.Entities.BufferLookup`1<Game.Economy.Resources> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_Resources
+IL_0f39: ldloca.s V_17
+IL_0f3b: ldarg.0
+IL_0f3c: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0f41: ldflda Unity.Entities.BufferLookup`1<Game.Citizens.HouseholdCitizen> Game.Objects.SubObjectSystem/TypeHandle::__Game_Citizens_HouseholdCitizen_RO_BufferLookup
+IL_0f46: ldarg.0
+IL_0f47: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f4c: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Citizens.HouseholdCitizen>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f51: stfld Unity.Entities.BufferLookup`1<Game.Citizens.HouseholdCitizen> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_HouseholdCitizens
+IL_0f56: ldloca.s V_17
+IL_0f58: ldarg.0
+IL_0f59: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0f5e: ldflda Unity.Entities.BufferLookup`1<Game.Citizens.HouseholdAnimal> Game.Objects.SubObjectSystem/TypeHandle::__Game_Citizens_HouseholdAnimal_RO_BufferLookup
+IL_0f63: ldarg.0
+IL_0f64: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f69: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Citizens.HouseholdAnimal>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f6e: stfld Unity.Entities.BufferLookup`1<Game.Citizens.HouseholdAnimal> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_HouseholdAnimals
+IL_0f73: ldloca.s V_17
+IL_0f75: ldarg.0
+IL_0f76: ldflda Game.Objects.SubObjectSystem/TypeHandle Game.Objects.SubObjectSystem::__TypeHandle
+IL_0f7b: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshGroup> Game.Objects.SubObjectSystem/TypeHandle::__Game_Rendering_MeshGroup_RO_BufferLookup
+IL_0f80: ldarg.0
+IL_0f81: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f86: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Rendering.MeshGroup>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f8b: stfld Unity.Entities.BufferLookup`1<Game.Rendering.MeshGroup> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_MeshGroups
+IL_0f90: ldloca.s V_17
+IL_0f92: ldarg.0
+IL_0f93: ldfld Game.Tools.ToolSystem Game.Objects.SubObjectSystem::m_ToolSystem
+IL_0f98: callvirt Game.GameMode Game.Tools.ToolSystem::get_actionMode()
+IL_0f9d: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_0fa2: stfld System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorMode
+IL_0fa7: ldloca.s V_17
+IL_0fa9: call Game.Common.RandomSeed Game.Common.RandomSeed::Next()
+IL_0fae: stfld Game.Common.RandomSeed Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_RandomSeed
+IL_0fb3: ldloca.s V_17
+IL_0fb5: ldarg.0
+IL_0fb6: ldfld Game.City.CityConfigurationSystem Game.Objects.SubObjectSystem::m_CityConfigurationSystem
+IL_0fbb: callvirt Unity.Entities.Entity Game.City.CityConfigurationSystem::get_defaultTheme()
+IL_0fc0: stfld Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DefaultTheme
+IL_0fc5: ldloca.s V_17
+IL_0fc7: ldloc.s V_7
+IL_0fc9: stfld Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformEditor
+IL_0fce: ldloca.s V_17
+IL_0fd0: ldarg.0
+IL_0fd1: ldflda Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_BuildingSettingsQuery
+IL_0fd6: call !!0 Unity.Entities.EntityQuery::GetSingleton<Game.Prefabs.BuildingConfigurationData>()
+IL_0fdb: stfld Game.Prefabs.BuildingConfigurationData Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_BuildingConfigurationData
+IL_0fe0: ldloca.s V_17
+IL_0fe2: ldarg.0
+IL_0fe3: ldflda Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_HappinessParameterQuery
+IL_0fe8: call !!0 Unity.Entities.EntityQuery::GetSingleton<Game.Prefabs.CitizenHappinessParameterData>()
+IL_0fed: stfld Game.Prefabs.CitizenHappinessParameterData Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_HappinessParameterData
+IL_0ff2: ldloca.s V_17
+IL_0ff4: ldarg.0
+IL_0ff5: ldfld Unity.Entities.ComponentTypeSet Game.Objects.SubObjectSystem::m_AppliedTypes
+IL_0ffa: stfld Unity.Entities.ComponentTypeSet Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AppliedTypes
+IL_0fff: ldloca.s V_17
+IL_1001: ldloca.s V_1
+IL_1003: call Unity.Collections.NativeArray`1<!0> Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/SubObjectOwnerData>::AsDeferredJobArray()
+IL_1008: stfld Unity.Collections.NativeArray`1<Game.Objects.SubObjectSystem/SubObjectOwnerData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OwnerList
+IL_100d: ldloca.s V_17
+IL_100f: ldloc.2
+IL_1010: stfld Unity.Collections.NativeParallelHashSet`1<Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_IgnoreSet
+IL_1015: ldloca.s V_17
+IL_1017: ldloc.3
+IL_1018: stfld Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,Game.Objects.SubObjectSystem/SubObjectOwnerData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OwnerMap
+IL_101d: ldloca.s V_17
+IL_101f: ldarg.0
+IL_1020: ldfld Game.Simulation.TerrainSystem Game.Objects.SubObjectSystem::m_TerrainSystem
+IL_1025: ldc.i4.0
+IL_1026: callvirt Game.Simulation.TerrainHeightData Game.Simulation.TerrainSystem::GetHeightData(System.Boolean)
+IL_102b: stfld Game.Simulation.TerrainHeightData Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TerrainHeightData
+IL_1030: ldloca.s V_17
+IL_1032: ldarg.0
+IL_1033: ldfld Game.Simulation.WaterSystem Game.Objects.SubObjectSystem::m_WaterSystem
+IL_1038: ldloca.s V_8
+IL_103a: callvirt Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater> Game.Simulation.WaterSystem::GetSurfaceData(Unity.Jobs.JobHandle&)
+IL_103f: stfld Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_WaterSurfaceData
+IL_1044: ldloca.s V_17
+IL_1046: ldarg.0
+IL_1047: ldflda Unity.Collections.NativeQueue`1<Unity.Entities.Entity> Game.Objects.SubObjectSystem::m_LoopErrorPrefabs
+IL_104c: call Unity.Collections.NativeQueue`1/ParallelWriter<!0> Unity.Collections.NativeQueue`1<Unity.Entities.Entity>::AsParallelWriter()
+IL_1051: stfld Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_LoopErrorPrefabs
+IL_1056: ldloca.s V_17
+IL_1058: ldarg.0
+IL_1059: ldfld Game.Common.ModificationBarrier2B Game.Objects.SubObjectSystem::m_ModificationBarrier
+IL_105e: callvirt Unity.Entities.EntityCommandBuffer Game.SafeCommandBufferSystem::CreateCommandBuffer()
+IL_1063: stloc.s V_14
+IL_1065: ldloca.s V_14
+IL_1067: call Unity.Entities.EntityCommandBuffer/ParallelWriter Unity.Entities.EntityCommandBuffer::AsParallelWriter()
+IL_106c: stfld Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_1071: ldloc.s V_17
+IL_1073: ldloc.s V_4
+IL_1075: ldarg.0
+IL_1076: ldfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_UpdateQuery
+IL_107b: ldarg.0
+IL_107c: call Unity.Jobs.JobHandle Unity.Entities.SystemBase::get_Dependency()
+IL_1081: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Objects.SubObjectSystem/CheckSubObjectOwnersJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_1086: stloc.s V_9
+IL_1088: ldloc.s V_5
+IL_108a: ldloc.s V_9
+IL_108c: call Unity.Jobs.JobHandle Unity.Jobs.IJobExtensions::Schedule<Game.Objects.SubObjectSystem/CollectSubObjectOwnersJob>(!!0,Unity.Jobs.JobHandle)
+IL_1091: stloc.s V_10
+IL_1093: ldloc.s V_6
+IL_1095: ldarg.0
+IL_1096: ldfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_TempQuery
+IL_109b: ldarg.0
+IL_109c: call Unity.Jobs.JobHandle Unity.Entities.SystemBase::get_Dependency()
+IL_10a1: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::Schedule<Game.Objects.SubObjectSystem/FillIgnoreSetJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_10a6: stloc.s V_11
+IL_10a8: ldloc.1
+IL_10a9: ldc.i4.1
+IL_10aa: ldloc.s V_10
+IL_10ac: ldloc.s V_11
+IL_10ae: ldloc.s V_8
+IL_10b0: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_10b5: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForDeferExtensions::Schedule<Game.Objects.SubObjectSystem/UpdateSubObjectsJob,Game.Objects.SubObjectSystem/SubObjectOwnerData>(!!0,Unity.Collections.NativeList`1<!!1>,System.Int32,Unity.Jobs.JobHandle)
+IL_10ba: stloc.s V_12
+IL_10bc: ldloca.s V_0
+IL_10be: ldloc.s V_10
+IL_10c0: call Unity.Jobs.JobHandle Unity.Collections.NativeQueue`1<Game.Objects.SubObjectSystem/SubObjectOwnerData>::Dispose(Unity.Jobs.JobHandle)
+IL_10c5: pop
+IL_10c6: ldloca.s V_1
+IL_10c8: ldloc.s V_12
+IL_10ca: call Unity.Jobs.JobHandle Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/SubObjectOwnerData>::Dispose(Unity.Jobs.JobHandle)
+IL_10cf: pop
+IL_10d0: ldloca.s V_2
+IL_10d2: ldloc.s V_12
+IL_10d4: call Unity.Jobs.JobHandle Unity.Collections.NativeParallelHashSet`1<Unity.Entities.Entity>::Dispose(Unity.Jobs.JobHandle)
+IL_10d9: pop
+IL_10da: ldloca.s V_3
+IL_10dc: ldloc.s V_12
+IL_10de: call Unity.Jobs.JobHandle Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,Game.Objects.SubObjectSystem/SubObjectOwnerData>::Dispose(Unity.Jobs.JobHandle)
+IL_10e3: pop
+IL_10e4: ldarg.0
+IL_10e5: ldfld Game.Simulation.TerrainSystem Game.Objects.SubObjectSystem::m_TerrainSystem
+IL_10ea: ldloc.s V_12
+IL_10ec: callvirt System.Void Game.Simulation.TerrainSystem::AddCPUHeightReader(Unity.Jobs.JobHandle)
+IL_10f1: ldarg.0
+IL_10f2: ldfld Game.Simulation.WaterSystem Game.Objects.SubObjectSystem::m_WaterSystem
+IL_10f7: ldloc.s V_12
+IL_10f9: callvirt System.Void Game.Simulation.WaterSystem::AddSurfaceReader(Unity.Jobs.JobHandle)
+IL_10fe: ldarg.0
+IL_10ff: ldfld Game.Common.ModificationBarrier2B Game.Objects.SubObjectSystem::m_ModificationBarrier
+IL_1104: ldloc.s V_12
+IL_1106: callvirt System.Void Unity.Entities.EntityCommandBufferSystem::AddJobHandleForProducer(Unity.Jobs.JobHandle)
+IL_110b: ldarg.0
+IL_110c: ldloc.s V_12
+IL_110e: call System.Void Unity.Entities.SystemBase::set_Dependency(Unity.Jobs.JobHandle)
+IL_1113: ret
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureOldEntities(Unity.Collections.Allocator) IL_0006: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureOriginalEntities(Unity.Collections.Allocator) IL_0006: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsurePlaceholderRequirements(Unity.Collections.Allocator) IL_0006: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,Unity.Mathematics.int2>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureSelectedSpawnables(Unity.Collections.Allocator) IL_0006: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureObjectBuffer(Unity.Collections.Allocator) IL_0006: call System.Boolean Unity.Collections.NativeList`1<Game.Areas.AreaUtils/ObjectItem>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureDeepOwners(Unity.Collections.Allocator) IL_0006: call System.Boolean Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/DeepSubObjectOwnerData>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Clear(System.Boolean) IL_0006: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Clear(System.Boolean) IL_001e: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Clear(System.Boolean) IL_0039: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,Unity.Mathematics.int2>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Clear(System.Boolean) IL_0054: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Clear(System.Boolean) IL_006c: call System.Boolean Unity.Collections.NativeList`1<Game.Areas.AreaUtils/ObjectItem>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Clear(System.Boolean) IL_0087: call System.Boolean Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/DeepSubObjectOwnerData>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Clear(System.Boolean) IL_009f: call System.Boolean Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Dispose() IL_0006: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Dispose() IL_001e: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Dispose() IL_0036: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,Unity.Mathematics.int2>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Dispose() IL_004e: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Dispose() IL_0066: call System.Boolean Unity.Collections.NativeList`1<Game.Areas.AreaUtils/ObjectItem>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Dispose() IL_007e: call System.Boolean Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/DeepSubObjectOwnerData>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::Dispose() IL_0096: call System.Boolean Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_01ed: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0227: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0333: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FillOldSubObjectsBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0376: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FillOriginalSubObjectsBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_037d: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0436: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::DuplicateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_04e4: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_054e: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0622: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_06af: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RelocateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Areas.Area,Game.Areas.Geometry,Unity.Entities.DynamicBuffer`1<Game.Areas.Node>,Unity.Entities.DynamicBuffer`1<Game.Areas.Triangle>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_06b6: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_08b9: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RemoveUnusedOldSubObjects(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_08c5: call System.Boolean Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/DeepSubObjectOwnerData>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_092a: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FillOldSubObjectsBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0a5f: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FillOriginalSubObjectsBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0abc: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::DuplicateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0b2d: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32) IL_0b7c: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RemoveUnusedOldSubObjects(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RemoveUnusedOldSubObjects(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean) IL_0179: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::DuplicateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_0270: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::DuplicateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_02b1: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RelocateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Areas.Area,Game.Areas.Geometry,Unity.Entities.DynamicBuffer`1<Game.Areas.Node>,Unity.Entities.DynamicBuffer`1<Game.Areas.Triangle>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single) IL_02a9: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RelocateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Areas.Area,Game.Areas.Geometry,Unity.Entities.DynamicBuffer`1<Game.Areas.Node>,Unity.Entities.DynamicBuffer`1<Game.Areas.Triangle>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single) IL_0344: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RelocateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Areas.Area,Game.Areas.Geometry,Unity.Entities.DynamicBuffer`1<Game.Areas.Node>,Unity.Entities.DynamicBuffer`1<Game.Areas.Triangle>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single) IL_06fb: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_00c9: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_0173: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_020c: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_0756: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_07d8: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_091f: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_0997: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_0b60: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32) IL_0dd0: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0091: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0120: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0898: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::get_IsCreated()
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0ad7: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0b18: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0b5b: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0bcf: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0c42: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_03d6: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_04fa: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0c11: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32,Unity.Entities.EntityArchetype)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32) IL_0cc8: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32) IL_0037: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32) IL_00c0: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32) IL_022e: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32,Unity.Entities.EntityArchetype)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32) IL_02bc: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.SubObjectSystem/UpdateSubObjectsData&) IL_0006: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&) IL_000d: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&) IL_000d: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()

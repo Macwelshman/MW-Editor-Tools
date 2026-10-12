@@ -1,0 +1,4 @@
+VERIFIED-STATIC: compiled diagnostic targets declared virtual override System.Boolean Game.Tools.BulldozeToolSystem::GetAllowApply()
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+MW.EditorTools, Version=0.4.11.0, Culture=neutral, PublicKeyToken=null MVID e38d25f1-d5f0-4432-9d69-a4b5ec27543d
+PASS: compiled hook target matches native dispatch. Runtime timing pending.

@@ -1,0 +1,533 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.UI.Editor.EditorPanelUISystem BASE Game.UI.UISystemBase
+PROPERTY Game.GameMode Game.UI.Editor.EditorPanelUISystem::gameMode()
+PROPERTY Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorPanelUISystem::activePanel()
+PROPERTY Game.UI.Editor.EditorPanelWidgetRenderer Game.UI.Editor.EditorPanelUISystem::widgetRenderer()
+METHOD System.Void Game.UI.Editor.EditorPanelUISystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.UISystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: ldstr "editorPanel"
+IL_000d: ldstr "active"
+IL_0012: ldc.i4.0
+IL_0013: ldnull
+IL_0014: ldnull
+IL_0015: newobj System.Void Colossal.UI.Binding.ValueBinding`1<System.Boolean>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_001a: dup
+IL_001b: stloc.0
+IL_001c: stfld Colossal.UI.Binding.ValueBinding`1<System.Boolean> Game.UI.Editor.EditorPanelUISystem::m_ActiveBinding
+IL_0021: ldloc.0
+IL_0022: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0027: ldarg.0
+IL_0028: ldarg.0
+IL_0029: ldstr "editorPanel"
+IL_002e: ldstr "title"
+IL_0033: ldloca.s V_1
+IL_0035: initobj System.Nullable`1<Game.UI.Localization.LocalizedString>
+IL_003b: ldloc.1
+IL_003c: newobj System.Void Colossal.UI.Binding.ValueWriter`1<Game.UI.Localization.LocalizedString>::.ctor()
+IL_0041: call Colossal.UI.Binding.NullableStructWriter`1<!!0> Colossal.UI.Binding.ValueWritersStruct::Nullable<Game.UI.Localization.LocalizedString>(Colossal.UI.Binding.IWriter`1<!!0>)
+IL_0046: ldnull
+IL_0047: newobj System.Void Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_004c: dup
+IL_004d: stloc.2
+IL_004e: stfld Colossal.UI.Binding.ValueBinding`1<System.Nullable`1<Game.UI.Localization.LocalizedString>> Game.UI.Editor.EditorPanelUISystem::m_TitleBinding
+IL_0053: ldloc.2
+IL_0054: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0059: ldarg.0
+IL_005a: ldarg.0
+IL_005b: ldstr "editorPanel"
+IL_0060: ldstr "uiTag"
+IL_0065: ldsfld System.String System.String::Empty
+IL_006a: newobj System.Void Colossal.UI.Binding.StringWriter::.ctor()
+IL_006f: call Colossal.UI.Binding.NullableWriter`1<!!0> Colossal.UI.Binding.ValueWriters::Nullable<System.String>(Colossal.UI.Binding.IWriter`1<!!0>)
+IL_0074: ldnull
+IL_0075: newobj System.Void Colossal.UI.Binding.ValueBinding`1<System.String>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_007a: dup
+IL_007b: stloc.3
+IL_007c: stfld Colossal.UI.Binding.ValueBinding`1<System.String> Game.UI.Editor.EditorPanelUISystem::m_UiTagBinding
+IL_0081: ldloc.3
+IL_0082: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0087: ldarg.0
+IL_0088: ldstr "editorPanel"
+IL_008d: ldstr "width"
+IL_0092: ldarg.0
+IL_0093: ldftn System.Int32 Game.UI.Editor.EditorPanelUISystem::GetWidth()
+IL_0099: newobj System.Void System.Func`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_009e: ldnull
+IL_009f: ldnull
+IL_00a0: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.Int32>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00a5: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00aa: ldarg.0
+IL_00ab: ldstr "editorPanel"
+IL_00b0: ldstr "advisorHeight"
+IL_00b5: ldarg.0
+IL_00b6: ldftn System.Int32 Game.UI.Editor.EditorPanelUISystem::GetAdvisorHeight()
+IL_00bc: newobj System.Void System.Func`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_00c1: ldnull
+IL_00c2: ldnull
+IL_00c3: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.Int32>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00c8: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00cd: ldarg.0
+IL_00ce: ldstr "editorPanel"
+IL_00d3: ldstr "widgetRenderer"
+IL_00d8: ldarg.0
+IL_00d9: ldftn System.Int32 Game.UI.Editor.EditorPanelUISystem::<OnCreate>b__13_0()
+IL_00df: newobj System.Void System.Func`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_00e4: ldnull
+IL_00e5: ldnull
+IL_00e6: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.Int32>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00eb: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00f0: ldarg.0
+IL_00f1: ldstr "editorPanel"
+IL_00f6: ldstr "bulkSectionCommand"
+IL_00fb: ldarg.0
+IL_00fc: ldftn System.Int32 Game.UI.Editor.EditorPanelUISystem::GetBulkSectionCommand()
+IL_0102: newobj System.Void System.Func`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_0107: ldnull
+IL_0108: ldnull
+IL_0109: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.Int32>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_010e: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_0113: ldarg.0
+IL_0114: ldarg.0
+IL_0115: ldstr "editorPanel"
+IL_011a: ldstr "children"
+IL_011f: newobj System.Void Game.UI.Widgets.WidgetBindings::.ctor(System.String,System.String)
+IL_0124: dup
+IL_0125: stloc.s V_4
+IL_0127: stfld Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+IL_012c: ldloc.s V_4
+IL_012e: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_0133: ldarg.0
+IL_0134: ldfld Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+IL_0139: call System.Void Game.UI.Editor.EditorPanelUISystem::AddEditorWidgetBindings(Game.UI.Widgets.WidgetBindings)
+IL_013e: ldarg.0
+IL_013f: ldfld Game.UI.Widgets.WidgetBindings Game.UI.Editor.EditorPanelUISystem::m_WidgetBindings
+IL_0144: ldarg.0
+IL_0145: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_014b: newobj System.Void Game.UI.Widgets.ValueChangedCallback::.ctor(System.Object,System.IntPtr)
+IL_0150: callvirt System.Void Game.UI.Widgets.WidgetBindings::add_EventValueChanged(Game.UI.Widgets.ValueChangedCallback)
+IL_0155: ldarg.0
+IL_0156: ldstr "editorPanel"
+IL_015b: ldstr "cancel"
+IL_0160: ldarg.0
+IL_0161: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::Cancel()
+IL_0167: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_016c: newobj System.Void Colossal.UI.Binding.TriggerBinding::.ctor(System.String,System.String,System.Action)
+IL_0171: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0176: ldarg.0
+IL_0177: ldstr "editorPanel"
+IL_017c: ldstr "close"
+IL_0181: ldarg.0
+IL_0182: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::Close()
+IL_0188: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_018d: newobj System.Void Colossal.UI.Binding.TriggerBinding::.ctor(System.String,System.String,System.Action)
+IL_0192: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0197: ldarg.0
+IL_0198: ldstr "editorPanel"
+IL_019d: ldstr "setWidth"
+IL_01a2: ldarg.0
+IL_01a3: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::SetWidth(System.Int32)
+IL_01a9: newobj System.Void System.Action`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_01ae: ldnull
+IL_01af: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<System.Int32>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)
+IL_01b4: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_01b9: ldarg.0
+IL_01ba: ldstr "editorPanel"
+IL_01bf: ldstr "setAdvisorHeight"
+IL_01c4: ldarg.0
+IL_01c5: ldftn System.Void Game.UI.Editor.EditorPanelUISystem::SetAdvisorHeight(System.Int32)
+IL_01cb: newobj System.Void System.Action`1<System.Int32>::.ctor(System.Object,System.IntPtr)
+IL_01d0: ldnull
+IL_01d1: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<System.Int32>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)
+IL_01d6: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_01db: ret
+TYPE Game.UI.Editor.EditorToolUISystem BASE Game.UI.UISystemBase
+PROPERTY Game.GameMode Game.UI.Editor.EditorToolUISystem::gameMode()
+PROPERTY Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::tools()
+PROPERTY Game.UI.Editor.IEditorTool Game.UI.Editor.EditorToolUISystem::activeTool()
+METHOD System.Void Game.UI.Editor.EditorToolUISystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.UISystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0012: stfld Game.Tools.ToolSystem Game.UI.Editor.EditorToolUISystem::m_ToolSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorPanelUISystem>()
+IL_0023: stfld Game.UI.Editor.EditorPanelUISystem Game.UI.Editor.EditorToolUISystem::m_EditorPanelUISystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.InspectorPanelSystem>()
+IL_0034: stfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.EditorToolUISystem::m_InspectorPanelSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0040: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_0045: stfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorToolUISystem::m_PrefabSystem
+IL_004a: ldarg.0
+IL_004b: ldc.i4.4
+IL_004c: newarr Game.UI.Editor.IEditorTool
+IL_0051: dup
+IL_0052: ldc.i4.0
+IL_0053: ldarg.0
+IL_0054: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0059: newobj System.Void Game.UI.Editor.EditorAssetImportTool::.ctor(Unity.Entities.World)
+IL_005e: stelem.ref
+IL_005f: dup
+IL_0060: ldc.i4.1
+IL_0061: ldarg.0
+IL_0062: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0067: newobj System.Void Game.UI.Editor.EditorPrefabTool::.ctor(Unity.Entities.World)
+IL_006c: stelem.ref
+IL_006d: dup
+IL_006e: ldc.i4.2
+IL_006f: ldarg.0
+IL_0070: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0075: newobj System.Void Game.UI.Editor.EditorPhotoTool::.ctor(Unity.Entities.World)
+IL_007a: stelem.ref
+IL_007b: dup
+IL_007c: ldc.i4.3
+IL_007d: ldarg.0
+IL_007e: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0083: newobj System.Void Game.UI.Editor.EditorBulldozeTool::.ctor(Unity.Entities.World)
+IL_0088: stelem.ref
+IL_0089: call System.Void Game.UI.Editor.EditorToolUISystem::set_tools(Game.UI.Editor.IEditorTool[])
+IL_008e: ldarg.0
+IL_008f: ldarg.0
+IL_0090: ldstr "editorTool"
+IL_0095: ldstr "tools"
+IL_009a: ldarg.0
+IL_009b: ldftn Game.UI.Editor.IEditorTool[] Game.UI.Editor.EditorToolUISystem::<OnCreate>b__18_0()
+IL_00a1: newobj System.Void System.Func`1<Game.UI.Editor.IEditorTool[]>::.ctor(System.Object,System.IntPtr)
+IL_00a6: newobj System.Void Colossal.UI.Binding.ValueWriter`1<Game.UI.Editor.IEditorTool>::.ctor()
+IL_00ab: ldc.i4.0
+IL_00ac: newobj System.Void Colossal.UI.Binding.ArrayWriter`1<Game.UI.Editor.IEditorTool>::.ctor(Colossal.UI.Binding.IWriter`1<!0>,System.Boolean)
+IL_00b1: ldnull
+IL_00b2: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<Game.UI.Editor.IEditorTool[]>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00b7: dup
+IL_00b8: stloc.0
+IL_00b9: stfld Colossal.UI.Binding.GetterValueBinding`1<Game.UI.Editor.IEditorTool[]> Game.UI.Editor.EditorToolUISystem::m_ToolsBinding
+IL_00be: ldloc.0
+IL_00bf: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00c4: ldarg.0
+IL_00c5: ldstr "editorTool"
+IL_00ca: ldstr "activeTool"
+IL_00cf: ldarg.0
+IL_00d0: ldftn System.String Game.UI.Editor.EditorToolUISystem::<OnCreate>b__18_1()
+IL_00d6: newobj System.Void System.Func`1<System.String>::.ctor(System.Object,System.IntPtr)
+IL_00db: newobj System.Void Colossal.UI.Binding.StringWriter::.ctor()
+IL_00e0: call Colossal.UI.Binding.NullableWriter`1<!!0> Colossal.UI.Binding.ValueWriters::Nullable<System.String>(Colossal.UI.Binding.IWriter`1<!!0>)
+IL_00e5: ldnull
+IL_00e6: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<System.String>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)
+IL_00eb: call System.Void Game.UI.UISystemBase::AddUpdateBinding(Colossal.UI.Binding.IUpdateBinding)
+IL_00f0: ldarg.0
+IL_00f1: ldstr "editorTool"
+IL_00f6: ldstr "selectTool"
+IL_00fb: ldarg.0
+IL_00fc: ldftn System.Void Game.UI.Editor.EditorToolUISystem::SelectTool(System.String)
+IL_0102: newobj System.Void System.Action`1<System.String>::.ctor(System.Object,System.IntPtr)
+IL_0107: ldnull
+IL_0108: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<System.String>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)
+IL_010d: call System.Void Game.UI.UISystemBase::AddBinding(Colossal.UI.Binding.IBinding)
+IL_0112: ret
+TYPE Game.UI.Editor.BulldozeToolPanel BASE Game.UI.Editor.EditorPanelSystemBase
+METHOD System.Void Game.UI.Editor.BulldozeToolPanel::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: call !!0[] System.Array::Empty<Game.UI.Widgets.IWidget>()
+IL_000c: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0011: ldarg.0
+IL_0012: ldstr "Editor.TOOL[BulldozeTool]"
+IL_0017: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::op_Implicit(System.String)
+IL_001c: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_title(Game.UI.Localization.LocalizedString)
+IL_0021: ldarg.0
+IL_0022: ldstr "UITagPrefab:BulldozeToolPanel"
+IL_0027: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_uiTag(System.String)
+IL_002c: ret
+TYPE Game.UI.Editor.PrefabToolPanelSystem BASE Game.UI.Editor.EditorPanelSystemBase
+METHOD System.Void Game.UI.Editor.PrefabToolPanelSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: call Colossal.PSI.Common.PlatformManager Colossal.PSI.Common.PlatformManager::get_instance()
+IL_000c: ldstr "PdxSdk"
+IL_0011: callvirt !!0 Colossal.PSI.Common.PlatformManager::GetPSI<Colossal.PSI.PdxSdk.PdxSdkPlatform>(System.String)
+IL_0016: stfld Colossal.PSI.PdxSdk.PdxSdkPlatform Game.UI.Editor.PrefabToolPanelSystem::m_Platform
+IL_001b: call Colossal.PSI.Common.PlatformManager Colossal.PSI.Common.PlatformManager::get_instance()
+IL_0020: ldarg.0
+IL_0021: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::<OnCreate>b__14_0(Colossal.PSI.Common.IPlatformServiceIntegration)
+IL_0027: newobj System.Void Colossal.PSI.Common.PlatformRegisteredHandler::.ctor(System.Object,System.IntPtr)
+IL_002c: callvirt System.Void Colossal.PSI.Common.PlatformManager::add_onPlatformRegistered(Colossal.PSI.Common.PlatformRegisteredHandler)
+IL_0031: ldarg.0
+IL_0032: ldstr "UITagPrefab:PrefabToolPanel"
+IL_0037: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_uiTag(System.String)
+IL_003c: ldarg.0
+IL_003d: ldarg.0
+IL_003e: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0043: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_0048: stfld Game.Prefabs.PrefabSystem Game.UI.Editor.PrefabToolPanelSystem::m_PrefabSystem
+IL_004d: ldarg.0
+IL_004e: ldarg.0
+IL_004f: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0054: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0059: stfld Game.Tools.ToolSystem Game.UI.Editor.PrefabToolPanelSystem::m_ToolSystem
+IL_005e: ldarg.0
+IL_005f: ldarg.0
+IL_0060: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0065: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorAssetCategorySystem>()
+IL_006a: stfld Game.UI.Editor.EditorAssetCategorySystem Game.UI.Editor.PrefabToolPanelSystem::m_CategorySystem
+IL_006f: ldarg.0
+IL_0070: ldarg.0
+IL_0071: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0076: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.EditorHierarchyUISystem>()
+IL_007b: stfld Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.PrefabToolPanelSystem::m_Workspace
+IL_0080: ldarg.0
+IL_0081: ldarg.0
+IL_0082: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0087: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.Editor.InspectorPanelSystem>()
+IL_008c: stfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.PrefabToolPanelSystem::m_Inspector
+IL_0091: ldarg.0
+IL_0092: ldarg.0
+IL_0093: ldc.i4.1
+IL_0094: newarr Unity.Entities.EntityQueryDesc
+IL_0099: dup
+IL_009a: ldc.i4.0
+IL_009b: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00a0: stloc.1
+IL_00a1: ldloc.1
+IL_00a2: ldc.i4.1
+IL_00a3: newarr Unity.Entities.ComponentType
+IL_00a8: dup
+IL_00a9: ldc.i4.0
+IL_00aa: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.PrefabData>()
+IL_00af: stelem.any Unity.Entities.ComponentType
+IL_00b4: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00b9: ldloc.1
+IL_00ba: ldc.i4.3
+IL_00bb: newarr Unity.Entities.ComponentType
+IL_00c0: dup
+IL_00c1: ldc.i4.0
+IL_00c2: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Created>()
+IL_00c7: stelem.any Unity.Entities.ComponentType
+IL_00cc: dup
+IL_00cd: ldc.i4.1
+IL_00ce: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_00d3: stelem.any Unity.Entities.ComponentType
+IL_00d8: dup
+IL_00d9: ldc.i4.2
+IL_00da: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_00df: stelem.any Unity.Entities.ComponentType
+IL_00e4: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00e9: ldloc.1
+IL_00ea: stelem.ref
+IL_00eb: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00f0: stfld Unity.Entities.EntityQuery Game.UI.Editor.PrefabToolPanelSystem::m_ModifiedPrefabQuery
+IL_00f5: ldarg.0
+IL_00f6: newobj System.Void Game.UI.Editor.PrefabPickerAdapter::.ctor()
+IL_00fb: stfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0100: ldarg.0
+IL_0101: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0106: dup
+IL_0107: ldfld System.Action`1<Game.Prefabs.PrefabBase> Game.UI.Editor.PrefabPickerAdapter::EventPrefabSelected
+IL_010c: ldarg.0
+IL_010d: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::OnPrefabSelected(Game.Prefabs.PrefabBase)
+IL_0113: newobj System.Void System.Action`1<Game.Prefabs.PrefabBase>::.ctor(System.Object,System.IntPtr)
+IL_0118: call System.Delegate System.Delegate::Combine(System.Delegate,System.Delegate)
+IL_011d: castclass System.Action`1<Game.Prefabs.PrefabBase>
+IL_0122: stfld System.Action`1<Game.Prefabs.PrefabBase> Game.UI.Editor.PrefabPickerAdapter::EventPrefabSelected
+IL_0127: ldarg.0
+IL_0128: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_012d: ldarg.0
+IL_012e: ldftn Game.UI.Editor.IContextualActionMenu Game.UI.Editor.PrefabToolPanelSystem::GetContextActions(Game.Prefabs.PrefabBase)
+IL_0134: newobj System.Void System.Func`2<Game.Prefabs.PrefabBase,Game.UI.Editor.IContextualActionMenu>::.ctor(System.Object,System.IntPtr)
+IL_0139: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::set_ContextMenuBuilder(System.Func`2<Game.Prefabs.PrefabBase,Game.UI.Editor.IContextualActionMenu>)
+IL_013e: ldarg.0
+IL_013f: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_0144: ldarg.0
+IL_0145: ldftn Game.UI.Localization.LocalizedString Game.UI.Editor.PrefabToolPanelSystem::GetTooltip(Game.Prefabs.PrefabBase,System.Type)
+IL_014b: newobj System.Void System.Func`3<Game.Prefabs.PrefabBase,System.Type,Game.UI.Localization.LocalizedString>::.ctor(System.Object,System.IntPtr)
+IL_0150: callvirt System.Void Game.UI.Editor.PrefabPickerAdapter::set_TooltipBuilder(System.Func`3<Game.Prefabs.PrefabBase,System.Type,Game.UI.Localization.LocalizedString>)
+IL_0155: ldarg.0
+IL_0156: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_015b: dup
+IL_015c: ldfld System.Action`2<Game.Prefabs.PrefabBase,System.UInt64> Game.UI.Editor.PrefabPickerAdapter::EventContextMenuAction
+IL_0161: ldarg.0
+IL_0162: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::OnContextMenuAction(Game.Prefabs.PrefabBase,System.UInt64)
+IL_0168: newobj System.Void System.Action`2<Game.Prefabs.PrefabBase,System.UInt64>::.ctor(System.Object,System.IntPtr)
+IL_016d: call System.Delegate System.Delegate::Combine(System.Delegate,System.Delegate)
+IL_0172: castclass System.Action`2<Game.Prefabs.PrefabBase,System.UInt64>
+IL_0177: stfld System.Action`2<Game.Prefabs.PrefabBase,System.UInt64> Game.UI.Editor.PrefabPickerAdapter::EventContextMenuAction
+IL_017c: newobj System.Void Game.UI.Widgets.Column::.ctor()
+IL_0181: stloc.2
+IL_0182: ldloc.2
+IL_0183: ldc.i4.0
+IL_0184: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_padding(System.Boolean)
+IL_0189: ldloc.2
+IL_018a: call Game.UI.Widgets.FlexLayout Game.UI.Widgets.FlexLayout::get_Fill()
+IL_018f: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_flex(Game.UI.Widgets.FlexLayout)
+IL_0194: ldloc.2
+IL_0195: ldc.i4.5
+IL_0196: newarr Game.UI.Widgets.IWidget
+IL_019b: dup
+IL_019c: ldc.i4.0
+IL_019d: newobj System.Void Game.UI.Editor.PopupSearchField::.ctor()
+IL_01a2: dup
+IL_01a3: ldarg.0
+IL_01a4: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_01a9: callvirt System.Void Game.UI.Editor.PopupSearchField::set_adapter(Game.UI.Editor.PopupSearchField/IAdapter)
+IL_01ae: dup
+IL_01af: ldstr "UITagPrefab:SearchText"
+IL_01b4: callvirt System.Void Game.UI.Editor.PopupSearchField::set_uiTag(System.String)
+IL_01b9: stelem.ref
+IL_01ba: dup
+IL_01bb: ldc.i4.1
+IL_01bc: newobj System.Void Game.UI.Editor.FilterMenu::.ctor()
+IL_01c1: dup
+IL_01c2: ldarg.0
+IL_01c3: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_01c8: callvirt System.Void Game.UI.Editor.FilterMenu::set_adapter(Game.UI.Editor.FilterMenu/IAdapter)
+IL_01cd: stelem.ref
+IL_01ce: dup
+IL_01cf: ldc.i4.2
+IL_01d0: newobj System.Void Game.UI.Widgets.Row::.ctor()
+IL_01d5: stloc.3
+IL_01d6: ldloc.3
+IL_01d7: ldc.r4 1
+IL_01dc: ldc.r4 1
+IL_01e1: ldc.r4 -1
+IL_01e6: newobj System.Void Game.UI.Widgets.FlexLayout::.ctor(System.Single,System.Single,System.Single)
+IL_01eb: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_flex(Game.UI.Widgets.FlexLayout)
+IL_01f0: ldloc.3
+IL_01f1: ldc.i4.0
+IL_01f2: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_padding(System.Boolean)
+IL_01f7: ldloc.3
+IL_01f8: ldc.i4.2
+IL_01f9: newarr Game.UI.Widgets.IWidget
+IL_01fe: dup
+IL_01ff: ldc.i4.0
+IL_0200: ldarg.0
+IL_0201: newobj System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::.ctor()
+IL_0206: dup
+IL_0207: ldc.i4.0
+IL_0208: callvirt System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::set_selectionType(Game.UI.Editor.HierarchyMenu/SelectionType)
+IL_020d: dup
+IL_020e: ldarg.0
+IL_020f: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::UpdatePrefabs()
+IL_0215: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_021a: callvirt System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::set_onSelectionChange(System.Action)
+IL_021f: dup
+IL_0220: ldc.r4 1
+IL_0225: ldc.r4 0
+IL_022a: ldc.r4 0
+IL_022f: newobj System.Void Game.UI.Widgets.FlexLayout::.ctor(System.Single,System.Single,System.Single)
+IL_0234: callvirt System.Void Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory>::set_flex(Game.UI.Widgets.FlexLayout)
+IL_0239: dup
+IL_023a: ldstr "PrefabToolCategories"
+IL_023f: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_0244: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0249: dup
+IL_024a: ldstr "UITagPrefab:Categories"
+IL_024f: callvirt System.Void Game.UI.Editor.HierarchyMenu::set_uiTag(System.String)
+IL_0254: dup
+IL_0255: stloc.s V_4
+IL_0257: stfld Game.UI.Editor.HierarchyMenu`1<Game.UI.Editor.EditorAssetCategory> Game.UI.Editor.PrefabToolPanelSystem::m_CategoryMenu
+IL_025c: ldloc.s V_4
+IL_025e: stelem.ref
+IL_025f: dup
+IL_0260: ldc.i4.1
+IL_0261: newobj System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::.ctor()
+IL_0266: dup
+IL_0267: ldarg.0
+IL_0268: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_026d: callvirt System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::set_adapter(Game.UI.Editor.ItemPicker`1/IAdapter<T>)
+IL_0272: dup
+IL_0273: ldc.i4.1
+IL_0274: callvirt System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::set_hasFavorites(System.Boolean)
+IL_0279: dup
+IL_027a: ldc.r4 2
+IL_027f: ldc.r4 0
+IL_0284: ldc.r4 0
+IL_0289: newobj System.Void Game.UI.Widgets.FlexLayout::.ctor(System.Single,System.Single,System.Single)
+IL_028e: callvirt System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::set_flex(Game.UI.Widgets.FlexLayout)
+IL_0293: dup
+IL_0294: ldc.i4.1
+IL_0295: callvirt System.Void Game.UI.Editor.ItemPicker`1<Game.UI.Editor.PrefabItem>::set_selectOnFocus(System.Boolean)
+IL_029a: stelem.ref
+IL_029b: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_02a0: ldloc.3
+IL_02a1: stelem.ref
+IL_02a2: dup
+IL_02a3: ldc.i4.3
+IL_02a4: newobj System.Void Game.UI.Editor.ItemPickerFooter::.ctor()
+IL_02a9: dup
+IL_02aa: ldarg.0
+IL_02ab: ldfld Game.UI.Editor.PrefabPickerAdapter Game.UI.Editor.PrefabToolPanelSystem::m_Adapter
+IL_02b0: callvirt System.Void Game.UI.Editor.ItemPickerFooter::set_adapter(Game.UI.Editor.ItemPickerFooter/IAdapter)
+IL_02b5: dup
+IL_02b6: ldstr "UITagPrefab:ThumbnailSlider"
+IL_02bb: callvirt System.Void Game.UI.Editor.ItemPickerFooter::set_uiTag(System.String)
+IL_02c0: stelem.ref
+IL_02c1: dup
+IL_02c2: ldc.i4.4
+IL_02c3: newobj System.Void Game.UI.Widgets.Button::.ctor()
+IL_02c8: dup
+IL_02c9: ldsfld Game.UI.Localization.LocalizedString Game.UI.Editor.PrefabToolPanelSystem/LocaleId::kCreateNewPrefab
+IL_02ce: callvirt System.Void Game.UI.Widgets.NamedWidget::set_displayName(Game.UI.Localization.LocalizedString)
+IL_02d3: dup
+IL_02d4: ldarg.0
+IL_02d5: ldftn System.Void Game.UI.Editor.PrefabToolPanelSystem::OnCreatePrefabSelected()
+IL_02db: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_02e0: callvirt System.Void Game.UI.Widgets.Button::set_action(System.Action)
+IL_02e5: dup
+IL_02e6: ldsfld System.Func`1<System.Boolean> Game.UI.Editor.PrefabToolPanelSystem/<>c::<>9__14_1
+IL_02eb: dup
+IL_02ec: brtrue.s IL_0305
+IL_02ee: pop
+IL_02ef: ldsfld Game.UI.Editor.PrefabToolPanelSystem/<>c Game.UI.Editor.PrefabToolPanelSystem/<>c::<>9
+IL_02f4: ldftn System.Boolean Game.UI.Editor.PrefabToolPanelSystem/<>c::<OnCreate>b__14_1()
+IL_02fa: newobj System.Void System.Func`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_02ff: dup
+IL_0300: stsfld System.Func`1<System.Boolean> Game.UI.Editor.PrefabToolPanelSystem/<>c::<>9__14_1
+IL_0305: callvirt System.Void Game.UI.Widgets.Widget::set_hidden(System.Func`1<System.Boolean>)
+IL_030a: stelem.ref
+IL_030b: callvirt System.Void Game.UI.Widgets.LayoutContainer::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0310: ldloc.2
+IL_0311: stloc.0
+IL_0312: ldarg.0
+IL_0313: ldc.i4.1
+IL_0314: newarr Game.UI.Widgets.IWidget
+IL_0319: dup
+IL_031a: ldc.i4.0
+IL_031b: ldloc.0
+IL_031c: stelem.ref
+IL_031d: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0322: ldarg.0
+IL_0323: call System.Void Game.UI.Editor.PrefabToolPanelSystem::GenerateCategories()
+IL_0328: ret
+TYPE Game.UI.Editor.EditorAssetImportTool BASE Game.UI.Editor.EditorTool
+TYPE Game.UI.Editor.EditorBulldozeTool BASE Game.UI.Editor.EditorTool
+TYPE Game.UI.Editor.EditorPhotoTool BASE Game.UI.Editor.EditorTool
+TYPE Game.UI.Editor.EditorPrefabTool BASE Game.UI.Editor.EditorTool
+TYPE Game.UI.Editor.EditorTool BASE System.Object
+PROPERTY System.String Game.UI.Editor.EditorTool::id()
+PROPERTY System.String Game.UI.Editor.EditorTool::icon()
+PROPERTY System.Boolean Game.UI.Editor.EditorTool::disabled()
+PROPERTY System.String Game.UI.Editor.EditorTool::shortcut()
+PROPERTY System.String Game.UI.Editor.EditorTool::uiTag()
+PROPERTY Game.UI.Editor.IEditorPanel Game.UI.Editor.EditorTool::panel()
+PROPERTY Game.Tools.ToolBaseSystem Game.UI.Editor.EditorTool::tool()
+PROPERTY System.Boolean Game.UI.Editor.EditorTool::active()
+TYPE Game.UI.Editor.IEditorTool BASE 
+PROPERTY System.String Game.UI.Editor.IEditorTool::id()
+PROPERTY System.String Game.UI.Editor.IEditorTool::icon()
+PROPERTY System.String Game.UI.Editor.IEditorTool::uiTag()
+PROPERTY System.Boolean Game.UI.Editor.IEditorTool::disabled()
+PROPERTY System.String Game.UI.Editor.IEditorTool::shortcut()
+PROPERTY System.Boolean Game.UI.Editor.IEditorTool::active()

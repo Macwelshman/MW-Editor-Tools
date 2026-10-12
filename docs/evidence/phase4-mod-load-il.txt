@@ -1,0 +1,387 @@
+MW.EditorTools, Version=0.4.6.0, Culture=neutral, PublicKeyToken=null MVID 16f9ccfe-e0f9-485a-9ee7-cfdab23172c4
+System.Void MW.EditorTools.Mod::OnDispose()
+IL_0000: ldarg.0
+IL_0001: ldfld MW.EditorTools.Settings.EditorToolsOptions MW.EditorTools.Mod::options
+IL_0006: dup
+IL_0007: brtrue.s IL_000c
+IL_0009: pop
+IL_000a: br.s IL_0011
+IL_000c: call System.Void Game.Modding.ModSetting::UnregisterInOptionsUI()
+IL_0011: ldarg.0
+IL_0012: ldnull
+IL_0013: stfld MW.EditorTools.Settings.EditorToolsOptions MW.EditorTools.Mod::options
+IL_0018: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_001d: dup
+IL_001e: brtrue.s IL_0024
+IL_0020: pop
+IL_0021: ldnull
+IL_0022: br.s IL_0029
+IL_0024: call Colossal.Localization.LocalizationManager Game.SceneFlow.GameManager::get_localizationManager()
+IL_0029: stloc.0
+IL_002a: ldloc.0
+IL_002b: brfalse.s IL_0071
+IL_002d: ldarg.0
+IL_002e: ldfld MW.EditorTools.Settings.OptionsLocale MW.EditorTools.Mod::optionsLocale
+IL_0033: brfalse.s IL_0071
+IL_0035: ldarg.0
+IL_0036: ldfld System.Collections.Generic.List`1<System.String> MW.EditorTools.Mod::optionsLocales
+IL_003b: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<System.String>::GetEnumerator()
+IL_0040: stloc.1
+IL_0041: br.s IL_0058
+IL_0043: ldloca.s V_1
+IL_0045: call !0 System.Collections.Generic.List`1/Enumerator<System.String>::get_Current()
+IL_004a: stloc.2
+IL_004b: ldloc.0
+IL_004c: ldloc.2
+IL_004d: ldarg.0
+IL_004e: ldfld MW.EditorTools.Settings.OptionsLocale MW.EditorTools.Mod::optionsLocale
+IL_0053: callvirt System.Void Colossal.Localization.LocalizationManager::RemoveSource(System.String,Colossal.IDictionarySource)
+IL_0058: ldloca.s V_1
+IL_005a: call System.Boolean System.Collections.Generic.List`1/Enumerator<System.String>::MoveNext()
+IL_005f: brtrue.s IL_0043
+IL_0061: leave.s IL_0071
+IL_0063: ldloca.s V_1
+IL_0065: constrained. System.Collections.Generic.List`1/Enumerator<System.String>
+IL_006b: callvirt System.Void System.IDisposable::Dispose()
+IL_0070: endfinally
+IL_0071: ldarg.0
+IL_0072: ldfld System.Collections.Generic.List`1<System.String> MW.EditorTools.Mod::optionsLocales
+IL_0077: callvirt System.Void System.Collections.Generic.List`1<System.String>::Clear()
+IL_007c: ldarg.0
+IL_007d: ldnull
+IL_007e: stfld MW.EditorTools.Settings.OptionsLocale MW.EditorTools.Mod::optionsLocale
+IL_0083: ldarg.0
+IL_0084: ldfld MW.EditorTools.UI.EditorToolsUISystem MW.EditorTools.Mod::ui
+IL_0089: dup
+IL_008a: brtrue.s IL_008f
+IL_008c: pop
+IL_008d: br.s IL_0094
+IL_008f: call System.Void MW.EditorTools.UI.EditorToolsUISystem::Release()
+IL_0094: ldarg.0
+IL_0095: ldnull
+IL_0096: stfld MW.EditorTools.UI.EditorToolsUISystem MW.EditorTools.Mod::ui
+IL_009b: ldarg.0
+IL_009c: ldfld UnityEngine.GameObject MW.EditorTools.Mod::host
+IL_00a1: ldnull
+IL_00a2: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_00a7: brfalse.s IL_00aa
+IL_00a9: ret
+IL_00aa: ldarg.0
+IL_00ab: ldfld UnityEngine.GameObject MW.EditorTools.Mod::host
+IL_00b0: callvirt !!0 UnityEngine.GameObject::GetComponent<MW.EditorTools.Modules.DeletionProtection.ListRecovery>()
+IL_00b5: dup
+IL_00b6: brtrue.s IL_00bb
+IL_00b8: pop
+IL_00b9: br.s IL_00c0
+IL_00bb: call System.Void MW.EditorTools.Modules.DeletionProtection.ListRecovery::Release()
+IL_00c0: ldarg.0
+IL_00c1: ldfld UnityEngine.GameObject MW.EditorTools.Mod::host
+IL_00c6: callvirt !!0 UnityEngine.GameObject::GetComponent<MW.EditorTools.Modules.DeletionProtection.ComponentConfirmation>()
+IL_00cb: dup
+IL_00cc: brtrue.s IL_00d1
+IL_00ce: pop
+IL_00cf: br.s IL_00d6
+IL_00d1: call System.Void MW.EditorTools.Modules.DeletionProtection.ComponentConfirmation::Release()
+IL_00d6: ldarg.0
+IL_00d7: ldfld UnityEngine.GameObject MW.EditorTools.Mod::host
+IL_00dc: call System.Void UnityEngine.Object::Destroy(UnityEngine.Object)
+IL_00e1: ldarg.0
+IL_00e2: ldnull
+IL_00e3: stfld UnityEngine.GameObject MW.EditorTools.Mod::host
+IL_00e8: ret
+System.Void MW.EditorTools.Mod::.ctor()
+IL_0000: ldarg.0
+IL_0001: newobj System.Void System.Collections.Generic.List`1<System.String>::.ctor()
+IL_0006: stfld System.Collections.Generic.List`1<System.String> MW.EditorTools.Mod::optionsLocales
+IL_000b: ldarg.0
+IL_000c: call System.Void System.Object::.ctor()
+IL_0011: ret
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+System.Void Game.Modding.ModManager::InitializeMods(Game.UpdateSystem)
+IL_0000: ldsfld System.Action`1<System.TimeSpan> Game.Modding.ModManager/<>c::<>9__20_0
+IL_0005: dup
+IL_0006: brtrue.s IL_001f
+IL_0008: pop
+IL_0009: ldsfld Game.Modding.ModManager/<>c Game.Modding.ModManager/<>c::<>9
+IL_000e: ldftn System.Void Game.Modding.ModManager/<>c::<InitializeMods>b__20_0(System.TimeSpan)
+IL_0014: newobj System.Void System.Action`1<System.TimeSpan>::.ctor(System.Object,System.IntPtr)
+IL_0019: dup
+IL_001a: stsfld System.Action`1<System.TimeSpan> Game.Modding.ModManager/<>c::<>9__20_0
+IL_001f: call Colossal.PerformanceCounter Colossal.PerformanceCounter::Start(System.Action`1<System.TimeSpan>)
+IL_0024: stloc.0
+IL_0025: ldarg.0
+IL_0026: ldfld System.Collections.Generic.Dictionary`2<Colossal.IO.AssetDatabase.Identifier,Game.Modding.ModManager/ModInfo> Game.Modding.ModManager::m_ModsInfos
+IL_002b: callvirt System.Collections.Generic.Dictionary`2/Enumerator<!0,!1> System.Collections.Generic.Dictionary`2<Colossal.IO.AssetDatabase.Identifier,Game.Modding.ModManager/ModInfo>::GetEnumerator()
+IL_0030: stloc.1
+IL_0031: br IL_00bc
+IL_0036: newobj System.Void Game.Modding.ModManager/<>c__DisplayClass20_0::.ctor()
+IL_003b: stloc.2
+IL_003c: ldloca.s V_1
+IL_003e: call System.Collections.Generic.KeyValuePair`2<!0,!1> System.Collections.Generic.Dictionary`2/Enumerator<Colossal.IO.AssetDatabase.Identifier,Game.Modding.ModManager/ModInfo>::get_Current()
+IL_0043: stloc.3
+IL_0044: ldloca.s V_3
+IL_0046: ldloca.s V_4
+IL_0048: ldloca.s V_5
+IL_004a: call System.Void System.Collections.Generic.KeyValuePair`2<Colossal.IO.AssetDatabase.Identifier,Game.Modding.ModManager/ModInfo>::Deconstruct(!0&,!1&)
+IL_004f: ldloc.2
+IL_0050: ldloc.s V_5
+IL_0052: stfld Game.Modding.ModManager/ModInfo Game.Modding.ModManager/<>c__DisplayClass20_0::modInfo
+IL_0057: ldloc.2
+IL_0058: ldftn System.Void Game.Modding.ModManager/<>c__DisplayClass20_0::<InitializeMods>b__1(System.TimeSpan)
+IL_005e: newobj System.Void System.Action`1<System.TimeSpan>::.ctor(System.Object,System.IntPtr)
+IL_0063: call Colossal.PerformanceCounter Colossal.PerformanceCounter::Start(System.Action`1<System.TimeSpan>)
+IL_0068: stloc.s V_6
+IL_006a: ldloc.2
+IL_006b: ldfld Game.Modding.ModManager/ModInfo Game.Modding.ModManager/<>c__DisplayClass20_0::modInfo
+IL_0070: ldarg.1
+IL_0071: callvirt System.Void Game.Modding.ModManager/ModInfo::Load(Game.UpdateSystem)
+IL_0076: leave.s IL_0084
+IL_0078: ldloc.s V_6
+IL_007a: brfalse.s IL_0083
+IL_007c: ldloc.s V_6
+IL_007e: callvirt System.Void System.IDisposable::Dispose()
+IL_0083: endfinally
+IL_0084: leave.s IL_00bc
+IL_0086: stloc.s V_7
+IL_0088: ldloc.2
+IL_0089: ldfld Game.Modding.ModManager/ModInfo Game.Modding.ModManager/<>c__DisplayClass20_0::modInfo
+IL_008e: callvirt System.Void Game.Modding.ModManager/ModInfo::Dispose()
+IL_0093: ldsfld Colossal.Logging.ILog Game.Modding.ModManager::log
+IL_0098: ldloc.s V_7
+IL_009a: ldstr "Error initializing mod {0} ({1})"
+IL_009f: ldloc.2
+IL_00a0: ldfld Game.Modding.ModManager/ModInfo Game.Modding.ModManager/<>c__DisplayClass20_0::modInfo
+IL_00a5: callvirt System.String Game.Modding.ModManager/ModInfo::get_name()
+IL_00aa: ldloc.2
+IL_00ab: ldfld Game.Modding.ModManager/ModInfo Game.Modding.ModManager/<>c__DisplayClass20_0::modInfo
+IL_00b0: callvirt System.String Game.Modding.ModManager/ModInfo::get_assemblyFullName()
+IL_00b5: callvirt System.Void Colossal.Logging.ILog::ErrorFormat(System.Exception,System.String,System.Object,System.Object)
+IL_00ba: leave.s IL_00bc
+IL_00bc: ldloca.s V_1
+IL_00be: call System.Boolean System.Collections.Generic.Dictionary`2/Enumerator<Colossal.IO.AssetDatabase.Identifier,Game.Modding.ModManager/ModInfo>::MoveNext()
+IL_00c3: brtrue IL_0036
+IL_00c8: leave.s IL_00e2
+IL_00ca: ldloca.s V_1
+IL_00cc: constrained. System.Collections.Generic.Dictionary`2/Enumerator<Colossal.IO.AssetDatabase.Identifier,Game.Modding.ModManager/ModInfo>
+IL_00d2: callvirt System.Void System.IDisposable::Dispose()
+IL_00d7: endfinally
+IL_00d8: ldloc.0
+IL_00d9: brfalse.s IL_00e1
+IL_00db: ldloc.0
+IL_00dc: callvirt System.Void System.IDisposable::Dispose()
+IL_00e1: endfinally
+IL_00e2: ldarg.0
+IL_00e3: call System.Void Game.Modding.ModManager::InitializeUIModules()
+IL_00e8: ret
+System.Void Game.Modding.ModManager/ModInfo::Load(Game.UpdateSystem)
+IL_0000: ldarg.0
+IL_0001: call Game.Modding.ModManager/ModInfo/State Game.Modding.ModManager/ModInfo::get_state()
+IL_0006: brfalse.s IL_000d
+IL_0008: leave IL_01b6
+IL_000d: ldarg.0
+IL_000e: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_0013: callvirt System.Boolean Colossal.IO.AssetDatabase.ExecutableAsset::get_isRequired()
+IL_0018: brtrue.s IL_001f
+IL_001a: leave IL_01b6
+IL_001f: ldarg.0
+IL_0020: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_0025: callvirt System.Boolean Colossal.IO.AssetDatabase.ExecutableAsset::get_isMod()
+IL_002a: brtrue.s IL_0045
+IL_002c: ldarg.0
+IL_002d: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_0032: callvirt System.Boolean Colossal.IO.AssetDatabase.ExecutableAsset::get_isReference()
+IL_0037: brtrue.s IL_0045
+IL_0039: ldarg.0
+IL_003a: ldc.i4.3
+IL_003b: call System.Void Game.Modding.ModManager/ModInfo::set_state(Game.Modding.ModManager/ModInfo/State)
+IL_0040: leave IL_01b6
+IL_0045: ldarg.0
+IL_0046: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_004b: callvirt System.Boolean Colossal.IO.AssetDatabase.ExecutableAsset::get_isMod()
+IL_0050: brfalse.s IL_006b
+IL_0052: ldarg.0
+IL_0053: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_0058: callvirt System.Boolean Colossal.IO.AssetDatabase.ExecutableAsset::get_isUnique()
+IL_005d: brtrue.s IL_006b
+IL_005f: ldarg.0
+IL_0060: ldc.i4.4
+IL_0061: call System.Void Game.Modding.ModManager/ModInfo::set_state(Game.Modding.ModManager/ModInfo/State)
+IL_0066: leave IL_01b6
+IL_006b: ldarg.0
+IL_006c: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_0071: callvirt System.Boolean Colossal.IO.AssetDatabase.ExecutableAsset::get_isMod()
+IL_0076: brfalse.s IL_00f4
+IL_0078: ldarg.0
+IL_0079: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_007e: callvirt System.Boolean Colossal.IO.AssetDatabase.ExecutableAsset::get_canBeLoaded()
+IL_0083: brtrue.s IL_00f4
+IL_0085: ldarg.0
+IL_0086: ldc.i4.6
+IL_0087: call System.Void Game.Modding.ModManager/ModInfo::set_state(Game.Modding.ModManager/ModInfo/State)
+IL_008c: ldarg.0
+IL_008d: ldstr "
+"
+IL_0092: ldarg.0
+IL_0093: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_0098: callvirt System.Collections.Generic.IReadOnlyDictionary`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset> Colossal.IO.AssetDatabase.ExecutableAsset::get_references()
+IL_009d: ldsfld System.Func`2<System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>,System.Boolean> Game.Modding.ModManager/ModInfo/<>c::<>9__28_0
+IL_00a2: dup
+IL_00a3: brtrue.s IL_00bc
+IL_00a5: pop
+IL_00a6: ldsfld Game.Modding.ModManager/ModInfo/<>c Game.Modding.ModManager/ModInfo/<>c::<>9
+IL_00ab: ldftn System.Boolean Game.Modding.ModManager/ModInfo/<>c::<Load>b__28_0(System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>)
+IL_00b1: newobj System.Void System.Func`2<System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>,System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_00b6: dup
+IL_00b7: stsfld System.Func`2<System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>,System.Boolean> Game.Modding.ModManager/ModInfo/<>c::<>9__28_0
+IL_00bc: call System.Collections.Generic.IEnumerable`1<!!0> System.Linq.Enumerable::Where<System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,System.Boolean>)
+IL_00c1: ldsfld System.Func`2<System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>,System.String> Game.Modding.ModManager/ModInfo/<>c::<>9__28_1
+IL_00c6: dup
+IL_00c7: brtrue.s IL_00e0
+IL_00c9: pop
+IL_00ca: ldsfld Game.Modding.ModManager/ModInfo/<>c Game.Modding.ModManager/ModInfo/<>c::<>9
+IL_00cf: ldftn System.String Game.Modding.ModManager/ModInfo/<>c::<Load>b__28_1(System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>)
+IL_00d5: newobj System.Void System.Func`2<System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>,System.String>::.ctor(System.Object,System.IntPtr)
+IL_00da: dup
+IL_00db: stsfld System.Func`2<System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>,System.String> Game.Modding.ModManager/ModInfo/<>c::<>9__28_1
+IL_00e0: call System.Collections.Generic.IEnumerable`1<!!1> System.Linq.Enumerable::Select<System.Collections.Generic.KeyValuePair`2<System.String,Colossal.IO.AssetDatabase.ExecutableAsset>,System.String>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,!!1>)
+IL_00e5: call System.String System.String::Join(System.String,System.Collections.Generic.IEnumerable`1<System.String>)
+IL_00ea: call System.Void Game.Modding.ModManager/ModInfo::set_loadError(System.String)
+IL_00ef: leave IL_01b6
+IL_00f4: ldarg.0
+IL_00f5: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_00fa: ldnull
+IL_00fb: ldftn System.Void Game.Modding.ModManager/ModInfo::AfterLoadAssembly(System.Reflection.Assembly)
+IL_0101: newobj System.Void System.Action`1<System.Reflection.Assembly>::.ctor(System.Object,System.IntPtr)
+IL_0106: ldloca.s V_0
+IL_0108: callvirt System.Void Colossal.IO.AssetDatabase.ExecutableAsset::LoadAssembly(System.Action`1<System.Reflection.Assembly>,Colossal.IO.AssetDatabase.ExecutableAsset&)
+IL_010d: ldarg.0
+IL_010e: ldloc.0
+IL_010f: call System.Void Game.Modding.ModManager/ModInfo::set_asset(Colossal.IO.AssetDatabase.ExecutableAsset)
+IL_0114: ldarg.0
+IL_0115: call Colossal.IO.AssetDatabase.ExecutableAsset Game.Modding.ModManager/ModInfo::get_asset()
+IL_011a: callvirt System.Reflection.Assembly Colossal.IO.AssetDatabase.ExecutableAsset::get_assembly()
+IL_011f: call System.Collections.Generic.IEnumerable`1<System.Type> Colossal.Reflection.ReflectionUtils::GetTypesDerivedFrom<Game.Modding.IMod>(System.Reflection.Assembly)
+IL_0124: callvirt System.Collections.Generic.IEnumerator`1<!0> System.Collections.Generic.IEnumerable`1<System.Type>::GetEnumerator()
+IL_0129: stloc.1
+IL_012a: br.s IL_0149
+IL_012c: ldloc.1
+IL_012d: callvirt !0 System.Collections.Generic.IEnumerator`1<System.Type>::get_Current()
+IL_0132: stloc.2
+IL_0133: ldarg.0
+IL_0134: ldfld System.Collections.Generic.List`1<Game.Modding.IMod> Game.Modding.ModManager/ModInfo::m_Instances
+IL_0139: ldloc.2
+IL_013a: call System.Object System.Runtime.Serialization.FormatterServices::GetUninitializedObject(System.Type)
+IL_013f: castclass Game.Modding.IMod
+IL_0144: callvirt System.Void System.Collections.Generic.List`1<Game.Modding.IMod>::Add(!0)
+IL_0149: ldloc.1
+IL_014a: callvirt System.Boolean System.Collections.IEnumerator::MoveNext()
+IL_014f: brtrue.s IL_012c
+IL_0151: leave.s IL_015d
+IL_0153: ldloc.1
+IL_0154: brfalse.s IL_015c
+IL_0156: ldloc.1
+IL_0157: callvirt System.Void System.IDisposable::Dispose()
+IL_015c: endfinally
+IL_015d: ldarg.0
+IL_015e: ldarg.1
+IL_015f: call System.Void Game.Modding.ModManager/ModInfo::OnLoad(Game.UpdateSystem)
+IL_0164: ldarg.0
+IL_0165: ldc.i4.1
+IL_0166: call System.Void Game.Modding.ModManager/ModInfo::set_state(Game.Modding.ModManager/ModInfo/State)
+IL_016b: leave.s IL_01b6
+IL_016d: stloc.3
+IL_016e: ldarg.0
+IL_016f: ldc.i4.7
+IL_0170: call System.Void Game.Modding.ModManager/ModInfo::set_state(Game.Modding.ModManager/ModInfo/State)
+IL_0175: ldarg.0
+IL_0176: ldloc.3
+IL_0177: ldnull
+IL_0178: call System.String Colossal.Logging.Diagnostics.StackTraceHelper::ExtractStackTraceFromException(System.Exception,System.Text.StringBuilder)
+IL_017d: call System.Void Game.Modding.ModManager/ModInfo::set_loadError(System.String)
+IL_0182: rethrow
+IL_0184: stloc.s V_4
+IL_0186: ldarg.0
+IL_0187: ldc.i4.8
+IL_0188: call System.Void Game.Modding.ModManager/ModInfo::set_state(Game.Modding.ModManager/ModInfo/State)
+IL_018d: ldarg.0
+IL_018e: ldloc.s V_4
+IL_0190: ldnull
+IL_0191: call System.String Colossal.Logging.Diagnostics.StackTraceHelper::ExtractStackTraceFromException(System.Exception,System.Text.StringBuilder)
+IL_0196: call System.Void Game.Modding.ModManager/ModInfo::set_loadError(System.String)
+IL_019b: rethrow
+IL_019d: stloc.s V_5
+IL_019f: ldarg.0
+IL_01a0: ldc.i4.5
+IL_01a1: call System.Void Game.Modding.ModManager/ModInfo::set_state(Game.Modding.ModManager/ModInfo/State)
+IL_01a6: ldarg.0
+IL_01a7: ldloc.s V_5
+IL_01a9: ldnull
+IL_01aa: call System.String Colossal.Logging.Diagnostics.StackTraceHelper::ExtractStackTraceFromException(System.Exception,System.Text.StringBuilder)
+IL_01af: call System.Void Game.Modding.ModManager/ModInfo::set_loadError(System.String)
+IL_01b4: rethrow
+IL_01b6: ret
+System.Void Game.Modding.ModSetting::.ctor(Game.Modding.IMod)
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Settings.Setting::.ctor()
+IL_0006: ldarg.1
+IL_0007: callvirt System.Type System.Object::GetType()
+IL_000c: stloc.0
+IL_000d: ldarg.0
+IL_000e: ldc.i4.5
+IL_000f: newarr System.String
+IL_0014: dup
+IL_0015: ldc.i4.0
+IL_0016: ldloc.0
+IL_0017: callvirt System.Reflection.Assembly System.Type::get_Assembly()
+IL_001c: callvirt System.Reflection.AssemblyName System.Reflection.Assembly::GetName()
+IL_0021: callvirt System.String System.Reflection.AssemblyName::get_Name()
+IL_0026: stelem.ref
+IL_0027: dup
+IL_0028: ldc.i4.1
+IL_0029: ldstr "."
+IL_002e: stelem.ref
+IL_002f: dup
+IL_0030: ldc.i4.2
+IL_0031: ldloc.0
+IL_0032: callvirt System.String System.Type::get_Namespace()
+IL_0037: stelem.ref
+IL_0038: dup
+IL_0039: ldc.i4.3
+IL_003a: ldstr "."
+IL_003f: stelem.ref
+IL_0040: dup
+IL_0041: ldc.i4.4
+IL_0042: ldloc.0
+IL_0043: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_0048: stelem.ref
+IL_0049: call System.String System.String::Concat(System.String[])
+IL_004e: stfld System.String Game.Modding.ModSetting::<id>k__BackingField
+IL_0053: ldarg.0
+IL_0054: ldarg.0
+IL_0055: call System.Type System.Object::GetType()
+IL_005a: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_005f: stfld System.String Game.Modding.ModSetting::<name>k__BackingField
+IL_0064: ldarg.0
+IL_0065: ldarg.1
+IL_0066: stfld Game.Modding.IMod Game.Modding.ModSetting::<mod>k__BackingField
+IL_006b: call System.Collections.Generic.Dictionary`2<System.String,Game.Modding.ModSetting> Game.Modding.ModSetting::get_instances()
+IL_0070: ldarg.0
+IL_0071: call System.String Game.Modding.ModSetting::get_id()
+IL_0076: ldarg.0
+IL_0077: callvirt System.Void System.Collections.Generic.Dictionary`2<System.String,Game.Modding.ModSetting>::set_Item(!0,!1)
+IL_007c: ldarg.0
+IL_007d: call System.Void Game.Modding.ModSetting::InitializeKeyBindings()
+IL_0082: ret
+System.Void Game.Modding.ModSetting::RegisterInOptionsUI()
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: call System.String Game.Modding.ModSetting::get_id()
+IL_0007: ldc.i4.1
+IL_0008: call System.Void Game.Settings.Setting::RegisterInOptionsUI(System.String,System.Boolean)
+IL_000d: ret
+System.Void Game.Modding.ModSetting::UnregisterInOptionsUI()
+IL_0000: ldarg.0
+IL_0001: call System.String Game.Modding.ModSetting::get_id()
+IL_0006: call System.Boolean Game.Settings.Setting::UnregisterInOptionsUI(System.String)
+IL_000b: pop
+IL_000c: ret

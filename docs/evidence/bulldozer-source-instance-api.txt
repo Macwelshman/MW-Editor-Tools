@@ -1,0 +1,35 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+FIELD Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem::m_SourceInstance
+FIELD Unity.Collections.NativeList`1<Game.Prefabs.ReplacePrefabSystem/ReplaceMesh> Game.Prefabs.ReplacePrefabSystem::m_MeshReplaces
+FIELD Unity.Collections.NativeQueue`1<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem::m_UpdateInstances
+FIELD Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData> Game.Prefabs.ReplacePrefabSystem::m_ReplacePrefabData
+METHOD System.Void Game.Prefabs.ReplacePrefabSystem::ReplacePrefab(Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)
+PARAM oldPrefab
+PARAM newPrefab
+PARAM sourceInstance
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem::m_OldPrefab
+IL_0007: ldarg.0
+IL_0008: ldarg.2
+IL_0009: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem::m_NewPrefab
+IL_000e: ldarg.0
+IL_000f: ldarg.3
+IL_0010: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem::m_SourceInstance
+IL_0015: ldarg.0
+IL_0016: ldc.i4.1
+IL_0017: call System.Void Unity.Entities.ComponentSystemBase::set_Enabled(System.Boolean)
+IL_001c: ldarg.0
+IL_001d: callvirt System.Void Unity.Entities.ComponentSystemBase::Update()
+IL_0022: leave.s IL_002c
+IL_0024: ldarg.0
+IL_0025: ldc.i4.0
+IL_0026: call System.Void Unity.Entities.ComponentSystemBase::set_Enabled(System.Boolean)
+IL_002b: endfinally
+IL_002c: ret
+TYPE Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData
+FIELD Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_OldPrefab
+FIELD Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_SourceInstance
+FIELD System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_AreasUpdated
+FIELD System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_NetsUpdated
+FIELD System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_LanesUpdated

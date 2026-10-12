@@ -1,0 +1,7 @@
+Phase 3 final validation
+Release net48 build: 0 warnings, 0 errors.
+Phase 2 gate/Harmony/policy checks: PASS 18 assertions.
+Phase 3 DTO/snapshot/history checks: PASS 22 assertions.
+No Unity native prefab reference, curve, UI event or ECS regeneration tests performed.
+No Phase 3 deployment or publishing performed.
+Game.dll SHA256 after Phase 3: AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A

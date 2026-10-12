@@ -1,0 +1,15 @@
+# 0.4.70 simple bound props alongside nested groups
+
+VERIFIED-STATIC: With nested history enabled, an Everything deletion of a simple directly bound ObjectPrefab can enter the same forest transaction as the adopted nested types. The one-node target passes the existing typed ECS capture/known-component restrictions, exact prefab descriptor checks and attached-payload refusal. Its prefab identity is included in that transaction's root type set; all placed instances of that simple type plus the adopted nested groups are captured within the unchanged four-type/four-group budgets. The record freezes the actual captured type set, not merely the initially adopted nested types.
+
+BoundPropPolicy permits a single deterministic root with parent -1/depth 0, otherwise delegates to the unchanged nested topology policy. Preparation still adopts nested types first; simple-only asset enablement is not added in this build. Forest lookup/restore accepts the bounded singleton and preserves its transform, seed, colours, local cache, ownership and known typed presence through existing completion checks. Every captured group's prefab attachments/child descriptors are preflighted. No raw entity resurrection, unsupported attachment recovery or partial-child deletion is enabled.
+
+UI labels now say Enable prop Undo and Check two prop deletions. The test runner prompts for supported props or groups instead of requiring carports; its two-deletion sequence and native fences are unchanged.
+
+VERIFIED-STATIC: Release zero warnings/errors; UI build and Settings/recovery rendering checks pass. All 596 C# assertions pass, including twelve actual-source bound topology acceptance/refusal checks. Native singleton-plus-nested regeneration is UNPROVEN until the next combined run.
+
+Next one-session check using a fresh existing MW Mixed Nested Undo Test working copy: Show diagnostic tools / Check two prop deletions / wait Test ready / Everything-delete bound Grill01 first, then Carport03 / wait automatic Undo2/Redo2/Undo2. Carport01 remains. Expected: simple Grill01 and nested Carport03 restored exactly once, no unsupported payload changes and all six operation checks pass. Do not create a new fixture or save deletion-test edits. Stop on an error.
+
+Prior 0.4.69 mixed Carport01/Carport03 PASS remains separate evidence. This build does not claim general simple-only or arbitrary nested recovery, networks/lanes/areas/effects recovery or atomic rollback. Phase 5 paused; Phase 6/publishing unauthorised; no computer use. User requires automatic continuation after passed tests.
+
+VERIFIED-RUNTIME 0.4.70: correct MW Mixed Nested Undo Test selected; Grill01 singleton deleted 16:04:22.049 and Carport03 group 16:04:28.699. Both recorded; only ObjectSubObjects changed 5->4->3. All six operations passed payload/direct graph/recursive ownership verification; final three tracked groups/seven nodes (Grill01, Carport01 and Carport03), PASS16:04:29.995. Evidence docs/evidence/bulldozer-0.4.70-simple-nested-runtime.log. No repeat required. Proceeded immediately into simple-only adoption implementation per user instruction.
