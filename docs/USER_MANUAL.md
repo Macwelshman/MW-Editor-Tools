@@ -20,7 +20,17 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 
 ## Install or update
 
-Use the supplied mod package. The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.163 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.163). The repository contains development source; cloning it does not install the mod.
+
+### Windows installer
+
+Close Cities: Skylines II, run **MWEditorTools-0.4.163-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+
+The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
+
+If a write fails while the game stays closed, changed files are rolled back. If the game starts during installation, all further writes, including rollback, stop: close the game before restoring the displayed backup or running the installer again.
+
+### Manual ZIP installation
 
 1. Fully close Cities: Skylines II.
 2. If updating, back up the existing `MWEditorTools` mod folder.
@@ -290,4 +300,6 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For candidate status and validation details, see [release readiness](RELEASE_READINESS_0.4.163.md). For a shorter overview, return to the [README](../README.md).
+For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.163.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+
+

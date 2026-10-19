@@ -1,3 +1,6 @@
+## 2026-10-19 — Installer release 0.4.163
+User authorised a release with an installer. Self-contained Windows installer and manual ZIP built; 34 payload/transaction/path/process/rollback checks pass. Existing mod runtime payload unchanged. See docs/INSTALLER_0.4.163_VALIDATION.md. Distribution remains private GitHub only.
+
 # Current release-readiness status — 2026-10-19
 
 Candidate 0.4.163: automated grouped regression passed (23 managed suites, seven UI scripts). Implemented Undo and Phase 5 have prior user acceptance including persistence; user confirms compact UI appearance and Options already checked. No fresh combined native run is claimed. Private GitHub repository confirmed; no public release authorised. See docs/RELEASE_READINESS_0.4.163.md and docs/RELEASE_NOTES_0.4.163.md. Entries below are historical and may describe superseded pending states.
@@ -562,6 +565,7 @@ User-authorised shared UI cleanup implemented; four tabs, shared header Undo, to
 
 ## 2026-10-19 — Options cleanup 0.4.163
 User-requested concise Options and Alt+B/D/F/A/E/S browser defaults implemented. Native appearance/shortcut acceptance pending; custom bindings preserved, former defaults migrate. See docs/UI_0.4.163_OPTIONS_SHORTCUTS.md.
+
 
 
 

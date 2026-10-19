@@ -41,3 +41,6 @@ See docs/AI_WORKFLOW.md for mode definitions and docs/TEST_PLAN.md for release g
 
 2026-10-19: user explicitly authorised continuing Phase 5 component copy/paste between assets with settings preservation and bulk Add only missing / Replace only present / Replace and add modes. Preserve accepted element replacement and Undo. No publishing or computer use.
 
+
+2026-10-19: user explicitly authorised creating a release of the mod with an installer. Implement/package/test a Windows installer and publish the versioned assets through the existing private GitHub repository. This does not authorise changing repository visibility or publishing to other platforms.
+
