@@ -31,7 +31,7 @@ namespace MW.EditorTools.Modules.PropReplacer
         public override GameMode gameMode=>GameMode.Editor;
         protected override void OnCreate(){base.OnCreate();AddBinding(binding=new ValueBinding<string>("mwPropReplacer","state","{}"));AddBinding(new TriggerBinding<string>("mwPropReplacer","command",Command));AddBinding(new TriggerBinding<string>("mwPropReplacer","hoverCopy",HoverCopy));AddBinding(new TriggerBinding<string>("mwPropReplacer","hoverCandidate",value=>{browserCandidate=value;browserCandidateAsset=context?.Asset;browserCandidateTime=UnityEngine.Time.realtimeSinceStartup;}));}
         internal void Initialize(EditorContextService value,Action beforeWrite,Func<bool> allowShortcut){context=value;BeforeWrite=beforeWrite;shortcutAllowed=allowShortcut;hoverEntity=typeof(DefaultToolSystem).GetField("m_LastRaycastEntity",BindingFlags.Instance|BindingFlags.NonPublic)??throw new NotSupportedException("Viewport hover API unavailable.");Enabled=true;}
-        internal void Release(){Enabled=false;context=null;BeforeWrite=null;shortcutAllowed=null;hoverEntity=null;clipboard=null;selectedRoot=null;selectedValue=null;published=null;}
+        internal void Release(){Enabled=false;pendingViewportClipboard=null;requiredViewportHit=null;context=null;BeforeWrite=null;CanRecordUndo=null;RecordUndo=null;shortcutAllowed=null;hoverEntity=null;clipboard=null;selectedRoot=null;selectedValue=null;published=null;}
         private void Command(string command)
         {
             try
@@ -64,6 +64,10 @@ namespace MW.EditorTools.Modules.PropReplacer
         {
             MW.EditorTools.Mod.Log.Info("Prop Replacer browser candidate at Ctrl+C: age="+(UnityEngine.Time.realtimeSinceStartup-browserCandidateTime)+" data="+(browserCandidate??"none"));
             if(browserCandidate!=null&&UnityEngine.Time.realtimeSinceStartup-browserCandidateTime<.75f){var previous=clipboard;HoverCopy(browserCandidate);if(!ReferenceEquals(previous,clipboard))return;}
+            CopyViewport();
+        }
+        private void CopyViewport()
+        {
             var tool=World.GetExistingSystemManaged<ToolSystem>()?.activeTool as DefaultToolSystem;
             if(tool==null)throw new InvalidOperationException("Use the default selection tool and hover an element before pressing Ctrl+C.");
             var id=ViewportHit();var em=World.EntityManager;
@@ -73,10 +77,12 @@ namespace MW.EditorTools.Modules.PropReplacer
             {
                 var container=em.GetComponentData<Game.Tools.EditorContainer>(id);replacement=prefabs?.GetPrefab<PrefabBase>(container.m_Prefab);
                 if(replacement is EffectPrefab){rowType=typeof(EffectSource.EffectSettings);label="Effect";}
+                else if(replacement is NetLanePrefab){rowType=typeof(ObjectSubLaneInfo);label="Lane";}
             }
             if(rowType==null&&em.HasComponent<PrefabRef>(id))replacement=prefabs?.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(id));
             if(rowType==null&&em.HasComponent<Game.Areas.Area>(id)){rowType=typeof(ObjectSubAreaInfo);label="Area";}
             else if(rowType==null&&em.HasComponent<Game.Net.Edge>(id)){rowType=typeof(ObjectSubNetInfo);label="Net";}
+            else if(rowType==null&&em.HasComponent<Game.Net.Node>(id)){rowType=typeof(ObjectSubNetInfo);label="Net";}
             else if(rowType==null&&em.HasComponent<Game.Net.Lane>(id)){rowType=typeof(ObjectSubLaneInfo);label="Lane";}
             else if(rowType==null&&em.HasComponent<Game.Objects.Object>(id)){rowType=typeof(ObjectSubObjectInfo);label="Object";}
             if(rowType==null||replacement==null)throw new InvalidOperationException("The highlighted entity is not a supported object, area, network, lane or effect element.");
@@ -109,7 +115,10 @@ namespace MW.EditorTools.Modules.PropReplacer
             var oldReference=row.ReferenceField.GetValue(row.Value) as PrefabBase;
             if(oldReference==null)throw new InvalidOperationException("The destination row has no replaceable prefab reference.");
             if(ReferenceEquals(oldReference,clipboard.Replacement)){status="Destination already uses "+clipboard.Replacement.name+".";return;}
+            if(CanRecordUndo?.Invoke()!=true||RecordUndo==null)throw new InvalidOperationException("Enable Undo recovery and finish pending editor operations before replacing.");
             var before=PrefabSnapshot.Take(row.ListField.GetValue(row.Owner));int changed=0;bool dirty=row.Root.isDirty;
+            var indices=Enumerable.Range(0,row.List.Count).Where(i=>row.List[i]!=null&&row.List[i].GetType()==clipboard.RowType&&(batch?ReferenceEquals(row.ReferenceField.GetValue(row.List[i]),oldReference):ReferenceEquals(row.List[i],row.Value))).ToArray();
+            var selectedAsset=context.Asset;var replacement=clipboard.Replacement;
             var foliage=PlanFoliageReplacement(row,batch,oldReference);
             try
             {
@@ -125,10 +134,13 @@ namespace MW.EditorTools.Modules.PropReplacer
                 CreateFoliageCandidates(foliage);
                 row.Root.isDirty=true;Refresh(row.Root,row.Ancestors);
                 WatchFoliageCandidates(foliage,row,before);
+                var after=PrefabSnapshot.Take(row.ListField.GetValue(row.Owner));
+                RecordUndo(MakeReplacementUndo(row,before,after,oldReference,replacement,indices,selectedAsset,ReplacementGuards(row)));
                 status=(batch?"Replaced "+changed+" matching "+row.Label.ToLowerInvariant()+" element(s)":"Replaced selected "+row.Label.ToLowerInvariant())+" with "+clipboard.Replacement.name+". Destination placement and row settings were preserved.";
             }
             catch(Exception error)
             {
+                foliageWitnesses=new FoliageWitness[0];foliagePlan=null;
                 try{RemoveFoliageCandidates(foliage);}catch(Exception cleanup){MW.EditorTools.Mod.Log.Error(cleanup,"Foliage candidate cleanup failed; reload without saving.");}
                 try{row.ListField.SetValue(row.Owner,before.Materialize());row.Root.isDirty=dirty;Refresh(row.Root,row.Ancestors);}catch(Exception rollback){MW.EditorTools.Mod.Log.Error(rollback,"Prop Replacer rollback failed.");}
                 throw new InvalidOperationException("Replacement failed; the previous list was restored. "+error.Message,error);
@@ -139,18 +151,19 @@ namespace MW.EditorTools.Modules.PropReplacer
             if(clipboard?.Replacement==null)throw new InvalidOperationException("Copy an element with Ctrl+C first.");
             var fresh=browserCandidate!=null&&UnityEngine.Time.realtimeSinceStartup-browserCandidateTime<.75f;
             var samples=fresh?UnityEngine.JsonUtility.FromJson<HoverText>(browserCandidate)?.samples??new string[0]:new string[0];
-            if(samples.Length==0){var viewport=ResolveViewportRow();Replace(viewport,batch);MW.EditorTools.Mod.Log.Info("Prop Replacer viewport paste: "+status+" underlyingIndex="+viewport.Index);return;}
+            if(samples.Length==0){PasteViewport(batch);return;}
             if(!ReferenceEquals(browserCandidateAsset,context.Asset))throw new InvalidOperationException("The hovered asset changed. Hover the destination again.");
             var rows=ResolveRows().Where(r=>r.Value.GetType()==clipboard.RowType).ToArray();
             var match=HoverRowPolicy.Resolve(samples,rows.Select(r=>r.Index).ToArray(),rows.Select(r=>(r.ReferenceField.GetValue(r.Value) as PrefabBase)?.name).ToArray());
             if(match<0){
                 bool browserRow=ResolveRows().Any(r=>{var p=r.ReferenceField.GetValue(r.Value) as PrefabBase;return p!=null&&samples.Any(s=>string.Equals(s?.Trim(),p.name,StringComparison.Ordinal));});
                 if(browserRow)throw new InvalidOperationException("Destination row is ambiguous or has a different element type. Hover its Element header and try again.");
-                var viewport=ResolveViewportRow();Replace(viewport,batch);MW.EditorTools.Mod.Log.Info("Prop Replacer viewport paste: "+status);return;
+                PasteViewport(batch);return;
             }
             var row=rows[match];selectedRoot=row.Root;selectedValue=row.Value;
             Replace(row,batch);MW.EditorTools.Mod.Log.Info("Prop Replacer Ctrl+V: "+status+" underlyingIndex="+row.Index);
         }
+        private void PasteViewport(bool batch){var viewport=ResolveViewportRow();Replace(viewport,batch);MW.EditorTools.Mod.Log.Info("Prop Replacer viewport paste: "+status+" underlyingIndex="+viewport.Index);}
         private Row[] ResolveRows(PrefabBase target=null)
         {
             var root=target??context.Asset;if(root==null)return new Row[0];var result=new System.Collections.Generic.List<Row>();
@@ -183,7 +196,7 @@ namespace MW.EditorTools.Modules.PropReplacer
             if(ancestors!=null)foreach(var parent in ancestors){if(parent==null||parent.isReadOnly||!prefabs.TryGetEntity(parent,out entity)||!World.EntityManager.Exists(entity))throw new InvalidOperationException("A nested parent is no longer writable or registered.");prefabs.UpdatePrefab(parent);parent.asset?.MarkDirty();}
             if(ReferenceEquals(context.Asset,root)){var method=typeof(InspectorPanelSystem).GetMethod("RefreshSections",BindingFlags.NonPublic|BindingFlags.Instance);method?.Invoke(context.Inspector,null);}
         }
-        protected override void OnUpdate(){base.OnUpdate();CheckFoliageWitnesses();var keyboard=Keyboard.current;if(keyboard!=null&&keyboard.ctrlKey.isPressed&&!keyboard.altKey.isPressed&&!keyboard.leftMetaKey.isPressed&&!keyboard.rightMetaKey.isPressed&&shortcutAllowed?.Invoke()==true){try{if(keyboard.cKey.wasPressedThisFrame&&!keyboard.shiftKey.isPressed)CopyHover();else if(keyboard.vKey.wasPressedThisFrame)PasteHover(keyboard.shiftKey.isPressed);}catch(Exception error){status=error.Message;MW.EditorTools.Mod.Log.Info("Prop Replacer clipboard shortcut refused: "+error.Message);}}Publish();}
+        protected override void OnUpdate(){base.OnUpdate();CheckFoliageWitnesses();PollClipboardShortcuts();Publish();}
         private void Publish()
         {
             Row[] rows=new Row[0];Row row=null;try{if(context?.Available==true){rows=ResolveRows();row=Chosen(rows);}}catch{}

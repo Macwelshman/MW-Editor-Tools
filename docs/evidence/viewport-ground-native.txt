@@ -1,0 +1,2859 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceholderObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceholderObjectData
+IL_0006: ldarg.s prefab
+IL_0008: ldloca.s V_0
+IL_000a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceholderObjectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_000f: brfalse.s IL_0025
+IL_0011: ldarg.0
+IL_0012: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.PlaceholderObjectElement> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PlaceholderObjects
+IL_0017: ldarg.s prefab
+IL_0019: ldloca.s V_1
+IL_001b: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.PlaceholderObjectElement>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0020: brtrue IL_0126
+IL_0025: ldarg.s prefab
+IL_0027: stloc.s V_21
+IL_0029: ldarg.0
+IL_002a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSpawnableObjectData
+IL_002f: ldarg.s prefab
+IL_0031: ldloca.s V_22
+IL_0033: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0038: brfalse.s IL_0056
+IL_003a: ldloc.s V_22
+IL_003c: ldfld Unity.Entities.Entity Game.Prefabs.SpawnableObjectData::m_RandomizationGroup
+IL_0041: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0046: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_004b: brfalse.s IL_0056
+IL_004d: ldloc.s V_22
+IL_004f: ldfld Unity.Entities.Entity Game.Prefabs.SpawnableObjectData::m_RandomizationGroup
+IL_0054: stloc.s V_21
+IL_0056: ldarg.0
+IL_0057: ldarg.s prefab
+IL_0059: ldarg.s groupIndex
+IL_005b: ldc.i4.1
+IL_005c: ldarg.s updateData
+IL_005e: call System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CheckRequirements(Unity.Entities.Entity,System.Int32,System.Boolean,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_0063: brtrue.s IL_0066
+IL_0065: ret
+IL_0066: ldarg.2
+IL_0067: ldobj Unity.Mathematics.Random
+IL_006c: stloc.s V_23
+IL_006e: ldarg.2
+IL_006f: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0074: pop
+IL_0075: ldarg.2
+IL_0076: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_007b: pop
+IL_007c: ldarg.3
+IL_007d: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0082: pop
+IL_0083: ldarg.3
+IL_0084: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0089: pop
+IL_008a: ldarg.s updateData
+IL_008c: ldflda Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_SelectedSpawnabled
+IL_0091: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::get_IsCreated()
+IL_0096: brfalse.s IL_00b7
+IL_0098: ldarg.s updateData
+IL_009a: ldflda Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_SelectedSpawnabled
+IL_009f: ldloc.s V_21
+IL_00a1: ldarg.s groupIndex
+IL_00a3: newobj System.Void Game.Objects.SubObjectSystem/PlaceholderKey::.ctor(Unity.Entities.Entity,System.Int32)
+IL_00a8: ldloca.s V_24
+IL_00aa: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::TryGetValue(!0,!1&)
+IL_00af: brfalse.s IL_00b7
+IL_00b1: ldloc.s V_24
+IL_00b3: stloc.s V_23
+IL_00b5: br.s IL_00d7
+IL_00b7: ldarg.s updateData
+IL_00b9: ldc.i4.2
+IL_00ba: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureSelectedSpawnables(Unity.Collections.Allocator)
+IL_00bf: ldarg.s updateData
+IL_00c1: ldflda Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_SelectedSpawnabled
+IL_00c6: ldloc.s V_21
+IL_00c8: ldarg.s groupIndex
+IL_00ca: newobj System.Void Game.Objects.SubObjectSystem/PlaceholderKey::.ctor(Unity.Entities.Entity,System.Int32)
+IL_00cf: ldloc.s V_23
+IL_00d1: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::TryAdd(!0,!1)
+IL_00d6: pop
+IL_00d7: ldloca.s V_23
+IL_00d9: ldc.i4.s 100
+IL_00db: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32)
+IL_00e0: ldarg.s probability
+IL_00e2: bge.s IL_0125
+IL_00e4: ldarg.0
+IL_00e5: ldarg.1
+IL_00e6: ldloca.s V_23
+IL_00e8: ldarg.s topOwner
+IL_00ea: ldarg.s owner
+IL_00ec: ldarg.s ownerPrefab
+IL_00ee: ldarg.s isTemp
+IL_00f0: ldarg.s ownerTemp
+IL_00f2: ldarg.s ownerElevation
+IL_00f4: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00f9: ldarg.s ownerTransform
+IL_00fb: ldarg.s transformData
+IL_00fd: ldarg.s localTransformData
+IL_00ff: ldarg.s flags
+IL_0101: ldarg.s updateData
+IL_0103: ldarg.s prefab
+IL_0105: ldc.i4.0
+IL_0106: ldarg.s native
+IL_0108: ldarg.s relative
+IL_010a: ldarg.s interpolated
+IL_010c: ldarg.s underConstruction
+IL_010e: ldarg.s destroyed
+IL_0110: ldarg.s overridden
+IL_0112: ldc.i4.0
+IL_0113: ldc.i4.0
+IL_0114: ldarg.s alignIndex
+IL_0116: ldarg.s parentMesh
+IL_0118: ldarg.s groupIndex
+IL_011a: ldarg.s probability
+IL_011c: ldarg.s prefabSubIndex
+IL_011e: ldarg.s depth
+IL_0120: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0125: ret
+IL_0126: ldc.r4 0
+IL_012b: stloc.2
+IL_012c: ldc.i4.0
+IL_012d: stloc.3
+IL_012e: ldc.i4.0
+IL_012f: stloc.s V_4
+IL_0131: ldc.r4 -1
+IL_0136: stloc.s V_5
+IL_0138: ldc.r4 -1
+IL_013d: stloc.s V_6
+IL_013f: ldc.r4 -1
+IL_0144: stloc.s V_7
+IL_0146: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_014b: stloc.s V_8
+IL_014d: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0152: stloc.s V_9
+IL_0154: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0159: stloc.s V_10
+IL_015b: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0160: stloc.s V_11
+IL_0162: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0167: stloc.s V_12
+IL_0169: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_016e: stloc.s V_13
+IL_0170: ldloca.s V_14
+IL_0172: initobj Unity.Mathematics.Random
+IL_0178: ldloca.s V_15
+IL_017a: initobj Unity.Mathematics.Random
+IL_0180: ldloca.s V_16
+IL_0182: initobj Unity.Mathematics.Random
+IL_0188: ldc.i4.0
+IL_0189: stloc.s V_17
+IL_018b: ldc.i4.0
+IL_018c: stloc.s V_18
+IL_018e: ldc.i4.0
+IL_018f: stloc.s V_19
+IL_0191: ldloc.0
+IL_0192: ldfld System.Boolean Game.Prefabs.PlaceholderObjectData::m_RandomizeGroupIndex
+IL_0197: brfalse.s IL_01c0
+IL_0199: ldarg.2
+IL_019a: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_019f: pop
+IL_01a0: ldarg.3
+IL_01a1: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_01a6: ldc.i4 2147483647
+IL_01ab: and
+IL_01ac: stloc.s V_25
+IL_01ae: ldloc.s V_25
+IL_01b0: ldc.i4.m1
+IL_01b1: ldloc.s V_25
+IL_01b3: sub
+IL_01b4: ldarg.s groupIndex
+IL_01b6: ldc.i4.0
+IL_01b7: clt
+IL_01b9: call System.Int32 Unity.Mathematics.math::select(System.Int32,System.Int32,System.Boolean)
+IL_01be: starg.s groupIndex
+IL_01c0: ldsfld Game.Rendering.AnimatedPropID Game.Rendering.AnimatedPropID::Any
+IL_01c5: stloc.s V_20
+IL_01c7: ldc.i4.0
+IL_01c8: stloc.s V_26
+IL_01ca: br IL_0a06
+IL_01cf: ldloca.s V_1
+IL_01d1: ldloc.s V_26
+IL_01d3: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.PlaceholderObjectElement>::get_Item(System.Int32)
+IL_01d8: ldfld Unity.Entities.Entity Game.Prefabs.PlaceholderObjectElement::m_Object
+IL_01dd: stloc.s V_27
+IL_01df: ldarg.0
+IL_01e0: ldloc.s V_27
+IL_01e2: ldarg.s groupIndex
+IL_01e4: ldc.i4.0
+IL_01e5: ldarg.s updateData
+IL_01e7: call System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CheckRequirements(Unity.Entities.Entity,System.Int32,System.Boolean,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_01ec: brfalse IL_0a00
+IL_01f1: ldc.r4 0
+IL_01f6: stloc.s V_28
+IL_01f8: ldc.r4 0
+IL_01fd: stloc.s V_29
+IL_01ff: ldc.i4.0
+IL_0200: stloc.s V_30
+IL_0202: ldc.i4.0
+IL_0203: stloc.s V_31
+IL_0205: ldarg.0
+IL_0206: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PillarData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPillarData
+IL_020b: ldloc.s V_27
+IL_020d: ldloca.s V_32
+IL_020f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PillarData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0214: brfalse IL_04ee
+IL_0219: ldloc.s V_32
+IL_021b: ldfld Game.Prefabs.PillarType Game.Prefabs.PillarData::m_Type
+IL_0220: stloc.s V_39
+IL_0222: ldloc.s V_39
+IL_0224: switch IL_02d0,IL_023e,IL_03b2,IL_0451
+IL_0239: br IL_04ee
+IL_023e: ldc.i4.1
+IL_023f: stloc.s V_30
+IL_0241: ldc.i4.1
+IL_0242: stloc.s V_31
+IL_0244: ldarg.0
+IL_0245: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabNetGeometryData
+IL_024a: ldarg.s ownerPrefab
+IL_024c: ldloca.s V_40
+IL_024e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0253: brfalse IL_04ee
+IL_0258: ldarg.0
+IL_0259: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_025e: ldloc.s V_27
+IL_0260: ldloca.s V_41
+IL_0262: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0267: brfalse IL_04ee
+IL_026c: ldloc.s V_40
+IL_026e: ldfld System.Single Game.Prefabs.NetGeometryData::m_ElevatedWidth
+IL_0273: ldc.r4 1
+IL_0278: sub
+IL_0279: stloc.s V_42
+IL_027b: ldloc.s V_32
+IL_027d: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.PillarData::m_OffsetRange
+IL_0282: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_0287: stloc.s V_43
+IL_0289: ldloc.s V_29
+IL_028b: ldc.r4 1
+IL_0290: ldc.r4 1
+IL_0295: ldloc.s V_41
+IL_0297: ldfld Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Size
+IL_029c: ldfld System.Single Unity.Mathematics.float3::x
+IL_02a1: ldloc.s V_42
+IL_02a3: sub
+IL_02a4: call System.Single Unity.Mathematics.math::abs(System.Single)
+IL_02a9: add
+IL_02aa: div
+IL_02ab: add
+IL_02ac: stloc.s V_29
+IL_02ae: ldloc.s V_29
+IL_02b0: ldc.r4 0.01
+IL_02b5: ldc.r4 1
+IL_02ba: ldc.r4 0
+IL_02bf: ldloc.s V_43
+IL_02c1: call System.Single Unity.Mathematics.math::max(System.Single,System.Single)
+IL_02c6: add
+IL_02c7: div
+IL_02c8: add
+IL_02c9: stloc.s V_29
+IL_02cb: br IL_04ee
+IL_02d0: ldc.i4.1
+IL_02d1: stloc.s V_31
+IL_02d3: ldarg.0
+IL_02d4: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabNetGeometryData
+IL_02d9: ldarg.s ownerPrefab
+IL_02db: ldloca.s V_44
+IL_02dd: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_02e2: brfalse IL_04ee
+IL_02e7: ldarg.0
+IL_02e8: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_02ed: ldloc.s V_27
+IL_02ef: ldloca.s V_45
+IL_02f1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_02f6: brfalse IL_04ee
+IL_02fb: ldarg.0
+IL_02fc: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceableObjectData
+IL_0301: ldloc.s V_27
+IL_0303: ldloca.s V_46
+IL_0305: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_030a: brfalse.s IL_0328
+IL_030c: ldloca.s V_45
+IL_030e: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Size
+IL_0313: ldflda System.Single Unity.Mathematics.float3::y
+IL_0318: dup
+IL_0319: ldind.r4
+IL_031a: ldloc.s V_46
+IL_031c: ldfld Unity.Mathematics.float3 Game.Prefabs.PlaceableObjectData::m_PlacementOffset
+IL_0321: ldfld System.Single Unity.Mathematics.float3::y
+IL_0326: sub
+IL_0327: stind.r4
+IL_0328: ldarg.s ownerElevation
+IL_032a: ldarg.s transformData
+IL_032c: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0331: ldfld System.Single Unity.Mathematics.float3::y
+IL_0336: add
+IL_0337: ldarg.s ownerTransform
+IL_0339: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_033e: ldfld System.Single Unity.Mathematics.float3::y
+IL_0343: sub
+IL_0344: stloc.s V_47
+IL_0346: ldloc.s V_45
+IL_0348: ldfld Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Size
+IL_034d: ldfld System.Single Unity.Mathematics.float3::y
+IL_0352: ldloc.s V_47
+IL_0354: sub
+IL_0355: stloc.s V_48
+IL_0357: ldloc.s V_29
+IL_0359: ldc.r4 1
+IL_035e: ldc.r4 1
+IL_0363: ldc.r4 2
+IL_0368: ldloc.s V_48
+IL_036a: mul
+IL_036b: ldloc.s V_48
+IL_036d: neg
+IL_036e: ldloc.s V_48
+IL_0370: ldc.r4 0
+IL_0375: clt
+IL_0377: call System.Single Unity.Mathematics.math::select(System.Single,System.Single,System.Boolean)
+IL_037c: add
+IL_037d: div
+IL_037e: add
+IL_037f: stloc.s V_29
+IL_0381: ldc.r4 0
+IL_0386: ldloc.s V_44
+IL_0388: ldfld System.Single Game.Prefabs.NetGeometryData::m_ElevatedWidth
+IL_038d: ldc.r4 0.5
+IL_0392: mul
+IL_0393: ldloc.s V_45
+IL_0395: ldfld Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Size
+IL_039a: ldfld System.Single Unity.Mathematics.float3::x
+IL_039f: ldc.r4 0.5
+IL_03a4: mul
+IL_03a5: sub
+IL_03a6: call System.Single Unity.Mathematics.math::max(System.Single,System.Single)
+IL_03ab: stloc.s V_28
+IL_03ad: br IL_04ee
+IL_03b2: ldarg.0
+IL_03b3: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_03b8: ldloc.s V_27
+IL_03ba: ldloca.s V_49
+IL_03bc: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_03c1: brfalse IL_04ee
+IL_03c6: ldarg.0
+IL_03c7: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceableObjectData
+IL_03cc: ldloc.s V_27
+IL_03ce: ldloca.s V_50
+IL_03d0: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_03d5: brfalse.s IL_03f3
+IL_03d7: ldloca.s V_49
+IL_03d9: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Size
+IL_03de: ldflda System.Single Unity.Mathematics.float3::y
+IL_03e3: dup
+IL_03e4: ldind.r4
+IL_03e5: ldloc.s V_50
+IL_03e7: ldfld Unity.Mathematics.float3 Game.Prefabs.PlaceableObjectData::m_PlacementOffset
+IL_03ec: ldfld System.Single Unity.Mathematics.float3::y
+IL_03f1: sub
+IL_03f2: stind.r4
+IL_03f3: ldarg.s ownerElevation
+IL_03f5: ldarg.s transformData
+IL_03f7: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_03fc: ldfld System.Single Unity.Mathematics.float3::y
+IL_0401: add
+IL_0402: ldarg.s ownerTransform
+IL_0404: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0409: ldfld System.Single Unity.Mathematics.float3::y
+IL_040e: sub
+IL_040f: stloc.s V_51
+IL_0411: ldloc.s V_49
+IL_0413: ldfld Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Size
+IL_0418: ldfld System.Single Unity.Mathematics.float3::y
+IL_041d: ldloc.s V_51
+IL_041f: sub
+IL_0420: stloc.s V_52
+IL_0422: ldloc.s V_29
+IL_0424: ldc.r4 1
+IL_0429: ldc.r4 1
+IL_042e: ldc.r4 2
+IL_0433: ldloc.s V_52
+IL_0435: mul
+IL_0436: ldloc.s V_52
+IL_0438: neg
+IL_0439: ldloc.s V_52
+IL_043b: ldc.r4 0
+IL_0440: clt
+IL_0442: call System.Single Unity.Mathematics.math::select(System.Single,System.Single,System.Boolean)
+IL_0447: add
+IL_0448: div
+IL_0449: add
+IL_044a: stloc.s V_29
+IL_044c: br IL_04ee
+IL_0451: ldc.i4.2
+IL_0452: stloc.s V_30
+IL_0454: ldarg.0
+IL_0455: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_045a: ldloc.s V_27
+IL_045c: ldloca.s V_53
+IL_045e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0463: brfalse IL_04ee
+IL_0468: ldarg.0
+IL_0469: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceableObjectData
+IL_046e: ldloc.s V_27
+IL_0470: ldloca.s V_54
+IL_0472: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0477: brfalse.s IL_0495
+IL_0479: ldloca.s V_53
+IL_047b: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Size
+IL_0480: ldflda System.Single Unity.Mathematics.float3::y
+IL_0485: dup
+IL_0486: ldind.r4
+IL_0487: ldloc.s V_54
+IL_0489: ldfld Unity.Mathematics.float3 Game.Prefabs.PlaceableObjectData::m_PlacementOffset
+IL_048e: ldfld System.Single Unity.Mathematics.float3::y
+IL_0493: sub
+IL_0494: stind.r4
+IL_0495: ldarg.s ownerElevation
+IL_0497: ldarg.s transformData
+IL_0499: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_049e: ldfld System.Single Unity.Mathematics.float3::y
+IL_04a3: add
+IL_04a4: ldarg.s ownerTransform
+IL_04a6: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_04ab: ldfld System.Single Unity.Mathematics.float3::y
+IL_04b0: sub
+IL_04b1: stloc.s V_55
+IL_04b3: ldloc.s V_53
+IL_04b5: ldfld Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Size
+IL_04ba: ldfld System.Single Unity.Mathematics.float3::y
+IL_04bf: ldloc.s V_55
+IL_04c1: sub
+IL_04c2: stloc.s V_56
+IL_04c4: ldloc.s V_29
+IL_04c6: ldc.r4 1
+IL_04cb: ldc.r4 1
+IL_04d0: ldc.r4 2
+IL_04d5: ldloc.s V_56
+IL_04d7: mul
+IL_04d8: ldloc.s V_56
+IL_04da: neg
+IL_04db: ldloc.s V_56
+IL_04dd: ldc.r4 0
+IL_04e2: clt
+IL_04e4: call System.Single Unity.Mathematics.math::select(System.Single,System.Single,System.Boolean)
+IL_04e9: add
+IL_04ea: div
+IL_04eb: add
+IL_04ec: stloc.s V_29
+IL_04ee: ldarg.0
+IL_04ef: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.QuantityObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabQuantityObjectData
+IL_04f4: ldloc.s V_27
+IL_04f6: ldloca.s V_33
+IL_04f8: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.QuantityObjectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_04fd: brfalse IL_0730
+IL_0502: ldloc.s V_33
+IL_0504: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_0509: ldarg.s updateData
+IL_050b: ldfld Game.Economy.Resource Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_StoredResources
+IL_0510: and
+IL_0511: brfalse.s IL_0526
+IL_0513: ldloc.s V_29
+IL_0515: ldc.r4 1
+IL_051a: add
+IL_051b: stloc.s V_29
+IL_051d: ldloca.s V_33
+IL_051f: ldc.i4.0
+IL_0520: conv.i8
+IL_0521: stfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_0526: ldloc.s V_33
+IL_0528: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_052d: brfalse.s IL_0564
+IL_052f: ldarg.0
+IL_0530: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.DeliveryTruck> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DeliveryTruckData
+IL_0535: ldarg.s topOwner
+IL_0537: ldloca.s V_57
+IL_0539: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Vehicles.DeliveryTruck>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_053e: brfalse.s IL_0564
+IL_0540: ldloc.s V_33
+IL_0542: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_0547: ldloc.s V_57
+IL_0549: ldfld Game.Economy.Resource Game.Vehicles.DeliveryTruck::m_Resource
+IL_054e: and
+IL_054f: brfalse.s IL_0564
+IL_0551: ldloc.s V_29
+IL_0553: ldc.r4 1
+IL_0558: add
+IL_0559: stloc.s V_29
+IL_055b: ldloca.s V_33
+IL_055d: ldc.i4.0
+IL_055e: conv.i8
+IL_055f: stfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_0564: ldloc.s V_33
+IL_0566: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_056b: ldc.i4 8192
+IL_0570: conv.i8
+IL_0571: and
+IL_0572: brfalse.s IL_0596
+IL_0574: ldarg.0
+IL_0575: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.MailProducer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_MailProducerData
+IL_057a: ldarg.s topOwner
+IL_057c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.MailProducer>::HasComponent(Unity.Entities.Entity)
+IL_0581: brfalse.s IL_0596
+IL_0583: ldloc.s V_29
+IL_0585: ldc.r4 0.9
+IL_058a: add
+IL_058b: stloc.s V_29
+IL_058d: ldloca.s V_33
+IL_058f: ldc.i4.0
+IL_0590: conv.i8
+IL_0591: stfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_0596: ldloc.s V_33
+IL_0598: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_059d: ldc.i8 549755813888
+IL_05a6: and
+IL_05a7: brfalse.s IL_05cb
+IL_05a9: ldarg.0
+IL_05aa: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.GarbageProducer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_GarbageProducerData
+IL_05af: ldarg.s topOwner
+IL_05b1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.GarbageProducer>::HasComponent(Unity.Entities.Entity)
+IL_05b6: brfalse.s IL_05cb
+IL_05b8: ldloc.s V_29
+IL_05ba: ldc.r4 0.9
+IL_05bf: add
+IL_05c0: stloc.s V_29
+IL_05c2: ldloca.s V_33
+IL_05c4: ldc.i4.0
+IL_05c5: conv.i8
+IL_05c6: stfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_05cb: ldloc.s V_33
+IL_05cd: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_05d2: brfalse IL_0674
+IL_05d7: ldarg.0
+IL_05d8: ldflda Unity.Entities.BufferLookup`1<Game.Economy.Resources> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_Resources
+IL_05dd: ldarg.s topOwner
+IL_05df: call System.Boolean Unity.Entities.BufferLookup`1<Game.Economy.Resources>::HasBuffer(Unity.Entities.Entity)
+IL_05e4: brfalse IL_0674
+IL_05e9: ldarg.0
+IL_05ea: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabRefData
+IL_05ef: ldarg.s topOwner
+IL_05f1: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_05f6: stloc.s V_58
+IL_05f8: ldloc.s V_33
+IL_05fa: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_05ff: stloc.s V_59
+IL_0601: ldarg.0
+IL_0602: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.CargoTransportVehicleData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabCargoTransportVehicleData
+IL_0607: ldloc.s V_58
+IL_0609: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_060e: ldloca.s V_60
+IL_0610: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.CargoTransportVehicleData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0615: brfalse.s IL_0623
+IL_0617: ldloc.s V_59
+IL_0619: ldloc.s V_60
+IL_061b: ldfld Game.Economy.Resource Game.Prefabs.CargoTransportVehicleData::m_Resources
+IL_0620: and
+IL_0621: stloc.s V_59
+IL_0623: ldloc.s V_59
+IL_0625: brfalse.s IL_0674
+IL_0627: ldarg.0
+IL_0628: ldflda Unity.Entities.BufferLookup`1<Game.Economy.Resources> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_Resources
+IL_062d: ldarg.s topOwner
+IL_062f: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Economy.Resources>::get_Item(Unity.Entities.Entity)
+IL_0634: stloc.s V_61
+IL_0636: ldc.i4.0
+IL_0637: stloc.s V_62
+IL_0639: br.s IL_0669
+IL_063b: ldloca.s V_61
+IL_063d: ldloc.s V_62
+IL_063f: call !0 Unity.Entities.DynamicBuffer`1<Game.Economy.Resources>::get_Item(System.Int32)
+IL_0644: ldfld Game.Economy.Resource Game.Economy.Resources::m_Resource
+IL_0649: ldloc.s V_59
+IL_064b: and
+IL_064c: brfalse.s IL_0663
+IL_064e: ldloc.s V_29
+IL_0650: ldc.r4 1
+IL_0655: add
+IL_0656: stloc.s V_29
+IL_0658: ldloca.s V_33
+IL_065a: ldc.i4.0
+IL_065b: conv.i8
+IL_065c: stfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_0661: br.s IL_0674
+IL_0663: ldloc.s V_62
+IL_0665: ldc.i4.1
+IL_0666: add
+IL_0667: stloc.s V_62
+IL_0669: ldloc.s V_62
+IL_066b: ldloca.s V_61
+IL_066d: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Economy.Resources>::get_Length()
+IL_0672: blt.s IL_063b
+IL_0674: ldloc.s V_33
+IL_0676: ldfld Game.Areas.MapFeature Game.Prefabs.QuantityObjectData::m_MapFeature
+IL_067b: ldc.i4.m1
+IL_067c: beq.s IL_06c5
+IL_067e: ldarg.0
+IL_067f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabRefData
+IL_0684: ldarg.s topOwner
+IL_0686: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_068b: stloc.s V_63
+IL_068d: ldarg.0
+IL_068e: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.WorkVehicleData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabWorkVehicleData
+IL_0693: ldloc.s V_63
+IL_0695: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_069a: ldloca.s V_64
+IL_069c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.WorkVehicleData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_06a1: brfalse.s IL_06c5
+IL_06a3: ldloc.s V_33
+IL_06a5: ldfld Game.Areas.MapFeature Game.Prefabs.QuantityObjectData::m_MapFeature
+IL_06aa: ldloc.s V_64
+IL_06ac: ldfld Game.Areas.MapFeature Game.Prefabs.WorkVehicleData::m_MapFeature
+IL_06b1: bne.un.s IL_06c5
+IL_06b3: ldloc.s V_29
+IL_06b5: ldc.r4 1
+IL_06ba: add
+IL_06bb: stloc.s V_29
+IL_06bd: ldloca.s V_33
+IL_06bf: ldc.i4.m1
+IL_06c0: stfld Game.Areas.MapFeature Game.Prefabs.QuantityObjectData::m_MapFeature
+IL_06c5: ldloc.s V_33
+IL_06c7: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_06cc: brfalse.s IL_0717
+IL_06ce: ldarg.0
+IL_06cf: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabRefData
+IL_06d4: ldarg.s topOwner
+IL_06d6: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_06db: stloc.s V_65
+IL_06dd: ldarg.0
+IL_06de: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.WorkVehicleData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabWorkVehicleData
+IL_06e3: ldloc.s V_65
+IL_06e5: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_06ea: ldloca.s V_66
+IL_06ec: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.WorkVehicleData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_06f1: brfalse.s IL_0717
+IL_06f3: ldloc.s V_33
+IL_06f5: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_06fa: ldloc.s V_66
+IL_06fc: ldfld Game.Economy.Resource Game.Prefabs.WorkVehicleData::m_Resources
+IL_0701: and
+IL_0702: brfalse.s IL_0717
+IL_0704: ldloc.s V_29
+IL_0706: ldc.r4 1
+IL_070b: add
+IL_070c: stloc.s V_29
+IL_070e: ldloca.s V_33
+IL_0710: ldc.i4.0
+IL_0711: conv.i8
+IL_0712: stfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_0717: ldloc.s V_33
+IL_0719: ldfld Game.Economy.Resource Game.Prefabs.QuantityObjectData::m_Resources
+IL_071e: brtrue IL_0a00
+IL_0723: ldloc.s V_33
+IL_0725: ldfld Game.Areas.MapFeature Game.Prefabs.QuantityObjectData::m_MapFeature
+IL_072a: ldc.i4.m1
+IL_072b: bne.un IL_0a00
+IL_0730: ldarg.0
+IL_0731: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ActivityPropData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ActivityPropData
+IL_0736: ldloc.s V_27
+IL_0738: ldloca.s V_34
+IL_073a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ActivityPropData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_073f: brfalse IL_083e
+IL_0744: ldloc.s V_20
+IL_0746: ldsfld Game.Rendering.AnimatedPropID Game.Rendering.AnimatedPropID::Any
+IL_074b: call System.Boolean Game.Rendering.AnimatedPropID::op_Equality(Game.Rendering.AnimatedPropID,Game.Rendering.AnimatedPropID)
+IL_0750: brfalse IL_082b
+IL_0755: ldsfld Game.Rendering.AnimatedPropID Game.Rendering.AnimatedPropID::None
+IL_075a: stloc.s V_20
+IL_075c: ldarg.s relative
+IL_075e: brfalse IL_082b
+IL_0763: ldarg.0
+IL_0764: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Relative> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_RelativeData
+IL_0769: ldarg.s owner
+IL_076b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Relative>::HasComponent(Unity.Entities.Entity)
+IL_0770: brtrue IL_082b
+IL_0775: ldarg.0
+IL_0776: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UpdatedData
+IL_077b: ldarg.s owner
+IL_077d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Updated>::HasComponent(Unity.Entities.Entity)
+IL_0782: brtrue IL_082b
+IL_0787: ldarg.0
+IL_0788: ldflda Unity.Entities.BufferLookup`1<Game.Objects.TransformFrame> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformFrames
+IL_078d: ldarg.s owner
+IL_078f: ldloca.s V_67
+IL_0791: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.TransformFrame>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0796: brfalse IL_082b
+IL_079b: ldc.i4.0
+IL_079c: stloc.s V_68
+IL_079e: ldarg.0
+IL_079f: ldflda Unity.Entities.ComponentLookup`1<Game.Creatures.Human> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_HumanData
+IL_07a4: ldarg.s owner
+IL_07a6: ldloca.s V_69
+IL_07a8: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Creatures.Human>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_07ad: brfalse.s IL_07b8
+IL_07af: ldloc.s V_69
+IL_07b1: call Game.Prefabs.ActivityCondition Game.Creatures.CreatureUtils::GetConditions(Game.Creatures.Human)
+IL_07b6: stloc.s V_68
+IL_07b8: ldarg.0
+IL_07b9: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshGroup> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_MeshGroups
+IL_07be: ldarg.s owner
+IL_07c0: ldloca.s V_70
+IL_07c2: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshGroup>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_07c7: pop
+IL_07c8: ldc.i4.0
+IL_07c9: stloc.s V_71
+IL_07cb: ldc.i4.0
+IL_07cc: stloc.s V_72
+IL_07ce: ldc.i4.0
+IL_07cf: stloc.s V_73
+IL_07d1: br.s IL_0820
+IL_07d3: ldloca.s V_67
+IL_07d5: ldloc.s V_73
+IL_07d7: call !0 Unity.Entities.DynamicBuffer`1<Game.Objects.TransformFrame>::get_Item(System.Int32)
+IL_07dc: stloc.s V_74
+IL_07de: ldloc.s V_74
+IL_07e0: ldfld Game.Objects.TransformState Game.Objects.TransformFrame::m_State
+IL_07e5: ldloc.s V_71
+IL_07e7: bne.un.s IL_07f4
+IL_07e9: ldloc.s V_74
+IL_07eb: ldfld System.Byte Game.Objects.TransformFrame::m_Activity
+IL_07f0: ldloc.s V_72
+IL_07f2: beq.s IL_081a
+IL_07f4: ldloc.s V_74
+IL_07f6: ldfld Game.Objects.TransformState Game.Objects.TransformFrame::m_State
+IL_07fb: stloc.s V_71
+IL_07fd: ldloc.s V_74
+IL_07ff: ldfld System.Byte Game.Objects.TransformFrame::m_Activity
+IL_0804: stloc.s V_72
+IL_0806: ldarg.0
+IL_0807: ldarg.s owner
+IL_0809: ldarg.s ownerPrefab
+IL_080b: ldloc.s V_74
+IL_080d: ldloc.s V_68
+IL_080f: ldloc.s V_70
+IL_0811: ldloca.s V_20
+IL_0813: call System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::GetPropID(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.TransformFrame,Game.Prefabs.ActivityCondition,Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>,Game.Rendering.AnimatedPropID&)
+IL_0818: brtrue.s IL_082b
+IL_081a: ldloc.s V_73
+IL_081c: ldc.i4.1
+IL_081d: add
+IL_081e: stloc.s V_73
+IL_0820: ldloc.s V_73
+IL_0822: ldloca.s V_67
+IL_0824: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.TransformFrame>::get_Length()
+IL_0829: blt.s IL_07d3
+IL_082b: ldloc.s V_34
+IL_082d: ldfld Game.Rendering.AnimatedPropID Game.Prefabs.ActivityPropData::m_AnimatedPropID
+IL_0832: ldloc.s V_20
+IL_0834: call System.Boolean Game.Rendering.AnimatedPropID::op_Inequality(Game.Rendering.AnimatedPropID,Game.Rendering.AnimatedPropID)
+IL_0839: brtrue IL_0a00
+IL_083e: ldarg.0
+IL_083f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSpawnableObjectData
+IL_0844: ldloc.s V_27
+IL_0846: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData>::get_Item(Unity.Entities.Entity)
+IL_084b: stloc.s V_35
+IL_084d: ldloc.s V_35
+IL_084f: ldfld Unity.Entities.Entity Game.Prefabs.SpawnableObjectData::m_RandomizationGroup
+IL_0854: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0859: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_085e: brtrue.s IL_0864
+IL_0860: ldloc.s V_27
+IL_0862: br.s IL_086b
+IL_0864: ldloc.s V_35
+IL_0866: ldfld Unity.Entities.Entity Game.Prefabs.SpawnableObjectData::m_RandomizationGroup
+IL_086b: stloc.s V_36
+IL_086d: ldarg.2
+IL_086e: ldobj Unity.Mathematics.Random
+IL_0873: stloc.s V_37
+IL_0875: ldarg.2
+IL_0876: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_087b: pop
+IL_087c: ldarg.2
+IL_087d: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0882: pop
+IL_0883: ldarg.3
+IL_0884: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0889: pop
+IL_088a: ldarg.3
+IL_088b: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0890: pop
+IL_0891: ldarg.s updateData
+IL_0893: ldflda Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_SelectedSpawnabled
+IL_0898: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::get_IsCreated()
+IL_089d: brfalse.s IL_08c6
+IL_089f: ldarg.s updateData
+IL_08a1: ldflda Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_SelectedSpawnabled
+IL_08a6: ldloc.s V_36
+IL_08a8: ldarg.s groupIndex
+IL_08aa: newobj System.Void Game.Objects.SubObjectSystem/PlaceholderKey::.ctor(Unity.Entities.Entity,System.Int32)
+IL_08af: ldloca.s V_38
+IL_08b1: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::TryGetValue(!0,!1&)
+IL_08b6: brfalse.s IL_08c6
+IL_08b8: ldloc.s V_29
+IL_08ba: ldc.r4 0.5
+IL_08bf: add
+IL_08c0: stloc.s V_29
+IL_08c2: ldloc.s V_38
+IL_08c4: stloc.s V_37
+IL_08c6: ldloc.s V_30
+IL_08c8: brtrue.s IL_093a
+IL_08ca: ldloc.s V_29
+IL_08cc: ldloc.s V_5
+IL_08ce: ble.un.s IL_08f4
+IL_08d0: ldloc.s V_28
+IL_08d2: stloc.2
+IL_08d3: ldloc.s V_31
+IL_08d5: stloc.3
+IL_08d6: ldloc.s V_29
+IL_08d8: stloc.s V_5
+IL_08da: ldloc.s V_27
+IL_08dc: stloc.s V_8
+IL_08de: ldloc.s V_36
+IL_08e0: stloc.s V_11
+IL_08e2: ldloc.s V_37
+IL_08e4: stloc.s V_14
+IL_08e6: ldloc.s V_35
+IL_08e8: ldfld System.Int32 Game.Prefabs.SpawnableObjectData::m_Probability
+IL_08ed: stloc.s V_17
+IL_08ef: br IL_0a00
+IL_08f4: ldloc.s V_29
+IL_08f6: ldloc.s V_5
+IL_08f8: bne.un IL_0a00
+IL_08fd: ldloc.s V_35
+IL_08ff: ldfld System.Int32 Game.Prefabs.SpawnableObjectData::m_Probability
+IL_0904: stloc.s V_75
+IL_0906: ldloc.s V_17
+IL_0908: ldloc.s V_75
+IL_090a: add
+IL_090b: stloc.s V_17
+IL_090d: ldarg.3
+IL_090e: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0913: pop
+IL_0914: ldarg.2
+IL_0915: ldloc.s V_17
+IL_0917: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32)
+IL_091c: ldloc.s V_75
+IL_091e: bge IL_0a00
+IL_0923: ldloc.s V_28
+IL_0925: stloc.2
+IL_0926: ldloc.s V_31
+IL_0928: stloc.3
+IL_0929: ldloc.s V_27
+IL_092b: stloc.s V_8
+IL_092d: ldloc.s V_36
+IL_092f: stloc.s V_11
+IL_0931: ldloc.s V_37
+IL_0933: stloc.s V_14
+IL_0935: br IL_0a00
+IL_093a: ldloc.s V_30
+IL_093c: ldc.i4.1
+IL_093d: bne.un.s IL_09a5
+IL_093f: ldloc.s V_29
+IL_0941: ldloc.s V_6
+IL_0943: ble.un.s IL_0967
+IL_0945: ldloc.s V_31
+IL_0947: stloc.s V_4
+IL_0949: ldloc.s V_29
+IL_094b: stloc.s V_6
+IL_094d: ldloc.s V_27
+IL_094f: stloc.s V_9
+IL_0951: ldloc.s V_36
+IL_0953: stloc.s V_12
+IL_0955: ldloc.s V_37
+IL_0957: stloc.s V_15
+IL_0959: ldloc.s V_35
+IL_095b: ldfld System.Int32 Game.Prefabs.SpawnableObjectData::m_Probability
+IL_0960: stloc.s V_18
+IL_0962: br IL_0a00
+IL_0967: ldloc.s V_29
+IL_0969: ldloc.s V_6
+IL_096b: bne.un IL_0a00
+IL_0970: ldloc.s V_35
+IL_0972: ldfld System.Int32 Game.Prefabs.SpawnableObjectData::m_Probability
+IL_0977: stloc.s V_76
+IL_0979: ldloc.s V_18
+IL_097b: ldloc.s V_76
+IL_097d: add
+IL_097e: stloc.s V_18
+IL_0980: ldarg.3
+IL_0981: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0986: pop
+IL_0987: ldarg.2
+IL_0988: ldloc.s V_18
+IL_098a: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32)
+IL_098f: ldloc.s V_76
+IL_0991: bge.s IL_0a00
+IL_0993: ldloc.s V_31
+IL_0995: stloc.s V_4
+IL_0997: ldloc.s V_27
+IL_0999: stloc.s V_9
+IL_099b: ldloc.s V_36
+IL_099d: stloc.s V_12
+IL_099f: ldloc.s V_37
+IL_09a1: stloc.s V_15
+IL_09a3: br.s IL_0a00
+IL_09a5: ldloc.s V_30
+IL_09a7: ldc.i4.2
+IL_09a8: bne.un.s IL_0a00
+IL_09aa: ldloc.s V_29
+IL_09ac: ldloc.s V_7
+IL_09ae: ble.un.s IL_09cb
+IL_09b0: ldloc.s V_29
+IL_09b2: stloc.s V_7
+IL_09b4: ldloc.s V_27
+IL_09b6: stloc.s V_10
+IL_09b8: ldloc.s V_36
+IL_09ba: stloc.s V_13
+IL_09bc: ldloc.s V_37
+IL_09be: stloc.s V_16
+IL_09c0: ldloc.s V_35
+IL_09c2: ldfld System.Int32 Game.Prefabs.SpawnableObjectData::m_Probability
+IL_09c7: stloc.s V_19
+IL_09c9: br.s IL_0a00
+IL_09cb: ldloc.s V_29
+IL_09cd: ldloc.s V_7
+IL_09cf: bne.un.s IL_0a00
+IL_09d1: ldloc.s V_35
+IL_09d3: ldfld System.Int32 Game.Prefabs.SpawnableObjectData::m_Probability
+IL_09d8: stloc.s V_77
+IL_09da: ldloc.s V_19
+IL_09dc: ldloc.s V_77
+IL_09de: add
+IL_09df: stloc.s V_19
+IL_09e1: ldarg.3
+IL_09e2: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_09e7: pop
+IL_09e8: ldarg.2
+IL_09e9: ldloc.s V_19
+IL_09eb: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32)
+IL_09f0: ldloc.s V_77
+IL_09f2: bge.s IL_0a00
+IL_09f4: ldloc.s V_27
+IL_09f6: stloc.s V_10
+IL_09f8: ldloc.s V_36
+IL_09fa: stloc.s V_13
+IL_09fc: ldloc.s V_37
+IL_09fe: stloc.s V_16
+IL_0a00: ldloc.s V_26
+IL_0a02: ldc.i4.1
+IL_0a03: add
+IL_0a04: stloc.s V_26
+IL_0a06: ldloc.s V_26
+IL_0a08: ldloca.s V_1
+IL_0a0a: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.PlaceholderObjectElement>::get_Length()
+IL_0a0f: blt IL_01cf
+IL_0a14: ldloc.s V_17
+IL_0a16: ldc.i4.0
+IL_0a17: ble IL_0b60
+IL_0a1c: ldarg.s updateData
+IL_0a1e: ldc.i4.2
+IL_0a1f: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureSelectedSpawnables(Unity.Collections.Allocator)
+IL_0a24: ldarg.s updateData
+IL_0a26: ldflda Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_SelectedSpawnabled
+IL_0a2b: ldloc.s V_11
+IL_0a2d: ldarg.s groupIndex
+IL_0a2f: newobj System.Void Game.Objects.SubObjectSystem/PlaceholderKey::.ctor(Unity.Entities.Entity,System.Int32)
+IL_0a34: ldloc.s V_14
+IL_0a36: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::TryAdd(!0,!1)
+IL_0a3b: pop
+IL_0a3c: ldloca.s V_14
+IL_0a3e: ldc.i4.s 100
+IL_0a40: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32)
+IL_0a45: ldarg.s probability
+IL_0a47: bge IL_0b60
+IL_0a4c: ldloc.2
+IL_0a4d: ldc.r4 0
+IL_0a52: beq IL_0b1f
+IL_0a57: ldarg.s localTransformData
+IL_0a59: stloc.s V_78
+IL_0a5b: ldarg.s localTransformData
+IL_0a5d: stloc.s V_79
+IL_0a5f: ldloca.s V_78
+IL_0a61: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0a66: ldflda System.Single Unity.Mathematics.float3::x
+IL_0a6b: dup
+IL_0a6c: ldind.r4
+IL_0a6d: ldloc.2
+IL_0a6e: sub
+IL_0a6f: stind.r4
+IL_0a70: ldloca.s V_79
+IL_0a72: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0a77: ldflda System.Single Unity.Mathematics.float3::x
+IL_0a7c: dup
+IL_0a7d: ldind.r4
+IL_0a7e: ldloc.2
+IL_0a7f: add
+IL_0a80: stind.r4
+IL_0a81: ldarg.s ownerTransform
+IL_0a83: ldloc.s V_78
+IL_0a85: call Game.Objects.Transform Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Game.Objects.Transform)
+IL_0a8a: stloc.s V_80
+IL_0a8c: ldarg.s ownerTransform
+IL_0a8e: ldloc.s V_79
+IL_0a90: call Game.Objects.Transform Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Game.Objects.Transform)
+IL_0a95: stloc.s V_81
+IL_0a97: ldloc.s V_14
+IL_0a99: stloc.s V_82
+IL_0a9b: ldarg.0
+IL_0a9c: ldarg.1
+IL_0a9d: ldloca.s V_14
+IL_0a9f: ldarg.s topOwner
+IL_0aa1: ldarg.s owner
+IL_0aa3: ldarg.s ownerPrefab
+IL_0aa5: ldarg.s isTemp
+IL_0aa7: ldarg.s ownerTemp
+IL_0aa9: ldarg.s ownerElevation
+IL_0aab: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0ab0: ldarg.s ownerTransform
+IL_0ab2: ldloc.s V_80
+IL_0ab4: ldloc.s V_78
+IL_0ab6: ldarg.s flags
+IL_0ab8: ldarg.s updateData
+IL_0aba: ldloc.s V_8
+IL_0abc: ldc.i4.0
+IL_0abd: ldarg.s native
+IL_0abf: ldarg.s relative
+IL_0ac1: ldarg.s interpolated
+IL_0ac3: ldarg.s underConstruction
+IL_0ac5: ldarg.s destroyed
+IL_0ac7: ldarg.s overridden
+IL_0ac9: ldloc.3
+IL_0aca: ldc.i4.0
+IL_0acb: ldarg.s alignIndex
+IL_0acd: ldarg.s parentMesh
+IL_0acf: ldarg.s groupIndex
+IL_0ad1: ldarg.s probability
+IL_0ad3: ldarg.s prefabSubIndex
+IL_0ad5: ldarg.s depth
+IL_0ad7: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0adc: ldarg.0
+IL_0add: ldarg.1
+IL_0ade: ldloca.s V_82
+IL_0ae0: ldarg.s topOwner
+IL_0ae2: ldarg.s owner
+IL_0ae4: ldarg.s ownerPrefab
+IL_0ae6: ldarg.s isTemp
+IL_0ae8: ldarg.s ownerTemp
+IL_0aea: ldarg.s ownerElevation
+IL_0aec: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0af1: ldarg.s ownerTransform
+IL_0af3: ldloc.s V_81
+IL_0af5: ldloc.s V_79
+IL_0af7: ldarg.s flags
+IL_0af9: ldarg.s updateData
+IL_0afb: ldloc.s V_8
+IL_0afd: ldc.i4.0
+IL_0afe: ldarg.s native
+IL_0b00: ldarg.s relative
+IL_0b02: ldarg.s interpolated
+IL_0b04: ldarg.s underConstruction
+IL_0b06: ldarg.s destroyed
+IL_0b08: ldarg.s overridden
+IL_0b0a: ldloc.3
+IL_0b0b: ldc.i4.0
+IL_0b0c: ldarg.s alignIndex
+IL_0b0e: ldarg.s parentMesh
+IL_0b10: ldarg.s groupIndex
+IL_0b12: ldarg.s probability
+IL_0b14: ldarg.s prefabSubIndex
+IL_0b16: ldarg.s depth
+IL_0b18: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0b1d: br.s IL_0b60
+IL_0b1f: ldarg.0
+IL_0b20: ldarg.1
+IL_0b21: ldloca.s V_14
+IL_0b23: ldarg.s topOwner
+IL_0b25: ldarg.s owner
+IL_0b27: ldarg.s ownerPrefab
+IL_0b29: ldarg.s isTemp
+IL_0b2b: ldarg.s ownerTemp
+IL_0b2d: ldarg.s ownerElevation
+IL_0b2f: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0b34: ldarg.s ownerTransform
+IL_0b36: ldarg.s transformData
+IL_0b38: ldarg.s localTransformData
+IL_0b3a: ldarg.s flags
+IL_0b3c: ldarg.s updateData
+IL_0b3e: ldloc.s V_8
+IL_0b40: ldc.i4.0
+IL_0b41: ldarg.s native
+IL_0b43: ldarg.s relative
+IL_0b45: ldarg.s interpolated
+IL_0b47: ldarg.s underConstruction
+IL_0b49: ldarg.s destroyed
+IL_0b4b: ldarg.s overridden
+IL_0b4d: ldloc.3
+IL_0b4e: ldc.i4.0
+IL_0b4f: ldarg.s alignIndex
+IL_0b51: ldarg.s parentMesh
+IL_0b53: ldarg.s groupIndex
+IL_0b55: ldarg.s probability
+IL_0b57: ldarg.s prefabSubIndex
+IL_0b59: ldarg.s depth
+IL_0b5b: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0b60: ldloc.s V_18
+IL_0b62: ldc.i4.0
+IL_0b63: ble.s IL_0bd4
+IL_0b65: ldarg.s updateData
+IL_0b67: ldc.i4.2
+IL_0b68: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureSelectedSpawnables(Unity.Collections.Allocator)
+IL_0b6d: ldarg.s updateData
+IL_0b6f: ldflda Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_SelectedSpawnabled
+IL_0b74: ldloc.s V_12
+IL_0b76: ldarg.s groupIndex
+IL_0b78: newobj System.Void Game.Objects.SubObjectSystem/PlaceholderKey::.ctor(Unity.Entities.Entity,System.Int32)
+IL_0b7d: ldloc.s V_15
+IL_0b7f: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::TryAdd(!0,!1)
+IL_0b84: pop
+IL_0b85: ldloca.s V_15
+IL_0b87: ldc.i4.s 100
+IL_0b89: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32)
+IL_0b8e: ldarg.s probability
+IL_0b90: bge.s IL_0bd4
+IL_0b92: ldarg.0
+IL_0b93: ldarg.1
+IL_0b94: ldloca.s V_15
+IL_0b96: ldarg.s topOwner
+IL_0b98: ldarg.s owner
+IL_0b9a: ldarg.s ownerPrefab
+IL_0b9c: ldarg.s isTemp
+IL_0b9e: ldarg.s ownerTemp
+IL_0ba0: ldarg.s ownerElevation
+IL_0ba2: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0ba7: ldarg.s ownerTransform
+IL_0ba9: ldarg.s transformData
+IL_0bab: ldarg.s localTransformData
+IL_0bad: ldarg.s flags
+IL_0baf: ldarg.s updateData
+IL_0bb1: ldloc.s V_9
+IL_0bb3: ldc.i4.0
+IL_0bb4: ldarg.s native
+IL_0bb6: ldarg.s relative
+IL_0bb8: ldarg.s interpolated
+IL_0bba: ldarg.s underConstruction
+IL_0bbc: ldarg.s destroyed
+IL_0bbe: ldarg.s overridden
+IL_0bc0: ldloc.s V_4
+IL_0bc2: ldc.i4.0
+IL_0bc3: ldarg.s alignIndex
+IL_0bc5: ldarg.s parentMesh
+IL_0bc7: ldarg.s groupIndex
+IL_0bc9: ldarg.s probability
+IL_0bcb: ldarg.s prefabSubIndex
+IL_0bcd: ldarg.s depth
+IL_0bcf: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0bd4: ldloc.s V_19
+IL_0bd6: ldc.i4.0
+IL_0bd7: ble.s IL_0c47
+IL_0bd9: ldarg.s updateData
+IL_0bdb: ldc.i4.2
+IL_0bdc: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureSelectedSpawnables(Unity.Collections.Allocator)
+IL_0be1: ldarg.s updateData
+IL_0be3: ldflda Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_SelectedSpawnabled
+IL_0be8: ldloc.s V_13
+IL_0bea: ldarg.s groupIndex
+IL_0bec: newobj System.Void Game.Objects.SubObjectSystem/PlaceholderKey::.ctor(Unity.Entities.Entity,System.Int32)
+IL_0bf1: ldloc.s V_16
+IL_0bf3: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Objects.SubObjectSystem/PlaceholderKey,Unity.Mathematics.Random>::TryAdd(!0,!1)
+IL_0bf8: pop
+IL_0bf9: ldloca.s V_16
+IL_0bfb: ldc.i4.s 100
+IL_0bfd: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32)
+IL_0c02: ldarg.s probability
+IL_0c04: bge.s IL_0c47
+IL_0c06: ldarg.0
+IL_0c07: ldarg.1
+IL_0c08: ldloca.s V_16
+IL_0c0a: ldarg.s topOwner
+IL_0c0c: ldarg.s owner
+IL_0c0e: ldarg.s ownerPrefab
+IL_0c10: ldarg.s isTemp
+IL_0c12: ldarg.s ownerTemp
+IL_0c14: ldarg.s ownerElevation
+IL_0c16: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0c1b: ldarg.s ownerTransform
+IL_0c1d: ldarg.s transformData
+IL_0c1f: ldarg.s localTransformData
+IL_0c21: ldarg.s flags
+IL_0c23: ldarg.s updateData
+IL_0c25: ldloc.s V_10
+IL_0c27: ldc.i4.0
+IL_0c28: ldarg.s native
+IL_0c2a: ldarg.s relative
+IL_0c2c: ldarg.s interpolated
+IL_0c2e: ldarg.s underConstruction
+IL_0c30: ldarg.s destroyed
+IL_0c32: ldarg.s overridden
+IL_0c34: ldc.i4.0
+IL_0c35: ldc.i4.0
+IL_0c36: ldarg.s alignIndex
+IL_0c38: ldarg.s parentMesh
+IL_0c3a: ldarg.s groupIndex
+IL_0c3c: ldarg.s probability
+IL_0c3e: ldarg.s prefabSubIndex
+IL_0c40: ldarg.s depth
+IL_0c42: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0c47: ret
+METHOD System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_0006: ldarg.s prefab
+IL_0008: ldloca.s V_1
+IL_000a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_000f: stloc.0
+IL_0010: ldarg.0
+IL_0011: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabData
+IL_0016: ldarg.s prefab
+IL_0018: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabData>::IsComponentEnabled(Unity.Entities.Entity)
+IL_001d: stloc.2
+IL_001e: ldarg.s alignIndex
+IL_0020: ldc.i4.0
+IL_0021: blt.s IL_0083
+IL_0023: ldarg.0
+IL_0024: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PillarData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPillarData
+IL_0029: ldarg.s prefab
+IL_002b: ldloca.s V_3
+IL_002d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PillarData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0032: brfalse.s IL_0083
+IL_0034: ldloc.3
+IL_0035: ldfld Game.Prefabs.PillarType Game.Prefabs.PillarData::m_Type
+IL_003a: stloc.s V_8
+IL_003c: ldloc.s V_8
+IL_003e: switch IL_0055,IL_0083,IL_0067,IL_0079
+IL_0053: br.s IL_0083
+IL_0055: ldarg.s flags
+IL_0057: ldc.i4.1
+IL_0058: or
+IL_0059: starg.s flags
+IL_005b: ldarg.s flags
+IL_005d: ldc.i4 256
+IL_0062: or
+IL_0063: starg.s flags
+IL_0065: br.s IL_0083
+IL_0067: ldarg.s flags
+IL_0069: ldc.i4.1
+IL_006a: or
+IL_006b: starg.s flags
+IL_006d: ldarg.s flags
+IL_006f: ldc.i4 256
+IL_0074: or
+IL_0075: starg.s flags
+IL_0077: br.s IL_0083
+IL_0079: ldarg.s flags
+IL_007b: ldc.i4 256
+IL_0080: or
+IL_0081: starg.s flags
+IL_0083: ldarg.0
+IL_0084: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceableObjectData
+IL_0089: ldarg.s prefab
+IL_008b: ldloca.s V_4
+IL_008d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0092: pop
+IL_0093: ldarg.s flags
+IL_0095: ldc.i4.1
+IL_0096: and
+IL_0097: brfalse.s IL_00fc
+IL_0099: ldloca.s V_1
+IL_009b: ldflda Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_00a0: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_00a5: ldflda System.Single Unity.Mathematics.float3::y
+IL_00aa: dup
+IL_00ab: ldind.r4
+IL_00ac: ldloc.s V_4
+IL_00ae: ldfld Unity.Mathematics.float3 Game.Prefabs.PlaceableObjectData::m_PlacementOffset
+IL_00b3: ldfld System.Single Unity.Mathematics.float3::y
+IL_00b8: sub
+IL_00b9: stind.r4
+IL_00ba: ldarga.s transformData
+IL_00bc: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_00c1: ldflda System.Single Unity.Mathematics.float3::y
+IL_00c6: dup
+IL_00c7: ldind.r4
+IL_00c8: ldloc.1
+IL_00c9: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_00ce: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_00d3: ldfld System.Single Unity.Mathematics.float3::y
+IL_00d8: sub
+IL_00d9: stind.r4
+IL_00da: ldarga.s localTransformData
+IL_00dc: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_00e1: ldflda System.Single Unity.Mathematics.float3::y
+IL_00e6: dup
+IL_00e7: ldind.r4
+IL_00e8: ldloc.1
+IL_00e9: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_00ee: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_00f3: ldfld System.Single Unity.Mathematics.float3::y
+IL_00f8: sub
+IL_00f9: stind.r4
+IL_00fa: br.s IL_014f
+IL_00fc: ldarg.s flags
+IL_00fe: ldc.i4.2
+IL_00ff: and
+IL_0100: brfalse.s IL_014f
+IL_0102: ldloc.1
+IL_0103: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_0108: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::max
+IL_010d: ldfld System.Single Unity.Mathematics.float3::y
+IL_0112: ldloc.1
+IL_0113: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_0118: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bounds3::min
+IL_011d: ldfld System.Single Unity.Mathematics.float3::y
+IL_0122: sub
+IL_0123: ldc.r4 0.5
+IL_0128: mul
+IL_0129: stloc.s V_9
+IL_012b: ldarga.s transformData
+IL_012d: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0132: ldflda System.Single Unity.Mathematics.float3::y
+IL_0137: dup
+IL_0138: ldind.r4
+IL_0139: ldloc.s V_9
+IL_013b: sub
+IL_013c: stind.r4
+IL_013d: ldarga.s localTransformData
+IL_013f: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0144: ldflda System.Single Unity.Mathematics.float3::y
+IL_0149: dup
+IL_014a: ldind.r4
+IL_014b: ldloc.s V_9
+IL_014d: sub
+IL_014e: stind.r4
+IL_014f: ldloca.s V_5
+IL_0151: initobj Game.Common.PseudoRandomSeed
+IL_0157: ldloc.0
+IL_0158: brfalse.s IL_0162
+IL_015a: ldarg.2
+IL_015b: newobj System.Void Game.Common.PseudoRandomSeed::.ctor(Unity.Mathematics.Random&)
+IL_0160: stloc.s V_5
+IL_0162: ldarg.s underConstruction
+IL_0164: ldloc.0
+IL_0165: and
+IL_0166: brfalse.s IL_01a0
+IL_0168: ldloc.1
+IL_0169: ldfld Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_016e: ldc.i4.4
+IL_016f: and
+IL_0170: brtrue.s IL_01a0
+IL_0172: ldarg.0
+IL_0173: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabBuildingExtensionData
+IL_0178: ldarg.s prefab
+IL_017a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData>::HasComponent(Unity.Entities.Entity)
+IL_017f: brtrue.s IL_01a0
+IL_0181: ldarg.0
+IL_0182: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubLane> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSubLanes
+IL_0187: ldarg.s prefab
+IL_0189: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubLane>::HasBuffer(Unity.Entities.Entity)
+IL_018e: brtrue.s IL_01a0
+IL_0190: ldarg.0
+IL_0191: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnLocationData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSpawnLocationData
+IL_0196: ldarg.s prefab
+IL_0198: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnLocationData>::HasComponent(Unity.Entities.Entity)
+IL_019d: brtrue.s IL_01a0
+IL_019f: ret
+IL_01a0: ldloca.s V_6
+IL_01a2: ldarg.s ownerElevation
+IL_01a4: ldarg.s parentMesh
+IL_01a6: call System.Int32 Unity.Mathematics.math::abs(System.Int32)
+IL_01ab: ldc.i4 1000
+IL_01b0: bge.s IL_01b5
+IL_01b2: ldc.i4.0
+IL_01b3: br.s IL_01b6
+IL_01b5: ldc.i4.1
+IL_01b6: call System.Void Game.Objects.Elevation::.ctor(System.Single,Game.Objects.ElevationFlags)
+IL_01bb: ldarg.s flags
+IL_01bd: ldc.i4 67108864
+IL_01c2: and
+IL_01c3: brfalse.s IL_0218
+IL_01c5: ldloca.s V_6
+IL_01c7: ldflda Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_01cc: dup
+IL_01cd: ldind.u1
+IL_01ce: ldc.i4.8
+IL_01cf: or
+IL_01d0: stind.i1
+IL_01d1: ldarg.0
+IL_01d2: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AttachedData
+IL_01d7: ldarg.s owner
+IL_01d9: ldloca.s V_10
+IL_01db: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Attached>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_01e0: brfalse IL_02c5
+IL_01e5: ldarg.0
+IL_01e6: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeGeometry> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EdgeGeometryData
+IL_01eb: ldloc.s V_10
+IL_01ed: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_01f2: ldloca.s V_11
+IL_01f4: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.EdgeGeometry>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_01f9: brfalse IL_02c5
+IL_01fe: ldarga.s transformData
+IL_0200: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0205: ldloc.s V_11
+IL_0207: ldarg.s transformData
+IL_0209: call System.Single Game.Objects.ObjectUtils::GetAttachedParentHeight(Game.Net.EdgeGeometry,Game.Objects.Transform)
+IL_020e: stfld System.Single Unity.Mathematics.float3::y
+IL_0213: br IL_02c5
+IL_0218: ldarg.s flags
+IL_021a: ldc.i4 256
+IL_021f: and
+IL_0220: brtrue.s IL_027d
+IL_0222: ldloca.s V_6
+IL_0224: ldflda System.Single Game.Objects.Elevation::m_Elevation
+IL_0229: dup
+IL_022a: ldind.r4
+IL_022b: ldarg.s localTransformData
+IL_022d: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0232: ldfld System.Single Unity.Mathematics.float3::y
+IL_0237: add
+IL_0238: stind.r4
+IL_0239: ldarg.s ownerElevation
+IL_023b: ldc.r4 0
+IL_0240: blt.un.s IL_026a
+IL_0242: ldloc.s V_6
+IL_0244: ldfld System.Single Game.Objects.Elevation::m_Elevation
+IL_0249: ldc.r4 -0.5
+IL_024e: blt.un.s IL_026a
+IL_0250: ldloc.s V_6
+IL_0252: ldfld System.Single Game.Objects.Elevation::m_Elevation
+IL_0257: ldc.r4 0
+IL_025c: bge.un.s IL_026a
+IL_025e: ldloca.s V_6
+IL_0260: ldc.r4 0
+IL_0265: stfld System.Single Game.Objects.Elevation::m_Elevation
+IL_026a: ldarg.s parentMesh
+IL_026c: ldc.i4.0
+IL_026d: bge.s IL_02c5
+IL_026f: ldloca.s V_6
+IL_0271: ldflda Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_0276: dup
+IL_0277: ldind.u1
+IL_0278: ldc.i4.2
+IL_0279: or
+IL_027a: stind.i1
+IL_027b: br.s IL_02c5
+IL_027d: ldarg.s flags
+IL_027f: ldc.i4.3
+IL_0280: and
+IL_0281: brtrue.s IL_02ad
+IL_0283: ldarga.s transformData
+IL_0285: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_028a: ldarg.s ownerTransform
+IL_028c: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0291: ldfld System.Single Unity.Mathematics.float3::y
+IL_0296: ldarg.s ownerElevation
+IL_0298: sub
+IL_0299: stfld System.Single Unity.Mathematics.float3::y
+IL_029e: ldarga.s localTransformData
+IL_02a0: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_02a5: ldarg.s ownerElevation
+IL_02a7: neg
+IL_02a8: stfld System.Single Unity.Mathematics.float3::y
+IL_02ad: ldloca.s V_6
+IL_02af: ldc.r4 0
+IL_02b4: stfld System.Single Game.Objects.Elevation::m_Elevation
+IL_02b9: ldloca.s V_6
+IL_02bb: ldflda Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_02c0: dup
+IL_02c1: ldind.u1
+IL_02c2: ldc.i4.2
+IL_02c3: or
+IL_02c4: stind.i1
+IL_02c5: ldloc.s V_6
+IL_02c7: ldfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_02cc: ldc.i4.2
+IL_02cd: and
+IL_02ce: brfalse IL_036f
+IL_02d3: ldc.i4.1
+IL_02d4: stloc.s V_12
+IL_02d6: ldloc.0
+IL_02d7: brfalse.s IL_02f8
+IL_02d9: ldloc.1
+IL_02da: ldfld Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_02df: ldc.i4.s 16
+IL_02e1: and
+IL_02e2: brtrue.s IL_02f5
+IL_02e4: ldloc.1
+IL_02e5: ldfld Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_02ea: ldc.i4 32774
+IL_02ef: and
+IL_02f0: ldc.i4.0
+IL_02f1: cgt.un
+IL_02f3: br.s IL_02f6
+IL_02f5: ldc.i4.0
+IL_02f6: stloc.s V_12
+IL_02f8: ldloc.s V_12
+IL_02fa: brfalse.s IL_036f
+IL_02fc: ldarg.s transformData
+IL_02fe: ldloca.s V_6
+IL_0300: ldarg.s prefab
+IL_0302: ldloca.s V_14
+IL_0304: ldarg.0
+IL_0305: ldflda Game.Simulation.TerrainHeightData Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TerrainHeightData
+IL_030a: ldarg.0
+IL_030b: ldflda Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_WaterSurfaceData
+IL_0310: ldarg.0
+IL_0311: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabPlaceableObjectData
+IL_0316: ldarg.0
+IL_0317: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_031c: call Game.Objects.Transform Game.Objects.ObjectUtils::AdjustPosition(Game.Objects.Transform,Game.Objects.Elevation&,Unity.Entities.Entity,System.Boolean&,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&,Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceableObjectData>&,Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>&)
+IL_0321: stloc.s V_13
+IL_0323: ldloc.s V_13
+IL_0325: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_032a: ldfld System.Single Unity.Mathematics.float3::y
+IL_032f: ldarg.s transformData
+IL_0331: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0336: ldfld System.Single Unity.Mathematics.float3::y
+IL_033b: sub
+IL_033c: call System.Single Unity.Mathematics.math::abs(System.Single)
+IL_0341: ldc.r4 0.01
+IL_0346: bge.s IL_036b
+IL_0348: ldloc.s V_14
+IL_034a: brfalse.s IL_036f
+IL_034c: ldloc.s V_13
+IL_034e: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0353: ldarg.s transformData
+IL_0355: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_035a: call System.Single Colossal.Mathematics.MathUtils::RotationAngle(Unity.Mathematics.quaternion,Unity.Mathematics.quaternion)
+IL_035f: ldc.r4 0.1
+IL_0364: call System.Single Unity.Mathematics.math::radians(System.Single)
+IL_0369: blt.un.s IL_036f
+IL_036b: ldloc.s V_13
+IL_036d: starg.s transformData
+IL_036f: ldarg.s isDestroyed
+IL_0371: brfalse.s IL_039e
+IL_0373: ldloc.s V_6
+IL_0375: ldfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_037a: ldc.i4.3
+IL_037b: and
+IL_037c: ldc.i4.2
+IL_037d: beq.s IL_039e
+IL_037f: ldarg.0
+IL_0380: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabBuildingExtensionData
+IL_0385: ldarg.s prefab
+IL_0387: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData>::HasComponent(Unity.Entities.Entity)
+IL_038c: brtrue.s IL_039e
+IL_038e: ldarg.0
+IL_038f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.TransportStopData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransportStopData
+IL_0394: ldarg.s prefab
+IL_0396: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.TransportStopData>::HasComponent(Unity.Entities.Entity)
+IL_039b: brtrue.s IL_039e
+IL_039d: ret
+IL_039e: ldarg.s updateData
+IL_03a0: ldfld Unity.Collections.NativeList`1<Game.Tools.ClearAreaData> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_ClearAreas
+IL_03a5: ldarg.s transformData
+IL_03a7: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_03ac: ldarg.s flags
+IL_03ae: ldc.i4 256
+IL_03b3: and
+IL_03b4: ldc.i4.0
+IL_03b5: cgt.un
+IL_03b7: call System.Boolean Game.Tools.ClearAreaHelpers::ShouldClear(Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>,Unity.Mathematics.float3,System.Boolean)
+IL_03bc: brfalse.s IL_03bf
+IL_03be: ret
+IL_03bf: ldarg.s oldSubObject
+IL_03c1: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_03c6: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_03cb: brfalse.s IL_03df
+IL_03cd: ldarg.0
+IL_03ce: ldarg.s prefab
+IL_03d0: ldarg.s transformData
+IL_03d2: ldarg.s alignIndex
+IL_03d4: ldarg.s updateData
+IL_03d6: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_03db: starg.s oldSubObject
+IL_03dd: br.s IL_03f0
+IL_03df: ldarg.s oldSubObject
+IL_03e1: ldfld System.Int32 Unity.Entities.Entity::Index
+IL_03e6: ldc.i4.0
+IL_03e7: bge.s IL_03f0
+IL_03e9: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_03ee: starg.s oldSubObject
+IL_03f0: ldloc.s V_4
+IL_03f2: ldfld Game.Objects.PlacementFlags Game.Prefabs.PlaceableObjectData::m_Flags
+IL_03f7: ldc.i4 16384
+IL_03fc: and
+IL_03fd: brfalse.s IL_0402
+IL_03ff: ldc.i4.0
+IL_0400: starg.s relative
+IL_0402: ldloca.s V_7
+IL_0404: ldc.i4.0
+IL_0405: ldc.i4.m1
+IL_0406: ldc.i4.m1
+IL_0407: call System.Void Unity.Mathematics.int3::.ctor(System.Int32,System.Int32,System.Int32)
+IL_040c: ldarg.0
+IL_040d: ldfld System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorMode
+IL_0412: brtrue.s IL_0469
+IL_0414: ldarg.s parentMesh
+IL_0416: ldc.i4 1000
+IL_041b: rem
+IL_041c: stloc.s V_15
+IL_041e: ldloc.s V_15
+IL_0420: ldc.i4.0
+IL_0421: ble.s IL_0469
+IL_0423: ldloca.s V_7
+IL_0425: ldarg.s ownerPrefab
+IL_0427: ldarga.s localTransformData
+IL_0429: ldflda Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_042e: ldarga.s localTransformData
+IL_0430: ldflda Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0435: ldloc.s V_15
+IL_0437: ldarg.0
+IL_0438: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSubMeshes
+IL_043d: ldarg.0
+IL_043e: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.ProceduralBone> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabProceduralBones
+IL_0443: call Unity.Mathematics.int2 Game.Rendering.RenderingUtils::FindBoneIndex(Unity.Entities.Entity,Unity.Mathematics.float3&,Unity.Mathematics.quaternion&,System.Int32,Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh>&,Unity.Entities.BufferLookup`1<Game.Prefabs.ProceduralBone>&)
+IL_0448: call System.Void Unity.Mathematics.int3::set_yz(Unity.Mathematics.int2)
+IL_044d: ldloca.s V_7
+IL_044f: ldc.i4.0
+IL_0450: ldloc.s V_15
+IL_0452: ldloc.s V_7
+IL_0454: ldfld System.Int32 Unity.Mathematics.int3::y
+IL_0459: ldc.i4.0
+IL_045a: clt
+IL_045c: ldc.i4.0
+IL_045d: ceq
+IL_045f: call System.Int32 Unity.Mathematics.math::select(System.Int32,System.Int32,System.Boolean)
+IL_0464: stfld System.Int32 Unity.Mathematics.int3::x
+IL_0469: ldarg.s oldSubObject
+IL_046b: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0470: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0475: brfalse IL_0be3
+IL_047a: ldarg.0
+IL_047b: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0480: ldarg.1
+IL_0481: ldarg.s oldSubObject
+IL_0483: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity)
+IL_0488: ldloca.s V_16
+IL_048a: initobj Game.Tools.Temp
+IL_0490: ldarg.s isTemp
+IL_0492: brfalse IL_05cf
+IL_0497: ldarg.0
+IL_0498: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_049d: ldarg.s oldSubObject
+IL_049f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_04a4: brfalse IL_055f
+IL_04a9: ldarg.0
+IL_04aa: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_04af: ldarg.s oldSubObject
+IL_04b1: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::get_Item(Unity.Entities.Entity)
+IL_04b6: stloc.s V_16
+IL_04b8: ldloca.s V_16
+IL_04ba: ldarg.s ownerTemp
+IL_04bc: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_04c1: ldc.i4 132211
+IL_04c6: and
+IL_04c7: stfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_04cc: ldarg.s ownerTemp
+IL_04ce: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_04d3: ldc.i4 256
+IL_04d8: and
+IL_04d9: brfalse.s IL_04e8
+IL_04db: ldloca.s V_16
+IL_04dd: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_04e2: dup
+IL_04e3: ldind.u4
+IL_04e4: ldc.i4.s 64
+IL_04e6: or
+IL_04e7: stind.i4
+IL_04e8: ldloca.s V_16
+IL_04ea: ldarg.0
+IL_04eb: ldarg.s prefab
+IL_04ed: ldloc.s V_16
+IL_04ef: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_04f4: ldarg.s transformData
+IL_04f6: ldarg.s alignIndex
+IL_04f8: ldarg.s updateData
+IL_04fa: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_04ff: stfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0504: ldarg.0
+IL_0505: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_050a: ldarg.1
+IL_050b: ldarg.s oldSubObject
+IL_050d: ldloc.s V_16
+IL_050f: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Tools.Temp>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0514: ldloc.s V_16
+IL_0516: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_051b: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0520: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0525: brfalse.s IL_055f
+IL_0527: ldloc.2
+IL_0528: brfalse.s IL_055f
+IL_052a: ldarg.0
+IL_052b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabTreeData
+IL_0530: ldarg.s prefab
+IL_0532: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData>::HasComponent(Unity.Entities.Entity)
+IL_0537: brfalse.s IL_055f
+IL_0539: ldarg.0
+IL_053a: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TreeData
+IL_053f: ldloc.s V_16
+IL_0541: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0546: ldloca.s V_21
+IL_0548: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Tree>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_054d: brfalse.s IL_055f
+IL_054f: ldarg.0
+IL_0550: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0555: ldarg.1
+IL_0556: ldarg.s oldSubObject
+IL_0558: ldloc.s V_21
+IL_055a: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Tree>(System.Int32,Unity.Entities.Entity,!!0)
+IL_055f: ldarg.0
+IL_0560: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_0565: ldarg.s prefab
+IL_0567: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::HasComponent(Unity.Entities.Entity)
+IL_056c: brfalse.s IL_0571
+IL_056e: ldc.i4.1
+IL_056f: starg.s interpolated
+IL_0571: ldloc.s V_4
+IL_0573: ldfld Game.Objects.PlacementFlags Game.Prefabs.PlaceableObjectData::m_Flags
+IL_0578: ldc.i4 524288
+IL_057d: and
+IL_057e: brfalse.s IL_05ba
+IL_0580: ldarg.0
+IL_0581: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AttachedData
+IL_0586: ldarg.s oldSubObject
+IL_0588: ldloca.s V_22
+IL_058a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Attached>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_058f: pop
+IL_0590: ldloca.s V_22
+IL_0592: ldloc.s V_22
+IL_0594: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_0599: stfld Unity.Entities.Entity Game.Objects.Attached::m_OldParent
+IL_059e: ldloca.s V_22
+IL_05a0: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_05a5: stfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_05aa: ldarg.0
+IL_05ab: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_05b0: ldarg.1
+IL_05b1: ldarg.s oldSubObject
+IL_05b3: ldloc.s V_22
+IL_05b5: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Attached>(System.Int32,Unity.Entities.Entity,!!0)
+IL_05ba: ldarg.0
+IL_05bb: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_05c0: ldarg.1
+IL_05c1: ldarg.s oldSubObject
+IL_05c3: ldarg.s transformData
+IL_05c5: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Transform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_05ca: ldc.i4.1
+IL_05cb: starg.s updated
+IL_05cd: br.s IL_05f8
+IL_05cf: ldarga.s transformData
+IL_05d1: ldarg.0
+IL_05d2: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformData
+IL_05d7: ldarg.s oldSubObject
+IL_05d9: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_05de: call System.Boolean Game.Objects.Transform::Equals(Game.Objects.Transform)
+IL_05e3: brtrue.s IL_05f8
+IL_05e5: ldarg.0
+IL_05e6: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_05eb: ldarg.1
+IL_05ec: ldarg.s oldSubObject
+IL_05ee: ldarg.s transformData
+IL_05f0: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Transform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_05f5: ldc.i4.1
+IL_05f6: starg.s updated
+IL_05f8: ldarg.s cacheTransform
+IL_05fa: brfalse.s IL_064e
+IL_05fc: ldloca.s V_23
+IL_05fe: ldarg.s localTransformData
+IL_0600: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0605: stfld Unity.Mathematics.float3 Game.Tools.LocalTransformCache::m_Position
+IL_060a: ldloca.s V_23
+IL_060c: ldarg.s localTransformData
+IL_060e: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0613: stfld Unity.Mathematics.quaternion Game.Tools.LocalTransformCache::m_Rotation
+IL_0618: ldloca.s V_23
+IL_061a: ldarg.s parentMesh
+IL_061c: stfld System.Int32 Game.Tools.LocalTransformCache::m_ParentMesh
+IL_0621: ldloca.s V_23
+IL_0623: ldarg.s groupIndex
+IL_0625: stfld System.Int32 Game.Tools.LocalTransformCache::m_GroupIndex
+IL_062a: ldloca.s V_23
+IL_062c: ldarg.s probability
+IL_062e: stfld System.Int32 Game.Tools.LocalTransformCache::m_Probability
+IL_0633: ldloca.s V_23
+IL_0635: ldarg.s prefabSubIndex
+IL_0637: stfld System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+IL_063c: ldarg.0
+IL_063d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0642: ldarg.1
+IL_0643: ldarg.s oldSubObject
+IL_0645: ldloc.s V_23
+IL_0647: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.LocalTransformCache>(System.Int32,Unity.Entities.Entity,!!0)
+IL_064c: br.s IL_066b
+IL_064e: ldarg.0
+IL_064f: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_LocalTransformCacheData
+IL_0654: ldarg.s oldSubObject
+IL_0656: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache>::HasComponent(Unity.Entities.Entity)
+IL_065b: brfalse.s IL_066b
+IL_065d: ldarg.0
+IL_065e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0663: ldarg.1
+IL_0664: ldarg.s oldSubObject
+IL_0666: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.LocalTransformCache>(System.Int32,Unity.Entities.Entity)
+IL_066b: ldloca.s V_17
+IL_066d: initobj Game.Common.PseudoRandomSeed
+IL_0673: ldloc.0
+IL_0674: brfalse.s IL_06c3
+IL_0676: ldarg.0
+IL_0677: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PseudoRandomSeedData
+IL_067c: ldloc.s V_16
+IL_067e: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0683: ldloca.s V_17
+IL_0685: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_068a: brfalse.s IL_069e
+IL_068c: ldarg.0
+IL_068d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0692: ldarg.1
+IL_0693: ldarg.s oldSubObject
+IL_0695: ldloc.s V_17
+IL_0697: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Common.PseudoRandomSeed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_069c: br.s IL_06c3
+IL_069e: ldarg.0
+IL_069f: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PseudoRandomSeedData
+IL_06a4: ldarg.s oldSubObject
+IL_06a6: ldloca.s V_17
+IL_06a8: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_06ad: brtrue.s IL_06c3
+IL_06af: ldloc.s V_5
+IL_06b1: stloc.s V_17
+IL_06b3: ldarg.0
+IL_06b4: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_06b9: ldarg.1
+IL_06ba: ldarg.s oldSubObject
+IL_06bc: ldloc.s V_17
+IL_06be: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.PseudoRandomSeed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_06c3: ldarg.s flags
+IL_06c5: ldc.i4 256
+IL_06ca: and
+IL_06cb: brtrue.s IL_0700
+IL_06cd: ldarg.0
+IL_06ce: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ElevationData
+IL_06d3: ldarg.s oldSubObject
+IL_06d5: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Elevation>::HasComponent(Unity.Entities.Entity)
+IL_06da: brfalse.s IL_06ee
+IL_06dc: ldarg.0
+IL_06dd: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_06e2: ldarg.1
+IL_06e3: ldarg.s oldSubObject
+IL_06e5: ldloc.s V_6
+IL_06e7: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Elevation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_06ec: br.s IL_071d
+IL_06ee: ldarg.0
+IL_06ef: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_06f4: ldarg.1
+IL_06f5: ldarg.s oldSubObject
+IL_06f7: ldloc.s V_6
+IL_06f9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Elevation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_06fe: br.s IL_071d
+IL_0700: ldarg.0
+IL_0701: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ElevationData
+IL_0706: ldarg.s oldSubObject
+IL_0708: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Elevation>::HasComponent(Unity.Entities.Entity)
+IL_070d: brfalse.s IL_071d
+IL_070f: ldarg.0
+IL_0710: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0715: ldarg.1
+IL_0716: ldarg.s oldSubObject
+IL_0718: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Objects.Elevation>(System.Int32,Unity.Entities.Entity)
+IL_071d: ldarg.s alignIndex
+IL_071f: ldc.i4.0
+IL_0720: blt.s IL_0761
+IL_0722: ldarg.0
+IL_0723: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Aligned> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AlignedData
+IL_0728: ldarg.s oldSubObject
+IL_072a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Aligned>::HasComponent(Unity.Entities.Entity)
+IL_072f: brfalse.s IL_0749
+IL_0731: ldarg.0
+IL_0732: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0737: ldarg.1
+IL_0738: ldarg.s oldSubObject
+IL_073a: ldarg.s alignIndex
+IL_073c: conv.u2
+IL_073d: newobj System.Void Game.Objects.Aligned::.ctor(System.UInt16)
+IL_0742: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Aligned>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0747: br.s IL_077e
+IL_0749: ldarg.0
+IL_074a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_074f: ldarg.1
+IL_0750: ldarg.s oldSubObject
+IL_0752: ldarg.s alignIndex
+IL_0754: conv.u2
+IL_0755: newobj System.Void Game.Objects.Aligned::.ctor(System.UInt16)
+IL_075a: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Aligned>(System.Int32,Unity.Entities.Entity,!!0)
+IL_075f: br.s IL_077e
+IL_0761: ldarg.0
+IL_0762: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Aligned> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AlignedData
+IL_0767: ldarg.s oldSubObject
+IL_0769: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Aligned>::HasComponent(Unity.Entities.Entity)
+IL_076e: brfalse.s IL_077e
+IL_0770: ldarg.0
+IL_0771: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0776: ldarg.1
+IL_0777: ldarg.s oldSubObject
+IL_0779: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Objects.Aligned>(System.Int32,Unity.Entities.Entity)
+IL_077e: ldarg.0
+IL_077f: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Relative> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_RelativeData
+IL_0784: ldarg.s oldSubObject
+IL_0786: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Relative>::HasComponent(Unity.Entities.Entity)
+IL_078b: brfalse.s IL_07a4
+IL_078d: ldarg.0
+IL_078e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0793: ldarg.1
+IL_0794: ldarg.s oldSubObject
+IL_0796: ldarg.s localTransformData
+IL_0798: ldloc.s V_7
+IL_079a: newobj System.Void Game.Objects.Relative::.ctor(Game.Objects.Transform,Unity.Mathematics.int3)
+IL_079f: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Relative>(System.Int32,Unity.Entities.Entity,!!0)
+IL_07a4: ldarg.s interpolated
+IL_07a6: brtrue.s IL_07b2
+IL_07a8: ldloc.s V_7
+IL_07aa: ldfld System.Int32 Unity.Mathematics.int3::y
+IL_07af: ldc.i4.0
+IL_07b0: blt.s IL_07f2
+IL_07b2: ldarg.0
+IL_07b3: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_InterpolatedTransformData
+IL_07b8: ldarg.s oldSubObject
+IL_07ba: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform>::HasComponent(Unity.Entities.Entity)
+IL_07bf: brfalse.s IL_07d8
+IL_07c1: ldarg.0
+IL_07c2: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_07c7: ldarg.1
+IL_07c8: ldarg.s oldSubObject
+IL_07ca: ldarg.s transformData
+IL_07cc: newobj System.Void Game.Rendering.InterpolatedTransform::.ctor(Game.Objects.Transform)
+IL_07d1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Rendering.InterpolatedTransform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_07d6: br.s IL_0840
+IL_07d8: ldarg.0
+IL_07d9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_07de: ldarg.1
+IL_07df: ldarg.s oldSubObject
+IL_07e1: ldarg.s transformData
+IL_07e3: newobj System.Void Game.Rendering.InterpolatedTransform::.ctor(Game.Objects.Transform)
+IL_07e8: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Rendering.InterpolatedTransform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_07ed: ldc.i4.1
+IL_07ee: starg.s updated
+IL_07f0: br.s IL_0840
+IL_07f2: ldarg.0
+IL_07f3: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_InterpolatedTransformData
+IL_07f8: ldarg.s oldSubObject
+IL_07fa: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform>::HasComponent(Unity.Entities.Entity)
+IL_07ff: brfalse.s IL_0840
+IL_0801: ldarg.0
+IL_0802: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabBuildingExtensionData
+IL_0807: ldarg.s prefab
+IL_0809: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData>::HasComponent(Unity.Entities.Entity)
+IL_080e: brfalse.s IL_082f
+IL_0810: ldarg.0
+IL_0811: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DestroyedData
+IL_0816: ldarg.s oldSubObject
+IL_0818: ldloca.s V_24
+IL_081a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Destroyed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_081f: brfalse.s IL_082f
+IL_0821: ldloc.s V_24
+IL_0823: ldfld System.Single Game.Common.Destroyed::m_Cleared
+IL_0828: ldc.r4 0
+IL_082d: blt.un.s IL_0840
+IL_082f: ldarg.0
+IL_0830: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0835: ldarg.1
+IL_0836: ldarg.s oldSubObject
+IL_0838: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Rendering.InterpolatedTransform>(System.Int32,Unity.Entities.Entity)
+IL_083d: ldc.i4.1
+IL_083e: starg.s updated
+IL_0840: ldloca.s V_18
+IL_0842: initobj Game.Objects.UnderConstruction
+IL_0848: ldloc.s V_16
+IL_084a: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_084f: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0854: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0859: brfalse.s IL_0871
+IL_085b: ldarg.0
+IL_085c: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UnderConstructionData
+IL_0861: ldloc.s V_16
+IL_0863: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0868: ldloca.s V_18
+IL_086a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_086f: starg.s underConstruction
+IL_0871: ldarg.s underConstruction
+IL_0873: brfalse.s IL_0899
+IL_0875: ldarg.0
+IL_0876: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UnderConstructionData
+IL_087b: ldarg.s oldSubObject
+IL_087d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction>::HasComponent(Unity.Entities.Entity)
+IL_0882: brtrue.s IL_08b9
+IL_0884: ldarg.0
+IL_0885: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_088a: ldarg.1
+IL_088b: ldarg.s oldSubObject
+IL_088d: ldloc.s V_18
+IL_088f: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.UnderConstruction>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0894: ldc.i4.1
+IL_0895: starg.s updated
+IL_0897: br.s IL_08b9
+IL_0899: ldarg.0
+IL_089a: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UnderConstructionData
+IL_089f: ldarg.s oldSubObject
+IL_08a1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction>::HasComponent(Unity.Entities.Entity)
+IL_08a6: brfalse.s IL_08b9
+IL_08a8: ldarg.0
+IL_08a9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_08ae: ldarg.1
+IL_08af: ldarg.s oldSubObject
+IL_08b1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Objects.UnderConstruction>(System.Int32,Unity.Entities.Entity)
+IL_08b6: ldc.i4.1
+IL_08b7: starg.s updated
+IL_08b9: ldloca.s V_19
+IL_08bb: initobj Game.Common.Destroyed
+IL_08c1: ldloc.s V_16
+IL_08c3: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_08c8: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_08cd: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_08d2: brfalse.s IL_08f9
+IL_08d4: ldarg.s ownerTemp
+IL_08d6: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_08db: ldc.i4 512
+IL_08e0: and
+IL_08e1: brtrue.s IL_08f9
+IL_08e3: ldarg.0
+IL_08e4: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DestroyedData
+IL_08e9: ldloc.s V_16
+IL_08eb: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_08f0: ldloca.s V_19
+IL_08f2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Destroyed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_08f7: starg.s isDestroyed
+IL_08f9: ldarg.s isDestroyed
+IL_08fb: brfalse.s IL_0921
+IL_08fd: ldarg.0
+IL_08fe: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DestroyedData
+IL_0903: ldarg.s oldSubObject
+IL_0905: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Destroyed>::HasComponent(Unity.Entities.Entity)
+IL_090a: brtrue.s IL_0941
+IL_090c: ldarg.0
+IL_090d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0912: ldarg.1
+IL_0913: ldarg.s oldSubObject
+IL_0915: ldloc.s V_19
+IL_0917: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Destroyed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_091c: ldc.i4.1
+IL_091d: starg.s updated
+IL_091f: br.s IL_0941
+IL_0921: ldarg.0
+IL_0922: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DestroyedData
+IL_0927: ldarg.s oldSubObject
+IL_0929: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Destroyed>::HasComponent(Unity.Entities.Entity)
+IL_092e: brfalse.s IL_0941
+IL_0930: ldarg.0
+IL_0931: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0936: ldarg.1
+IL_0937: ldarg.s oldSubObject
+IL_0939: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Common.Destroyed>(System.Int32,Unity.Entities.Entity)
+IL_093e: ldc.i4.1
+IL_093f: starg.s updated
+IL_0941: ldarg.0
+IL_0942: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Overridden> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OverriddenData
+IL_0947: ldarg.s oldSubObject
+IL_0949: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Overridden>::HasComponent(Unity.Entities.Entity)
+IL_094e: brfalse.s IL_0955
+IL_0950: ldc.i4.1
+IL_0951: starg.s isOverridden
+IL_0953: br.s IL_0974
+IL_0955: ldarg.s isOverridden
+IL_0957: brfalse.s IL_0974
+IL_0959: ldarg.0
+IL_095a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_095f: ldarg.1
+IL_0960: ldarg.s oldSubObject
+IL_0962: ldloca.s V_25
+IL_0964: initobj Game.Common.Overridden
+IL_096a: ldloc.s V_25
+IL_096c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Overridden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0971: ldc.i4.1
+IL_0972: starg.s updated
+IL_0974: ldarg.s updated
+IL_0976: brfalse.s IL_099f
+IL_0978: ldarg.0
+IL_0979: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UpdatedData
+IL_097e: ldarg.s oldSubObject
+IL_0980: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Updated>::HasComponent(Unity.Entities.Entity)
+IL_0985: brtrue.s IL_099f
+IL_0987: ldarg.0
+IL_0988: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_098d: ldarg.1
+IL_098e: ldarg.s oldSubObject
+IL_0990: ldloca.s V_26
+IL_0992: initobj Game.Common.Updated
+IL_0998: ldloc.s V_26
+IL_099a: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_099f: ldarg.0
+IL_09a0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StreetLightData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabStreetLightData
+IL_09a5: ldarg.s prefab
+IL_09a7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.StreetLightData>::HasComponent(Unity.Entities.Entity)
+IL_09ac: brfalse.s IL_0a2b
+IL_09ae: ldloca.s V_27
+IL_09b0: initobj Game.Objects.StreetLight
+IL_09b6: ldc.i4.0
+IL_09b7: stloc.s V_28
+IL_09b9: ldarg.0
+IL_09ba: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_StreetLightData
+IL_09bf: ldarg.s oldSubObject
+IL_09c1: ldloca.s V_29
+IL_09c3: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_09c8: brfalse.s IL_09d1
+IL_09ca: ldloc.s V_29
+IL_09cc: stloc.s V_27
+IL_09ce: ldc.i4.1
+IL_09cf: stloc.s V_28
+IL_09d1: ldarg.0
+IL_09d2: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_BuildingData
+IL_09d7: ldarg.3
+IL_09d8: ldloca.s V_30
+IL_09da: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_09df: brfalse.s IL_09ec
+IL_09e1: ldloca.s V_27
+IL_09e3: ldloc.s V_30
+IL_09e5: call System.Void Game.Simulation.StreetLightSystem::UpdateStreetLightState(Game.Objects.StreetLight&,Game.Buildings.Building)
+IL_09ea: br.s IL_0a05
+IL_09ec: ldarg.0
+IL_09ed: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Watercraft> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_WatercraftData
+IL_09f2: ldarg.3
+IL_09f3: ldloca.s V_31
+IL_09f5: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Vehicles.Watercraft>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_09fa: brfalse.s IL_0a05
+IL_09fc: ldloca.s V_27
+IL_09fe: ldloc.s V_31
+IL_0a00: call System.Void Game.Simulation.StreetLightSystem::UpdateStreetLightState(Game.Objects.StreetLight&,Game.Vehicles.Watercraft)
+IL_0a05: ldloc.s V_28
+IL_0a07: brfalse.s IL_0a1b
+IL_0a09: ldarg.0
+IL_0a0a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0a0f: ldarg.1
+IL_0a10: ldarg.s oldSubObject
+IL_0a12: ldloc.s V_27
+IL_0a14: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.StreetLight>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0a19: br.s IL_0a2b
+IL_0a1b: ldarg.0
+IL_0a1c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0a21: ldarg.1
+IL_0a22: ldarg.s oldSubObject
+IL_0a24: ldloc.s V_27
+IL_0a26: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.StreetLight>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0a2b: ldloc.2
+IL_0a2c: brfalse IL_0b2a
+IL_0a31: ldarg.0
+IL_0a32: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabStackData
+IL_0a37: ldarg.s prefab
+IL_0a39: ldloca.s V_20
+IL_0a3b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0a40: brfalse IL_0b2a
+IL_0a45: ldarg.0
+IL_0a46: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Stack> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_StackData
+IL_0a4b: ldloc.s V_16
+IL_0a4d: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0a52: ldloca.s V_32
+IL_0a54: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Stack>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0a59: brfalse.s IL_0a70
+IL_0a5b: ldarg.0
+IL_0a5c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0a61: ldarg.1
+IL_0a62: ldarg.s oldSubObject
+IL_0a64: ldloc.s V_32
+IL_0a66: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Stack>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0a6b: br IL_0b2a
+IL_0a70: ldarg.s updated
+IL_0a72: brtrue.s IL_0a86
+IL_0a74: ldarg.0
+IL_0a75: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Stack> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_StackData
+IL_0a7a: ldarg.s oldSubObject
+IL_0a7c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Stack>::HasComponent(Unity.Entities.Entity)
+IL_0a81: brtrue IL_0b2a
+IL_0a86: ldloc.s V_20
+IL_0a88: ldfld Game.Prefabs.StackDirection Game.Prefabs.StackData::m_Direction
+IL_0a8d: ldc.i4.2
+IL_0a8e: bne.un.s IL_0aca
+IL_0a90: ldloca.s V_32
+IL_0a92: ldflda Colossal.Mathematics.Bounds1 Game.Objects.Stack::m_Range
+IL_0a97: ldloc.s V_20
+IL_0a99: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_0a9e: ldfld System.Single Colossal.Mathematics.Bounds1::min
+IL_0aa3: ldloc.s V_6
+IL_0aa5: ldfld System.Single Game.Objects.Elevation::m_Elevation
+IL_0aaa: sub
+IL_0aab: stfld System.Single Colossal.Mathematics.Bounds1::min
+IL_0ab0: ldloca.s V_32
+IL_0ab2: ldflda Colossal.Mathematics.Bounds1 Game.Objects.Stack::m_Range
+IL_0ab7: ldloc.s V_20
+IL_0ab9: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_LastBounds
+IL_0abe: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_0ac3: stfld System.Single Colossal.Mathematics.Bounds1::max
+IL_0ac8: br.s IL_0b1a
+IL_0aca: ldloca.s V_32
+IL_0acc: ldflda Colossal.Mathematics.Bounds1 Game.Objects.Stack::m_Range
+IL_0ad1: ldloc.s V_20
+IL_0ad3: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_0ad8: ldfld System.Single Colossal.Mathematics.Bounds1::min
+IL_0add: stfld System.Single Colossal.Mathematics.Bounds1::min
+IL_0ae2: ldloca.s V_32
+IL_0ae4: ldflda Colossal.Mathematics.Bounds1 Game.Objects.Stack::m_Range
+IL_0ae9: ldloc.s V_20
+IL_0aeb: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_0af0: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_0af5: ldloc.s V_20
+IL_0af7: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_MiddleBounds
+IL_0afc: call System.Single Colossal.Mathematics.MathUtils::Size(Colossal.Mathematics.Bounds1)
+IL_0b01: ldc.r4 2
+IL_0b06: mul
+IL_0b07: add
+IL_0b08: ldloc.s V_20
+IL_0b0a: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_LastBounds
+IL_0b0f: call System.Single Colossal.Mathematics.MathUtils::Size(Colossal.Mathematics.Bounds1)
+IL_0b14: add
+IL_0b15: stfld System.Single Colossal.Mathematics.Bounds1::max
+IL_0b1a: ldarg.0
+IL_0b1b: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0b20: ldarg.1
+IL_0b21: ldarg.s oldSubObject
+IL_0b23: ldloc.s V_32
+IL_0b25: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Stack>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0b2a: ldarg.0
+IL_0b2b: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_SubObjects
+IL_0b30: ldarg.s oldSubObject
+IL_0b32: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::HasBuffer(Unity.Entities.Entity)
+IL_0b37: brfalse IL_12a3
+IL_0b3c: ldarg.s depth
+IL_0b3e: ldc.i4.7
+IL_0b3f: bge IL_0bd5
+IL_0b44: ldarg.s updateData
+IL_0b46: ldc.i4.2
+IL_0b47: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureDeepOwners(Unity.Collections.Allocator)
+IL_0b4c: ldarg.s updateData
+IL_0b4e: ldflda Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/DeepSubObjectOwnerData> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_DeepOwners
+IL_0b53: ldloca.s V_33
+IL_0b55: initobj Game.Objects.SubObjectSystem/DeepSubObjectOwnerData
+IL_0b5b: ldloca.s V_33
+IL_0b5d: ldarg.s transformData
+IL_0b5f: stfld Game.Objects.Transform Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Transform
+IL_0b64: ldloca.s V_33
+IL_0b66: ldloc.s V_16
+IL_0b68: stfld Game.Tools.Temp Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Temp
+IL_0b6d: ldloca.s V_33
+IL_0b6f: ldarg.s oldSubObject
+IL_0b71: stfld Unity.Entities.Entity Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Entity
+IL_0b76: ldloca.s V_33
+IL_0b78: ldarg.s prefab
+IL_0b7a: stfld Unity.Entities.Entity Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Prefab
+IL_0b7f: ldloca.s V_33
+IL_0b81: ldloc.s V_6
+IL_0b83: ldfld System.Single Game.Objects.Elevation::m_Elevation
+IL_0b88: stfld System.Single Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Elevation
+IL_0b8d: ldloca.s V_33
+IL_0b8f: ldloc.s V_17
+IL_0b91: stfld Game.Common.PseudoRandomSeed Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_RandomSeed
+IL_0b96: ldloca.s V_33
+IL_0b98: ldloc.0
+IL_0b99: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_HasRandomSeed
+IL_0b9e: ldloca.s V_33
+IL_0ba0: ldarg.s underConstruction
+IL_0ba2: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_UnderConstruction
+IL_0ba7: ldloca.s V_33
+IL_0ba9: ldarg.s isDestroyed
+IL_0bab: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Destroyed
+IL_0bb0: ldloca.s V_33
+IL_0bb2: ldarg.s isOverridden
+IL_0bb4: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Overridden
+IL_0bb9: ldloca.s V_33
+IL_0bbb: ldarg.s duplicate
+IL_0bbd: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Duplicate
+IL_0bc2: ldloca.s V_33
+IL_0bc4: ldarg.s depth
+IL_0bc6: ldc.i4.1
+IL_0bc7: add
+IL_0bc8: stfld System.Int32 Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Depth
+IL_0bcd: ldloca.s V_33
+IL_0bcf: call System.Void Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/DeepSubObjectOwnerData>::Add(!0&)
+IL_0bd4: ret
+IL_0bd5: ldarg.0
+IL_0bd6: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_LoopErrorPrefabs
+IL_0bdb: ldarg.s prefab
+IL_0bdd: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity>::Enqueue(!0)
+IL_0be2: ret
+IL_0be3: ldarg.0
+IL_0be4: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectData
+IL_0be9: ldarg.s prefab
+IL_0beb: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectData>::get_Item(Unity.Entities.Entity)
+IL_0bf0: stloc.s V_34
+IL_0bf2: ldloca.s V_34
+IL_0bf4: ldflda Unity.Entities.EntityArchetype Game.Prefabs.ObjectData::m_Archetype
+IL_0bf9: call System.Boolean Unity.Entities.EntityArchetype::get_Valid()
+IL_0bfe: brfalse IL_12a3
+IL_0c03: ldarg.0
+IL_0c04: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0c09: ldarg.1
+IL_0c0a: ldloc.s V_34
+IL_0c0c: ldfld Unity.Entities.EntityArchetype Game.Prefabs.ObjectData::m_Archetype
+IL_0c11: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32,Unity.Entities.EntityArchetype)
+IL_0c16: stloc.s V_35
+IL_0c18: ldarg.0
+IL_0c19: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0c1e: ldarg.1
+IL_0c1f: ldloc.s V_35
+IL_0c21: ldarg.s owner
+IL_0c23: newobj System.Void Game.Common.Owner::.ctor(Unity.Entities.Entity)
+IL_0c28: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Owner>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0c2d: ldarg.0
+IL_0c2e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0c33: ldarg.1
+IL_0c34: ldloc.s V_35
+IL_0c36: ldarg.s prefab
+IL_0c38: newobj System.Void Game.Prefabs.PrefabRef::.ctor(Unity.Entities.Entity)
+IL_0c3d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Prefabs.PrefabRef>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0c42: ldarg.0
+IL_0c43: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0c48: ldarg.1
+IL_0c49: ldloc.s V_35
+IL_0c4b: ldarg.s transformData
+IL_0c4d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Transform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0c52: ldloc.s V_4
+IL_0c54: ldfld Game.Objects.PlacementFlags Game.Prefabs.PlaceableObjectData::m_Flags
+IL_0c59: ldc.i4 524288
+IL_0c5e: and
+IL_0c5f: brfalse.s IL_0c79
+IL_0c61: ldarg.0
+IL_0c62: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0c67: ldarg.1
+IL_0c68: ldloc.s V_35
+IL_0c6a: ldloca.s V_41
+IL_0c6c: initobj Game.Objects.Attached
+IL_0c72: ldloc.s V_41
+IL_0c74: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Attached>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0c79: ldloca.s V_36
+IL_0c7b: initobj Game.Tools.Temp
+IL_0c81: ldarg.s isTemp
+IL_0c83: brfalse IL_0de8
+IL_0c88: ldloca.s V_36
+IL_0c8a: ldarg.s ownerTemp
+IL_0c8c: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0c91: ldc.i4 132211
+IL_0c96: and
+IL_0c97: stfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0c9c: ldarg.s ownerTemp
+IL_0c9e: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0ca3: ldc.i4 256
+IL_0ca8: and
+IL_0ca9: brfalse.s IL_0cb8
+IL_0cab: ldloca.s V_36
+IL_0cad: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0cb2: dup
+IL_0cb3: ldind.u4
+IL_0cb4: ldc.i4.s 64
+IL_0cb6: or
+IL_0cb7: stind.i4
+IL_0cb8: ldloca.s V_36
+IL_0cba: ldarg.0
+IL_0cbb: ldarg.s prefab
+IL_0cbd: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0cc2: ldarg.s transformData
+IL_0cc4: ldarg.s alignIndex
+IL_0cc6: ldarg.s updateData
+IL_0cc8: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_0ccd: stfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0cd2: ldarg.0
+IL_0cd3: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0cd8: ldarg.1
+IL_0cd9: ldloc.s V_35
+IL_0cdb: ldloc.s V_36
+IL_0cdd: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Temp>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0ce2: ldarg.0
+IL_0ce3: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectGeometryData
+IL_0ce8: ldarg.s prefab
+IL_0cea: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::HasComponent(Unity.Entities.Entity)
+IL_0cef: brfalse.s IL_0d21
+IL_0cf1: ldarg.0
+IL_0cf2: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0cf7: ldarg.1
+IL_0cf8: ldloc.s V_35
+IL_0cfa: ldloca.s V_42
+IL_0cfc: initobj Game.Tools.Animation
+IL_0d02: ldloc.s V_42
+IL_0d04: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Animation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0d09: ldarg.0
+IL_0d0a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0d0f: ldarg.1
+IL_0d10: ldloc.s V_35
+IL_0d12: ldloca.s V_43
+IL_0d14: initobj Game.Rendering.InterpolatedTransform
+IL_0d1a: ldloc.s V_43
+IL_0d1c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Rendering.InterpolatedTransform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0d21: ldloc.s V_36
+IL_0d23: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0d28: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0d2d: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0d32: brfalse IL_0de8
+IL_0d37: ldloc.2
+IL_0d38: brfalse.s IL_0d6f
+IL_0d3a: ldarg.0
+IL_0d3b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabTreeData
+IL_0d40: ldarg.s prefab
+IL_0d42: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData>::HasComponent(Unity.Entities.Entity)
+IL_0d47: brfalse.s IL_0d6f
+IL_0d49: ldarg.0
+IL_0d4a: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TreeData
+IL_0d4f: ldloc.s V_36
+IL_0d51: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0d56: ldloca.s V_44
+IL_0d58: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Tree>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0d5d: brfalse.s IL_0d6f
+IL_0d5f: ldarg.0
+IL_0d60: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0d65: ldarg.1
+IL_0d66: ldloc.s V_35
+IL_0d68: ldloc.s V_44
+IL_0d6a: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Tree>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0d6f: ldloc.s V_36
+IL_0d71: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0d76: ldc.i4 131106
+IL_0d7b: and
+IL_0d7c: brfalse.s IL_0d95
+IL_0d7e: ldarg.0
+IL_0d7f: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Overridden> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OverriddenData
+IL_0d84: ldloc.s V_36
+IL_0d86: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0d8b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Overridden>::HasComponent(Unity.Entities.Entity)
+IL_0d90: brfalse.s IL_0d95
+IL_0d92: ldc.i4.1
+IL_0d93: starg.s isOverridden
+IL_0d95: ldarg.s owner
+IL_0d97: ldfld System.Int32 Unity.Entities.Entity::Index
+IL_0d9c: ldc.i4.0
+IL_0d9d: blt.s IL_0de8
+IL_0d9f: ldarg.0
+IL_0da0: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_0da5: ldarg.s owner
+IL_0da7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_0dac: brtrue.s IL_0de8
+IL_0dae: ldarg.0
+IL_0daf: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0db4: ldarg.1
+IL_0db5: ldloc.s V_36
+IL_0db7: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0dbc: ldloca.s V_45
+IL_0dbe: initobj Game.Tools.Hidden
+IL_0dc4: ldloc.s V_45
+IL_0dc6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0dcb: ldarg.0
+IL_0dcc: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0dd1: ldarg.1
+IL_0dd2: ldloc.s V_36
+IL_0dd4: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0dd9: ldloca.s V_46
+IL_0ddb: initobj Game.Common.BatchesUpdated
+IL_0de1: ldloc.s V_46
+IL_0de3: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0de8: ldloc.2
+IL_0de9: brfalse.s IL_0e09
+IL_0deb: ldarg.0
+IL_0dec: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabTreeData
+IL_0df1: ldarg.s prefab
+IL_0df3: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData>::HasComponent(Unity.Entities.Entity)
+IL_0df8: brfalse.s IL_0e09
+IL_0dfa: ldarg.0
+IL_0dfb: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0e00: ldarg.1
+IL_0e01: ldloc.s V_35
+IL_0e03: ldc.i4.0
+IL_0e04: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponentEnabled<Game.Objects.Decoration>(System.Int32,Unity.Entities.Entity,System.Boolean)
+IL_0e09: ldarg.s cacheTransform
+IL_0e0b: brfalse.s IL_0e5d
+IL_0e0d: ldloca.s V_47
+IL_0e0f: ldarg.s localTransformData
+IL_0e11: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0e16: stfld Unity.Mathematics.float3 Game.Tools.LocalTransformCache::m_Position
+IL_0e1b: ldloca.s V_47
+IL_0e1d: ldarg.s localTransformData
+IL_0e1f: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0e24: stfld Unity.Mathematics.quaternion Game.Tools.LocalTransformCache::m_Rotation
+IL_0e29: ldloca.s V_47
+IL_0e2b: ldarg.s parentMesh
+IL_0e2d: stfld System.Int32 Game.Tools.LocalTransformCache::m_ParentMesh
+IL_0e32: ldloca.s V_47
+IL_0e34: ldarg.s groupIndex
+IL_0e36: stfld System.Int32 Game.Tools.LocalTransformCache::m_GroupIndex
+IL_0e3b: ldloca.s V_47
+IL_0e3d: ldarg.s probability
+IL_0e3f: stfld System.Int32 Game.Tools.LocalTransformCache::m_Probability
+IL_0e44: ldloca.s V_47
+IL_0e46: ldarg.s prefabSubIndex
+IL_0e48: stfld System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+IL_0e4d: ldarg.0
+IL_0e4e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0e53: ldarg.1
+IL_0e54: ldloc.s V_35
+IL_0e56: ldloc.s V_47
+IL_0e58: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.LocalTransformCache>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0e5d: ldloca.s V_37
+IL_0e5f: initobj Game.Common.PseudoRandomSeed
+IL_0e65: ldloc.0
+IL_0e66: brfalse.s IL_0e92
+IL_0e68: ldarg.0
+IL_0e69: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PseudoRandomSeedData
+IL_0e6e: ldloc.s V_36
+IL_0e70: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0e75: ldloca.s V_37
+IL_0e77: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0e7c: brtrue.s IL_0e82
+IL_0e7e: ldloc.s V_5
+IL_0e80: stloc.s V_37
+IL_0e82: ldarg.0
+IL_0e83: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0e88: ldarg.1
+IL_0e89: ldloc.s V_35
+IL_0e8b: ldloc.s V_37
+IL_0e8d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Common.PseudoRandomSeed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0e92: ldarg.s flags
+IL_0e94: ldc.i4 256
+IL_0e99: and
+IL_0e9a: brtrue.s IL_0eac
+IL_0e9c: ldarg.0
+IL_0e9d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0ea2: ldarg.1
+IL_0ea3: ldloc.s V_35
+IL_0ea5: ldloc.s V_6
+IL_0ea7: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Elevation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0eac: ldarg.s alignIndex
+IL_0eae: ldc.i4.0
+IL_0eaf: blt.s IL_0ec7
+IL_0eb1: ldarg.0
+IL_0eb2: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0eb7: ldarg.1
+IL_0eb8: ldloc.s V_35
+IL_0eba: ldarg.s alignIndex
+IL_0ebc: conv.u2
+IL_0ebd: newobj System.Void Game.Objects.Aligned::.ctor(System.UInt16)
+IL_0ec2: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Aligned>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0ec7: ldarg.s relative
+IL_0ec9: brtrue.s IL_0ed5
+IL_0ecb: ldloc.s V_7
+IL_0ecd: ldfld System.Int32 Unity.Mathematics.int3::y
+IL_0ed2: ldc.i4.0
+IL_0ed3: blt.s IL_0efa
+IL_0ed5: ldarg.0
+IL_0ed6: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0edb: ldarg.1
+IL_0edc: ldloc.s V_35
+IL_0ede: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Objects.Static>(System.Int32,Unity.Entities.Entity)
+IL_0ee3: ldarg.0
+IL_0ee4: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0ee9: ldarg.1
+IL_0eea: ldloc.s V_35
+IL_0eec: ldarg.s localTransformData
+IL_0eee: ldloc.s V_7
+IL_0ef0: newobj System.Void Game.Objects.Relative::.ctor(Game.Objects.Transform,Unity.Mathematics.int3)
+IL_0ef5: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Relative>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0efa: ldarg.s interpolated
+IL_0efc: brtrue.s IL_0f08
+IL_0efe: ldloc.s V_7
+IL_0f00: ldfld System.Int32 Unity.Mathematics.int3::y
+IL_0f05: ldc.i4.0
+IL_0f06: blt.s IL_0f1d
+IL_0f08: ldarg.0
+IL_0f09: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0f0e: ldarg.1
+IL_0f0f: ldloc.s V_35
+IL_0f11: ldarg.s transformData
+IL_0f13: newobj System.Void Game.Rendering.InterpolatedTransform::.ctor(Game.Objects.Transform)
+IL_0f18: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Rendering.InterpolatedTransform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0f1d: ldloca.s V_38
+IL_0f1f: initobj Game.Objects.UnderConstruction
+IL_0f25: ldloc.s V_36
+IL_0f27: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0f2c: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0f31: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0f36: brfalse.s IL_0f4e
+IL_0f38: ldarg.0
+IL_0f39: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UnderConstructionData
+IL_0f3e: ldloc.s V_36
+IL_0f40: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0f45: ldloca.s V_38
+IL_0f47: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0f4c: starg.s underConstruction
+IL_0f4e: ldarg.s underConstruction
+IL_0f50: brfalse.s IL_0f62
+IL_0f52: ldarg.0
+IL_0f53: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0f58: ldarg.1
+IL_0f59: ldloc.s V_35
+IL_0f5b: ldloc.s V_38
+IL_0f5d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.UnderConstruction>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0f62: ldloca.s V_39
+IL_0f64: initobj Game.Common.Destroyed
+IL_0f6a: ldloc.s V_36
+IL_0f6c: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0f71: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0f76: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0f7b: brfalse.s IL_0fa2
+IL_0f7d: ldarg.s ownerTemp
+IL_0f7f: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0f84: ldc.i4 512
+IL_0f89: and
+IL_0f8a: brtrue.s IL_0fa2
+IL_0f8c: ldarg.0
+IL_0f8d: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_DestroyedData
+IL_0f92: ldloc.s V_36
+IL_0f94: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0f99: ldloca.s V_39
+IL_0f9b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Destroyed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0fa0: starg.s isDestroyed
+IL_0fa2: ldarg.s isDestroyed
+IL_0fa4: brfalse.s IL_0fb6
+IL_0fa6: ldarg.0
+IL_0fa7: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0fac: ldarg.1
+IL_0fad: ldloc.s V_35
+IL_0faf: ldloc.s V_39
+IL_0fb1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Destroyed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0fb6: ldarg.s isOverridden
+IL_0fb8: brfalse.s IL_0fd2
+IL_0fba: ldarg.0
+IL_0fbb: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0fc0: ldarg.1
+IL_0fc1: ldloc.s V_35
+IL_0fc3: ldloca.s V_25
+IL_0fc5: initobj Game.Common.Overridden
+IL_0fcb: ldloc.s V_25
+IL_0fcd: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Overridden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0fd2: ldarg.s native
+IL_0fd4: brfalse.s IL_0fee
+IL_0fd6: ldarg.0
+IL_0fd7: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0fdc: ldarg.1
+IL_0fdd: ldloc.s V_35
+IL_0fdf: ldloca.s V_48
+IL_0fe1: initobj Game.Common.Native
+IL_0fe7: ldloc.s V_48
+IL_0fe9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Native>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0fee: ldarg.0
+IL_0fef: ldfld System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorMode
+IL_0ff4: brfalse.s IL_1051
+IL_0ff6: ldarg.0
+IL_0ff7: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorContainerData
+IL_0ffc: ldloc.s V_36
+IL_0ffe: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_1003: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::HasComponent(Unity.Entities.Entity)
+IL_1008: brfalse.s IL_1051
+IL_100a: ldarg.0
+IL_100b: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorContainerData
+IL_1010: ldloc.s V_36
+IL_1012: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_1017: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::get_Item(Unity.Entities.Entity)
+IL_101c: stloc.s V_49
+IL_101e: ldarg.0
+IL_101f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_1024: ldarg.1
+IL_1025: ldloc.s V_35
+IL_1027: ldloc.s V_49
+IL_1029: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.EditorContainer>(System.Int32,Unity.Entities.Entity,!!0)
+IL_102e: ldarg.0
+IL_102f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabEffectData
+IL_1034: ldloc.s V_49
+IL_1036: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_103b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData>::HasComponent(Unity.Entities.Entity)
+IL_1040: brfalse.s IL_1051
+IL_1042: ldarg.0
+IL_1043: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_1048: ldarg.1
+IL_1049: ldloc.s V_35
+IL_104b: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Effects.EnabledEffect>(System.Int32,Unity.Entities.Entity)
+IL_1050: pop
+IL_1051: ldarg.0
+IL_1052: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StreetLightData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabStreetLightData
+IL_1057: ldarg.s prefab
+IL_1059: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.StreetLightData>::HasComponent(Unity.Entities.Entity)
+IL_105e: brfalse.s IL_10c6
+IL_1060: ldloca.s V_50
+IL_1062: initobj Game.Objects.StreetLight
+IL_1068: ldarg.0
+IL_1069: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_StreetLightData
+IL_106e: ldloc.s V_36
+IL_1070: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_1075: ldloca.s V_51
+IL_1077: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_107c: brfalse.s IL_1082
+IL_107e: ldloc.s V_51
+IL_1080: stloc.s V_50
+IL_1082: ldarg.0
+IL_1083: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_BuildingData
+IL_1088: ldarg.3
+IL_1089: ldloca.s V_52
+IL_108b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_1090: brfalse.s IL_109d
+IL_1092: ldloca.s V_50
+IL_1094: ldloc.s V_52
+IL_1096: call System.Void Game.Simulation.StreetLightSystem::UpdateStreetLightState(Game.Objects.StreetLight&,Game.Buildings.Building)
+IL_109b: br.s IL_10b6
+IL_109d: ldarg.0
+IL_109e: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Watercraft> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_WatercraftData
+IL_10a3: ldarg.3
+IL_10a4: ldloca.s V_53
+IL_10a6: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Vehicles.Watercraft>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_10ab: brfalse.s IL_10b6
+IL_10ad: ldloca.s V_50
+IL_10af: ldloc.s V_53
+IL_10b1: call System.Void Game.Simulation.StreetLightSystem::UpdateStreetLightState(Game.Objects.StreetLight&,Game.Vehicles.Watercraft)
+IL_10b6: ldarg.0
+IL_10b7: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_10bc: ldarg.1
+IL_10bd: ldloc.s V_35
+IL_10bf: ldloc.s V_50
+IL_10c1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.StreetLight>(System.Int32,Unity.Entities.Entity,!!0)
+IL_10c6: ldloc.2
+IL_10c7: brfalse IL_11af
+IL_10cc: ldarg.0
+IL_10cd: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabStackData
+IL_10d2: ldarg.s prefab
+IL_10d4: ldloca.s V_40
+IL_10d6: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_10db: brfalse IL_11af
+IL_10e0: ldarg.0
+IL_10e1: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Stack> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_StackData
+IL_10e6: ldloc.s V_36
+IL_10e8: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_10ed: ldloca.s V_54
+IL_10ef: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Stack>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_10f4: brfalse.s IL_110b
+IL_10f6: ldarg.0
+IL_10f7: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_10fc: ldarg.1
+IL_10fd: ldloc.s V_35
+IL_10ff: ldloc.s V_54
+IL_1101: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Stack>(System.Int32,Unity.Entities.Entity,!!0)
+IL_1106: br IL_11af
+IL_110b: ldloc.s V_40
+IL_110d: ldfld Game.Prefabs.StackDirection Game.Prefabs.StackData::m_Direction
+IL_1112: ldc.i4.2
+IL_1113: bne.un.s IL_114f
+IL_1115: ldloca.s V_54
+IL_1117: ldflda Colossal.Mathematics.Bounds1 Game.Objects.Stack::m_Range
+IL_111c: ldloc.s V_40
+IL_111e: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_1123: ldfld System.Single Colossal.Mathematics.Bounds1::min
+IL_1128: ldloc.s V_6
+IL_112a: ldfld System.Single Game.Objects.Elevation::m_Elevation
+IL_112f: sub
+IL_1130: stfld System.Single Colossal.Mathematics.Bounds1::min
+IL_1135: ldloca.s V_54
+IL_1137: ldflda Colossal.Mathematics.Bounds1 Game.Objects.Stack::m_Range
+IL_113c: ldloc.s V_40
+IL_113e: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_LastBounds
+IL_1143: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_1148: stfld System.Single Colossal.Mathematics.Bounds1::max
+IL_114d: br.s IL_119f
+IL_114f: ldloca.s V_54
+IL_1151: ldflda Colossal.Mathematics.Bounds1 Game.Objects.Stack::m_Range
+IL_1156: ldloc.s V_40
+IL_1158: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_115d: ldfld System.Single Colossal.Mathematics.Bounds1::min
+IL_1162: stfld System.Single Colossal.Mathematics.Bounds1::min
+IL_1167: ldloca.s V_54
+IL_1169: ldflda Colossal.Mathematics.Bounds1 Game.Objects.Stack::m_Range
+IL_116e: ldloc.s V_40
+IL_1170: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_1175: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_117a: ldloc.s V_40
+IL_117c: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_MiddleBounds
+IL_1181: call System.Single Colossal.Mathematics.MathUtils::Size(Colossal.Mathematics.Bounds1)
+IL_1186: ldc.r4 2
+IL_118b: mul
+IL_118c: add
+IL_118d: ldloc.s V_40
+IL_118f: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_LastBounds
+IL_1194: call System.Single Colossal.Mathematics.MathUtils::Size(Colossal.Mathematics.Bounds1)
+IL_1199: add
+IL_119a: stfld System.Single Colossal.Mathematics.Bounds1::max
+IL_119f: ldarg.0
+IL_11a0: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_11a5: ldarg.1
+IL_11a6: ldloc.s V_35
+IL_11a8: ldloc.s V_54
+IL_11aa: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Stack>(System.Int32,Unity.Entities.Entity,!!0)
+IL_11af: ldarg.0
+IL_11b0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnLocationData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSpawnLocationData
+IL_11b5: ldarg.s prefab
+IL_11b7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnLocationData>::HasComponent(Unity.Entities.Entity)
+IL_11bc: brfalse.s IL_11e3
+IL_11be: ldloca.s V_56
+IL_11c0: initobj Game.Objects.SpawnLocation
+IL_11c6: ldloca.s V_56
+IL_11c8: ldarg.s groupIndex
+IL_11ca: stfld System.Int32 Game.Objects.SpawnLocation::m_GroupIndex
+IL_11cf: ldloc.s V_56
+IL_11d1: stloc.s V_55
+IL_11d3: ldarg.0
+IL_11d4: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_11d9: ldarg.1
+IL_11da: ldloc.s V_35
+IL_11dc: ldloc.s V_55
+IL_11de: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.SpawnLocation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_11e3: ldarg.0
+IL_11e4: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubObject> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabSubObjects
+IL_11e9: ldarg.s prefab
+IL_11eb: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubObject>::HasBuffer(Unity.Entities.Entity)
+IL_11f0: brfalse IL_12a3
+IL_11f5: ldarg.s depth
+IL_11f7: ldc.i4.7
+IL_11f8: bge IL_1296
+IL_11fd: ldarg.s updateData
+IL_11ff: ldc.i4.2
+IL_1200: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureDeepOwners(Unity.Collections.Allocator)
+IL_1205: ldarg.s updateData
+IL_1207: ldflda Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/DeepSubObjectOwnerData> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_DeepOwners
+IL_120c: ldloca.s V_33
+IL_120e: initobj Game.Objects.SubObjectSystem/DeepSubObjectOwnerData
+IL_1214: ldloca.s V_33
+IL_1216: ldarg.s transformData
+IL_1218: stfld Game.Objects.Transform Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Transform
+IL_121d: ldloca.s V_33
+IL_121f: ldloc.s V_36
+IL_1221: stfld Game.Tools.Temp Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Temp
+IL_1226: ldloca.s V_33
+IL_1228: ldloc.s V_35
+IL_122a: stfld Unity.Entities.Entity Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Entity
+IL_122f: ldloca.s V_33
+IL_1231: ldarg.s prefab
+IL_1233: stfld Unity.Entities.Entity Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Prefab
+IL_1238: ldloca.s V_33
+IL_123a: ldloc.s V_6
+IL_123c: ldfld System.Single Game.Objects.Elevation::m_Elevation
+IL_1241: stfld System.Single Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Elevation
+IL_1246: ldloca.s V_33
+IL_1248: ldloc.s V_37
+IL_124a: stfld Game.Common.PseudoRandomSeed Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_RandomSeed
+IL_124f: ldloca.s V_33
+IL_1251: ldc.i4.1
+IL_1252: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_New
+IL_1257: ldloca.s V_33
+IL_1259: ldloc.0
+IL_125a: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_HasRandomSeed
+IL_125f: ldloca.s V_33
+IL_1261: ldarg.s underConstruction
+IL_1263: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_UnderConstruction
+IL_1268: ldloca.s V_33
+IL_126a: ldarg.s isDestroyed
+IL_126c: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Destroyed
+IL_1271: ldloca.s V_33
+IL_1273: ldarg.s isOverridden
+IL_1275: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Overridden
+IL_127a: ldloca.s V_33
+IL_127c: ldarg.s duplicate
+IL_127e: stfld System.Boolean Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Duplicate
+IL_1283: ldloca.s V_33
+IL_1285: ldarg.s depth
+IL_1287: ldc.i4.1
+IL_1288: add
+IL_1289: stfld System.Int32 Game.Objects.SubObjectSystem/DeepSubObjectOwnerData::m_Depth
+IL_128e: ldloca.s V_33
+IL_1290: call System.Void Unity.Collections.NativeList`1<Game.Objects.SubObjectSystem/DeepSubObjectOwnerData>::Add(!0&)
+IL_1295: ret
+IL_1296: ldarg.0
+IL_1297: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_LoopErrorPrefabs
+IL_129c: ldarg.s prefab
+IL_129e: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity>::Enqueue(!0)
+IL_12a3: ret
+Stacked=1
+OnGround=2
+Lowered=4
+OnAttachedParent=8

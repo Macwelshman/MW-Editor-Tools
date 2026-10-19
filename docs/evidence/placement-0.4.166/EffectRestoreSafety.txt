@@ -1,0 +1,1 @@
+PASS: 35 actual-source effect restore assertions; native rendering remains unproven.

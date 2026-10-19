@@ -22,7 +22,7 @@ using MW.EditorTools.Services;
 
 namespace MW.EditorTools.Modules.DeletionProtection
 {
-    public sealed class ListRecovery : MonoBehaviour
+    public sealed partial class ListRecovery : MonoBehaviour
     {
         private const string Id = DeletionPatchPolicy.RecoveryOwner;
         private static ListRecovery active;
@@ -49,9 +49,9 @@ namespace MW.EditorTools.Modules.DeletionProtection
         private bool Saving => saveBusy?.Invoke()==true;
         internal void SetSaveBusy(Func<bool> value) { saveBusy = value; }
         internal bool OperationBusy => pending != null || applying || bulldozerTrace?.Busy==true || bulldozerTrace?.MovePreviewActive==true || bulldozerTrace?.NestedTestRunning==true;
-        public int UndoCount => history.UndoCount + (bulldozerTrace?.UndoCount ?? 0);
+        public int UndoCount => replacementUndo!=null?1:history.UndoCount + (bulldozerTrace?.UndoCount ?? 0);
         public int RedoCount => history.RedoCount + (bulldozerTrace?.RedoCount ?? 0);
-        public string UndoTarget => bulldozerTrace?.HasRecord==true?bulldozerTrace.UndoTarget:history.Latest?.Label;
+        public string UndoTarget => replacementUndo?.Label ?? (bulldozerTrace?.HasRecord==true?bulldozerTrace.UndoTarget:history.Latest?.Label);
         public string RedoTarget => bulldozerTrace?.HasRecord==true?bulldozerTrace.RedoTarget:history.NextRedo?.Label;
         public string Status => bulldozerTrace?.HasRecord == true || bulldozerTrace?.Busy == true ? bulldozerTrace.Status : status;
         public string ActiveAssetName => context?.Asset?.name ?? bulldozerTrace?.AssetName;
@@ -67,8 +67,8 @@ namespace MW.EditorTools.Modules.DeletionProtection
         public void CreateNestedFixture(){if(CanArmBulldozerTest){Clear("Creating disposable nested fixture — list history cleared");bulldozerTrace.CreateNestedFixture();}}
         public void ArmNestedForestTest(){if(CanArmBulldozerTest){Clear("Arming nested set test — list history cleared");bulldozerTrace.ArmNestedForest();}} public void ArmNestedGroupTest(){if(CanArmBulldozerTest){Clear("Arming temporary nested group test — list history cleared");bulldozerTrace.ArmNestedGroup();}} public void ArmLastPropTest(){if(CanArmBulldozerTest){Clear("Arming last bound prop test — list history cleared");bulldozerTrace.ArmLast();}}
         public void ArmBulldozerTest(){if(CanArmBulldozerTest){Clear("Arming duplicate-asset Sub-element history test — list history cleared");bulldozerTrace.Arm();}}
-        public string[] Recent => (bulldozerTrace?.HasRecord==true?bulldozerTrace.Recent:new string[0]).Concat(history.Recent.Reverse().Select(e => e.Label)).ToArray();
-        public bool CanUndo => !Saving && enabledFeature && settings?.recovery==true && (bulldozerTrace?.HasRecord==true?bulldozerTrace.CanUndo:CanAct && history.UndoCount>0);
+        public string[] Recent => replacementUndo!=null?new[]{replacementUndo.Label}:(bulldozerTrace?.HasRecord==true?bulldozerTrace.Recent:new string[0]).Concat(history.Recent.Reverse().Select(e => e.Label)).ToArray();
+        public bool CanUndo => !Saving && enabledFeature && settings?.recovery==true && (replacementUndo!=null?ReplacementRecoveryReady && replacementUndo.ContextValid && replacementUndo.CanUndo:bulldozerTrace?.HasRecord==true?bulldozerTrace.CanUndo:CanAct && history.UndoCount>0);
         public bool CanRedo => !Saving && enabledFeature && settings?.recovery==true && (bulldozerTrace?.HasRecord==true?bulldozerTrace.CanRedo:CanAct && history.RedoCount>0);
         private bool CanAct => settings != null && settings.recovery && enabledFeature && pending == null && bulldozerTrace?.Busy!=true && Ready(Inspector) && !BusyUI();
         private readonly MW.EditorTools.Services.DeferredShortcut shortcut=new MW.EditorTools.Services.DeferredShortcut();
@@ -78,9 +78,10 @@ namespace MW.EditorTools.Modules.DeletionProtection
             if(allowed?.Invoke()!=true || !(action==0?CanUndo:action==1&&CanRedo))return;
             if(!shortcut.Request(action,Time.frameCount))return;
             shortcutAsset=context.Asset;shortcutAllowed=allowed;
+            shortcutReplacement=action==0?replacementUndo:null;
             Mod.Log.Info("Shortcut queued: "+(action==0?"Undo":"Redo"));
         }
-        public void Undo() { if(!CanUndo)return;if(bulldozerTrace?.HasRecord==true)bulldozerTrace.Undo();else Command(true); }
+        public void Undo() { if(!CanUndo)return;if(replacementUndo!=null)UndoReplacement();else if(bulldozerTrace?.HasRecord==true)bulldozerTrace.Undo();else Command(true); }
         public void Redo() { if(!CanRedo)return;if(bulldozerTrace?.HasRecord==true)bulldozerTrace.Redo();else Command(false); }
         public void ClearHistory() { if(bulldozerTrace?.Busy==true)return;bulldozerTrace?.Invalidate();Clear("History cleared"); }
         public void ApplySettings() { bulldozerTrace?.Invalidate();bulldozerTrace?.SetDepth(settings.historyDepth);history.SetDepth(settings.historyDepth); Clear("Settings changed — history cleared"); }
@@ -307,7 +308,7 @@ namespace MW.EditorTools.Modules.DeletionProtection
             }
             if (request.Entry.Weight > 500000) { Clear("Snapshot too large — undo unavailable"); return; }
             if (weight + request.Entry.Weight > 500000) { history.Clear(); weight = 0; }
-            history.Record(request.Entry); weight += request.Entry.Weight;
+            replacementUndo=null;history.Record(request.Entry); weight += request.Entry.Weight;
             status = "Recorded " + request.Entry.Label;
             Mod.Log.Info(status);
         }
@@ -368,13 +369,13 @@ namespace MW.EditorTools.Modules.DeletionProtection
             if (!ReferenceEquals(sectionInspector, inspector)) { section = null; sectionInspector = inspector; }
             if (section == null)
             {
-                var undo = new Button { path = "mwUndo", displayName = LocalizedString.Value("Undo deletion"),
+                var undo = new Button { path = "mwUndo", displayName = LocalizedString.Value("Undo last action"),
                     action = Undo, disabled = () => !CanUndo,
                     shouldTriggerValueChangedEvent = false };
                 var redo = new Button { path = "mwRedo", displayName = LocalizedString.Value("Redo deletion"),
                     action = Redo, disabled = () => !CanRedo,
                     shouldTriggerValueChangedEvent = false };
-                var clear = new Button { path = "mwClear", displayName = LocalizedString.Value("Forget last deletion"),
+                var clear = new Button { path = "mwClear", displayName = LocalizedString.Value("Forget last action"),
                     action = ClearHistory, shouldTriggerValueChangedEvent = false };
                 section = new EditorSection { path = "mwRecovery", expanded = true,
                     displayName = LocalizedString.Value("MW Editor Tools — Undo"),
@@ -393,18 +394,19 @@ namespace MW.EditorTools.Modules.DeletionProtection
                 var inspector = Inspector;
                 bulldozerTrace?.Tick();
                 if (pending != null && Time.frameCount > pending.Frame + 2) Clear("No matching native change event — undo unavailable");
-                if (!Ready(inspector) || !ReferenceEquals(Root(inspector), asset))
+                CheckReplacementContext();
+                if (replacementUndo==null && (!Ready(inspector) || !ReferenceEquals(Root(inspector), asset)))
                 {
-                    if (history.UndoCount > 0 || history.RedoCount > 0 || pending != null) Clear("Asset context changed — history cleared");
+                    if (replacementUndo!=null || history.UndoCount > 0 || history.RedoCount > 0 || pending != null) Clear("Asset context changed — history cleared");
                     asset = Ready(inspector) ? Root(inspector) : null;
                 }
-                shortcut.Drain(Time.frameCount,enabledFeature && context.EditorAvailable && !Saving && !context.DialogBusy && ReferenceEquals(context.Asset,shortcutAsset) && shortcutAllowed?.Invoke()==true,
+                shortcut.Drain(Time.frameCount,enabledFeature && context.EditorAvailable && !Saving && !context.DialogBusy && ShortcutContextValid && shortcutAllowed?.Invoke()==true,
                     action=> {Mod.Log.Info("Shortcut dispatched from recovery update: "+(action==0?"Undo":"Redo"));if(action==0)Undo();else Redo();});
                 EnsureUI(inspector);
             }
             catch (Exception error) { Clear("Recovery context unavailable"); Mod.Log.Error(error, "Recovery update failed."); }
         }
-        private void Clear(string message) { shortcut.Cancel();shortcutAllowed=null;shortcutAsset=null;history.Clear(); pending = null; weight = 0; status = message; }
+        private void Clear(string message) { if(replacementUndo!=null)Mod.Log.Info("Replacement Undo invalidated: "+message+" inspector="+(context?.Asset?.name??"none"));replacementUndo=null;shortcutReplacement=null;shortcut.Cancel();shortcutAllowed=null;shortcutAsset=null;history.Clear(); pending = null; weight = 0; status = message; }
         public void Release()
         {
             enabled = false; enabledFeature = false; Clear("Recovery stopped");

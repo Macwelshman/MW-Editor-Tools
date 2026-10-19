@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><NoWarn>0649;0169;0414</NoWarn></PropertyGroup><ItemGroup>
+<Compile Include="../../src/History/PrefabSnapshot.cs" Link="PrefabSnapshot.cs"/>
+<Compile Include="../../src/History/ReplacementUndoAction.cs" Link="ReplacementUndoAction.cs"/>
+<Compile Include="../../src/History/RecoveryListSchema.cs" Link="RecoveryListSchema.cs"/>
+<Compile Include="../../src/Modules/PropReplacer/ReplacementUndo.cs" Link="ReplacementUndo.cs"/>
+<Compile Include="../../src/Modules/DeletionProtection/ReplacementUndo.cs" Link="SharedReplacementUndo.cs"/>
+</ItemGroup></Project>

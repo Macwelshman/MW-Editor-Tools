@@ -39,10 +39,10 @@ namespace MW.EditorTools.Modules.PropReplacer {
     status="Foliage replacement did not finish. Previous source rollback attempted; restart the disposable session without saving.";MW.EditorTools.Mod.Log.Warn(status);foliageWitnesses=new FoliageWitness[0];
    }
   }
-  private List<FoliageCandidate> PlanFoliageReplacement(Row row,bool batch,PrefabBase oldPrefab) {
-   var plan=new List<FoliageCandidate>();if(row.Value.GetType()!=typeof(ObjectSubObjectInfo))return plan;
+  private List<FoliageCandidate> PlanFoliageReplacement(Row row,bool batch,PrefabBase oldPrefab,PrefabBase destination=null,int[] onlyIndices=null) {
+   destination=destination??clipboard.Replacement;var plan=new List<FoliageCandidate>();if(row.Value.GetType()!=typeof(ObjectSubObjectInfo))return plan;
    var em=World.EntityManager;var registry=World.GetExistingSystemManaged<PrefabSystem>();Entity prefab;
-   if(!registry.TryGetEntity(clipboard.Replacement,out prefab)||!em.Exists(prefab)||!em.HasComponent<ObjectData>(prefab))return plan;
+   if(!registry.TryGetEntity(destination,out prefab)||!em.Exists(prefab)||!em.HasComponent<ObjectData>(prefab))return plan;
    var archetype=em.GetComponentData<ObjectData>(prefab).m_Archetype;
    bool vegetation=false;
    using(var types=archetype.GetComponentTypes(Allocator.Temp))vegetation=types.Any(t=>t.GetManagedType()==typeof(Game.Objects.Plant)||t.GetManagedType()==typeof(Game.Objects.Tree));
@@ -51,13 +51,13 @@ namespace MW.EditorTools.Modules.PropReplacer {
    // companions belong to that prefab; runtime child entities/handles are never
    // copied from a donor. Validate supported source lists before any live write.
    int sourceWeight=0;
-   for(int i=0;i<RecoveryListSchema.Components.Length;i++)foreach(var component in clipboard.Replacement.components.Where(c=>c!=null&&c.GetType()==RecoveryListSchema.Components[i])){
-    if(!ReferenceEquals(component.prefab,clipboard.Replacement))throw new InvalidOperationException("Foliage companion source ownership is invalid.");
+   for(int i=0;i<RecoveryListSchema.Components.Length;i++)foreach(var component in destination.components.Where(c=>c!=null&&c.GetType()==RecoveryListSchema.Components[i])){
+    if(!ReferenceEquals(component.prefab,destination))throw new InvalidOperationException("Foliage companion source ownership is invalid.");
     var image=PrefabSnapshot.Take(component.GetType().GetField(RecoveryListSchema.Members[i]).GetValue(component));sourceWeight+=image.Weight;
     if(!image.ReferencesValid||sourceWeight>250000)throw new NotSupportedException("Foliage companion source is unavailable or exceeds the snapshot budget.");
    }
    var rows=((ObjectSubObjects)row.Owner).m_SubObjects;
-   var indices=Enumerable.Range(0,rows.Length).Where(i=>rows[i]!=null&&ReferenceEquals(rows[i].m_Object,oldPrefab)&&(batch||i==row.Index)).ToArray();
+   var indices=Enumerable.Range(0,rows.Length).Where(i=>rows[i]!=null&&ReferenceEquals(rows[i].m_Object,oldPrefab)&&(onlyIndices!=null?onlyIndices.Contains(i):(batch||i==row.Index))).ToArray();
    using(var query=em.CreateEntityQuery(ComponentType.ReadOnly<PrefabRef>(),ComponentType.ReadOnly<Game.Objects.SubObject>()))
    using(var owners=query.ToEntityArray(Allocator.Temp))foreach(var owner in owners){
     if(em.HasComponent<Game.Common.Deleted>(owner)||em.HasComponent<Temp>(owner)||!ReferenceEquals(registry.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(owner)),row.Root))continue;
@@ -65,11 +65,17 @@ namespace MW.EditorTools.Modules.PropReplacer {
     Entity[] ids;try{ids=children.Select(c=>c.m_SubObject).ToArray();}finally{children.Dispose();}
     var donors=ids.Where(id=>em.Exists(id)&&em.HasComponent<PrefabRef>(id)&&em.GetComponentData<PrefabRef>(id).m_Prefab==prefab).ToArray();
     if(donors.Length==0)continue; // No same-prefab neighbour can be borrowed.
+    if(em.HasComponent<Game.Common.Created>(owner)||em.HasComponent<Game.Common.Updated>(owner)||!em.HasComponent<Game.Objects.Transform>(owner))throw new InvalidOperationException("Foliage owner is not settled.");
     foreach(var donor in donors)ValidateFoliageDonor(donor,owner);
     var template=donors[0];
     using(var types=archetype.GetComponentTypes(Allocator.Temp))foreach(var type in types){var name=type.GetManagedType()?.FullName??"unknown";if(!PropComponentSchema.Known.Contains(name)&&name!="Game.Objects.Plant"&&name!="Game.Objects.Tree"&&name!="Game.Simulation.UpdateFrame"&&name!="Game.Common.Created"&&name!="Game.Common.Updated"&&name!="Game.Common.Applied")throw new NotSupportedException("Unsupported foliage candidate archetype: "+name);}
+    var mapped=new List<Tuple<Entity,int>>();
+    foreach(var id in ids.Where(id=>em.Exists(id)&&em.HasComponent<PrefabRef>(id)&&ReferenceEquals(registry.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(id)),oldPrefab))){
+     if(em.HasComponent<Temp>(id)||em.HasComponent<Game.Common.Deleted>(id)||em.HasComponent<Game.Common.Created>(id)||em.HasComponent<Game.Common.Updated>(id)||!em.HasComponent<LocalTransformCache>(id)||!em.HasComponent<Game.Common.Owner>(id)||em.GetComponentData<Game.Common.Owner>(id).m_Owner!=owner||OwnerLinks(owner,id)!=1)throw new InvalidOperationException("Foliage source mapping is not settled or uniquely owned.");
+     mapped.Add(Tuple.Create(id,ResolveViewportObjectIndex(row.Root,oldPrefab,id,owner)));
+    }
     foreach(var index in indices){
-     var targets=ids.Where(id=>em.Exists(id)&&em.HasComponent<PrefabRef>(id)&&ReferenceEquals(registry.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(id)),oldPrefab)&&em.HasComponent<LocalTransformCache>(id)&&BoundDescriptorIndex.Resolve(rows,oldPrefab,em.GetComponentData<LocalTransformCache>(id))==index).ToArray();
+     var targets=mapped.Where(pair=>pair.Item2==index).Select(pair=>pair.Item1).ToArray();
      if(targets.Length!=1)throw new InvalidOperationException("Foliage replacement requires one exact live target per changed descriptor.");
      var target=targets[0];if(em.HasComponent<Temp>(target)||em.HasComponent<Game.Common.Deleted>(target)||em.HasComponent<Game.Common.Created>(target)||em.HasComponent<Game.Common.Updated>(target)||!em.HasComponent<Game.Objects.Transform>(target)||!em.HasComponent<Game.Common.PseudoRandomSeed>(target)||!em.HasComponent<Game.Common.Owner>(target)||em.GetComponentData<Game.Common.Owner>(target).m_Owner!=owner)throw new InvalidOperationException("Foliage destination is not settled.");
      var local=em.GetComponentData<LocalTransformCache>(target);local.m_PrefabSubIndex=index;

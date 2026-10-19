@@ -1,0 +1,84 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&) flags=Family, HideBySig
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0006: ldloca.s V_0
+IL_0008: callvirt System.Boolean Game.Tools.ToolRaycastSystem::GetRaycastResult(Game.Common.RaycastResult&)
+IL_000d: brfalse.s IL_003f
+IL_000f: ldarg.0
+IL_0010: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0015: stloc.1
+IL_0016: ldloca.s V_1
+IL_0018: ldloc.0
+IL_0019: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_001e: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Common.Deleted>(Unity.Entities.Entity)
+IL_0023: brtrue.s IL_003f
+IL_0025: ldarg.1
+IL_0026: ldloc.0
+IL_0027: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_002c: stobj Unity.Entities.Entity
+IL_0031: ldarg.2
+IL_0032: ldloc.0
+IL_0033: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0038: stobj Game.Common.RaycastHit
+IL_003d: ldc.i4.1
+IL_003e: ret
+IL_003f: ldarg.1
+IL_0040: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0045: stobj Unity.Entities.Entity
+IL_004a: ldarg.2
+IL_004b: initobj Game.Common.RaycastHit
+IL_0051: ldc.i4.0
+IL_0052: ret
+METHOD System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&,System.Boolean&) flags=Family, HideBySig
+IL_0000: ldarg.3
+IL_0001: ldarg.0
+IL_0002: ldfld Game.Tools.OriginalDeletedSystem Game.Tools.ToolBaseSystem::m_OriginalDeletedSystem
+IL_0007: ldc.i4.1
+IL_0008: callvirt System.Boolean Game.Tools.OriginalDeletedSystem::GetOriginalDeletedResult(System.Int32)
+IL_000d: brtrue.s IL_0017
+IL_000f: ldarg.0
+IL_0010: ldfld System.Boolean Game.Tools.ToolBaseSystem::m_ForceUpdate
+IL_0015: br.s IL_0018
+IL_0017: ldc.i4.1
+IL_0018: stind.i1
+IL_0019: ldarg.0
+IL_001a: ldarg.1
+IL_001b: ldarg.2
+IL_001c: call System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)
+IL_0021: ret
+METHOD System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Game.Tools.ControlPoint&) flags=Family, Virtual, HideBySig, VtableLayoutMask
+IL_0000: ldarg.0
+IL_0001: ldloca.s V_0
+IL_0003: ldloca.s V_1
+IL_0005: call System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)
+IL_000a: brfalse.s IL_001b
+IL_000c: ldarg.1
+IL_000d: ldloc.0
+IL_000e: ldloc.1
+IL_000f: newobj System.Void Game.Tools.ControlPoint::.ctor(Unity.Entities.Entity,Game.Common.RaycastHit)
+IL_0014: stobj Game.Tools.ControlPoint
+IL_0019: ldc.i4.1
+IL_001a: ret
+IL_001b: ldarg.1
+IL_001c: initobj Game.Tools.ControlPoint
+IL_0022: ldc.i4.0
+IL_0023: ret
+METHOD System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Game.Tools.ControlPoint&,System.Boolean&) flags=Family, Virtual, HideBySig, VtableLayoutMask
+IL_0000: ldarg.0
+IL_0001: ldloca.s V_0
+IL_0003: ldloca.s V_1
+IL_0005: ldarg.2
+IL_0006: call System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&,System.Boolean&)
+IL_000b: brfalse.s IL_001c
+IL_000d: ldarg.1
+IL_000e: ldloc.0
+IL_000f: ldloc.1
+IL_0010: newobj System.Void Game.Tools.ControlPoint::.ctor(Unity.Entities.Entity,Game.Common.RaycastHit)
+IL_0015: stobj Game.Tools.ControlPoint
+IL_001a: ldc.i4.1
+IL_001b: ret
+IL_001c: ldarg.1
+IL_001d: initobj Game.Tools.ControlPoint
+IL_0023: ldc.i4.0
+IL_0024: ret

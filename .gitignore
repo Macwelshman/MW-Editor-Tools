@@ -13,3 +13,6 @@ outputs/
 .env
 .env.*
 !.env.example
+
+# Local document render previews
+tmp/pdfs/

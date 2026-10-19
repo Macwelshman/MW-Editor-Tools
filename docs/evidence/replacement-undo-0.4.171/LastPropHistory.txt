@@ -1,0 +1,1 @@
+PASS: 12 actual-source last-component history rebinding assertions; native timing requires runtime validation.

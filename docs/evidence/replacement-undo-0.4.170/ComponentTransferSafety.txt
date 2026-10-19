@@ -1,0 +1,1 @@
+PASS: 32 actual-source component transfer checks (managed doubles; native editor acceptance pending).

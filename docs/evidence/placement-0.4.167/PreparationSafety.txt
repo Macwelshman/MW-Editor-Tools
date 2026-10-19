@@ -1,0 +1,1 @@
+PASS: 35 actual-source preparation completion assertions. Native fault rollback is not simulated.

@@ -1,0 +1,2 @@
+PASS: 10 actual-source network adapter ownership/topology/pending-edit checks using managed ECS doubles.
+PASS: 56 viewport prop/area/network projection checks; actual installed mathematics libraries, managed game data doubles.

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/Modules/PropReplacer/ViewportPropSource.cs" Link="ViewportPropSource.cs" />
+    <Compile Include="../../src/Modules/PropReplacer/ViewportGeometrySource.cs" Link="ViewportGeometrySource.cs" />
+    <Compile Include="../../src/Modules/PropReplacer/ViewportNetworkTarget.cs" Link="ViewportNetworkTarget.cs" />
+    <Reference Include="Unity.Mathematics;Colossal.Mathematics">
+      <HintPath>C:/Program Files (x86)/Steam/steamapps/common/Cities Skylines II/Cities2_Data/Managed/%(Identity).dll</HintPath><Private>true</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

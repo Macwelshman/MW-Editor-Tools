@@ -1,0 +1,25 @@
+[2026-10-19 18:16:54,342] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 18:16:54,343] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.0555954 data={"samples":[]}
+[2026-10-19 18:16:54,343] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 18:16:54,344] [INFO]  Prop Replacer viewport resolved: owner=Entity(50878:1343) hit=Entity(50878:1343)
+[2026-10-19 18:16:54,344] [INFO]  Prop Replacer: Ctrl+C copied highlighted object SR Wall (Stucco) 4m. entity=Entity(50878:1343)
+[2026-10-19 18:17:02,819] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 18:17:02,820] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.04191589 data={"samples":[]}
+[2026-10-19 18:17:02,820] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 18:17:02,820] [INFO]  Prop Replacer viewport resolved: owner=Entity(50878:1343) hit=Entity(50878:1343)
+[2026-10-19 18:17:02,820] [INFO]  Prop Replacer: Ctrl+C copied highlighted object SR Wall (Stucco) 4m. entity=Entity(50878:1343)
+[2026-10-19 18:17:03,869] [INFO]  Selected prefab: SR Wall (Stone) 4m (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 18:17:05,183] [INFO]  Prop Replacer viewport resolved: owner=Entity(50969:77) hit=Entity(50969:77)
+[2026-10-19 18:17:05,186] [INFO]  Prop Replacer clipboard shortcut refused: The highlighted object's native placement does not match a unique source row. Wait for the editor to finish updating and try again.
+[2026-10-19 18:17:16,148] [INFO]  Selected prefab: SR Wall (Stucco) 4m (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 18:17:19,248] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 18:17:19,250] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.06983948 data={"samples":[]}
+[2026-10-19 18:17:19,250] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 18:17:19,250] [INFO]  Prop Replacer viewport resolved: owner=Entity(50878:1343) hit=Entity(50878:1343)
+[2026-10-19 18:17:19,250] [INFO]  Prop Replacer: Ctrl+C copied highlighted object SR Wall (Stucco) 4m. entity=Entity(50878:1343)
+[2026-10-19 18:17:28,049] [INFO]  Prop Replacer viewport resolved: owner=Entity(50969:77) hit=Entity(50969:77)
+[2026-10-19 18:17:28,049] [INFO]  Prop Replacer clipboard shortcut refused: The highlighted object's native placement does not match a unique source row. Wait for the editor to finish updating and try again.
+[2026-10-19 18:17:37,389] [INFO]  Prop Replacer viewport resolved: owner=Entity(50969:77) hit=Entity(50969:77)
+[2026-10-19 18:17:37,389] [INFO]  Prop Replacer clipboard shortcut refused: The highlighted object's native placement does not match a unique source row. Wait for the editor to finish updating and try again.
+[2026-10-19 18:17:40,981] [INFO]  Prop Replacer viewport resolved: owner=Entity(50959:41) hit=Entity(50959:41)
+[2026-10-19 18:17:40,982] [INFO]  Prop Replacer clipboard shortcut refused: The highlighted object's native placement does not match a unique source row. Wait for the editor to finish updating and try again.

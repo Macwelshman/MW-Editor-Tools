@@ -11,9 +11,9 @@ namespace MWEditorToolsInstaller {
         public static int Main(string[] args){try{
             if(args.Length!=2||!Path.IsPathRooted(args[0]))throw new Exception("Supply a new absolute test directory and linked-target fixture.");
             var root=Path.GetFullPath(args[0]);if(Directory.Exists(root))throw new Exception("Test directory must not exist.");Directory.CreateDirectory(root);
-            var payload=InstallerCore.ReadPayload();Check(payload.Length==8,"actual embedded payload count");
+            var payload=InstallerCore.ReadPayload();Check(payload.Length==9,"actual embedded payload count");
             var linkedBefore=Tree(args[1]);Refuses(()=>InstallerCore.Install(args[1],payload,()=>false),"junction refusal");Check(Tree(args[1])==linkedBefore,"junction target changed");
-            var clean=Target(root,"fresh");var result=InstallerCore.Install(clean,payload,()=>false);Check(result.Backup==null&&result.Files==8,"fresh install");foreach(var file in payload)Check(InstallerCore.Hash(File.ReadAllBytes(Path.Combine(clean,file.Name)))==file.Hash,"fresh checksum "+file.Name);
+            var clean=Target(root,"fresh");var result=InstallerCore.Install(clean,payload,()=>false);Check(result.Backup==null&&result.Files==9,"fresh install");foreach(var file in payload)Check(InstallerCore.Hash(File.ReadAllBytes(Path.Combine(clean,file.Name)))==file.Hash,"fresh checksum "+file.Name);
             Directory.CreateDirectory(Path.Combine(clean,"unrelated"));File.WriteAllText(Path.Combine(clean,"unrelated","keep.txt"),"untouched");File.WriteAllText(Path.Combine(clean,"MW.EditorTools.dll"),"old version");var old=Tree(clean);
             result=InstallerCore.Install(clean,payload,()=>false);Check(result.Backup!=null&&Tree(result.Backup)==old,"complete verified backup");Check(File.ReadAllText(Path.Combine(clean,"unrelated","keep.txt"))=="untouched","preserve unrelated files");Check(!result.Backup.StartsWith(Path.GetDirectoryName(clean)+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase),"backup outside Mods");
             var before=Tree(clean);Refuses(()=>InstallerCore.Install(clean,payload,()=>true),"game-running refusal");Check(Tree(clean)==before,"running game changed files");

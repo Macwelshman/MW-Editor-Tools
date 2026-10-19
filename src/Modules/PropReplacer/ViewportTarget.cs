@@ -10,6 +10,12 @@ namespace MW.EditorTools.Modules.PropReplacer
 {
     public sealed partial class PropReplacerSystem
     {
+        private sealed class ViewportHitNotReady:InvalidOperationException {
+            internal readonly Entity Expected;
+            internal readonly DefaultToolSystem Tool;
+            internal ViewportHitNotReady(Entity expected,DefaultToolSystem tool):base("Waiting for the native viewport highlight to agree with the cursor."){Expected=expected;Tool=tool;}
+        }
+        private Entity? requiredViewportHit;
         private Entity ViewportHit()
         {
             var tool=World.GetExistingSystemManaged<ToolSystem>()?.activeTool as DefaultToolSystem;
@@ -17,25 +23,36 @@ namespace MW.EditorTools.Modules.PropReplacer
             var cached=(Entity)hoverEntity.GetValue(tool);var em=World.EntityManager;
             Game.Common.RaycastResult ray;
             var raycast=World.GetExistingSystemManaged<ToolRaycastSystem>();
-            if(raycast==null||!raycast.GetRaycastResult(out ray)||ray.m_Owner!=cached)throw new InvalidOperationException("No current viewport hit agrees with the highlighted owner.");
-            var hit=ray.m_Hit.m_HitEntity;
-            if(hit==Entity.Null)hit=cached;
-            bool direct=hit==cached;
-            if(em.Exists(hit)&&em.HasComponent<Temp>(hit)){var original=em.GetComponentData<Temp>(hit).m_Original;if(original==Entity.Null)throw new InvalidOperationException("The highlighted marker has no original element.");hit=original;}
-            if(direct||ViewportHitPolicy.MatchesPath(hit,cached,e=>em.Exists(e)&&!em.HasComponent<Game.Common.Deleted>(e),e=>em.HasComponent<Game.Common.Owner>(e)?Tuple.Create(true,em.GetComponentData<Game.Common.Owner>(e).m_Owner):Tuple.Create(false,Entity.Null),OwnerLinks)){
-                if(em.Exists(hit)&&em.HasComponent<Game.Notifications.Icon>(hit)&&!em.HasComponent<Game.Common.Owner>(hit)&&em.HasComponent<Game.Common.Target>(hit)){
-                    var marker=hit;hit=em.GetComponentData<Game.Common.Target>(hit).m_Target;
-                    if(em.Exists(hit)&&em.HasComponent<Temp>(hit))hit=em.GetComponentData<Temp>(hit).m_Original;
-                    if(hit==Entity.Null||!em.Exists(hit)||em.HasComponent<Game.Common.Deleted>(hit)||em.HasComponent<Temp>(hit))throw new InvalidOperationException("The highlighted icon has no live original target.");
-                    MW.EditorTools.Mod.Log.Info("Prop Replacer icon target resolved: marker="+marker+" target="+hit);
-                }
-                MW.EditorTools.Mod.Log.Info("Prop Replacer viewport resolved: owner="+cached+" hit="+hit);
+            var highlighted=NormalizeViewportEntity(cached);
+            if(raycast==null||!raycast.GetRaycastResult(out ray)) {
+                if(highlighted==Entity.Null)throw new InvalidOperationException("Hover an element until its native highlight is visible, then use the shortcut.");
+                if(requiredViewportHit.HasValue&&requiredViewportHit.Value!=highlighted)throw new InvalidOperationException("The highlighted target changed; the pending clipboard action was cancelled.");
+                MW.EditorTools.Mod.Log.Info("Prop Replacer viewport awaiting current ray: highlighted="+cached+" target="+highlighted);
+                throw new ViewportHitNotReady(highlighted,tool);
+            }
+            var owner=NormalizeViewportEntity(ray.m_Owner);
+            var hit=NormalizeViewportEntity(ray.m_Hit.m_HitEntity==Entity.Null?ray.m_Owner:ray.m_Hit.m_HitEntity);
+            if(requiredViewportHit.HasValue&&requiredViewportHit.Value!=hit)throw new InvalidOperationException("The cursor target changed; the pending clipboard action was cancelled.");
+            Func<Entity,bool> live=e=>em.Exists(e)&&!em.HasComponent<Game.Common.Deleted>(e)&&!em.HasComponent<Temp>(e);
+            Func<Entity,Tuple<bool,Entity>> parent=e=>em.HasComponent<Game.Common.Owner>(e)?Tuple.Create(true,em.GetComponentData<Game.Common.Owner>(e).m_Owner):Tuple.Create(false,Entity.Null);
+            if(!ViewportHitPolicy.MatchesPath(hit,owner,live,parent,OwnerLinks))throw new InvalidOperationException("The actual viewport hit does not have a unique ownership path to its current raycast owner.");
+            if(ViewportHitPolicy.Agrees(hit,owner,highlighted,live,parent,OwnerLinks)){
+                MW.EditorTools.Mod.Log.Info("Prop Replacer viewport resolved: highlighted="+cached+" rayOwner="+ray.m_Owner+" hit="+hit);
                 if(em.Exists(hit)&&!em.HasComponent<Game.Common.Owner>(hit)){
                     using(var types=em.GetComponentTypes(hit,Unity.Collections.Allocator.Temp))MW.EditorTools.Mod.Log.Info("Prop Replacer unowned hit components: "+string.Join(",",types.Select(t=>t.GetManagedType()?.FullName??"unknown")));
                 }
                 return hit;
             }
-            throw new InvalidOperationException("The actual viewport hit does not have a unique ownership path to its highlighted owner.");
+            MW.EditorTools.Mod.Log.Info("Prop Replacer viewport awaiting agreement: highlighted="+cached+" normalized="+highlighted+" rayOwner="+ray.m_Owner+" normalizedOwner="+owner+" hit="+hit);
+            throw new ViewportHitNotReady(hit,tool);
+        }
+        private Entity NormalizeViewportEntity(Entity id) {
+            var em=World.EntityManager;Entity result;
+            return ViewportHitPolicy.Normalize(id,e=>e!=Entity.Null&&em.Exists(e)&&!em.HasComponent<Game.Common.Deleted>(e),e=>{
+                if(em.HasComponent<Temp>(e))return Tuple.Create(true,em.GetComponentData<Temp>(e).m_Original);
+                if(em.HasComponent<Game.Notifications.Icon>(e)&&!em.HasComponent<Game.Common.Owner>(e)&&em.HasComponent<Game.Common.Target>(e))return Tuple.Create(true,em.GetComponentData<Game.Common.Target>(e).m_Target);
+                return Tuple.Create(false,Entity.Null);
+            },out result)?result:Entity.Null;
         }
         private int OwnerLinks(Entity owner,Entity id)
         {
@@ -52,7 +69,7 @@ namespace MW.EditorTools.Modules.PropReplacer
             if(id==Entity.Null||!em.Exists(id)||em.HasComponent<Game.Common.Deleted>(id)||em.HasComponent<Temp>(id)||em.HasComponent<Game.Common.Created>(id)||em.HasComponent<Game.Common.Updated>(id))throw new InvalidOperationException("The highlighted destination is missing or still updating.");
             if(!em.HasComponent<Game.Common.Owner>(id))throw new NotSupportedException("Viewport replacement requires an element bound to an editable asset.");
             var owner=em.GetComponentData<Game.Common.Owner>(id).m_Owner;
-            if(!em.Exists(owner)||!em.HasComponent<PrefabRef>(owner)||em.HasComponent<Game.Common.Deleted>(owner)||em.HasComponent<Temp>(owner))throw new InvalidOperationException("The destination owner is unavailable.");
+            if(!em.Exists(owner)||!em.HasComponent<PrefabRef>(owner)||em.HasComponent<Game.Common.Deleted>(owner)||em.HasComponent<Temp>(owner)||em.HasComponent<Game.Common.Created>(owner)||em.HasComponent<Game.Common.Updated>(owner))throw new InvalidOperationException("The destination owner is unavailable or still updating.");
             var prefabs=World.GetExistingSystemManaged<PrefabSystem>();
             var root=prefabs?.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(owner));
             if(root==null||root.isReadOnly)throw new InvalidOperationException("The highlighted element belongs to a read-only or unavailable asset.");
@@ -64,8 +81,8 @@ namespace MW.EditorTools.Modules.PropReplacer
                 if(OwnerLinks(parent,ancestor)!=1||!em.HasComponent<PrefabRef>(parent)||!em.HasComponent<LocalTransformCache>(ancestor))throw new InvalidOperationException("Nested owner link or placement is unavailable.");
                 var parentPrefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(parent));
                 var childPrefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(ancestor));
-                if(parentPrefab==null||parentPrefab.isReadOnly)throw new InvalidOperationException("A nested parent asset is read-only.");
-                BoundDescriptorIndex.Resolve(parentPrefab.GetComponent<ObjectSubObjects>()?.m_SubObjects,childPrefab,em.GetComponentData<LocalTransformCache>(ancestor));
+                if(parentPrefab==null||parentPrefab.isReadOnly||em.HasComponent<Game.Common.Deleted>(parent)||em.HasComponent<Temp>(parent)||em.HasComponent<Game.Common.Created>(parent)||em.HasComponent<Game.Common.Updated>(parent))throw new InvalidOperationException("A nested parent asset is read-only or still updating.");
+                ResolveViewportObjectIndex(parentPrefab,childPrefab,ancestor,parent);
                 ancestors.Add(parentPrefab);ancestor=parent;
             }
             if(context.Asset!=null&&!ReferenceEquals(context.Asset,root)&&!ancestors.Any(p=>ReferenceEquals(p,context.Asset)))throw new InvalidOperationException("The highlighted element belongs to a different asset. Inspect its owning asset first.");
@@ -74,6 +91,8 @@ namespace MW.EditorTools.Modules.PropReplacer
             var prefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(id));
             bool effect=em.HasComponent<EditorContainer>(id)&&prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab) is EffectPrefab;
             if(effect)prefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab);
+            else if(em.HasComponent<EditorContainer>(id)&&prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab) is NetLanePrefab)
+                prefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab);
             var rows=ResolveRows(root).Where(r=>r.Value.GetType()==clipboard.RowType&&ReferenceEquals(r.ReferenceField.GetValue(r.Value),prefab)).ToArray();
             if(rows.Length==0){
                 var container=em.HasComponent<EditorContainer>(id)?prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab):null;
@@ -92,24 +111,56 @@ namespace MW.EditorTools.Modules.PropReplacer
             }
             else if(!effect&&clipboard.RowType==typeof(ObjectSubObjectInfo)&&em.HasComponent<Game.Objects.Object>(id)&&em.HasComponent<LocalTransformCache>(id))
             {
-                var local=em.GetComponentData<LocalTransformCache>(id);
-                var source=root.GetComponent<ObjectSubObjects>();
-                int index=BoundDescriptorIndex.Resolve(source?.m_SubObjects,prefab,local);
+                int index=ResolveViewportObjectIndex(root,prefab,id,owner);
                 matches=rows.Where(r=>r.Index==index).ToArray();
             }
             else if(clipboard.RowType==typeof(ObjectSubAreaInfo)&&em.HasComponent<Game.Areas.Area>(id)&&em.HasBuffer<LocalNodeCache>(id))
             {
-                var local=em.GetBuffer<LocalNodeCache>(id,true);
-                matches=rows.Where(r=>{var row=(ObjectSubAreaInfo)r.Value;return row.m_NodePositions!=null&&row.m_NodePositions.Length==local.Length&&(row.m_ParentMeshes==null||row.m_ParentMeshes.Length==local.Length)&&Enumerable.Range(0,local.Length).All(i=>row.m_NodePositions[i].Equals(local[i].m_Position)&&(row.m_ParentMeshes==null?-1:row.m_ParentMeshes[i])==local[i].m_ParentMesh);}).ToArray();
+                if(!em.HasBuffer<Game.Areas.Node>(id)||!em.HasComponent<Game.Objects.Transform>(owner))throw new NotSupportedException("Live area geometry relative to its owner is unavailable.");
+                var nativeLocal=em.GetBuffer<LocalNodeCache>(id,true);var nativeNodes=em.GetBuffer<Game.Areas.Node>(id,true);
+                if(nativeNodes.Length<3||nativeNodes.Length>4096||nativeLocal.Length!=nativeNodes.Length)throw new InvalidOperationException("Area nodes or their placement cache are incomplete.");
+                var local=new LocalNodeCache[nativeLocal.Length];var nodes=new Unity.Mathematics.float3[nativeNodes.Length];
+                for(int i=0;i<local.Length;i++){local[i]=nativeLocal[i];nodes[i]=nativeNodes[i].m_Position;}
+                var positions=ViewportGeometrySource.Area(nodes,local,em.GetComponentData<Game.Objects.Transform>(owner));
+                matches=rows.Where(r=>ViewportGeometrySource.AreaMatches((ObjectSubAreaInfo)r.Value,prefab,positions,local)).ToArray();
             }
-            else if(em.HasComponent<LocalCurveCache>(id)&&((clipboard.RowType==typeof(ObjectSubNetInfo)&&em.HasComponent<Game.Net.Edge>(id))||(clipboard.RowType==typeof(ObjectSubLaneInfo)&&em.HasComponent<Game.Net.Lane>(id))))
+            else if(clipboard.RowType==typeof(ObjectSubNetInfo)||clipboard.RowType==typeof(ObjectSubLaneInfo))
             {
-                var curve=em.GetComponentData<LocalCurveCache>(id).m_Curve;
-                matches=rows.Where(r=>r.Value is ObjectSubNetInfo net?net.m_BezierCurve.Equals(curve):((ObjectSubLaneInfo)r.Value).m_BezierCurve.Equals(curve)).ToArray();
+                matches=ResolveViewportNetworkRows(rows,prefab,id,owner);
             }
             else throw new NotSupportedException("The highlighted element has no supported exact placement cache.");
             if(matches.Length!=1)throw new InvalidOperationException("The highlighted placement matches "+matches.Length+" source rows; viewport replacement refused.");
             matches[0].Ancestors=ancestors.Distinct().ToArray();return matches[0];
+        }
+        private int ResolveViewportObjectIndex(PrefabBase root,PrefabBase prefab,Entity id,Entity owner)
+        {
+            var em=World.EntityManager;
+            if(!em.HasComponent<Game.Objects.Transform>(id)||!em.HasComponent<Game.Objects.Transform>(owner))throw new NotSupportedException("Object placement relative to its owner is unavailable.");
+            var local=em.GetComponentData<LocalTransformCache>(id);
+            var rows=root.GetComponent<ObjectSubObjects>()?.m_SubObjects;
+            bool[] groundSources=null;string groundInfo="no compiled source proof";
+            var nativeOwner=em.GetComponentData<PrefabRef>(owner).m_Prefab;
+            if(rows!=null&&em.HasBuffer<Game.Prefabs.SubObject>(nativeOwner)) {
+                var native=em.GetBuffer<Game.Prefabs.SubObject>(nativeOwner,true);
+                groundInfo="compiledCount="+native.Length+" sourceCount="+rows.Length;
+                var compiled=new Game.Prefabs.SubObject[native.Length];for(int i=0;i<compiled.Length;i++)compiled[i]=native[i];
+                var identity=em.GetComponentData<PrefabRef>(id).m_Prefab;
+                groundSources=ViewportPropSource.GroundSources(rows,prefab,compiled,identity);
+                if(local.m_PrefabSubIndex>=0&&local.m_PrefabSubIndex<rows.Length)groundInfo+=" indexedGroundProof="+groundSources[local.m_PrefabSubIndex];
+                if(local.m_PrefabSubIndex<0||local.m_PrefabSubIndex>=rows.Length||!groundSources[local.m_PrefabSubIndex])
+                    foreach(var j in Enumerable.Range(0,compiled.Length).Where(i=>compiled[i].m_Prefab==identity).OrderBy(i=>Unity.Mathematics.math.lengthsq(compiled[i].m_Position-local.m_Position)).Take(4)) {
+                        var value=compiled[j];groundInfo+=" compiled["+j+"] flags="+value.m_Flags+" position="+value.m_Position+" rotation="+value.m_Rotation+" parent="+value.m_ParentIndex+" probability="+value.m_Probability+" group="+value.m_GroupIndex;
+                    }
+            }
+            int index;
+            try{index=ViewportPropSource.Resolve(rows,prefab,local,em.GetComponentData<Game.Objects.Transform>(id),em.GetComponentData<Game.Objects.Transform>(owner),groundSources);}
+            catch {
+                try{MW.EditorTools.Mod.Log.Info("Prop Replacer source mismatch: target="+id+" owner="+owner+" asset="+root.name+" prefab="+(prefab?.name??"null")+" "+groundInfo+" "+ViewportPropSource.Describe(rows,prefab,local,em.GetComponentData<Game.Objects.Transform>(id),em.GetComponentData<Game.Objects.Transform>(owner)));}catch{}
+                throw;
+            }
+            if(!rows[index].m_Position.Equals(local.m_Position)||!rows[index].m_Rotation.Equals(local.m_Rotation))
+                MW.EditorTools.Mod.Log.Info("Prop Replacer native source projection: target="+id+" owner="+owner+" row="+index+" cachePosition="+local.m_Position+" sourcePosition="+rows[index].m_Position+" "+groundInfo);
+            return index;
         }
     }
 }

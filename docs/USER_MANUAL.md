@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-For version **0.4.164** · Cities: Skylines II Asset Editor
+For version **0.4.171** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -20,11 +20,11 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 
 ## Install or update
 
-Download the installer or manual ZIP from the [0.4.164 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.164). The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.171 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.171). The repository contains development source; cloning it does not install the mod.
 
 ### Windows installer
 
-Close Cities: Skylines II, run **MWEditorTools-0.4.164-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+Close Cities: Skylines II, run **MWEditorTools-0.4.171-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
 
 The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
 
@@ -72,7 +72,7 @@ Most tools follow the asset or mesh selected in the native **Object Info** panel
 | Copy all components | Components → Copy all → select destination → choose mode → Preview → Paste. |
 | Change colour variations | Colours → select mesh → adjust palette → Generate combinations → Apply combinations. |
 | Save workspace assets | Multi-Save → Save all assets → review the result. |
-| Undo a supported move or deletion | Ctrl+Z, or Undo in the header. |
+| Undo a supported replacement, move or deletion | Ctrl+Z, or Undo in the header. |
 
 Use an editable copy when trying an unfamiliar workflow. Clipboard contents and recovery controls are working-session tools, not saved backups.
 
@@ -85,13 +85,14 @@ There is one shared last-action slot:
 - A new supported completed action replaces the previous action.
 - A cancelled or unchanged move preserves the previous action.
 - Successful Undo consumes the action. Pressing Undo again does not walk back through older edits.
-- Asset loads/changes and unrelated edits can clear or invalidate the action. Element replacement and component paste clear the shared slot.
+- Loads, unrelated edits and selecting an unrelated asset can clear the action. Component paste also clears the shared slot.
 - The Undo slot does not survive a reload. Saving and reopening preserves the resulting asset changes, not the recovery slot.
 
 ### Supported actions
 
 | Element | Supported Undo |
 |---|---|
+| Attached-element replacement | The last single or batch replacement, restored as one action. |
 | Props, foliage and supported nested groups | Supported standalone/bound deletion and built-in moves. |
 | Surfaces and areas | Supported bound/unbound deletion and native node edits on existing supported polygons. |
 | Native editor effects | Supported direct bound/unbound deletion and built-in moves. |
@@ -113,11 +114,11 @@ The following controls have different scopes:
 
 | Control | Recovers |
 |---|---|
-| Header Undo / Ctrl+Z | The last supported captured move, deletion or node edit. |
+| Header Undo / Ctrl+Z | The last supported replacement, move, deletion or node edit. |
 | Components → Restore | The destination settings/components before the latest component paste. |
 | Colours → Undo last edit | The last supported colour edit. |
 
-Do not assume Ctrl+Z reverses a Replacer paste or every change made by another tool.
+
 
 ## Replacer
 
@@ -146,6 +147,12 @@ For example, copy a flower bush, hover over one of several matching destination 
 When supported rows are available, you can choose one in the tab and use **Copy**, **Replace** or **Replace all**. **Clear** empties the element clipboard. The clipboard helps identify the source even when you move the cursor away from it.
 
 Objects must be replaced with compatible object rows, effects with effect rows, and so on. Copying a prop that contains an effect copies the prop reference; copying the effect itself copies an effect reference. They are different element types.
+
+### Undo a replacement
+
+Press **Ctrl+Z**, or click **Undo** in the shared window header, to restore the last single replacement or the entire last batch. Original prefab references, row order, placement and settings are restored together. Props already using the replacement before the batch are left as they were.
+
+Keep **Enable Undo** on. After foliage replacement, wait for regeneration to finish before Undo becomes available. Native regeneration may clear the inspector or select the replacement prefab; this does not discard replacement Undo. A newer action, an unrelated edit, selecting an unrelated asset or reloading can clear the slot. Successful Undo consumes it; there is no Redo.
 
 ### Replacement limits
 
@@ -278,7 +285,7 @@ Shortcuts pause while typing, recording a binding, using dialogs, saving or reco
 | Save is disabled or some assets were excluded | Check the ready count and Details. Locked assets are excluded; saving may already be running. |
 | Window is out of reach | Use Options → MW Editor Tools → Reset window position. |
 
-An intermittent viewport type/source-row mismatch was observed during development and did not recur in the accepted effect tests. It remains a documented limitation rather than a claim that every targeting case is fixed.
+Viewport targeting requires a current native highlight and an exact source match. Use the default selection tool, keep the cursor over an uncovered element and wait for regeneration before retrying. Ambiguous source matches remain refused.
 
 For a reproducible problem, record the mod version, source/target names, tool and action sequence, and any displayed message. The mod log is normally at:
 
@@ -300,6 +307,6 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.164.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.171.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
 
 

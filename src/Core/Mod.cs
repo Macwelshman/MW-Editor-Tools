@@ -44,6 +44,8 @@ namespace MW.EditorTools
                 try {
                     propReplacer=updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.PropReplacer.PropReplacerSystem>();
                     propReplacer.Initialize(context,()=>host?.GetComponent<ListRecovery>()?.ClearHistory(),()=>ui?.ClipboardShortcutAllowed==true);
+                    propReplacer.CanRecordUndo=()=>host?.GetComponent<ListRecovery>()?.CanRecordReplacementUndo==true;
+                    propReplacer.RecordUndo=action=>host.GetComponent<ListRecovery>().RecordReplacementUndo(action);
                     updateSystem.UpdateAt<MW.EditorTools.Modules.PropReplacer.PropReplacerSystem>(SystemUpdatePhase.UIUpdate);
                 } catch(Exception error){if(propReplacer!=null)propReplacer.Enabled=false;propReplacer=null;Log.Error(error,"Prop Replacer unavailable; other editor tools remain active.");}
                 try {

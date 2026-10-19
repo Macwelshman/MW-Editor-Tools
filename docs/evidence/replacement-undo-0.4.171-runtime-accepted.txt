@@ -1,0 +1,248 @@
+[2026-10-19 19:24:05,411] [INFO]  MW Editor Tools: component-header and list Clear confirmation installed; recovery eligibility is checked separately.
+[2026-10-19 19:24:05,507] [INFO]  Built-in prop move Undo attached; native completion checks required.
+[2026-10-19 19:24:05,534] [INFO]  Built-in area/surface move Undo attached; native completion checks required.
+[2026-10-19 19:24:05,588] [INFO]  MW Editor Tools: User-approved Sub-element deletion history attached; explicit arm and native completion checks required.
+[2026-10-19 19:24:05,588] [INFO]  Prefab-list recovery loaded: Object/Area/Net/Effect/Lane rows and Clear; bulldozer routes have separate eligibility checks.
+[2026-10-19 19:24:05,589] [INFO]  MW Editor Tools: shared UI bindings created.
+[2026-10-19 19:24:05,590] [INFO]  MW Editor Tools: component transfer engine integrated in the shared Components tab.
+[2026-10-19 19:24:05,592] [INFO]  MW Editor Tools: Colours engine 0.5.11 integrated in shared tab.
+[2026-10-19 19:24:05,617] [INFO]  MW Editor Tools: Options registered.
+[2026-10-19 19:24:10,662] [INFO]  MW Editor Tools: shared UI available = False; inspector present = True; inspector enabled = False
+[2026-10-19 19:24:11,551] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:24:13,389] [INFO]  MW Editor Tools: frontend mounted; focus heartbeat received.
+[2026-10-19 19:24:13,574] [INFO]  MW Editor Tools: frontend diagnostic {"available":false,"settings":true,"workspaceWidth":500,"launcher":false}
+[2026-10-19 19:24:18,718] [INFO]  MW Editor Tools: shared UI available = True; inspector present = True; inspector enabled = False
+[2026-10-19 19:24:18,720] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:24:18,732] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-19 19:24:18,886] [INFO]  MW Editor Tools: frontend diagnostic {"available":true,"settings":true,"workspaceWidth":500,"launcher":true,"left":520,"top":65,"width":56,"height":56,"position":"fixed","display":"block","visibility":"visible"}
+[2026-10-19 19:24:20,202] [INFO]  Nested prop discovery: read-only definition scan; object prefabs=19410 candidates=61. Typed placement/recovery UNPROVEN. Candidates: Adult_Female (2 props); Adult_Male (2 props); Carport01 (2 props); Carport02 (2 props); Carport03 (4 props); Child_Female (2 props); Child_Male (2 props); EU_MixedStorefront_1x1_Random_01 (2 props); EU_MixedStorefront_2x1_Random_01 (2 props); EU_MixedStorefront_3x1_Random_01 (2 props); EU_MixedStorefront_4x1_Random_01 (2 props); Elderly_Female (2 props); Elderly_Male (2 props); FoodCart01 (3 props); FoodCart03 (7 props); FoodStall01 (4 props); FoodStall02 (6 props); Gazebo01 (2 props); Gazebo02 (2 props); Gazebo03 (2 props)
+[2026-10-19 19:24:58,743] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=none
+[2026-10-19 19:25:10,757] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-19 19:25:25,449] [INFO]  Selected prefab: SR Wall Post (Stone) (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:25:29,025] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:25:29,092] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:25:30,925] [INFO]  Selected prefab: SR Wall Post (Stucco) (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:25:32,054] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:25:32,055] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.05719757 data={"samples":[]}
+[2026-10-19 19:25:32,055] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:25:32,057] [INFO]  Prop Replacer clipboard shortcut refused: Hover an element until its native highlight is visible, then use the shortcut.
+[2026-10-19 19:25:40,788] [INFO]  Selected prefab: SR Wall Post (Stone) (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:25:43,168] [INFO]  Prop Replacer clipboard shortcut refused: Copy an element with Ctrl+C first.
+[2026-10-19 19:25:47,991] [INFO]  Selected prefab: SR Wall Post (Stucco) (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:25:54,293] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:25:54,294] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.09902954 data={"samples":[]}
+[2026-10-19 19:25:54,294] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:25:54,295] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50878:519) rayOwner=Entity(50878:519) hit=Entity(50878:519)
+[2026-10-19 19:25:54,296] [INFO]  Prop Replacer: Ctrl+C copied highlighted object SR Wall Post (Stucco). entity=Entity(50878:519)
+[2026-10-19 19:25:56,349] [INFO]  Selected prefab: SR Wall Post (Stone) (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:25:57,853] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50957:5) rayOwner=Entity(50957:5) hit=Entity(50957:5)
+[2026-10-19 19:25:57,866] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:25:57,875] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:25:57,876] [INFO]  Replacement Undo recorded: batch replacement (3 elements) inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:25:57,876] [INFO]  Prop Replacer viewport paste: Replaced 3 matching object element(s) with SR Wall Post (Stucco). Destination placement and row settings were preserved. underlyingIndex=58
+[2026-10-19 19:25:57,876] [INFO]  Selected prefab: SR Wall Post (Stucco) (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:25:58,136] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:26:01,440] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:26:01,453] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:26:01,467] [INFO]  Undid replacement of 3 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:26:01,468] [INFO]  Undid batch replacement (3 elements)
+[2026-10-19 19:26:10,129] [INFO]  Selected prefab: SR Wall Post (Stucco) (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:26:12,508] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:26:12,509] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.01405334 data={"samples":[]}
+[2026-10-19 19:26:12,510] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:26:12,510] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50883:557) rayOwner=Entity(50883:557) hit=Entity(50883:557)
+[2026-10-19 19:26:12,510] [INFO]  Prop Replacer: Ctrl+C copied highlighted object SR Wall Post (Stucco). entity=Entity(50883:557)
+[2026-10-19 19:26:14,234] [INFO]  Selected prefab: SR Wall Post (Stone) (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:26:15,030] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50898:267) rayOwner=Entity(50898:267) hit=Entity(50898:267)
+[2026-10-19 19:26:15,031] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:26:15,035] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:26:15,036] [INFO]  Replacement Undo recorded: single replacement inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:26:15,036] [INFO]  Prop Replacer viewport paste: Replaced selected object with SR Wall Post (Stucco). Destination placement and row settings were preserved. underlyingIndex=58
+[2026-10-19 19:26:15,252] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:26:16,622] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:26:16,635] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:26:16,649] [INFO]  Undid replacement of 1 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:26:16,649] [INFO]  Undid single replacement
+[2026-10-19 19:36:01,471] [INFO]  Selected prefab: SR Wall (Stone) 4m (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:36:06,619] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:06,668] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:36:08,196] [INFO]  Selected prefab: SR Wall (Stucco) 4m (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:36:09,493] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:09,495] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.09899902 data={"samples":[]}
+[2026-10-19 19:36:09,495] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:09,495] [INFO]  Prop Replacer clipboard shortcut refused: Hover an element until its native highlight is visible, then use the shortcut.
+[2026-10-19 19:36:11,478] [INFO]  Selected prefab: SR Wall (Stone) 4m (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:36:12,828] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50947:5) rayOwner=Entity(50947:5) hit=Entity(50947:5)
+[2026-10-19 19:36:12,829] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:12,834] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:12,834] [INFO]  Replacement Undo recorded: batch replacement (11 elements) inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:36:12,834] [INFO]  Prop Replacer viewport paste: Replaced 11 matching object element(s) with SR Wall Post (Stucco). Destination placement and row settings were preserved. underlyingIndex=53
+[2026-10-19 19:36:12,998] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:36:15,569] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:36:15,582] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:36:15,595] [INFO]  Undid replacement of 11 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:36:15,596] [INFO]  Undid batch replacement (11 elements)
+[2026-10-19 19:36:17,331] [INFO]  Selected prefab: SR Wall (Stucco) 4m (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:36:18,160] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:18,162] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.05792236 data={"samples":[]}
+[2026-10-19 19:36:18,162] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:18,163] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50878:559) rayOwner=Entity(50878:559) hit=Entity(50878:559)
+[2026-10-19 19:36:18,163] [INFO]  Prop Replacer: Ctrl+C copied highlighted object SR Wall (Stucco) 4m. entity=Entity(50878:559)
+[2026-10-19 19:36:19,102] [INFO]  Selected prefab: SR Wall (Stone) 4m (Game.Prefabs.StaticObjectPrefab); found 4 components.
+[2026-10-19 19:36:19,875] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50948:9) rayOwner=Entity(50948:9) hit=Entity(50948:9)
+[2026-10-19 19:36:19,877] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:19,881] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:19,881] [INFO]  Replacement Undo recorded: batch replacement (11 elements) inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:36:19,881] [INFO]  Prop Replacer viewport paste: Replaced 11 matching object element(s) with SR Wall (Stucco) 4m. Destination placement and row settings were preserved. underlyingIndex=53
+[2026-10-19 19:36:20,122] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:36:31,748] [INFO]  Selected prefab: FlowerBushCity01 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:36:34,852] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:34,860] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.05603027 data={"samples":[]}
+[2026-10-19 19:36:34,860] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:34,860] [INFO]  Prop Replacer clipboard shortcut refused: Hover an element until its native highlight is visible, then use the shortcut.
+[2026-10-19 19:36:37,139] [INFO]  Selected prefab: GreenBushCity01 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:36:37,748] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50912:5) rayOwner=Entity(50912:5) hit=Entity(50912:5)
+[2026-10-19 19:36:37,750] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:37,750] [INFO]  Replacement Undo invalidated: History cleared inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:36:37,753] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:37,753] [INFO]  Replacement Undo recorded: batch replacement (11 elements) inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:36:37,754] [INFO]  Prop Replacer viewport paste: Replaced 11 matching object element(s) with SR Wall (Stucco) 4m. Destination placement and row settings were preserved. underlyingIndex=20
+[2026-10-19 19:36:37,925] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:36:39,610] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:36:39,622] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:36:39,639] [INFO]  Undid replacement of 11 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:36:39,639] [INFO]  Undid batch replacement (11 elements)
+[2026-10-19 19:36:41,260] [INFO]  Selected prefab: FlowerBushCity01 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:36:42,458] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:42,460] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.0569458 data={"samples":[]}
+[2026-10-19 19:36:42,460] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:42,460] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50921:5) rayOwner=Entity(50921:5) hit=Entity(50921:5)
+[2026-10-19 19:36:42,460] [INFO]  Prop Replacer: Ctrl+C copied highlighted object FlowerBushCity01. entity=Entity(50921:5)
+[2026-10-19 19:36:43,828] [INFO]  Selected prefab: GreenBushCity01 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:36:45,155] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50912:7) rayOwner=Entity(50912:7) hit=Entity(50912:7)
+[2026-10-19 19:36:45,161] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:45,163] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50876:715) owner=Entity(50885:281) index=12
+[2026-10-19 19:36:45,163] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50947:69) owner=Entity(50885:281) index=13
+[2026-10-19 19:36:45,163] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50948:69) owner=Entity(50885:281) index=20
+[2026-10-19 19:36:45,164] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50949:69) owner=Entity(50885:281) index=24
+[2026-10-19 19:36:45,164] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50950:69) owner=Entity(50885:281) index=25
+[2026-10-19 19:36:45,164] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50951:71) owner=Entity(50885:281) index=26
+[2026-10-19 19:36:45,164] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50952:31) owner=Entity(50885:281) index=65
+[2026-10-19 19:36:45,165] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50953:21) owner=Entity(50885:281) index=66
+[2026-10-19 19:36:45,165] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50955:63) owner=Entity(50885:281) index=69
+[2026-10-19 19:36:45,165] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50979:133) owner=Entity(50885:281) index=71
+[2026-10-19 19:36:45,165] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(51024:333) owner=Entity(50885:281) index=72
+[2026-10-19 19:36:45,171] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:36:45,171] [INFO]  Replacement Undo recorded: batch replacement (11 elements) inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:36:45,172] [INFO]  Prop Replacer viewport paste: Replaced 11 matching object element(s) with FlowerBushCity01. Destination placement and row settings were preserved. underlyingIndex=20
+[2026-10-19 19:36:45,179] [INFO]  Replacement foliage refresh submitted at native pre-culling consumer.
+[2026-10-19 19:36:45,180] [INFO]  Replacement Undo blocked: foliage regeneration pending or failed
+[2026-10-19 19:36:45,221] [INFO]  Replacement foliage completed: donors retained=10 rendered destinations=11
+[2026-10-19 19:36:45,368] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:36:47,028] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:36:47,040] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:36:47,057] [INFO]  Undid replacement of 11 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:36:47,057] [INFO]  Undid batch replacement (11 elements)
+[2026-10-19 19:36:52,532] [INFO]  Selected prefab: FlowerBushCity01 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:36:54,877] [INFO]  Selected prefab: FlowerBushCity02 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:36:56,939] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:56,941] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.04125977 data={"samples":[]}
+[2026-10-19 19:36:56,941] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:36:56,941] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50977:135) rayOwner=Entity(50977:135) hit=Entity(50977:135)
+[2026-10-19 19:36:56,942] [INFO]  Prop Replacer: Ctrl+C copied highlighted object FlowerBushCity02. entity=Entity(50977:135)
+[2026-10-19 19:37:00,039] [INFO]  Selected prefab: GreenBushCity01 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:37:01,211] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50881:689) rayOwner=Entity(50881:689) hit=Entity(51112:3)
+[2026-10-19 19:37:01,214] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:37:01,214] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50874:777) owner=Entity(50885:281) index=12
+[2026-10-19 19:37:01,214] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50876:759) owner=Entity(50885:281) index=13
+[2026-10-19 19:37:01,214] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50912:49) owner=Entity(50885:281) index=20
+[2026-10-19 19:37:01,214] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50919:47) owner=Entity(50885:281) index=24
+[2026-10-19 19:37:01,214] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50923:47) owner=Entity(50885:281) index=25
+[2026-10-19 19:37:01,215] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50924:47) owner=Entity(50885:281) index=26
+[2026-10-19 19:37:01,215] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50925:47) owner=Entity(50885:281) index=65
+[2026-10-19 19:37:01,215] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50947:107) owner=Entity(50885:281) index=66
+[2026-10-19 19:37:01,215] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50948:107) owner=Entity(50885:281) index=69
+[2026-10-19 19:37:01,215] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50949:107) owner=Entity(50885:281) index=71
+[2026-10-19 19:37:01,215] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50950:107) owner=Entity(50885:281) index=72
+[2026-10-19 19:37:01,220] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:37:01,220] [INFO]  Replacement Undo recorded: batch replacement (11 elements) inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:37:01,220] [INFO]  Prop Replacer viewport paste: Replaced 11 matching object element(s) with FlowerBushCity02. Destination placement and row settings were preserved. underlyingIndex=20
+[2026-10-19 19:37:01,227] [INFO]  Replacement foliage refresh submitted at native pre-culling consumer.
+[2026-10-19 19:37:01,228] [INFO]  Replacement Undo blocked: foliage regeneration pending or failed
+[2026-10-19 19:37:01,268] [INFO]  Replacement foliage completed: donors retained=6 rendered destinations=11
+[2026-10-19 19:37:01,340] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:37:03,956] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:37:03,969] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:37:03,982] [INFO]  Undid replacement of 11 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:37:03,983] [INFO]  Undid batch replacement (11 elements)
+[2026-10-19 19:37:27,573] [INFO]  Selected prefab: GreenBushCity01 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:37:29,165] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:37:29,166] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.07049561 data={"samples":[]}
+[2026-10-19 19:37:29,166] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:37:29,166] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50874:837) rayOwner=Entity(50874:837) hit=Entity(51119:5)
+[2026-10-19 19:37:29,166] [INFO]  Prop Replacer: Ctrl+C copied highlighted object GreenBushCity01. entity=Entity(51119:5)
+[2026-10-19 19:37:31,660] [INFO]  Selected prefab: FlowerBushCity01 (Game.Prefabs.StaticObjectPrefab); found 8 components.
+[2026-10-19 19:37:33,550] [INFO]  Prop Replacer viewport resolved: highlighted=Entity(50960:5) rayOwner=Entity(50960:5) hit=Entity(50960:5)
+[2026-10-19 19:37:33,552] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:37:33,552] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50874:839) owner=Entity(50885:281) index=62
+[2026-10-19 19:37:33,556] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:37:33,557] [INFO]  Replacement Undo recorded: single replacement inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:37:33,557] [INFO]  Prop Replacer viewport paste: Replaced selected object with GreenBushCity01. Destination placement and row settings were preserved. underlyingIndex=62
+[2026-10-19 19:37:33,565] [INFO]  Replacement foliage refresh submitted at native pre-culling consumer.
+[2026-10-19 19:37:33,567] [INFO]  Replacement Undo blocked: foliage regeneration pending or failed
+[2026-10-19 19:37:33,610] [INFO]  Replacement foliage completed: donors retained=11 rendered destinations=1
+[2026-10-19 19:37:33,688] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-19 19:37:35,502] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:37:35,516] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:37:35,528] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50876:827) owner=Entity(50885:281) index=62
+[2026-10-19 19:37:35,530] [INFO]  Undid replacement of 1 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:37:35,530] [INFO]  Undid single replacement
+[2026-10-19 19:37:35,549] [INFO]  Replacement foliage refresh submitted at native pre-culling consumer.
+[2026-10-19 19:37:35,593] [INFO]  Replacement foliage completed: donors retained=9 rendered destinations=1
+[2026-10-19 19:37:50,985] [INFO]  Selected prefab: SR ResidentialLow S13_L2 2x4 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-19 19:38:21,918] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:38:21,919] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.0279541 data={"samples":["FlowerBushCity01","Element 10FlowerBushCity01","Element 10FlowerBushCity01Element 11FlowerBushCity01Element 12GreenBushCity01Element 13GreenBushCity01Element 14FlowerBushCity02Element 15FlowerBushCity02Element 16FlowerBushCity02Element 17GreenBushCity03Element 18GreenBushCity03Element 19GreenBushCity03"]}
+[2026-10-19 19:38:21,920] [INFO]  Prop Replacer: Ctrl+C copied highlighted browser object FlowerBushCity01.
+[2026-10-19 19:38:27,250] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:38:27,251] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50881:771) owner=Entity(50885:281) index=8
+[2026-10-19 19:38:27,251] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50882:705) owner=Entity(50885:281) index=17
+[2026-10-19 19:38:27,251] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50911:73) owner=Entity(50885:281) index=18
+[2026-10-19 19:38:27,251] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50912:125) owner=Entity(50885:281) index=19
+[2026-10-19 19:38:27,251] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50919:123) owner=Entity(50885:281) index=63
+[2026-10-19 19:38:27,252] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50923:123) owner=Entity(50885:281) index=64
+[2026-10-19 19:38:27,257] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:38:27,257] [INFO]  Replacement Undo recorded: batch replacement (6 elements) inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:38:27,257] [INFO]  Prop Replacer Ctrl+V: Replaced 6 matching object element(s) with FlowerBushCity01. Destination placement and row settings were preserved. underlyingIndex=19
+[2026-10-19 19:38:27,265] [INFO]  Replacement foliage refresh submitted at native pre-culling consumer.
+[2026-10-19 19:38:27,265] [INFO]  Replacement Undo blocked: foliage regeneration pending or failed
+[2026-10-19 19:38:27,306] [INFO]  Replacement foliage completed: donors retained=10 rendered destinations=6
+[2026-10-19 19:38:31,159] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:38:31,176] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:38:31,192] [INFO]  Undid replacement of 6 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:38:31,192] [INFO]  Undid batch replacement (6 elements)
+[2026-10-19 19:38:36,698] [INFO]  Prop Replacer browser Ctrl+C: hover contains no row text.
+[2026-10-19 19:38:36,699] [INFO]  Prop Replacer browser candidate at Ctrl+C: age=0.09686279 data={"samples":["FlowerBushCity01","Element 10FlowerBushCity01","Element 10FlowerBushCity01Element 11FlowerBushCity01Element 12GreenBushCity01Element 13GreenBushCity01Element 14FlowerBushCity02Element 15FlowerBushCity02Element 16FlowerBushCity02Element 17GreenBushCity03Element 18GreenBushCity03Element 19GreenBushCity03"]}
+[2026-10-19 19:38:36,699] [INFO]  Prop Replacer: Ctrl+C copied highlighted browser object FlowerBushCity01.
+[2026-10-19 19:38:42,999] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:38:42,999] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50881:773) owner=Entity(50885:281) index=12
+[2026-10-19 19:38:42,999] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50882:707) owner=Entity(50885:281) index=13
+[2026-10-19 19:38:42,999] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50911:75) owner=Entity(50885:281) index=20
+[2026-10-19 19:38:43,000] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50912:127) owner=Entity(50885:281) index=24
+[2026-10-19 19:38:43,000] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50919:125) owner=Entity(50885:281) index=25
+[2026-10-19 19:38:43,000] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50923:125) owner=Entity(50885:281) index=26
+[2026-10-19 19:38:43,000] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50924:125) owner=Entity(50885:281) index=65
+[2026-10-19 19:38:43,000] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50948:183) owner=Entity(50885:281) index=66
+[2026-10-19 19:38:43,000] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50949:183) owner=Entity(50885:281) index=69
+[2026-10-19 19:38:43,001] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50950:183) owner=Entity(50885:281) index=71
+[2026-10-19 19:38:43,001] [INFO]  Replacement foliage candidate supplied at exact destination: Entity(50951:185) owner=Entity(50885:281) index=72
+[2026-10-19 19:38:43,005] [INFO]  Sub-element test history cleared.
+[2026-10-19 19:38:43,005] [INFO]  Replacement Undo recorded: batch replacement (11 elements) inspector=SR ResidentialLow S13_L2 2x4
+[2026-10-19 19:38:43,005] [INFO]  Prop Replacer Ctrl+V: Replaced 11 matching object element(s) with FlowerBushCity01. Destination placement and row settings were preserved. underlyingIndex=25
+[2026-10-19 19:38:43,013] [INFO]  Replacement foliage refresh submitted at native pre-culling consumer.
+[2026-10-19 19:38:43,014] [INFO]  Replacement Undo blocked: foliage regeneration pending or failed
+[2026-10-19 19:38:43,054] [INFO]  Replacement foliage completed: donors retained=10 rendered destinations=11
+[2026-10-19 19:38:45,038] [INFO]  Shortcut queued: Undo
+[2026-10-19 19:38:45,055] [INFO]  Shortcut dispatched from recovery update: Undo
+[2026-10-19 19:38:45,068] [INFO]  Undid replacement of 11 element(s). Original prefabs, placement and settings restored.
+[2026-10-19 19:38:45,068] [INFO]  Undid batch replacement (11 elements)
+[2026-10-19 19:39:35,648] [INFO]  Select an asset so its Object Info panel is active. Selection: 
