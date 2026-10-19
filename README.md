@@ -1,10 +1,12 @@
 # MW Editor Tools
 
-Tools for the Cities: Skylines II Asset Editor. Current candidate: **0.4.163**. The GitHub repository is private; this candidate has not been publicly released.
+Tools for the Cities: Skylines II Asset Editor. Current release: **0.4.163**. The GitHub repository and release are private.
 
 The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with a compact **Undo** button in its header. Most guidance is available through tooltips or Details.
 
 **[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting.
+
+**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.163)**. Close Cities2 before installation. The installer backs up the existing mod folder and verifies installed files.
 
 ## Features
 
@@ -53,4 +55,7 @@ The default game path is `C:\Program Files (x86)\Steam\steamapps\common\Cities S
 
 Builds do not deploy the mod. Generated outputs, local dependencies, runtime logs and rollback copies stay excluded from Git. Packaging includes Harmony and its licence; see [third-party notices](THIRD_PARTY_NOTICES.md). Original MW source projects remain separate and unmodified by this integration.
 
+
+
+To rebuild the self-contained Windows installer after building the mod/UI, run Installer/BuildInstaller.ps1. It embeds the four runtime files, manual, notices, release notes and installation instructions. Installer engine checks use temporary folders and the actual embedded payload; see [installer validation](docs/INSTALLER_0.4.163_VALIDATION.md).
 

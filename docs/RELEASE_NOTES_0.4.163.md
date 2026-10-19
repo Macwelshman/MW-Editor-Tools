@@ -1,6 +1,6 @@
-# Release notes — 0.4.163 candidate
+# Release notes — 0.4.163
 
-This candidate brings together the accepted Undo and Phase 5 workflows with the compact shared UI. It is prepared for private review, not a public release.
+This release brings together the accepted Undo and Phase 5 workflows with the compact shared UI. It is distributed through the private GitHub repository.
 
 - One-action Undo for supported prop/foliage/nested-group, effect, surface/area and bound lane/network operations, including supported built-in moves and area/surface node edits. Same-added-node movements combine with the addition.
 - Browser-list and viewport element copy, replacement and batch replacement, including tested nested props/effects and retained-source foliage protection.
@@ -13,7 +13,10 @@ User-reported native acceptance covers the implemented Undo stage and persistenc
 
 Limits: no Redo/multi-history, network moves, standalone network/junction recovery, whole-building/component Undo, whole-polygon node-tool recovery or third-party move-tool guarantee. Unsupported component settings and ambiguous source/ownership matches refuse or skip with reasons. A previously intermittent viewport source-row/type mismatch remains unexplained; it did not recur in the accepted effect session.
 
-Install only while Cities2 is fully closed. Preserve the current MWEditorTools mod folder, then copy the four runtime files into that existing folder: MW.EditorTools.dll, MW.EditorTools.mjs, MW.EditorTools.css, 0Harmony.dll. Do not copy anything into the game installation. Keep THIRD_PARTY_NOTICES.md with redistributed packages. Use the package SHA256 manifest to verify files. Restore the previous folder with the game closed if rollback is needed.
+Run **MWEditorTools-0.4.163-Setup.exe** with Cities2 fully closed. It installs for the current Windows user, verifies embedded and installed hashes, and backs up the entire prior mod folder outside Mods. It does not alter the game installation or user settings outside the mod folder. The installer is unsigned and requires .NET Framework 4.8. A manual ZIP and SHA256SUMS.txt are also supplied.
 
-Release and UI builds pass. A NU1900 warning indicates online package vulnerability metadata was unavailable; this pass is not a dependency vulnerability audit. See RELEASE_READINESS_0.4.163.md for the regression evidence and outstanding native gate.
+Manual installation: install only while Cities2 is fully closed. Preserve the current MWEditorTools mod folder, then copy the four runtime files into that existing folder: MW.EditorTools.dll, MW.EditorTools.mjs, MW.EditorTools.css, 0Harmony.dll. Do not copy anything into the game installation. Keep THIRD_PARTY_NOTICES.md with redistributed packages. Use the package SHA256 manifest to verify files. Restore the previous folder with the game closed if rollback is needed.
+
+Release and UI builds pass. A NU1900 warning indicates online package vulnerability metadata was unavailable; this pass is not a dependency vulnerability audit. See the repository release-readiness document for regression evidence and scope limits. Installer source, tests and rebuild instructions are included in the repository under Installer.
+
 
