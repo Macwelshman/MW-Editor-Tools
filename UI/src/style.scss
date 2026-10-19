@@ -1,6 +1,7 @@
-.mw-tools-launcher { position: fixed; top: 130rem; z-index: 10; pointer-events: auto; }
+.mw-tools-launcher { position: fixed; top: 65rem; z-index: 10; pointer-events: auto; }
 .mw-tools-launcher-button { display: flex; align-items: center; justify-content: center; width: 140rem; height: 48rem; padding: 6rem 12rem; border: 2rem solid #7ca4ba; border-radius: 6rem; background-color: #263b47; color: #fff; font-size: var(--fontSizeS); white-space: nowrap; }
-.mw-tools-launcher-button:hover { background-color: #3b5666; }
+.mw-tools-launcher-button:hover { background-color: transparent; }
+.mw-tools-launcher-icon { display:block; width:100%; height:100%; object-fit:contain; }
 .mw-tools-panel { width: 860rem; max-width: 95vw; }
 .mw-tools-heading { display:flex; align-items:center; justify-content:space-between; width:100%; }
 .mw-tools-body { height:auto; max-height:85vh; display:flex; flex-direction:column; overflow:hidden; color:#eef0f2; }

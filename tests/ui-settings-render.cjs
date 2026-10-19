@@ -13,6 +13,8 @@ const button = ({children,onSelect,theme,selected,focusKey,disableHint,...props}
 const exportsObject = {};
 const code = ts.transpileModule(fs.readFileSync(path.join(ui,'src/index.tsx'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.React,esModuleInterop:true}}).outputText;
 vm.runInNewContext(code,{exports:exportsObject,require:name=>{
+  if(name==='./assets/mw-editor-tools.png')return 'icon.png';
+  if(name==='./launcher-position')return {};
     if(name==='react') return react;
     if(name==='cs2/api') return {bindValue:(group,key)=>({group,key}),useValue:b=>b.key==='width'?490:JSON.stringify({available:true,visible:true,asset:'No asset selected',status:'No history',undo:0,redo:0,canUndo:false,canRedo:false,recent:[],settings}),trigger:()=>{}};
     if(name==='cs2/modding') return {getModule:()=>({button:'native-button',editorButtonRow:'native-row'})};

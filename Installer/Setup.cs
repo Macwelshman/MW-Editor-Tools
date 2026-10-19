@@ -6,8 +6,8 @@ using System.Windows.Forms;
 
 [assembly:AssemblyTitle("MW Editor Tools Installer")]
 [assembly:AssemblyProduct("MW Editor Tools")]
-[assembly:AssemblyVersion("0.4.163.0")]
-[assembly:AssemblyFileVersion("0.4.163.0")]
+[assembly:AssemblyVersion("0.4.164.0")]
+[assembly:AssemblyFileVersion("0.4.164.0")]
 namespace MWEditorToolsInstaller {
     internal static class Program {
         [STAThread] private static void Main() {

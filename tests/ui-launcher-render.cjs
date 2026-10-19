@@ -1,0 +1,28 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const React=require('../UI/node_modules/react'),ts=require('../UI/node_modules/typescript');
+let state={available:true,visible:false},sent=[];
+const react={...React,useRef:()=>({current:null}),useState:v=>[v,()=>{}],useLayoutEffect:()=>{}};
+const out={},components=[];
+const code=ts.transpileModule(fs.readFileSync('UI/src/index.tsx','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.React,esModuleInterop:true}}).outputText;
+vm.runInNewContext(code,{exports:out,require:name=>{
+    if(name==='react')return react;
+    if(name==='cs2/api')return {bindValue:(_,key)=>key,useValue:key=>key==='width'?500:JSON.stringify(state),trigger:(group,key,value)=>sent.push(value)};
+    if(name==='cs2/ui')return {Button:'button',Tooltip:'tooltip'};
+    if(name==='./assets/mw-editor-tools.png')return 'icon.png';
+    return {};
+}});
+out.default({append:(_,component)=>components.push(component)});
+const render=()=>components[0]();
+let tree=render(),button=tree.props.children.props.children;
+assert.equal(tree.props.style.top,'65rem');
+assert.equal(tree.props.style.left,'520rem');
+assert.equal(button.props['aria-expanded'],false);
+assert.equal(button.props.style.backgroundColor,'transparent');
+button.props.onSelect();assert.equal(sent.pop(),'open');
+state.visible=true;tree=render();assert.ok(tree,'Launcher remains visible with window open');
+button=tree.props.children.props.children;
+assert.equal(button.props['aria-expanded'],true);
+assert.equal(button.props.selected,true);
+button.props.onSelect();assert.equal(sent.pop(),'close');
+state.available=false;assert.equal(render(),null,'No editor launcher outside supported context');
+console.log('PASS: launcher visibility, transparent button, anchor and open/close dispatch.');

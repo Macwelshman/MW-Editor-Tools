@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-For version **0.4.163** · Cities: Skylines II Asset Editor
+For version **0.4.164** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -20,11 +20,11 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 
 ## Install or update
 
-Download the installer or manual ZIP from the [0.4.163 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.163). The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.164 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.164). The repository contains development source; cloning it does not install the mod.
 
 ### Windows installer
 
-Close Cities: Skylines II, run **MWEditorTools-0.4.163-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+Close Cities: Skylines II, run **MWEditorTools-0.4.164-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
 
 The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
 
@@ -47,7 +47,7 @@ To roll back, fully close the game and restore the previous mod folder. This res
 
 ## Open the window
 
-Click the **MW Editor Tools** sliders icon in the Asset Editor. The window has four tabs:
+Click the **MW Editor Tools** coloured diamond icon in the Asset Editor. The window has four tabs:
 
 | Tab | Purpose |
 |---|---|
@@ -56,7 +56,7 @@ Click the **MW Editor Tools** sliders icon in the Asset Editor. The window has f
 | Colours | Edit palettes and generate colour variations. |
 | Multi-Save | Save unlocked assets in the workspace. |
 
-**Undo** is in the window header and is also available through Ctrl+Z. It does not need a separate tab. The launcher hides while the window is open and returns when you close it.
+**Undo** is in the window header and is also available through Ctrl+Z. It does not need a separate tab. The icon stays visible while the window is open. Click it again to close the window. It starts at the top-left beside the editor sidebar and shifts right to avoid other launcher icons.
 
 Drag the window by its header to move it. Its position is remembered. Use **Options → MW Editor Tools → Reset window position** if needed. Hover over controls for explanations; use **Details** for transfer or save reports.
 
@@ -300,6 +300,6 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.163.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.164.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
 
 

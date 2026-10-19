@@ -11,6 +11,8 @@ const button=({children,onSelect,theme,selected,focusKey,disableHint,...props})=
 const exported={};
 const code=ts.transpileModule(fs.readFileSync(path.join(ui,'src/index.tsx'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.React,esModuleInterop:true}}).outputText;
 vm.runInNewContext(code,{exports:exported,require:name=>{
+  if(name==='./assets/mw-editor-tools.png')return 'icon.png';
+  if(name==='./launcher-position')return {};
   if(name==='react')return react;
   if(name==='cs2/api')return {bindValue:(group,key)=>({group,key}),useValue:b=>b.key==='width'?490:JSON.stringify(state),trigger:()=>{}};
   if(name==='cs2/modding')return {getModule:()=>({button:'native-button'})};

@@ -1,12 +1,12 @@
 # MW Editor Tools
 
-Tools for the Cities: Skylines II Asset Editor. Current release: **0.4.163**. The GitHub repository and release are private.
+Tools for the Cities: Skylines II Asset Editor. Current release: **0.4.164**. The GitHub repository and release are private.
 
-The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with a compact **Undo** button in its header. Most guidance is available through tooltips or Details.
+The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with a compact **Undo** button in its header. Most guidance is available through tooltips or Details. The coloured diamond icon stays visible and toggles the window open or closed; it starts beside the sidebar and moves right around occupied icon positions.
 
 **[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting.
 
-**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.163)**. Close Cities2 before installation. The installer backs up the existing mod folder and verifies installed files.
+**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.164)**. Close Cities2 before installation. The installer backs up the existing mod folder and verifies installed files.
 
 ## Features
 
@@ -38,7 +38,7 @@ Undo does not cover network moves, standalone network/junction recovery, whole-p
 
 The requested Undo and Phase 5 workflows have user-reported native acceptance, including persistence. The newer compact UI/Options have automated checks and user-reported appearance/Options acceptance on 0.4.163. A fresh combined native run and individual Alt key dispatch were not separately reported in this readiness pass. An earlier intermittent viewport type/source-row mismatch remains unexplained and was not reproduced in the accepted effect test; diagnostic refusal remains in place.
 
-Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.163.md), [release notes](docs/RELEASE_NOTES_0.4.163.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
+Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.164.md), [release notes](docs/RELEASE_NOTES_0.4.164.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
 
 ## Build and checks
 

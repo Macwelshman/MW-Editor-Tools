@@ -1,6 +1,6 @@
 # Current release gate
 
-Use [0.4.163 release readiness](RELEASE_READINESS_0.4.163.md) for the current single-action Undo and Phase 5 grouped acceptance. Historical multi-history/Redo checks below do not apply to the current supported release scope.
+Use [0.4.164 release readiness](RELEASE_READINESS_0.4.164.md) for the launcher update, and [0.4.163 release readiness](RELEASE_READINESS_0.4.163.md) for the current single-action Undo and Phase 5 grouped acceptance. Historical multi-history/Redo checks below do not apply to the current supported release scope.
 
 # Validation plan
 
