@@ -4,9 +4,9 @@ Tools for the Cities: Skylines II Asset Editor. Current release: **0.4.164**. Th
 
 The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with a compact **Undo** button in its header. Most guidance is available through tooltips or Details. The coloured diamond icon stays visible and toggles the window open or closed; it starts beside the sidebar and moves right around occupied icon positions.
 
-**[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting.
+**[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting. A [PDF reference copy](output/pdf/MW-Editor-Tools-User-Manual-0.4.164.pdf) is also available.
 
-**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.164)**. Close Cities2 before installation. The installer backs up the existing mod folder and verifies installed files.
+**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.164)**. Close Cities: Skylines II before installation. The installer backs up the existing mod folder and verifies installed files.
 
 ## Features
 
@@ -58,4 +58,8 @@ Builds do not deploy the mod. Generated outputs, local dependencies, runtime log
 
 
 To rebuild the self-contained Windows installer after building the mod/UI, run Installer/BuildInstaller.ps1. It embeds the four runtime files, manual, notices, release notes and installation instructions. Installer engine checks use temporary folders and the actual embedded payload; see [installer validation](docs/INSTALLER_0.4.163_VALIDATION.md).
+
+This is an independent community tool and is not affiliated with or endorsed by Iceflake Studios or Paradox Interactive.
+
+Cities: Skylines II and its associated names and trademarks belong to their respective owners.
 
