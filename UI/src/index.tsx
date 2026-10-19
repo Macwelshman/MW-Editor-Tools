@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {bindValue, trigger, useValue} from "cs2/api";
 import {ModRegistrar, getModule} from "cs2/modding";
 import {Button, Tooltip} from "cs2/ui";
@@ -7,6 +7,8 @@ import {MultiSaveContent} from "./multi-save";
 import {ColourVariationsContent} from "./colours/window";
 import {ComponentsContent} from "./components";
 import {PropReplacerContent} from "./prop-replacer";
+import launcherIcon from "./assets/mw-editor-tools.png";
+import {launcherLeft} from "./launcher-position";
 import "./style.scss";
 type Options = {confirmation:boolean; recovery:boolean; shortcuts:boolean; inspectorControls:boolean; historyDepth:number; undoKey:string; redoKey:string; undoModifiers:number; redoModifiers:number; windowX:number; windowY:number};
 type State = {available:boolean;visible:boolean;asset:string;status:string;bulldozerDiagnostic:string;undo:number;redo:number;undoTarget:string;redoTarget:string;canArmMainTest:boolean;canArmBulldozerTest:boolean;nestedHistoryEnabled:boolean;mainHistoryEnabled:boolean;canUndo:boolean;canRedo:boolean;recent:string[];positionRevision:number;settings:Options;protectedComponents:boolean;installedRecovery:boolean};
@@ -18,19 +20,41 @@ const tabs = ["Replacer","Components","Colours","Multi-Save"];
 const introductions = ["Replace individual or matching elements in the viewport or component lists.","Copy components and their settings between assets.","Create and randomise colour variations for your asset.","Save all unlocked assets in your workspace."];
 function Launcher() {
     const raw = useValue(binding), workspaceWidth = useValue(width);
+    const slot = useRef<HTMLDivElement>(null);
+    const [offset,setOffset] = useState(0);
+    useLayoutEffect(() => {
+        const position = () => {
+            const element = slot.current;
+            if (!element) return;
+            const own = element.getBoundingClientRect();
+            if (!own.width || !own.height) return;
+            const neighbours = Array.from(document.querySelectorAll('button, [role="button"]'))
+                .filter(button => {
+                    if (element.contains(button)) return false;
+                    // This existing MW launcher already yields to other icons.
+                    // Give it a stable priority to prevent both icons trading slots.
+                    if (button.closest('.mw-component-launcher-slot')) return false;
+                    const style = window.getComputedStyle(button);
+                    return style.display !== "none" && style.visibility !== "hidden" && style.visibility !== "collapse";
+                }).map(button => button.getBoundingClientRect());
+            const base = own.left-offset;
+            const next = launcherLeft(base,own,neighbours,own.width*8/56)-base;
+            if (Math.abs(next-offset) > .5) setOffset(next);
+        };
+        position();
+        const timer = window.setInterval(position,500);
+        window.addEventListener("resize",position);
+        return () => { window.clearInterval(timer); window.removeEventListener("resize",position); };
+    },[raw,workspaceWidth,offset]);
     let state: Partial<State>;
     try { state = JSON.parse(raw || "{}"); } catch { return null; }
-    if (!state.available || state.visible) return null;
-    return <div className="mw-tools-launcher" style={{position:"fixed",top:"130rem",left:`${workspaceWidth+20}rem`,zIndex:100,pointerEvents:"auto"}}>
+    if (!state.available) return null;
+    return <div ref={slot} className="mw-tools-launcher" style={{position:"fixed",top:"65rem",left:`${workspaceWidth+20}rem`,marginLeft:`${offset}px`,width:"56rem",height:"56rem",zIndex:100,pointerEvents:"auto"}}>
         <Tooltip tooltip="MW Editor Tools"><Button className="mw-tools-launcher-button" focusKey="mwEditorTools.launcher"
-            aria-label="MW Editor Tools" selected={state.visible}
-            style={{display:"block",width:"56rem",height:"56rem",padding:0,border:0,backgroundColor:"#263b47",color:"#fff"}}
+            aria-label="MW Editor Tools" aria-expanded={!!state.visible} selected={state.visible}
+            style={{display:"block",width:"56rem",height:"56rem",padding:0,border:0,backgroundColor:"transparent",color:"#fff"}}
             onSelect={()=>command(state.visible ? "close" : "open")}>
-            <svg width="100%" height="100%" viewBox="0 0 56 56" aria-hidden="true">
-                <rect x="1" y="1" width="54" height="54" rx="6" fill="#263b47" stroke="#7ca4ba" strokeWidth="2"/>
-                <path d="M14 16h28M14 28h28M14 40h28" stroke="#fff" strokeWidth="3"/>
-                <path d="M22 11v10M35 23v10M24 35v10" stroke="#61d7ea" strokeWidth="6"/>
-            </svg>
+            <img className="mw-tools-launcher-icon" src={launcherIcon} alt="" aria-hidden="true"/>
         </Button></Tooltip>
     </div>;
 }

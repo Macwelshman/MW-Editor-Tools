@@ -1,6 +1,6 @@
-MW Editor Tools 0.4.163
+MW Editor Tools 0.4.164
 
-Recommended: close Cities: Skylines II, then run MWEditorTools-0.4.163-Setup.exe.
+Recommended: close Cities: Skylines II, then run MWEditorTools-0.4.164-Setup.exe.
 The installer needs .NET Framework 4.8 and installs for the current Windows user.
 No administrator rights are needed for the default user Mods folder.
 
@@ -28,7 +28,7 @@ Rollback: fully close the game. Move the failed/current mod folder somewhere
 outside Mods, then copy the backed-up MWEditorTools folder into Mods. Rolling
 back the mod does not undo saved asset edits. There is no automatic uninstaller.
 
-Open the Asset Editor and click the MW Editor Tools sliders icon. Read
+Open the Asset Editor and click the MW Editor Tools coloured diamond icon. Read
 USER_MANUAL.md for workflows and shortcuts. Keep THIRD_PARTY_NOTICES.md with
 the package. SHA256SUMS.txt lists expected hashes; the release also supplies
 hashes for the installer and ZIP.

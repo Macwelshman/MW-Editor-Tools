@@ -569,3 +569,5 @@ User-requested concise Options and Alt+B/D/F/A/E/S browser defaults implemented.
 
 
 
+
+2026-10-19 — 0.4.164 launcher release: supplied logo with transparent corners, top-left/sidebar collision-aware placement, persistent icon open/close toggle. VERIFIED-STATIC: Release/UI builds, all nine UI scripts and 34 installer checks pass; EXE/ZIP/checksum verification passes. Native-game acceptance of these launcher changes remains UNPROVEN. See docs/RELEASE_READINESS_0.4.164.md. Existing private GitHub distribution only.
