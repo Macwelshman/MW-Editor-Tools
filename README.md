@@ -4,6 +4,8 @@ Tools for the Cities: Skylines II Asset Editor. Current candidate: **0.4.163**. 
 
 The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with a compact **Undo** button in its header. Most guidance is available through tooltips or Details.
 
+**[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting.
+
 ## Features
 
 - **Undo:** one shared last-action slot, normally Ctrl+Z. Supported paths include standalone/bound/nested props and foliage deletion/moves; bound/unbound supported surface/area deletion and node moves; single-node addition/deletion, combining addition with subsequent moves of that same node; direct native effect deletion/moves; and supported directly bound lane/network deletion. Cancelled/no-op moves preserve the previous slot. Asset changes and unrelated writes can invalidate it. There is no Redo or multiple-action history.
@@ -50,4 +52,5 @@ npm run build
 The default game path is `C:\Program Files (x86)\Steam\steamapps\common\Cities Skylines II`; override it with `-p:GamePath="your installation path"`. Some managed harnesses reference that path directly. Run checks with `dotnet run --project tests/<project> -c Release` and `node tests/ui-*.cjs` individually. Managed/native stubs do not establish Unity/ECS runtime correctness.
 
 Builds do not deploy the mod. Generated outputs, local dependencies, runtime logs and rollback copies stay excluded from Git. Packaging includes Harmony and its licence; see [third-party notices](THIRD_PARTY_NOTICES.md). Original MW source projects remain separate and unmodified by this integration.
+
 
