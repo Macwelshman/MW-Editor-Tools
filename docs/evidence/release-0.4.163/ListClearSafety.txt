@@ -1,0 +1,1 @@
+PASS: 26 actual-source Clear confirmation checks with managed UI stubs; native dialog and snapshot integration pending.

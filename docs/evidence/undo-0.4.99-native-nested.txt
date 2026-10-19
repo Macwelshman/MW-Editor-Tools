@@ -1,0 +1,138 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Game.Objects.Plant
+System.Single m_Pollution
+Game.Objects.Tree
+Game.Objects.TreeState m_State
+System.Byte m_Growth
+System.Void Game.Objects.SubObjectSystem::OnCreate()
+IL_0063: dup
+IL_0064: ldc.i4.0
+IL_0065: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_006a: stloc.0
+IL_006b: ldloc.0
+IL_006c: ldc.i4.1
+IL_006d: newarr Unity.Entities.ComponentType
+IL_0072: dup
+IL_0073: ldc.i4.0
+IL_0074: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.SubObject>()
+IL_0079: stelem.any Unity.Entities.ComponentType
+IL_007e: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0083: ldloc.0
+IL_0084: ldc.i4.2
+IL_0085: newarr Unity.Entities.ComponentType
+IL_008a: dup
+IL_008b: ldc.i4.0
+IL_008c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_0091: stelem.any Unity.Entities.ComponentType
+IL_0096: dup
+IL_0097: ldc.i4.1
+IL_0098: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_009d: stelem.any Unity.Entities.ComponentType
+IL_00a2: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00a7: ldloc.0
+IL_00a8: stelem.ref
+IL_00a9: dup
+IL_00aa: ldc.i4.1
+IL_00ab: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00b0: stloc.0
+IL_00b1: ldloc.0
+IL_00b2: ldc.i4.1
+IL_00b3: newarr Unity.Entities.ComponentType
+IL_00b8: dup
+IL_00b9: ldc.i4.0
+IL_00ba: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Event>()
+IL_00bf: stelem.any Unity.Entities.ComponentType
+IL_00c4: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00c9: ldloc.0
+IL_00ca: ldc.i4.2
+IL_00cb: newarr Unity.Entities.ComponentType
+IL_00d0: dup
+IL_00d1: ldc.i4.0
+IL_00d2: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Buildings.RentersUpdated>()
+IL_00d7: stelem.any Unity.Entities.ComponentType
+IL_00dc: dup
+IL_00dd: ldc.i4.1
+IL_00de: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.SubObjectsUpdated>()
+IL_00e3: stelem.any Unity.Entities.ComponentType
+IL_00e8: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00ed: ldloc.0
+IL_00ee: stelem.ref
+IL_00ef: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00f4: stfld Unity.Entities.EntityQuery Game.Objects.SubObjectSystem::m_UpdateQuery
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0bf0: stloc.s V_34
+IL_0bf2: ldloca.s V_34
+IL_0bf4: ldflda Unity.Entities.EntityArchetype Game.Prefabs.ObjectData::m_Archetype
+IL_0bf9: call System.Boolean Unity.Entities.EntityArchetype::get_Valid()
+IL_0bfe: brfalse IL_12a3
+IL_0c03: ldarg.0
+IL_0c04: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0c09: ldarg.1
+IL_0c0a: ldloc.s V_34
+IL_0c0c: ldfld Unity.Entities.EntityArchetype Game.Prefabs.ObjectData::m_Archetype
+IL_0c11: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32,Unity.Entities.EntityArchetype)
+IL_0c16: stloc.s V_35
+IL_0c18: ldarg.0
+IL_0c19: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0c1e: ldarg.1
+IL_0c1f: ldloc.s V_35
+IL_0dc4: ldloc.s V_45
+IL_0dc6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0dcb: ldarg.0
+IL_0dcc: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0dd1: ldarg.1
+IL_0dd2: ldloc.s V_36
+IL_0dd4: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0dd9: ldloca.s V_46
+IL_0ddb: initobj Game.Common.BatchesUpdated
+IL_0de1: ldloc.s V_46
+IL_0de3: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0de8: ldloc.2
+IL_0de9: brfalse.s IL_0e09
+IL_0deb: ldarg.0
+IL_0dec: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabTreeData
+IL_0df1: ldarg.s prefab
+IL_0df3: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.TreeData>::HasComponent(Unity.Entities.Entity)
+IL_0df8: brfalse.s IL_0e09
+IL_0dfa: ldarg.0
+IL_0dfb: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0e00: ldarg.1
+IL_0e01: ldloc.s V_35
+IL_0e03: ldc.i4.0
+IL_0e04: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponentEnabled<Game.Objects.Decoration>(System.Int32,Unity.Entities.Entity,System.Boolean)
+IL_0e09: ldarg.s cacheTransform
+IL_0e0b: brfalse.s IL_0e5d
+IL_0e0d: ldloca.s V_47
+IL_0e0f: ldarg.s localTransformData
+IL_0e11: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0e16: stfld Unity.Mathematics.float3 Game.Tools.LocalTransformCache::m_Position
+IL_0e1b: ldloca.s V_47
+IL_0e1d: ldarg.s localTransformData
+IL_0e1f: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0e24: stfld Unity.Mathematics.quaternion Game.Tools.LocalTransformCache::m_Rotation
+IL_0e29: ldloca.s V_47
+IL_0e2b: ldarg.s parentMesh
+IL_0e2d: stfld System.Int32 Game.Tools.LocalTransformCache::m_ParentMesh
+IL_0e32: ldloca.s V_47
+IL_0e34: ldarg.s groupIndex
+IL_0e36: stfld System.Int32 Game.Tools.LocalTransformCache::m_GroupIndex
+IL_0e3b: ldloca.s V_47
+IL_0e3d: ldarg.s probability
+IL_0e3f: stfld System.Int32 Game.Tools.LocalTransformCache::m_Probability
+IL_0e44: ldloca.s V_47
+IL_0e46: ldarg.s prefabSubIndex
+IL_0e48: stfld System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+IL_0e4d: ldarg.0
+IL_0e4e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0e53: ldarg.1
+IL_0e54: ldloc.s V_35
+IL_0e56: ldloc.s V_47
+IL_0e58: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.LocalTransformCache>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0e5d: ldloca.s V_37
+IL_0e5f: initobj Game.Common.PseudoRandomSeed
+IL_0e65: ldloc.0
+IL_0e66: brfalse.s IL_0e92
+IL_0e68: ldarg.0
+IL_0e69: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PseudoRandomSeedData
+IL_0e6e: ldloc.s V_36
+IL_0e70: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original

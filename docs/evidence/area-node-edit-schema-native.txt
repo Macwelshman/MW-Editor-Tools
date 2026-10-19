@@ -1,0 +1,9 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Game.Areas.Expand
+Unity.Mathematics.float2 Game.Areas.Expand::m_Offset = 
+Game.Tools.AreaToolSystem/State
+System.Int32 Game.Tools.AreaToolSystem/State::value__ = 
+Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem/State::Default = 0
+Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem/State::Create = 1
+Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem/State::Modify = 2
+Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem/State::Remove = 3

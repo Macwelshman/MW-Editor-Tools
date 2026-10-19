@@ -1,0 +1,94 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Void Game.Tools.BulldozeToolSystem::OnStopRunning()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Int32 Game.Tools.BulldozeToolSystem::m_BuildingsDemolishedCount
+IL_0006: ldc.i4.0
+IL_0007: ble.s IL_0014
+IL_0009: ldarg.0
+IL_000a: ldfld System.Int32 Game.Tools.BulldozeToolSystem::m_BuildingsDemolishedCount
+IL_000f: call System.Void Game.PSI.Telemetry::BulldozeCompleted(System.Int32)
+IL_0014: ldarg.0
+IL_0015: call System.Void Game.Tools.ToolBaseSystem::OnStopRunning()
+IL_001a: ret
+METHOD System.Void Game.Tools.BulldozeToolSystem::OnStartRunning()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Tools.ToolBaseSystem::OnStartRunning()
+IL_0006: ldarg.0
+IL_0007: ldc.i4.0
+IL_0008: stfld System.Int32 Game.Tools.BulldozeToolSystem::m_BuildingsDemolishedCount
+IL_000d: ldarg.0
+IL_000e: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem::m_ControlPoints
+IL_0013: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Clear()
+IL_0018: ldarg.0
+IL_0019: ldflda Game.Tools.ControlPoint Game.Tools.BulldozeToolSystem::m_LastRaycastPoint
+IL_001e: initobj Game.Tools.ControlPoint
+IL_0024: ldarg.0
+IL_0025: ldc.i4.0
+IL_0026: stfld Game.Tools.BulldozeToolSystem/State Game.Tools.BulldozeToolSystem::m_State
+IL_002b: ldarg.0
+IL_002c: ldc.i4.0
+IL_002d: stfld System.Boolean Game.Tools.BulldozeToolSystem::m_ApplyBlocked
+IL_0032: ldarg.0
+IL_0033: ldc.i4.0
+IL_0034: call System.Void Game.Tools.ToolBaseSystem::set_requireUnderground(System.Boolean)
+IL_0039: ldarg.0
+IL_003a: ldc.i4.0
+IL_003b: call System.Void Game.Tools.ToolBaseSystem::set_requireStopIcons(System.Boolean)
+IL_0040: ldarg.0
+IL_0041: ldc.i4.0
+IL_0042: call System.Void Game.Tools.ToolBaseSystem::set_requireAreas(Game.Areas.AreaTypeMask)
+IL_0047: ldarg.0
+IL_0048: ldc.i4.0
+IL_0049: call System.Void Game.Tools.ToolBaseSystem::set_requireNet(Game.Net.Layer)
+IL_004e: ret
+CONTAINER USER Unity.Jobs.JobHandle Game.Tools.ObjectToolBaseSystem::CreateDefinitions(Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Collections.NativeList`1<Game.Tools.ControlPoint>,Unity.Collections.NativeReference`1<Game.Tools.ObjectToolBaseSystem/AttachmentData>,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Single,System.Single,System.Single,System.Single,System.Single,Game.Common.RandomSeed,Game.Tools.Snap,Game.Tools.AgeMask,System.Boolean,Game.Tools.PlacementOverrides,Unity.Jobs.JobHandle)
+CONTAINER USER System.Void Game.Tools.ObjectToolBaseSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+CONTAINER USER System.Void Game.Tools.AreaToolSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER Unity.Jobs.JobHandle Game.Tools.BulldozeToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle)
+CONTAINER USER System.Void Game.Tools.BulldozeToolSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Entities.Entity,System.Int32,Unity.Mathematics.float3,System.Boolean)
+CONTAINER USER System.Void Game.Tools.DefaultToolSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER Unity.Jobs.JobHandle Game.Tools.NetToolSystem::UpdateCourse(Unity.Jobs.JobHandle,System.Boolean)
+CONTAINER USER System.Void Game.Tools.NetToolSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER Unity.Jobs.JobHandle Game.Tools.ObjectToolSystem::UpdateSubReplacementDefinitions(Unity.Jobs.JobHandle)
+CONTAINER USER System.Void Game.Tools.ObjectToolSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Serialization.FilterLoadedSystem::OnCreate()
+CONTAINER USER System.Void Game.Serialization.FilterLoadedSystem::OnUpdate()
+CONTAINER USER System.Void Game.Serialization.FilterLoadedSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Serialization.PrimaryPrefabReferencesSystem::OnCreate()
+CONTAINER USER System.Void Game.Serialization.PrimaryPrefabReferencesSystem::OnUpdate()
+CONTAINER USER System.Void Game.Serialization.PrimaryPrefabReferencesSystem/FixEditorContainerJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+CONTAINER USER System.Void Game.Serialization.PrimaryPrefabReferencesSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Serialization.RequiredComponentSystem::OnCreate()
+CONTAINER USER System.Void Game.Serialization.RequiredComponentSystem::OnUpdate()
+CONTAINER USER System.Boolean Game.UI.Editor.InspectorPanelSystem::SelectObjectForEntity(Unity.Entities.Entity)
+CONTAINER USER System.Void Game.Net.LaneSystem::OnUpdate()
+CONTAINER USER System.Void Game.Net.LaneSystem/UpdateLanesJob::UpdateLanes(Unity.Entities.ArchetypeChunk,System.Int32)
+CONTAINER USER System.Void Game.Net.LaneSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Rendering.EffectTransformSystem::OnUpdate()
+CONTAINER USER System.Void Game.Rendering.EffectTransformSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Rendering.EditorGizmoSystem::OnCreate()
+CONTAINER USER System.Void Game.Rendering.EditorGizmoSystem::OnUpdate()
+CONTAINER USER System.Void Game.Rendering.EditorGizmoSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Effects.EffectControlSystem::OnUpdate()
+CONTAINER USER System.Void Game.Effects.EffectControlSystem/EffectControlJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+CONTAINER USER System.Void Game.Effects.EffectControlSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Effects.SearchSystem::OnUpdate()
+CONTAINER USER System.Void Game.Effects.SearchSystem/UpdateSearchTreeJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+CONTAINER USER System.Void Game.Effects.SearchSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Objects.SubObjectSystem::OnUpdate()
+CONTAINER USER System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+CONTAINER USER System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32)
+CONTAINER USER System.Void Game.Objects.SubObjectSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER Unity.Jobs.JobHandle Game.Common.RaycastSystem::PerformRaycast(Colossal.Collections.NativeAccumulator`1<Game.Common.RaycastResult>)
+CONTAINER USER System.Void Game.Common.RaycastSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Audio.AudioManager::OnUpdate()
+CONTAINER USER System.Void Game.Audio.AudioManager::SyncAudioSources()
+CONTAINER USER System.Void Game.Audio.AudioManager/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Prefabs.ReplacePrefabSystem::OnUpdate()
+CONTAINER USER System.Void Game.Prefabs.ReplacePrefabSystem/Finalize::OnUpdate()
+CONTAINER USER System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+CONTAINER USER System.Void Game.Prefabs.ReplacePrefabSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+CONTAINER USER System.Void Game.Prefabs.EditorContainer::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)

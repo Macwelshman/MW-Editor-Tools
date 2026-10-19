@@ -1,0 +1,74 @@
+using System;
+using System.Linq;
+using Game.Prefabs;
+using Game.Tools;
+using Unity.Entities;
+using Unity.Mathematics;
+using MW.EditorTools.Modules.BulldozerRecovery;
+internal static class EffectEditChecks {
+    internal static int Run(){int n=0;void Check(bool v,string label){if(!v)throw new Exception("Effect Undo: "+label);n++;}
+        var prefab=(EffectPrefab)System.Runtime.CompilerServices.RuntimeHelpers.GetUninitializedObject(typeof(EffectPrefab));
+        var owner=new Game.Objects.Transform{m_Position=new float3(8,2,-4),m_Rotation=quaternion.RotateY(.4f)};
+        var local=new float3(1,3,2);var rotation=quaternion.RotateY(.2f);
+        Func<int,AreaCompanionEffect> Image=id=>new AreaCompanionEffect{Original=new Entity{Index=id,Version=1},Prefab=prefab,Container=prefab,HasTransform=true,
+            Position=math.mul(owner.m_Rotation,local)+owner.m_Position,Rotation=math.mul(owner.m_Rotation,rotation),Scale=new float3(2),Intensity=.7f,Group=-1,HasLocal=true,
+            Local=new LocalTransformCache{m_Position=local,m_Rotation=rotation,m_ParentMesh=-1,m_Probability=100},HasElevation=true,Elevation=new Game.Objects.Elevation{m_Elevation=3}};
+        var before=Image(1);var after=Image(1);after.Position.x+=4;after.Local.m_Position.x+=4;
+        Check(EffectEditPolicy.Move(before,after),"pose changes with stable effect parameters accepted");
+        after.Scale.x++;Check(!EffectEditPolicy.Move(before,after),"scale change cannot masquerade as move");
+        after=Image(1);after.Intensity++;Check(!EffectEditPolicy.Move(before,after),"intensity retained");
+        after=Image(1);after.Group++;Check(!EffectEditPolicy.Move(before,after),"animation group retained");
+        after=Image(1);after.Local.m_ParentMesh=0;Check(!EffectEditPolicy.Move(before,after),"unproven attachment transition refused");
+        after=Image(1);after.Local.m_Probability=50;Check(!EffectEditPolicy.Move(before,after),"local probability retained");
+        after=Image(1);after.Position.x=float.NaN;Check(!EffectEditPolicy.Move(before,after),"nonfinite effect pose refused");
+        var row=new EffectSource.EffectSettings{m_Effect=prefab,m_PositionOffset=local,m_Rotation=rotation,m_Scale=before.Scale,m_Intensity=before.Intensity,m_ParentMesh=-1,m_AnimationIndex=-1};
+        Check(EffectEditPolicy.Descriptor(row,before,owner),"native owner-space/cached effect descriptor matches");
+        Check(EffectEditPolicy.Sources(new[]{row},new[]{before},owner),"unique whole source validated");
+        Check(!EffectEditPolicy.Sources(new[]{row,row},new[]{before,Image(2)},owner),"ambiguous same-placement effects refused");
+        row.m_AnimationIndex=4;Check(!EffectEditPolicy.Descriptor(row,before,owner),"source animation index must match container");row.m_AnimationIndex=-1;
+        row.m_ParentMesh=0;Check(!EffectEditPolicy.Descriptor(row,before,owner),"source parent mesh must match cache");row.m_ParentMesh=-1;
+        row.m_PositionOffset.x++;Check(!EffectEditPolicy.Descriptor(row,before,owner),"wrong source coordinates refused");row.m_PositionOffset=local;
+        row.m_Effect=null;Check(!EffectEditPolicy.Descriptor(row,before,owner),"missing source effect reference refused");row.m_Effect=prefab;
+        Check(EffectEditPolicy.Sources(Array.Empty<EffectSource.EffectSettings>(),Array.Empty<AreaCompanionEffect>(),owner),"last-effect removal accepts empty source");
+        Check(EffectEditPolicy.Retained(new[]{before},Array.Empty<AreaCompanionEffect>(),before.Original),"single target removal preserves empty retained set");
+        var neighbour=Image(2);neighbour.Position.x+=5;
+        Check(EffectEditPolicy.Retained(new[]{before,neighbour},new[]{neighbour},before.Original),"retained effect graph unchanged after deletion");
+        var changed=Image(2);changed.Position=neighbour.Position;changed.Intensity++;
+        Check(!EffectEditPolicy.Retained(new[]{before,neighbour},new[]{changed},before.Original),"changed retained effect rejected");
+        var attached=Image(1);attached.Local.m_ParentMesh=0;
+        var grounded=Image(1);grounded.Elevation.m_Elevation=0;grounded.Elevation.m_Flags=Game.Objects.ElevationFlags.OnGround;
+        grounded.Position.y-=3;
+        Check(EffectEditPolicy.Move(attached,grounded,true),"observed bound mesh-zero to ground detachment accepted");
+        Check(!EffectEditPolicy.Move(attached,grounded),"standalone route cannot permit bound ground transition");
+        grounded.Local.m_Probability=50;Check(!EffectEditPolicy.Move(attached,grounded,true),"ground transition preserves probability");grounded.Local.m_Probability=100;
+        attached.Local.m_ParentMesh=1;Check(!EffectEditPolicy.Move(attached,grounded,true),"other mesh detachments remain unsupported");attached.Local.m_ParentMesh=0;
+        grounded.Elevation.m_Elevation=1;Check(!EffectEditPolicy.Move(attached,grounded,true),"ground transition requires native zero elevation");grounded.Elevation.m_Elevation=0;
+        Check(!EffectEditPolicy.Move(grounded,attached,true),"unobserved reverse attachment remains unsupported");
+        Check(!EffectEditPolicy.Sources(new[]{row},new[]{grounded},owner),"ordinary capture refuses saved cache differing from world projection");
+        Check(EffectEditPolicy.Sources(new[]{row},new[]{grounded},owner,grounded.Original),"proved moved target can retain exact native saved cache descriptor");
+        Check(!EffectEditPolicy.Sources(new[]{row},new[]{grounded},owner,neighbour.Original),"cached source exception cannot apply to retained neighbour");
+        row.m_PositionOffset.x+=1;Check(!EffectEditPolicy.Sources(new[]{row},new[]{grounded},owner,grounded.Original),"target cache exception still requires exact saved pose");row.m_PositionOffset=local;
+        Func<int,EffectChild> Witness=id=>new EffectChild{Id=new Entity{Index=id,Version=1},Owner=new Entity{Index=99,Version=1},Prefab=prefab,Transform=new Game.Objects.Transform{m_Position=new float3(id,3,4),m_Rotation=quaternion.identity},HasLocal=true,Local=new LocalTransformCache{m_Position=new float3(id,3,4),m_Rotation=quaternion.identity,m_Probability=80}};
+        var witnesses=new[]{Witness(1),Witness(2)};
+        Check(EffectChild.Matches(witnesses,new[]{Witness(2),Witness(1)}),"isolated child witnesses preserve repeated prefab identities and probability without requiring regeneration");
+        Check(!EffectChild.Matches(witnesses,new[]{Witness(1),Witness(1)}),"duplicate witness entity membership refused");
+        var moved=Witness(2);moved.Transform.m_Position.y++;Check(!EffectChild.Matches(witnesses,new[]{Witness(1),moved}),"unrelated child world movement blocks isolated recovery");
+        var reowned=Witness(2);reowned.Owner=new Entity{Index=100,Version=1};Check(!EffectChild.Matches(witnesses,new[]{Witness(1),reowned}),"child ownership change refused");
+        var reused=Witness(2);reused.Id=new Entity{Index=2,Version=2};Check(!EffectChild.Matches(witnesses,new[]{Witness(1),reused}),"child entity version reuse refused");
+        var cache=Witness(2);cache.Local.m_Probability=100;Check(!EffectChild.Matches(witnesses,new[]{Witness(1),cache}),"witness probability change refused");
+        cache=Witness(2);cache.HasLocal=false;Check(!EffectChild.Matches(witnesses,new[]{Witness(1),cache}),"witness local-cache presence change refused");
+        var nonfinite=Witness(2);nonfinite.Transform.m_Position.x=float.NaN;Check(!EffectChild.Matches(new[]{nonfinite},new[]{nonfinite}),"nonfinite witness cannot validate itself");
+        Check(!EffectChild.Matches(witnesses,new[]{Witness(1)}),"missing companion membership refused");
+        cache=Witness(2);cache.Prefab=null;Check(!EffectChild.Matches(witnesses,new[]{Witness(1),cache}),"witness prefab identity change refused");
+        moved=Witness(2);moved.Transform.m_Position.y++;moved.Local.m_Position.y++;
+        Check(EffectChild.NativeSettlement(witnesses,new[]{Witness(1),moved}),"native accepted move may settle child poses before after-image is recorded");
+        Check(!EffectChild.Matches(witnesses,new[]{Witness(1),moved}),"ready-entry witness still requires exact pose equality");
+        Check(!EffectChild.NativeSettlement(witnesses,new[]{Witness(1),reowned}),"native settlement cannot reparent a child");
+        Check(!EffectChild.NativeSettlement(witnesses,new[]{Witness(1),reused}),"native settlement cannot replace entity version");
+        cache=Witness(2);cache.Local.m_Probability=100;Check(!EffectChild.NativeSettlement(witnesses,new[]{Witness(1),cache}),"native settlement preserves probability");
+        cache=Witness(2);cache.Local.m_ParentMesh=1;Check(!EffectChild.NativeSettlement(witnesses,new[]{Witness(1),cache}),"native settlement preserves parent mesh");
+        Check(!EffectChild.NativeSettlement(witnesses,new[]{Witness(1),Witness(1)}),"native settlement refuses duplicate membership");
+        Check(!EffectChild.NativeSettlement(new[]{nonfinite},new[]{nonfinite}),"native settlement refuses nonfinite pose");
+        return n;
+    }
+}

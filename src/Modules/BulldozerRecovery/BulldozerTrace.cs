@@ -24,14 +24,14 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
         private readonly EditorContextService context;
         private readonly BulldozerTraceSession<PrefabBase> session=new BulldozerTraceSession<PrefabBase>();
         private readonly Harmony harmony=new Harmony(Id);
-        private readonly FieldInfo parent, saveQuery, updateMap, controlPoints;
+        private readonly FieldInfo parent, saveQuery, updateMap, controlPoints, defaultRaycastEntity;
         private Entity observedOwner;
         private Payload before, after;
         private bool dispatched;
         private readonly FieldInfo updateInstances;
         private int events, contextReports;
         private string lastTool;
-        internal string Status { get; private set; }="Select a disposable duplicate and arm Sub-element deletion history.";
+        internal string Status { get; private set; }="Undo is automatic for supported prop deletions.";
         private sealed class Payload {
             internal ComponentBase[] Components;
             internal string[] Names;
@@ -53,6 +53,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             updateInstances=Field(typeof(ReplacePrefabSystem),"m_UpdateInstances");
             parent=Field(typeof(InspectorPanelSystem),"m_ParentObject");
             controlPoints=Field(typeof(BulldozeToolSystem),"m_ControlPoints");
+            defaultRaycastEntity=Field(typeof(DefaultToolSystem),"m_LastRaycastEntity");
             saveQuery=Field(typeof(ApplyPrefabsSystem),"m_SaveInstanceQuery");
             updateMap=Field(typeof(PrefabSystem),"m_UpdateMap");
         }
@@ -61,12 +62,17 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             if(active!=null) throw new InvalidOperationException("Bulldozer diagnostic already attached.");
             active=this;
             try {
+
+
                 Patch(typeof(BulldozeToolSystem),"Apply",new[]{typeof(Unity.Jobs.JobHandle)},nameof(BeginApply),nameof(EndApply));
                 Patch(typeof(BulldozeToolSystem),"GetAllowApply",Type.EmptyTypes,null,nameof(Allowed));
                 Patch(typeof(ApplyPrefabsSystem),"OnUpdate",Type.EmptyTypes,nameof(BeforeSync),nameof(AfterSync));
                 Patch(typeof(PrefabSystem),"OnUpdate",Type.EmptyTypes,nameof(BeforeRebuild),nameof(AfterRebuild));
                 Patch(typeof(ReplacePrefabSystem),"ReplacePrefab",new[]{typeof(Entity),typeof(Entity),typeof(Entity)},nameof(BeforeReplacement),nameof(AfterReplacement));
                 Patch(typeof(ReplacePrefabSystem).GetNestedType("Finalize",BindingFlags.Public|BindingFlags.NonPublic),"OnUpdate",Type.EmptyTypes,nameof(BeforeFinalize),nameof(AfterFinalize));
+                AttachMoveRecovery();
+                AttachAreaMoves();
+                Patch(typeof(Game.Rendering.PreCullingSystem),"OnUpdate",Type.EmptyTypes,nameof(BeforeEffectRendering),null);
                 Mod.Log.Info("MW Editor Tools: User-approved Sub-element deletion history attached; explicit arm and native completion checks required.");
             } catch { Release(); throw; }
         }
@@ -79,13 +85,17 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
         private static HarmonyMethod Hook(string name)=>new HarmonyMethod(typeof(BulldozerTrace).GetMethod(name,BindingFlags.Static|BindingFlags.NonPublic));
         private static void Guard(Action action) { try { action(); } catch(Exception error) {
             if(active?.preparingAsset!=null){active.EndNestedTestPreparation("Preparation callback failed. Restart without saving.");Mod.Log.Warn(error.Message);return;}
+            if(active?.EffectBusy==true){active.FailEffect("Effect callback failed; reload without saving: "+error.Message);Mod.Log.Warn(error.ToString());return;}
+            if(active?.MoveBusy==true){active.FailMove("Move callback failed; reload without saving: "+error.Message);Mod.Log.Warn(error.ToString());return;}
+            if(active?.NetworkBusy==true){active.FailNetwork("Lane/network callback failed: "+error.Message);Mod.Log.Warn(error.ToString());return;}
+            if(active?.StandaloneAreaBusy==true){active.FailStandaloneArea("Surface/area callback failed: "+error.Message);Mod.Log.Warn(error.ToString());return;}
             if(active?.mainBusy==true){active.FailMain("Main recovery callback failed. Reload saved disposable scene.");Mod.Log.Warn(error.Message);return;}
             if(active!=null) { if(active.restoring!=null)active.FailRecovery("Recovery callback failed: "+error.GetType().Name);else {active.ClearRecord();active.armed=false;active.Reset("Bulldozer capture stopped: "+error.GetType().Name);} }
-            Mod.Log.Warn("Bulldozer diagnostic observation failed: "+error.Message);
+            Mod.Log.Warn("Bulldozer capture/restoration exception: "+error);
         } }
         private PrefabBase Root => context.Inspector==null?null:parent.GetValue(context.Inspector) as PrefabBase;
         // Resolve ownership from native control points; inspector selection is optional.
-        private PrefabBase TargetAsset(BulldozeToolSystem tool) {
+        private PrefabBase TargetAsset(BulldozeToolSystem tool,bool allowNestedTarget=false) {
             observedOwner=Entity.Null;
             var points=(NativeList<ControlPoint>)controlPoints.GetValue(tool);
             if(!points.IsCreated)return null;
@@ -93,7 +103,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             for(int i=0;i<points.Length;i++) {
                 var entity=points[i].m_OriginalEntity;if(entity==Entity.Null)continue;
                 if(!world.EntityManager.Exists(entity)||!world.EntityManager.HasComponent<Game.Common.Owner>(entity)||world.EntityManager.HasComponent<Game.Net.Edge>(entity)||world.EntityManager.HasComponent<Game.Net.Node>(entity)||world.EntityManager.HasComponent<Game.Areas.Area>(entity)||world.EntityManager.HasComponent<Game.Buildings.Building>(entity))return null;
-                if(world.EntityManager.HasBuffer<Game.Objects.SubObject>(entity)&&world.EntityManager.GetBuffer<Game.Objects.SubObject>(entity,true).Length>0&&!nestedArmed)return null;
+                if(world.EntityManager.HasBuffer<Game.Objects.SubObject>(entity)&&world.EntityManager.GetBuffer<Game.Objects.SubObject>(entity,true).Length>0&&!nestedArmed&&!allowNestedTarget)return null;
                 var seen=new HashSet<Entity>();
                 int depth=0;
                 while(world.EntityManager.Exists(entity) && world.EntityManager.HasComponent<Game.Common.Owner>(entity)) {
@@ -130,17 +140,27 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             result.Summary=string.Join(",",counts);
             return result;
         }
-        private static void BeginApply(BulldozeToolSystem __instance)=>Guard(()=> {
+        private static void ObserveApply(BulldozeToolSystem __instance)=>Guard(()=> {
             var a=active;if(a==null || !a.context.EditorAvailable || a.disabled) return;
             if(!ReferenceEquals(__instance.World,a.world)) return;
             if(a.restoring!=null){a.FailRecovery("Another deletion interrupted recovery. Restart CS2 without saving the disposable test.");return;}
             if(a.preparingAsset!=null){a.EndNestedTestPreparation("A deletion interrupted preparation. Restart without saving.");return;}
+            if(a.StandaloneAreaBusy){a.FailStandaloneArea("Another deletion interrupted area recovery; reload the disposable session without saving.");return;}
+            if(a.mainBusy){a.FailMain("Another deletion interrupted prop recovery. Reload the disposable editor copy.");return;}
+            // A new native deletion attempt must never expose an older recoverable
+            // action if this target is unsupported, capture fails or Apply is denied.
+            a.ClearEffects();a.ClearMove();a.ClearAreaMoves();a.records.Clear();a.mainHistory.Clear();a.standaloneAreas.Clear();a.networkHistory.Clear();
+            Mod.Log.Info("Bulldozer Undo capture attempt; mode="+__instance.actualMode+"; automatic="+(a.AutomaticCaptureAllowed?.Invoke()==true));
+            if(a.BeginEffectDeletion(__instance))return;
+            if(a.BeginNetwork(__instance))return;
             if(a.BeginArea(__instance))return;
             a.areaCapture=false;a.beforeAreas=a.afterAreas=null;
+            if(a.AutomaticCaptureAllowed?.Invoke()==true){a.armed=a.nestedArmed=a.nestedForestArmed=a.lastArmed=false;a.armedAsset=null;}
+            a.EnableAutomaticBoundProps(__instance);
             a.EnableAutomaticMain(__instance);
             a.EverythingBegin(__instance);
             a.MainBegin(__instance);
-            if(!a.armed){a.ClearRecord();return;}
+            if(!a.armed){a.ClearRecord();Mod.Log.Info("Bound prop capture not armed; mode="+__instance.actualMode+"; status="+a.Status);return;}
             if(a.session.Asset!=null) a.Reset("Bulldozer diagnostic: overlapping action; previous observation discarded.");
             a.events++;
             if(a.record!=null){var current=a.records.Latest;var redo=a.records.NextRedo;
@@ -160,10 +180,16 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             a.Emit("before apply",a.before.Summary);
         });
         private static void Allowed(ToolBaseSystem __instance,bool __result)=>Guard(()=> {
+            if(__instance is ObjectToolSystem && active!=null && ReferenceEquals(__instance.World,active.world)&&active.objectInApply)active.objectAccepted=__result;
+            if(__instance is BulldozeToolSystem && active!=null && ReferenceEquals(__instance.World,active.world)&&active.networkInApply)active.networkAccepted=__result;
+            if(__instance is BulldozeToolSystem && active!=null && ReferenceEquals(__instance.World,active.world)&&active.effectInDelete)active.effectAccepted=__result;
+            if(__instance is BulldozeToolSystem && active!=null && ReferenceEquals(__instance.World,active.world)&&active.standaloneAreaInApply)active.standaloneAreaAccepted=__result;
             if(__instance is BulldozeToolSystem && active!=null && ReferenceEquals(__instance.World,active.world)&&active.mainInApply)active.mainAccepted=__result;
             if(__instance is BulldozeToolSystem && active!=null && ReferenceEquals(__instance.World,active.world)) { active.session.AllowApply(__result); if(active.everythingInApply)active.everythingAccepted=__result; }
         });
-        private static void EndApply(BulldozeToolSystem __instance)=>Guard(()=> {
+        private static void EndApply(BulldozeToolSystem __instance,bool __state)=>Guard(()=> {
+            if(!__state)return;
+            active?.EndEffectDeletion();active?.EndNetworkApply();active?.EndStandaloneAreaApply();
             active?.EverythingEnd(__instance);
             active?.MainEnd();
             var a=active;if(a==null||!a.session.InApply) return;
@@ -172,7 +198,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             else a.Emit("native apply accepted","waiting for matching SaveInstance");
         });
         private static Exception Failed(Exception __exception) {
-            if(__exception!=null) Guard(()=>{if(active?.restoring!=null)active.FailRecovery("Native recovery operation failed. Restart CS2 without saving the disposable test.");else active?.Reset("Native operation failed; no recovery entry.");});
+            if(__exception!=null) Guard(()=>{if(active?.objectInApply==true||active?.MoveBusy==true)active.FailMove("Native move failed; reload without saving.");else if(active?.NetworkBusy==true)active.FailNetwork("Native lane/network operation failed; reload without saving.");else if(active?.StandaloneAreaBusy==true)active.FailStandaloneArea("Native area deletion/restoration failed; no recovery entry.");else if(active?.restoring!=null)active.FailRecovery("Native recovery operation failed. Restart CS2 without saving the disposable test.");else active?.Reset("Native operation failed; no recovery entry.");});
             return __exception;
         }
         private static void BeforeSync(ApplyPrefabsSystem __instance,out bool __state) {
@@ -216,17 +242,18 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             if(a.restoring==null && a.session.Asset==null)return; // Synchronous finalization may already have completed.
             if(a.restoring!=null){if(!a.restoreSourceMatched){a.FailRecovery("Native restoration source did not match. Restart CS2 without saving the disposable test.");return;}a.dispatched=true;a.Status="Waiting for Undo/Redo instance regeneration…";return;}
             if(a.areaCapture&&!a.AreaCaptureReady())return;
+            if(a.areaCapture)NormalizedAreaFields.Apply(a.before.Values,a.after.Values,(key,value)=>{a.before.Values[key]=value;foreach(var field in a.before.Fields.Where(f=>f.Owner.GetType().Name+"."+f.Field.Name==key))field.Data=value;});
             if(a.sourceMatched && a.after!=null && a.session.Matches(a.TargetRoot) && a.after.Matches(a.session.Asset) && (a.areaCapture?a.AreasMatch(a.afterAreas,a.observedOwner):a.GraphMatches(a.afterGraph,a.observedOwner))) {
                 var prepared=a.before.Prepare();
                 if(!a.before.Fields.Select((v,i)=>v.Data.Matches(prepared[i])).All(v=>v))throw new InvalidOperationException("Before-image round trip failed.");
-                var entry=new Record{Area=a.areaCapture,AreaOwnerTransform=a.areaOwnerTransform,BeforeAreas=a.areaCapture?a.beforeAreas:null,AfterAreas=a.areaCapture?a.afterAreas:null,RootTypes=a.nestedForestArmed?NestedRootTypes.Copy(a.capturedRootTypes):null,ForestBefore=a.forestBefore,Nested=a.nestedArmed?a.nestedBefore:null,NestedReferences=a.nestedArmed?a.nestedReferences:null,Last=a.lastArmed,Asset=a.session.Asset,Owner=a.observedOwner,Before=a.before,After=a.after,BeforeGraph=a.beforeGraph,AfterGraph=a.afterGraph};
+                var entry=new Record{AreaNetwork=a.areaCapture?a.areaNetwork:null,AreaEffects=a.areaCapture?a.areaEffects:null,AreaReferences=a.areaCapture?a.areaReferences:null,Area=a.areaCapture,AreaOwnerTransform=a.areaOwnerTransform,BeforeAreas=a.areaCapture?a.beforeAreas:null,AfterAreas=a.areaCapture?a.afterAreas:null,RootTypes=a.nestedForestArmed?NestedRootTypes.Copy(a.capturedRootTypes):null,ForestBefore=a.areaCapture&&a.areaProps.Length>0?a.areaProps:a.forestBefore,ForestAfter=a.areaCapture&&a.areaProps.Length>0?a.CaptureAreaProps(a.observedOwner):null,Nested=a.areaCapture&&a.areaProps.Length>0?Array.Empty<NestedNode>():a.nestedArmed?a.nestedBefore:null,NestedReferences=a.areaCapture?a.areaReferences:a.nestedArmed?a.nestedReferences:null,Last=a.lastArmed,Asset=a.session.Asset,Owner=a.observedOwner,Before=a.before,After=a.after,BeforeGraph=a.beforeGraph,AfterGraph=a.afterGraph};
                 // Bound retained snapshot memory as well as entry count. A large next entry starts a fresh history.
                 
-                if(entry.ForestBefore!=null){entry.ForestAfter=a.CaptureForestNow(entry);var retained=entry.ForestBefore.Where(group=>group[0].Original!=a.nestedBefore[0].Original).ToArray();var matched=MatchForest(retained,entry.ForestAfter);if(matched==null||!retained.Select((group,i)=>a.RetainedAfterRemoval(group,matched[i],a.nestedBefore[0].Local.m_PrefabSubIndex)).All(value=>value))throw new InvalidOperationException("Retained nested groups changed during deletion.");}if(entry.Nested!=null&&!a.NestedReferencesMatch(entry))throw new InvalidOperationException("Nested referenced prefab changed during deletion.");if((entry.Last&&entry.ForestBefore==null)||(entry.Nested!=null&&entry.ForestBefore==null))a.ClearRecord();
+                if(entry.ForestBefore!=null&&!entry.Area){entry.ForestAfter=a.CaptureForestNow(entry);var retained=entry.ForestBefore.Where(group=>group[0].Original!=a.nestedBefore[0].Original).ToArray();var matched=MatchForest(retained,entry.ForestAfter);if(matched==null||!retained.Select((group,i)=>a.RetainedAfterRemoval(group,matched[i],a.nestedBefore[0].Local.m_PrefabSubIndex)).All(value=>value))throw new InvalidOperationException("Retained nested groups changed during deletion.");}if(entry.Nested!=null&&!a.NestedReferencesMatch(entry))throw new InvalidOperationException("Nested referenced prefab changed during deletion.");if((entry.Last&&entry.ForestBefore==null)||(entry.Nested!=null&&entry.ForestBefore==null))a.ClearRecord();
                 if(a.records.Recent.Sum(RecordWeight)+RecordWeight(entry)>500000)a.ClearRecord();if(RecordWeight(entry)>500000)throw new NotSupportedException("Nested history image exceeds total retained snapshot budget.");a.records.Record(entry);a.Status=entry.Area?"Recorded area/surface deletion (experimental). Undo entries: "+a.UndoCount+".":entry.Nested!=null?"Recorded nested group deletion (experimental). Undo entries: "+a.UndoCount+".":"Recorded Sub-element prop deletion. Undo entries: "+a.UndoCount+".";if(entry.Nested!=null&&entry.ForestBefore==null)a.armed=a.nestedArmed=false;
                 Mod.Log.Info(a.Status+" asset="+a.record.Asset.name+"; native source identity matched.");
             } else {a.ClearRecord();a.armed=false;a.Status="Sub-element source or final payload did not match; history cleared.";}
-            a.session.Reset();a.before=a.after=null;a.beforeGraph=a.afterGraph=null;
+            a.session.Reset();a.before=a.after=null;a.beforeGraph=a.afterGraph=null;a.ClearAreaCompanions();
         });
         private static void BeforeFinalize(GameSystemBase __instance,out bool __state) {
             bool matched=false;Guard(()=> {
@@ -247,7 +274,8 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             var entry=a.restoring;var target=a.restoringUndo?entry.Before:entry.After;
             var graph=a.restoringUndo?entry.BeforeGraph:entry.AfterGraph;
             bool ownerOk=a.OwnerMatches(entry),payloadOk=target.Matches(entry.Asset);
-            bool graphOk=ownerOk&&(entry.Area?a.AreasMatch(a.restoringUndo?entry.BeforeAreas:entry.AfterAreas,entry.Owner):a.GraphMatches(graph,entry.Owner));bool directGraphOk=graphOk;if(ownerOk&&payloadOk&&graphOk&&(a.restoringUndo||entry.ForestBefore!=null)&&a.RestoreNestedSeeds(entry))return;bool nestedOk=ownerOk&&a.NestedStateMatches(entry,a.restoringUndo,Time.frameCount-a.restoreFrame>=120);graphOk=graphOk&&nestedOk;
+            if(entry.Area&&ownerOk&&payloadOk)a.RestoreAreaCompanionSeeds(entry);
+            bool graphOk=ownerOk&&(entry.Area?a.AreaGraphMatches(a.restoringUndo?entry.BeforeAreas:entry.AfterAreas,entry)&&a.AreaCompanionsMatch(entry)&&entry.AreaReferences.All(p=>NestedReferenceMatches(p.Key,p.Value)):a.GraphMatches(graph,entry.Owner));bool directGraphOk=graphOk;if(ownerOk&&payloadOk&&graphOk&&(a.restoringUndo||entry.ForestBefore!=null)&&a.RestoreNestedSeeds(entry))return;bool nestedOk=ownerOk&&a.NestedStateMatches(entry,a.restoringUndo,Time.frameCount-a.restoreFrame>=120);graphOk=graphOk&&nestedOk;
             if(!graphOk)a.nestedValidatedFrames=0;if(ownerOk&&payloadOk&&!graphOk&&Time.frameCount-a.restoreFrame<=120)return;
             if(!ownerOk||!payloadOk||!graphOk){
                 var changed=target.Fields.Where(v=>!v.Data.ReferencesValid||!v.Data.Matches(v.Field.GetValue(v.Owner))).Select(v=>v.Owner.GetType().Name+"."+v.Field.Name);
@@ -269,6 +297,11 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             try { TickNestedPropDiscovery(); } catch(Exception discoveryError) { Mod.Log.Warn("Read-only nested prop discovery stopped: "+discoveryError.Message); }
             Guard(TickNestedTestPreparation);
             Guard(TickNestedRecoveryTest);
+            Guard(TickMoveRecovery);
+            Guard(TickAreaMoves);
+            Guard(TickEffects);
+            Guard(TickNetworkRecovery);
+            Guard(TickStandaloneArea);
             Guard(TickMainRecovery);
             Guard(MainTick);
             Guard(EverythingTick);
@@ -297,35 +330,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             Guard(()=> {if(!context.EditorAvailable||!session.Matches(TargetRoot))Reset("Bulldozer diagnostic: asset changed; observation discarded.");
                 else if(session.Expired(Time.frameCount))Reset("Bulldozer diagnostic: no matching native synchronization within 120 frames.");});
         }
-        private void Reset(string message) {areaCapture=false;beforeAreas=afterAreas=null;session.Reset();before=after=null;beforeGraph=afterGraph=null;dispatched=false;sourceMatched=false;Status=message;Mod.Log.Info(message);}
-        internal void Release() {try {harmony.UnpatchAll(Id);}finally {session.Reset();before=after=null;ClearRecord();restoring=null;armed=false;armedAsset=null;if(ReferenceEquals(active,this))active=null;} }
+        private void Reset(string message) {ClearAreaCompanions();areaCapture=false;beforeAreas=afterAreas=null;session.Reset();before=after=null;beforeGraph=afterGraph=null;dispatched=false;sourceMatched=false;Status=message;Mod.Log.Info(message);}
+        internal void Release() {try {harmony.UnpatchAll(Id);}finally {ClearEffects();ClearAreaMoves();ClearMove();MoveCommitted=null;ClearNetwork();ClearStandaloneArea();session.Reset();before=after=null;ClearRecord();restoring=null;armed=false;armedAsset=null;if(ReferenceEquals(active,this))active=null;} }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

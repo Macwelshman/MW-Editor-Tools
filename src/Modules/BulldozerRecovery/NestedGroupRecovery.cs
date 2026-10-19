@@ -47,7 +47,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             Mod.Log.Info(Status);
         }
         private Entity[] NestedRoots(PrefabBase prefab)=>NestedRoots(new[]{prefab});
-        private Entity[] NestedRoots(PrefabBase[] rootTypes){
+        private Entity[] NestedRoots(PrefabBase[] rootTypes,Entity owner=default(Entity)){
             rootTypes=NestedRootTypes.Copy(rootTypes);
             if(rootTypes.Any(prefab=>prefab==null))throw new NotSupportedException("Nested root prefab no longer exists.");
             var em=world.EntityManager;var prefabs=world.GetExistingSystemManaged<PrefabSystem>();
@@ -57,13 +57,13 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             using(var query=em.CreateEntityQuery(new EntityQueryDesc{All=new[]{ComponentType.ReadOnly<PrefabRef>(),ComponentType.ReadOnly<Game.Objects.Transform>()},None=new[]{ComponentType.ReadOnly<Temp>()}})){
                 if(query.CalculateEntityCount()>100000)throw new NotSupportedException("Nested root query exceeds budget.");
                 using(var entities=query.ToEntityArray(Allocator.Temp))foreach(var entity in entities)
-                    if(ids.Contains(em.GetComponentData<PrefabRef>(entity).m_Prefab)){result.Add(entity);if(result.Count>4)throw new NotSupportedException("Nested root count exceeds four-group budget across all types.");}
+                    if(ids.Contains(em.GetComponentData<PrefabRef>(entity).m_Prefab)&&(owner==Entity.Null||(em.HasComponent<Game.Common.Owner>(entity)&&em.GetComponentData<Game.Common.Owner>(entity).m_Owner==owner))){result.Add(entity);if(result.Count>128)throw new NotSupportedException("Nested root count exceeds 128-group budget across all types.");}
             }
             return result.ToArray();
         }
         private void BeginNestedGroup(BulldozeToolSystem tool){
             nestedBefore=null;nestedReferences=null;capturedRootTypes=null;
-            if(tool.actualMode!=BulldozeToolSystem.Mode.Everything)throw new NotSupportedException("Nested group test requires Everything mode.");
+            if(tool.actualMode!=BulldozeToolSystem.Mode.Everything && tool.actualMode!=BulldozeToolSystem.Mode.SubElements)throw new NotSupportedException("Bound prop Undo requires Sub-elements or Everything mode.");
             var declared=TargetRoot?.GetComponent<ObjectSubObjects>()?.m_SubObjects;
             if(declared==null||declared.Any(value=>value?.m_Object is ObjectPrefab&&(value.m_Object.GetComponent<ObjectSubObjects>()?.m_SubObjects?.Length??0)>0&&!AdoptedNestedTypes.Any(prefab=>ReferenceEquals(prefab,value.m_Object))))throw new NotSupportedException("Nested prop types changed after enabling Undo. Clear history and enable again before testing this asset.");
             var points=(NativeList<ControlPoint>)controlPoints.GetValue(tool);
@@ -78,7 +78,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             // Only the explicitly adopted root identity and bounded topology can enter recovery.
             if(!AllowedBoundTopology(image)||image[0].Owner!=observedOwner||(!simpleTarget&&!AdoptedNestedTypes.Any(prefab=>ReferenceEquals(image[0].Prefab,prefab)))||(!nestedForestArmed&&NestedRoots(AdoptedNestedTypes).Single()!=root))
                 throw new NotSupportedException("The nested prop topology or owner does not match the supported group.");
-            var references=(forestBefore??new[]{image}).SelectMany(group=>group.Select(node=>node.Prefab)).Distinct().ToDictionary(prefab=>prefab,Capture);foreach(var pair in references)Mod.Log.Info("Nested external reference captured: "+pair.Key.name+" readOnly="+pair.Key.isReadOnly+" matches="+NestedReferenceMatches(pair.Key,pair.Value));
+            var references=(forestBefore??new[]{image}).SelectMany(GroupReferences).Distinct().ToDictionary(prefab=>prefab,Capture);foreach(var pair in references)Mod.Log.Info("Nested external reference captured: "+pair.Key.name+" readOnly="+pair.Key.isReadOnly+" matches="+NestedReferenceMatches(pair.Key,pair.Value));
             if(references.Values.Sum(value=>value.Weight)>250000)throw new NotSupportedException("Nested reference payload exceeds budget.");
             nestedBefore=image;nestedReferences=references;capturedRootTypes=NestedRootTypes.Copy(rootTypes);
         }
@@ -94,7 +94,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             if(matches!=1){Mod.Log.Info("Nested removal refused: root descriptor occurrences="+matches);return false;}
             var retained=forestBefore!=null?original.Where((value,index)=>index!=descriptor).ToArray():original.Where(value=>!ReferenceEquals(value.m_Object,nestedBefore[0].Prefab)).ToArray();
             var actual=after.Values.ContainsKey(key)?(ObjectSubObjectInfo[])after.Values[key].Materialize():Array.Empty<ObjectSubObjectInfo>();
-            bool entries=MW.EditorTools.History.PrefabSnapshot.Take(retained).Matches(actual);
+            bool entries=DescriptorPermutation.Matches(retained,actual);
             var changed=before.Values.Where(pair=>pair.Key!=key&&(!after.Values.ContainsKey(pair.Key)||!pair.Value.Matches(after.Values[pair.Key].Materialize()))).Select(pair=>pair.Key).ToArray();
             if(!entries||changed.Length!=0){
                 Mod.Log.Info("Nested removal refused: retained entries match="+entries+" expected="+retained.Length+" actual="+actual.Length+" other changed fields="+string.Join(",",changed));

@@ -7,6 +7,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
+using MW.EditorTools.History;
 namespace MW.EditorTools.Modules.BulldozerRecovery {
     internal sealed partial class BulldozerTrace {
         private bool areaCapture;
@@ -15,9 +16,11 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         private Entity deletedArea;
         private Game.Objects.Transform areaOwnerTransform;
         private sealed class AreaImage {
+            internal string Metadata=>"flags="+Flags+" kind="+Surface+"/"+Space+" navigation="+Navigation+" hangaround="+Hangaround+" container="+HasContainer+"/"+Container?.name+" scale="+Scale+" intensity="+Intensity+" group="+Group;
+            internal AreaImage WithLocal(LocalNodeCache[] local){var copy=(AreaImage)MemberwiseClone();copy.Local=local;return copy;}
             internal Entity Original;
             internal PrefabBase Prefab,Container;
-            internal bool Surface,Space,HasContainer;
+            internal bool Surface,Space,HasContainer,Navigation,Hangaround;
             internal Game.Areas.AreaFlags Flags;
             internal Game.Areas.Node[] Nodes;
             internal LocalNodeCache[] Local;
@@ -33,20 +36,32 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             foreach(var point in points)if(point.m_OriginalEntity!=Entity.Null)targets.Add(point.m_OriginalEntity);
             if(!targets.Any(id=>em.Exists(id)&&em.HasComponent<Game.Areas.Area>(id)))return false;
             try {
-                if(AutomaticCaptureAllowed?.Invoke()!=true||Busy||NestedTestRunning||context.DialogBusy||targets.Count!=1||
-                    (tool.actualMode!=BulldozeToolSystem.Mode.SubElements&&tool.actualMode!=BulldozeToolSystem.Mode.Everything))throw new NotSupportedException("Area capture is unavailable in this context.");
+
+                if(AutomaticCaptureAllowed?.Invoke()!=true)throw new NotSupportedException("Enable deletion recovery in Options first.");
+                if(Busy||NestedTestRunning)throw new NotSupportedException("Wait for the current recovery operation.");
+                if(context.DialogBusy)throw new NotSupportedException("Close the open dialog before deleting an area.");
+                if(targets.Count!=1)throw new NotSupportedException("Delete one area at a time.");
                 var id=targets.Single();
-                if(!em.HasComponent<Game.Common.Owner>(id))throw new NotSupportedException("Standalone areas are not supported yet.");
+                LogMainEntity("area target",id,true);
+                if(!em.HasComponent<Game.Common.Owner>(id)){BeginStandaloneArea(tool,id);return true;}
+                if(tool.actualMode!=BulldozeToolSystem.Mode.SubElements&&tool.actualMode!=BulldozeToolSystem.Mode.Everything)throw new NotSupportedException("Use Sub-elements or Everything mode for a bound area.");
                 var owner=em.GetComponentData<Game.Common.Owner>(id).m_Owner;
                 if(!em.Exists(owner)||!em.HasComponent<PrefabRef>(owner)||em.HasComponent<Game.Common.Owner>(owner))throw new NotSupportedException("Area must belong directly to the edited asset.");
                 var asset=world.GetExistingSystemManaged<PrefabSystem>().GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(owner));
                 if(asset==null||asset.isReadOnly||asset is AssetStampPrefab||asset.components.Any(c=>c is ActivityLocation)||
                     (Root!=null&&!ReferenceEquals(Root,asset)))throw new NotSupportedException("Select the writable owning asset first.");
-                if(!AreaRemovalPolicy.AncillaryOnly(asset.GetComponent<ObjectSubObjects>()?.m_SubObjects?.Length??0,
-                    asset.GetComponent<ObjectSubNets>()?.m_SubNets?.Length??0,asset.GetComponent<ObjectSubLanes>()?.m_SubLanes?.Length??0,
-                    asset.GetComponent<EffectSource>()?.m_Effects?.Count??0))throw new NotSupportedException("This first area recovery build requires an asset containing areas/surfaces only; mixed props, networks, lanes and effects are not supported yet.");
-                if(!em.HasComponent<Game.Objects.Transform>(owner)||(em.HasBuffer<Game.Objects.SubObject>(owner)&&em.GetBuffer<Game.Objects.SubObject>(owner,true).Length!=0))throw new NotSupportedException("The area owner must have a stable transform and no runtime object children.");
+                if(!em.HasComponent<Game.Objects.Transform>(owner))throw new NotSupportedException("The area owner must have a stable transform.");
+                if(em.HasComponent<SaveInstance>(owner)||((System.Collections.IDictionary)updateMap.GetValue(world.GetExistingSystemManaged<PrefabSystem>())).Contains(asset))throw new NotSupportedException("Wait for the pending native asset edit before deleting an area.");
+                var transform=em.GetComponentData<Game.Objects.Transform>(owner);
+                if(!math.all(math.isfinite(transform.m_Position))||!math.all(math.isfinite(transform.m_Rotation.value)))throw new NotSupportedException("Nonfinite area owner transform.");
                 var image=Capture(asset);var areas=CaptureAreas(owner);
+                if(!AreasMatch(areas,owner))throw new NotSupportedException("Area placements are ambiguous before deletion.");
+                areaProps=CaptureAreaProps(owner);areaEffects=CaptureAreaEffects(owner);areaNetwork=CaptureAreaNetwork(owner);
+                if((asset.GetComponent<ObjectSubObjects>()?.m_SubObjects?.Length??0)!=areaProps.Length||
+                    (asset.GetComponent<EffectSource>()?.m_Effects?.Count??0)!=areaEffects.Length)throw new NotSupportedException("Area companion descriptors do not match their placed instances.");
+                areaReferences=areaProps.SelectMany(GroupReferences).Concat(areaEffects.Select(e=>e.Container))
+                    .Concat(areaNetwork.Items.SelectMany(n=>new[]{n.Prefab,n.Container})).Where(p=>p!=null).Distinct().ToDictionary(p=>p,Capture);
+                if(areaReferences.Values.Sum(p=>p.Weight)>250000||areaReferences.Any(p=>!NestedReferenceMatches(p.Key,p.Value)))throw new NotSupportedException("Area companion references exceed budget or changed during capture.");
                 var descriptors=asset.GetComponent<ObjectSubAreas>()?.m_SubAreas;
                 if(asset.components.Count(c=>c is ObjectSubAreas)!=1||asset.components.Any(c=>c is ObjectSubAreas&&c.GetType()!=typeof(ObjectSubAreas))||descriptors==null||descriptors.Length!=areas.Length||!areas.Any(value=>value.Original==id)||areas.Length==0)throw new NotSupportedException("Area list and native ownership do not match.");
                 if(image.Weight>250000)throw new NotSupportedException("Area payload exceeds snapshot budget.");
@@ -59,12 +74,12 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 dispatched=sourceMatched=false;session.Begin(asset,Time.frameCount);
                 Status="Capturing area/surface deletion…";
                 Mod.Log.Info("Area recovery capture: asset="+asset.name+" areas="+areas.Length+" target="+id);
-            }catch(Exception error){ClearRecord();areaCapture=false;session.Reset();Status="Area Undo unavailable: "+error.Message;Mod.Log.Info(Status);}
+            }catch(Exception error){ClearAreaCompanions();ClearRecord();areaCapture=false;session.Reset();Status="Area Undo unavailable: "+error.Message;Mod.Log.Info(Status);if(!(error is NotSupportedException))Mod.Log.Warn("Area capture exception: "+error);}
             return true;
         }
         private bool AreaCaptureReady(){
             bool ready=false;
-            try{ready=after!=null&&session.Matches(TargetRoot)&&after.Matches(session.Asset)&&AreasMatch(afterAreas,observedOwner);}
+            try{ready=after!=null&&session.Matches(TargetRoot)&&after.Matches(session.Asset)&&OwnerMatches(new Record{Area=true,AreaOwnerTransform=areaOwnerTransform,Asset=session.Asset,Owner=observedOwner})&&AreasMatch(afterAreas,observedOwner)&&AreaLiveCompanionsMatch();}
             catch(NotSupportedException){ready=false;}
             if(!ready){areaCaptureStable=0;return false;}
             if(areaCaptureStableFrame!=Time.frameCount){areaCaptureStableFrame=Time.frameCount;areaCaptureStable++;}
@@ -87,20 +102,21 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                     (em.HasBuffer<Game.Areas.SubArea>(id)&&em.GetBuffer<Game.Areas.SubArea>(id,true).Length!=0))throw new NotSupportedException("Unsupported area schema or ownership.");
                 var surface=em.HasComponent<Game.Areas.Surface>(id);var space=em.HasComponent<Game.Areas.Space>(id);
                 if(surface==space)throw new NotSupportedException("Only surface and space areas are supported.");
-                var nodes=em.GetBuffer<Game.Areas.Node>(id,true).ToArray();var local=em.GetBuffer<LocalNodeCache>(id,true).ToArray();
+                var nodes=em.GetBuffer<Game.Areas.Node>(id,true).AsNativeArray().ToArray();var local=em.GetBuffer<LocalNodeCache>(id,true).AsNativeArray().ToArray();
                 nodeCount+=nodes.Length;
                 if(nodes.Length<3||nodes.Length!=local.Length||nodeCount>4096)throw new NotSupportedException("Area node shape exceeds scope.");
                 if(nodes.Any(n=>!math.all(math.isfinite(n.m_Position))||!math.isfinite(n.m_Elevation))||local.Any(n=>!math.all(math.isfinite(n.m_Position))))throw new NotSupportedException("Nonfinite area geometry.");
                 var item=new AreaImage{Original=id,Prefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(id)),Surface=surface,Space=space,
-                    Flags=em.GetComponentData<Game.Areas.Area>(id).m_Flags,Nodes=nodes,Local=local};
+                    Navigation=em.HasComponent<Game.Areas.Navigation>(id),Hangaround=em.HasComponent<Game.Areas.HangaroundLocation>(id),Flags=em.GetComponentData<Game.Areas.Area>(id).m_Flags,Nodes=nodes,Local=local};
                 if(em.HasComponent<Game.Tools.EditorContainer>(id)){item.HasContainer=true;var c=em.GetComponentData<Game.Tools.EditorContainer>(id);item.Container=prefabs.GetPrefab<PrefabBase>(c.m_Prefab);item.Scale=c.m_Scale;item.Intensity=c.m_Intensity;item.Group=c.m_GroupIndex;if(!math.all(math.isfinite(item.Scale))||!math.isfinite(item.Intensity))throw new NotSupportedException("Nonfinite area container values.");}
                 if(item.Prefab==null)throw new NotSupportedException("Area prefab is unavailable.");
+                if(item.HasContainer&&item.Container==null)throw new NotSupportedException("Area container prefab is unavailable.");
                 result.Add(item);
             }
             return result.ToArray();
         }
         private static bool AreaEqual(AreaImage a,AreaImage b) => ReferenceEquals(a.Prefab,b.Prefab)&&ReferenceEquals(a.Container,b.Container)&&
-            a.Surface==b.Surface&&a.Space==b.Space&&a.HasContainer==b.HasContainer&&a.Flags==b.Flags&&a.Group==b.Group&&a.Scale.Equals(b.Scale)&&a.Intensity.Equals(b.Intensity)&&
+            a.Surface==b.Surface&&a.Space==b.Space&&a.Navigation==b.Navigation&&a.Hangaround==b.Hangaround&&a.HasContainer==b.HasContainer&&a.Flags==b.Flags&&a.Group==b.Group&&a.Scale.Equals(b.Scale)&&a.Intensity.Equals(b.Intensity)&&
             AreaGeometry.Matches(a.Nodes,a.Local,b.Nodes,b.Local);
         private bool AreasMatch(AreaImage[] expected,Entity owner){
             if(expected==null)return false;
@@ -108,21 +124,34 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             foreach(var item in expected){var found=Enumerable.Range(0,actual.Length).Where(i=>!used[i]&&AreaEqual(item,actual[i])).ToArray();if(found.Length!=1)return false;used[found[0]]=true;}
             return true;
         }
+        private bool AreaGraphMatches(AreaImage[] expected,Record entry) {
+            try{return AreasMatch(expected,entry.Owner)&&CompanionSourcesValid((entry.AreaSources??entry.AfterAreas).Select(a=>a.Original),CaptureAreas(entry.Owner).Select(a=>a.Original));}
+            catch(NotSupportedException){return false;}
+        }
+        private static bool AreaAncillaryMatches(FieldValue field) {
+            var current=field.Field.GetValue(field.Owner);
+            if(field.Owner is ObjectSubObjects&&field.Field.Name=="m_SubObjects")return DescriptorPermutation.Matches((ObjectSubObjectInfo[])field.Data.Materialize(),(ObjectSubObjectInfo[])current);
+            if(field.Owner is ObjectSubNets&&field.Field.Name=="m_SubNets")return AreaNetDescriptorPolicy.MatchesSet((ObjectSubNetInfo[])field.Data.Materialize(),(ObjectSubNetInfo[])current);
+            if(field.Owner is EffectSource&&field.Field.Name=="m_Effects")return DescriptorPermutation.Matches(((List<EffectSource.EffectSettings>)field.Data.Materialize())?.ToArray(),((List<EffectSource.EffectSettings>)current)?.ToArray(),(a,b)=>PrefabSnapshot.Take(a).MatchesNativeGeometry(b));
+            return field.Data.Matches(current);
+        }
         private bool AreaRemovalMatches(Payload original,Payload current,PrefabBase asset){
             const string key="ObjectSubAreas.m_SubAreas";
             if(!original.Values.ContainsKey(key))return false;
             var beforeRows=(ObjectSubAreaInfo[])original.Values[key].Materialize();
             var afterRows=current.Values.ContainsKey(key)?(ObjectSubAreaInfo[])current.Values[key].Materialize():Array.Empty<ObjectSubAreaInfo>();
-            if(AreaRemovalPolicy.RemovedIndex(beforeRows,afterRows)<0)return false;
+            var deleted=beforeAreas.SingleOrDefault(a=>a.Original==deletedArea);
+            if(deleted==null||!AreaRemovalPolicy.ReferencesAfterRemoval(beforeRows,afterRows,deleted.Prefab as AreaPrefab)){Mod.Log.Info("Area removal refused: descriptor references/counts differ from the captured target; before="+beforeRows.Length+" after="+afterRows.Length);return false;}
             var retained=original.Components.Where(c=>!(c is ObjectSubAreas)).ToArray();
             var actual=current.Components.Where(c=>!(c is ObjectSubAreas)).ToArray();
-            if(!retained.SequenceEqual(actual)||original.Fields.Where(f=>!(f.Owner is ObjectSubAreas)).Any(f=>!f.Data.Matches(f.Field.GetValue(f.Owner))))return false;
+            var changed=original.Fields.Where(f=>!(f.Owner is ObjectSubAreas)).Where(f=>!AreaAncillaryMatches(f)).Select(f=>f.Owner.GetType().Name+"."+f.Field.Name).ToArray();
+            if(!retained.SequenceEqual(actual)||changed.Length!=0){Mod.Log.Info("Area removal refused: componentShape="+retained.SequenceEqual(actual)+" changed="+string.Join(",",changed));return false;}
             if(afterRows.Length>0&&(!original.Shape(asset)||!original.Active.SequenceEqual(current.Active)))return false;
             if(afterRows.Length==0&&current.Components.Any(c=>c is ObjectSubAreas))return false;
             if(original.Components.Where(c=>!(c is ObjectSubAreas)).Any(c=>c.active!=original.Active[Array.IndexOf(original.Components,c)]))return false;
-            afterAreas=CaptureAreas(observedOwner);
-            var expected=beforeAreas.Where(a=>a.Original!=deletedArea).ToArray();
-            if(expected.Length!=afterAreas.Length||!AreasMatch(expected,observedOwner))return false;
+            // Preserve the complete retained before-images as the target. The
+            // capture stability window must match these after deferred updates.
+            afterAreas=beforeAreas.Where(a=>a.Original!=deletedArea).ToArray();
             return true;
         }
         private static bool AreaTargetShape(Payload target,PrefabBase asset){

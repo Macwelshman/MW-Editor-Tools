@@ -1,0 +1,3 @@
+VERIFIED-STATIC: zero boxed DynamicBuffer/NativeList sites in built MW.EditorTools.dll.
+SHA256: 70C237522473E1987CB7894777A33809CB9358E3F2004AC75F45D677D7CD71A8
+Actual production IL regression checks also passed in Phase3Safety.

@@ -5,6 +5,8 @@ import {Button, Tooltip} from "cs2/ui";
 import {NativePanel} from "./native-panel";
 import {MultiSaveContent} from "./multi-save";
 import {ColourVariationsContent} from "./colours/window";
+import {ComponentsContent} from "./components";
+import {PropReplacerContent} from "./prop-replacer";
 import "./style.scss";
 type Options = {confirmation:boolean; recovery:boolean; shortcuts:boolean; inspectorControls:boolean; historyDepth:number; undoKey:string; redoKey:string; undoModifiers:number; redoModifiers:number; windowX:number; windowY:number};
 type State = {available:boolean;visible:boolean;asset:string;status:string;bulldozerDiagnostic:string;undo:number;redo:number;undoTarget:string;redoTarget:string;canArmMainTest:boolean;canArmBulldozerTest:boolean;nestedHistoryEnabled:boolean;mainHistoryEnabled:boolean;canUndo:boolean;canRedo:boolean;recent:string[];positionRevision:number;settings:Options;protectedComponents:boolean;installedRecovery:boolean};
@@ -12,12 +14,13 @@ const binding = bindValue<string>("mwEditorTools","state","{}");
 const width = bindValue<number>("editorHierarchy","width",500);
 const command = (value:string) => trigger("mwEditorTools","command",value);
 const shortcutLabel = (mask:number,key:string) => [mask&1?"Ctrl":"",mask&2?"Shift":"",mask&4?"Alt":"",mask&8?"Windows":"",key].filter(Boolean).join("+");
-const tabs = ["History & Recovery","Prop Replacer","Components","Colour Variations","Multi-Save"];
+const tabs = ["Replacer","Components","Colours","Multi-Save"];
+const introductions = ["Replace individual or matching elements in the viewport or component lists.","Copy components and their settings between assets.","Create and randomise colour variations for your asset.","Save all unlocked assets in your workspace."];
 function Launcher() {
     const raw = useValue(binding), workspaceWidth = useValue(width);
     let state: Partial<State>;
     try { state = JSON.parse(raw || "{}"); } catch { return null; }
-    if (!state.available) return null;
+    if (!state.available || state.visible) return null;
     return <div className="mw-tools-launcher" style={{position:"fixed",top:"130rem",left:`${workspaceWidth+20}rem`,zIndex:100,pointerEvents:"auto"}}>
         <Tooltip tooltip="MW Editor Tools"><Button className="mw-tools-launcher-button" focusKey="mwEditorTools.launcher"
             aria-label="MW Editor Tools" selected={state.visible}
@@ -34,7 +37,7 @@ function Launcher() {
 function Tools() {
     const raw = useValue(binding), workspaceWidth = useValue(width);
     const [tab,setTab] = useState(tabs[0]);
-    const [diagnostics,setDiagnostics] = useState(false);
+
 
     const state = JSON.parse(raw) as State;
     useEffect(() => {
@@ -59,6 +62,28 @@ function Tools() {
         document.addEventListener("focusin",report); document.addEventListener("focusout",report);
         return () => {clearInterval(timer); document.removeEventListener("focusin",report); document.removeEventListener("focusout",report); trigger("mwEditorTools","typing",true);};
     },[]);
+    useEffect(() => {
+        let x=0,y=0;
+        const move=(event:MouseEvent)=>{x=event.clientX;y=event.clientY;};
+        const capture=()=>{
+            const hovered=document.querySelectorAll(":hover");
+            const samples:string[]=[];let element=(hovered.length?hovered[hovered.length-1]:document.elementFromPoint(x,y)) as HTMLElement|null;
+            if(element?.closest('.mw-tools-panel,.mw-tools-launcher'))return samples;
+            for(let i=0;element&&i<5;i++,element=element.parentElement){const values=[element.getAttribute("aria-label"),element.getAttribute("title"),element.textContent];for(const value of values)if(value&&value.trim()&&value.length<=400&&!samples.includes(value.trim()))samples.push(value.trim());}
+            return samples;
+        };
+        const timer=setInterval(()=>trigger("mwPropReplacer","hoverCandidate",JSON.stringify({samples:capture()})),100);
+        const copy=(event:KeyboardEvent)=>{
+            if(!(event.ctrlKey&&!event.shiftKey&&!event.altKey&&!event.metaKey&&event.key.toLowerCase()==="c"))return;
+            const active=document.activeElement as HTMLElement|null;
+            if(active&&(active.tagName==="INPUT"||active.tagName==="TEXTAREA"||active.isContentEditable))return;
+            const samples:string[]=[];let element=document.elementFromPoint(x,y) as HTMLElement|null;
+            for(let i=0;element&&i<8;i++,element=element.parentElement){const values=[element.getAttribute("aria-label"),element.getAttribute("title"),element.innerText];for(const value of values)if(value&&value.trim()&&value.length<=1000&&!samples.includes(value.trim()))samples.push(value.trim());}
+            trigger("mwPropReplacer","hoverCopy",JSON.stringify({samples}));
+        };
+        document.addEventListener("mousemove",move,true);document.addEventListener("keydown",copy,true);
+        return()=>{clearInterval(timer);document.removeEventListener("mousemove",move,true);document.removeEventListener("keydown",copy,true);};
+    },[]);
     if(!state.available || !state.settings) return null;
     const theme = getModule("game-ui/editor/themes/editor-button.module.scss","classes");
     const buttonClasses = getModule("game-ui/editor/widgets/button/button.module.scss","classes");
@@ -67,55 +92,15 @@ function Tools() {
         {state.visible && <NativePanel key={state.positionRevision} className="mw-tools-panel"
             initialPosition={{x:state.settings.windowX,y:state.settings.windowY}}
             onPositionChange={position=>trigger("mwEditorTools","windowPosition",JSON.stringify({...position,revision:state.positionRevision}))}
-            header={<div className="mw-tools-heading"><span>MW Editor Tools</span>{button("Close",()=>command("close"))}</div>}>
+            header={<div className="mw-tools-heading"><span>MW Editor Tools</span><div className="mw-tools-header-actions"><Tooltip tooltip={`${shortcutLabel(state.settings.undoModifiers,state.settings.undoKey)} · Undo the last supported move, node edit or deletion. ${state.canUndo?"Ready to undo.":"No supported action to undo."}`}><div>{button("Undo",()=>command("undo"),!state.canUndo)}</div></Tooltip>{button("Close",()=>command("close"))}</div></div>}>
             <div className="mw-tools-body">
-                <div className="mw-tools-tabs" role="tablist" aria-label="Editor tools">{tabs.map((name,index)=><Button key={name} id={`mw-tools-tab-${index}`} role="tab" aria-selected={tab===name} aria-controls="mw-tools-section" theme={theme} selected={tab===name} onSelect={()=>setTab(name)}>{index===0?"History":index===3?"Colours":name}</Button>)}</div>
+                <div className="mw-tools-tabs" role="tablist" aria-label="Editor tools">{tabs.map((name,index)=><Button key={name} id={`mw-tools-tab-${index}`} role="tab" aria-selected={tab===name} aria-controls="mw-tools-section" theme={theme} selected={tab===name} onSelect={()=>setTab(name)}>{name}</Button>)}</div>
                 <div className="mw-tools-section" id="mw-tools-section" role="tabpanel" aria-labelledby={`mw-tools-tab-${tabs.indexOf(tab)}`}>
-                {tab===tabs[0] && <>
-                    <div className="mw-tools-context">{state.asset}</div>
-                    <div className="mw-tools-actions">
-                        {button(`Undo (${state.undo})`,()=>command("undo"),!state.canUndo)}
-                        {button(`Redo (${state.redo})`,()=>command("redo"),!state.canRedo)}
-                        {button("Clear history",()=>command("clear"),state.undo+state.redo===0)}
-                    </div>
-                    {state.undo>0 && state.undoTarget && <div>Next Undo: {state.undoTarget}</div>}
-                    {state.redo>0 && state.redoTarget && <div>Next Redo: {state.redoTarget}</div>}
-                    <div className="mw-tools-test">
-                        <strong>Bulldozer Undo · experimental</strong>
-                        <div className="mw-tools-test-status" role="status" aria-live="polite">{state.bulldozerDiagnostic || "Select a disposable asset copy."}</div>
-                        {button(state.nestedHistoryEnabled?"Prop Undo enabled":"Enable prop Undo",()=>command("enableNestedHistory"),state.nestedHistoryEnabled||!state.canArmBulldozerTest)}
-                        <p>Enable for the selected asset, then Everything-delete a supported prop or nested group and use Undo or Redo above.</p>
-                        {button(state.mainHistoryEnabled?"Standalone prop Undo enabled":"Enable standalone prop Undo",()=>command("armMainTest"),state.mainHistoryEnabled||!state.canArmMainTest)}
-                        <p>Supported standalone props are captured automatically in Main or Everything mode when recovery is on. The button also enables this mode manually. Switching between asset and standalone recovery clears previous history.</p>
-                        <p>Areas and surfaces are captured automatically on an area-only asset. Mixed areas with props, networks, lanes or effects are not supported yet.</p>
-                    <strong>Use a disposable copy. Do not save these edits.</strong>
-                    </div>
-                    <p>{state.status}</p>
-                    {button(diagnostics?"Hide diagnostic tools":"Show diagnostic tools",()=>setDiagnostics(!diagnostics))}
-                    {diagnostics && <div className="mw-tools-diagnostics">
-                        {button("Check full prop history",()=>command("startFullPropTest"),!state.canArmBulldozerTest)}
-                        <p>Checks the complete enabled prop set. Wait for “Test ready” and follow the number of deletions shown there.</p>
-                        {button("Check two prop deletions",()=>command("startNestedBatchTest"),!state.canArmBulldozerTest)}
-                        <p>Start the check on a saved test copy, wait for “Test ready”, Everything-delete two supported props or groups, then wait for Passed or Stopped.</p>
-                        <p>Automatic nested test: wait for “Test ready”, then Everything-delete one group. Undo → Redo → Undo runs automatically.</p>
-                        {button("Start test",()=>command("startNestedRecoveryTest"))}
-                        <p>Older manual test controls</p>
-                        {button("Arm Sub-element history test",()=>command("armBulldozerTest"),!state.canArmBulldozerTest)}
-                        {button("Arm Main prop history test",()=>command("armMainTest"),!state.canArmMainTest)}
-                        {button("Arm last bound prop test",()=>command("armLastPropTest"),!state.canArmBulldozerTest)}
-                        {button("Create area test copy",()=>command("createAreaFixture"),!state.canArmBulldozerTest)}
-                        <p>Select the saved mixed test asset first. This creates a separate area-only test copy, leaving the original unchanged. Place once, press Escape, select the outer asset, then Everything-delete one surface or walking area and use Undo → Redo → Undo. Do not save test edits.</p>
-                        {button("Create nested fixture",()=>command("createNestedFixture"),!state.canArmBulldozerTest)}
-                        {button("Inspect nested fixture",()=>command("inspectNestedFixture"),!state.available)}
-                        {button("Arm nested group test",()=>command("armNestedGroupTest"),!state.canArmBulldozerTest)}
-                        {button("Arm nested set test",()=>command("armNestedForestTest"),!state.canArmBulldozerTest)}
-                    </div>}
-                    <p>{shortcutLabel(state.settings.undoModifiers,state.settings.undoKey)}: Undo · {shortcutLabel(state.settings.redoModifiers,state.settings.redoKey)}: Redo</p>
-                    <div className="mw-tools-history">{state.recent?.length ? state.recent.map((label,index)=><div key={index}>{label}</div>):"No recoverable deletions in this context."}</div>
-                </>}
-                {tab===tabs[4] && <MultiSaveContent/>}
-                {tab===tabs[3] && <ColourVariationsContent/>}
-                {tab!==tabs[0] && tab!==tabs[3] && tab!==tabs[4] && <p>{tab} is planned for a later phase. Its existing standalone mod remains separate.</p>}
+                <p className="mw-tools-introduction">{introductions[tabs.indexOf(tab)]}</p>
+                {tab===tabs[0] && <PropReplacerContent/>}
+                {tab===tabs[1] && <ComponentsContent/>}
+                {tab===tabs[2] && <ColourVariationsContent/>}
+                {tab===tabs[3] && <MultiSaveContent/>}
                 </div>
             </div>
         </NativePanel>}
@@ -124,10 +109,6 @@ function Tools() {
 const register:ModRegistrar = registry => {registry.append("Editor",Launcher);registry.append("Editor",Tools);};
 export const hasCSS = true;
 export default register;
-
-
-
-
 
 
 

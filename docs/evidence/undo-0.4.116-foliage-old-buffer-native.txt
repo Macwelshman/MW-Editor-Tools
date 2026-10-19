@@ -1,0 +1,98 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FillOldSubObjectsBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean)
+IL_0000: ldarga.s subObjects
+IL_0002: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0007: brtrue.s IL_000a
+IL_0009: ret
+IL_000a: ldarg.3
+IL_000b: ldc.i4.2
+IL_000c: call System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsData::EnsureOldEntities(Unity.Collections.Allocator)
+IL_0011: ldc.i4.0
+IL_0012: stloc.0
+IL_0013: br IL_00ff
+IL_0018: ldarga.s subObjects
+IL_001a: ldloc.0
+IL_001b: call !0 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Item(System.Int32)
+IL_0020: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_0025: stloc.1
+IL_0026: ldarg.0
+IL_0027: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OwnerData
+IL_002c: ldloc.1
+IL_002d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_0032: brfalse IL_00fb
+IL_0037: ldarg.0
+IL_0038: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_ServiceUpgradeData
+IL_003d: ldloc.1
+IL_003e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_0043: brtrue IL_00fb
+IL_0048: ldarg.0
+IL_0049: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_BuildingData
+IL_004e: ldloc.1
+IL_004f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::HasComponent(Unity.Entities.Entity)
+IL_0054: brtrue IL_00fb
+IL_0059: ldarg.0
+IL_005a: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Secondary> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_SecondaryData
+IL_005f: ldloc.1
+IL_0060: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Secondary>::HasComponent(Unity.Entities.Entity)
+IL_0065: brtrue IL_00fb
+IL_006a: ldarg.0
+IL_006b: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_OwnerData
+IL_0070: ldloc.1
+IL_0071: call !0 Unity.Entities.ComponentLookup`1<Game.Common.Owner>::get_Item(Unity.Entities.Entity)
+IL_0076: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_007b: ldarg.1
+IL_007c: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0081: brfalse.s IL_00fb
+IL_0083: ldarg.s isTemp
+IL_0085: ldarg.0
+IL_0086: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_008b: ldloc.1
+IL_008c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_0091: bne.un.s IL_00fb
+IL_0093: ldarg.s useIgnoreSet
+IL_0095: brfalse.s IL_00a5
+IL_0097: ldarg.0
+IL_0098: ldflda Unity.Collections.NativeParallelHashSet`1<Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_IgnoreSet
+IL_009d: ldloc.1
+IL_009e: call System.Boolean Unity.Collections.NativeParallelHashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_00a3: brtrue.s IL_00fb
+IL_00a5: ldarg.0
+IL_00a6: ldfld System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorMode
+IL_00ab: brfalse.s IL_00dc
+IL_00ad: ldarg.0
+IL_00ae: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorContainerData
+IL_00b3: ldloc.1
+IL_00b4: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::HasComponent(Unity.Entities.Entity)
+IL_00b9: brfalse.s IL_00dc
+IL_00bb: ldarg.0
+IL_00bc: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_EditorContainerData
+IL_00c1: ldloc.1
+IL_00c2: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::get_Item(Unity.Entities.Entity)
+IL_00c7: stloc.2
+IL_00c8: ldarg.3
+IL_00c9: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_00ce: ldloc.2
+IL_00cf: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_00d4: ldloc.1
+IL_00d5: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::Add(!0,!1)
+IL_00da: br.s IL_00fb
+IL_00dc: ldarg.0
+IL_00dd: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabRefData
+IL_00e2: ldloc.1
+IL_00e3: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_00e8: stloc.3
+IL_00e9: ldarg.3
+IL_00ea: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_00ef: ldloc.3
+IL_00f0: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_00f5: ldloc.1
+IL_00f6: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::Add(!0,!1)
+IL_00fb: ldloc.0
+IL_00fc: ldc.i4.1
+IL_00fd: add
+IL_00fe: stloc.0
+IL_00ff: ldloc.0
+IL_0100: ldarga.s subObjects
+IL_0102: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0107: blt IL_0018
+IL_010c: ret

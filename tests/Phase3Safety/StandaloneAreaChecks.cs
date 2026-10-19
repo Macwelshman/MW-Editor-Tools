@@ -1,0 +1,14 @@
+using System;using Game.Areas;using Game.Tools;using Unity.Mathematics;using MW.EditorTools.Modules.BulldozerRecovery;
+internal static class StandaloneAreaChecks {
+static int checks;static void Check(bool v,string label){if(!v)throw new Exception("Standalone area: "+label);checks++;}
+static void Refused(Action action,string label){try{action();}catch(NotSupportedException){checks++;return;}throw new Exception(label);}
+internal static int Run(){
+var nodes=new[]{new Node{m_Position=new float3(0,2,0),m_Elevation=1},new Node{m_Position=new float3(4,2,0),m_Elevation=2},new Node{m_Position=new float3(0,2,4),m_Elevation=3}};
+var local=new[]{new LocalNodeCache{m_Position=new float3(0),m_ParentMesh=-1},new LocalNodeCache{m_Position=new float3(4,0,0),m_ParentMesh=2},new LocalNodeCache{m_Position=new float3(0,0,4),m_ParentMesh=5}};
+var image=new StandaloneAreaData((AreaFlags)1,nodes,local);var duplicate=new StandaloneAreaData(image.Flags,image.Nodes,image.Local);
+Check(image.Matches(duplicate),"geometry and parent mesh values roundtrip");nodes[0]=new Node();local[0]=new LocalNodeCache();Check(image.Matches(duplicate),"source arrays detached");var copy=image.Nodes;copy[1]=new Node();var cache=image.Local;cache[1]=new LocalNodeCache();Check(image.Matches(duplicate),"getters cannot mutate snapshot");
+Check(!image.Matches(new StandaloneAreaData((AreaFlags)2,image.Nodes,image.Local)),"area flags preserved");var changed=image.Nodes;changed[1].m_Elevation+=1;Check(!image.Matches(new StandaloneAreaData(image.Flags,changed,image.Local)),"elevation change detected");changed=image.Nodes;changed[1].m_Position.x+=1;Check(!image.Matches(new StandaloneAreaData(image.Flags,changed,image.Local)),"node move detected");cache=image.Local;cache[2].m_ParentMesh++;Check(!image.Matches(new StandaloneAreaData(image.Flags,image.Nodes,cache)),"parent mesh change detected");
+var unbound=new StandaloneAreaData(image.Flags,image.Nodes,null);Check(unbound.Matches(new StandaloneAreaData(image.Flags,unbound.Nodes,null)),"standalone geometry works without local cache");Check(unbound.Local==null&&!unbound.Matches(image),"absent cache not confused with populated cache");Check(!image.Matches(null),"missing image refused");
+Refused(()=>new StandaloneAreaData(0,null,null),"missing nodes");Refused(()=>new StandaloneAreaData(0,new Node[2],null),"too few vertices");Refused(()=>new StandaloneAreaData(0,new Node[4097],null),"vertex budget");Refused(()=>new StandaloneAreaData(0,image.Nodes,new LocalNodeCache[2]),"cache shape");changed=image.Nodes;changed[0].m_Position=new float3(float.NaN);Refused(()=>new StandaloneAreaData(0,changed,null),"nonfinite vertex");changed=image.Nodes;changed[0].m_Elevation=float.PositiveInfinity;Refused(()=>new StandaloneAreaData(0,changed,null),"nonfinite elevation");cache=image.Local;cache[0].m_Position=new float3(float.NegativeInfinity);Refused(()=>new StandaloneAreaData(0,image.Nodes,cache),"nonfinite cache");
+return checks;
+}}

@@ -14,9 +14,10 @@ namespace MW.EditorTools.Settings
         public string undoKey = "Z", redoKey = "Z";
         public int undoModifiers = 1, redoModifiers = 3;
         public bool browserShortcuts;
-        public string buildingsKey="B", propsKey="P", foliageKey="F", areasKey="A", effectsKey="E", surfacesKey="S";
-        public int buildingsModifiers=5, propsModifiers=5, foliageModifiers=5, areasModifiers=5, effectsModifiers=5, surfacesModifiers=5;
+        public string buildingsKey="B", propsKey="D", foliageKey="F", areasKey="A", effectsKey="E", surfacesKey="S";
+        public int buildingsModifiers=4, propsModifiers=4, foliageModifiers=4, areasModifiers=4, effectsModifiers=4, surfacesModifiers=4;
         internal static readonly string[] BrowserCategories={"Buildings","Props","Foliage","Areas","Effects","Surfaces"};
+        internal static readonly string[] BrowserDefaultKeys={"B","D","F","A","E","S"};
         internal string BrowserKey(int i)=>i switch {0=>buildingsKey,1=>propsKey,2=>foliageKey,3=>areasKey,4=>effectsKey,5=>surfacesKey,_=>throw new ArgumentOutOfRangeException(nameof(i))};
         internal int BrowserModifiers(int i)=>i switch {0=>buildingsModifiers,1=>propsModifiers,2=>foliageModifiers,3=>areasModifiers,4=>effectsModifiers,5=>surfacesModifiers,_=>throw new ArgumentOutOfRangeException(nameof(i))};
         internal bool BrowserConflict(string key,int modifiers,int self=-1) {
@@ -55,7 +56,7 @@ namespace MW.EditorTools.Settings
             undoKey = NormalizeKey(undoKey); redoKey = NormalizeKey(redoKey);
             for(int i=0;i<BrowserCategories.Length;i++) {
                 string key;var mask=BrowserModifiers(i);
-                SetBrowserShortcut(i,TryLetter(BrowserKey(i),out key)?key:BrowserCategories[i].Substring(0,1),mask>=0&&mask<=15?mask:5);
+                SetBrowserShortcut(i,TryLetter(BrowserKey(i),out key)?key:BrowserDefaultKeys[i],mask>=0&&mask<=15?mask:4);
             }
             if (undoModifiers < 0 || undoModifiers > 15) undoModifiers = 1;
             if (redoModifiers < 0 || redoModifiers > 15) redoModifiers = 3;
@@ -108,7 +109,7 @@ namespace MW.EditorTools.Settings
             if (json.IndexOf("\"redoModifiers\"", StringComparison.Ordinal) < 0) redoModifiers = 3;
             for(int i=0;i<BrowserCategories.Length;i++) {
                 var name=BrowserCategories[i].ToLowerInvariant();
-                if(json.IndexOf("\""+name+"Key\"",StringComparison.Ordinal)<0) SetBrowserShortcut(i,BrowserCategories[i].Substring(0,1),5);
+                if(json.IndexOf("\""+name+"Key\"",StringComparison.Ordinal)<0 || (BrowserModifiers(i)==5 && BrowserKey(i)==(i==1?"P":BrowserDefaultKeys[i]))) SetBrowserShortcut(i,BrowserDefaultKeys[i],4);
             }
         }
         internal bool ApplyOptions(bool enabled, string limit, string undo, string redo)
@@ -130,3 +131,4 @@ namespace MW.EditorTools.Settings
         }
     }
 }
+

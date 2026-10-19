@@ -1,0 +1,133 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Unity.Jobs.JobHandle Game.Tools.ObjectToolSystem::UpdateSubReplacementDefinitions(Unity.Jobs.JobHandle)
+IL_00ff: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0104: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Fixed>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0109: stfld Unity.Entities.ComponentLookup`1<Game.Net.Fixed> Game.Tools.NetToolSystem/CreateDefinitionsJob::m_FixedData
+IL_010e: ldloca.s V_2
+IL_0110: ldarg.0
+IL_0111: ldflda Game.Tools.ObjectToolSystem/TypeHandle Game.Tools.ObjectToolSystem::__TypeHandle
+IL_0116: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Tools.ObjectToolSystem/TypeHandle::__Game_Tools_EditorContainer_RO_ComponentLookup
+IL_011b: ldarg.0
+IL_011c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0121: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.EditorContainer>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0126: stfld Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Tools.NetToolSystem/CreateDefinitionsJob::m_EditorContainerData
+IL_012b: ldloca.s V_2
+IL_012d: ldarg.0
+IL_012e: ldflda Game.Tools.ObjectToolSystem/TypeHandle Game.Tools.ObjectToolSystem::__TypeHandle
+IL_0133: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.ObjectToolSystem/TypeHandle::__Game_Common_Owner_RO_ComponentLookup
+IL_0138: ldarg.0
+IL_0139: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_013e: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Owner>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0143: stfld Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.NetToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_0148: ldloca.s V_2
+IL_014a: ldarg.0
+IL_014b: ldflda Game.Tools.ObjectToolSystem/TypeHandle Game.Tools.ObjectToolSystem::__TypeHandle
+IL_0150: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Tools.ObjectToolSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentLookup
+IL_0155: ldarg.0
+IL_0156: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+System.Void Game.Prefabs.EffectPrefab::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.PrefabBase::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.EffectData>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ret
+System.Void Game.Prefabs.EffectPrefab::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.PrefabBase::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarga.s entityManager
+IL_000a: ldarg.2
+IL_000b: ldloca.s V_0
+IL_000d: initobj Game.Prefabs.EffectData
+IL_0013: ldloca.s V_0
+IL_0015: ldarg.0
+IL_0016: ldarg.1
+IL_0017: ldarg.2
+IL_0018: call Unity.Entities.EntityArchetype Game.Prefabs.EffectPrefab::GetArchetype(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_001d: stfld Unity.Entities.EntityArchetype Game.Prefabs.EffectData::m_Archetype
+IL_0022: ldloca.s V_0
+IL_0024: ldloca.s V_1
+IL_0026: initobj Game.Prefabs.EffectCondition
+IL_002c: ldloca.s V_1
+IL_002e: ldarg.0
+IL_002f: ldflda Game.Prefabs.EffectCondition Game.Prefabs.EffectPrefab::m_Conditions
+IL_0034: ldfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_RequiredFlags
+IL_0039: stfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_RequiredFlags
+IL_003e: ldloca.s V_1
+IL_0040: ldarg.0
+IL_0041: ldflda Game.Prefabs.EffectCondition Game.Prefabs.EffectPrefab::m_Conditions
+IL_0003: call System.Void Game.Prefabs.PrefabBase::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarga.s entityManager
+IL_000a: ldarg.2
+IL_000b: ldloca.s V_0
+IL_000d: initobj Game.Prefabs.EffectData
+IL_0013: ldloca.s V_0
+IL_0015: ldarg.0
+IL_0016: ldarg.1
+IL_0017: ldarg.2
+IL_0018: call Unity.Entities.EntityArchetype Game.Prefabs.EffectPrefab::GetArchetype(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_001d: stfld Unity.Entities.EntityArchetype Game.Prefabs.EffectData::m_Archetype
+IL_0022: ldloca.s V_0
+IL_0024: ldloca.s V_1
+IL_0026: initobj Game.Prefabs.EffectCondition
+IL_002c: ldloca.s V_1
+IL_002e: ldarg.0
+IL_002f: ldflda Game.Prefabs.EffectCondition Game.Prefabs.EffectPrefab::m_Conditions
+IL_0034: ldfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_RequiredFlags
+IL_0039: stfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_RequiredFlags
+IL_003e: ldloca.s V_1
+IL_0040: ldarg.0
+IL_0041: ldflda Game.Prefabs.EffectCondition Game.Prefabs.EffectPrefab::m_Conditions
+IL_0046: ldfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_ForbiddenFlags
+IL_004b: stfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_ForbiddenFlags
+IL_0050: ldloca.s V_1
+IL_0040: ldarg.0
+IL_0041: ldflda Game.Prefabs.EffectCondition Game.Prefabs.EffectPrefab::m_Conditions
+IL_0046: ldfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_ForbiddenFlags
+IL_004b: stfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_ForbiddenFlags
+IL_0050: ldloca.s V_1
+IL_0052: ldarg.0
+IL_0053: ldflda Game.Prefabs.EffectCondition Game.Prefabs.EffectPrefab::m_Conditions
+IL_0058: ldfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_IntensityFlags
+IL_005d: stfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_IntensityFlags
+IL_0062: ldloc.1
+IL_0063: stfld Game.Prefabs.EffectCondition Game.Prefabs.EffectData::m_Flags
+IL_0068: ldloca.s V_0
+IL_006a: ldarg.0
+IL_006b: ldfld System.Boolean Game.Prefabs.EffectPrefab::m_DisableDistanceCulling
+IL_0070: ldc.i4.0
+IL_0071: ceq
+IL_0073: stfld System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+IL_0078: ldloc.0
+IL_0079: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.EffectData>(Unity.Entities.Entity,!!0)
+IL_007e: ret
+IL_0053: ldflda Game.Prefabs.EffectCondition Game.Prefabs.EffectPrefab::m_Conditions
+IL_0058: ldfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_IntensityFlags
+IL_005d: stfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_IntensityFlags
+IL_0062: ldloc.1
+IL_0063: stfld Game.Prefabs.EffectCondition Game.Prefabs.EffectData::m_Flags
+IL_0068: ldloca.s V_0
+IL_006a: ldarg.0
+IL_006b: ldfld System.Boolean Game.Prefabs.EffectPrefab::m_DisableDistanceCulling
+IL_0070: ldc.i4.0
+IL_0071: ceq
+IL_0073: stfld System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+IL_0078: ldloc.0
+IL_0079: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.EffectData>(Unity.Entities.Entity,!!0)
+IL_007e: ret
+IL_005d: stfld Game.Prefabs.EffectConditionFlags Game.Prefabs.EffectCondition::m_IntensityFlags
+IL_0062: ldloc.1
+IL_0063: stfld Game.Prefabs.EffectCondition Game.Prefabs.EffectData::m_Flags
+IL_0068: ldloca.s V_0
+IL_006a: ldarg.0
+IL_006b: ldfld System.Boolean Game.Prefabs.EffectPrefab::m_DisableDistanceCulling
+IL_0070: ldc.i4.0
+IL_0071: ceq
+IL_0073: stfld System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+IL_0078: ldloc.0
+IL_0079: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.EffectData>(Unity.Entities.Entity,!!0)
+IL_007e: ret

@@ -1,0 +1,168 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::Execute(System.Int32)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::HasSubRequirements(Unity.Entities.Entity)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FillOldSubObjectsBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FillOriginalSubObjectsBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FillClearAreas(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RemoveUnusedOldSubObjects(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::DuplicateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RelocateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Areas.Area,Game.Areas.Geometry,Unity.Entities.DynamicBuffer`1<Game.Areas.Node>,Unity.Entities.DynamicBuffer`1<Game.Areas.Triangle>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObjects(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Game.Tools.Temp,System.Single,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::GetPropID(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.TransformFrame,Game.Prefabs.ActivityCondition,Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>,Game.Rendering.AnimatedPropID&)
+Unity.Mathematics.int2 Game.Objects.SubObjectSystem/UpdateSubObjectsJob::GetFixedRange(Unity.Entities.Entity)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::IsDeadEnd(Unity.Entities.Entity,System.Boolean&)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::IsAbruptEnd(Unity.Entities.Entity)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::IsOrphan(Unity.Entities.Entity)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::IsWaterwayCrossing(Unity.Entities.Entity,Unity.Entities.Entity)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::IsWaterwayCrossing(Unity.Entities.Entity)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::IsContinuous(Unity.Entities.Entity,Unity.Entities.Entity)
+System.Boolean Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CheckRequirements(Unity.Entities.Entity,System.Int32,System.Boolean,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::EnsurePlaceholderRequirements(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Mathematics.Random&,System.Boolean)
+System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::AddAffiliatedBrands(Unity.Entities.Entity,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Mathematics.Random&)
+Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_0000: ldarg.3
+IL_0001: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_0006: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+IL_000b: brfalse.s IL_0065
+IL_000d: ldarg.3
+IL_000e: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_0013: ldarg.1
+IL_0014: ldloca.s V_0
+IL_0016: ldloca.s V_1
+IL_0018: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::TryGetFirstValue(!0,!1&,Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>&)
+IL_001d: brfalse.s IL_0065
+IL_001f: ldarg.0
+IL_0020: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_0025: ldloc.0
+IL_0026: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_002b: brfalse.s IL_0054
+IL_002d: ldarg.0
+IL_002e: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_0033: ldloc.0
+IL_0034: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::get_Item(Unity.Entities.Entity)
+IL_0039: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_003e: ldarg.2
+IL_003f: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0044: brfalse.s IL_0054
+IL_0046: ldarg.3
+IL_0047: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_004c: ldloc.1
+IL_004d: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::Remove(Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>)
+IL_0052: ldloc.0
+IL_0053: ret
+IL_0054: ldarg.3
+IL_0055: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_005a: ldloca.s V_0
+IL_005c: ldloca.s V_1
+IL_005e: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::TryGetNextValue(!1&,Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>&)
+IL_0063: brtrue.s IL_001f
+IL_0065: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_006a: ret
+Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_0000: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0005: stloc.0
+IL_0006: ldarg.s updateData
+IL_0008: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_000d: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::get_IsCreated()
+IL_0012: brfalse IL_0109
+IL_0017: ldarg.s updateData
+IL_0019: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_001e: ldarg.1
+IL_001f: ldloca.s V_1
+IL_0021: ldloca.s V_2
+IL_0023: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::TryGetFirstValue(!0,!1&,Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>&)
+IL_0028: brfalse IL_0109
+IL_002d: ldc.r4 0
+IL_0032: stloc.3
+IL_0033: ldarg.3
+IL_0034: ldc.i4.0
+IL_0035: blt.s IL_0060
+IL_0037: ldarg.0
+IL_0038: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Aligned> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AlignedData
+IL_003d: ldloc.1
+IL_003e: ldloca.s V_5
+IL_0040: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Aligned>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0045: brfalse.s IL_007f
+IL_0047: ldloc.s V_5
+IL_0049: ldfld System.UInt16 Game.Objects.Aligned::m_SubObjectIndex
+IL_004e: ldarg.3
+IL_004f: bne.un.s IL_007f
+IL_0051: ldarg.s updateData
+IL_0053: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_0058: ldloc.2
+IL_0059: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::Remove(Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>)
+IL_005e: ldloc.1
+IL_005f: ret
+IL_0060: ldloc.1
+IL_0061: stloc.0
+IL_0062: ldarg.0
+IL_0063: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformData
+IL_0068: ldloc.1
+IL_0069: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_006e: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0073: ldarg.2
+IL_0074: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0079: call System.Single Unity.Mathematics.math::distance(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_007e: stloc.3
+IL_007f: ldloc.2
+IL_0080: stloc.s V_4
+IL_0082: br.s IL_00dc
+IL_0084: ldarg.3
+IL_0085: ldc.i4.0
+IL_0086: blt.s IL_00b1
+IL_0088: ldarg.0
+IL_0089: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Aligned> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_AlignedData
+IL_008e: ldloc.1
+IL_008f: ldloca.s V_6
+IL_0091: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Aligned>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0096: brfalse.s IL_00dc
+IL_0098: ldloc.s V_6
+IL_009a: ldfld System.UInt16 Game.Objects.Aligned::m_SubObjectIndex
+IL_009f: ldarg.3
+IL_00a0: bne.un.s IL_00dc
+IL_00a2: ldarg.s updateData
+IL_00a4: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_00a9: ldloc.2
+IL_00aa: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::Remove(Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>)
+IL_00af: ldloc.1
+IL_00b0: ret
+IL_00b1: ldarg.0
+IL_00b2: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformData
+IL_00b7: ldloc.1
+IL_00b8: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_00bd: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_00c2: ldarg.2
+IL_00c3: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_00c8: call System.Single Unity.Mathematics.math::distance(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_00cd: stloc.s V_7
+IL_00cf: ldloc.s V_7
+IL_00d1: ldloc.3
+IL_00d2: bge.un.s IL_00dc
+IL_00d4: ldloc.1
+IL_00d5: stloc.0
+IL_00d6: ldloc.s V_7
+IL_00d8: stloc.3
+IL_00d9: ldloc.2
+IL_00da: stloc.s V_4
+IL_00dc: ldarg.s updateData
+IL_00de: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_00e3: ldloca.s V_1
+IL_00e5: ldloca.s V_2
+IL_00e7: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::TryGetNextValue(!1&,Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>&)
+IL_00ec: brtrue.s IL_0084
+IL_00ee: ldloc.0
+IL_00ef: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00f4: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00f9: brfalse.s IL_0109
+IL_00fb: ldarg.s updateData
+IL_00fd: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity> Game.Objects.SubObjectSystem/UpdateSubObjectsData::m_OldEntities
+IL_0102: ldloc.s V_4
+IL_0104: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>::Remove(Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>)
+IL_0109: ldloc.0
+IL_010a: ret

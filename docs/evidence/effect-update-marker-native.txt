@@ -1,0 +1,986 @@
+METHOD System.Void Game.UI.Editor.AnimationControlsPanel::SetLightState(Game.Objects.TransformFlags)
+IL_006b: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_0070: stloc.s V_6
+IL_0072: ldarg.0
+IL_0073: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0078: stloc.2
+IL_0079: ldloca.s V_2
+IL_007b: ldloc.s V_6
+IL_007d: call System.Boolean Unity.Entities.EntityManager::HasBuffer<Game.Effects.EnabledEffect>(Unity.Entities.Entity)
+IL_0082: brfalse.s IL_008d
+IL_0084: ldloca.s V_4
+IL_0086: ldloc.s V_6
+IL_0088: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.EffectsUpdated>(Unity.Entities.Entity)
+IL_008d: ldloca.s V_5
+IL_008f: call System.Boolean Unity.Collections.NativeArray`1/Enumerator<Game.Objects.SubObject>::MoveNext()
+IL_0094: brtrue.s IL_0064
+IL_0096: leave.s IL_00a6
+IL_0098: ldloca.s V_5
+IL_009a: constrained. Unity.Collections.NativeArray`1/Enumerator<Game.Objects.SubObject>
+IL_00a0: callvirt System.Void System.IDisposable::Dispose()
+IL_00a5: endfinally
+IL_00a6: ldloca.s V_4
+IL_00a8: ldarg.0
+IL_00a9: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+METHOD System.Void Game.Events.EndangerSystem/EndangerJob::Execute()
+IL_0240: ldloc.s V_14
+IL_0242: ldfld Game.Events.DangerFlags Game.Events.InDanger::m_Flags
+IL_0247: ldloc.s V_15
+IL_0249: ldfld Game.Events.DangerFlags Game.Events.InDanger::m_Flags
+IL_024e: beq.s IL_028f
+IL_0250: ldarg.0
+IL_0251: ldflda Unity.Entities.EntityCommandBuffer Game.Events.EndangerSystem/EndangerJob::m_CommandBuffer
+IL_0256: ldloc.s V_13
+IL_0258: ldloca.s V_16
+IL_025a: initobj Game.Common.EffectsUpdated
+IL_0260: ldloc.s V_16
+IL_0262: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.EffectsUpdated>(Unity.Entities.Entity,!!0)
+IL_0267: br.s IL_028f
+IL_0269: ldarg.0
+IL_026a: ldflda Unity.Entities.EntityCommandBuffer Game.Events.EndangerSystem/EndangerJob::m_CommandBuffer
+IL_026f: ldloc.s V_13
+IL_0271: ldloc.s V_14
+IL_0273: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Events.InDanger>(Unity.Entities.Entity,!!0)
+IL_0278: ldarg.0
+IL_0279: ldflda Unity.Entities.EntityCommandBuffer Game.Events.EndangerSystem/EndangerJob::m_CommandBuffer
+IL_027e: ldloc.s V_13
+IL_0280: ldloca.s V_16
+IL_0282: initobj Game.Common.EffectsUpdated
+IL_0288: ldloc.s V_16
+IL_028a: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.EffectsUpdated>(Unity.Entities.Entity,!!0)
+IL_028f: ldloc.s V_12
+IL_0291: ldc.i4.1
+IL_0292: add
+IL_0293: stloc.s V_12
+IL_0295: ldloc.s V_12
+IL_0297: ldloca.s V_11
+IL_0299: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_029e: blt IL_01fd
+IL_02a3: ret
+METHOD System.Void Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::UpdateStaticAnimations(System.Int32,Game.Rendering.PreCullingData,Unity.Mathematics.Random&)
+IL_0588: ldarg.0
+IL_0589: ldfld System.Boolean Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::m_EditorMode
+IL_058e: brfalse.s IL_05f4
+IL_0590: ldloc.s V_37
+IL_0592: ldfld System.Boolean Game.Rendering.Skeleton::m_CurrentUpdated
+IL_0597: brfalse.s IL_05f4
+IL_0599: ldarg.0
+IL_059a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::m_CommandBuffer
+IL_059f: ldarg.1
+IL_05a0: ldarg.2
+IL_05a1: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_05a6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_05ab: ldarg.0
+IL_05ac: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::m_SubObjectsData
+IL_05b1: ldarg.2
+IL_05b2: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_05b7: ldloca.s V_45
+IL_05b9: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_05be: brfalse.s IL_05f4
+IL_05c0: ldc.i4.0
+IL_05c1: stloc.s V_46
+IL_05c3: br.s IL_05e9
+IL_05c5: ldloca.s V_45
+IL_05c7: ldloc.s V_46
+IL_05c9: call !0& Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::ElementAt(System.Int32)
+IL_05ce: stloc.s V_47
+IL_05d0: ldarg.0
+IL_05d1: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::m_CommandBuffer
+IL_05d6: ldarg.1
+IL_05d7: ldloc.s V_47
+IL_05d9: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_05de: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_05e3: ldloc.s V_46
+IL_05e5: ldc.i4.1
+IL_05e6: add
+IL_05e7: stloc.s V_46
+IL_05e9: ldloc.s V_46
+IL_05eb: ldloca.s V_45
+IL_05ed: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_05f2: blt.s IL_05c5
+IL_05f4: ldloc.s V_36
+IL_05f6: ldc.i4.1
+IL_05f7: add
+METHOD System.Void Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::UpdateInterpolatedAnimations(System.Int32,Game.Rendering.PreCullingData,Unity.Entities.DynamicBuffer`1<Game.Objects.TransformFrame>,System.UInt32,System.UInt32,System.Single,System.Single,System.Single,System.Single,Unity.Mathematics.Random&)
+IL_046a: ldarg.0
+IL_046b: ldfld System.Boolean Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::m_EditorMode
+IL_0470: brfalse.s IL_04d6
+IL_0472: ldloc.s V_26
+IL_0474: ldfld System.Boolean Game.Rendering.Skeleton::m_CurrentUpdated
+IL_0479: brfalse.s IL_04d6
+IL_047b: ldarg.0
+IL_047c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::m_CommandBuffer
+IL_0481: ldarg.1
+IL_0482: ldarg.2
+IL_0483: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0488: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_048d: ldarg.0
+IL_048e: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::m_SubObjectsData
+IL_0493: ldarg.2
+IL_0494: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0499: ldloca.s V_37
+IL_049b: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_04a0: brfalse.s IL_04d6
+IL_04a2: ldc.i4.0
+IL_04a3: stloc.s V_38
+IL_04a5: br.s IL_04cb
+IL_04a7: ldloca.s V_37
+IL_04a9: ldloc.s V_38
+IL_04ab: call !0& Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::ElementAt(System.Int32)
+IL_04b0: stloc.s V_39
+IL_04b2: ldarg.0
+IL_04b3: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Rendering.ObjectInterpolateSystem/UpdateTransformDataJob::m_CommandBuffer
+IL_04b8: ldarg.1
+IL_04b9: ldloc.s V_39
+IL_04bb: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_04c0: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_04c5: ldloc.s V_38
+IL_04c7: ldc.i4.1
+IL_04c8: add
+IL_04c9: stloc.s V_38
+IL_04cb: ldloc.s V_38
+IL_04cd: ldloca.s V_37
+IL_04cf: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_04d4: blt.s IL_04a7
+IL_04d6: ldloc.s V_25
+IL_04d8: ldc.i4.1
+IL_04d9: add
+METHOD System.Void Game.Rendering.ObjectInterpolateSystem/UpdateTrailerTransformDataJob::UpdateInterpolatedCarTrailers(System.Int32,Game.Rendering.PreCullingData,Unity.Mathematics.Random&)
+IL_04d6: ldarg.0
+IL_04d7: ldfld System.Boolean Game.Rendering.ObjectInterpolateSystem/UpdateTrailerTransformDataJob::m_EditorMode
+IL_04dc: brfalse.s IL_0542
+IL_04de: ldloc.s V_34
+IL_04e0: ldfld System.Boolean Game.Rendering.Skeleton::m_CurrentUpdated
+IL_04e5: brfalse.s IL_0542
+IL_04e7: ldarg.0
+IL_04e8: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Rendering.ObjectInterpolateSystem/UpdateTrailerTransformDataJob::m_CommandBuffer
+IL_04ed: ldarg.1
+IL_04ee: ldarg.2
+IL_04ef: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_04f4: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_04f9: ldarg.0
+IL_04fa: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Rendering.ObjectInterpolateSystem/UpdateTrailerTransformDataJob::m_SubObjectsData
+IL_04ff: ldarg.2
+IL_0500: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0505: ldloca.s V_42
+IL_0507: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_050c: brfalse.s IL_0542
+IL_050e: ldc.i4.0
+IL_050f: stloc.s V_43
+IL_0511: br.s IL_0537
+IL_0513: ldloca.s V_42
+IL_0515: ldloc.s V_43
+IL_0517: call !0& Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::ElementAt(System.Int32)
+IL_051c: stloc.s V_44
+IL_051e: ldarg.0
+IL_051f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Rendering.ObjectInterpolateSystem/UpdateTrailerTransformDataJob::m_CommandBuffer
+IL_0524: ldarg.1
+IL_0525: ldloc.s V_44
+IL_0527: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_052c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0531: ldloc.s V_43
+IL_0533: ldc.i4.1
+IL_0534: add
+IL_0535: stloc.s V_43
+IL_0537: ldloc.s V_43
+IL_0539: ldloca.s V_42
+IL_053b: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0540: blt.s IL_0513
+IL_0542: ldloc.s V_33
+IL_0544: ldc.i4.1
+IL_0545: add
+METHOD System.Void Game.Simulation.ExtractorFacilityAISystem/ExtractorFacilityTickJob::Tick(System.Int32,Unity.Entities.Entity,Unity.Mathematics.Random&,Game.Buildings.ExtractorFacility&,Game.Common.PointOfInterest&,Game.Common.Owner,Game.Prefabs.PrefabRef)
+IL_0087: ldfld Game.Buildings.BuildingFlags Game.Buildings.Building::m_Flags
+IL_008c: ldarg.s extractorFacility
+IL_008e: ldfld Game.Buildings.BuildingFlags Game.Buildings.ExtractorFacility::m_MainBuildingFlags
+IL_0093: xor
+IL_0094: ldc.i4.4
+IL_0095: and
+IL_0096: brfalse.s IL_00b3
+IL_0098: ldarg.0
+IL_0099: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.ExtractorFacilityAISystem/ExtractorFacilityTickJob::m_CommandBuffer
+IL_009e: ldarg.1
+IL_009f: ldarg.2
+IL_00a0: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_00a5: ldarg.s extractorFacility
+IL_00a7: ldloc.s V_4
+IL_00a9: ldfld Game.Buildings.BuildingFlags Game.Buildings.Building::m_Flags
+IL_00ae: stfld Game.Buildings.BuildingFlags Game.Buildings.ExtractorFacility::m_MainBuildingFlags
+IL_00b3: ldarg.3
+IL_00b4: ldc.r4 1
+IL_00b9: call System.Single Unity.Mathematics.Random::NextFloat(System.Single)
+IL_00be: ldloc.3
+IL_00bf: bge.un IL_01a0
+IL_00c4: ldarg.s extractorFacility
+IL_00c6: ldfld Game.Buildings.ExtractorFlags Game.Buildings.ExtractorFacility::m_Flags
+METHOD System.Void Game.Simulation.BuildingEfficiencySystem/LowEfficiencyJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_00bb: ldloc.s V_4
+IL_00bd: brfalse.s IL_0116
+IL_00bf: ldloc.s V_7
+IL_00c1: ldloc.s V_8
+IL_00c3: beq.s IL_0116
+IL_00c5: ldarg.0
+IL_00c6: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.BuildingEfficiencySystem/LowEfficiencyJob::m_CommandBuffer
+IL_00cb: ldarg.2
+IL_00cc: ldloca.s V_0
+IL_00ce: ldloc.s V_5
+IL_00d0: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_00d5: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_00da: ldloc.3
+IL_00db: ldloc.s V_5
+IL_00dd: ldloca.s V_9
+IL_00df: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Buildings.InstalledUpgrade>(Unity.Entities.BufferAccessor`1<!!0>,System.Int32,Unity.Entities.DynamicBuffer`1<!!0>&)
+IL_00e4: brfalse.s IL_0116
+IL_00e6: ldc.i4.0
+IL_00e7: stloc.s V_10
+IL_00e9: br.s IL_010b
+IL_00eb: ldarg.0
+IL_00ec: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.BuildingEfficiencySystem/LowEfficiencyJob::m_CommandBuffer
+IL_00f1: ldarg.2
+IL_00f2: ldloca.s V_9
+IL_00f4: ldloc.s V_10
+IL_00f6: call !0 Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_Item(System.Int32)
+IL_00fb: ldfld Unity.Entities.Entity Game.Buildings.InstalledUpgrade::m_Upgrade
+IL_0100: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0105: ldloc.s V_10
+IL_0107: ldc.i4.1
+IL_0108: add
+IL_0109: stloc.s V_10
+IL_010b: ldloc.s V_10
+IL_010d: ldloca.s V_9
+IL_010f: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_Length()
+IL_0114: blt.s IL_00eb
+IL_0116: ldloc.s V_5
+IL_0118: ldc.i4.1
+IL_0119: add
+METHOD System.Void Game.Simulation.InDangerSystem/InDangerJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0044: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.InDangerSystem/InDangerJob::m_CommandBuffer
+IL_0049: ldarg.2
+IL_004a: ldloc.3
+IL_004b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Events.InDanger>(System.Int32,Unity.Entities.Entity)
+IL_0050: ldarg.0
+IL_0051: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.InDangerSystem/InDangerJob::m_CommandBuffer
+IL_0056: ldarg.2
+IL_0057: ldloc.3
+IL_0058: ldloca.s V_5
+IL_005a: initobj Game.Common.EffectsUpdated
+IL_0060: ldloc.s V_5
+IL_0062: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0067: ldloc.s V_4
+IL_0069: ldfld Game.Events.DangerFlags Game.Events.InDanger::m_Flags
+IL_006e: ldc.i4.s 14
+IL_0070: and
+IL_0071: ldc.i4.s 14
+IL_0073: bne.un.s IL_007f
+IL_0075: ldarg.0
+IL_0076: ldarg.2
+IL_0077: ldloc.3
+IL_0078: ldloca.s V_4
+IL_007a: call System.Void Game.Simulation.InDangerSystem/InDangerJob::RequestEvacuationIfNeeded(System.Int32,Unity.Entities.Entity,Game.Events.InDanger&)
+METHOD System.Void Game.Simulation.WeatherPhenomenonSystem/WeatherPhenomenonJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_045e: ceq
+IL_0460: ldc.i4.0
+IL_0461: ceq
+IL_0463: beq.s IL_047d
+IL_0465: ldarg.0
+IL_0466: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.WeatherPhenomenonSystem/WeatherPhenomenonJob::m_CommandBuffer
+IL_046b: ldarg.2
+IL_046c: ldloc.s V_11
+IL_046e: ldloca.s V_29
+IL_0470: initobj Game.Common.EffectsUpdated
+IL_0476: ldloc.s V_29
+IL_0478: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_047d: ldarg.0
+IL_047e: ldfld System.UInt32 Game.Simulation.WeatherPhenomenonSystem/WeatherPhenomenonJob::m_SimulationFrame
+IL_0483: ldloc.s V_12
+IL_0485: ldfld System.UInt32 Game.Events.Duration::m_StartFrame
+IL_048a: ble.un.s IL_049d
+IL_048c: ldarg.0
+IL_048d: ldfld System.UInt32 Game.Simulation.WeatherPhenomenonSystem/WeatherPhenomenonJob::m_SimulationFrame
+IL_0492: ldloc.s V_12
+IL_0494: ldfld System.UInt32 Game.Events.Duration::m_EndFrame
+IL_0499: clt.un
+IL_049b: br.s IL_049e
+IL_04ff: br.s IL_0522
+IL_0501: ldloca.s V_31
+IL_0503: call !0 Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>::get_Current()
+IL_0508: stloc.s V_32
+IL_050a: ldarg.0
+IL_050b: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.WeatherPhenomenonSystem/WeatherPhenomenonJob::m_CommandBuffer
+IL_0510: ldarg.2
+IL_0511: ldloc.s V_32
+IL_0513: ldloca.s V_29
+IL_0515: initobj Game.Common.EffectsUpdated
+IL_051b: ldloc.s V_29
+IL_051d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0522: ldloca.s V_31
+IL_0524: call System.Boolean Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>::MoveNext()
+IL_0529: brtrue.s IL_0501
+IL_052b: leave.s IL_053b
+IL_052d: ldloca.s V_31
+IL_052f: constrained. Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>
+IL_0535: callvirt System.Void System.IDisposable::Dispose()
+IL_053a: endfinally
+IL_053b: ldloc.s V_10
+IL_053d: ldc.i4.1
+IL_053e: add
+METHOD System.Void Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_02c6: or
+IL_02c7: stind.i4
+IL_02c8: ldarg.0
+IL_02c9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::m_CommandBuffer
+IL_02ce: ldarg.2
+IL_02cf: ldloca.s V_0
+IL_02d1: ldloc.s V_21
+IL_02d3: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_02d8: ldloca.s V_26
+IL_02da: initobj Game.Common.EffectsUpdated
+IL_02e0: ldloc.s V_26
+IL_02e2: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_02e7: ldloca.s V_7
+IL_02e9: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Objects.SubObject>::get_Length()
+IL_02ee: brfalse.s IL_030b
+IL_02f0: ldloca.s V_7
+IL_02f2: ldloc.s V_21
+IL_02f4: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Objects.SubObject>::get_Item(System.Int32)
+IL_02f9: stloc.s V_27
+IL_02fb: ldarg.0
+IL_02fc: ldarg.2
+IL_02fd: ldloc.s V_27
+IL_02ff: ldloc.s V_22
+METHOD System.Void Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::UpdateStreetLightObjects(System.Int32,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Net.Road)
+IL_002b: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight> Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::m_StreetLightData
+IL_0030: ldloc.1
+IL_0031: ldloc.2
+IL_0032: call System.Void Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight>::set_Item(Unity.Entities.Entity,!0)
+IL_0037: ldarg.0
+IL_0038: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::m_CommandBuffer
+IL_003d: ldarg.1
+IL_003e: ldloc.1
+IL_003f: ldloca.s V_3
+IL_0041: initobj Game.Common.EffectsUpdated
+IL_0047: ldloc.3
+IL_0048: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_004d: ldloc.0
+IL_004e: ldc.i4.1
+IL_004f: add
+IL_0050: stloc.0
+IL_0051: ldloc.0
+IL_0052: ldarga.s subObjects
+IL_0054: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0059: blt.s IL_0004
+IL_005b: ret
+METHOD System.Void Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::UpdateStreetLightObjects(System.Int32,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Buildings.Building)
+IL_002b: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight> Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::m_StreetLightData
+IL_0030: ldloc.1
+IL_0031: ldloc.2
+IL_0032: call System.Void Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight>::set_Item(Unity.Entities.Entity,!0)
+IL_0037: ldarg.0
+IL_0038: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::m_CommandBuffer
+IL_003d: ldarg.1
+IL_003e: ldloc.1
+IL_003f: ldloca.s V_4
+IL_0041: initobj Game.Common.EffectsUpdated
+IL_0047: ldloc.s V_4
+IL_0049: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_004e: ldarg.0
+IL_004f: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::m_SubObjects
+IL_0054: ldloc.1
+IL_0055: ldloca.s V_3
+IL_0057: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_005c: brfalse.s IL_0067
+IL_005e: ldarg.0
+IL_005f: ldarg.1
+IL_0060: ldloc.3
+IL_0061: ldarg.3
+IL_0062: call System.Void Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::UpdateStreetLightObjects(System.Int32,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Buildings.Building)
+METHOD System.Void Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::UpdateStreetLightObjects(System.Int32,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Vehicles.Watercraft)
+IL_002b: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight> Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::m_StreetLightData
+IL_0030: ldloc.1
+IL_0031: ldloc.2
+IL_0032: call System.Void Unity.Entities.ComponentLookup`1<Game.Objects.StreetLight>::set_Item(Unity.Entities.Entity,!0)
+IL_0037: ldarg.0
+IL_0038: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.StreetLightSystem/UpdateStreetLightsJob::m_CommandBuffer
+IL_003d: ldarg.1
+IL_003e: ldloc.1
+IL_003f: ldloca.s V_3
+IL_0041: initobj Game.Common.EffectsUpdated
+IL_0047: ldloc.3
+IL_0048: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_004d: ldloc.0
+IL_004e: ldc.i4.1
+IL_004f: add
+IL_0050: stloc.0
+IL_0051: ldloc.0
+IL_0052: ldarga.s subObjects
+IL_0054: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0059: blt.s IL_0004
+IL_005b: ret
+METHOD System.Void Game.Simulation.TrafficLightSystem/UpdateTrafficLightsJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0124: ldloc.s V_10
+IL_0126: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_012b: ldloc.s V_11
+IL_012d: ldloc.s V_12
+IL_012f: call System.Void Game.Simulation.TrafficLightSystem::UpdateMoveableBridge(Game.Net.TrafficLights,Game.Objects.Transform,Game.Prefabs.MoveableBridgeData,Game.Common.PointOfInterest&)
+IL_0134: ldarg.0
+IL_0135: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.TrafficLightSystem/UpdateTrafficLightsJob::m_CommandBuffer
+IL_013a: ldarg.2
+IL_013b: ldloca.s V_0
+IL_013d: ldloc.s V_6
+IL_013f: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0144: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0149: ldloca.s V_1
+IL_014b: ldloc.s V_6
+IL_014d: ldloc.s V_7
+IL_014f: call System.Void Unity.Collections.NativeArray`1<Game.Net.TrafficLights>::set_Item(System.Int32,!0)
+IL_0154: ldloca.s V_5
+IL_0156: call System.Void Unity.Collections.NativeList`1<Unity.Entities.Entity>::Clear()
+IL_015b: ldloc.s V_6
+IL_015d: ldc.i4.1
+IL_015e: add
+IL_015f: stloc.s V_6
+IL_0161: ldloc.s V_6
+METHOD System.Boolean Game.Simulation.FireAircraftAISystem/FireAircraftTickJob::SelectNextDispatch(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Vehicles.AircraftNavigationLane>,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Vehicles.FireEngine&,Game.Vehicles.Aircraft&,Game.Vehicles.AircraftCurrentLane&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_0207: ldarg.s aircraft
+IL_0209: ldflda Game.Vehicles.AircraftFlags Game.Vehicles.Aircraft::m_Flags
+IL_020e: dup
+IL_020f: ldind.u4
+IL_0210: ldc.i4.6
+IL_0211: or
+IL_0212: stind.i4
+IL_0213: ldarg.0
+IL_0214: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireAircraftAISystem/FireAircraftTickJob::m_CommandBuffer
+IL_0219: ldarg.1
+IL_021a: ldarg.2
+IL_021b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0220: ldc.i4.1
+IL_0221: ret
+IL_0222: ldarg.s pathOwner
+IL_0224: ldarg.s target
+IL_0226: ldloc.1
+IL_0227: call System.Void Game.Vehicles.VehicleUtils::SetTarget(Game.Pathfind.PathOwner&,Game.Common.Target&,Unity.Entities.Entity)
+IL_022c: ldarg.0
+IL_022d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireAircraftAISystem/FireAircraftTickJob::m_CommandBuffer
+IL_0232: ldarg.1
+IL_0233: ldarg.2
+IL_0234: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0239: ldc.i4.1
+IL_023a: ret
+IL_023b: ldarg.s fireEngine
+IL_023d: ldfld System.Int32 Game.Vehicles.FireEngine::m_RequestCount
+IL_0242: ldc.i4.0
+IL_0243: ble.s IL_0252
+IL_0245: ldarga.s serviceDispatches
+IL_0247: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>::get_Length()
+IL_024c: ldc.i4.0
+IL_024d: bgt IL_0041
+IL_0252: ldc.i4.0
+METHOD System.Boolean Game.Simulation.FireAircraftAISystem/FireAircraftTickJob::BeginExtinguishing(System.Int32,Unity.Entities.Entity,Game.Vehicles.FireEngine&,Game.Common.Target)
+IL_0020: ldarg.3
+IL_0021: ldflda Game.Vehicles.FireEngineFlags Game.Vehicles.FireEngine::m_State
+IL_0026: dup
+IL_0027: ldind.u4
+IL_0028: ldc.i4.2
+IL_0029: or
+IL_002a: stind.i4
+IL_002b: ldarg.0
+IL_002c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireAircraftAISystem/FireAircraftTickJob::m_CommandBuffer
+IL_0031: ldarg.1
+IL_0032: ldarg.2
+IL_0033: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0038: ldc.i4.1
+IL_0039: ret
+IL_003a: ldarg.0
+IL_003b: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.RescueTarget> Game.Simulation.FireAircraftAISystem/FireAircraftTickJob::m_RescueTargetData
+IL_0040: ldarg.s target
+IL_0042: ldfld Unity.Entities.Entity Game.Common.Target::m_Target
+IL_0047: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.RescueTarget>::HasComponent(Unity.Entities.Entity)
+IL_004c: brfalse.s IL_005c
+IL_004e: ldarg.3
+IL_004f: ldflda Game.Vehicles.FireEngineFlags Game.Vehicles.FireEngine::m_State
+IL_0054: dup
+METHOD System.Void Game.Simulation.FireAircraftAISystem/FireAircraftTickJob::ReturnToDepot(System.Int32,Unity.Entities.Entity,Game.Common.Owner,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Vehicles.FireEngine&,Game.Vehicles.Aircraft&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_0028: ldarg.s aircraft
+IL_002a: ldflda Game.Vehicles.AircraftFlags Game.Vehicles.Aircraft::m_Flags
+IL_002f: dup
+IL_0030: ldind.u4
+IL_0031: ldc.i4.s -33
+IL_0033: and
+IL_0034: stind.i4
+IL_0035: ldarg.0
+IL_0036: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireAircraftAISystem/FireAircraftTickJob::m_CommandBuffer
+IL_003b: ldarg.1
+IL_003c: ldarg.2
+IL_003d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0042: ldarg.s pathOwnerData
+IL_0044: ldarg.s targetData
+IL_0046: ldarg.3
+IL_0047: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_004c: call System.Void Game.Vehicles.VehicleUtils::SetTarget(Game.Pathfind.PathOwner&,Game.Common.Target&,Unity.Entities.Entity)
+IL_0051: ret
+METHOD System.Void Game.Simulation.AircraftMoveSystem/AircraftMoveJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0681: and
+IL_0682: brfalse.s IL_06a3
+IL_0684: ldarg.0
+IL_0685: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.AircraftMoveSystem/AircraftMoveJob::m_CommandBuffer
+IL_068a: ldarg.2
+IL_068b: ldloca.s V_0
+IL_068d: ldloc.s V_10
+IL_068f: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0694: ldloca.s V_50
+IL_0696: initobj Game.Common.EffectsUpdated
+IL_069c: ldloc.s V_50
+IL_069e: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_06a3: ldloca.s V_21
+IL_06a5: ldarg.0
+IL_06a6: ldfld System.UInt32 Game.Simulation.AircraftMoveSystem/AircraftMoveJob::m_TransformFrameIndex
+IL_06ab: ldloc.s V_20
+IL_06ad: call System.Void Unity.Entities.DynamicBuffer`1<Game.Objects.TransformFrame>::set_Item(System.Int32,!0)
+IL_06b2: ldloca.s V_6
+IL_06b4: ldloc.s V_10
+IL_06b6: ldloc.s V_16
+IL_06b8: call System.Void Unity.Collections.NativeArray`1<Game.Objects.Moving>::set_Item(System.Int32,!0)
+IL_06bd: ldloca.s V_7
+IL_06bf: ldloc.s V_10
+IL_0fc8: and
+IL_0fc9: brfalse.s IL_0fea
+IL_0fcb: ldarg.0
+IL_0fcc: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.AircraftMoveSystem/AircraftMoveJob::m_CommandBuffer
+IL_0fd1: ldarg.2
+IL_0fd2: ldloca.s V_0
+IL_0fd4: ldloc.s V_51
+IL_0fd6: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0fdb: ldloca.s V_50
+IL_0fdd: initobj Game.Common.EffectsUpdated
+IL_0fe3: ldloc.s V_50
+IL_0fe5: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0fea: ldloca.s V_61
+IL_0fec: ldarg.0
+IL_0fed: ldfld System.UInt32 Game.Simulation.AircraftMoveSystem/AircraftMoveJob::m_TransformFrameIndex
+IL_0ff2: ldloc.s V_60
+IL_0ff4: call System.Void Unity.Entities.DynamicBuffer`1<Game.Objects.TransformFrame>::set_Item(System.Int32,!0)
+IL_0ff9: ldloca.s V_6
+IL_0ffb: ldloc.s V_51
+IL_0ffd: ldloc.s V_56
+IL_0fff: call System.Void Unity.Collections.NativeArray`1<Game.Objects.Moving>::set_Item(System.Int32,!0)
+IL_1004: ldloca.s V_7
+IL_1006: ldloc.s V_51
+METHOD System.Boolean Game.Simulation.AmbulanceAISystem/AmbulanceTickJob::SelectDispatch(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Vehicles.CarNavigationLane>,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Vehicles.Ambulance&,Game.Vehicles.Car&,Game.Vehicles.CarCurrentLane&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_026e: ldarg.s car
+IL_0270: ldflda Game.Vehicles.CarFlags Game.Vehicles.Car::m_Flags
+IL_0275: dup
+IL_0276: ldind.u4
+IL_0277: ldc.i4.s 35
+IL_0279: or
+IL_027a: stind.i4
+IL_027b: ldarg.0
+IL_027c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.AmbulanceAISystem/AmbulanceTickJob::m_CommandBuffer
+IL_0281: ldarg.1
+IL_0282: ldarg.2
+IL_0283: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0288: ldc.i4.1
+IL_0289: ret
+IL_028a: ldarg.s pathOwner
+IL_028c: ldarg.s target
+IL_028e: ldloc.2
+IL_028f: call System.Void Game.Vehicles.VehicleUtils::SetTarget(Game.Pathfind.PathOwner&,Game.Common.Target&,Unity.Entities.Entity)
+IL_0294: ldc.i4.1
+IL_0295: ret
+IL_0296: ldarg.s ambulance
+IL_0298: ldfld Game.Vehicles.AmbulanceFlags Game.Vehicles.Ambulance::m_State
+IL_029d: ldc.i4.2
+METHOD System.Void Game.Simulation.AmbulanceAISystem/AmbulanceTickJob::ResetPath(System.Int32,Unity.Entities.Entity,Game.Common.Owner,Game.Pathfind.PathInformation,Unity.Entities.DynamicBuffer`1<Game.Vehicles.Passenger>,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Unity.Mathematics.Random&,Game.Vehicles.Ambulance&,Game.Vehicles.Car&,Game.Vehicles.CarCurrentLane&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_0147: ldc.i4.1
+IL_0148: ldloca.s V_0
+IL_014a: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Pathfind.PathElement>::get_Length()
+IL_014f: call System.Int32 Unity.Mathematics.math::max(System.Int32,System.Int32)
+IL_0154: conv.r4
+IL_0155: div
+IL_0156: stfld System.Single Game.Vehicles.Ambulance::m_PathElementTime
+IL_015b: ldarg.0
+IL_015c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.AmbulanceAISystem/AmbulanceTickJob::m_CommandBuffer
+IL_0161: ldarg.1
+IL_0162: ldarg.2
+IL_0163: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0168: ldarg.2
+IL_0169: ldarg.s currentLane
+IL_016b: ldarg.s pathOwner
+IL_016d: ldloc.0
+IL_016e: ldarg.0
+IL_016f: ldflda Unity.Entities.EntityStorageInfoLookup Game.Simulation.AmbulanceAISystem/AmbulanceTickJob::m_EntityLookup
+IL_0174: ldarg.0
+IL_0175: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Simulation.AmbulanceAISystem/AmbulanceTickJob::m_CurveData
+IL_017a: ldarg.0
+IL_017b: ldflda Unity.Entities.ComponentLookup`1<Game.Net.ParkingLane> Game.Simulation.AmbulanceAISystem/AmbulanceTickJob::m_ParkingLaneData
+IL_0180: ldarg.0
+METHOD System.Boolean Game.Simulation.FireEngineAISystem/FireEngineTickJob::SelectNextDispatch(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Vehicles.CarNavigationLane>,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Vehicles.FireEngine&,Game.Vehicles.Car&,Game.Vehicles.CarCurrentLane&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_020c: ldarg.s car
+IL_020e: ldflda Game.Vehicles.CarFlags Game.Vehicles.Car::m_Flags
+IL_0213: dup
+IL_0214: ldind.u4
+IL_0215: ldc.i4.s 35
+IL_0217: or
+IL_0218: stind.i4
+IL_0219: ldarg.0
+IL_021a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireEngineAISystem/FireEngineTickJob::m_CommandBuffer
+IL_021f: ldarg.1
+IL_0220: ldarg.2
+IL_0221: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0226: ldc.i4.1
+IL_0227: ret
+IL_0228: ldarg.s pathOwner
+IL_022a: ldarg.s target
+IL_022c: ldloc.1
+IL_022d: call System.Void Game.Vehicles.VehicleUtils::SetTarget(Game.Pathfind.PathOwner&,Game.Common.Target&,Unity.Entities.Entity)
+IL_0232: ldarg.0
+IL_0233: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireEngineAISystem/FireEngineTickJob::m_CommandBuffer
+IL_0238: ldarg.1
+IL_0239: ldarg.2
+IL_023a: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_023f: ldc.i4.1
+IL_0240: ret
+IL_0241: ldarg.s fireEngine
+IL_0243: ldfld System.Int32 Game.Vehicles.FireEngine::m_RequestCount
+IL_0248: ldc.i4.0
+IL_0249: ble.s IL_0258
+IL_024b: ldarga.s serviceDispatches
+IL_024d: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>::get_Length()
+IL_0252: ldc.i4.0
+IL_0253: bgt IL_0041
+IL_0258: ldc.i4.0
+METHOD System.Boolean Game.Simulation.FireEngineAISystem/FireEngineTickJob::BeginExtinguishing(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Vehicles.FireEngine&,Game.Vehicles.CarCurrentLane&,Game.Common.Target&)
+IL_002d: ldarg.3
+IL_002e: brtrue.s IL_003a
+IL_0030: ldarg.0
+IL_0031: ldarg.1
+IL_0032: ldarg.2
+IL_0033: ldarg.s currentLaneData
+IL_0035: call System.Void Game.Simulation.FireEngineAISystem/FireEngineTickJob::StopVehicle(System.Int32,Unity.Entities.Entity,Game.Vehicles.CarCurrentLane&)
+IL_003a: ldarg.0
+IL_003b: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireEngineAISystem/FireEngineTickJob::m_CommandBuffer
+IL_0040: ldarg.1
+IL_0041: ldarg.2
+IL_0042: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0047: ldc.i4.1
+IL_0048: ret
+IL_0049: ldarg.0
+IL_004a: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.RescueTarget> Game.Simulation.FireEngineAISystem/FireEngineTickJob::m_RescueTargetData
+IL_004f: ldarg.s target
+IL_0051: ldfld Unity.Entities.Entity Game.Common.Target::m_Target
+IL_0056: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.RescueTarget>::HasComponent(Unity.Entities.Entity)
+IL_005b: brfalse.s IL_0086
+IL_005d: ldarg.s fireEngine
+IL_005f: ldflda Game.Vehicles.FireEngineFlags Game.Vehicles.FireEngine::m_State
+IL_0064: dup
+IL_006a: ldarg.3
+IL_006b: brtrue.s IL_0077
+IL_006d: ldarg.0
+IL_006e: ldarg.1
+IL_006f: ldarg.2
+IL_0070: ldarg.s currentLaneData
+IL_0072: call System.Void Game.Simulation.FireEngineAISystem/FireEngineTickJob::StopVehicle(System.Int32,Unity.Entities.Entity,Game.Vehicles.CarCurrentLane&)
+IL_0077: ldarg.0
+IL_0078: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireEngineAISystem/FireEngineTickJob::m_CommandBuffer
+IL_007d: ldarg.1
+IL_007e: ldarg.2
+IL_007f: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0084: ldc.i4.1
+IL_0085: ret
+IL_0086: ldc.i4.0
+IL_0087: ret
+METHOD System.Void Game.Simulation.FireEngineAISystem/FireEngineTickJob::ReturnToDepot(System.Int32,Unity.Entities.Entity,Game.Common.Owner,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Vehicles.FireEngine&,Game.Vehicles.Car&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_001c: ldarg.s fireEngine
+IL_001e: ldflda Game.Vehicles.FireEngineFlags Game.Vehicles.FireEngine::m_State
+IL_0023: dup
+IL_0024: ldind.u4
+IL_0025: ldc.i4.1
+IL_0026: or
+IL_0027: stind.i4
+IL_0028: ldarg.0
+IL_0029: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireEngineAISystem/FireEngineTickJob::m_CommandBuffer
+IL_002e: ldarg.1
+IL_002f: ldarg.2
+IL_0030: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0035: ldarg.s pathOwnerData
+IL_0037: ldarg.s targetData
+IL_0039: ldarg.3
+IL_003a: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_003f: call System.Void Game.Vehicles.VehicleUtils::SetTarget(Game.Pathfind.PathOwner&,Game.Common.Target&,Unity.Entities.Entity)
+IL_0044: ret
+METHOD System.Void Game.Simulation.FireEngineAISystem/FireEngineTickJob::ResetPath(System.Int32,Unity.Entities.Entity,Unity.Mathematics.Random&,Game.Pathfind.PathInformation,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Vehicles.FireEngine&,Game.Vehicles.Car&,Game.Vehicles.CarCurrentLane&,Game.Pathfind.PathOwner&)
+IL_013d: ldc.i4.1
+IL_013e: ldloca.s V_0
+IL_0140: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Pathfind.PathElement>::get_Length()
+IL_0145: call System.Int32 Unity.Mathematics.math::max(System.Int32,System.Int32)
+IL_014a: conv.r4
+IL_014b: div
+IL_014c: stfld System.Single Game.Vehicles.FireEngine::m_PathElementTime
+IL_0151: ldarg.0
+IL_0152: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.FireEngineAISystem/FireEngineTickJob::m_CommandBuffer
+IL_0157: ldarg.1
+IL_0158: ldarg.2
+IL_0159: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_015e: ret
+METHOD System.Boolean Game.Simulation.GarbageTruckAISystem/GarbageTruckTickJob::UnloadGarbage(System.Int32,Unity.Entities.Entity,Game.Prefabs.GarbageTruckData,Unity.Entities.Entity,Game.Vehicles.GarbageTruck&,System.Boolean)
+IL_008f: ldind.u4
+IL_0090: ldc.i4.s -5
+IL_0092: and
+IL_0093: stind.i4
+IL_0094: ldarg.0
+IL_0095: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.GarbageTruckAISystem/GarbageTruckTickJob::m_CommandBuffer
+IL_009a: ldarg.1
+IL_009b: ldarg.2
+IL_009c: ldloca.s V_1
+IL_009e: initobj Game.Common.EffectsUpdated
+IL_00a4: ldloc.1
+IL_00a5: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00aa: ldc.i4.1
+IL_00ab: ret
+METHOD System.Void Game.Simulation.GarbageTruckAISystem/GarbageActionJob::Execute()
+IL_01ed: ldind.u4
+IL_01ee: ldc.i4.4
+IL_01ef: or
+IL_01f0: stind.i4
+IL_01f1: ldarg.0
+IL_01f2: ldflda Unity.Entities.EntityCommandBuffer Game.Simulation.GarbageTruckAISystem/GarbageActionJob::m_CommandBuffer
+IL_01f7: ldloc.0
+IL_01f8: ldfld Unity.Entities.Entity Game.Simulation.GarbageTruckAISystem/GarbageAction::m_Vehicle
+IL_01fd: ldloca.s V_11
+IL_01ff: initobj Game.Common.EffectsUpdated
+IL_0205: ldloc.s V_11
+IL_0207: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.EffectsUpdated>(Unity.Entities.Entity,!!0)
+IL_020c: ldarg.0
+IL_020d: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.GarbageTruck> Game.Simulation.GarbageTruckAISystem/GarbageActionJob::m_GarbageTruckData
+IL_0212: ldloc.0
+IL_0213: ldfld Unity.Entities.Entity Game.Simulation.GarbageTruckAISystem/GarbageAction::m_Vehicle
+IL_0218: ldloc.s V_8
+IL_021a: call System.Void Unity.Entities.ComponentLookup`1<Game.Vehicles.GarbageTruck>::set_Item(Unity.Entities.Entity,!0)
+IL_021f: br IL_0000
+IL_0224: ldloc.s V_8
+IL_0226: ldfld Game.Vehicles.GarbageTruckFlags Game.Vehicles.GarbageTruck::m_State
+IL_022b: ldc.i4.4
+IL_022c: and
+IL_023a: ldind.u4
+IL_023b: ldc.i4.s -5
+IL_023d: and
+IL_023e: stind.i4
+IL_023f: ldarg.0
+IL_0240: ldflda Unity.Entities.EntityCommandBuffer Game.Simulation.GarbageTruckAISystem/GarbageActionJob::m_CommandBuffer
+IL_0245: ldloc.0
+IL_0246: ldfld Unity.Entities.Entity Game.Simulation.GarbageTruckAISystem/GarbageAction::m_Vehicle
+IL_024b: ldloca.s V_11
+IL_024d: initobj Game.Common.EffectsUpdated
+IL_0253: ldloc.s V_11
+IL_0255: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.EffectsUpdated>(Unity.Entities.Entity,!!0)
+IL_025a: br IL_0000
+IL_025f: ldarg.0
+IL_0260: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.GarbageProducer> Game.Simulation.GarbageTruckAISystem/GarbageActionJob::m_GarbageProducerData
+IL_0265: ldloc.0
+IL_0266: ldfld Unity.Entities.Entity Game.Simulation.GarbageTruckAISystem/GarbageAction::m_Target
+IL_026b: call !0 Unity.Entities.ComponentLookup`1<Game.Buildings.GarbageProducer>::get_Item(Unity.Entities.Entity)
+IL_0270: stloc.s V_12
+IL_0272: ldloca.s V_12
+IL_0274: ldloc.0
+IL_0275: ldfld Unity.Entities.Entity Game.Simulation.GarbageTruckAISystem/GarbageAction::m_Request
+IL_027a: stfld Unity.Entities.Entity Game.Buildings.GarbageProducer::m_CollectionRequest
+METHOD System.Boolean Game.Simulation.MaintenanceVehicleAISystem/MaintenanceVehicleTickJob::SelectNextDispatch(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Vehicles.CarNavigationLane>,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Prefabs.MaintenanceVehicleData,Game.Vehicles.MaintenanceVehicle&,Game.Vehicles.Car&,Game.Vehicles.CarCurrentLane&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_0178: ldc.i4.1
+IL_0179: ldc.i4.0
+IL_017a: newobj System.Void Game.Simulation.HandleRequest::.ctor(Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,System.Boolean)
+IL_017f: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Simulation.HandleRequest>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0184: ldarg.0
+IL_0185: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.MaintenanceVehicleAISystem/MaintenanceVehicleTickJob::m_CommandBuffer
+IL_018a: ldarg.1
+IL_018b: ldarg.2
+IL_018c: ldloca.s V_4
+IL_018e: initobj Game.Common.EffectsUpdated
+IL_0194: ldloc.s V_4
+IL_0196: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_019b: ldarg.0
+IL_019c: ldflda Unity.Entities.BufferLookup`1<Game.Pathfind.PathElement> Game.Simulation.MaintenanceVehicleAISystem/MaintenanceVehicleTickJob::m_PathElements
+IL_01a1: ldloc.0
+IL_01a2: call System.Boolean Unity.Entities.BufferLookup`1<Game.Pathfind.PathElement>::HasBuffer(Unity.Entities.Entity)
+IL_01a7: brfalse IL_04b3
+IL_01ac: ldarg.0
+IL_01ad: ldflda Unity.Entities.BufferLookup`1<Game.Pathfind.PathElement> Game.Simulation.MaintenanceVehicleAISystem/MaintenanceVehicleTickJob::m_PathElements
+IL_01b2: ldloc.0
+IL_01b3: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Pathfind.PathElement>::get_Item(Unity.Entities.Entity)
+IL_01b8: stloc.s V_5
+IL_01ba: ldloca.s V_5
+METHOD System.Void Game.Simulation.MaintenanceVehicleAISystem/MaintenanceVehicleTickJob::ReturnToDepot(System.Int32,Unity.Entities.Entity,Game.Common.Owner,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Vehicles.Car&,Game.Vehicles.MaintenanceVehicle&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_0042: ldarg.s targetData
+IL_0044: ldarg.3
+IL_0045: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_004a: call System.Void Game.Vehicles.VehicleUtils::SetTarget(Game.Pathfind.PathOwner&,Game.Common.Target&,Unity.Entities.Entity)
+IL_004f: ldarg.0
+IL_0050: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.MaintenanceVehicleAISystem/MaintenanceVehicleTickJob::m_CommandBuffer
+IL_0055: ldarg.1
+IL_0056: ldarg.2
+IL_0057: ldloca.s V_0
+IL_0059: initobj Game.Common.EffectsUpdated
+IL_005f: ldloc.0
+IL_0060: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0065: ret
+METHOD System.Void Game.Simulation.MaintenanceVehicleAISystem/MaintenanceJob::Execute()
+IL_04a2: ldind.u4
+IL_04a3: ldc.i4.s 32
+IL_04a5: or
+IL_04a6: stind.i4
+IL_04a7: ldarg.0
+IL_04a8: ldflda Unity.Entities.EntityCommandBuffer Game.Simulation.MaintenanceVehicleAISystem/MaintenanceJob::m_CommandBuffer
+IL_04ad: ldloc.0
+IL_04ae: ldfld Unity.Entities.Entity Game.Simulation.MaintenanceVehicleAISystem/MaintenanceAction::m_Vehicle
+IL_04b3: ldloca.s V_24
+IL_04b5: initobj Game.Common.EffectsUpdated
+IL_04bb: ldloc.s V_24
+IL_04bd: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.EffectsUpdated>(Unity.Entities.Entity,!!0)
+IL_04c2: ldarg.0
+IL_04c3: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Car> Game.Simulation.MaintenanceVehicleAISystem/MaintenanceJob::m_CarData
+IL_04c8: ldloc.0
+IL_04c9: ldfld Unity.Entities.Entity Game.Simulation.MaintenanceVehicleAISystem/MaintenanceAction::m_Vehicle
+IL_04ce: ldloc.s V_19
+IL_04d0: call System.Void Unity.Entities.ComponentLookup`1<Game.Vehicles.Car>::set_Item(Unity.Entities.Entity,!0)
+IL_04d5: ldarg.0
+IL_04d6: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.MaintenanceVehicle> Game.Simulation.MaintenanceVehicleAISystem/MaintenanceJob::m_MaintenanceVehicleData
+IL_04db: ldloc.0
+IL_04dc: ldfld Unity.Entities.Entity Game.Simulation.MaintenanceVehicleAISystem/MaintenanceAction::m_Vehicle
+IL_04e1: ldloc.s V_20
+IL_060b: ldind.u4
+IL_060c: ldc.i4.s 32
+IL_060e: or
+IL_060f: stind.i4
+IL_0610: ldarg.0
+IL_0611: ldflda Unity.Entities.EntityCommandBuffer Game.Simulation.MaintenanceVehicleAISystem/MaintenanceJob::m_CommandBuffer
+IL_0616: ldloc.0
+IL_0617: ldfld Unity.Entities.Entity Game.Simulation.MaintenanceVehicleAISystem/MaintenanceAction::m_Vehicle
+IL_061c: ldloca.s V_24
+IL_061e: initobj Game.Common.EffectsUpdated
+IL_0624: ldloc.s V_24
+IL_0626: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.EffectsUpdated>(Unity.Entities.Entity,!!0)
+IL_062b: ldarg.0
+IL_062c: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Car> Game.Simulation.MaintenanceVehicleAISystem/MaintenanceJob::m_CarData
+IL_0631: ldloc.0
+IL_0632: ldfld Unity.Entities.Entity Game.Simulation.MaintenanceVehicleAISystem/MaintenanceAction::m_Vehicle
+IL_0637: ldloc.s V_19
+IL_0639: call System.Void Unity.Entities.ComponentLookup`1<Game.Vehicles.Car>::set_Item(Unity.Entities.Entity,!0)
+IL_063e: ldarg.0
+IL_063f: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.MaintenanceVehicle> Game.Simulation.MaintenanceVehicleAISystem/MaintenanceJob::m_MaintenanceVehicleData
+IL_0644: ldloc.0
+IL_0645: ldfld Unity.Entities.Entity Game.Simulation.MaintenanceVehicleAISystem/MaintenanceAction::m_Vehicle
+IL_064a: ldloc.s V_20
+METHOD System.Boolean Game.Simulation.PoliceCarAISystem/PoliceCarTickJob::SelectNextDispatch(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Vehicles.CarNavigationLane>,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Unity.Entities.DynamicBuffer`1<Game.Vehicles.Passenger>,Game.Vehicles.PoliceCar&,Game.Vehicles.Car&,Game.Vehicles.CarCurrentLane&,Game.Pathfind.PathOwner&,Game.Common.Target&)
+IL_02f3: stfld System.Single Game.Vehicles.PoliceCar::m_PathElementTime
+IL_02f8: ldarg.s target
+IL_02fa: ldloc.1
+IL_02fb: stfld Unity.Entities.Entity Game.Common.Target::m_Target
+IL_0300: ldarg.s currentLane
+IL_0302: ldarg.3
+IL_0303: call System.Void Game.Vehicles.VehicleUtils::ClearEndOfPath(Game.Vehicles.CarCurrentLane&,Unity.Entities.DynamicBuffer`1<Game.Vehicles.CarNavigationLane>)
+IL_0308: ldarg.0
+IL_0309: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.PoliceCarAISystem/PoliceCarTickJob::m_CommandBuffer
+IL_030e: ldarg.1
+IL_030f: ldarg.2
+IL_0310: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0315: ldc.i4.1
+IL_0316: ret
+IL_0317: ldarg.s pathOwner
+IL_0319: ldarg.s target
+IL_031b: ldloc.1
+IL_031c: call System.Void Game.Vehicles.VehicleUtils::SetTarget(Game.Pathfind.PathOwner&,Game.Common.Target&,Unity.Entities.Entity)
+IL_0321: ldc.i4.1
+IL_0322: ret
+IL_0323: ldarg.s policeCar
+IL_0325: ldfld System.Int32 Game.Vehicles.PoliceCar::m_RequestCount
+IL_032a: ldc.i4.0
+METHOD System.Void Game.Simulation.PoliceCarAISystem/PoliceCarTickJob::ResetPath(System.Int32,Unity.Entities.Entity,Unity.Mathematics.Random&,Game.Pathfind.PathInformation,Unity.Entities.DynamicBuffer`1<Game.Simulation.ServiceDispatch>,Game.Vehicles.PoliceCar&,Game.Vehicles.Car&,Game.Vehicles.CarCurrentLane&,Game.Pathfind.PathOwner&)
+IL_021f: ldc.i4.1
+IL_0220: ldloca.s V_0
+IL_0222: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Pathfind.PathElement>::get_Length()
+IL_0227: call System.Int32 Unity.Mathematics.math::max(System.Int32,System.Int32)
+IL_022c: conv.r4
+IL_022d: div
+IL_022e: stfld System.Single Game.Vehicles.PoliceCar::m_PathElementTime
+IL_0233: ldarg.0
+IL_0234: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.PoliceCarAISystem/PoliceCarTickJob::m_CommandBuffer
+IL_0239: ldarg.1
+IL_023a: ldarg.2
+IL_023b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity)
+IL_0240: ret
+METHOD System.Void Game.Simulation.CarMoveSystem/CarMoveJob::EffectsUpdated(System.Int32,Unity.Entities.Entity)
+IL_001b: br.s IL_0043
+IL_001d: ldarg.0
+IL_001e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.CarMoveSystem/CarMoveJob::m_CommandBuffer
+IL_0023: ldarg.1
+IL_0024: ldloca.s V_0
+IL_0026: ldloc.1
+IL_0027: call !0 Unity.Entities.DynamicBuffer`1<Game.Vehicles.LayoutElement>::get_Item(System.Int32)
+IL_002c: ldfld Unity.Entities.Entity Game.Vehicles.LayoutElement::m_Vehicle
+IL_0031: ldloca.s V_2
+IL_0033: initobj Game.Common.EffectsUpdated
+IL_0039: ldloc.2
+IL_003a: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_003f: ldloc.1
+IL_0040: ldc.i4.1
+IL_0041: add
+IL_0042: stloc.1
+IL_0043: ldloc.1
+IL_0044: ldloca.s V_0
+IL_0046: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Vehicles.LayoutElement>::get_Length()
+IL_004b: blt.s IL_001d
+IL_004d: ret
+IL_004e: ldarg.0
+IL_004f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.CarMoveSystem/CarMoveJob::m_CommandBuffer
+IL_0054: ldarg.1
+IL_0055: ldarg.2
+IL_0056: ldloca.s V_2
+IL_0058: initobj Game.Common.EffectsUpdated
+IL_005e: ldloc.2
+IL_005f: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0064: ret
+METHOD System.Void Game.Simulation.TrainMoveSystem/UpdateLayoutDataJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0204: xor
+IL_0205: ldc.i4.3
+IL_0206: and
+IL_0207: brfalse.s IL_0221
+IL_0209: ldarg.0
+IL_020a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.TrainMoveSystem/UpdateLayoutDataJob::m_CommandBuffer
+IL_020f: ldarg.2
+IL_0210: ldloc.s V_5
+IL_0212: ldloca.s V_17
+IL_0214: initobj Game.Common.EffectsUpdated
+IL_021a: ldloc.s V_17
+IL_021c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0221: ldloca.s V_6
+IL_0223: ldarg.0
+IL_0224: ldfld System.UInt32 Game.Simulation.TrainMoveSystem/UpdateLayoutDataJob::m_TransformFrameIndex
+IL_0229: ldloc.s V_11
+IL_022b: call System.Void Unity.Entities.DynamicBuffer`1<Game.Objects.TransformFrame>::set_Item(System.Int32,!0)
+IL_0230: ldloc.s V_8
+IL_0232: ldc.i4.s -4
+IL_0234: and
+IL_0235: stloc.s V_8
+IL_0237: ldloc.s V_9
+IL_0239: ldc.i4.s -4
+IL_033b: xor
+IL_033c: ldc.i4.3
+IL_033d: and
+IL_033e: brfalse.s IL_0358
+IL_0340: ldarg.0
+IL_0341: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Simulation.TrainMoveSystem/UpdateLayoutDataJob::m_CommandBuffer
+IL_0346: ldarg.2
+IL_0347: ldloc.s V_19
+IL_0349: ldloca.s V_17
+IL_034b: initobj Game.Common.EffectsUpdated
+IL_0351: ldloc.s V_17
+IL_0353: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.EffectsUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0358: ldloca.s V_20
+IL_035a: ldarg.0
+IL_035b: ldfld System.UInt32 Game.Simulation.TrainMoveSystem/UpdateLayoutDataJob::m_TransformFrameIndex
+IL_0360: ldloc.s V_21
+IL_0362: call System.Void Unity.Entities.DynamicBuffer`1<Game.Objects.TransformFrame>::set_Item(System.Int32,!0)
+IL_0367: ldloc.s V_18
+IL_0369: ldc.i4.1
+IL_036a: add
+IL_036b: stloc.s V_18
+IL_036d: ldloc.s V_18
+IL_036f: ldloca.s V_4

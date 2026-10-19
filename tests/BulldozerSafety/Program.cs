@@ -3,7 +3,7 @@ using MW.EditorTools.Modules.BulldozerRecovery;
 class Program {
  static int checks;
  static void Check(bool result,string name){if(!result)throw new Exception(name);checks++;}
- static void Main(){var a=new object();var b=new object();var s=new BulldozerTraceSession<object>();
+ static void Main(){checks+=BulldozerTrace.GuardChecks();var a=new object();var b=new object();var s=new BulldozerTraceSession<object>();
  Check(!s.CanSynchronize(a),"No transaction before a click");
  s.Begin(a,10);Check(!s.CanSynchronize(a),"Preview is not a completed action");
  s.AllowApply(false);s.EndApply();Check(s.Asset==null,"Denied apply cannot be recorded");
@@ -38,5 +38,16 @@ class Program {
  Check(!AutomaticStandaloneCapture.TryEnable(true,false,true,()=>false,enable)&&enables==0,"Unsupported target leaves existing mode intact");
  Check(!AutomaticStandaloneCapture.TryEnable(true,false,true,()=>throw new NotSupportedException(),enable)&&enables==0,"Capture refusal leaves history intact");
  Check(AutomaticStandaloneCapture.TryEnable(true,false,true,valid,enable)&&captures==1&&enables==1,"Validated standalone target enables exactly once before native deletion");
+ int boundChecks=0,boundEnables=0;
+ Func<bool> boundValid=()=>{boundChecks++;return true;};Action boundEnable=()=>boundEnables++;
+ Check(!AutomaticBoundCapture.TryEnable(false,false,true,true,boundValid,boundEnable)&&boundChecks==0,"Disabled bound recovery does not inspect");
+ Check(!AutomaticBoundCapture.TryEnable(true,true,true,true,boundValid,boundEnable)&&boundChecks==0,"Busy bound recovery does not inspect");
+ Check(!AutomaticBoundCapture.TryEnable(true,false,false,true,boundValid,boundEnable)&&boundChecks==0,"Unsupported mode cannot activate automatic group recovery");
+ Check(!AutomaticBoundCapture.TryEnable(true,false,true,false,boundValid,boundEnable)&&boundChecks==0,"Whole asset, network, area and multiple targets do not activate bound route");
+ Check(!AutomaticBoundCapture.TryEnable(true,false,true,true,()=>false,boundEnable)&&boundEnables==0,"Failed descriptor preflight preserves mode");
+ Check(!AutomaticBoundCapture.TryEnable(true,false,true,true,()=>throw new NotSupportedException(),boundEnable)&&boundEnables==0,"Unsupported graph preserves mode");
+ string refusal=null;
+ Check(!AutomaticBoundCapture.TryEnable(true,false,true,true,()=>throw new NotSupportedException("schema refused"),boundEnable,reason=>refusal=reason)&&refusal=="schema refused"&&boundEnables==0,"Unsupported bound capture reports reason without enabling");
+ Check(AutomaticBoundCapture.TryEnable(true,false,true,true,boundValid,boundEnable)&&boundChecks==1&&boundEnables==1,"Validated bound target enables before deletion exactly once");
  Console.WriteLine("PASS: "+checks+" bulldozer lifecycle/history assertions. Native game event timing remains unproven.");}
 }

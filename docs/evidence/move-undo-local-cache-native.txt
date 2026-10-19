@@ -1,0 +1,25 @@
+System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_02ea: ldarg.2
+IL_02eb: ldloc.s V_5
+IL_02ed: ldloc.s V_6
+IL_02ef: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_02f4: ldarg.0
+IL_02f5: ldfld Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache> Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_LocalTransformCacheData
+IL_02fa: ldc.i4.1
+IL_02fb: call System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::UpdateComponent<Game.Tools.LocalTransformCache>(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.ComponentLookup`1<T>,System.Boolean)
+IL_0300: ldarg.0
+IL_0301: ldarg.2
+IL_0302: ldloc.s V_5
+IL_0304: ldloc.s V_6
+IL_02ed: ldloc.s V_6
+IL_02ef: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_02f4: ldarg.0
+IL_02f5: ldfld Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache> Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_LocalTransformCacheData
+IL_02fa: ldc.i4.1
+IL_02fb: call System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::UpdateComponent<Game.Tools.LocalTransformCache>(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.ComponentLookup`1<T>,System.Boolean)
+IL_0300: ldarg.0
+IL_0301: ldarg.2
+IL_0302: ldloc.s V_5
+IL_0304: ldloc.s V_6
+IL_0306: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_030b: ldarg.0

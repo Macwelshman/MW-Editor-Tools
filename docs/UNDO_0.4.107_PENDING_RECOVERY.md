@@ -1,0 +1,17 @@
+# Undo 0.4.107 — pending recovery protection and canonical companions
+
+VERIFIED-RUNTIME: docs/evidence/undo-0.4.106-runtime.log records bound Sand Surface 01 capture, recording, Undo dispatch and native finalization. Before validation completed, another BulldozeToolSystem.Apply call arrived and the mod's interruption guard raised InvalidOperationException and disabled recovery. This is a mod interruption error; the log does not prove another element was deleted. The user saw the surface return. Full recovery remained unvalidated.
+
+VERIFIED-STATIC changes:
+- Apply prefix now returns false for the calling editor world while recovery/capture is Busy. It returns the incoming JobHandle unchanged, keeps pending state and gives a waiting status. The native deletion and observation postfix are skipped for blocked calls; unrelated worlds/editor-unavailable calls are not intercepted. This prevents no-op/repeated Apply calls or another click from destroying pending recovery. The call is skipped, not queued for later replay.
+- Area capture already verifies complete retained companion graph/values/reference/source survival over three stable frames. After that proof, the detached Undo before-image reuses the native-normalized ObjectSubNets.m_SubNets and EffectSource.m_Effects snapshots from the after-image. This preserves the verified physical before-state while avoiding reintroducing stale serialized network/effect representations. Deleted area descriptors and all other before fields remain unchanged. Nothing is written to a live asset during capture.
+- Exact payload restoration and all existing final geometry, network/effect, foliage, ownership and reference checks remain required before consuming the single Undo slot. No success is inferred from the visible surface alone.
+
+HYPOTHESIS: stale serialized companion coordinates kept surface validation pending after visual restoration. The log ended at the interruption error before its normal timeout diagnostics, so it does not prove the delayed mismatch's exact field. Canonicalization is limited to companions whose complete retained live before-state has already been verified.
+
+VERIFIED-STATIC checks: Release zero warnings/errors; production UI and TypeScript pass; 440 relevant managed assertions pass (Phase3Safety 203, BulldozerSafety 47, NestedRecoveryRunner 133, StandaloneNestedSafety 25, LastPropHistory 12, LifecycleSafety 20). Eight checks execute the actual Apply-prefix source with managed JobHandle/tool doubles: pending state preserved, dependency returned, no observation on blocked calls, unrelated world behavior, editor gate and eventual normal apply. Four new canonicalization tests keep deleted-area before-images/source snapshots untouched and exclude absent/unrelated fields. These do not simulate Harmony's native ABI or ECS completion.
+
+UNPROVEN: 0.4.107 bound surface completion without delayed error, native Apply-prefix execution, and companion regeneration. Main foliage, bound foliage and other area behavior remain user-confirmed on prior builds. No computer use or game assembly edits. Automatic installation is authorised after game exit, rollback and hash verification.
+
+VERIFIED-STATIC installation: 0.4.107 installed after Cities2 exit checks; five package hashes and all rollback file hashes verified. See docs/evidence/recovery-0.4.107-installed-hashes.csv. Native bound surface completion pending.
+

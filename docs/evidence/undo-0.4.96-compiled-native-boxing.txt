@@ -1,0 +1,32 @@
+MW.EditorTools.Modules.BulldozerRecovery.AreaCompanionNetwork MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace::CaptureAreaNetwork(Unity.Entities.Entity)
+IL_0084: box Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>
+IL_0089: call !!0[] System.Linq.Enumerable::ToArray<Game.Net.SubNet>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_008e: ldsfld System.Func`2<Game.Net.SubNet,Unity.Entities.Entity> MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace/<>c::<>9__7_1
+MW.EditorTools.Modules.BulldozerRecovery.AreaCompanionNetwork MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace::CaptureAreaNetwork(Unity.Entities.Entity)
+IL_00db: box Unity.Entities.DynamicBuffer`1<Game.Net.SubLane>
+IL_00e0: call !!0[] System.Linq.Enumerable::ToArray<Game.Net.SubLane>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_00e5: stfld Game.Net.SubLane[] MW.EditorTools.Modules.BulldozerRecovery.AreaCompanionNetwork::RootLanes
+MW.EditorTools.Modules.BulldozerRecovery.AreaCompanionNetwork MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace::CaptureAreaNetwork(Unity.Entities.Entity)
+IL_04bc: box Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>
+IL_04c1: call !!0[] System.Linq.Enumerable::ToArray<Game.Net.ConnectedEdge>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_04c6: ldsfld System.Func`2<Game.Net.ConnectedEdge,Unity.Entities.Entity> MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace/<>c::<>9__7_3
+MW.EditorTools.Modules.BulldozerRecovery.AreaCompanionNetwork MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace::CaptureAreaNetwork(Unity.Entities.Entity)
+IL_0525: box Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>
+IL_052a: call !!0[] System.Linq.Enumerable::ToArray<Game.Net.SubNet>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_052f: ldsfld System.Func`2<Game.Net.SubNet,Unity.Entities.Entity> MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace/<>c::<>9__7_2
+MW.EditorTools.Modules.BulldozerRecovery.AreaCompanionNetwork MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace::CaptureAreaNetwork(Unity.Entities.Entity)
+IL_057c: box Unity.Entities.DynamicBuffer`1<Game.Net.SubLane>
+IL_0581: call !!0[] System.Linq.Enumerable::ToArray<Game.Net.SubLane>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0586: stfld Game.Net.SubLane[] MW.EditorTools.Modules.BulldozerRecovery.AreaCompanionNetwork/Item::SubLanes
+MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace/AreaImage[] MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace::CaptureAreas(Unity.Entities.Entity)
+IL_0167: box Unity.Entities.DynamicBuffer`1<Game.Areas.Node>
+IL_016c: call !!0[] System.Linq.Enumerable::ToArray<Game.Areas.Node>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0171: stloc.s V_10
+MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace/AreaImage[] MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace::CaptureAreas(Unity.Entities.Entity)
+IL_017d: box Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>
+IL_0182: call !!0[] System.Linq.Enumerable::ToArray<Game.Tools.LocalNodeCache>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0187: stloc.s V_11
+System.Void MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace::EnableAutomaticBoundProps(Game.Tools.BulldozeToolSystem)
+IL_008a: box Unity.Collections.NativeList`1<Game.Tools.ControlPoint>
+IL_008f: call !!0[] System.Linq.Enumerable::ToArray<Game.Tools.ControlPoint>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0094: ldsfld System.Func`2<Game.Tools.ControlPoint,Unity.Entities.Entity> MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace/<>c::<>9__32_0

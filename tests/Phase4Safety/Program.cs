@@ -38,8 +38,14 @@ internal static class Program {
         foreach (var bad in new[]{"19","51","abc","20.5","999999999999"}) {
             Check(!settings.ApplyOptions(true,bad,"F12","Ctrl+Z") && settings.historyDepth==37 && settings.undoKey=="X" && settings.redoKey=="R","invalid text retains settings");
         }
-        settings.propsKey="\"";settings.propsModifiers=99;settings.Normalize();Check(settings.propsKey=="P"&&settings.propsModifiers==5,"invalid browser settings normalised"); settings.SetBrowserShortcut(1,"Q",7);using(var browserJson=System.Text.Json.JsonDocument.Parse(settings.ToJson()))Check(browserJson.RootElement.GetProperty("propsKey").GetString()=="Q"&&browserJson.RootElement.GetProperty("propsModifiers").GetInt32()==7,"browser JSON saves complete combination"); settings.MigrateModifiers("{}");Check(settings.propsKey=="P"&&settings.propsModifiers==5,"old file migrates browser defaults");
-        var conflicts=new EditorToolsSettings{browserShortcuts=true};Check(!conflicts.BrowserConflict("P",5,1),"distinct browser shortcut allowed");conflicts.SetBrowserShortcut(2,"P",5);Check(conflicts.BrowserConflict("P",5,1)&&conflicts.BrowserConflict("P",5,2),"both duplicate browser shortcuts suppressed");conflicts.SetBrowserShortcut(1,"Z",1);Check(conflicts.BrowserConflict("Z",1,1)&&conflicts.BrowserConflict("Z",1),"recovery and browser conflict suppressed both ways");conflicts.shortcuts=false;Check(!conflicts.BrowserConflict("Z",1,1),"disabled recovery does not reserve its binding");conflicts.browserShortcuts=false;Check(!conflicts.BrowserConflict("Z",1),"disabled browser does not reserve its binding");
+        var browserDefaults=new[]{"B","D","F","A","E","S"};var freshBrowser=new EditorToolsSettings();
+        for(int i=0;i<6;i++)Check(freshBrowser.BrowserKey(i)==browserDefaults[i]&&freshBrowser.BrowserModifiers(i)==4,"new Alt-only defaults");
+        for(int i=0;i<6;i++)freshBrowser.SetBrowserShortcut(i,i==1?"P":browserDefaults[i],5);
+        freshBrowser.MigrateModifiers(freshBrowser.ToJson());
+        for(int i=0;i<6;i++)Check(freshBrowser.BrowserKey(i)==browserDefaults[i]&&freshBrowser.BrowserModifiers(i)==4,"legacy defaults migrate");
+        freshBrowser.SetBrowserShortcut(1,"Q",7);freshBrowser.MigrateModifiers(freshBrowser.ToJson());Check(freshBrowser.BrowserKey(1)=="Q"&&freshBrowser.BrowserModifiers(1)==7,"custom browser shortcut retained");
+        settings.propsKey="\"";settings.propsModifiers=99;settings.Normalize();Check(settings.propsKey=="D"&&settings.propsModifiers==4,"invalid browser settings normalised"); settings.SetBrowserShortcut(1,"Q",7);using(var browserJson=System.Text.Json.JsonDocument.Parse(settings.ToJson()))Check(browserJson.RootElement.GetProperty("propsKey").GetString()=="Q"&&browserJson.RootElement.GetProperty("propsModifiers").GetInt32()==7,"browser JSON saves complete combination"); settings.MigrateModifiers("{}");Check(settings.propsKey=="D"&&settings.propsModifiers==4,"old file migrates browser defaults");
+        var conflicts=new EditorToolsSettings{browserShortcuts=true};Check(!conflicts.BrowserConflict("D",4,1),"distinct browser shortcut allowed");conflicts.SetBrowserShortcut(2,"D",4);Check(conflicts.BrowserConflict("D",4,1)&&conflicts.BrowserConflict("D",4,2),"both duplicate browser shortcuts suppressed");conflicts.SetBrowserShortcut(1,"Z",1);Check(conflicts.BrowserConflict("Z",1,1)&&conflicts.BrowserConflict("Z",1),"recovery and browser conflict suppressed both ways");conflicts.shortcuts=false;Check(!conflicts.BrowserConflict("Z",1,1),"disabled recovery does not reserve its binding");conflicts.browserShortcuts=false;Check(!conflicts.BrowserConflict("Z",1),"disabled browser does not reserve its binding");
         var history = new TransactionHistory<int>(50); for(int i=0;i<50;i++) history.Record(i);
         for(int expected=0;expected<16;expected++) for(int actual=0;actual<16;actual++) {
             var result=ShortcutPolicy.Resolve(true,true,false,false,false,(actual&1)!=0,(actual&2)!=0,(actual&4)!=0,(actual&8)!=0,true,false,expected,3);
@@ -71,5 +77,8 @@ internal static class Program {
         Console.WriteLine("Phase 4 safety: "+checks+" assertions passed.");
     }
 }
+
+
+
 
 

@@ -1,0 +1,276 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+value__=
+Default=0
+Create=1
+Modify=2
+Remove=3
+System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0000: ldarg.1
+IL_0001: ldarg.0
+IL_0002: ldfld Unity.Entities.EntityTypeHandle Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_EntityType
+IL_0007: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.ArchetypeChunk::GetNativeArray(Unity.Entities.EntityTypeHandle)
+IL_000c: stloc.0
+IL_000d: ldarg.1
+IL_000e: ldarg.0
+IL_000f: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_TempType
+IL_0014: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0019: stloc.1
+IL_001a: ldarg.1
+IL_001b: ldarg.0
+IL_001c: ldflda Unity.Entities.BufferTypeHandle`1<Game.Areas.Node> Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_AreaNodeType
+IL_0021: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Areas.Node>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0026: stloc.2
+IL_0027: ldloca.s V_2
+IL_0029: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Areas.Node>::get_Length()
+IL_002e: brfalse IL_00db
+IL_0033: ldarg.1
+IL_0034: ldarg.0
+IL_0035: ldflda Unity.Entities.BufferTypeHandle`1<Game.Tools.LocalNodeCache> Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_LocalNodeCacheType
+IL_003a: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Tools.LocalNodeCache>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_003f: stloc.3
+IL_0040: ldc.i4.0
+IL_0041: stloc.s V_4
+IL_0043: br IL_00cc
+IL_0048: ldloca.s V_0
+IL_004a: ldloc.s V_4
+IL_004c: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0051: stloc.s V_5
+IL_0053: ldloca.s V_1
+IL_0055: ldloc.s V_4
+IL_0057: call !0 Unity.Collections.NativeArray`1<Game.Tools.Temp>::get_Item(System.Int32)
+IL_005c: stloc.s V_6
+IL_005e: ldloc.s V_6
+IL_0060: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0065: ldc.i4.2
+IL_0066: and
+IL_0067: brfalse.s IL_0076
+IL_0069: ldarg.0
+IL_006a: ldarg.2
+IL_006b: ldloc.s V_5
+IL_006d: ldloc.s V_6
+IL_006f: call System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Delete(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0074: br.s IL_00c6
+IL_0076: ldloc.s V_6
+IL_0078: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_007d: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0082: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0087: brfalse.s IL_00bd
+IL_0089: ldloca.s V_7
+IL_008b: initobj Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>
+IL_0091: ldloca.s V_3
+IL_0093: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Tools.LocalNodeCache>::get_Length()
+IL_0098: brfalse.s IL_00a5
+IL_009a: ldloca.s V_3
+IL_009c: ldloc.s V_4
+IL_009e: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Tools.LocalNodeCache>::get_Item(System.Int32)
+IL_00a3: stloc.s V_7
+IL_00a5: ldarg.0
+IL_00a6: ldarg.2
+IL_00a7: ldloc.s V_5
+IL_00a9: ldloc.s V_6
+IL_00ab: ldloca.s V_2
+IL_00ad: ldloc.s V_4
+IL_00af: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Areas.Node>::get_Item(System.Int32)
+IL_00b4: ldloc.s V_7
+IL_00b6: call System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp,Unity.Entities.DynamicBuffer`1<Game.Areas.Node>,Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>)
+IL_00bb: br.s IL_00c6
+IL_00bd: ldarg.0
+IL_00be: ldarg.2
+IL_00bf: ldloc.s V_5
+IL_00c1: call System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Create(System.Int32,Unity.Entities.Entity)
+IL_00c6: ldloc.s V_4
+IL_00c8: ldc.i4.1
+IL_00c9: add
+IL_00ca: stloc.s V_4
+IL_00cc: ldloc.s V_4
+IL_00ce: ldloca.s V_0
+IL_00d0: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_00d5: blt IL_0048
+IL_00da: ret
+IL_00db: ldc.i4.0
+IL_00dc: stloc.s V_8
+IL_00de: br.s IL_013e
+IL_00e0: ldloca.s V_0
+IL_00e2: ldloc.s V_8
+IL_00e4: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_00e9: stloc.s V_9
+IL_00eb: ldloca.s V_1
+IL_00ed: ldloc.s V_8
+IL_00ef: call !0 Unity.Collections.NativeArray`1<Game.Tools.Temp>::get_Item(System.Int32)
+IL_00f4: stloc.s V_10
+IL_00f6: ldloc.s V_10
+IL_00f8: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_00fd: ldc.i4.2
+IL_00fe: and
+IL_00ff: brfalse.s IL_010e
+IL_0101: ldarg.0
+IL_0102: ldarg.2
+IL_0103: ldloc.s V_9
+IL_0105: ldloc.s V_10
+IL_0107: call System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Delete(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_010c: br.s IL_0138
+IL_010e: ldloc.s V_10
+IL_0110: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0115: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_011a: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_011f: brfalse.s IL_012f
+IL_0121: ldarg.0
+IL_0122: ldarg.2
+IL_0123: ldloc.s V_9
+IL_0125: ldloc.s V_10
+IL_0127: ldc.i4.1
+IL_0128: call System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp,System.Boolean)
+IL_012d: br.s IL_0138
+IL_012f: ldarg.0
+IL_0130: ldarg.2
+IL_0131: ldloc.s V_9
+IL_0133: call System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Create(System.Int32,Unity.Entities.Entity)
+IL_0138: ldloc.s V_8
+IL_013a: ldc.i4.1
+IL_013b: add
+IL_013c: stloc.s V_8
+IL_013e: ldloc.s V_8
+IL_0140: ldloca.s V_0
+IL_0142: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_0147: blt.s IL_00e0
+IL_0149: ret
+System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp,Unity.Entities.DynamicBuffer`1<Game.Areas.Node>,Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0006: ldarg.1
+IL_0007: ldarg.3
+IL_0008: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_000d: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::SetBuffer<Game.Areas.Node>(System.Int32,Unity.Entities.Entity)
+IL_0012: stloc.0
+IL_0013: ldloca.s V_0
+IL_0015: ldarga.s nodes
+IL_0017: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::get_Length()
+IL_001c: call System.Void Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::ResizeUninitialized(System.Int32)
+IL_0021: ldc.i4.0
+IL_0022: stloc.1
+IL_0023: br.s IL_0039
+IL_0025: ldloca.s V_0
+IL_0027: ldloc.1
+IL_0028: ldarga.s nodes
+IL_002a: ldloc.1
+IL_002b: call !0 Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::get_Item(System.Int32)
+IL_0030: call System.Void Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::set_Item(System.Int32,!0)
+IL_0035: ldloc.1
+IL_0036: ldc.i4.1
+IL_0037: add
+IL_0038: stloc.1
+IL_0039: ldloc.1
+IL_003a: ldarga.s nodes
+IL_003c: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::get_Length()
+IL_0041: blt.s IL_0025
+IL_0043: ldarga.s cachedNodes
+IL_0045: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::get_IsCreated()
+IL_004a: brfalse.s IL_00b9
+IL_004c: ldarg.0
+IL_004d: ldflda Unity.Entities.BufferLookup`1<Game.Tools.LocalNodeCache> Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_LocalNodeCache
+IL_0052: ldarg.3
+IL_0053: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0058: call System.Boolean Unity.Entities.BufferLookup`1<Game.Tools.LocalNodeCache>::HasBuffer(Unity.Entities.Entity)
+IL_005d: brfalse.s IL_0074
+IL_005f: ldarg.0
+IL_0060: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0065: ldarg.1
+IL_0066: ldarg.3
+IL_0067: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_006c: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::SetBuffer<Game.Tools.LocalNodeCache>(System.Int32,Unity.Entities.Entity)
+IL_0071: stloc.2
+IL_0072: br.s IL_0087
+IL_0074: ldarg.0
+IL_0075: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_007a: ldarg.1
+IL_007b: ldarg.3
+IL_007c: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0081: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Tools.LocalNodeCache>(System.Int32,Unity.Entities.Entity)
+IL_0086: stloc.2
+IL_0087: ldloca.s V_2
+IL_0089: ldarga.s cachedNodes
+IL_008b: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::get_Length()
+IL_0090: call System.Void Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::ResizeUninitialized(System.Int32)
+IL_0095: ldc.i4.0
+IL_0096: stloc.3
+IL_0097: br.s IL_00ad
+IL_0099: ldloca.s V_2
+IL_009b: ldloc.3
+IL_009c: ldarga.s cachedNodes
+IL_009e: ldloc.3
+IL_009f: call !0 Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::get_Item(System.Int32)
+IL_00a4: call System.Void Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::set_Item(System.Int32,!0)
+IL_00a9: ldloc.3
+IL_00aa: ldc.i4.1
+IL_00ab: add
+IL_00ac: stloc.3
+IL_00ad: ldloc.3
+IL_00ae: ldarga.s cachedNodes
+IL_00b0: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::get_Length()
+IL_00b5: blt.s IL_0099
+IL_00b7: br.s IL_00de
+IL_00b9: ldarg.0
+IL_00ba: ldflda Unity.Entities.BufferLookup`1<Game.Tools.LocalNodeCache> Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_LocalNodeCache
+IL_00bf: ldarg.3
+IL_00c0: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_00c5: call System.Boolean Unity.Entities.BufferLookup`1<Game.Tools.LocalNodeCache>::HasBuffer(Unity.Entities.Entity)
+IL_00ca: brfalse.s IL_00de
+IL_00cc: ldarg.0
+IL_00cd: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_00d2: ldarg.1
+IL_00d3: ldarg.3
+IL_00d4: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_00d9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.LocalNodeCache>(System.Int32,Unity.Entities.Entity)
+IL_00de: ldarg.0
+IL_00df: ldarg.1
+IL_00e0: ldarg.2
+IL_00e1: ldarg.3
+IL_00e2: ldc.i4.1
+IL_00e3: call System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp,System.Boolean)
+IL_00e8: ret
+System.Void Game.Tools.ApplyAreasSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call Unity.Entities.EntityTypeHandle Unity.Entities.SystemState::GetEntityTypeHandle()
+IL_0007: stfld Unity.Entities.EntityTypeHandle Game.Tools.ApplyAreasSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_000c: ldarg.0
+IL_000d: ldarg.1
+IL_000e: ldc.i4.1
+IL_000f: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.SystemState::GetComponentTypeHandle<Game.Tools.Temp>(System.Boolean)
+IL_0014: stfld Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Tools.ApplyAreasSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_0019: ldarg.0
+IL_001a: ldarg.1
+IL_001b: ldc.i4.0
+IL_001c: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.SystemState::GetComponentTypeHandle<Game.Common.Owner>(System.Boolean)
+IL_0021: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Tools.ApplyAreasSystem/TypeHandle::__Game_Common_Owner_RW_ComponentTypeHandle
+IL_0026: ldarg.0
+IL_0027: ldarg.1
+IL_0028: ldc.i4.1
+IL_0029: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.SystemState::GetComponentLookup<Game.Tools.Temp>(System.Boolean)
+IL_002e: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Tools.ApplyAreasSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentLookup
+IL_0033: ldarg.0
+IL_0034: ldarg.1
+IL_0035: ldc.i4.0
+IL_0036: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.SystemState::GetBufferLookup<Game.Areas.SubArea>(System.Boolean)
+IL_003b: stfld Unity.Entities.BufferLookup`1<Game.Areas.SubArea> Game.Tools.ApplyAreasSystem/TypeHandle::__Game_Areas_SubArea_RW_BufferLookup
+IL_0040: ldarg.0
+IL_0041: ldarg.1
+IL_0042: ldc.i4.1
+IL_0043: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.SystemState::GetBufferTypeHandle<Game.Areas.Node>(System.Boolean)
+IL_0048: stfld Unity.Entities.BufferTypeHandle`1<Game.Areas.Node> Game.Tools.ApplyAreasSystem/TypeHandle::__Game_Areas_Node_RO_BufferTypeHandle
+IL_004d: ldarg.0
+IL_004e: ldarg.1
+IL_004f: ldc.i4.1
+IL_0050: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.SystemState::GetBufferTypeHandle<Game.Tools.LocalNodeCache>(System.Boolean)
+IL_0055: stfld Unity.Entities.BufferTypeHandle`1<Game.Tools.LocalNodeCache> Game.Tools.ApplyAreasSystem/TypeHandle::__Game_Tools_LocalNodeCache_RO_BufferTypeHandle
+IL_005a: ldarg.0
+IL_005b: ldarg.1
+IL_005c: ldc.i4.1
+IL_005d: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.SystemState::GetComponentLookup<Game.Tools.Hidden>(System.Boolean)
+IL_0062: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Tools.ApplyAreasSystem/TypeHandle::__Game_Tools_Hidden_RO_ComponentLookup
+IL_0067: ldarg.0
+IL_0068: ldarg.1
+IL_0069: ldc.i4.1
+IL_006a: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.SystemState::GetBufferLookup<Game.Tools.LocalNodeCache>(System.Boolean)
+IL_006f: stfld Unity.Entities.BufferLookup`1<Game.Tools.LocalNodeCache> Game.Tools.ApplyAreasSystem/TypeHandle::__Game_Tools_LocalNodeCache_RO_BufferLookup
+IL_0074: ret

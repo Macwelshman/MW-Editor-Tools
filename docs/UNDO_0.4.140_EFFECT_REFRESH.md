@@ -1,0 +1,21 @@
+# 0.4.140 — dedicated native effect refresh
+
+VERIFIED-RUNTIME: docs/evidence/undo-0.4.139-effects-runtime.log records two strict isolated bound move completions (01:02:10.633, 01:02:25.973) and four strict deletion completions (01:02:47.593, 01:04:31.606, 01:05:17.280, 01:05:33.258). User reports move visuals refresh only after camera movement; deletion visuals require cursor focus movement and several seconds. Source/placement/witness restoration is accepted separately from prompt rendering. Immediate visual refresh remains UNPROVEN.
+
+VERIFIED-STATIC: installed Game.dll version 0.0.0.0, MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef, SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A remains unchanged.
+
+Native evidence:
+- Game.UI.Editor.AnimationControlsPanel.SetLightState: IL_007b–0088 checks child EnabledEffect buffer and adds Game.Common.EffectsUpdated. See docs/evidence/effect-update-marker-native.txt.
+- Game.Rendering.ObjectInterpolateSystem.UpdateTransformDataJob.UpdateStaticAnimations: IL_0599–05a6 adds EffectsUpdated on owner; IL_05d0–05de adds it on child objects during editor animation changes. Same evidence file.
+- Game.Effects.EffectControlSystem.OnCreate: IL_0105 includes EffectsUpdated in the updated-effects query, alongside Updated/Deleted/BatchesUpdated. See docs/evidence/effect-container-init-native.txt.
+- Game.Effects.EffectControlSystem.EffectControlJob.Execute: editor-container branch IL_023a–0244 supplies flags including 16; EnabledActionJob.Enable IL_014a–0164 marks existing enabled effect data with bit4096. Game.Rendering.EffectTransformSystem.EffectTransformJob.Execute IL_000d–0025 requires enabled state and flags mask5122 (including4096) before transforming effect data. See docs/evidence/effect-control-refresh-native.txt and effect-refresh-public-native.txt.
+
+Correction: WriteEffectValues now emits EffectsUpdated on the target effect container, alongside existing object/batch tags. Fresh deletion creation uses the same writer. Native allocation registry entries remain untouched. Child witnesses, isolated source handling, move settlement and all recovery guards are unchanged. No parent regeneration, forced Hidden state, camera movement, tool switching, global culling reset or new runtime system is added.
+
+HYPOTHESIS: the dedicated native editor signal will make visual updates prompt. The native query also accepts existing tags, so static evidence alone does not prove that this missing signal caused the delay. This build makes the smallest evidenced correction and requires native acceptance.
+
+VERIFIED-STATIC: Release build zero warnings/errors; 24 actual-source restore assertions pass, including explicit move/deletion refresh signals, existing native registry preservation, ownership, optional fields and fresh creation. Prior 0.4.139 lifecycle and witness checks remain applicable; no lifecycle/policy changes in this build.
+
+Acceptance in a fresh disposable harbour copy: existing main-building effect move/Undo and deletion/Undo, with camera, cursor and active tool left still after Ctrl+Z. Verify actual effect and marker return promptly at original position/height. Stop on failure. Do not overwrite original assets. Save/reopen persistence remains pending. No computer use or publishing.
+
+CURRENT 2026-10-18: 0.4.140 INSTALLED. Guarded installer verified Cities2 absent; five copied hashes and 148 rollback files verified. Rollback outputs/rollback/MWEditorTools-before-0.4.140-20261018-010948/MWEditorTools; evidence docs/evidence/recovery-0.4.140-installed-hashes.csv. VERIFIED-RUNTIME 0.4.139 two moves/four deletions passed strict placement/source checks but user reports camera/cursor-dependent visual refresh. Added dedicated native EffectsUpdated target signal used by editor light controls; existing object/batch tags and preservation guards retained. Release zero warnings/errors and 24 actual-source restore assertions passed. Prompt rendering causality/success remains HYPOTHESIS/UNPROVEN; native query also accepts existing update tags. See docs/UNDO_0.4.140_EFFECT_REFRESH.md. Next grouped fresh disposable move/deletion Undo check with camera/cursor/tool still. No computer use or publishing.

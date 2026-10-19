@@ -41,7 +41,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             mainImage=null;
             Mod.Log.Info("Main bulldozer diagnostic #"+mainAttempts+" targets="+mainTargets.Length+"; recovery enabled="+MainHistoryEnabled);
             foreach(var entity in mainTargets)LogMainEntity("before",entity,true);
-            if(mainTargets.Length==1)try{mainImage=CaptureMainProp(mainTargets[0]);}catch(Exception error){ClearMain();Mod.Log.Info("Main prop capture refused: "+error.Message);}else ClearMain();
+            if(mainTargets.Length==1)try{mainImage=CaptureMainProp(mainTargets[0]);}catch(Exception error){ClearMain();Status="Prop Undo unavailable: "+error.Message;Mod.Log.Info(Status);if(!(error is NotSupportedException))Mod.Log.Warn("Standalone prop capture exception: "+error);}else ClearMain();
         }
         private void LogMainEntity(string stage,Entity entity,bool details) {
             var em=world.EntityManager;bool exists=em.Exists(entity);
@@ -65,7 +65,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             if(mainTargets==null||mainInApply)return;
             if(!context.EditorAvailable){mainTargets=null;return;}
             int age=Time.frameCount-mainStarted;
-            if(mainImage!=null&&!world.EntityManager.Exists(mainImage.Original)){
+            if(mainImage!=null&&MainSourcesGone(mainImage)){
                 Mod.Log.Info("Main standalone detached candidate after confirmed deletion: valid="+mainImage.DetachedValid+"; no live restoration performed.");
                 if(mainArmed&&mainAccepted&&mainImage.DetachedValid&&!mainDisabled){mainHistory.Record(new MainEntry{Image=mainImage,Live=Entity.Null});Status="Recorded standalone Main prop deletion. Undo entries: "+MainUndoCount+".";Mod.Log.Info(Status);}
                 mainImage=null;
@@ -79,5 +79,3 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         }
     }
 }
-
-

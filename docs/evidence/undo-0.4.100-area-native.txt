@@ -1,0 +1,74 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Game.Prefabs.AreaData
+Unity.Entities.EntityArchetype m_Archetype
+Game.Areas.Area
+Game.Areas.AreaFlags m_Flags
+Game.Areas.Surface
+Game.Areas.Space
+Game.Areas.Node
+Unity.Mathematics.float3 m_Position
+System.Single m_Elevation
+Game.Tools.LocalNodeCache
+Unity.Mathematics.float3 m_Position
+System.Int32 m_ParentMesh
+System.Void Game.Prefabs.AreaPrefab::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0002: call System.Void Game.Prefabs.PrefabBase::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.AreaData>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.AreaColorData>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.PlaceableInfoviewItem>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0002: call System.Void Game.Prefabs.PrefabBase::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Node>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Triangle>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+System.Void Game.Prefabs.SurfacePrefab::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.SurfaceData>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.AreaGeometryData>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+System.Void Game.Prefabs.SurfacePrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Surface>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Expand>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+System.Void Game.Prefabs.SpacePrefab::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.SpaceData>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.AreaGeometryData>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+System.Void Game.Prefabs.SpacePrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Space>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+System.Void Game.Prefabs.AreaInitializeSystem::OnUpdate()
+Game.Areas.RenderedArea absent
+Game.Areas.Surface
+Game.Areas.Space
+Game.Areas.Geometry
+Colossal.Mathematics.Bounds3 m_Bounds
+Unity.Mathematics.float3 m_CenterPosition
+System.Single m_SurfaceArea
+Game.Areas.Expand
+Unity.Mathematics.float2 m_Offset
+System.Void Game.Areas.GeometrySystem::OnCreate()
+IL_0032: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Area>()
+IL_003e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_004a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Node>()
+IL_0056: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Triangle>()
+IL_0074: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Area>()
+IL_0080: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Node>()
+IL_008c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Triangle>()
+IL_00aa: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Created>()
+IL_00b6: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Buildings.Building>()
+IL_00c2: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Owner>()

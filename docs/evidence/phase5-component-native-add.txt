@@ -1,0 +1,36 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+T Game.Prefabs.PrefabBase::AddComponent()
+IL_0000: ldarg.0
+IL_0001: ldtoken T
+IL_0006: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)
+IL_000b: call Game.Prefabs.ComponentBase Game.Prefabs.PrefabBase::AddComponent(System.Type)
+IL_0010: unbox.any T
+IL_0015: ret
+Game.Prefabs.ComponentBase Game.Prefabs.PrefabBase::AddComponent(System.Type)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Boolean Game.Prefabs.PrefabBase::Has(System.Type)
+IL_0007: brfalse.s IL_0014
+IL_0009: ldstr "Component already exists"
+IL_000e: newobj System.Void System.InvalidOperationException::.ctor(System.String)
+IL_0013: throw
+IL_0014: ldarg.1
+IL_0015: call UnityEngine.ScriptableObject UnityEngine.ScriptableObject::CreateInstance(System.Type)
+IL_001a: castclass Game.Prefabs.ComponentBase
+IL_001f: stloc.0
+IL_0020: ldloc.0
+IL_0021: ldarg.1
+IL_0022: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_0027: callvirt System.Void UnityEngine.Object::set_name(System.String)
+IL_002c: ldloc.0
+IL_002d: ldarg.0
+IL_002e: callvirt System.Void Game.Prefabs.ComponentBase::set_prefab(Game.Prefabs.PrefabBase)
+IL_0033: ldarg.0
+IL_0034: ldfld System.Collections.Generic.List`1<Game.Prefabs.ComponentBase> Game.Prefabs.PrefabBase::components
+IL_0039: ldloc.0
+IL_003a: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::Add(!0)
+IL_003f: ldarg.0
+IL_0040: ldc.i4.1
+IL_0041: stfld System.Boolean Game.Prefabs.PrefabBase::isDirty
+IL_0046: ldloc.0
+IL_0047: ret

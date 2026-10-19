@@ -11,21 +11,21 @@ vm.runInNewContext(code,{exports:exported,require:name=>{
  if(name==='react')return hooks;
  if(name==='cs2/api')return{bindValue:(group,key)=>({group,key}),useValue:()=>JSON.stringify(state),trigger:(...args)=>calls.push(args)};
  if(name==='cs2/modding')return{getModule:()=>({button:'native'})};
- if(name==='cs2/ui')return{Button:button,Scrollable:({children})=>React.createElement('div',null,children)};
+ if(name==='cs2/ui')return{Button:button,Tooltip:({children})=>children,Scrollable:({children})=>React.createElement('div',null,children)};
  throw Error(name);
 }});
 let checks=0;const check=(b,m)=>{if(!b)throw Error(m);checks++;};
 const render=()=>{effects=[];let html=renderToStaticMarkup(React.createElement(exported.MultiSaveContent));for(const fn of effects)fn();return html;};
 let html=render();
 check(html.includes('3 assets ready to save.'),'Concise ready count');
-check(html.includes('mw-tools-save-primary')&&!/<button[^>]*disabled=""[^>]*>Save All Assets/.test(html),'Prominent ready action enabled');
-check(html.indexOf('Save All Assets')<html.indexOf('3 assets ready'),'Save action comes first');
+check(!html.includes('mw-tools-save-primary')&&!/<button[^>]*disabled=""[^>]*>Save all assets/.test(html),'Prominent ready action enabled');
+check(html.indexOf('Save all assets')<html.indexOf('3 assets ready'),'Save action comes first');
 check(!html.includes('locked assets excluded')&&!html.includes('Repeated instances'),'Technical details initially hidden');
-handlers['Save All Assets']();check(calls[0][0]==='mwEditorToolsMultiSave'&&calls[0][2]==='saveAll','Save command unchanged');
-handlers['Show details']();html=render();check(html.includes('1 locked assets excluded')&&html.includes('Repeated instances'),'Details expand on request');
+handlers['Save all assets']();check(calls[0][0]==='mwEditorToolsMultiSave'&&calls[0][2]==='saveAll','Save command unchanged');
+handlers['Details']();html=render();check(html.includes('1 locked assets excluded')&&html.includes('Repeated instances'),'Details expand on request');
 handlers['Hide details']();html=render();check(!html.includes('Repeated instances'),'Details collapse');
 state={...state,busy:true,processed:1,total:3,current:'Copy',status:'Saving unlocked assets…',report:'Verbose report'};html=render();
-check(/<button[^>]*disabled=""[^>]*>Save All Assets/.test(html),'Busy prevents duplicate batch');
+check(/<button[^>]*disabled=""[^>]*>Save all assets/.test(html),'Busy prevents duplicate batch');
 check(html.includes('Saving 2 of 3…')&&html.includes('>Stop<'),'Concise progress and Stop');
 check(html.includes('role="progressbar"')&&html.includes('aria-valuenow="1"')&&html.includes('33.333'),'Progress reflects processed assets');
 check(!html.includes('Verbose report'),'Busy report stays collapsed');
@@ -39,6 +39,7 @@ check(html.includes('Failed Copy')&&html.includes('1 failed.')&&html.includes('H
 details=false;state={available:true,eligible:3,status:'Save All could not start: dependency unavailable',report:'Failure'};render();html=render();
 check(html.includes('Hide details')&&html.includes('could not start'),'Batch start failure expands details');
 details=false;state={available:true,eligible:0,status:'No unlocked assets to save.'};html=render();
-check(/<button[^>]*disabled=""[^>]*>Save All Assets/.test(html)&&!html.includes('>Stop<'),'Empty workspace has no Save or Stop action');
-state={available:false,eligible:3,status:'Waiting for the workspace list.'};html=render();check(/<button[^>]*disabled=""[^>]*>Save All Assets/.test(html),'Unavailable systems disable Save');
+check(/<button[^>]*disabled=""[^>]*>Save all assets/.test(html)&&!html.includes('>Stop<'),'Empty workspace has no Save or Stop action');
+state={available:false,eligible:3,status:'Waiting for the workspace list.'};html=render();check(/<button[^>]*disabled=""[^>]*>Save all assets/.test(html),'Unavailable systems disable Save');
 console.log('PASS: '+checks+' actual Multi-Save presentation/command checks; native appearance pending.');
+

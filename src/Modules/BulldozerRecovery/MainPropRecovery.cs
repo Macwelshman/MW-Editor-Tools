@@ -7,7 +7,7 @@ using UnityEngine;
 namespace MW.EditorTools.Modules.BulldozerRecovery {
     internal sealed partial class BulldozerTrace {
         private sealed class MainEntry {internal MainPropImage Image;internal Entity Live;}
-        private readonly MW.EditorTools.History.TransactionHistory<MainEntry> mainHistory=new MW.EditorTools.History.TransactionHistory<MainEntry>(20);
+        private readonly MW.EditorTools.History.LastDeletion<MainEntry> mainHistory=new MW.EditorTools.History.LastDeletion<MainEntry>();
         private MainEntry mainPending;
         private MainPropImage mainRecord=>mainPending?.Image??(mainHistory.Latest??mainHistory.NextRedo)?.Image;
         private Entity mainLive;
@@ -30,14 +30,14 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             try {
                 var entry=undo?mainHistory.Latest:mainHistory.NextRedo;
                 if(mainDisabled||Busy||entry==null||!context.EditorAvailable||context.DialogBusy||!entry.Image.DetachedValid)return false;
-                if(undo)return entry.Live==Entity.Null&&!world.EntityManager.Exists(entry.Image.Original);
+                if(undo)return entry.Live==Entity.Null&&MainSourcesGone(entry.Image);
                 return MainLiveMatches(entry,entry.Live);
             }catch{return false;}
         }
         private bool MainLiveMatches(MainEntry entry,Entity live){
             if(live==Entity.Null||!world.EntityManager.Exists(live)||world.EntityManager.HasComponent<Game.Common.Deleted>(live))return false;
             var value=CaptureMainProp(live,false);
-            return ReferenceEquals(value.Prefab,entry.Image.Prefab)&&entry.Image.Data.Matches(value.Data);
+            return ReferenceEquals(value.Prefab,entry.Image.Prefab)&&entry.Image.Data.Matches(value.Data)&&MainNestedMatches(entry.Image,value);
         }
         internal void MainUndo()=>Guard(()=>StartMain(true));
         internal void MainRedo()=>Guard(()=>StartMain(false));
@@ -45,7 +45,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             if(!MainReady(undo))return;
             mainPending=undo?mainHistory.Latest:mainHistory.NextRedo;
             mainLive=mainPending.Live;
-            mainBusy=true;mainUndoOperation=undo;mainOperationFrame=Time.frameCount;
+            mainBusy=true;mainUndoOperation=undo;mainOperationFrame=Time.frameCount;mainNestedValuesRestored=false;mainNestedStableFrames=0;
             try {
                 var em=world.EntityManager;
                 if(undo){
@@ -55,10 +55,12 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                     using(var types=archetype.GetComponentTypes(Allocator.Temp)){
                         var names=types.Select(type=>type.GetManagedType()?.FullName??"unknown").ToArray();
                         Mod.Log.Info("Main native creation archetype: "+string.Join(",",names));
-                        var unknown=names.Where(name=>!MainKnownTypes.Contains(name)&&name!="Game.Common.Created"&&name!="Game.Common.Updated"&&name!="Game.Common.Applied").ToArray();
+                        var unknown=names.Where(name=>!MainKnownTypes.Contains(name)&&name!="Game.Effects.EnabledEffect"&&name!="Game.Objects.Plant"&&name!="Game.Objects.Tree"&&name!="Game.Simulation.UpdateFrame"&&name!="Game.Common.Created"&&name!="Game.Common.Updated"&&name!="Game.Common.Applied").ToArray();
                         if(unknown.Length!=0)throw new NotSupportedException("Unknown archetype components: "+string.Join(",",unknown));
                     }
                     using(var created=new NativeArray<Entity>(1,Allocator.Temp)){em.CreateEntity(archetype,created);mainLive=created[0];}
+                    if(mainRecord.Group!=null&&!em.HasBuffer<Game.Objects.SubObject>(mainLive))em.AddBuffer<Game.Objects.SubObject>(mainLive);
+                    if(mainRecord.Group!=null){var root=mainRecord.Group[0];if(root.HasColor)PutMain(mainLive,root.Color);if(root.HasDecoration){PutMain(mainLive,new Game.Objects.Decoration());em.SetComponentEnabled<Game.Objects.Decoration>(mainLive,root.DecorationEnabled);}if(root.HasPlant)PutMain(mainLive,root.Plant);if(root.HasTree)PutMain(mainLive,root.Tree);}
                     var data=mainRecord.Data.Clone();
                     PutMain(mainLive,new PrefabRef{m_Prefab=prefab});PutMain(mainLive,data.Transform);PutMain(mainLive,data.Seed);PutMain(mainLive,data.Surface);
                     if(data.Colours!=null){var buffer=em.HasBuffer<Game.Rendering.MeshColor>(mainLive)?em.GetBuffer<Game.Rendering.MeshColor>(mainLive):em.AddBuffer<Game.Rendering.MeshColor>(mainLive);buffer.Clear();foreach(var value in data.Colours)buffer.Add(value);}
@@ -79,7 +81,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             int age=Time.frameCount-mainOperationFrame;
             if(age<2)return;
             bool complete=false;
-            if(mainUndoOperation){try{complete=MainLiveMatches(mainPending,mainLive);}catch(Exception error){if(age>120)Mod.Log.Info("Main initialization mismatch: "+error.Message);}}
+            if(mainUndoOperation){try{complete=RestoreMainNestedValues()&&MainLiveMatches(mainPending,mainLive);}catch(Exception error){if(age>120)Mod.Log.Info("Main initialization mismatch: "+error.Message);}}
             else complete=!world.EntityManager.Exists(mainLive);
             if(complete){
                 bool moved=mainUndoOperation?mainHistory.Undo(entry=>ReferenceEquals(entry,mainPending)):mainHistory.Redo(entry=>ReferenceEquals(entry,mainPending));

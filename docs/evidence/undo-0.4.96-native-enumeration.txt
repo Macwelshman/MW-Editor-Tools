@@ -1,0 +1,77 @@
+Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID 3d6b23ae-b281-44a6-a5f4-cbd5fd3d75e6
+METHOD Unity.Collections.NativeArray`1/Enumerator<T> Unity.Entities.DynamicBuffer`1::GetEnumerator()
+IL_0000: ldarg.0
+IL_0001: call Unity.Collections.NativeArray`1<T> Unity.Entities.DynamicBuffer`1<T>::AsNativeArray()
+IL_0006: stloc.0
+IL_0007: ldloca.s V_0
+IL_0009: newobj System.Void Unity.Collections.NativeArray`1/Enumerator<T>::.ctor(Unity.Collections.NativeArray`1<!0>&)
+IL_000e: ret
+METHOD System.Collections.IEnumerator Unity.Entities.DynamicBuffer`1::System.Collections.IEnumerable.GetEnumerator()
+IL_0000: newobj System.Void System.NotImplementedException::.ctor()
+IL_0005: throw
+METHOD System.Collections.Generic.IEnumerator`1<T> Unity.Entities.DynamicBuffer`1::System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+IL_0000: newobj System.Void System.NotImplementedException::.ctor()
+IL_0005: throw
+Unity.Collections, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID f4ddbc30-cb47-4061-9107-4a184ca0481e
+METHOD Unity.Collections.NativeArray`1<T> Unity.Collections.NativeList`1::ToArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0000: ldarg.0
+IL_0001: call System.Int32 Unity.Collections.NativeList`1<T>::get_Length()
+IL_0006: ldarg.1
+IL_0007: ldc.i4.0
+IL_0008: call Unity.Collections.NativeArray`1<T> Unity.Collections.CollectionHelper::CreateNativeArray<T>(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle,Unity.Collections.NativeArrayOptions)
+IL_000d: dup
+IL_000e: ldfld System.Void* Unity.Collections.NativeArray`1<T>::m_Buffer
+IL_0013: ldarg.0
+IL_0014: ldfld Unity.Collections.LowLevel.Unsafe.UnsafeList`1<T>* Unity.Collections.NativeList`1<T>::m_ListData
+IL_0019: ldfld T* Unity.Collections.LowLevel.Unsafe.UnsafeList`1<T>::Ptr
+IL_001e: ldarg.0
+IL_001f: call System.Int32 Unity.Collections.NativeList`1<T>::get_Length()
+IL_0024: call System.Int32 Unity.Collections.LowLevel.Unsafe.UnsafeUtility::SizeOf<T>()
+IL_0029: mul
+IL_002a: conv.i8
+IL_002b: call System.Void Unity.Collections.LowLevel.Unsafe.UnsafeUtility::MemCpy(System.Void*,System.Void*,System.Int64)
+IL_0030: ret
+METHOD Unity.Collections.NativeArray`1/Enumerator<T> Unity.Collections.NativeList`1::GetEnumerator()
+IL_0000: ldarg.0
+IL_0001: call Unity.Collections.NativeArray`1<T> Unity.Collections.NativeList`1<T>::AsArray()
+IL_0006: stloc.0
+IL_0007: ldloca.s V_0
+IL_0009: newobj System.Void Unity.Collections.NativeArray`1/Enumerator<T>::.ctor(Unity.Collections.NativeArray`1<!0>&)
+IL_000e: ret
+METHOD System.Collections.IEnumerator Unity.Collections.NativeList`1::System.Collections.IEnumerable.GetEnumerator()
+IL_0000: newobj System.Void System.NotImplementedException::.ctor()
+IL_0005: throw
+METHOD System.Collections.Generic.IEnumerator`1<T> Unity.Collections.NativeList`1::System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+IL_0000: newobj System.Void System.NotImplementedException::.ctor()
+IL_0005: throw
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD T Game.Prefabs.PrefabSystem::GetPrefab(Game.Prefabs.PrefabData)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<Game.Prefabs.PrefabBase> Game.Prefabs.PrefabSystem::m_Prefabs
+IL_0006: ldarg.1
+IL_0007: ldfld System.Int32 Game.Prefabs.PrefabData::m_Index
+IL_000c: callvirt !0 System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>::get_Item(System.Int32)
+IL_0011: isinst T
+IL_0016: unbox.any T
+IL_001b: ret
+METHOD T Game.Prefabs.PrefabSystem::GetPrefab(Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0007: stloc.0
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.1
+IL_000b: call !!0 Unity.Entities.EntityManager::GetComponentData<Game.Prefabs.PrefabData>(Unity.Entities.Entity)
+IL_0010: call T Game.Prefabs.PrefabSystem::GetPrefab<T>(Game.Prefabs.PrefabData)
+IL_0015: ret
+METHOD T Game.Prefabs.PrefabSystem::GetPrefab(Game.Prefabs.PrefabRef)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0007: stloc.0
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.1
+IL_000b: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0010: call !!0 Unity.Entities.EntityManager::GetComponentData<Game.Prefabs.PrefabData>(Unity.Entities.Entity)
+IL_0015: call T Game.Prefabs.PrefabSystem::GetPrefab<T>(Game.Prefabs.PrefabData)
+IL_001a: ret

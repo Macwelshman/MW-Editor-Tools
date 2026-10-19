@@ -1,3 +1,7 @@
+# Current release gate
+
+Use [0.4.163 release readiness](RELEASE_READINESS_0.4.163.md) for the current single-action Undo and Phase 5 grouped acceptance. Historical multi-history/Redo checks below do not apply to the current supported release scope.
+
 # Validation plan
 
 Phase 1: inspect project XML, inert source, document links, evidence hashes and absence of deployment/runtime hooks. The inert scaffold build subsequently passed with SDK 8.0.425 and zero warnings/errors. No destructive tests performed.
@@ -9,4 +13,5 @@ Recovery acceptance per supported operation: complete before/after data equality
 Fault injection: failed capture, missing prefab, stale Entity version, partial creation, failed serialization/save, queued ECS work and interrupted callback. Verify no orphan/duplicate entities and prove rollback/recovery behavior before enabling destructive use.
 
 Existing module regression: preserve colour groups/bindings/randomness/alpha/external settings; Multi-Save queue, lock handling, native dialogs, cancellation and stale-generation callbacks. Test sources individually before shared service adaptation.
+
 
