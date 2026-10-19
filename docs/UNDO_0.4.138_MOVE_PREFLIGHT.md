@@ -1,0 +1,13 @@
+# Undo 0.4.138 — blocked move preflight diagnostics
+
+VERIFIED-RUNTIME: user reports existing main-building effect move Undo failed after accepted 0.4.137 deletion recovery. Preserved docs/evidence/undo-0.4.137-effect-moves-runtime.log shows move capture 00:33:45.217, ready 00:33:46.509, shortcut rejected ready=False at 00:33:48.072 and 00:33:54.263. A second move records at 00:34:00.505 and is similarly blocked 00:34:03.003. No move restoration ran. This is a failed preflight after commit, not a rejected capture and not a rendering failure. Original and moved target are mesh 0 -> -1, with the restored main-building effect, not the unsupported mesh-1000 transition.
+
+HYPOTHESIS: some captured state changes after the three-frame commit, or a stricter preflight rejects a state already accepted at commit. Exact condition is UNPROVEN in the previous generic ready=False log. Source normalization, reference changes and unrelated child motion must not be guessed or broadly permitted.
+
+VERIFIED-STATIC: added deduplicated effect preflight reasons for editor/context/recovery state, invalid original/after prefab references with changed field names, parent source shape/active/field differences, child witness identities, effect values/retained identities/local source descriptors and exact moved-target before/actual metadata. Exceptions report type/message. Logging resets for new records and on successful readiness. No capture/restore guard or stable-frame requirement relaxed; accepted deletion creation/registry path unchanged. A failed original source check still prevents all writes.
+
+VERIFIED-STATIC checks: Release net48 zero warnings/errors; 33 actual-source effect lifecycle/source-writer assertions pass. Diagnostic-only change; 0.4.137 deletion native visual/strict pass retained, bound move and persistence unaccepted.
+
+Next diagnostic: fresh disposable harbour main-building effect move once, attempt Ctrl+Z once, stop. The guard logs its exact reason through normal readiness evaluation; do not perform more moves after a failure. Inspect that reason before implementing a correction. No computer use or publishing.
+
+CURRENT 2026-10-18: 0.4.138 INSTALLED after user confirmed game closed. Guarded installer verified Cities2 absent; five installed hashes and 146 rollback files verified. Rollback outputs/rollback/MWEditorTools-before-0.4.138-20261018-003709/MWEditorTools; evidence docs/evidence/recovery-0.4.138-installed-hashes.csv. Diagnostic-only build identifies the exact bound effect move preflight blocker; no guard changes or move fix claimed. Bound deletion acceptance retained. Next fresh disposable main-building existing effect: move once, Ctrl+Z once, then stop and report for log review. No computer use or publishing.

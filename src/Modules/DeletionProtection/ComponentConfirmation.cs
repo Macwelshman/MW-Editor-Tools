@@ -97,7 +97,7 @@ namespace MW.EditorTools.Modules.DeletionProtection
                     .Where(m => m.Name == "ShowConfirmationDialog"))
                     harmony.Patch(method, prefix: Patch(nameof(BeforeDialog)));
                 installed = true;
-                Mod.Log.Info("MW Editor Tools: component-header and list Clear confirmation installed. No whole-component or bulk Clear undo.");
+                Mod.Log.Info("MW Editor Tools: component-header and list Clear confirmation installed; recovery eligibility is checked separately.");
             }
             catch { Release(); throw; }
         }

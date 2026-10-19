@@ -17,23 +17,10 @@ module.exports = {
     output: { path: path.resolve(__dirname, "../dist"), filename: "MW.EditorTools.mjs", library: { type: "module" }, publicPath: "coui://ui-mods/" },
     experiments: { outputModule: true },
     plugins: [new MiniCssExtractPlugin({ filename: "MW.EditorTools.css" }), new webpack.BannerPlugin({
-        banner: "/*\n * Cities: Skylines II UI Module\n *\n * Id: MW.EditorTools\n * Author: MW\n * Version: 0.4.88\n * Dependencies:\n */", raw: true,
+        banner: "/*\n * Cities: Skylines II UI Module\n *\n * Id: MW.EditorTools\n * Author: MW\n * Version: 0.4.163\n * Dependencies:\n */", raw: true,
         stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT
     })]
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

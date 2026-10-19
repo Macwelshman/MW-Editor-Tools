@@ -1,0 +1,611 @@
+METHOD System.Void Game.Rendering.PreCullingSystem/VerifyVisibleJob::Execute(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_CullingData
+IL_0006: ldarg.1
+IL_0007: call !0 Unity.Collections.NativeList`1<Game.Rendering.PreCullingData>::get_Item(System.Int32)
+IL_000c: stloc.0
+IL_000d: ldloc.0
+IL_000e: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0013: ldc.i4 512
+IL_0018: and
+IL_0019: brfalse.s IL_001c
+IL_001b: ret
+IL_001c: ldarg.0
+IL_001d: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_CullingInfoData
+IL_0022: ldloc.0
+IL_0023: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0028: call !0 Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo>::get_Item(Unity.Entities.Entity)
+IL_002d: stloc.1
+IL_002e: ldarg.0
+IL_002f: ldfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_VisibleMask
+IL_0034: ldloc.1
+IL_0035: ldfld Game.Common.BoundsMask Game.Rendering.CullingInfo::m_Mask
+IL_003a: and
+IL_003b: brtrue.s IL_006c
+IL_003d: ldarg.0
+IL_003e: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_ActionQueue
+IL_0043: ldloca.s V_2
+IL_0045: initobj Game.Rendering.PreCullingSystem/CullingAction
+IL_004b: ldloca.s V_2
+IL_004d: ldloc.0
+IL_004e: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0053: stfld Unity.Entities.Entity Game.Rendering.PreCullingSystem/CullingAction::m_Entity
+IL_0058: ldloca.s V_2
+IL_005a: ldloc.0
+IL_005b: ldfld System.SByte Game.Rendering.PreCullingData::m_UpdateFrame
+IL_0060: stfld System.SByte Game.Rendering.PreCullingSystem/CullingAction::m_UpdateFrame
+IL_0065: ldloc.2
+IL_0066: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction>::Enqueue(!0)
+IL_006b: ret
+IL_006c: ldloc.1
+IL_006d: ldfld System.Byte Game.Rendering.CullingInfo::m_PassedCulling
+IL_0072: brfalse.s IL_00d4
+IL_0074: ldloc.1
+IL_0075: ldfld Colossal.Mathematics.Bounds3 Game.Rendering.CullingInfo::m_Bounds
+IL_007a: ldarg.0
+IL_007b: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_CameraPosition
+IL_0080: ldarg.0
+IL_0081: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_CameraDirection
+IL_0086: ldarg.0
+IL_0087: ldfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_LodParameters
+IL_008c: call System.Single Game.Rendering.RenderingUtils::CalculateMinDistance(Colossal.Mathematics.Bounds3,Unity.Mathematics.float3,Unity.Mathematics.float3,Unity.Mathematics.float4)
+IL_0091: dup
+IL_0092: mul
+IL_0093: ldarg.0
+IL_0094: ldfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_LodParameters
+IL_0099: call System.Int32 Game.Rendering.RenderingUtils::CalculateLod(System.Single,Unity.Mathematics.float4)
+IL_009e: ldloc.1
+IL_009f: ldfld System.Byte Game.Rendering.CullingInfo::m_MinLod
+IL_00a4: bge.s IL_00d4
+IL_00a6: ldarg.0
+IL_00a7: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_ActionQueue
+IL_00ac: ldloca.s V_2
+IL_00ae: initobj Game.Rendering.PreCullingSystem/CullingAction
+IL_00b4: ldloca.s V_2
+IL_00b6: ldloc.0
+IL_00b7: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00bc: stfld Unity.Entities.Entity Game.Rendering.PreCullingSystem/CullingAction::m_Entity
+IL_00c1: ldloca.s V_2
+IL_00c3: ldloc.0
+IL_00c4: ldfld System.SByte Game.Rendering.PreCullingData::m_UpdateFrame
+IL_00c9: stfld System.SByte Game.Rendering.PreCullingSystem/CullingAction::m_UpdateFrame
+IL_00ce: ldloc.2
+IL_00cf: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction>::Enqueue(!0)
+IL_00d4: ret
+METHOD System.Void Game.Rendering.PreCullingSystem/FilterUpdatesJob::Execute(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_CullingData
+IL_0006: ldarg.1
+IL_0007: call !0& Unity.Collections.NativeList`1<Game.Rendering.PreCullingData>::ElementAt(System.Int32)
+IL_000c: stloc.0
+IL_000d: ldloc.0
+IL_000e: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0013: ldc.i4.s 20
+IL_0015: and
+IL_0016: brfalse IL_0476
+IL_001b: ldloc.0
+IL_001c: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0021: dup
+IL_0022: ldind.u4
+IL_0023: ldc.i4 -402652657
+IL_0028: and
+IL_0029: stind.i4
+IL_002a: ldarg.0
+IL_002b: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Created> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_CreatedData
+IL_0030: ldloc.0
+IL_0031: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0036: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Created>::HasComponent(Unity.Entities.Entity)
+IL_003b: brfalse.s IL_0049
+IL_003d: ldloc.0
+IL_003e: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0043: dup
+IL_0044: ldind.u4
+IL_0045: ldc.i4.s 48
+IL_0047: or
+IL_0048: stind.i4
+IL_0049: ldloc.0
+IL_004a: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_004f: ldc.i4.s 16
+IL_0051: and
+IL_0052: brtrue.s IL_0067
+IL_0054: ldarg.0
+IL_0055: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_UpdatedData
+IL_005a: ldloc.0
+IL_005b: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0060: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Updated>::HasComponent(Unity.Entities.Entity)
+IL_0065: brfalse.s IL_0073
+IL_0067: ldloc.0
+IL_0068: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_006d: dup
+IL_006e: ldind.u4
+IL_006f: ldc.i4.s 16
+IL_0071: or
+IL_0072: stind.i4
+IL_0073: ldarg.0
+IL_0074: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Applied> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_AppliedData
+IL_0079: ldloc.0
+IL_007a: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_007f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Applied>::HasComponent(Unity.Entities.Entity)
+IL_0084: brfalse.s IL_0092
+IL_0086: ldloc.0
+IL_0087: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_008c: dup
+IL_008d: ldind.u4
+IL_008e: ldc.i4.s 64
+IL_0090: or
+IL_0091: stind.i4
+IL_0092: ldarg.0
+IL_0093: ldflda Unity.Entities.ComponentLookup`1<Game.Common.BatchesUpdated> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_BatchesUpdatedData
+IL_0098: ldloc.0
+IL_0099: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_009e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.BatchesUpdated>::HasComponent(Unity.Entities.Entity)
+IL_00a3: brfalse.s IL_00b4
+IL_00a5: ldloc.0
+IL_00a6: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_00ab: dup
+IL_00ac: ldind.u4
+IL_00ad: ldc.i4 128
+IL_00b2: or
+IL_00b3: stind.i4
+IL_00b4: ldarg.0
+IL_00b5: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_TempData
+IL_00ba: ldloc.0
+IL_00bb: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00c0: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_00c5: brfalse.s IL_00d6
+IL_00c7: ldloc.0
+IL_00c8: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_00cd: dup
+IL_00ce: ldind.u4
+IL_00cf: ldc.i4 256
+IL_00d4: or
+IL_00d5: stind.i4
+IL_00d6: ldarg.0
+IL_00d7: ldflda Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_EffectInstances
+IL_00dc: ldloc.0
+IL_00dd: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00e2: call System.Boolean Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect>::HasBuffer(Unity.Entities.Entity)
+IL_00e7: brfalse.s IL_00f8
+IL_00e9: ldloc.0
+IL_00ea: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_00ef: dup
+IL_00f0: ldind.u4
+IL_00f1: ldc.i4 8388608
+IL_00f6: or
+IL_00f7: stind.i4
+IL_00f8: ldarg.0
+IL_00f9: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Object> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ObjectData
+IL_00fe: ldloc.0
+IL_00ff: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0104: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Object>::HasComponent(Unity.Entities.Entity)
+IL_0109: brfalse IL_0309
+IL_010e: ldloc.0
+IL_010f: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0114: dup
+IL_0115: ldind.u4
+IL_0116: ldc.i4 1024
+IL_011b: or
+IL_011c: stind.i4
+IL_011d: ldarg.0
+IL_011e: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.ObjectGeometry> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ObjectGeometryData
+IL_0123: ldloc.0
+IL_0124: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0129: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.ObjectGeometry>::HasComponent(Unity.Entities.Entity)
+IL_012e: brfalse.s IL_013f
+IL_0130: ldloc.0
+IL_0131: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0136: dup
+IL_0137: ldind.u4
+IL_0138: ldc.i4 33554432
+IL_013d: or
+IL_013e: stind.i4
+IL_013f: ldarg.0
+IL_0140: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_InterpolatedTransformData
+IL_0145: ldloc.0
+IL_0146: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_014b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform>::HasComponent(Unity.Entities.Entity)
+IL_0150: brfalse.s IL_0161
+IL_0152: ldloc.0
+IL_0153: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0158: dup
+IL_0159: ldind.u4
+IL_015a: ldc.i4 262144
+IL_015f: or
+IL_0160: stind.i4
+IL_0161: ldarg.0
+IL_0162: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Animated> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_AnimatedData
+IL_0167: ldloc.0
+IL_0168: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_016d: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.Animated>::HasBuffer(Unity.Entities.Entity)
+IL_0172: brfalse.s IL_0183
+IL_0174: ldloc.0
+IL_0175: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_017a: dup
+IL_017b: ldind.u4
+IL_017c: ldc.i4 524288
+IL_0181: or
+IL_0182: stind.i4
+IL_0183: ldarg.0
+IL_0184: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Color> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ObjectColorData
+IL_0189: ldloc.0
+IL_018a: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_018f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Color>::HasComponent(Unity.Entities.Entity)
+IL_0194: brtrue.s IL_01a9
+IL_0196: ldarg.0
+IL_0197: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_OwnerData
+IL_019c: ldloc.0
+IL_019d: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_01a2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_01a7: brfalse.s IL_01b8
+IL_01a9: ldloc.0
+IL_01aa: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_01af: dup
+IL_01b0: ldind.u4
+IL_01b1: ldc.i4 16384
+IL_01b6: or
+IL_01b7: stind.i4
+IL_01b8: ldarg.0
+IL_01b9: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_BuildingData
+IL_01be: ldloc.0
+IL_01bf: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_01c4: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::HasComponent(Unity.Entities.Entity)
+IL_01c9: brtrue.s IL_01de
+IL_01cb: ldarg.0
+IL_01cc: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Extension> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ExtensionData
+IL_01d1: ldloc.0
+IL_01d2: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_01d7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Extension>::HasComponent(Unity.Entities.Entity)
+IL_01dc: brfalse.s IL_01ed
+IL_01de: ldloc.0
+IL_01df: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_01e4: dup
+IL_01e5: ldind.u4
+IL_01e6: ldc.i4 32768
+IL_01eb: or
+IL_01ec: stind.i4
+IL_01ed: ldarg.0
+IL_01ee: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Plant> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_PlantData
+IL_01f3: ldloc.0
+IL_01f4: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_01f9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Plant>::HasComponent(Unity.Entities.Entity)
+IL_01fe: brfalse.s IL_0244
+IL_0200: ldarg.0
+IL_0201: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_TreeData
+IL_0206: ldloc.0
+IL_0207: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_020c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Tree>::HasComponent(Unity.Entities.Entity)
+IL_0211: brfalse.s IL_0222
+IL_0213: ldloc.0
+IL_0214: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0219: dup
+IL_021a: ldind.u4
+IL_021b: ldc.i4 65536
+IL_0220: or
+IL_0221: stind.i4
+IL_0222: ldarg.0
+IL_0223: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_MeshColorData
+IL_0228: ldloc.0
+IL_0229: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_022e: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor>::HasBuffer(Unity.Entities.Entity)
+IL_0233: brfalse.s IL_0244
+IL_0235: ldloc.0
+IL_0236: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_023b: dup
+IL_023c: ldind.u4
+IL_023d: ldc.i4 268435456
+IL_0242: or
+IL_0243: stind.i4
+IL_0244: ldarg.0
+IL_0245: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Skeleton> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_SkeletonData
+IL_024a: ldloc.0
+IL_024b: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0250: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.Skeleton>::HasBuffer(Unity.Entities.Entity)
+IL_0255: brfalse.s IL_0266
+IL_0257: ldloc.0
+IL_0258: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_025d: dup
+IL_025e: ldind.u4
+IL_025f: ldc.i4 1048576
+IL_0264: or
+IL_0265: stind.i4
+IL_0266: ldarg.0
+IL_0267: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Emissive> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_EmissiveData
+IL_026c: ldloc.0
+IL_026d: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0272: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.Emissive>::HasBuffer(Unity.Entities.Entity)
+IL_0277: brfalse.s IL_0288
+IL_0279: ldloc.0
+IL_027a: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_027f: dup
+IL_0280: ldind.u4
+IL_0281: ldc.i4 2097152
+IL_0286: or
+IL_0287: stind.i4
+IL_0288: ldarg.0
+IL_0289: ldflda Unity.Entities.BufferLookup`1<Game.Vehicles.LayoutElement> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_LayoutElements
+IL_028e: ldloc.0
+IL_028f: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0294: call System.Boolean Unity.Entities.BufferLookup`1<Game.Vehicles.LayoutElement>::HasBuffer(Unity.Entities.Entity)
+IL_0299: brfalse.s IL_02aa
+IL_029b: ldloc.0
+IL_029c: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_02a1: dup
+IL_02a2: ldind.u4
+IL_02a3: ldc.i4 4194304
+IL_02a8: or
+IL_02a9: stind.i4
+IL_02aa: ldarg.0
+IL_02ab: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Relative> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_RelativeData
+IL_02b0: ldloc.0
+IL_02b1: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_02b6: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Relative>::HasComponent(Unity.Entities.Entity)
+IL_02bb: brfalse.s IL_02cc
+IL_02bd: ldloc.0
+IL_02be: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_02c3: dup
+IL_02c4: ldind.u4
+IL_02c5: ldc.i4 16777216
+IL_02ca: or
+IL_02cb: stind.i4
+IL_02cc: ldarg.0
+IL_02cd: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Damaged> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_DamagedData
+IL_02d2: ldloc.0
+IL_02d3: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_02d8: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Damaged>::HasComponent(Unity.Entities.Entity)
+IL_02dd: brtrue.s IL_02f5
+IL_02df: ldarg.0
+IL_02e0: ldflda Unity.Entities.ComponentLookup`1<Game.Events.OnFire> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_OnFireData
+IL_02e5: ldloc.0
+IL_02e6: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_02eb: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Events.OnFire>::HasComponent(Unity.Entities.Entity)
+IL_02f0: brfalse IL_0476
+IL_02f5: ldloc.0
+IL_02f6: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_02fb: dup
+IL_02fc: ldind.u4
+IL_02fd: ldc.i4 67108864
+IL_0302: or
+IL_0303: stind.i4
+IL_0304: br IL_0476
+IL_0309: ldarg.0
+IL_030a: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_EdgeData
+IL_030f: ldloc.0
+IL_0310: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0315: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Edge>::HasComponent(Unity.Entities.Entity)
+IL_031a: brfalse.s IL_0355
+IL_031c: ldloc.0
+IL_031d: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0322: dup
+IL_0323: ldind.u4
+IL_0324: ldc.i4 2048
+IL_0329: or
+IL_032a: stind.i4
+IL_032b: ldarg.0
+IL_032c: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_EdgeColorData
+IL_0331: ldloc.0
+IL_0332: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0337: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor>::HasComponent(Unity.Entities.Entity)
+IL_033c: brfalse IL_0476
+IL_0341: ldloc.0
+IL_0342: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0347: dup
+IL_0348: ldind.u4
+IL_0349: ldc.i4 16384
+IL_034e: or
+IL_034f: stind.i4
+IL_0350: br IL_0476
+IL_0355: ldarg.0
+IL_0356: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_NodeData
+IL_035b: ldloc.0
+IL_035c: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0361: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Node>::HasComponent(Unity.Entities.Entity)
+IL_0366: brfalse.s IL_03a1
+IL_0368: ldloc.0
+IL_0369: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_036e: dup
+IL_036f: ldind.u4
+IL_0370: ldc.i4 2048
+IL_0375: or
+IL_0376: stind.i4
+IL_0377: ldarg.0
+IL_0378: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_NodeColorData
+IL_037d: ldloc.0
+IL_037e: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0383: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NodeColor>::HasComponent(Unity.Entities.Entity)
+IL_0388: brfalse IL_0476
+IL_038d: ldloc.0
+IL_038e: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0393: dup
+IL_0394: ldind.u4
+IL_0395: ldc.i4 16384
+IL_039a: or
+IL_039b: stind.i4
+IL_039c: br IL_0476
+IL_03a1: ldarg.0
+IL_03a2: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Lane> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_LaneData
+IL_03a7: ldloc.0
+IL_03a8: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_03ad: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Lane>::HasComponent(Unity.Entities.Entity)
+IL_03b2: brfalse IL_0454
+IL_03b7: ldloc.0
+IL_03b8: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_03bd: dup
+IL_03be: ldind.u4
+IL_03bf: ldc.i4 4096
+IL_03c4: or
+IL_03c5: stind.i4
+IL_03c6: ldarg.0
+IL_03c7: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Plant> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_PlantData
+IL_03cc: ldloc.0
+IL_03cd: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_03d2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Plant>::HasComponent(Unity.Entities.Entity)
+IL_03d7: brfalse.s IL_03fb
+IL_03d9: ldarg.0
+IL_03da: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_MeshColorData
+IL_03df: ldloc.0
+IL_03e0: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_03e5: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor>::HasBuffer(Unity.Entities.Entity)
+IL_03ea: brfalse.s IL_03fb
+IL_03ec: ldloc.0
+IL_03ed: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_03f2: dup
+IL_03f3: ldind.u4
+IL_03f4: ldc.i4 268435456
+IL_03f9: or
+IL_03fa: stind.i4
+IL_03fb: ldarg.0
+IL_03fc: ldflda Unity.Entities.ComponentLookup`1<Game.Net.LaneColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_LaneColorData
+IL_0401: ldloc.0
+IL_0402: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0407: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.LaneColor>::HasComponent(Unity.Entities.Entity)
+IL_040c: brtrue.s IL_0421
+IL_040e: ldarg.0
+IL_040f: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_OwnerData
+IL_0414: ldloc.0
+IL_0415: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_041a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_041f: brfalse.s IL_0430
+IL_0421: ldloc.0
+IL_0422: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0427: dup
+IL_0428: ldind.u4
+IL_0429: ldc.i4 16384
+IL_042e: or
+IL_042f: stind.i4
+IL_0430: ldarg.0
+IL_0431: ldflda Unity.Entities.ComponentLookup`1<Game.Net.LaneCondition> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_LaneConditionData
+IL_0436: ldloc.0
+IL_0437: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_043c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.LaneCondition>::HasComponent(Unity.Entities.Entity)
+IL_0441: brfalse.s IL_0476
+IL_0443: ldloc.0
+IL_0444: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0449: dup
+IL_044a: ldind.u4
+IL_044b: ldc.i4 131072
+IL_0450: or
+IL_0451: stind.i4
+IL_0452: br.s IL_0476
+IL_0454: ldarg.0
+IL_0455: ldflda Unity.Entities.ComponentLookup`1<Game.Zones.Block> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ZoneData
+IL_045a: ldloc.0
+IL_045b: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0460: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Zones.Block>::HasComponent(Unity.Entities.Entity)
+IL_0465: brfalse.s IL_0476
+IL_0467: ldloc.0
+IL_0468: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_046d: dup
+IL_046e: ldind.u4
+IL_046f: ldc.i4 8192
+IL_0474: or
+IL_0475: stind.i4
+IL_0476: ldloc.0
+IL_0477: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_047c: ldc.i4.1
+IL_047d: and
+IL_047e: brtrue.s IL_04c2
+IL_0480: ldloc.0
+IL_0481: ldfld System.Byte Game.Rendering.PreCullingData::m_Timer
+IL_0486: ldarg.0
+IL_0487: ldfld System.Int32 Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_TimerDelta
+IL_048c: add
+IL_048d: stloc.1
+IL_048e: ldloc.1
+IL_048f: ldc.i4 255
+IL_0494: blt.s IL_04ba
+IL_0496: ldloc.0
+IL_0497: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_049c: dup
+IL_049d: ldind.u4
+IL_049e: ldc.i4.s -3
+IL_04a0: and
+IL_04a1: stind.i4
+IL_04a2: ldloc.0
+IL_04a3: ldflda Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_04a8: dup
+IL_04a9: ldind.u4
+IL_04aa: ldc.i4.4
+IL_04ab: or
+IL_04ac: stind.i4
+IL_04ad: ldloc.0
+IL_04ae: ldc.i4 255
+IL_04b3: stfld System.Byte Game.Rendering.PreCullingData::m_Timer
+IL_04b8: br.s IL_04c2
+IL_04ba: ldloc.0
+IL_04bb: ldloc.1
+IL_04bc: conv.u1
+IL_04bd: stfld System.Byte Game.Rendering.PreCullingData::m_Timer
+IL_04c2: ldloc.0
+IL_04c3: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_04c8: ldc.i4 134218388
+IL_04cd: and
+IL_04ce: brfalse.s IL_04e1
+IL_04d0: ldarg.0
+IL_04d1: ldflda Unity.Collections.NativeList`1/ParallelWriter<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_UpdatedCullingData
+IL_04d6: ldloc.0
+IL_04d7: ldobj Game.Rendering.PreCullingData
+IL_04dc: call System.Void Unity.Collections.NativeList`1/ParallelWriter<Game.Rendering.PreCullingData>::AddNoResize(!0)
+IL_04e1: ret
+METHOD System.Void Game.Common.CleanUpSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Jobs.JobHandle Game.Common.CleanUpSystem::m_DeletedDeps
+IL_0006: call System.Void Unity.Jobs.JobHandle::Complete()
+IL_000b: ldarg.0
+IL_000c: ldflda Unity.Jobs.JobHandle Game.Common.CleanUpSystem::m_UpdatedDeps
+IL_0011: call System.Void Unity.Jobs.JobHandle::Complete()
+IL_0016: ldarg.0
+IL_0017: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_001c: stloc.0
+IL_001d: ldloca.s V_0
+IL_001f: ldarg.0
+IL_0020: ldflda Unity.Collections.NativeList`1<Unity.Entities.Entity> Game.Common.CleanUpSystem::m_DeletedEntities
+IL_0025: call Unity.Collections.NativeArray`1<!0> Unity.Collections.NativeList`1<Unity.Entities.Entity>::AsArray()
+IL_002a: call System.Void Unity.Entities.EntityManager::DestroyEntity(Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_002f: ldarg.0
+IL_0030: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0035: stloc.0
+IL_0036: ldloca.s V_0
+IL_0038: ldarg.0
+IL_0039: ldflda Unity.Collections.NativeList`1<Unity.Entities.Entity> Game.Common.CleanUpSystem::m_UpdatedEntities
+IL_003e: call Unity.Collections.NativeArray`1<!0> Unity.Collections.NativeList`1<Unity.Entities.Entity>::AsArray()
+IL_0043: ldarg.0
+IL_0044: ldflda Unity.Entities.ComponentTypeSet Game.Common.CleanUpSystem::m_UpdateTypes
+IL_0049: call System.Void Unity.Entities.EntityManager::RemoveComponent(Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Entities.ComponentTypeSet&)
+IL_004e: ldarg.0
+IL_004f: ldflda Unity.Collections.NativeList`1<Unity.Entities.Entity> Game.Common.CleanUpSystem::m_DeletedEntities
+IL_0054: call System.Void Unity.Collections.NativeList`1<Unity.Entities.Entity>::Dispose()
+IL_0059: ldarg.0
+IL_005a: ldflda Unity.Collections.NativeList`1<Unity.Entities.Entity> Game.Common.CleanUpSystem::m_UpdatedEntities
+IL_005f: call System.Void Unity.Collections.NativeList`1<Unity.Entities.Entity>::Dispose()
+IL_0064: ret
+METHOD System.Void Game.Common.PrepareCleanUpSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.EntityQuery Game.Common.PrepareCleanUpSystem::m_DeletedQuery
+IL_0006: ldc.i4.3
+IL_0007: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_000c: ldloca.s V_1
+IL_000e: call Unity.Collections.NativeList`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityListAsync(Unity.Collections.AllocatorManager/AllocatorHandle,Unity.Jobs.JobHandle&)
+IL_0013: stloc.0
+IL_0014: ldarg.0
+IL_0015: ldflda Unity.Entities.EntityQuery Game.Common.PrepareCleanUpSystem::m_UpdatedQuery
+IL_001a: ldc.i4.3
+IL_001b: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0020: ldloca.s V_3
+IL_0022: call Unity.Collections.NativeList`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityListAsync(Unity.Collections.AllocatorManager/AllocatorHandle,Unity.Jobs.JobHandle&)
+IL_0027: stloc.2
+IL_0028: ldarg.0
+IL_0029: ldfld Game.Common.CleanUpSystem Game.Common.PrepareCleanUpSystem::m_CleanUpSystem
+IL_002e: ldloc.0
+IL_002f: ldloc.1
+IL_0030: callvirt System.Void Game.Common.CleanUpSystem::AddDeleted(Unity.Collections.NativeList`1<Unity.Entities.Entity>,Unity.Jobs.JobHandle)
+IL_0035: ldarg.0
+IL_0036: ldfld Game.Common.CleanUpSystem Game.Common.PrepareCleanUpSystem::m_CleanUpSystem
+IL_003b: ldloc.2
+IL_003c: ldloc.3
+IL_003d: callvirt System.Void Game.Common.CleanUpSystem::AddUpdated(Unity.Collections.NativeList`1<Unity.Entities.Entity>,Unity.Jobs.JobHandle)
+IL_0042: ldarg.0
+IL_0043: ldloc.1
+IL_0044: ldloc.3
+IL_0045: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_004a: call System.Void Unity.Entities.SystemBase::set_Dependency(Unity.Jobs.JobHandle)
+IL_004f: ret

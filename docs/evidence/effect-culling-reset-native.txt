@@ -1,0 +1,1540 @@
+METHOD System.Void Game.Rendering.PreCullingSystem::ResetCulling()
+IL_0000: ldarg.0
+IL_0001: ldc.i4.1
+IL_0002: stfld System.Boolean Game.Rendering.PreCullingSystem::m_ResetPrevious
+IL_0007: ret
+METHOD System.Boolean Game.Rendering.PreCullingSystem::GetLoaded()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Rendering.PreCullingSystem::m_Loaded
+IL_0006: brfalse.s IL_0011
+IL_0008: ldarg.0
+IL_0009: ldc.i4.0
+IL_000a: stfld System.Boolean Game.Rendering.PreCullingSystem::m_Loaded
+IL_000f: ldc.i4.1
+IL_0010: ret
+IL_0011: ldc.i4.0
+IL_0012: ret
+METHOD System.Void Game.Rendering.PreCullingSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: call System.Boolean Game.Rendering.PreCullingSystem::GetLoaded()
+IL_0006: stloc.0
+IL_0007: ldarg.0
+IL_0008: ldflda Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_WriteDependencies
+IL_000d: call System.Void Unity.Jobs.JobHandle::Complete()
+IL_0012: ldarg.0
+IL_0013: ldflda Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_ReadDependencies
+IL_0018: call System.Void Unity.Jobs.JobHandle::Complete()
+IL_001d: ldarg.0
+IL_001e: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraPosition
+IL_0023: stloc.1
+IL_0024: ldarg.0
+IL_0025: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirection
+IL_002a: stloc.2
+IL_002b: ldarg.0
+IL_002c: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirectionRight
+IL_0031: stloc.3
+IL_0032: ldarg.0
+IL_0033: ldfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem::m_PrevLodParameters
+IL_0038: stloc.s V_4
+IL_003a: ldarg.0
+IL_003b: ldfld Game.Rendering.CameraUpdateSystem Game.Rendering.PreCullingSystem::m_CameraUpdateSystem
+IL_0040: ldloca.s V_5
+IL_0042: callvirt System.Boolean Game.Rendering.CameraUpdateSystem::TryGetLODParameters(UnityEngine.Rendering.LODParameters&)
+IL_0047: brfalse.s IL_00a6
+IL_0049: ldloca.s V_5
+IL_004b: call UnityEngine.Vector3 UnityEngine.Rendering.LODParameters::get_cameraPosition()
+IL_0050: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Implicit(UnityEngine.Vector3)
+IL_0055: stloc.1
+IL_0056: ldarg.0
+IL_0057: ldfld Game.Rendering.CameraUpdateSystem Game.Rendering.PreCullingSystem::m_CameraUpdateSystem
+IL_005c: callvirt Game.Rendering.IGameCameraController Game.Rendering.CameraUpdateSystem::get_activeCameraController()
+IL_0061: stloc.s V_43
+IL_0063: ldarg.0
+IL_0064: ldfld Game.Rendering.BatchDataSystem Game.Rendering.PreCullingSystem::m_BatchDataSystem
+IL_0069: ldarg.0
+IL_006a: ldfld Game.Rendering.RenderingSystem Game.Rendering.PreCullingSystem::m_RenderingSystem
+IL_006f: callvirt System.Single Game.Rendering.RenderingSystem::get_frameLod()
+IL_0074: ldloc.s V_43
+IL_0076: callvirt System.Single Game.Rendering.BatchDataSystem::GetLevelOfDetail(System.Single,Game.Rendering.IGameCameraController)
+IL_007b: ldloc.s V_5
+IL_007d: call Unity.Mathematics.float4 Game.Rendering.RenderingUtils::CalculateLodParameters(System.Single,UnityEngine.Rendering.LODParameters)
+IL_0082: stloc.s V_4
+IL_0084: ldarg.0
+IL_0085: ldfld Game.Rendering.CameraUpdateSystem Game.Rendering.PreCullingSystem::m_CameraUpdateSystem
+IL_008a: callvirt Game.Rendering.Viewer Game.Rendering.CameraUpdateSystem::get_activeViewer()
+IL_008f: callvirt Unity.Mathematics.float3 Game.Rendering.Viewer::get_forward()
+IL_0094: stloc.2
+IL_0095: ldarg.0
+IL_0096: ldfld Game.Rendering.CameraUpdateSystem Game.Rendering.PreCullingSystem::m_CameraUpdateSystem
+IL_009b: callvirt Game.Rendering.Viewer Game.Rendering.CameraUpdateSystem::get_activeViewer()
+IL_00a0: callvirt Unity.Mathematics.float3 Game.Rendering.Viewer::get_right()
+IL_00a5: stloc.3
+IL_00a6: ldc.i4.2
+IL_00a7: stloc.s V_6
+IL_00a9: ldarg.0
+IL_00aa: ldfld Game.Rendering.UndergroundViewSystem Game.Rendering.PreCullingSystem::m_UndergroundViewSystem
+IL_00af: callvirt System.Boolean Game.Rendering.UndergroundViewSystem::get_pipelinesOn()
+IL_00b4: brfalse.s IL_00bc
+IL_00b6: ldloc.s V_6
+IL_00b8: ldc.i4.4
+IL_00b9: or
+IL_00ba: stloc.s V_6
+IL_00bc: ldarg.0
+IL_00bd: ldfld Game.Rendering.UndergroundViewSystem Game.Rendering.PreCullingSystem::m_UndergroundViewSystem
+IL_00c2: callvirt System.Boolean Game.Rendering.UndergroundViewSystem::get_subPipelinesOn()
+IL_00c7: brfalse.s IL_00cf
+IL_00c9: ldloc.s V_6
+IL_00cb: ldc.i4.8
+IL_00cc: or
+IL_00cd: stloc.s V_6
+IL_00cf: ldarg.0
+IL_00d0: ldfld Game.Rendering.UndergroundViewSystem Game.Rendering.PreCullingSystem::m_UndergroundViewSystem
+IL_00d5: callvirt System.Boolean Game.Rendering.UndergroundViewSystem::get_waterwaysOn()
+IL_00da: brfalse.s IL_00e3
+IL_00dc: ldloc.s V_6
+IL_00de: ldc.i4.s 16
+IL_00e0: or
+IL_00e1: stloc.s V_6
+IL_00e3: ldarg.0
+IL_00e4: ldfld Game.Rendering.RenderingSystem Game.Rendering.PreCullingSystem::m_RenderingSystem
+IL_00e9: callvirt System.Boolean Game.Rendering.RenderingSystem::get_markersVisible()
+IL_00ee: brfalse.s IL_00f6
+IL_00f0: ldloc.s V_6
+IL_00f2: ldc.i4.1
+IL_00f3: or
+IL_00f4: stloc.s V_6
+IL_00f6: ldarg.0
+IL_00f7: ldfld System.Boolean Game.Rendering.PreCullingSystem::m_ResetPrevious
+IL_00fc: brfalse.s IL_013b
+IL_00fe: ldarg.0
+IL_00ff: ldloc.1
+IL_0100: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraPosition
+IL_0105: ldarg.0
+IL_0106: ldloc.2
+IL_0107: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirection
+IL_010c: ldarg.0
+IL_010d: ldloc.3
+IL_010e: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirectionRight
+IL_0113: ldarg.0
+IL_0114: ldloc.s V_4
+IL_0116: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem::m_PrevLodParameters
+IL_011b: ldarg.0
+IL_011c: ldc.i4.0
+IL_011d: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem::m_PrevVisibleMask
+IL_0122: ldarg.0
+IL_0123: ldloc.s V_6
+IL_0125: call System.Void Game.Rendering.PreCullingSystem::set_visibleMask(Game.Common.BoundsMask)
+IL_012a: ldarg.0
+IL_012b: ldloc.s V_6
+IL_012d: call System.Void Game.Rendering.PreCullingSystem::set_becameVisible(Game.Common.BoundsMask)
+IL_0132: ldarg.0
+IL_0133: ldc.i4.0
+IL_0134: call System.Void Game.Rendering.PreCullingSystem::set_becameHidden(Game.Common.BoundsMask)
+IL_0139: br.s IL_0165
+IL_013b: ldarg.0
+IL_013c: ldloc.s V_6
+IL_013e: call System.Void Game.Rendering.PreCullingSystem::set_visibleMask(Game.Common.BoundsMask)
+IL_0143: ldarg.0
+IL_0144: ldloc.s V_6
+IL_0146: ldarg.0
+IL_0147: ldfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem::m_PrevVisibleMask
+IL_014c: not
+IL_014d: conv.u2
+IL_014e: and
+IL_014f: call System.Void Game.Rendering.PreCullingSystem::set_becameVisible(Game.Common.BoundsMask)
+IL_0154: ldarg.0
+IL_0155: ldarg.0
+IL_0156: ldfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem::m_PrevVisibleMask
+IL_015b: ldloc.s V_6
+IL_015d: not
+IL_015e: conv.u2
+IL_015f: and
+IL_0160: call System.Void Game.Rendering.PreCullingSystem::set_becameHidden(Game.Common.BoundsMask)
+IL_0165: ldarg.0
+IL_0166: ldflda Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_CullingData
+IL_016b: call System.Int32 Unity.Collections.NativeList`1<Game.Rendering.PreCullingData>::get_Length()
+IL_0170: stloc.s V_7
+IL_0172: ldloca.s V_8
+IL_0174: ldc.i4.3
+IL_0175: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_017a: call System.Void Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_017f: ldloca.s V_9
+IL_0181: ldloc.s V_7
+IL_0183: ldc.i4.3
+IL_0184: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0189: call System.Void Unity.Collections.NativeReference`1<System.Int32>::.ctor(!0,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_018e: ldloca.s V_10
+IL_0190: ldc.i4.3
+IL_0191: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0196: call System.Void Unity.Collections.NativeQueue`1<Game.Rendering.PreCullingSystem/OverflowAction>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_019b: ldloca.s V_11
+IL_019d: ldc.i4 1536
+IL_01a2: ldc.i4.3
+IL_01a3: ldc.i4.0
+IL_01a4: call System.Void Unity.Collections.NativeArray`1<System.Int32>::.ctor(System.Int32,Unity.Collections.Allocator,Unity.Collections.NativeArrayOptions)
+IL_01a9: ldloca.s V_12
+IL_01ab: ldc.i4 1536
+IL_01b0: ldc.i4.3
+IL_01b1: ldc.i4.0
+IL_01b2: call System.Void Unity.Collections.NativeArray`1<System.Int32>::.ctor(System.Int32,Unity.Collections.Allocator,Unity.Collections.NativeArrayOptions)
+IL_01b7: ldarg.0
+IL_01b8: ldfld Game.Rendering.CameraUpdateSystem Game.Rendering.PreCullingSystem::m_CameraUpdateSystem
+IL_01bd: callvirt UnityEngine.Camera Game.Rendering.CameraUpdateSystem::get_activeCamera()
+IL_01c2: dup
+IL_01c3: brtrue.s IL_01cd
+IL_01c5: pop
+IL_01c6: ldc.r4 1.7777778
+IL_01cb: br.s IL_01d2
+IL_01cd: call System.Single UnityEngine.Camera::get_aspect()
+IL_01d2: stloc.s V_13
+IL_01d4: ldloc.2
+IL_01d5: ldloc.3
+IL_01d6: ldloc.1
+IL_01d7: ldloc.s V_4
+IL_01d9: ldfld System.Single Unity.Mathematics.float4::w
+IL_01de: ldloc.s V_13
+IL_01e0: call Game.Rendering.FrustumPlanes/PlanePacket4 Game.Rendering.FrustumPlanes::BuildPlanePacket(Unity.Mathematics.float3,Unity.Mathematics.float3,Unity.Mathematics.float3,System.Single,System.Single)
+IL_01e5: stloc.s V_14
+IL_01e7: ldarg.0
+IL_01e8: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirection
+IL_01ed: ldarg.0
+IL_01ee: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirectionRight
+IL_01f3: ldarg.0
+IL_01f4: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraPosition
+IL_01f9: ldarg.0
+IL_01fa: ldflda Unity.Mathematics.float4 Game.Rendering.PreCullingSystem::m_PrevLodParameters
+IL_01ff: ldfld System.Single Unity.Mathematics.float4::w
+IL_0204: ldloc.s V_13
+IL_0206: call Game.Rendering.FrustumPlanes/PlanePacket4 Game.Rendering.FrustumPlanes::BuildPlanePacket(Unity.Mathematics.float3,Unity.Mathematics.float3,Unity.Mathematics.float3,System.Single,System.Single)
+IL_020b: stloc.s V_15
+IL_020d: ldloca.s V_44
+IL_020f: initobj Game.Rendering.PreCullingSystem/TreeCullingJob1
+IL_0215: ldloca.s V_44
+IL_0217: ldarg.0
+IL_0218: ldfld Game.Objects.SearchSystem Game.Rendering.PreCullingSystem::m_ObjectSearchSystem
+IL_021d: ldc.i4.1
+IL_021e: ldloca.s V_17
+IL_0220: callvirt Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Objects.SearchSystem::GetStaticSearchTree(System.Boolean,Unity.Jobs.JobHandle&)
+IL_0225: stfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_StaticObjectSearchTree
+IL_022a: ldloca.s V_44
+IL_022c: ldarg.0
+IL_022d: ldfld Game.Net.SearchSystem Game.Rendering.PreCullingSystem::m_NetSearchSystem
+IL_0232: ldc.i4.1
+IL_0233: ldloca.s V_18
+IL_0235: callvirt Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Net.SearchSystem::GetNetSearchTree(System.Boolean,Unity.Jobs.JobHandle&)
+IL_023a: stfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_NetSearchTree
+IL_023f: ldloca.s V_44
+IL_0241: ldarg.0
+IL_0242: ldfld Game.Net.SearchSystem Game.Rendering.PreCullingSystem::m_NetSearchSystem
+IL_0247: ldc.i4.1
+IL_0248: ldloca.s V_19
+IL_024a: callvirt Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Net.SearchSystem::GetLaneSearchTree(System.Boolean,Unity.Jobs.JobHandle&)
+IL_024f: stfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_LaneSearchTree
+IL_0254: ldloca.s V_44
+IL_0256: ldloc.s V_14
+IL_0258: stfld Game.Rendering.FrustumPlanes/PlanePacket4 Game.Rendering.PreCullingSystem/TreeCullingJob1::m_FrustumData
+IL_025d: ldloca.s V_44
+IL_025f: ldloc.s V_15
+IL_0261: stfld Game.Rendering.FrustumPlanes/PlanePacket4 Game.Rendering.PreCullingSystem/TreeCullingJob1::m_PrevFrustumData
+IL_0266: ldloca.s V_44
+IL_0268: ldloc.s V_4
+IL_026a: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/TreeCullingJob1::m_LodParameters
+IL_026f: ldloca.s V_44
+IL_0271: ldarg.0
+IL_0272: ldfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem::m_PrevLodParameters
+IL_0277: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/TreeCullingJob1::m_PrevLodParameters
+IL_027c: ldloca.s V_44
+IL_027e: ldloc.1
+IL_027f: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TreeCullingJob1::m_CameraPosition
+IL_0284: ldloca.s V_44
+IL_0286: ldarg.0
+IL_0287: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraPosition
+IL_028c: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TreeCullingJob1::m_PrevCameraPosition
+IL_0291: ldloca.s V_44
+IL_0293: ldloc.2
+IL_0294: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TreeCullingJob1::m_CameraDirection
+IL_0299: ldloca.s V_44
+IL_029b: ldarg.0
+IL_029c: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirection
+IL_02a1: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TreeCullingJob1::m_PrevCameraDirection
+IL_02a6: ldloca.s V_44
+IL_02a8: ldloc.s V_6
+IL_02aa: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/TreeCullingJob1::m_VisibleMask
+IL_02af: ldloca.s V_44
+IL_02b1: ldarg.0
+IL_02b2: ldfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem::m_PrevVisibleMask
+IL_02b7: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/TreeCullingJob1::m_PrevVisibleMask
+IL_02bc: ldloca.s V_44
+IL_02be: ldloc.s V_11
+IL_02c0: stfld Unity.Collections.NativeArray`1<System.Int32> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_NodeBuffer
+IL_02c5: ldloca.s V_44
+IL_02c7: ldloc.s V_12
+IL_02c9: stfld Unity.Collections.NativeArray`1<System.Int32> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_SubDataBuffer
+IL_02ce: ldloca.s V_44
+IL_02d0: ldloca.s V_8
+IL_02d2: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::AsWriter()
+IL_02d7: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_ActionQueue
+IL_02dc: ldloc.s V_44
+IL_02de: stloc.s V_16
+IL_02e0: ldloca.s V_45
+IL_02e2: initobj Game.Rendering.PreCullingSystem/TreeCullingJob2
+IL_02e8: ldloca.s V_45
+IL_02ea: ldloc.s V_16
+IL_02ec: ldfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_StaticObjectSearchTree
+IL_02f1: stfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob2::m_StaticObjectSearchTree
+IL_02f6: ldloca.s V_45
+IL_02f8: ldloc.s V_16
+IL_02fa: ldfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_NetSearchTree
+IL_02ff: stfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob2::m_NetSearchTree
+IL_0304: ldloca.s V_45
+IL_0306: ldloc.s V_16
+IL_0308: ldfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob1::m_LaneSearchTree
+IL_030d: stfld Colossal.Collections.NativeQuadTree`2<Unity.Entities.Entity,Game.Common.QuadTreeBoundsXZ> Game.Rendering.PreCullingSystem/TreeCullingJob2::m_LaneSearchTree
+IL_0312: ldloca.s V_45
+IL_0314: ldloc.s V_14
+IL_0316: stfld Game.Rendering.FrustumPlanes/PlanePacket4 Game.Rendering.PreCullingSystem/TreeCullingJob2::m_FrustumData
+IL_031b: ldloca.s V_45
+IL_031d: ldloc.s V_15
+IL_031f: stfld Game.Rendering.FrustumPlanes/PlanePacket4 Game.Rendering.PreCullingSystem/TreeCullingJob2::m_PrevFrustumData
+IL_0324: ldloca.s V_45
+IL_0326: ldloc.s V_4
+IL_0328: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/TreeCullingJob2::m_LodParameters
+IL_032d: ldloca.s V_45
+IL_032f: ldarg.0
+IL_0330: ldfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem::m_PrevLodParameters
+IL_0335: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/TreeCullingJob2::m_PrevLodParameters
+IL_033a: ldloca.s V_45
+IL_033c: ldloc.1
+IL_033d: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TreeCullingJob2::m_CameraPosition
+IL_0342: ldloca.s V_45
+IL_0344: ldarg.0
+IL_0345: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraPosition
+IL_034a: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TreeCullingJob2::m_PrevCameraPosition
+IL_034f: ldloca.s V_45
+IL_0351: ldloc.2
+IL_0352: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TreeCullingJob2::m_CameraDirection
+IL_0357: ldloca.s V_45
+IL_0359: ldarg.0
+IL_035a: ldfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirection
+IL_035f: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TreeCullingJob2::m_PrevCameraDirection
+IL_0364: ldloca.s V_45
+IL_0366: ldloc.s V_6
+IL_0368: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/TreeCullingJob2::m_VisibleMask
+IL_036d: ldloca.s V_45
+IL_036f: ldarg.0
+IL_0370: ldfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem::m_PrevVisibleMask
+IL_0375: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/TreeCullingJob2::m_PrevVisibleMask
+IL_037a: ldloca.s V_45
+IL_037c: ldloc.s V_11
+IL_037e: stfld Unity.Collections.NativeArray`1<System.Int32> Game.Rendering.PreCullingSystem/TreeCullingJob2::m_NodeBuffer
+IL_0383: ldloca.s V_45
+IL_0385: ldloc.s V_12
+IL_0387: stfld Unity.Collections.NativeArray`1<System.Int32> Game.Rendering.PreCullingSystem/TreeCullingJob2::m_SubDataBuffer
+IL_038c: ldloca.s V_45
+IL_038e: ldloca.s V_8
+IL_0390: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::AsWriter()
+IL_0395: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/TreeCullingJob2::m_ActionQueue
+IL_039a: ldloc.s V_45
+IL_039c: ldloc.s V_16
+IL_039e: ldc.i4.3
+IL_039f: ldc.i4.1
+IL_03a0: ldloc.s V_17
+IL_03a2: ldloc.s V_18
+IL_03a4: ldloc.s V_19
+IL_03a6: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_03ab: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Rendering.PreCullingSystem/TreeCullingJob1>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_03b0: stloc.s V_20
+IL_03b2: ldloca.s V_11
+IL_03b4: call System.Int32 Unity.Collections.NativeArray`1<System.Int32>::get_Length()
+IL_03b9: ldc.i4.1
+IL_03ba: ldloc.s V_20
+IL_03bc: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Rendering.PreCullingSystem/TreeCullingJob2>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_03c1: stloc.s V_21
+IL_03c3: call System.Void Unity.Jobs.JobHandle::ScheduleBatchedJobs()
+IL_03c8: ldarg.0
+IL_03c9: ldfld Game.Rendering.BatchMeshSystem Game.Rendering.PreCullingSystem::m_BatchMeshSystem
+IL_03ce: callvirt System.Void Game.Rendering.BatchMeshSystem::CompleteCaching()
+IL_03d3: ldarg.0
+IL_03d4: call Game.Rendering.PreCullingSystem/QueryFlags Game.Rendering.PreCullingSystem::GetQueryFlags()
+IL_03d9: stloc.s V_22
+IL_03db: ldloca.s V_46
+IL_03dd: initobj Game.Rendering.PreCullingSystem/InitializeCullingJob
+IL_03e3: ldloca.s V_46
+IL_03e5: ldarg.0
+IL_03e6: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_03eb: ldflda Unity.Entities.SharedComponentTypeHandle`1<Game.Simulation.UpdateFrame> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Simulation_UpdateFrame_SharedComponentTypeHandle
+IL_03f0: ldarg.0
+IL_03f1: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_03f6: call Unity.Entities.SharedComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetSharedComponentTypeHandle<Game.Simulation.UpdateFrame>(Unity.Entities.SharedComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_03fb: stfld Unity.Entities.SharedComponentTypeHandle`1<Game.Simulation.UpdateFrame> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_UpdateFrameType
+IL_0400: ldloca.s V_46
+IL_0402: ldarg.0
+IL_0403: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0408: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Owner_RO_ComponentTypeHandle
+IL_040d: ldarg.0
+IL_040e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0413: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Owner>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0418: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_OwnerType
+IL_041d: ldloca.s V_46
+IL_041f: ldarg.0
+IL_0420: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0425: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Updated> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Updated_RO_ComponentTypeHandle
+IL_042a: ldarg.0
+IL_042b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0430: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Updated>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0435: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Updated> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_UpdatedType
+IL_043a: ldloca.s V_46
+IL_043c: ldarg.0
+IL_043d: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0442: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.BatchesUpdated> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_BatchesUpdated_RO_ComponentTypeHandle
+IL_0447: ldarg.0
+IL_0448: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_044d: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.BatchesUpdated>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0452: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.BatchesUpdated> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_BatchesUpdatedType
+IL_0457: ldloca.s V_46
+IL_0459: ldarg.0
+IL_045a: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_045f: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Overridden> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Overridden_RO_ComponentTypeHandle
+IL_0464: ldarg.0
+IL_0465: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_046a: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Overridden>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_046f: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Overridden> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_OverriddenType
+IL_0474: ldloca.s V_46
+IL_0476: ldarg.0
+IL_0477: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_047c: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Transform_RO_ComponentTypeHandle
+IL_0481: ldarg.0
+IL_0482: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0487: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_048c: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_TransformType
+IL_0491: ldloca.s V_46
+IL_0493: ldarg.0
+IL_0494: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0499: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Stack> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Stack_RO_ComponentTypeHandle
+IL_049e: ldarg.0
+IL_049f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04a4: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Stack>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_04a9: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Stack> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_StackType
+IL_04ae: ldloca.s V_46
+IL_04b0: ldarg.0
+IL_04b1: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_04b6: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Marker> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Marker_RO_ComponentTypeHandle
+IL_04bb: ldarg.0
+IL_04bc: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04c1: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Marker>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_04c6: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Marker> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_ObjectMarkerType
+IL_04cb: ldloca.s V_46
+IL_04cd: ldarg.0
+IL_04ce: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_04d3: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.OutsideConnection> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_OutsideConnection_RO_ComponentTypeHandle
+IL_04d8: ldarg.0
+IL_04d9: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04de: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.OutsideConnection>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_04e3: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.OutsideConnection> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_OutsideConnectionType
+IL_04e8: ldloca.s V_46
+IL_04ea: ldarg.0
+IL_04eb: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_04f0: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Unspawned> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Unspawned_RO_ComponentTypeHandle
+IL_04f5: ldarg.0
+IL_04f6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04fb: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Unspawned>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0500: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Unspawned> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_UnspawnedType
+IL_0505: ldloca.s V_46
+IL_0507: ldarg.0
+IL_0508: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_050d: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Node> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Node_RO_ComponentTypeHandle
+IL_0512: ldarg.0
+IL_0513: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0518: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.Node>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_051d: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.Node> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_NodeType
+IL_0522: ldloca.s V_46
+IL_0524: ldarg.0
+IL_0525: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_052a: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Edge> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Edge_RO_ComponentTypeHandle
+IL_052f: ldarg.0
+IL_0530: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0535: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.Edge>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_053a: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.Edge> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_EdgeType
+IL_053f: ldloca.s V_46
+IL_0541: ldarg.0
+IL_0542: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0547: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.NodeGeometry> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_NodeGeometry_RO_ComponentTypeHandle
+IL_054c: ldarg.0
+IL_054d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0552: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.NodeGeometry>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0557: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.NodeGeometry> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_NodeGeometryType
+IL_055c: ldloca.s V_46
+IL_055e: ldarg.0
+IL_055f: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0564: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.EdgeGeometry> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_EdgeGeometry_RO_ComponentTypeHandle
+IL_0569: ldarg.0
+IL_056a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_056f: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.EdgeGeometry>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0574: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.EdgeGeometry> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_EdgeGeometryType
+IL_0579: ldloca.s V_46
+IL_057b: ldarg.0
+IL_057c: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0581: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.StartNodeGeometry> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_StartNodeGeometry_RO_ComponentTypeHandle
+IL_0586: ldarg.0
+IL_0587: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_058c: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.StartNodeGeometry>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0591: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.StartNodeGeometry> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_StartNodeGeometryType
+IL_0596: ldloca.s V_46
+IL_0598: ldarg.0
+IL_0599: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_059e: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.EndNodeGeometry> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_EndNodeGeometry_RO_ComponentTypeHandle
+IL_05a3: ldarg.0
+IL_05a4: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_05a9: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.EndNodeGeometry>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_05ae: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.EndNodeGeometry> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_EndNodeGeometryType
+IL_05b3: ldloca.s V_46
+IL_05b5: ldarg.0
+IL_05b6: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_05bb: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Composition> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Composition_RO_ComponentTypeHandle
+IL_05c0: ldarg.0
+IL_05c1: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_05c6: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.Composition>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_05cb: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.Composition> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_CompositionType
+IL_05d0: ldloca.s V_46
+IL_05d2: ldarg.0
+IL_05d3: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_05d8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Orphan> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Orphan_RO_ComponentTypeHandle
+IL_05dd: ldarg.0
+IL_05de: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_05e3: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.Orphan>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_05e8: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.Orphan> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_OrphanType
+IL_05ed: ldloca.s V_46
+IL_05ef: ldarg.0
+IL_05f0: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_05f5: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Curve> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Curve_RO_ComponentTypeHandle
+IL_05fa: ldarg.0
+IL_05fb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0600: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.Curve>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0605: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.Curve> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_CurveType
+IL_060a: ldloca.s V_46
+IL_060c: ldarg.0
+IL_060d: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0612: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.UtilityLane> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_UtilityLane_RO_ComponentTypeHandle
+IL_0617: ldarg.0
+IL_0618: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_061d: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.UtilityLane>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0622: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.UtilityLane> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_UtilityLaneType
+IL_0627: ldloca.s V_46
+IL_0629: ldarg.0
+IL_062a: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_062f: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Marker> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Marker_RO_ComponentTypeHandle
+IL_0634: ldarg.0
+IL_0635: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_063a: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.Marker>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_063f: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.Marker> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_NetMarkerType
+IL_0644: ldloca.s V_46
+IL_0646: ldarg.0
+IL_0647: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_064c: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Zones.Block> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Zones_Block_RO_ComponentTypeHandle
+IL_0651: ldarg.0
+IL_0652: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0657: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Zones.Block>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_065c: stfld Unity.Entities.ComponentTypeHandle`1<Game.Zones.Block> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_ZoneBlockType
+IL_0661: ldloca.s V_46
+IL_0663: ldarg.0
+IL_0664: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0669: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_PrefabRef_RO_ComponentTypeHandle
+IL_066e: ldarg.0
+IL_066f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0674: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0679: stfld Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabRefType
+IL_067e: ldloca.s V_46
+IL_0680: ldarg.0
+IL_0681: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0686: ldflda Unity.Entities.BufferTypeHandle`1<Game.Objects.TransformFrame> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_TransformFrame_RO_BufferTypeHandle
+IL_068b: ldarg.0
+IL_068c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0691: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Objects.TransformFrame>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0696: stfld Unity.Entities.BufferTypeHandle`1<Game.Objects.TransformFrame> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_TransformFrameType
+IL_069b: ldloca.s V_46
+IL_069d: ldarg.0
+IL_069e: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_06a3: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_CullingInfo_RW_ComponentTypeHandle
+IL_06a8: ldarg.0
+IL_06a9: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06ae: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Rendering.CullingInfo>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_06b3: stfld Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_CullingInfoType
+IL_06b8: ldloca.s V_46
+IL_06ba: ldarg.0
+IL_06bb: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_06c0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_PrefabRef_RO_ComponentLookup
+IL_06c5: ldarg.0
+IL_06c6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06cb: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_06d0: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabRefData
+IL_06d5: ldloca.s V_46
+IL_06d7: ldarg.0
+IL_06d8: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_06dd: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_ObjectGeometryData_RO_ComponentLookup
+IL_06e2: ldarg.0
+IL_06e3: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06e8: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.ObjectGeometryData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_06ed: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabObjectGeometryData
+IL_06f2: ldloca.s V_46
+IL_06f4: ldarg.0
+IL_06f5: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_06fa: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_StackData_RO_ComponentLookup
+IL_06ff: ldarg.0
+IL_0700: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0705: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.StackData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_070a: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabStackData
+IL_070f: ldloca.s V_46
+IL_0711: ldarg.0
+IL_0712: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0717: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetLaneGeometryData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_NetLaneGeometryData_RO_ComponentLookup
+IL_071c: ldarg.0
+IL_071d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0722: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.NetLaneGeometryData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0727: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.NetLaneGeometryData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabLaneGeometryData
+IL_072c: ldloca.s V_46
+IL_072e: ldarg.0
+IL_072f: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0734: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.UtilityLaneData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_UtilityLaneData_RO_ComponentLookup
+IL_0739: ldarg.0
+IL_073a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_073f: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.UtilityLaneData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0744: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.UtilityLaneData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabUtilityLaneData
+IL_0749: ldloca.s V_46
+IL_074b: ldarg.0
+IL_074c: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0751: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_NetCompositionData_RO_ComponentLookup
+IL_0756: ldarg.0
+IL_0757: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_075c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.NetCompositionData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0761: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabCompositionData
+IL_0766: ldloca.s V_46
+IL_0768: ldarg.0
+IL_0769: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_076e: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionMeshRef> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_NetCompositionMeshRef_RO_ComponentLookup
+IL_0773: ldarg.0
+IL_0774: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0779: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.NetCompositionMeshRef>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_077e: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionMeshRef> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabCompositionMeshRef
+IL_0783: ldloca.s V_46
+IL_0785: ldarg.0
+IL_0786: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_078b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionMeshData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_NetCompositionMeshData_RO_ComponentLookup
+IL_0790: ldarg.0
+IL_0791: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0796: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.NetCompositionMeshData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_079b: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionMeshData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabCompositionMeshData
+IL_07a0: ldloca.s V_46
+IL_07a2: ldarg.0
+IL_07a3: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_07a8: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_NetData_RO_ComponentLookup
+IL_07ad: ldarg.0
+IL_07ae: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_07b3: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.NetData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_07b8: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabNetData
+IL_07bd: ldloca.s V_46
+IL_07bf: ldarg.0
+IL_07c0: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_07c5: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_NetGeometryData_RO_ComponentLookup
+IL_07ca: ldarg.0
+IL_07cb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_07d0: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.NetGeometryData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_07d5: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_PrefabNetGeometryData
+IL_07da: ldloca.s V_46
+IL_07dc: ldarg.0
+IL_07dd: ldfld Game.Tools.ToolSystem Game.Rendering.PreCullingSystem::m_ToolSystem
+IL_07e2: callvirt Game.GameMode Game.Tools.ToolSystem::get_actionMode()
+IL_07e7: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_07ec: stfld System.Boolean Game.Rendering.PreCullingSystem/InitializeCullingJob::m_EditorMode
+IL_07f1: ldloca.s V_46
+IL_07f3: ldloc.0
+IL_07f4: stfld System.Boolean Game.Rendering.PreCullingSystem/InitializeCullingJob::m_UpdateAll
+IL_07f9: ldloca.s V_46
+IL_07fb: ldarg.0
+IL_07fc: ldfld Game.Rendering.RenderingSystem Game.Rendering.PreCullingSystem::m_RenderingSystem
+IL_0801: callvirt System.Boolean Game.Rendering.RenderingSystem::get_unspawnedVisible()
+IL_0806: stfld System.Boolean Game.Rendering.PreCullingSystem/InitializeCullingJob::m_UnspawnedVisible
+IL_080b: ldloca.s V_46
+IL_080d: ldarg.0
+IL_080e: ldfld Game.Rendering.UndergroundViewSystem Game.Rendering.PreCullingSystem::m_UndergroundViewSystem
+IL_0813: callvirt Game.Net.UtilityTypes Game.Rendering.UndergroundViewSystem::get_utilityTypes()
+IL_0818: stfld Game.Net.UtilityTypes Game.Rendering.PreCullingSystem/InitializeCullingJob::m_DilatedUtilityTypes
+IL_081d: ldloca.s V_46
+IL_081f: ldarg.0
+IL_0820: ldfld Game.Simulation.TerrainSystem Game.Rendering.PreCullingSystem::m_TerrainSystem
+IL_0825: ldc.i4.0
+IL_0826: callvirt Game.Simulation.TerrainHeightData Game.Simulation.TerrainSystem::GetHeightData(System.Boolean)
+IL_082b: stfld Game.Simulation.TerrainHeightData Game.Rendering.PreCullingSystem/InitializeCullingJob::m_TerrainHeightData
+IL_0830: ldloca.s V_46
+IL_0832: ldarg.0
+IL_0833: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_CullingData
+IL_0838: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/InitializeCullingJob::m_CullingData
+IL_083d: ldloc.s V_46
+IL_083f: stloc.s V_23
+IL_0841: ldloca.s V_47
+IL_0843: initobj Game.Rendering.PreCullingSystem/EventCullingJob
+IL_0849: ldloca.s V_47
+IL_084b: ldarg.0
+IL_084c: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0851: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Buildings.RentersUpdated> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Buildings_RentersUpdated_RO_ComponentTypeHandle
+IL_0856: ldarg.0
+IL_0857: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_085c: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Buildings.RentersUpdated>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0861: stfld Unity.Entities.ComponentTypeHandle`1<Game.Buildings.RentersUpdated> Game.Rendering.PreCullingSystem/EventCullingJob::m_RentersUpdatedType
+IL_0866: ldloca.s V_47
+IL_0868: ldarg.0
+IL_0869: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_086e: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Routes.ColorUpdated> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Routes_ColorUpdated_RO_ComponentTypeHandle
+IL_0873: ldarg.0
+IL_0874: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0879: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Routes.ColorUpdated>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_087e: stfld Unity.Entities.ComponentTypeHandle`1<Game.Routes.ColorUpdated> Game.Rendering.PreCullingSystem/EventCullingJob::m_ColorUpdatedType
+IL_0883: ldloca.s V_47
+IL_0885: ldarg.0
+IL_0886: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_088b: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_CullingInfo_RO_ComponentLookup
+IL_0890: ldarg.0
+IL_0891: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0896: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Rendering.CullingInfo>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_089b: stfld Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/EventCullingJob::m_CullingInfoData
+IL_08a0: ldloca.s V_47
+IL_08a2: ldarg.0
+IL_08a3: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_08a8: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_SubObject_RO_BufferLookup
+IL_08ad: ldarg.0
+IL_08ae: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_08b3: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Objects.SubObject>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_08b8: stfld Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Rendering.PreCullingSystem/EventCullingJob::m_SubObjects
+IL_08bd: ldloca.s V_47
+IL_08bf: ldarg.0
+IL_08c0: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_08c5: ldflda Unity.Entities.BufferLookup`1<Game.Net.SubLane> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_SubLane_RO_BufferLookup
+IL_08ca: ldarg.0
+IL_08cb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_08d0: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Net.SubLane>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_08d5: stfld Unity.Entities.BufferLookup`1<Game.Net.SubLane> Game.Rendering.PreCullingSystem/EventCullingJob::m_SubLanes
+IL_08da: ldloca.s V_47
+IL_08dc: ldarg.0
+IL_08dd: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_08e2: ldflda Unity.Entities.BufferLookup`1<Game.Routes.RouteVehicle> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Routes_RouteVehicle_RO_BufferLookup
+IL_08e7: ldarg.0
+IL_08e8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_08ed: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Routes.RouteVehicle>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_08f2: stfld Unity.Entities.BufferLookup`1<Game.Routes.RouteVehicle> Game.Rendering.PreCullingSystem/EventCullingJob::m_RouteVehicles
+IL_08f7: ldloca.s V_47
+IL_08f9: ldarg.0
+IL_08fa: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_08ff: ldflda Unity.Entities.BufferLookup`1<Game.Vehicles.LayoutElement> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Vehicles_LayoutElement_RO_BufferLookup
+IL_0904: ldarg.0
+IL_0905: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_090a: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Vehicles.LayoutElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_090f: stfld Unity.Entities.BufferLookup`1<Game.Vehicles.LayoutElement> Game.Rendering.PreCullingSystem/EventCullingJob::m_LayoutElements
+IL_0914: ldloca.s V_47
+IL_0916: ldarg.0
+IL_0917: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_CullingData
+IL_091c: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/EventCullingJob::m_CullingData
+IL_0921: ldloc.s V_47
+IL_0923: stloc.s V_24
+IL_0925: ldloca.s V_48
+IL_0927: initobj Game.Rendering.PreCullingSystem/QueryCullingJob
+IL_092d: ldloca.s V_48
+IL_092f: ldarg.0
+IL_0930: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0935: ldflda Unity.Entities.EntityTypeHandle Game.Rendering.PreCullingSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_093a: ldarg.0
+IL_093b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0940: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_0945: stfld Unity.Entities.EntityTypeHandle Game.Rendering.PreCullingSystem/QueryCullingJob::m_EntityType
+IL_094a: ldloca.s V_48
+IL_094c: ldarg.0
+IL_094d: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0952: ldflda Unity.Entities.SharedComponentTypeHandle`1<Game.Simulation.UpdateFrame> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Simulation_UpdateFrame_SharedComponentTypeHandle
+IL_0957: ldarg.0
+IL_0958: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_095d: call Unity.Entities.SharedComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetSharedComponentTypeHandle<Game.Simulation.UpdateFrame>(Unity.Entities.SharedComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0962: stfld Unity.Entities.SharedComponentTypeHandle`1<Game.Simulation.UpdateFrame> Game.Rendering.PreCullingSystem/QueryCullingJob::m_UpdateFrameType
+IL_0967: ldloca.s V_48
+IL_0969: ldarg.0
+IL_096a: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_096f: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Transform_RO_ComponentTypeHandle
+IL_0974: ldarg.0
+IL_0975: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_097a: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_097f: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Rendering.PreCullingSystem/QueryCullingJob::m_TransformType
+IL_0984: ldloca.s V_48
+IL_0986: ldarg.0
+IL_0987: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_098c: ldflda Unity.Entities.BufferTypeHandle`1<Game.Objects.TransformFrame> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_TransformFrame_RO_BufferTypeHandle
+IL_0991: ldarg.0
+IL_0992: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0997: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Objects.TransformFrame>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_099c: stfld Unity.Entities.BufferTypeHandle`1<Game.Objects.TransformFrame> Game.Rendering.PreCullingSystem/QueryCullingJob::m_TransformFrameType
+IL_09a1: ldloca.s V_48
+IL_09a3: ldarg.0
+IL_09a4: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_09a9: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_CullingInfo_RW_ComponentTypeHandle
+IL_09ae: ldarg.0
+IL_09af: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_09b4: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Rendering.CullingInfo>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_09b9: stfld Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/QueryCullingJob::m_CullingInfoType
+IL_09be: ldloca.s V_48
+IL_09c0: ldloc.s V_4
+IL_09c2: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/QueryCullingJob::m_LodParameters
+IL_09c7: ldloca.s V_48
+IL_09c9: ldloc.1
+IL_09ca: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/QueryCullingJob::m_CameraPosition
+IL_09cf: ldloca.s V_48
+IL_09d1: ldloc.2
+IL_09d2: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/QueryCullingJob::m_CameraDirection
+IL_09d7: ldloca.s V_48
+IL_09d9: ldarg.0
+IL_09da: ldfld Game.Rendering.RenderingSystem Game.Rendering.PreCullingSystem::m_RenderingSystem
+IL_09df: callvirt System.UInt32 Game.Rendering.RenderingSystem::get_frameIndex()
+IL_09e4: stfld System.UInt32 Game.Rendering.PreCullingSystem/QueryCullingJob::m_FrameIndex
+IL_09e9: ldloca.s V_48
+IL_09eb: ldarg.0
+IL_09ec: ldfld Game.Rendering.RenderingSystem Game.Rendering.PreCullingSystem::m_RenderingSystem
+IL_09f1: callvirt System.Single Game.Rendering.RenderingSystem::get_frameTime()
+IL_09f6: stfld System.Single Game.Rendering.PreCullingSystem/QueryCullingJob::m_FrameTime
+IL_09fb: ldloca.s V_48
+IL_09fd: ldloc.s V_6
+IL_09ff: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/QueryCullingJob::m_VisibleMask
+IL_0a04: ldloca.s V_48
+IL_0a06: ldloca.s V_8
+IL_0a08: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::AsWriter()
+IL_0a0d: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/QueryCullingJob::m_ActionQueue
+IL_0a12: ldloc.s V_48
+IL_0a14: stloc.s V_25
+IL_0a16: ldloca.s V_49
+IL_0a18: initobj Game.Rendering.PreCullingSystem/QueryRemoveJob
+IL_0a1e: ldloca.s V_49
+IL_0a20: ldarg.0
+IL_0a21: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0a26: ldflda Unity.Entities.EntityTypeHandle Game.Rendering.PreCullingSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_0a2b: ldarg.0
+IL_0a2c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a31: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_0a36: stfld Unity.Entities.EntityTypeHandle Game.Rendering.PreCullingSystem/QueryRemoveJob::m_EntityType
+IL_0a3b: ldloca.s V_49
+IL_0a3d: ldarg.0
+IL_0a3e: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0a43: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentTypeHandle
+IL_0a48: ldarg.0
+IL_0a49: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a4e: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0a53: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Rendering.PreCullingSystem/QueryRemoveJob::m_DeletedType
+IL_0a58: ldloca.s V_49
+IL_0a5a: ldarg.0
+IL_0a5b: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0a60: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Applied> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Applied_RO_ComponentTypeHandle
+IL_0a65: ldarg.0
+IL_0a66: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a6b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Applied>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0a70: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Applied> Game.Rendering.PreCullingSystem/QueryRemoveJob::m_AppliedType
+IL_0a75: ldloca.s V_49
+IL_0a77: ldarg.0
+IL_0a78: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0a7d: ldflda Unity.Entities.SharedComponentTypeHandle`1<Game.Simulation.UpdateFrame> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Simulation_UpdateFrame_SharedComponentTypeHandle
+IL_0a82: ldarg.0
+IL_0a83: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0a88: call Unity.Entities.SharedComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetSharedComponentTypeHandle<Game.Simulation.UpdateFrame>(Unity.Entities.SharedComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0a8d: stfld Unity.Entities.SharedComponentTypeHandle`1<Game.Simulation.UpdateFrame> Game.Rendering.PreCullingSystem/QueryRemoveJob::m_UpdateFrameType
+IL_0a92: ldloca.s V_49
+IL_0a94: ldarg.0
+IL_0a95: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0a9a: ldflda Unity.Entities.BufferTypeHandle`1<Game.Objects.TransformFrame> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_TransformFrame_RO_BufferTypeHandle
+IL_0a9f: ldarg.0
+IL_0aa0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0aa5: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Objects.TransformFrame>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0aaa: stfld Unity.Entities.BufferTypeHandle`1<Game.Objects.TransformFrame> Game.Rendering.PreCullingSystem/QueryRemoveJob::m_TransformFrameType
+IL_0aaf: ldloca.s V_49
+IL_0ab1: ldarg.0
+IL_0ab2: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0ab7: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_CullingInfo_RW_ComponentTypeHandle
+IL_0abc: ldarg.0
+IL_0abd: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ac2: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Rendering.CullingInfo>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0ac7: stfld Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/QueryRemoveJob::m_CullingInfoType
+IL_0acc: ldloca.s V_49
+IL_0ace: ldloca.s V_8
+IL_0ad0: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::AsWriter()
+IL_0ad5: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/QueryRemoveJob::m_ActionQueue
+IL_0ada: ldloc.s V_49
+IL_0adc: stloc.s V_26
+IL_0ade: ldloca.s V_50
+IL_0ae0: initobj Game.Rendering.PreCullingSystem/RelativeCullingJob
+IL_0ae6: ldloca.s V_50
+IL_0ae8: ldarg.0
+IL_0ae9: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0aee: ldflda Unity.Entities.EntityTypeHandle Game.Rendering.PreCullingSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_0af3: ldarg.0
+IL_0af4: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0af9: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_0afe: stfld Unity.Entities.EntityTypeHandle Game.Rendering.PreCullingSystem/RelativeCullingJob::m_EntityType
+IL_0b03: ldloca.s V_50
+IL_0b05: ldarg.0
+IL_0b06: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0b0b: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Owner_RO_ComponentTypeHandle
+IL_0b10: ldarg.0
+IL_0b11: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0b16: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Owner>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b1b: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Rendering.PreCullingSystem/RelativeCullingJob::m_OwnerType
+IL_0b20: ldloca.s V_50
+IL_0b22: ldarg.0
+IL_0b23: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0b28: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Creatures.CurrentVehicle> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Creatures_CurrentVehicle_RO_ComponentTypeHandle
+IL_0b2d: ldarg.0
+IL_0b2e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0b33: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Creatures.CurrentVehicle>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b38: stfld Unity.Entities.ComponentTypeHandle`1<Game.Creatures.CurrentVehicle> Game.Rendering.PreCullingSystem/RelativeCullingJob::m_CurrentVehicleType
+IL_0b3d: ldloca.s V_50
+IL_0b3f: ldarg.0
+IL_0b40: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0b45: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_CullingInfo_RW_ComponentLookup
+IL_0b4a: ldarg.0
+IL_0b4b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0b50: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Rendering.CullingInfo>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0b55: stfld Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/RelativeCullingJob::m_CullingInfoData
+IL_0b5a: ldloca.s V_50
+IL_0b5c: ldloc.s V_4
+IL_0b5e: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/RelativeCullingJob::m_LodParameters
+IL_0b63: ldloca.s V_50
+IL_0b65: ldloc.1
+IL_0b66: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/RelativeCullingJob::m_CameraPosition
+IL_0b6b: ldloca.s V_50
+IL_0b6d: ldloc.2
+IL_0b6e: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/RelativeCullingJob::m_CameraDirection
+IL_0b73: ldloca.s V_50
+IL_0b75: ldloc.s V_6
+IL_0b77: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/RelativeCullingJob::m_VisibleMask
+IL_0b7c: ldloca.s V_50
+IL_0b7e: ldloca.s V_8
+IL_0b80: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::AsWriter()
+IL_0b85: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/RelativeCullingJob::m_ActionQueue
+IL_0b8a: ldloc.s V_50
+IL_0b8c: stloc.s V_27
+IL_0b8e: ldloca.s V_51
+IL_0b90: initobj Game.Rendering.PreCullingSystem/TempCullingJob
+IL_0b96: ldloca.s V_51
+IL_0b98: ldarg.0
+IL_0b99: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0b9e: ldflda Unity.Entities.EntityTypeHandle Game.Rendering.PreCullingSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_0ba3: ldarg.0
+IL_0ba4: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ba9: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_0bae: stfld Unity.Entities.EntityTypeHandle Game.Rendering.PreCullingSystem/TempCullingJob::m_EntityType
+IL_0bb3: ldloca.s V_51
+IL_0bb5: ldarg.0
+IL_0bb6: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0bbb: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Rendering.InterpolatedTransform> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_InterpolatedTransform_RO_ComponentTypeHandle
+IL_0bc0: ldarg.0
+IL_0bc1: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0bc6: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Rendering.InterpolatedTransform>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0bcb: stfld Unity.Entities.ComponentTypeHandle`1<Game.Rendering.InterpolatedTransform> Game.Rendering.PreCullingSystem/TempCullingJob::m_InterpolatedTransformType
+IL_0bd0: ldloca.s V_51
+IL_0bd2: ldarg.0
+IL_0bd3: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0bd8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Transform_RO_ComponentTypeHandle
+IL_0bdd: ldarg.0
+IL_0bde: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0be3: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0be8: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Rendering.PreCullingSystem/TempCullingJob::m_TransformType
+IL_0bed: ldloca.s V_51
+IL_0bef: ldarg.0
+IL_0bf0: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0bf5: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Stack> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Stack_RO_ComponentTypeHandle
+IL_0bfa: ldarg.0
+IL_0bfb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c00: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Stack>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c05: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Stack> Game.Rendering.PreCullingSystem/TempCullingJob::m_StackType
+IL_0c0a: ldloca.s V_51
+IL_0c0c: ldarg.0
+IL_0c0d: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0c12: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Static> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Static_RO_ComponentTypeHandle
+IL_0c17: ldarg.0
+IL_0c18: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c1d: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Static>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c22: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Static> Game.Rendering.PreCullingSystem/TempCullingJob::m_StaticType
+IL_0c27: ldloca.s V_51
+IL_0c29: ldarg.0
+IL_0c2a: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0c2f: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Stopped> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Stopped_RO_ComponentTypeHandle
+IL_0c34: ldarg.0
+IL_0c35: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c3a: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Stopped>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c3f: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Stopped> Game.Rendering.PreCullingSystem/TempCullingJob::m_StoppedType
+IL_0c44: ldloca.s V_51
+IL_0c46: ldarg.0
+IL_0c47: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0c4c: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_0c51: ldarg.0
+IL_0c52: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c57: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c5c: stfld Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Rendering.PreCullingSystem/TempCullingJob::m_TempType
+IL_0c61: ldloca.s V_51
+IL_0c63: ldarg.0
+IL_0c64: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0c69: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_PrefabRef_RO_ComponentTypeHandle
+IL_0c6e: ldarg.0
+IL_0c6f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c74: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c79: stfld Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Rendering.PreCullingSystem/TempCullingJob::m_PrefabRefType
+IL_0c7e: ldloca.s V_51
+IL_0c80: ldarg.0
+IL_0c81: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0c86: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_ObjectGeometryData_RO_ComponentLookup
+IL_0c8b: ldarg.0
+IL_0c8c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0c91: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.ObjectGeometryData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0c96: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Rendering.PreCullingSystem/TempCullingJob::m_PrefabObjectGeometryData
+IL_0c9b: ldloca.s V_51
+IL_0c9d: ldarg.0
+IL_0c9e: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0ca3: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Prefabs_StackData_RO_ComponentLookup
+IL_0ca8: ldarg.0
+IL_0ca9: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0cae: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.StackData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0cb3: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.PreCullingSystem/TempCullingJob::m_PrefabStackData
+IL_0cb8: ldloca.s V_51
+IL_0cba: ldarg.0
+IL_0cbb: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0cc0: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_CullingInfo_RW_ComponentLookup
+IL_0cc5: ldarg.0
+IL_0cc6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ccb: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Rendering.CullingInfo>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0cd0: stfld Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TempCullingJob::m_CullingInfoData
+IL_0cd5: ldloca.s V_51
+IL_0cd7: ldloc.s V_4
+IL_0cd9: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/TempCullingJob::m_LodParameters
+IL_0cde: ldloca.s V_51
+IL_0ce0: ldloc.1
+IL_0ce1: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TempCullingJob::m_CameraPosition
+IL_0ce6: ldloca.s V_51
+IL_0ce8: ldloc.2
+IL_0ce9: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/TempCullingJob::m_CameraDirection
+IL_0cee: ldloca.s V_51
+IL_0cf0: ldloc.s V_6
+IL_0cf2: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/TempCullingJob::m_VisibleMask
+IL_0cf7: ldloca.s V_51
+IL_0cf9: ldloc.s V_23
+IL_0cfb: ldfld Game.Simulation.TerrainHeightData Game.Rendering.PreCullingSystem/InitializeCullingJob::m_TerrainHeightData
+IL_0d00: stfld Game.Simulation.TerrainHeightData Game.Rendering.PreCullingSystem/TempCullingJob::m_TerrainHeightData
+IL_0d05: ldloca.s V_51
+IL_0d07: ldloca.s V_8
+IL_0d09: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::AsWriter()
+IL_0d0e: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/TempCullingJob::m_ActionQueue
+IL_0d13: ldloc.s V_51
+IL_0d15: ldloc.0
+IL_0d16: brtrue.s IL_0d20
+IL_0d18: ldarg.0
+IL_0d19: ldfld Unity.Entities.EntityQuery Game.Rendering.PreCullingSystem::m_InitializeQuery
+IL_0d1e: br.s IL_0d26
+IL_0d20: ldarg.0
+IL_0d21: ldfld Unity.Entities.EntityQuery Game.Rendering.PreCullingSystem::m_CullingInfoQuery
+IL_0d26: stloc.s V_28
+IL_0d28: ldarg.0
+IL_0d29: ldloc.s V_22
+IL_0d2b: call Unity.Entities.EntityQuery Game.Rendering.PreCullingSystem::GetCullingQuery(Game.Rendering.PreCullingSystem/QueryFlags)
+IL_0d30: stloc.s V_29
+IL_0d32: ldarg.0
+IL_0d33: ldloc.s V_22
+IL_0d35: call Unity.Entities.EntityQuery Game.Rendering.PreCullingSystem::GetRelativeQuery(Game.Rendering.PreCullingSystem/QueryFlags)
+IL_0d3a: stloc.s V_30
+IL_0d3c: ldarg.0
+IL_0d3d: ldarg.0
+IL_0d3e: ldfld Game.Rendering.PreCullingSystem/QueryFlags Game.Rendering.PreCullingSystem::m_PrevQueryFlags
+IL_0d43: ldloc.s V_22
+IL_0d45: not
+IL_0d46: and
+IL_0d47: call Unity.Entities.EntityQuery Game.Rendering.PreCullingSystem::GetRemoveQuery(Game.Rendering.PreCullingSystem/QueryFlags)
+IL_0d4c: stloc.s V_31
+IL_0d4e: ldloc.s V_23
+IL_0d50: ldloc.s V_28
+IL_0d52: ldarg.0
+IL_0d53: call Unity.Jobs.JobHandle Unity.Entities.SystemBase::get_Dependency()
+IL_0d58: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Rendering.PreCullingSystem/InitializeCullingJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_0d5d: stloc.s V_32
+IL_0d5f: ldloc.s V_24
+IL_0d61: ldarg.0
+IL_0d62: ldfld Unity.Entities.EntityQuery Game.Rendering.PreCullingSystem::m_EventQuery
+IL_0d67: ldloc.s V_32
+IL_0d69: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::Schedule<Game.Rendering.PreCullingSystem/EventCullingJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_0d6e: stloc.s V_33
+IL_0d70: ldloc.s V_25
+IL_0d72: ldloc.s V_29
+IL_0d74: ldloc.s V_33
+IL_0d76: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Rendering.PreCullingSystem/QueryCullingJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_0d7b: stloc.s V_34
+IL_0d7d: ldloc.s V_26
+IL_0d7f: ldloc.s V_31
+IL_0d81: ldloc.s V_34
+IL_0d83: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Rendering.PreCullingSystem/QueryRemoveJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_0d88: stloc.s V_35
+IL_0d8a: ldloc.s V_27
+IL_0d8c: ldloc.s V_30
+IL_0d8e: ldloc.s V_35
+IL_0d90: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Rendering.PreCullingSystem/RelativeCullingJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_0d95: stloc.s V_36
+IL_0d97: ldarg.0
+IL_0d98: ldfld Unity.Entities.EntityQuery Game.Rendering.PreCullingSystem::m_TempQuery
+IL_0d9d: ldloc.s V_36
+IL_0d9f: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Rendering.PreCullingSystem/TempCullingJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_0da4: stloc.s V_37
+IL_0da6: ldarg.0
+IL_0da7: ldfld System.Boolean Game.Rendering.PreCullingSystem::m_ResetPrevious
+IL_0dac: brtrue.s IL_0db9
+IL_0dae: ldarg.0
+IL_0daf: call Game.Common.BoundsMask Game.Rendering.PreCullingSystem::get_becameHidden()
+IL_0db4: brfalse IL_0e3b
+IL_0db9: ldloca.s V_53
+IL_0dbb: initobj Game.Rendering.PreCullingSystem/VerifyVisibleJob
+IL_0dc1: ldloca.s V_53
+IL_0dc3: ldarg.0
+IL_0dc4: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0dc9: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_CullingInfo_RO_ComponentLookup
+IL_0dce: ldarg.0
+IL_0dcf: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0dd4: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Rendering.CullingInfo>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0dd9: stfld Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_CullingInfoData
+IL_0dde: ldloca.s V_53
+IL_0de0: ldloc.s V_4
+IL_0de2: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_LodParameters
+IL_0de7: ldloca.s V_53
+IL_0de9: ldloc.1
+IL_0dea: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_CameraPosition
+IL_0def: ldloca.s V_53
+IL_0df1: ldloc.2
+IL_0df2: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_CameraDirection
+IL_0df7: ldloca.s V_53
+IL_0df9: ldloc.s V_6
+IL_0dfb: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_VisibleMask
+IL_0e00: ldloca.s V_53
+IL_0e02: ldarg.0
+IL_0e03: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_CullingData
+IL_0e08: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_CullingData
+IL_0e0d: ldloca.s V_53
+IL_0e0f: ldloca.s V_8
+IL_0e11: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::AsWriter()
+IL_0e16: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/VerifyVisibleJob::m_ActionQueue
+IL_0e1b: ldloc.s V_53
+IL_0e1d: ldloc.s V_7
+IL_0e1f: ldc.i4.s 16
+IL_0e21: ldloc.s V_37
+IL_0e23: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Rendering.PreCullingSystem/VerifyVisibleJob>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_0e28: stloc.s V_52
+IL_0e2a: ldarg.0
+IL_0e2b: ldloc.s V_21
+IL_0e2d: ldloc.s V_52
+IL_0e2f: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_0e34: stfld Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_WriteDependencies
+IL_0e39: br.s IL_0e4a
+IL_0e3b: ldarg.0
+IL_0e3c: ldloc.s V_21
+IL_0e3e: ldloc.s V_37
+IL_0e40: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_0e45: stfld Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_WriteDependencies
+IL_0e4a: ldloca.s V_54
+IL_0e4c: initobj Game.Rendering.PreCullingSystem/CullingActionJob
+IL_0e52: ldloca.s V_54
+IL_0e54: ldloca.s V_8
+IL_0e56: call Colossal.Collections.NativeParallelQueue`1/Reader<!0> Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::AsReader()
+IL_0e5b: stfld Colossal.Collections.NativeParallelQueue`1/Reader<Game.Rendering.PreCullingSystem/CullingAction> Game.Rendering.PreCullingSystem/CullingActionJob::m_CullingActions
+IL_0e60: ldloca.s V_54
+IL_0e62: ldloca.s V_10
+IL_0e64: call Unity.Collections.NativeQueue`1/ParallelWriter<!0> Unity.Collections.NativeQueue`1<Game.Rendering.PreCullingSystem/OverflowAction>::AsParallelWriter()
+IL_0e69: stfld Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.PreCullingSystem/OverflowAction> Game.Rendering.PreCullingSystem/CullingActionJob::m_OverflowActions
+IL_0e6e: ldloca.s V_54
+IL_0e70: ldarg.0
+IL_0e71: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0e76: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_CullingInfo_RW_ComponentLookup
+IL_0e7b: ldarg.0
+IL_0e7c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0e81: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Rendering.CullingInfo>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0e86: stfld Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.PreCullingSystem/CullingActionJob::m_CullingInfo
+IL_0e8b: ldloca.s V_54
+IL_0e8d: ldarg.0
+IL_0e8e: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_CullingData
+IL_0e93: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/CullingActionJob::m_CullingData
+IL_0e98: ldloca.s V_54
+IL_0e9a: ldloc.s V_9
+IL_0e9c: stfld Unity.Collections.NativeReference`1<System.Int32> Game.Rendering.PreCullingSystem/CullingActionJob::m_CullingDataIndex
+IL_0ea1: ldloc.s V_54
+IL_0ea3: stloc.s V_38
+IL_0ea5: ldloca.s V_55
+IL_0ea7: initobj Game.Rendering.PreCullingSystem/ResizeCullingDataJob
+IL_0ead: ldloca.s V_55
+IL_0eaf: ldloc.s V_9
+IL_0eb1: stfld Unity.Collections.NativeReference`1<System.Int32> Game.Rendering.PreCullingSystem/ResizeCullingDataJob::m_CullingDataIndex
+IL_0eb6: ldloca.s V_55
+IL_0eb8: ldarg.0
+IL_0eb9: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_CullingData
+IL_0ebe: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/ResizeCullingDataJob::m_CullingData
+IL_0ec3: ldloca.s V_55
+IL_0ec5: ldarg.0
+IL_0ec6: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_UpdatedData
+IL_0ecb: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/ResizeCullingDataJob::m_UpdatedData
+IL_0ed0: ldloca.s V_55
+IL_0ed2: ldloc.s V_10
+IL_0ed4: stfld Unity.Collections.NativeQueue`1<Game.Rendering.PreCullingSystem/OverflowAction> Game.Rendering.PreCullingSystem/ResizeCullingDataJob::m_OverflowActions
+IL_0ed9: ldloc.s V_55
+IL_0edb: stloc.s V_39
+IL_0edd: ldloca.s V_56
+IL_0edf: initobj Game.Rendering.PreCullingSystem/FilterUpdatesJob
+IL_0ee5: ldloca.s V_56
+IL_0ee7: ldarg.0
+IL_0ee8: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0eed: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Created> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Created_RO_ComponentLookup
+IL_0ef2: ldarg.0
+IL_0ef3: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ef8: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Created>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0efd: stfld Unity.Entities.ComponentLookup`1<Game.Common.Created> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_CreatedData
+IL_0f02: ldloca.s V_56
+IL_0f04: ldarg.0
+IL_0f05: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0f0a: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Updated_RO_ComponentLookup
+IL_0f0f: ldarg.0
+IL_0f10: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f15: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Updated>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f1a: stfld Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_UpdatedData
+IL_0f1f: ldloca.s V_56
+IL_0f21: ldarg.0
+IL_0f22: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0f27: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Applied> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Applied_RO_ComponentLookup
+IL_0f2c: ldarg.0
+IL_0f2d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f32: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Applied>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f37: stfld Unity.Entities.ComponentLookup`1<Game.Common.Applied> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_AppliedData
+IL_0f3c: ldloca.s V_56
+IL_0f3e: ldarg.0
+IL_0f3f: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0f44: ldflda Unity.Entities.ComponentLookup`1<Game.Common.BatchesUpdated> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_BatchesUpdated_RO_ComponentLookup
+IL_0f49: ldarg.0
+IL_0f4a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f4f: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.BatchesUpdated>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f54: stfld Unity.Entities.ComponentLookup`1<Game.Common.BatchesUpdated> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_BatchesUpdatedData
+IL_0f59: ldloca.s V_56
+IL_0f5b: ldarg.0
+IL_0f5c: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0f61: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_InterpolatedTransform_RO_ComponentLookup
+IL_0f66: ldarg.0
+IL_0f67: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f6c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Rendering.InterpolatedTransform>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f71: stfld Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_InterpolatedTransformData
+IL_0f76: ldloca.s V_56
+IL_0f78: ldarg.0
+IL_0f79: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0f7e: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Common_Owner_RO_ComponentLookup
+IL_0f83: ldarg.0
+IL_0f84: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0f89: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Owner>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0f8e: stfld Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_OwnerData
+IL_0f93: ldloca.s V_56
+IL_0f95: ldarg.0
+IL_0f96: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0f9b: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentLookup
+IL_0fa0: ldarg.0
+IL_0fa1: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0fa6: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.Temp>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0fab: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_TempData
+IL_0fb0: ldloca.s V_56
+IL_0fb2: ldarg.0
+IL_0fb3: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0fb8: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Object> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Object_RO_ComponentLookup
+IL_0fbd: ldarg.0
+IL_0fbe: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0fc3: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Object>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0fc8: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Object> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ObjectData
+IL_0fcd: ldloca.s V_56
+IL_0fcf: ldarg.0
+IL_0fd0: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0fd5: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.ObjectGeometry> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_ObjectGeometry_RO_ComponentLookup
+IL_0fda: ldarg.0
+IL_0fdb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0fe0: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.ObjectGeometry>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0fe5: stfld Unity.Entities.ComponentLookup`1<Game.Objects.ObjectGeometry> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ObjectGeometryData
+IL_0fea: ldloca.s V_56
+IL_0fec: ldarg.0
+IL_0fed: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_0ff2: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Color> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Color_RO_ComponentLookup
+IL_0ff7: ldarg.0
+IL_0ff8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0ffd: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Color>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1002: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Color> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ObjectColorData
+IL_1007: ldloca.s V_56
+IL_1009: ldarg.0
+IL_100a: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_100f: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Plant> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Plant_RO_ComponentLookup
+IL_1014: ldarg.0
+IL_1015: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_101a: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Plant>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_101f: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Plant> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_PlantData
+IL_1024: ldloca.s V_56
+IL_1026: ldarg.0
+IL_1027: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_102c: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Tree_RO_ComponentLookup
+IL_1031: ldarg.0
+IL_1032: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1037: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Tree>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_103c: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_TreeData
+IL_1041: ldloca.s V_56
+IL_1043: ldarg.0
+IL_1044: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1049: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Relative> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Relative_RO_ComponentLookup
+IL_104e: ldarg.0
+IL_104f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1054: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Relative>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1059: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Relative> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_RelativeData
+IL_105e: ldloca.s V_56
+IL_1060: ldarg.0
+IL_1061: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1066: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Damaged> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Objects_Damaged_RO_ComponentLookup
+IL_106b: ldarg.0
+IL_106c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1071: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Damaged>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1076: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Damaged> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_DamagedData
+IL_107b: ldloca.s V_56
+IL_107d: ldarg.0
+IL_107e: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1083: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Buildings_Building_RO_ComponentLookup
+IL_1088: ldarg.0
+IL_1089: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_108e: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.Building>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1093: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_BuildingData
+IL_1098: ldloca.s V_56
+IL_109a: ldarg.0
+IL_109b: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_10a0: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Extension> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Buildings_Extension_RO_ComponentLookup
+IL_10a5: ldarg.0
+IL_10a6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_10ab: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.Extension>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_10b0: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.Extension> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ExtensionData
+IL_10b5: ldloca.s V_56
+IL_10b7: ldarg.0
+IL_10b8: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_10bd: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Edge_RO_ComponentLookup
+IL_10c2: ldarg.0
+IL_10c3: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_10c8: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Edge>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_10cd: stfld Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_EdgeData
+IL_10d2: ldloca.s V_56
+IL_10d4: ldarg.0
+IL_10d5: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_10da: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Node_RO_ComponentLookup
+IL_10df: ldarg.0
+IL_10e0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_10e5: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Node>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_10ea: stfld Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_NodeData
+IL_10ef: ldloca.s V_56
+IL_10f1: ldarg.0
+IL_10f2: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_10f7: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Lane> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_Lane_RO_ComponentLookup
+IL_10fc: ldarg.0
+IL_10fd: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1102: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Lane>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1107: stfld Unity.Entities.ComponentLookup`1<Game.Net.Lane> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_LaneData
+IL_110c: ldloca.s V_56
+IL_110e: ldarg.0
+IL_110f: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1114: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeColor> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_NodeColor_RO_ComponentLookup
+IL_1119: ldarg.0
+IL_111a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_111f: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.NodeColor>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1124: stfld Unity.Entities.ComponentLookup`1<Game.Net.NodeColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_NodeColorData
+IL_1129: ldloca.s V_56
+IL_112b: ldarg.0
+IL_112c: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1131: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_EdgeColor_RO_ComponentLookup
+IL_1136: ldarg.0
+IL_1137: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_113c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.EdgeColor>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1141: stfld Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_EdgeColorData
+IL_1146: ldloca.s V_56
+IL_1148: ldarg.0
+IL_1149: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_114e: ldflda Unity.Entities.ComponentLookup`1<Game.Net.LaneColor> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_LaneColor_RO_ComponentLookup
+IL_1153: ldarg.0
+IL_1154: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1159: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.LaneColor>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_115e: stfld Unity.Entities.ComponentLookup`1<Game.Net.LaneColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_LaneColorData
+IL_1163: ldloca.s V_56
+IL_1165: ldarg.0
+IL_1166: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_116b: ldflda Unity.Entities.ComponentLookup`1<Game.Net.LaneCondition> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Net_LaneCondition_RO_ComponentLookup
+IL_1170: ldarg.0
+IL_1171: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1176: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.LaneCondition>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_117b: stfld Unity.Entities.ComponentLookup`1<Game.Net.LaneCondition> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_LaneConditionData
+IL_1180: ldloca.s V_56
+IL_1182: ldarg.0
+IL_1183: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1188: ldflda Unity.Entities.ComponentLookup`1<Game.Zones.Block> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Zones_Block_RO_ComponentLookup
+IL_118d: ldarg.0
+IL_118e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1193: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Zones.Block>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1198: stfld Unity.Entities.ComponentLookup`1<Game.Zones.Block> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_ZoneData
+IL_119d: ldloca.s V_56
+IL_119f: ldarg.0
+IL_11a0: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_11a5: ldflda Unity.Entities.ComponentLookup`1<Game.Events.OnFire> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Events_OnFire_RO_ComponentLookup
+IL_11aa: ldarg.0
+IL_11ab: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_11b0: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Events.OnFire>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_11b5: stfld Unity.Entities.ComponentLookup`1<Game.Events.OnFire> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_OnFireData
+IL_11ba: ldloca.s V_56
+IL_11bc: ldarg.0
+IL_11bd: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_11c2: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Animated> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_Animated_RO_BufferLookup
+IL_11c7: ldarg.0
+IL_11c8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_11cd: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Rendering.Animated>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_11d2: stfld Unity.Entities.BufferLookup`1<Game.Rendering.Animated> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_AnimatedData
+IL_11d7: ldloca.s V_56
+IL_11d9: ldarg.0
+IL_11da: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_11df: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Skeleton> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_Skeleton_RO_BufferLookup
+IL_11e4: ldarg.0
+IL_11e5: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_11ea: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Rendering.Skeleton>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_11ef: stfld Unity.Entities.BufferLookup`1<Game.Rendering.Skeleton> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_SkeletonData
+IL_11f4: ldloca.s V_56
+IL_11f6: ldarg.0
+IL_11f7: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_11fc: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Emissive> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_Emissive_RO_BufferLookup
+IL_1201: ldarg.0
+IL_1202: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1207: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Rendering.Emissive>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_120c: stfld Unity.Entities.BufferLookup`1<Game.Rendering.Emissive> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_EmissiveData
+IL_1211: ldloca.s V_56
+IL_1213: ldarg.0
+IL_1214: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1219: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Rendering_MeshColor_RO_BufferLookup
+IL_121e: ldarg.0
+IL_121f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1224: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Rendering.MeshColor>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1229: stfld Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_MeshColorData
+IL_122e: ldloca.s V_56
+IL_1230: ldarg.0
+IL_1231: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1236: ldflda Unity.Entities.BufferLookup`1<Game.Vehicles.LayoutElement> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Vehicles_LayoutElement_RO_BufferLookup
+IL_123b: ldarg.0
+IL_123c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1241: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Vehicles.LayoutElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1246: stfld Unity.Entities.BufferLookup`1<Game.Vehicles.LayoutElement> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_LayoutElements
+IL_124b: ldloca.s V_56
+IL_124d: ldarg.0
+IL_124e: ldflda Game.Rendering.PreCullingSystem/TypeHandle Game.Rendering.PreCullingSystem::__TypeHandle
+IL_1253: ldflda Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Rendering.PreCullingSystem/TypeHandle::__Game_Effects_EnabledEffect_RO_BufferLookup
+IL_1258: ldarg.0
+IL_1259: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_125e: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Effects.EnabledEffect>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1263: stfld Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_EffectInstances
+IL_1268: ldloca.s V_56
+IL_126a: ldarg.0
+IL_126b: ldfld Game.Rendering.RenderingSystem Game.Rendering.PreCullingSystem::m_RenderingSystem
+IL_1270: callvirt System.Int32 Game.Rendering.RenderingSystem::get_lodTimerDelta()
+IL_1275: stfld System.Int32 Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_TimerDelta
+IL_127a: ldloca.s V_56
+IL_127c: ldarg.0
+IL_127d: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_CullingData
+IL_1282: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_CullingData
+IL_1287: ldloca.s V_56
+IL_1289: ldarg.0
+IL_128a: ldflda Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_UpdatedData
+IL_128f: call Unity.Collections.NativeList`1/ParallelWriter<!0> Unity.Collections.NativeList`1<Game.Rendering.PreCullingData>::AsParallelWriter()
+IL_1294: stfld Unity.Collections.NativeList`1/ParallelWriter<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem/FilterUpdatesJob::m_UpdatedCullingData
+IL_1299: ldloc.s V_56
+IL_129b: ldloc.s V_38
+IL_129d: ldloca.s V_8
+IL_129f: call System.Int32 Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::get_HashRange()
+IL_12a4: ldc.i4.1
+IL_12a5: ldarg.0
+IL_12a6: ldfld Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_WriteDependencies
+IL_12ab: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Rendering.PreCullingSystem/CullingActionJob>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_12b0: stloc.s V_40
+IL_12b2: ldloc.s V_39
+IL_12b4: ldloc.s V_40
+IL_12b6: call Unity.Jobs.JobHandle Unity.Jobs.IJobExtensions::Schedule<Game.Rendering.PreCullingSystem/ResizeCullingDataJob>(!!0,Unity.Jobs.JobHandle)
+IL_12bb: stloc.s V_41
+IL_12bd: ldarg.0
+IL_12be: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_CullingData
+IL_12c3: ldc.i4.s 16
+IL_12c5: ldloc.s V_41
+IL_12c7: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForDeferExtensions::Schedule<Game.Rendering.PreCullingSystem/FilterUpdatesJob,Game.Rendering.PreCullingData>(!!0,Unity.Collections.NativeList`1<!!1>,System.Int32,Unity.Jobs.JobHandle)
+IL_12cc: stloc.s V_42
+IL_12ce: ldarg.0
+IL_12cf: ldfld Game.Objects.SearchSystem Game.Rendering.PreCullingSystem::m_ObjectSearchSystem
+IL_12d4: ldloc.s V_21
+IL_12d6: callvirt System.Void Game.Objects.SearchSystem::AddStaticSearchTreeReader(Unity.Jobs.JobHandle)
+IL_12db: ldarg.0
+IL_12dc: ldfld Game.Net.SearchSystem Game.Rendering.PreCullingSystem::m_NetSearchSystem
+IL_12e1: ldloc.s V_21
+IL_12e3: callvirt System.Void Game.Net.SearchSystem::AddNetSearchTreeReader(Unity.Jobs.JobHandle)
+IL_12e8: ldarg.0
+IL_12e9: ldfld Game.Net.SearchSystem Game.Rendering.PreCullingSystem::m_NetSearchSystem
+IL_12ee: ldloc.s V_21
+IL_12f0: callvirt System.Void Game.Net.SearchSystem::AddLaneSearchTreeReader(Unity.Jobs.JobHandle)
+IL_12f5: ldarg.0
+IL_12f6: ldfld Game.Simulation.TerrainSystem Game.Rendering.PreCullingSystem::m_TerrainSystem
+IL_12fb: ldloc.s V_37
+IL_12fd: callvirt System.Void Game.Simulation.TerrainSystem::AddCPUHeightReader(Unity.Jobs.JobHandle)
+IL_1302: ldloca.s V_8
+IL_1304: ldloc.s V_40
+IL_1306: call Unity.Jobs.JobHandle Colossal.Collections.NativeParallelQueue`1<Game.Rendering.PreCullingSystem/CullingAction>::Dispose(Unity.Jobs.JobHandle)
+IL_130b: pop
+IL_130c: ldloca.s V_9
+IL_130e: ldloc.s V_41
+IL_1310: call Unity.Jobs.JobHandle Unity.Collections.NativeReference`1<System.Int32>::Dispose(Unity.Jobs.JobHandle)
+IL_1315: pop
+IL_1316: ldloca.s V_10
+IL_1318: ldloc.s V_41
+IL_131a: call Unity.Jobs.JobHandle Unity.Collections.NativeQueue`1<Game.Rendering.PreCullingSystem/OverflowAction>::Dispose(Unity.Jobs.JobHandle)
+IL_131f: pop
+IL_1320: ldloca.s V_11
+IL_1322: ldloc.s V_21
+IL_1324: call Unity.Jobs.JobHandle Unity.Collections.NativeArray`1<System.Int32>::Dispose(Unity.Jobs.JobHandle)
+IL_1329: pop
+IL_132a: ldloca.s V_12
+IL_132c: ldloc.s V_21
+IL_132e: call Unity.Jobs.JobHandle Unity.Collections.NativeArray`1<System.Int32>::Dispose(Unity.Jobs.JobHandle)
+IL_1333: pop
+IL_1334: ldarg.0
+IL_1335: ldloc.1
+IL_1336: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraPosition
+IL_133b: ldarg.0
+IL_133c: ldloc.2
+IL_133d: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirection
+IL_1342: ldarg.0
+IL_1343: ldloc.3
+IL_1344: stfld Unity.Mathematics.float3 Game.Rendering.PreCullingSystem::m_PrevCameraDirectionRight
+IL_1349: ldarg.0
+IL_134a: ldloc.s V_4
+IL_134c: stfld Unity.Mathematics.float4 Game.Rendering.PreCullingSystem::m_PrevLodParameters
+IL_1351: ldarg.0
+IL_1352: ldloc.s V_6
+IL_1354: stfld Game.Common.BoundsMask Game.Rendering.PreCullingSystem::m_PrevVisibleMask
+IL_1359: ldarg.0
+IL_135a: ldloc.s V_22
+IL_135c: stfld Game.Rendering.PreCullingSystem/QueryFlags Game.Rendering.PreCullingSystem::m_PrevQueryFlags
+IL_1361: ldarg.0
+IL_1362: ldc.i4.0
+IL_1363: stfld System.Boolean Game.Rendering.PreCullingSystem::m_ResetPrevious
+IL_1368: ldarg.0
+IL_1369: ldloc.s V_42
+IL_136b: stfld Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_WriteDependencies
+IL_1370: ldarg.0
+IL_1371: ldflda Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_ReadDependencies
+IL_1376: initobj Unity.Jobs.JobHandle
+IL_137c: ldarg.0
+IL_137d: ldloc.s V_42
+IL_137f: call System.Void Unity.Entities.SystemBase::set_Dependency(Unity.Jobs.JobHandle)
+IL_1384: ret
+METHOD System.Boolean Game.Effects.EffectControlSystem::GetLoaded()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Effects.EffectControlSystem::m_Loaded
+IL_0006: brfalse.s IL_0011
+IL_0008: ldarg.0
+IL_0009: ldc.i4.0
+IL_000a: stfld System.Boolean Game.Effects.EffectControlSystem::m_Loaded
+IL_000f: ldc.i4.1
+IL_0010: ret
+IL_0011: ldc.i4.0
+IL_0012: ret

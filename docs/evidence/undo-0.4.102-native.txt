@@ -1,0 +1,5 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Game.Simulation.UpdateFrame interfaces=Unity.Entities.ISharedComponentData,Unity.Entities.IQueryTypeParameter,Colossal.Serialization.Entities.ISerializable
+System.UInt32 m_Index
+Game.Areas.Navigation interfaces=Unity.Entities.IComponentData,Unity.Entities.IQueryTypeParameter,Colossal.Serialization.Entities.IEmptySerializable
+Game.Areas.HangaroundLocation interfaces=Unity.Entities.IComponentData,Unity.Entities.IQueryTypeParameter,Colossal.Serialization.Entities.IEmptySerializable

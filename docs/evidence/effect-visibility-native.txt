@@ -1,0 +1,499 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Hidden interface Unity.Entities.IComponentData
+Hidden interface Unity.Entities.IQueryTypeParameter
+METHOD System.Void Game.Vehicles.ParkedVehiclesSystem/DuplicateVehiclesJob::Execute()
+IL_0603: ldflda Unity.Entities.EntityCommandBuffer Game.Vehicles.ParkedVehiclesSystem/DuplicateVehiclesJob::m_CommandBuffer
+IL_0608: ldloc.s V_20
+IL_060a: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_060f: ldloca.s V_40
+IL_0611: initobj Game.Tools.Hidden
+IL_0617: ldloc.s V_40
+IL_0619: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.Hidden>(Unity.Entities.Entity,!!0)
+IL_061e: ldarg.0
+IL_061f: ldflda Unity.Entities.EntityCommandBuffer Game.Vehicles.ParkedVehiclesSystem/DuplicateVehiclesJob::m_CommandBuffer
+IL_0624: ldloc.s V_20
+IL_0626: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_062b: ldloca.s V_41
+IL_062d: initobj Game.Common.BatchesUpdated
+IL_06b5: ldflda Unity.Entities.EntityCommandBuffer Game.Vehicles.ParkedVehiclesSystem/DuplicateVehiclesJob::m_CommandBuffer
+IL_06ba: ldloc.s V_20
+IL_06bc: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_06c1: ldloca.s V_40
+IL_06c3: initobj Game.Tools.Hidden
+IL_06c9: ldloc.s V_40
+IL_06cb: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.Hidden>(Unity.Entities.Entity,!!0)
+IL_06d0: ldarg.0
+IL_06d1: ldflda Unity.Entities.EntityCommandBuffer Game.Vehicles.ParkedVehiclesSystem/DuplicateVehiclesJob::m_CommandBuffer
+IL_06d6: ldloc.s V_20
+IL_06d8: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_06dd: ldloca.s V_41
+IL_06df: initobj Game.Common.BatchesUpdated
+METHOD System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp,System.Boolean)
+IL_0011: brfalse.s IL_0025
+IL_0013: ldarg.0
+IL_0014: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0019: ldarg.1
+IL_001a: ldarg.3
+IL_001b: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0020: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0025: ldarg.s updateOriginal
+IL_0027: brfalse.s IL_0044
+IL_0029: ldarg.0
+IL_002a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_002f: ldarg.1
+IL_0030: ldarg.3
+METHOD System.Void Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_07aa: brfalse.s IL_07bf
+IL_07ac: ldarg.0
+IL_07ad: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_07b2: ldarg.2
+IL_07b3: ldloc.s V_24
+IL_07b5: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_07ba: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_07bf: ldarg.0
+IL_07c0: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_07c5: ldarg.2
+IL_07c6: ldloc.s V_23
+IL_07c8: ldloca.s V_8
+IL_07ca: initobj Game.Common.Deleted
+METHOD System.Void Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::Cancel(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0029: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_002e: ldarg.0
+IL_002f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0034: ldarg.1
+IL_0035: ldarg.3
+IL_0036: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_003b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0040: ldarg.0
+IL_0041: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0046: ldarg.1
+IL_0047: ldarg.2
+IL_0048: ldloca.s V_1
+IL_004a: initobj Game.Common.Deleted
+METHOD System.Void Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0011: brfalse.s IL_0025
+IL_0013: ldarg.0
+IL_0014: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyNetSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0019: ldarg.1
+IL_001a: ldarg.3
+IL_001b: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0020: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0025: ldarg.3
+IL_0026: ldfld System.Int32 Game.Tools.Temp::m_Cost
+IL_002b: brfalse IL_012a
+IL_0030: ldloca.s V_3
+IL_0032: initobj Game.Tools.Recent
+IL_0038: ldloca.s V_3
+METHOD System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::Cancel(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0029: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_002e: ldarg.0
+IL_002f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0034: ldarg.1
+IL_0035: ldarg.3
+IL_0036: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_003b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0040: ldarg.0
+IL_0041: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0046: ldarg.1
+IL_0047: ldarg.2
+IL_0048: ldloca.s V_1
+IL_004a: initobj Game.Common.Deleted
+METHOD System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0011: brfalse.s IL_0025
+IL_0013: ldarg.0
+IL_0014: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0019: ldarg.1
+IL_001a: ldarg.3
+IL_001b: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0020: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0025: ldarg.3
+IL_0026: ldfld System.Int32 Game.Tools.Temp::m_Cost
+IL_002b: brfalse IL_012a
+IL_0030: ldloca.s V_2
+IL_0032: initobj Game.Tools.Recent
+IL_0038: ldloca.s V_2
+METHOD System.Void Game.Tools.ApplyRoutesSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp,System.Boolean)
+IL_0011: brfalse.s IL_0025
+IL_0013: ldarg.0
+IL_0014: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyRoutesSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0019: ldarg.1
+IL_001a: ldarg.3
+IL_001b: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0020: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0025: ldarg.s updateOriginal
+IL_0027: brfalse.s IL_0044
+IL_0029: ldarg.0
+IL_002a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyRoutesSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_002f: ldarg.1
+IL_0030: ldarg.3
+METHOD System.Void Game.Tools.ApplyWaterSourcesSystem/HandleTempEntitiesJob::Cancel(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0029: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_002e: ldarg.0
+IL_002f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyWaterSourcesSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0034: ldarg.1
+IL_0035: ldarg.3
+IL_0036: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_003b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0040: ldarg.0
+IL_0041: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyWaterSourcesSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0046: ldarg.1
+IL_0047: ldarg.2
+IL_0048: ldloca.s V_1
+IL_004a: initobj Game.Common.Deleted
+METHOD System.Void Game.Tools.ApplyWaterSourcesSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp)
+IL_0029: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_002e: ldarg.0
+IL_002f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyWaterSourcesSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0034: ldarg.1
+IL_0035: ldarg.3
+IL_0036: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_003b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0040: ldarg.0
+IL_0041: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyWaterSourcesSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0046: ldarg.1
+IL_0047: ldarg.3
+IL_0048: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_004d: ldloca.s V_1
+METHOD System.Void Game.Tools.ApplyZonesSystem/HandleTempEntitiesJob::Update(System.Int32,Unity.Entities.Entity,Game.Tools.Temp,System.Boolean)
+IL_0011: brfalse.s IL_0044
+IL_0013: ldarg.0
+IL_0014: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyZonesSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_0019: ldarg.1
+IL_001a: ldarg.3
+IL_001b: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0020: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity)
+IL_0025: ldarg.s updateOriginal
+IL_0027: brtrue.s IL_0044
+IL_0029: ldarg.0
+IL_002a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ApplyZonesSystem/HandleTempEntitiesJob::m_CommandBuffer
+IL_002f: ldarg.1
+IL_0030: ldarg.3
+METHOD System.Void Game.Tools.GenerateAggregatesSystem/CreateAggregatesJob::CreateAggregates(Unity.Entities.ArchetypeChunk,Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Unity.Entities.Entity>)
+IL_004c: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.GenerateAggregatesSystem/CreateAggregatesJob::m_CommandBuffer
+IL_0051: ldloc.3
+IL_0052: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0057: ldloca.s V_9
+IL_0059: initobj Game.Tools.Hidden
+IL_005f: ldloc.s V_9
+IL_0061: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.Hidden>(Unity.Entities.Entity,!!0)
+IL_0066: ldloca.s V_3
+IL_0068: ldarg.0
+IL_0069: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.GenerateAggregatesSystem/CreateAggregatesJob::m_PrefabRefData
+IL_006e: ldloc.3
+IL_006f: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0074: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+METHOD System.Void Game.Tools.GenerateAreasSystem/CreateAreasJob::CreateAreas(Unity.Entities.ArchetypeChunk,Unity.Collections.NativeParallelMultiHashMap`2<Game.Tools.GenerateAreasSystem/OldAreaData,Unity.Entities.Entity>)
+IL_00a6: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.GenerateAreasSystem/CreateAreasJob::m_CommandBuffer
+IL_00ab: ldloc.s V_5
+IL_00ad: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_00b2: ldloca.s V_21
+IL_00b4: initobj Game.Tools.Hidden
+IL_00ba: ldloc.s V_21
+IL_00bc: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.Hidden>(Unity.Entities.Entity,!!0)
+IL_00c1: ldloca.s V_5
+IL_00c3: ldarg.0
+IL_00c4: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.GenerateAreasSystem/CreateAreasJob::m_PrefabRefData
+IL_00c9: ldloc.s V_5
+IL_00cb: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_00d0: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+METHOD System.Void Game.Tools.GenerateBrushesSystem/GenerateBrushesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0061: ldarg.2
+IL_0062: ldloc.3
+IL_0063: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0068: ldloca.s V_14
+IL_006a: initobj Game.Tools.Hidden
+IL_0070: ldloc.s V_14
+IL_0072: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0077: ldloca.s V_5
+IL_0079: ldarg.0
+IL_007a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.GenerateBrushesSystem/GenerateBrushesJob::m_PrefabRefData
+IL_007f: ldloc.3
+IL_0080: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0085: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+METHOD System.Void Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::DuplicateEdge(System.Int32,Unity.Entities.Entity)
+IL_0728: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_072d: ldarg.1
+IL_072e: ldarg.2
+IL_072f: ldloca.s V_44
+IL_0731: initobj Game.Tools.Hidden
+IL_0737: ldloc.s V_44
+IL_0739: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_073e: ldarg.0
+IL_073f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0744: ldarg.1
+IL_0745: ldarg.2
+IL_0746: ldloca.s V_45
+IL_0748: initobj Game.Common.BatchesUpdated
+METHOD System.Void Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::GenerateEdge(System.Int32,System.Int32,Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Tools.NetCourse,Game.Net.Upgraded,Game.Tools.LocalCurveCache,System.Boolean,Unity.Entities.DynamicBuffer`1<Game.Net.SubReplacement>,System.Boolean,Game.Rendering.ColorSet)
+IL_0c56: ldarg.1
+IL_0c57: ldarg.3
+IL_0c58: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0c5d: ldloca.s V_49
+IL_0c5f: initobj Game.Tools.Hidden
+IL_0c65: ldloc.s V_49
+IL_0c67: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0c6c: ldarg.0
+IL_0c6d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0c72: ldarg.1
+IL_0c73: ldarg.3
+IL_0c74: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0c79: ldloca.s V_50
+METHOD System.Void Game.Tools.GenerateNodesSystem/CreateNodesJob::Execute(System.Int32)
+IL_02f7: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.GenerateNodesSystem/CreateNodesJob::m_CommandBuffer
+IL_02fc: ldloc.0
+IL_02fd: ldfld Unity.Entities.Entity Game.Tools.GenerateNodesSystem/UpdateData::m_Original
+IL_0302: ldloca.s V_24
+IL_0304: initobj Game.Tools.Hidden
+IL_030a: ldloc.s V_24
+IL_030c: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.Hidden>(Unity.Entities.Entity,!!0)
+IL_0311: ldarg.0
+IL_0312: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.GenerateNodesSystem/CreateNodesJob::m_CommandBuffer
+IL_0317: ldloc.0
+IL_0318: ldfld Unity.Entities.Entity Game.Tools.GenerateNodesSystem/UpdateData::m_Original
+IL_031d: ldloca.s V_25
+IL_031f: initobj Game.Common.BatchesUpdated
+METHOD System.Void Game.Tools.GenerateNotificationsSystem/GenerateIconsJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_014c: ldarg.2
+IL_014d: ldloc.3
+IL_014e: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0153: ldloca.s V_9
+IL_0155: initobj Game.Tools.Hidden
+IL_015b: ldloc.s V_9
+IL_015d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0162: ldarg.0
+IL_0163: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateNotificationsSystem/GenerateIconsJob::m_CommandBuffer
+IL_0168: ldarg.2
+IL_0169: ldloc.s V_7
+IL_016b: ldfld Unity.Entities.EntityArchetype Game.Prefabs.NotificationIconData::m_Archetype
+IL_0170: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32,Unity.Entities.EntityArchetype)
+METHOD System.Void Game.Tools.GenerateObjectsSystem/CreateObjectsJob::CreateObject(System.Int32,Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Tools.ObjectDefinition,Unity.Entities.Entity)
+IL_002d: ldarg.1
+IL_002e: ldarg.2
+IL_002f: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0034: ldloca.s V_10
+IL_0036: initobj Game.Tools.Hidden
+IL_003c: ldloc.s V_10
+IL_003e: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0043: ldarg.0
+IL_0044: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateObjectsSystem/CreateObjectsJob::m_CommandBuffer
+IL_0049: ldarg.1
+IL_004a: ldarg.2
+IL_004b: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0050: ldloca.s V_11
+METHOD System.Void Game.Tools.GenerateRoutesSystem/CreateRoutesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_006a: ldarg.2
+IL_006b: ldloc.s V_4
+IL_006d: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0072: ldloca.s V_12
+IL_0074: initobj Game.Tools.Hidden
+IL_007a: ldloc.s V_12
+IL_007c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0081: ldloca.s V_4
+IL_0083: ldarg.0
+IL_0084: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.GenerateRoutesSystem/CreateRoutesJob::m_PrefabRefData
+IL_0089: ldloc.s V_4
+IL_008b: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0090: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+METHOD System.Void Game.Tools.GenerateWaterSourcesSystem/GenerateWaterSourcesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0190: ldarg.2
+IL_0191: ldloc.3
+IL_0192: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0197: ldloca.s V_10
+IL_0199: initobj Game.Tools.Hidden
+IL_019f: ldloc.s V_10
+IL_01a1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01a6: ldloc.2
+IL_01a7: ldc.i4.1
+IL_01a8: add
+IL_01a9: stloc.2
+IL_01aa: ldloc.2
+IL_01ab: ldloca.s V_0
+METHOD System.Void Game.Tools.GenerateZonesSystem/CreateBlocksJob::Execute(System.Int32)
+IL_00ab: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateZonesSystem/CreateBlocksJob::m_CommandBuffer
+IL_00b0: ldarg.1
+IL_00b1: ldloc.0
+IL_00b2: ldloca.s V_10
+IL_00b4: initobj Game.Tools.Hidden
+IL_00ba: ldloc.s V_10
+IL_00bc: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00c1: ldarg.0
+IL_00c2: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateZonesSystem/CreateBlocksJob::m_CommandBuffer
+IL_00c7: ldarg.1
+IL_00c8: ldloc.0
+IL_00c9: ldloca.s V_11
+IL_00cb: initobj Game.Common.BatchesUpdated
+METHOD System.Void Game.Tools.ToolClearSystem/ClearEntitiesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_01c3: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_01c8: ldarg.0
+IL_01c9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ToolClearSystem/ClearEntitiesJob::m_CommandBuffer
+IL_01ce: ldarg.2
+IL_01cf: ldloca.s V_4
+IL_01d1: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_01d6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_01db: ldc.i4.0
+IL_01dc: stloc.s V_12
+IL_01de: br.s IL_021f
+IL_01e0: ldloca.s V_3
+IL_01e2: ldloc.s V_12
+IL_01e4: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Net.AggregateElement>::get_Item(System.Int32)
+METHOD System.Void Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::ProcessCommands(Unity.Entities.Entity,System.Int32,System.Int32)
+IL_031c: ldarg.0
+IL_031d: ldflda Unity.Entities.EntityCommandBuffer Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::m_CommandBuffer
+IL_0322: ldloc.s V_16
+IL_0324: ldloca.s V_20
+IL_0326: initobj Game.Tools.Hidden
+IL_032c: ldloc.s V_20
+IL_032e: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.Hidden>(Unity.Entities.Entity,!!0)
+IL_0333: br IL_08e3
+IL_0338: ldarg.0
+IL_0339: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::m_HiddenData
+IL_033e: ldloc.s V_16
+IL_0340: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Hidden>::HasComponent(Unity.Entities.Entity)
+IL_0345: brfalse IL_08e3
+IL_034a: ldarg.0
+IL_034b: ldflda Unity.Entities.EntityCommandBuffer Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::m_CommandBuffer
+IL_0350: ldloc.s V_16
+IL_0352: call System.Void Unity.Entities.EntityCommandBuffer::RemoveComponent<Game.Tools.Hidden>(Unity.Entities.Entity)
+IL_0357: br IL_08e3
+IL_035c: ldloca.s V_1
+IL_035e: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Notifications.IconElement>::get_IsCreated()
+IL_0363: brfalse IL_052e
+IL_0368: ldarg.0
+IL_0369: ldloc.1
+IL_04d7: ldarg.0
+IL_04d8: ldflda Unity.Entities.EntityCommandBuffer Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::m_CommandBuffer
+IL_04dd: ldloc.s V_22
+IL_04df: ldloca.s V_20
+IL_04e1: initobj Game.Tools.Hidden
+IL_04e7: ldloc.s V_20
+IL_04e9: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.Hidden>(Unity.Entities.Entity,!!0)
+IL_04ee: br IL_08e3
+IL_04f3: ldarg.0
+IL_04f4: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::m_HiddenData
+IL_04f9: ldloc.s V_22
+IL_04fb: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Hidden>::HasComponent(Unity.Entities.Entity)
+IL_0500: brfalse IL_08e3
+IL_0505: ldarg.0
+IL_0506: ldflda Unity.Entities.EntityCommandBuffer Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::m_CommandBuffer
+IL_050b: ldloc.s V_22
+IL_050d: call System.Void Unity.Entities.EntityCommandBuffer::RemoveComponent<Game.Tools.Hidden>(Unity.Entities.Entity)
+IL_0512: br IL_08e3
+IL_0517: ldarg.0
+IL_0518: ldflda Unity.Entities.EntityCommandBuffer Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::m_CommandBuffer
+IL_051d: ldarg.1
+IL_051e: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer::SetBuffer<Game.Notifications.IconElement>(Unity.Entities.Entity)
+IL_0523: stloc.0
+IL_066c: ldarg.0
+IL_066d: ldflda Unity.Entities.EntityCommandBuffer Game.Notifications.IconCommandSystem/IconCommandPlaybackJob::m_CommandBuffer
+IL_0672: ldloc.s V_13
+IL_0674: ldloca.s V_20
+IL_0676: initobj Game.Tools.Hidden
+IL_067c: ldloc.s V_20
+IL_067e: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.Hidden>(Unity.Entities.Entity,!!0)
+IL_0683: ldloc.s V_6
+IL_0685: ldfld Unity.Entities.Entity Game.Notifications.IconCommandBuffer/Command::m_Target
+IL_068a: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_068f: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0694: brfalse.s IL_06af
+IL_0696: ldarg.0
+METHOD System.Void Game.Net.LaneHiddenSystem/HiddenSubObjectJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_00cc: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_00d1: ldarg.0
+IL_00d2: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Net.LaneHiddenSystem/HiddenSubObjectJob::m_CommandBuffer
+IL_00d7: ldarg.2
+IL_00d8: ldloca.s V_4
+IL_00da: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_00df: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_00e4: ret
+METHOD System.Void Game.Net.LaneHiddenSystem/HiddenSubObjectJob::EnsureHidden(System.Int32,Unity.Entities.DynamicBuffer`1<Game.Net.SubLane>)
+IL_005c: brfalse.s IL_0084
+IL_005e: ldarg.0
+IL_005f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Net.LaneHiddenSystem/HiddenSubObjectJob::m_CommandBuffer
+IL_0064: ldarg.1
+IL_0065: ldloca.s V_0
+IL_0067: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_006c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0071: ldarg.0
+IL_0072: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Net.LaneHiddenSystem/HiddenSubObjectJob::m_CommandBuffer
+IL_0077: ldarg.1
+IL_0078: ldloca.s V_0
+IL_007a: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_007f: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+METHOD System.Void Game.Objects.SubObjectHiddenSystem/HiddenSubObjectJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0179: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_017e: ldarg.0
+IL_017f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectHiddenSystem/HiddenSubObjectJob::m_CommandBuffer
+IL_0184: ldarg.2
+IL_0185: ldloca.s V_4
+IL_0187: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_018c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0191: ret
+IL_0192: ldloca.s V_2
+IL_0194: call System.Int32 Unity.Collections.NativeArray`1<Game.Common.Owner>::get_Length()
+IL_0199: stloc.s V_5
+IL_019b: ldloc.s V_5
+IL_019d: conv.u
+IL_0238: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_023d: ldarg.0
+IL_023e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectHiddenSystem/HiddenSubObjectJob::m_CommandBuffer
+IL_0243: ldarg.2
+IL_0244: ldloca.s V_9
+IL_0246: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_024b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0250: ret
+IL_0251: ldc.i4.0
+IL_0252: stloc.s V_13
+IL_0254: br.s IL_0275
+IL_0256: ldarg.0
+IL_0257: ldarg.2
+METHOD System.Void Game.Objects.SubObjectHiddenSystem/HiddenSubObjectJob::EnsureHidden(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>)
+IL_00ae: brfalse.s IL_00d6
+IL_00b0: ldarg.0
+IL_00b1: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectHiddenSystem/HiddenSubObjectJob::m_CommandBuffer
+IL_00b6: ldarg.1
+IL_00b7: ldloca.s V_0
+IL_00b9: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_00be: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_00c3: ldarg.0
+IL_00c4: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectHiddenSystem/HiddenSubObjectJob::m_CommandBuffer
+IL_00c9: ldarg.1
+IL_00ca: ldloca.s V_0
+IL_00cc: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_00d1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+METHOD System.Void Game.Objects.SubObjectHiddenSystem/HiddenSubObjectJob::EnsureVisible(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>)
+IL_00c4: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_00c9: ldarg.0
+IL_00ca: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectHiddenSystem/HiddenSubObjectJob::m_CommandBuffer
+IL_00cf: ldarg.1
+IL_00d0: ldloca.s V_0
+IL_00d2: call Unity.Collections.NativeArray`1<!0> Colossal.Collections.StackList`1<Unity.Entities.Entity>::AsArray()
+IL_00d7: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Tools.Hidden>(System.Int32,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_00dc: ret
+METHOD System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::RemoveUnusedOldSubObjects(System.Int32,Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,System.Boolean,System.Boolean)
+IL_01d6: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_01db: ldarg.1
+IL_01dc: ldloc.s V_8
+IL_01de: ldloca.s V_10
+IL_01e0: initobj Game.Tools.Hidden
+IL_01e6: ldloc.s V_10
+IL_01e8: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01ed: ldarg.0
+IL_01ee: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_01f3: ldarg.1
+IL_01f4: ldloc.s V_8
+IL_01f6: ldloca.s V_11
+IL_01f8: initobj Game.Common.BatchesUpdated
+METHOD System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateSubObject(System.Int32,Unity.Mathematics.Random&,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.Transform,Game.Prefabs.SubObjectFlags,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)
+IL_0db4: ldarg.1
+IL_0db5: ldloc.s V_36
+IL_0db7: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0dbc: ldloca.s V_45
+IL_0dbe: initobj Game.Tools.Hidden
+IL_0dc4: ldloc.s V_45
+IL_0dc6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0dcb: ldarg.0
+IL_0dcc: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0dd1: ldarg.1
+IL_0dd2: ldloc.s V_36
+IL_0dd4: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0dd9: ldloca.s V_46

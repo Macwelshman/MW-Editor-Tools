@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 namespace MW.EditorTools.Modules.BulldozerRecovery {
 internal sealed partial class BulldozerTrace {
     // Isolate actual forest matching from Unity; placement includes root prefab identity.
@@ -31,9 +32,10 @@ internal sealed partial class BulldozerTrace {
         var source=new[]{first,second};var frozen=NestedRootTypes.Copy(source);source[0]=new object();
         Check(ReferenceEquals(frozen[0],first)&&ReferenceEquals(frozen[1],second));
         Check(!ReferenceEquals(frozen,source));
-        foreach(var invalid in new object[][]{null,Array.Empty<object>(),new[]{first,first},new object[]{first,null},new[]{first,second,new object(),new object(),new object()}}){
+        foreach(var invalid in new object[][]{null,Array.Empty<object>(),new[]{first,first},new object[]{first,null},System.Linq.Enumerable.Range(0,129).Select(_=>new object()).ToArray()}){
             bool refused=false;try{NestedRootTypes.Copy(invalid);}catch(NotSupportedException){refused=true;}Check(refused);
         }
+        Check(NestedRootTypes.Copy(System.Linq.Enumerable.Range(0,128).Select(_=>new object()).ToArray()).Length==128);
         Check(NestedRootTypes.Copy(new[]{first}).Length==1);
         Check(NestedRootTypes.Copy(new[]{first,second,new object(),new object()}).Length==4);
         var a=Group(first,10);var b=Group(second,20);

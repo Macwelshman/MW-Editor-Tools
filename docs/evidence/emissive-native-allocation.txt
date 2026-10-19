@@ -1,0 +1,99 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Colossal.Collections.NativeHeapBlock Game.Rendering.Emissive::m_BufferAllocation
+System.Int32 Game.Rendering.Emissive::m_LightOffset
+System.Boolean Game.Rendering.Emissive::m_Updated
+METHOD System.Void Game.Rendering.InitializeLightsSystem/ProceduralInitializeJob::Update(Game.Rendering.PreCullingData,Game.Rendering.ProceduralEmissiveSystem/AllocationInfo&)
+IL_019a: add
+IL_019b: stind.i4
+IL_019c: ldloca.s V_2
+IL_019e: ldloc.s V_8
+IL_01a0: ldloca.s V_12
+IL_01a2: initobj Game.Rendering.Emissive
+IL_01a8: ldloca.s V_12
+IL_01aa: ldloc.s V_11
+IL_01ac: stfld Colossal.Collections.NativeHeapBlock Game.Rendering.Emissive::m_BufferAllocation
+IL_01b1: ldloca.s V_12
+IL_01b3: ldloc.s V_4
+IL_01b5: stfld System.Int32 Game.Rendering.Emissive::m_LightOffset
+IL_01ba: ldloca.s V_12
+IL_01bc: ldc.i4.1
+IL_01bd: stfld System.Boolean Game.Rendering.Emissive::m_Updated
+IL_01c2: ldloc.s V_12
+IL_01c4: call System.Void Unity.Entities.DynamicBuffer`1<Game.Rendering.Emissive>::set_Item(System.Int32,!0)
+IL_01c9: ldc.i4.0
+IL_01ca: stloc.s V_13
+IL_01cc: br.s IL_0204
+IL_01ce: ldloca.s V_3
+IL_01d0: ldloc.s V_4
+IL_01d2: dup
+IL_020d: blt.s IL_01ce
+IL_020f: br.s IL_022c
+IL_0211: ldloca.s V_2
+IL_0213: ldloc.s V_8
+IL_0215: ldloca.s V_12
+IL_0217: initobj Game.Rendering.Emissive
+IL_021d: ldloca.s V_12
+IL_021f: ldc.i4.m1
+IL_0220: stfld System.Int32 Game.Rendering.Emissive::m_LightOffset
+IL_0225: ldloc.s V_12
+IL_0227: call System.Void Unity.Entities.DynamicBuffer`1<Game.Rendering.Emissive>::set_Item(System.Int32,!0)
+IL_022c: ldloc.s V_8
+IL_022e: ldc.i4.1
+IL_022f: add
+IL_0230: stloc.s V_8
+IL_0232: ldloc.s V_8
+IL_0234: ldloca.s V_1
+METHOD System.Void Game.Rendering.ObjectInterpolateSystem/UpdateQueryTransformDataJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_08cf: call !0& Unity.Entities.DynamicBuffer`1<Game.Rendering.Emissive>::ElementAt(System.Int32)
+IL_08d4: stloc.s V_68
+IL_08d6: ldloc.s V_68
+IL_08d8: ldflda Colossal.Collections.NativeHeapBlock Game.Rendering.Emissive::m_BufferAllocation
+IL_08dd: call System.Boolean Colossal.Collections.NativeHeapBlock::get_Empty()
+IL_08e2: brtrue IL_09cd
+IL_08e7: ldloc.s V_68
+IL_08e9: ldc.i4.1
+IL_08ea: stfld System.Boolean Game.Rendering.Emissive::m_Updated
+IL_08ef: ldloca.s V_64
+IL_08f1: ldloc.s V_67
+IL_08f3: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_08f8: stloc.s V_69
+IL_08fa: ldarg.0
+IL_08fb: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.ProceduralLight> Game.Rendering.ObjectInterpolateSystem/UpdateQueryTransformDataJob::m_ProceduralLights
+IL_0900: ldloc.s V_69
+IL_0902: ldfld Unity.Entities.Entity Game.Prefabs.SubMesh::m_SubMesh
+METHOD System.Void Game.Rendering.ProceduralUploadSystem::UpdateOverride(Game.Rendering.ProceduralUploadSystem/UploadData&)
+IL_02cb: ldc.i4.0
+IL_02cc: call System.Void Game.Rendering.ObjectInterpolateSystem::AnimateLight(Game.Prefabs.ProceduralLight,Game.Rendering.Emissive&,Game.Rendering.LightState&,System.Single,Unity.Mathematics.float2,System.Boolean)
+IL_02d1: ldloc.s V_14
+IL_02d3: ldarg.0
+IL_02d4: ldfld Game.Rendering.LightState Game.Rendering.ProceduralUploadSystem::m_OverrideLightState
+IL_02d9: stobj Game.Rendering.LightState
+IL_02de: ldloc.s V_9
+IL_02e0: ldc.i4.1
+IL_02e1: stfld System.Boolean Game.Rendering.Emissive::m_Updated
+IL_02e6: ldloc.s V_12
+IL_02e8: ldc.i4.1
+IL_02e9: add
+IL_02ea: stloc.s V_12
+IL_02ec: ldloc.s V_12
+IL_02ee: ldloca.s V_11
+IL_02f0: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.ProceduralLight>::get_Length()
+IL_02f5: blt IL_013c
+METHOD System.Void Game.Rendering.ProceduralUploadSystem/ProceduralUploadJob::Execute(System.Int32)
+IL_05b7: ldfld System.Boolean Game.Rendering.Emissive::m_Updated
+IL_05bc: brfalse IL_066e
+IL_05c1: ldloc.s V_42
+IL_05c3: ldflda Colossal.Collections.NativeHeapBlock Game.Rendering.Emissive::m_BufferAllocation
+IL_05c8: call System.Boolean Colossal.Collections.NativeHeapBlock::get_Empty()
+IL_05cd: brtrue IL_066e
+IL_05d2: ldloc.s V_42
+IL_05d4: ldc.i4.0
+IL_05d5: stfld System.Boolean Game.Rendering.Emissive::m_Updated
+IL_05da: ldloca.s V_6
+IL_05dc: ldloc.s V_41
+IL_05de: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_05e3: stloc.s V_43
+IL_05e5: ldarg.0
+IL_05e6: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.ProceduralLight> Game.Rendering.ProceduralUploadSystem/ProceduralUploadJob::m_ProceduralLights
+IL_05eb: ldloc.s V_43
+IL_05ed: ldfld Unity.Entities.Entity Game.Prefabs.SubMesh::m_SubMesh

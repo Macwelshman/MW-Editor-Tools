@@ -1,0 +1,19 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Game.Prefabs.EffectData
+Unity.Entities.EntityArchetype Game.Prefabs.EffectData::m_Archetype
+Game.Prefabs.EffectCondition Game.Prefabs.EffectData::m_Flags
+System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+Game.Prefabs.EffectSource/EffectSettings
+Game.Prefabs.EffectPrefab Game.Prefabs.EffectSource/EffectSettings::m_Effect
+Unity.Mathematics.float3 Game.Prefabs.EffectSource/EffectSettings::m_PositionOffset
+Unity.Mathematics.quaternion Game.Prefabs.EffectSource/EffectSettings::m_Rotation
+Unity.Mathematics.float3 Game.Prefabs.EffectSource/EffectSettings::m_Scale
+System.Single Game.Prefabs.EffectSource/EffectSettings::m_Intensity
+System.Int32 Game.Prefabs.EffectSource/EffectSettings::m_ParentMesh
+System.Int32 Game.Prefabs.EffectSource/EffectSettings::m_AnimationIndex
+Game.Tools.EditorContainer
+Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+Unity.Mathematics.float3 Game.Tools.EditorContainer::m_Scale
+System.Single Game.Tools.EditorContainer::m_Intensity
+System.Int32 Game.Tools.EditorContainer::m_GroupIndex
+Game.Prefabs.EditorContainerData

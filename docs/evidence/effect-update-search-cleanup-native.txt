@@ -1,0 +1,320 @@
+METHOD System.Void Game.Effects.SearchSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Effects.EffectFlagSystem>()
+IL_0012: stfld Game.Effects.EffectFlagSystem Game.Effects.SearchSystem::m_EffectFlagSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Simulation.SimulationSystem>()
+IL_0023: stfld Game.Simulation.SimulationSystem Game.Effects.SearchSystem::m_SimulationSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0034: stfld Game.Tools.ToolSystem Game.Effects.SearchSystem::m_ToolSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: newobj System.Void Game.Effects.EffectControlData::.ctor(Unity.Entities.SystemBase)
+IL_0040: stfld Game.Effects.EffectControlData Game.Effects.SearchSystem::m_EffectControlData
+IL_0045: ldarg.0
+IL_0046: ldc.r4 1
+IL_004b: ldc.i4.4
+IL_004c: newobj System.Void Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ>::.ctor(System.Single,Unity.Collections.Allocator)
+IL_0051: stfld Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ> Game.Effects.SearchSystem::m_SearchTree
+IL_0056: ldarg.0
+IL_0057: ldc.i4 1000
+IL_005c: ldc.i4.4
+IL_005d: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0062: newobj System.Void Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Game.Effects.SearchSystem/AddedSource>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0067: stfld Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,Game.Effects.SearchSystem/AddedSource> Game.Effects.SearchSystem::m_AddedSources
+IL_006c: ldarg.0
+IL_006d: ldarg.0
+IL_006e: ldc.i4.2
+IL_006f: newarr Unity.Entities.EntityQueryDesc
+IL_0074: dup
+IL_0075: ldc.i4.0
+IL_0076: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_007b: stloc.0
+IL_007c: ldloc.0
+IL_007d: ldc.i4.1
+IL_007e: newarr Unity.Entities.ComponentType
+IL_0083: dup
+IL_0084: ldc.i4.0
+IL_0085: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Effects.EnabledEffect>()
+IL_008a: stelem.any Unity.Entities.ComponentType
+IL_008f: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0094: ldloc.0
+IL_0095: ldc.i4.4
+IL_0096: newarr Unity.Entities.ComponentType
+IL_009b: dup
+IL_009c: ldc.i4.0
+IL_009d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_00a2: stelem.any Unity.Entities.ComponentType
+IL_00a7: dup
+IL_00a8: ldc.i4.1
+IL_00a9: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_00ae: stelem.any Unity.Entities.ComponentType
+IL_00b3: dup
+IL_00b4: ldc.i4.2
+IL_00b5: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.EffectsUpdated>()
+IL_00ba: stelem.any Unity.Entities.ComponentType
+IL_00bf: dup
+IL_00c0: ldc.i4.3
+IL_00c1: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.BatchesUpdated>()
+IL_00c6: stelem.any Unity.Entities.ComponentType
+IL_00cb: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00d0: ldloc.0
+IL_00d1: ldc.i4.3
+IL_00d2: newarr Unity.Entities.ComponentType
+IL_00d7: dup
+IL_00d8: ldc.i4.0
+IL_00d9: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.Object>()
+IL_00de: stelem.any Unity.Entities.ComponentType
+IL_00e3: dup
+IL_00e4: ldc.i4.1
+IL_00e5: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Events.Event>()
+IL_00ea: stelem.any Unity.Entities.ComponentType
+IL_00ef: dup
+IL_00f0: ldc.i4.2
+IL_00f1: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_00f6: stelem.any Unity.Entities.ComponentType
+IL_00fb: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_0100: ldloc.0
+IL_0101: stelem.ref
+IL_0102: dup
+IL_0103: ldc.i4.1
+IL_0104: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0109: stloc.0
+IL_010a: ldloc.0
+IL_010b: ldc.i4.3
+IL_010c: newarr Unity.Entities.ComponentType
+IL_0111: dup
+IL_0112: ldc.i4.0
+IL_0113: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Effects.EnabledEffect>()
+IL_0118: stelem.any Unity.Entities.ComponentType
+IL_011d: dup
+IL_011e: ldc.i4.1
+IL_011f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.Object>()
+IL_0124: stelem.any Unity.Entities.ComponentType
+IL_0129: dup
+IL_012a: ldc.i4.2
+IL_012b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.Static>()
+IL_0130: stelem.any Unity.Entities.ComponentType
+IL_0135: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_013a: ldloc.0
+IL_013b: ldc.i4.4
+IL_013c: newarr Unity.Entities.ComponentType
+IL_0141: dup
+IL_0142: ldc.i4.0
+IL_0143: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_0148: stelem.any Unity.Entities.ComponentType
+IL_014d: dup
+IL_014e: ldc.i4.1
+IL_014f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_0154: stelem.any Unity.Entities.ComponentType
+IL_0159: dup
+IL_015a: ldc.i4.2
+IL_015b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.EffectsUpdated>()
+IL_0160: stelem.any Unity.Entities.ComponentType
+IL_0165: dup
+IL_0166: ldc.i4.3
+IL_0167: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.BatchesUpdated>()
+IL_016c: stelem.any Unity.Entities.ComponentType
+IL_0171: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0176: ldloc.0
+IL_0177: ldc.i4.1
+IL_0178: newarr Unity.Entities.ComponentType
+IL_017d: dup
+IL_017e: ldc.i4.0
+IL_017f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_0184: stelem.any Unity.Entities.ComponentType
+IL_0189: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_018e: ldloc.0
+IL_018f: stelem.ref
+IL_0190: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0195: stfld Unity.Entities.EntityQuery Game.Effects.SearchSystem::m_UpdatedEffectsQuery
+IL_019a: ldarg.0
+IL_019b: ldarg.0
+IL_019c: ldc.i4.2
+IL_019d: newarr Unity.Entities.EntityQueryDesc
+IL_01a2: dup
+IL_01a3: ldc.i4.0
+IL_01a4: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_01a9: stloc.0
+IL_01aa: ldloc.0
+IL_01ab: ldc.i4.1
+IL_01ac: newarr Unity.Entities.ComponentType
+IL_01b1: dup
+IL_01b2: ldc.i4.0
+IL_01b3: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Effects.EnabledEffect>()
+IL_01b8: stelem.any Unity.Entities.ComponentType
+IL_01bd: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_01c2: ldloc.0
+IL_01c3: ldc.i4.3
+IL_01c4: newarr Unity.Entities.ComponentType
+IL_01c9: dup
+IL_01ca: ldc.i4.0
+IL_01cb: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.Object>()
+IL_01d0: stelem.any Unity.Entities.ComponentType
+IL_01d5: dup
+IL_01d6: ldc.i4.1
+IL_01d7: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Events.Event>()
+IL_01dc: stelem.any Unity.Entities.ComponentType
+IL_01e1: dup
+IL_01e2: ldc.i4.2
+IL_01e3: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_01e8: stelem.any Unity.Entities.ComponentType
+IL_01ed: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_01f2: ldloc.0
+IL_01f3: stelem.ref
+IL_01f4: dup
+IL_01f5: ldc.i4.1
+IL_01f6: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_01fb: stloc.0
+IL_01fc: ldloc.0
+IL_01fd: ldc.i4.3
+IL_01fe: newarr Unity.Entities.ComponentType
+IL_0203: dup
+IL_0204: ldc.i4.0
+IL_0205: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Effects.EnabledEffect>()
+IL_020a: stelem.any Unity.Entities.ComponentType
+IL_020f: dup
+IL_0210: ldc.i4.1
+IL_0211: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.Object>()
+IL_0216: stelem.any Unity.Entities.ComponentType
+IL_021b: dup
+IL_021c: ldc.i4.2
+IL_021d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Objects.Static>()
+IL_0222: stelem.any Unity.Entities.ComponentType
+IL_0227: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_022c: ldloc.0
+IL_022d: ldc.i4.1
+IL_022e: newarr Unity.Entities.ComponentType
+IL_0233: dup
+IL_0234: ldc.i4.0
+IL_0235: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_023a: stelem.any Unity.Entities.ComponentType
+IL_023f: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_0244: ldloc.0
+IL_0245: stelem.ref
+IL_0246: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_024b: stfld Unity.Entities.EntityQuery Game.Effects.SearchSystem::m_AllEffectsQuery
+IL_0250: ret
+METHOD System.Void Game.Common.CleanUpSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldc.i4.6
+IL_0008: newarr Unity.Entities.ComponentType
+IL_000d: dup
+IL_000e: ldc.i4.0
+IL_000f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Created>()
+IL_0014: stelem.any Unity.Entities.ComponentType
+IL_0019: dup
+IL_001a: ldc.i4.1
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Updated>()
+IL_0020: stelem.any Unity.Entities.ComponentType
+IL_0025: dup
+IL_0026: ldc.i4.2
+IL_0027: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Applied>()
+IL_002c: stelem.any Unity.Entities.ComponentType
+IL_0031: dup
+IL_0032: ldc.i4.3
+IL_0033: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.EffectsUpdated>()
+IL_0038: stelem.any Unity.Entities.ComponentType
+IL_003d: dup
+IL_003e: ldc.i4.4
+IL_003f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.BatchesUpdated>()
+IL_0044: stelem.any Unity.Entities.ComponentType
+IL_0049: dup
+IL_004a: ldc.i4.5
+IL_004b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.PathfindUpdated>()
+IL_0050: stelem.any Unity.Entities.ComponentType
+IL_0055: newobj System.Void Unity.Entities.ComponentTypeSet::.ctor(Unity.Entities.ComponentType[])
+IL_005a: stfld Unity.Entities.ComponentTypeSet Game.Common.CleanUpSystem::m_UpdateTypes
+IL_005f: ret
+METHOD System.Void Game.Common.PrepareCleanUpSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Common.CleanUpSystem>()
+IL_0012: stfld Game.Common.CleanUpSystem Game.Common.PrepareCleanUpSystem::m_CleanUpSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: ldc.i4.1
+IL_001a: newarr Unity.Entities.EntityQueryDesc
+IL_001f: dup
+IL_0020: ldc.i4.0
+IL_0021: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0026: stloc.0
+IL_0027: ldloc.0
+IL_0028: ldc.i4.2
+IL_0029: newarr Unity.Entities.ComponentType
+IL_002e: dup
+IL_002f: ldc.i4.0
+IL_0030: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_0035: stelem.any Unity.Entities.ComponentType
+IL_003a: dup
+IL_003b: ldc.i4.1
+IL_003c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Event>()
+IL_0041: stelem.any Unity.Entities.ComponentType
+IL_0046: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_004b: ldloc.0
+IL_004c: stelem.ref
+IL_004d: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0052: stfld Unity.Entities.EntityQuery Game.Common.PrepareCleanUpSystem::m_DeletedQuery
+IL_0057: ldarg.0
+IL_0058: ldarg.0
+IL_0059: ldc.i4.1
+IL_005a: newarr Unity.Entities.EntityQueryDesc
+IL_005f: dup
+IL_0060: ldc.i4.0
+IL_0061: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0066: stloc.0
+IL_0067: ldloc.0
+IL_0068: ldc.i4.6
+IL_0069: newarr Unity.Entities.ComponentType
+IL_006e: dup
+IL_006f: ldc.i4.0
+IL_0070: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Created>()
+IL_0075: stelem.any Unity.Entities.ComponentType
+IL_007a: dup
+IL_007b: ldc.i4.1
+IL_007c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_0081: stelem.any Unity.Entities.ComponentType
+IL_0086: dup
+IL_0087: ldc.i4.2
+IL_0088: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Applied>()
+IL_008d: stelem.any Unity.Entities.ComponentType
+IL_0092: dup
+IL_0093: ldc.i4.3
+IL_0094: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.EffectsUpdated>()
+IL_0099: stelem.any Unity.Entities.ComponentType
+IL_009e: dup
+IL_009f: ldc.i4.4
+IL_00a0: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.BatchesUpdated>()
+IL_00a5: stelem.any Unity.Entities.ComponentType
+IL_00aa: dup
+IL_00ab: ldc.i4.5
+IL_00ac: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.PathfindUpdated>()
+IL_00b1: stelem.any Unity.Entities.ComponentType
+IL_00b6: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00bb: ldloc.0
+IL_00bc: ldc.i4.1
+IL_00bd: newarr Unity.Entities.ComponentType
+IL_00c2: dup
+IL_00c3: ldc.i4.0
+IL_00c4: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_00c9: stelem.any Unity.Entities.ComponentType
+IL_00ce: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_00d3: ldloc.0
+IL_00d4: stelem.ref
+IL_00d5: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00da: stfld Unity.Entities.EntityQuery Game.Common.PrepareCleanUpSystem::m_UpdatedQuery
+IL_00df: ret

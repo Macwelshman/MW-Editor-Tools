@@ -1,0 +1,130 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD Unity.Entities.Entity Game.Effects.EffectControlData::GetEditorContainerRealOwner(Unity.Entities.Entity,Unity.Entities.Entity&)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Effects.EffectControlData::m_Owners
+IL_0006: ldarg.1
+IL_0007: ldloca.s V_0
+IL_0009: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_000e: brfalse.s IL_0036
+IL_0010: ldarg.0
+IL_0011: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle> Game.Effects.EffectControlData::m_Vehicles
+IL_0016: ldloc.0
+IL_0017: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_001c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle>::HasComponent(Unity.Entities.Entity)
+IL_0021: brfalse.s IL_0036
+IL_0023: ldarg.2
+IL_0024: ldloc.0
+IL_0025: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_002a: stobj Unity.Entities.Entity
+IL_002f: ldloc.0
+IL_0030: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0035: ret
+IL_0036: ldarg.2
+IL_0037: ldarg.1
+IL_0038: stobj Unity.Entities.Entity
+IL_003d: ldarg.1
+IL_003e: ret
+METHOD Unity.Entities.Entity Game.Effects.EffectControlData::GetRealOwner(Unity.Entities.Entity,Unity.Entities.Entity&)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Effects.EffectControlData::m_Temps
+IL_0006: ldarg.1
+IL_0007: ldloca.s V_0
+IL_0009: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_000e: brfalse.s IL_0038
+IL_0010: ldarg.2
+IL_0011: ldloc.0
+IL_0012: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_0017: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_001c: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0021: brtrue.s IL_0026
+IL_0023: ldarg.1
+IL_0024: br.s IL_002c
+IL_0026: ldloc.0
+IL_0027: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_002c: stobj Unity.Entities.Entity
+IL_0031: ldarg.2
+IL_0032: ldobj Unity.Entities.Entity
+IL_0037: ret
+IL_0038: ldarg.0
+IL_0039: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Effects.EffectControlData::m_ServiceUpgrades
+IL_003e: ldarg.1
+IL_003f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_0044: brfalse.s IL_007a
+IL_0046: ldarg.0
+IL_0047: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Effects.EffectControlData::m_Owners
+IL_004c: ldarg.1
+IL_004d: ldloca.s V_1
+IL_004f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0054: brfalse.s IL_007a
+IL_0056: ldarg.2
+IL_0057: ldarg.0
+IL_0058: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Effects.EffectControlData::m_Buildings
+IL_005d: ldarg.1
+IL_005e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::HasComponent(Unity.Entities.Entity)
+IL_0063: brtrue.s IL_006d
+IL_0065: ldloc.1
+IL_0066: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_006b: br.s IL_006e
+IL_006d: ldarg.1
+IL_006e: stobj Unity.Entities.Entity
+IL_0073: ldloc.1
+IL_0074: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0079: ret
+IL_007a: ldarg.0
+IL_007b: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ExtractorFacility> Game.Effects.EffectControlData::m_ExtractorData
+IL_0080: ldarg.1
+IL_0081: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ExtractorFacility>::HasComponent(Unity.Entities.Entity)
+IL_0086: brfalse.s IL_00da
+IL_0088: ldarg.0
+IL_0089: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Effects.EffectControlData::m_Owners
+IL_008e: ldarg.1
+IL_008f: ldloca.s V_2
+IL_0091: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0096: brfalse.s IL_00da
+IL_0098: ldarg.2
+IL_0099: ldarg.1
+IL_009a: stobj Unity.Entities.Entity
+IL_009f: ldloc.2
+IL_00a0: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_00a5: stloc.3
+IL_00a6: ldarg.0
+IL_00a7: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Effects.EffectControlData::m_Owners
+IL_00ac: ldloc.3
+IL_00ad: ldloca.s V_5
+IL_00af: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_00b4: brfalse.s IL_00c0
+IL_00b6: ldloc.s V_5
+IL_00b8: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_00bd: stloc.3
+IL_00be: br.s IL_00a6
+IL_00c0: ldarg.0
+IL_00c1: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Effects.EffectControlData::m_AttachmentData
+IL_00c6: ldloc.3
+IL_00c7: ldloca.s V_4
+IL_00c9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Attachment>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_00ce: brfalse.s IL_00d8
+IL_00d0: ldloc.s V_4
+IL_00d2: ldfld Unity.Entities.Entity Game.Objects.Attachment::m_Attached
+IL_00d7: stloc.3
+IL_00d8: ldloc.3
+IL_00d9: ret
+IL_00da: ldarg.2
+IL_00db: ldarg.1
+IL_00dc: stobj Unity.Entities.Entity
+IL_00e1: ldarg.1
+IL_00e2: ret
+METHOD System.Void Game.Prefabs.EffectSource::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Effects.EnabledEffect>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+METHOD System.Void Game.Prefabs.EffectPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.PrefabBase::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Effects.EffectInstance>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ret

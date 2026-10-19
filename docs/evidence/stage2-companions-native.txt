@@ -1,0 +1,608 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Tools.LocalTransformCache
+FIELD Unity.Mathematics.float3 Game.Tools.LocalTransformCache::m_Position
+FIELD Unity.Mathematics.quaternion Game.Tools.LocalTransformCache::m_Rotation
+FIELD System.Int32 Game.Tools.LocalTransformCache::m_ParentMesh
+FIELD System.Int32 Game.Tools.LocalTransformCache::m_GroupIndex
+FIELD System.Int32 Game.Tools.LocalTransformCache::m_Probability
+FIELD System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+TYPE Game.Tools.LocalCurveCache
+FIELD Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+TYPE Game.Pathfind.PathNode
+FIELD System.Single Game.Pathfind.PathNode::FLOAT_TO_INT
+FIELD System.Single Game.Pathfind.PathNode::INT_TO_FLOAT
+FIELD System.UInt64 Game.Pathfind.PathNode::CURVEPOS_INCLUDE
+FIELD System.UInt64 Game.Pathfind.PathNode::CURVEPOS_EXCLUDE
+FIELD System.UInt64 Game.Pathfind.PathNode::SECONDARY_NODE
+FIELD System.UInt64 Game.Pathfind.PathNode::m_SearchKey
+SIGNATURE System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.Byte,System.Byte)
+SIGNATURE System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.Byte,System.Byte,System.Single)
+SIGNATURE System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.UInt16,System.Single)
+SIGNATURE System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.UInt16)
+SIGNATURE System.Void Game.Pathfind.PathNode::.ctor(Game.Pathfind.PathTarget)
+SIGNATURE System.Void Game.Pathfind.PathNode::.ctor(Game.Pathfind.PathNode,System.Single)
+SIGNATURE System.Void Game.Pathfind.PathNode::.ctor(Game.Pathfind.PathNode,System.Boolean)
+SIGNATURE System.Boolean Game.Pathfind.PathNode::IsSecondary()
+SIGNATURE System.Boolean Game.Pathfind.PathNode::Equals(Game.Pathfind.PathNode)
+SIGNATURE System.Boolean Game.Pathfind.PathNode::EqualsIgnoreCurvePos(Game.Pathfind.PathNode)
+SIGNATURE System.Boolean Game.Pathfind.PathNode::OwnerEquals(Game.Pathfind.PathNode)
+SIGNATURE System.Int32 Game.Pathfind.PathNode::GetHashCode()
+SIGNATURE Game.Pathfind.PathNode Game.Pathfind.PathNode::StripCurvePos()
+SIGNATURE System.Void Game.Pathfind.PathNode::ReplaceOwner(Unity.Entities.Entity,Unity.Entities.Entity)
+SIGNATURE System.Void Game.Pathfind.PathNode::SetOwner(Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldfld System.Int32 Unity.Entities.Entity::Index
+IL_0007: conv.i8
+IL_0008: ldc.i4.s 32
+IL_000a: shl
+IL_000b: ldarg.0
+IL_000c: ldfld System.UInt64 Game.Pathfind.PathNode::m_SearchKey
+IL_0011: ldc.i4.m1
+IL_0012: conv.u8
+IL_0013: and
+IL_0014: or
+IL_0015: stfld System.UInt64 Game.Pathfind.PathNode::m_SearchKey
+IL_001a: ret
+SIGNATURE System.Void Game.Pathfind.PathNode::SetSegmentIndex(System.Byte)
+SIGNATURE System.Single Game.Pathfind.PathNode::GetCurvePos()
+SIGNATURE System.Int32 Game.Pathfind.PathNode::GetOwnerIndex()
+IL_0000: ldarg.0
+IL_0001: ldfld System.UInt64 Game.Pathfind.PathNode::m_SearchKey
+IL_0006: ldc.i4.s 32
+IL_0008: shr.un
+IL_0009: conv.i4
+IL_000a: ret
+SIGNATURE System.UInt16 Game.Pathfind.PathNode::GetLaneIndex()
+SIGNATURE System.Boolean Game.Pathfind.PathNode::GetOrder(Game.Pathfind.PathNode)
+SIGNATURE System.Int32 Game.Pathfind.PathNode::GetCurvePosOrder(Game.Pathfind.PathNode)
+SIGNATURE System.Void Game.Pathfind.PathNode::Serialize(TWriter)
+SIGNATURE System.Void Game.Pathfind.PathNode::Deserialize(TReader)
+SIGNATURE System.Int32 Game.Pathfind.PathNode::GetStride(Colossal.Serialization.Entities.Context)
+TYPE Game.Net.Edge
+FIELD Unity.Entities.Entity Game.Net.Edge::m_Start
+FIELD Unity.Entities.Entity Game.Net.Edge::m_End
+TYPE Game.Net.Curve
+FIELD Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+FIELD System.Single Game.Net.Curve::m_Length
+TYPE Game.Net.Node
+FIELD Unity.Mathematics.float3 Game.Net.Node::m_Position
+FIELD Unity.Mathematics.quaternion Game.Net.Node::m_Rotation
+TYPE Game.Net.ConnectedEdge
+FIELD Unity.Entities.Entity Game.Net.ConnectedEdge::m_Edge
+TYPE Game.Net.SubNet
+FIELD Unity.Entities.Entity Game.Net.SubNet::m_SubNet
+TYPE Game.Net.SubLane
+FIELD Unity.Entities.Entity Game.Net.SubLane::m_SubLane
+FIELD Game.Pathfind.PathMethod Game.Net.SubLane::m_PathMethods
+TYPE Game.Net.Lane
+FIELD Game.Pathfind.PathNode Game.Net.Lane::m_StartNode
+FIELD Game.Pathfind.PathNode Game.Net.Lane::m_MiddleNode
+FIELD Game.Pathfind.PathNode Game.Net.Lane::m_EndNode
+TYPE Game.Prefabs.ObjectSubAreaInfo
+FIELD Game.Prefabs.AreaPrefab Game.Prefabs.ObjectSubAreaInfo::m_AreaPrefab
+FIELD Unity.Mathematics.float3[] Game.Prefabs.ObjectSubAreaInfo::m_NodePositions
+FIELD System.Int32[] Game.Prefabs.ObjectSubAreaInfo::m_ParentMeshes
+TYPE Game.Prefabs.ObjectSubAreas
+FIELD Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+METHOD System.Void Game.Tools.ApplyPrefabsSystem::ListObjectSubNets(Unity.Entities.Entity,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubNetInfo>&,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubLaneInfo>&,System.UInt32&,System.UInt32&)
+IL_0000: ldarg.0
+IL_0001: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0006: stloc.0
+IL_0007: ldloca.s V_0
+IL_0009: ldarg.1
+IL_000a: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Net.SubNet>(Unity.Entities.Entity)
+IL_000f: brfalse IL_062c
+IL_0014: ldarg.0
+IL_0015: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_001a: stloc.0
+IL_001b: ldloca.s V_0
+IL_001d: ldarg.1
+IL_001e: ldc.i4.1
+IL_001f: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityManager::GetBuffer<Game.Net.SubNet>(Unity.Entities.Entity,System.Boolean)
+IL_0024: stloc.1
+IL_0025: ldloca.s V_1
+IL_0027: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_002c: brfalse IL_062c
+IL_0031: ldloca.s V_2
+IL_0033: initobj Game.Objects.Transform
+IL_0039: ldc.i4.0
+IL_003a: stloc.3
+IL_003b: ldarg.0
+IL_003c: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0041: ldarg.1
+IL_0042: ldloca.s V_4
+IL_0044: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Objects.Transform>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0049: brfalse.s IL_0073
+IL_004b: ldloca.s V_2
+IL_004d: ldloc.s V_4
+IL_004f: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0054: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_UnaryNegation(Unity.Mathematics.float3)
+IL_0059: stfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_005e: ldloca.s V_2
+IL_0060: ldloc.s V_4
+IL_0062: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0067: call Unity.Mathematics.quaternion Unity.Mathematics.math::inverse(Unity.Mathematics.quaternion)
+IL_006c: stfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0071: ldc.i4.1
+IL_0072: stloc.3
+IL_0073: ldarg.2
+IL_0074: ldloca.s V_1
+IL_0076: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_007b: newobj System.Void System.Collections.Generic.List`1<Game.Prefabs.ObjectSubNetInfo>::.ctor(System.Int32)
+IL_0080: stind.ref
+IL_0081: ldarg.3
+IL_0082: ldloca.s V_1
+IL_0084: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_0089: newobj System.Void System.Collections.Generic.List`1<Game.Prefabs.ObjectSubLaneInfo>::.ctor(System.Int32)
+IL_008e: stind.ref
+IL_008f: ldloca.s V_1
+IL_0091: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_0096: ldc.i4.2
+IL_0097: mul
+IL_0098: newobj System.Void System.Collections.Generic.Dictionary`2<Unity.Entities.Entity,System.Int32>::.ctor(System.Int32)
+IL_009d: stloc.s V_5
+IL_009f: ldloca.s V_1
+IL_00a1: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_00a6: ldc.i4.2
+IL_00a7: mul
+IL_00a8: newobj System.Void System.Collections.Generic.Dictionary`2<Unity.Entities.Entity,System.Int32>::.ctor(System.Int32)
+IL_00ad: stloc.s V_6
+IL_00af: ldnull
+IL_00b0: stloc.s V_7
+IL_00b2: ldc.i4.0
+IL_00b3: stloc.s V_8
+IL_00b5: br IL_061d
+IL_00ba: ldloca.s V_1
+IL_00bc: ldloc.s V_8
+IL_00be: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Item(System.Int32)
+IL_00c3: ldfld Unity.Entities.Entity Game.Net.SubNet::m_SubNet
+IL_00c8: stloc.s V_9
+IL_00ca: ldarg.0
+IL_00cb: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00d0: ldloc.s V_9
+IL_00d2: ldloca.s V_10
+IL_00d4: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Common.Owner>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_00d9: brfalse IL_0617
+IL_00de: ldloc.s V_10
+IL_00e0: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_00e5: ldarg.1
+IL_00e6: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00eb: brfalse IL_0617
+IL_00f0: ldnull
+IL_00f1: stloc.s V_11
+IL_00f3: ldloca.s V_12
+IL_00f5: initobj Game.Prefabs.CompositionFlags
+IL_00fb: ldarg.0
+IL_00fc: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0101: stloc.0
+IL_0102: ldloca.s V_0
+IL_0104: ldloc.s V_9
+IL_0106: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Net.Edge>(Unity.Entities.Entity)
+IL_010b: brfalse.s IL_0151
+IL_010d: ldarg.0
+IL_010e: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0113: ldloc.s V_9
+IL_0115: ldloca.s V_15
+IL_0117: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Composition>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_011c: brfalse.s IL_0151
+IL_011e: ldarg.0
+IL_011f: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0124: ldloc.s V_15
+IL_0126: ldfld Unity.Entities.Entity Game.Net.Composition::m_Edge
+IL_012b: ldloca.s V_16
+IL_012d: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.NetCompositionData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0132: brfalse.s IL_0151
+IL_0134: ldloca.s V_12
+IL_0136: ldflda Game.Prefabs.CompositionFlags/General Game.Prefabs.CompositionFlags::m_General
+IL_013b: dup
+IL_013c: ldind.u4
+IL_013d: ldloc.s V_16
+IL_013f: ldfld Game.Prefabs.CompositionFlags Game.Prefabs.NetCompositionData::m_Flags
+IL_0144: ldfld Game.Prefabs.CompositionFlags/General Game.Prefabs.CompositionFlags::m_General
+IL_0149: ldc.i4 65536
+IL_014e: and
+IL_014f: or
+IL_0150: stind.i4
+IL_0151: ldarg.0
+IL_0152: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0157: ldloc.s V_9
+IL_0159: ldloca.s V_13
+IL_015b: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Upgraded>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0160: brtrue.s IL_0175
+IL_0162: ldloc.s V_12
+IL_0164: ldloca.s V_17
+IL_0166: initobj Game.Prefabs.CompositionFlags
+IL_016c: ldloc.s V_17
+IL_016e: call System.Boolean Game.Prefabs.CompositionFlags::op_Inequality(Game.Prefabs.CompositionFlags,Game.Prefabs.CompositionFlags)
+IL_0173: brfalse.s IL_0199
+IL_0175: ldloc.s V_7
+IL_0177: brtrue.s IL_0181
+IL_0179: ldarg.0
+IL_017a: call Game.Prefabs.NetPieceRequirements[] Game.Tools.ApplyPrefabsSystem::CreateRequirementMap()
+IL_017f: stloc.s V_7
+IL_0181: ldarg.0
+IL_0182: ldloc.s V_7
+IL_0184: ldloc.s V_13
+IL_0186: ldfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_018b: ldloc.s V_12
+IL_018d: call Game.Prefabs.CompositionFlags Game.Prefabs.CompositionFlags::op_BitwiseOr(Game.Prefabs.CompositionFlags,Game.Prefabs.CompositionFlags)
+IL_0192: call Game.Prefabs.NetPieceRequirements[] Game.Tools.ApplyPrefabsSystem::CreateRequirementArray(Game.Prefabs.NetPieceRequirements[],Game.Prefabs.CompositionFlags)
+IL_0197: stloc.s V_11
+IL_0199: ldarg.0
+IL_019a: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_019f: ldloc.s V_9
+IL_01a1: ldloca.s V_14
+IL_01a3: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Edge>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_01a8: brfalse IL_0484
+IL_01ad: ldloca.s V_18
+IL_01af: initobj Colossal.Mathematics.Bezier4x3
+IL_01b5: ldarg.0
+IL_01b6: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_01bb: ldloc.s V_9
+IL_01bd: ldloca.s V_19
+IL_01bf: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Curve>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_01c4: brfalse IL_0364
+IL_01c9: ldloc.3
+IL_01ca: brfalse IL_0275
+IL_01cf: ldloca.s V_18
+IL_01d1: ldloc.2
+IL_01d2: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_01d7: ldloc.s V_19
+IL_01d9: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_01de: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_01e3: ldloc.2
+IL_01e4: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_01e9: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_01ee: call Unity.Mathematics.float3 Unity.Mathematics.math::mul(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_01f3: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_01f8: ldloca.s V_18
+IL_01fa: ldloc.2
+IL_01fb: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0200: ldloc.s V_19
+IL_0202: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0207: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_020c: ldloc.2
+IL_020d: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0212: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_0217: call Unity.Mathematics.float3 Unity.Mathematics.math::mul(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_021c: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0221: ldloca.s V_18
+IL_0223: ldloc.2
+IL_0224: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0229: ldloc.s V_19
+IL_022b: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0230: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0235: ldloc.2
+IL_0236: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_023b: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_0240: call Unity.Mathematics.float3 Unity.Mathematics.math::mul(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_0245: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_024a: ldloca.s V_18
+IL_024c: ldloc.2
+IL_024d: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0252: ldloc.s V_19
+IL_0254: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0259: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_025e: ldloc.2
+IL_025f: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0264: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_0269: call Unity.Mathematics.float3 Unity.Mathematics.math::mul(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_026e: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0273: br.s IL_027e
+IL_0275: ldloc.s V_19
+IL_0277: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_027c: stloc.s V_18
+IL_027e: ldarg.0
+IL_027f: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0284: ldloc.s V_9
+IL_0286: ldloca.s V_21
+IL_0288: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Tools.LocalCurveCache>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_028d: brfalse.s IL_02ef
+IL_028f: ldloca.s V_18
+IL_0291: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0296: ldloc.s V_21
+IL_0298: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_029d: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_02a2: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02a7: ldloca.s V_18
+IL_02a9: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_02ae: ldloc.s V_21
+IL_02b0: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02b5: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_02ba: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02bf: ldloca.s V_18
+IL_02c1: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_02c6: ldloc.s V_21
+IL_02c8: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02cd: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_02d2: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02d7: ldloca.s V_18
+IL_02d9: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_02de: ldloc.s V_21
+IL_02e0: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02e5: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_02ea: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02ef: ldarg.0
+IL_02f0: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_02f5: ldloc.s V_9
+IL_02f7: ldloca.s V_22
+IL_02f9: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Composition>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_02fe: brfalse.s IL_0364
+IL_0300: ldarg.0
+IL_0301: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0306: ldloc.s V_22
+IL_0308: ldfld Unity.Entities.Entity Game.Net.Composition::m_Edge
+IL_030d: ldloca.s V_23
+IL_030f: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.PlaceableNetComposition>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0314: brfalse.s IL_0364
+IL_0316: ldarg.0
+IL_0317: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_031c: ldloc.s V_14
+IL_031e: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_0323: ldloca.s V_24
+IL_0325: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Elevation>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_032a: pop
+IL_032b: ldarg.0
+IL_032c: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0331: ldloc.s V_14
+IL_0333: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_0338: ldloca.s V_25
+IL_033a: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Elevation>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_033f: pop
+IL_0340: ldarg.s constructionCost
+IL_0342: ldarg.s constructionCost
+IL_0344: ldind.u4
+IL_0345: ldloc.s V_19
+IL_0347: ldloc.s V_24
+IL_0349: ldloc.s V_25
+IL_034b: ldloc.s V_23
+IL_034d: call System.Int32 Game.Net.NetUtils::GetConstructionCost(Game.Net.Curve,Game.Net.Elevation,Game.Net.Elevation,Game.Prefabs.PlaceableNetComposition)
+IL_0352: add
+IL_0353: stind.i4
+IL_0354: ldarg.s upKeepCost
+IL_0356: ldarg.s upKeepCost
+IL_0358: ldind.u4
+IL_0359: ldloc.s V_19
+IL_035b: ldloc.s V_23
+IL_035d: call System.Int32 Game.Net.NetUtils::GetUpkeepCost(Game.Net.Curve,Game.Prefabs.PlaceableNetComposition)
+IL_0362: add
+IL_0363: stind.i4
+IL_0364: ldarg.0
+IL_0365: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_036a: ldloc.s V_9
+IL_036c: ldloca.s V_20
+IL_036e: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Tools.EditorContainer>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0373: brfalse.s IL_03f4
+IL_0375: ldarg.3
+IL_0376: ldind.ref
+IL_0377: newobj System.Void Game.Prefabs.ObjectSubLaneInfo::.ctor()
+IL_037c: dup
+IL_037d: ldarg.0
+IL_037e: ldfld Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem
+IL_0383: ldloc.s V_20
+IL_0385: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_038a: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.NetLanePrefab>(Unity.Entities.Entity)
+IL_038f: stfld Game.Prefabs.NetLanePrefab Game.Prefabs.ObjectSubLaneInfo::m_LanePrefab
+IL_0394: dup
+IL_0395: ldloc.s V_18
+IL_0397: stfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.ObjectSubLaneInfo::m_BezierCurve
+IL_039c: dup
+IL_039d: ldarg.0
+IL_039e: ldloc.s V_14
+IL_03a0: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_03a5: ldloc.s V_6
+IL_03a7: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetNodeIndex(Unity.Entities.Entity,System.Collections.Generic.Dictionary`2<Unity.Entities.Entity,System.Int32>)
+IL_03ac: ldarg.0
+IL_03ad: ldloc.s V_14
+IL_03af: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_03b4: ldloc.s V_6
+IL_03b6: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetNodeIndex(Unity.Entities.Entity,System.Collections.Generic.Dictionary`2<Unity.Entities.Entity,System.Int32>)
+IL_03bb: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_03c0: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_NodeIndex
+IL_03c5: dup
+IL_03c6: ldarg.0
+IL_03c7: ldloc.s V_14
+IL_03c9: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_03ce: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetParentMesh(Unity.Entities.Entity)
+IL_03d3: ldarg.0
+IL_03d4: ldloc.s V_14
+IL_03d6: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_03db: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetParentMesh(Unity.Entities.Entity)
+IL_03e0: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_03e5: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_ParentMesh
+IL_03ea: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.ObjectSubLaneInfo>::Add(!0)
+IL_03ef: br IL_0617
+IL_03f4: ldarg.2
+IL_03f5: ldind.ref
+IL_03f6: newobj System.Void Game.Prefabs.ObjectSubNetInfo::.ctor()
+IL_03fb: dup
+IL_03fc: ldarg.0
+IL_03fd: ldfld Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem
+IL_0402: ldarg.0
+IL_0403: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0408: stloc.0
+IL_0409: ldloca.s V_0
+IL_040b: ldloc.s V_9
+IL_040d: call !!0 Unity.Entities.EntityManager::GetComponentData<Game.Prefabs.PrefabRef>(Unity.Entities.Entity)
+IL_0412: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.NetPrefab>(Game.Prefabs.PrefabRef)
+IL_0417: stfld Game.Prefabs.NetPrefab Game.Prefabs.ObjectSubNetInfo::m_NetPrefab
+IL_041c: dup
+IL_041d: ldloc.s V_18
+IL_041f: stfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.ObjectSubNetInfo::m_BezierCurve
+IL_0424: dup
+IL_0425: ldarg.0
+IL_0426: ldloc.s V_14
+IL_0428: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_042d: ldloc.s V_5
+IL_042f: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetNodeIndex(Unity.Entities.Entity,System.Collections.Generic.Dictionary`2<Unity.Entities.Entity,System.Int32>)
+IL_0434: ldarg.0
+IL_0435: ldloc.s V_14
+IL_0437: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_043c: ldloc.s V_5
+IL_043e: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetNodeIndex(Unity.Entities.Entity,System.Collections.Generic.Dictionary`2<Unity.Entities.Entity,System.Int32>)
+IL_0443: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_0448: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_NodeIndex
+IL_044d: dup
+IL_044e: ldarg.0
+IL_044f: ldloc.s V_14
+IL_0451: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_0456: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetParentMesh(Unity.Entities.Entity)
+IL_045b: ldarg.0
+IL_045c: ldloc.s V_14
+IL_045e: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_0463: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetParentMesh(Unity.Entities.Entity)
+IL_0468: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_046d: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_ParentMesh
+IL_0472: dup
+IL_0473: ldloc.s V_11
+IL_0475: stfld Game.Prefabs.NetPieceRequirements[] Game.Prefabs.ObjectSubNetInfo::m_Upgrades
+IL_047a: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.ObjectSubNetInfo>::Add(!0)
+IL_047f: br IL_0617
+IL_0484: ldarg.0
+IL_0485: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_048a: ldloc.s V_9
+IL_048c: ldloca.s V_26
+IL_048e: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Node>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0493: brfalse IL_0617
+IL_0498: ldloc.s V_11
+IL_049a: brtrue.s IL_04be
+IL_049c: ldarg.0
+IL_049d: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_04a2: ldloc.s V_9
+IL_04a4: ldc.i4.1
+IL_04a5: ldloca.s V_27
+IL_04a7: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetBuffer<Game.Net.ConnectedEdge>(Unity.Entities.EntityManager,Unity.Entities.Entity,System.Boolean,Unity.Entities.DynamicBuffer`1<!!0>&)
+IL_04ac: brfalse.s IL_04be
+IL_04ae: ldarg.0
+IL_04af: ldloc.s V_27
+IL_04b1: ldloc.s V_9
+IL_04b3: ldarg.1
+IL_04b4: call System.Boolean Game.Tools.ApplyPrefabsSystem::HasEdgeStartOrEnd(Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>,Unity.Entities.Entity,Unity.Entities.Entity)
+IL_04b9: brtrue IL_0617
+IL_04be: ldloca.s V_28
+IL_04c0: initobj Colossal.Mathematics.Bezier4x3
+IL_04c6: ldloc.3
+IL_04c7: brfalse.s IL_04ef
+IL_04c9: ldloca.s V_28
+IL_04cb: ldloc.2
+IL_04cc: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_04d1: ldloc.s V_26
+IL_04d3: ldfld Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_04d8: ldloc.2
+IL_04d9: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_04de: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_04e3: call Unity.Mathematics.float3 Unity.Mathematics.math::mul(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_04e8: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_04ed: br.s IL_04fd
+IL_04ef: ldloca.s V_28
+IL_04f1: ldloc.s V_26
+IL_04f3: ldfld Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_04f8: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_04fd: ldarg.0
+IL_04fe: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0503: ldloc.s V_9
+IL_0505: ldloca.s V_29
+IL_0507: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Tools.LocalTransformCache>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_050c: brfalse.s IL_0521
+IL_050e: ldloca.s V_28
+IL_0510: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0515: ldloc.s V_29
+IL_0517: ldfld Unity.Mathematics.float3 Game.Tools.LocalTransformCache::m_Position
+IL_051c: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_0521: ldloca.s V_28
+IL_0523: ldloc.s V_28
+IL_0525: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_052a: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_052f: ldloca.s V_28
+IL_0531: ldloc.s V_28
+IL_0533: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0538: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_053d: ldloca.s V_28
+IL_053f: ldloc.s V_28
+IL_0541: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0546: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_054b: ldarg.0
+IL_054c: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0551: ldloc.s V_9
+IL_0553: ldloca.s V_30
+IL_0555: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Tools.EditorContainer>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_055a: brfalse.s IL_05b2
+IL_055c: ldarg.3
+IL_055d: ldind.ref
+IL_055e: newobj System.Void Game.Prefabs.ObjectSubLaneInfo::.ctor()
+IL_0563: dup
+IL_0564: ldarg.0
+IL_0565: ldfld Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem
+IL_056a: ldloc.s V_30
+IL_056c: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0571: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.NetLanePrefab>(Unity.Entities.Entity)
+IL_0576: stfld Game.Prefabs.NetLanePrefab Game.Prefabs.ObjectSubLaneInfo::m_LanePrefab
+IL_057b: dup
+IL_057c: ldloc.s V_28
+IL_057e: stfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.ObjectSubLaneInfo::m_BezierCurve
+IL_0583: dup
+IL_0584: ldarg.0
+IL_0585: ldloc.s V_9
+IL_0587: ldloc.s V_6
+IL_0589: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetNodeIndex(Unity.Entities.Entity,System.Collections.Generic.Dictionary`2<Unity.Entities.Entity,System.Int32>)
+IL_058e: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32)
+IL_0593: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_NodeIndex
+IL_0598: dup
+IL_0599: ldarg.0
+IL_059a: ldloc.s V_9
+IL_059c: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetParentMesh(Unity.Entities.Entity)
+IL_05a1: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32)
+IL_05a6: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_ParentMesh
+IL_05ab: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.ObjectSubLaneInfo>::Add(!0)
+IL_05b0: br.s IL_0617
+IL_05b2: ldarg.2
+IL_05b3: ldind.ref
+IL_05b4: newobj System.Void Game.Prefabs.ObjectSubNetInfo::.ctor()
+IL_05b9: dup
+IL_05ba: ldarg.0
+IL_05bb: ldfld Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem
+IL_05c0: ldarg.0
+IL_05c1: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_05c6: stloc.0
+IL_05c7: ldloca.s V_0
+IL_05c9: ldloc.s V_9
+IL_05cb: call !!0 Unity.Entities.EntityManager::GetComponentData<Game.Prefabs.PrefabRef>(Unity.Entities.Entity)
+IL_05d0: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.NetPrefab>(Game.Prefabs.PrefabRef)
+IL_05d5: stfld Game.Prefabs.NetPrefab Game.Prefabs.ObjectSubNetInfo::m_NetPrefab
+IL_05da: dup
+IL_05db: ldloc.s V_28
+IL_05dd: stfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.ObjectSubNetInfo::m_BezierCurve
+IL_05e2: dup
+IL_05e3: ldarg.0
+IL_05e4: ldloc.s V_9
+IL_05e6: ldloc.s V_5
+IL_05e8: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetNodeIndex(Unity.Entities.Entity,System.Collections.Generic.Dictionary`2<Unity.Entities.Entity,System.Int32>)
+IL_05ed: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32)
+IL_05f2: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_NodeIndex
+IL_05f7: dup
+IL_05f8: ldarg.0
+IL_05f9: ldloc.s V_9
+IL_05fb: call System.Int32 Game.Tools.ApplyPrefabsSystem::GetParentMesh(Unity.Entities.Entity)
+IL_0600: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32)
+IL_0605: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_ParentMesh
+IL_060a: dup
+IL_060b: ldloc.s V_11
+IL_060d: stfld Game.Prefabs.NetPieceRequirements[] Game.Prefabs.ObjectSubNetInfo::m_Upgrades
+IL_0612: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.ObjectSubNetInfo>::Add(!0)
+IL_0617: ldloc.s V_8
+IL_0619: ldc.i4.1
+IL_061a: add
+IL_061b: stloc.s V_8
+IL_061d: ldloc.s V_8
+IL_061f: ldloca.s V_1
+IL_0621: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubNet>::get_Length()
+IL_0626: blt IL_00ba
+IL_062b: ret
+IL_062c: ldarg.2
+IL_062d: ldnull
+IL_062e: stind.ref
+IL_062f: ldarg.3
+IL_0630: ldnull
+IL_0631: stind.ref
+IL_0632: ret

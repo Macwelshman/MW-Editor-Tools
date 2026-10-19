@@ -1,0 +1,11 @@
+# Undo 0.4.129 — effect ownership diagnostics
+
+VERIFIED-RUNTIME: user reports unbound/bound effect move/deletion and parent-context tests passed on 0.4.128, alongside prop/foliage moves. User clarified Everything mode is needed for effect deletion from parent. Existing code already permits Everything for both ownership routes. Preserved undo-0.4.128-effects-runtime.log confirms unbound completions and bound prop/foliage completions, but earlier bound FireMediumVFX move and source validation failed. Later successful effect deletions report bound=False. Visible acceptance is retained separately; strict bound acceptance and effect persistence remain UNPROVEN.
+
+VERIFIED-STATIC: ownership classification reads Game.Common.Owner.m_Owner from the captured entity; bulldozer mode does not determine bound=False. Captures now log exact entity/owner, inspector context, placeholder/effect identity, world pose, local cache/index/mesh/probability/group, elevation and optional-state presence. Failed move validation reports both before and after images. Failed bound source matching reports bounded source/live placement details and descriptor-match indices. Recovery eligibility, guards and writes are unchanged. No ownership override is inferred from the inspector selection or Everything mode.
+
+VERIFIED-STATIC checks: Release build zero warnings/errors; 25 actual-source effect lifecycle assertions pass. Diagnostic-only changes; prior 0.4.128 full validation remains recorded. Native failure cause remains UNPROVEN; this build is not claimed to fix it.
+
+Grouped disposable check after installation: directly parent-bound effect move/Undo followed by Everything deletion/Undo, plus the parent-context case that previously appeared successful. Stop if recovery reports an error and discard the disposable session without saving. Inspect the new exact diagnostics before requesting further checks. Restored-copy persistence follows successful strict bound completion. No computer use or publishing.
+
+VERIFIED-STATIC installation: guarded installer confirmed Cities2 absent; five package hashes and 137 rollback files verified. Evidence: docs/evidence/recovery-0.4.129-installed-hashes.csv. Rollback: outputs/rollback/MWEditorTools-before-0.4.129-20261017-211737/MWEditorTools.

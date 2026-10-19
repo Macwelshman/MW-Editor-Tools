@@ -1,0 +1,4 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Game.Common.BatchesUpdated valueType=True fields=0
+Unity.Entities.IComponentData
+Unity.Entities.IQueryTypeParameter

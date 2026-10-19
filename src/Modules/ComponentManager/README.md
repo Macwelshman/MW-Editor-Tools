@@ -1,5 +1,7 @@
-# Modules\ComponentManager
+# Component Manager
 
-Audit existing Component Tool before migration.
+0.4.160 extends the migrated MW Component Tool engine in the shared Components tab. Select one or more attached components and Copy selected, or use Copy all components. Select the destination asset in Object Info, choose a mode, preview and apply.
 
-INSPECT scaffold only; no runtime implementation.
+Modes: add only missing components with copied settings; replace settings only on components already present; or replace and add. Existing activation is preserved. Additions retain source activation. Bulk dependencies are ordered and checked against the final planned additions. Settings retain prefab reference identities while arrays, lists, curves and game DTO values are reconstructed independently. Component ownership always belongs to the destination.
+
+Typed Color Properties and Building Terraform Override validation remains. Other installed game components use a bounded public-settings schema, with explicit support for common Unity value structs and animation curves. Opaque/private serialized payloads, arbitrary Unity objects, runtime entities, native allocations, unsupported third-party components and oversized/cyclic graphs are skipped with reasons; no native-default fallback claims to preserve their settings. Preview/Restore detect changes to supported destination settings. Native add/remove and refresh, rollback, stale selection and clipboard checks, read-only/compatibility guards, shared busy-state guards and one-level Restore remain. Component writes clear the shared last-action Undo slot.

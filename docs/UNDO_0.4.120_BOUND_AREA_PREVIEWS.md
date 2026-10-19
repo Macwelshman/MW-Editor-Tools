@@ -1,0 +1,11 @@
+# Undo 0.4.120 — bound area sibling previews
+
+VERIFIED-RUNTIME user: 0.4.119 unbound existing-node Undo passed; adding a node did not undo; bound moves failed. Preserved evidence: docs/evidence/undo-0.4.119-area-move-runtime.log. Unbound Sand Surface 01 and Walking Area moves reached ready, shortcut dispatch and complete geometry/companion validation. Insertion attempts were rejected for topology changes, consistent with the fixed-node scope.
+
+VERIFIED-RUNTIME blocker: bound Sand Surface 01 attempts at 13:05:21.733 and 13:05:26.779 and Walking Area attempts at 13:05:33.453 and 13:05:37.016 were refused because the native temporary area query contained two outputs: the edited original with Modify and its unchanged sibling original with flags 0. Neither bound action reached recording or restoration. This log establishes the single-output assumption is incompatible with the observed mixed parent.
+
+VERIFIED-STATIC correction: AreaMovePreviewPolicy requires exactly one captured target output, without Delete, and distinct original identities. Additional outputs are permitted only for captured sibling areas of the same bound owner with flags exactly 0 and a non-null original. Standalone outputs remain single-target. Unknown/new/modified/deleted/duplicate siblings, duplicate/missing/deleted targets and empty previews are rejected. All existing after-image checks remain: exact retained area geometry, source descriptors, owner transform, topology, metadata, referenced prefabs, props, effects and networks. Preview acceptance alone cannot record an Undo entry.
+
+VERIFIED-STATIC validation: Release build zero warnings/errors; production UI and TypeScript passed; 689 managed assertions (including 54 actual-source area hook/geometry/preview-policy assertions) and recovery/window/settings/Multi-Save/Colours UI regression checks passed. Native scheduling, bound restoration and persistence remain UNPROVEN. No game files edited; no computer use or publishing.
+
+Focused native acceptance: existing-node moves for bound surface and area on a disposable mixed asset, release mouse then Ctrl+Z with the tool active. Preserve the accepted standalone/prop/deletion results. Adding/removing nodes, merging polygons and network moves remain unsupported. If bound moves pass, save a new disposable restored copy and reopen for outstanding persistence acceptance.

@@ -1,0 +1,1182 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+System.Void Game.Tools.BulldozeToolSystem/SnapJob::Execute()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Tools.BulldozeToolSystem/SnapJob::m_EditorMode
+IL_0006: brtrue.s IL_004b
+IL_0008: ldarg.0
+IL_0009: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.OutsideConnection> Game.Tools.BulldozeToolSystem/SnapJob::m_OutsideConnectionData
+IL_000e: ldarg.0
+IL_000f: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0014: ldarg.0
+IL_0015: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_001a: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_001f: ldc.i4.1
+IL_0020: sub
+IL_0021: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_0026: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_002b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.OutsideConnection>::HasComponent(Unity.Entities.Entity)
+IL_0030: brfalse.s IL_004b
+IL_0032: ldarg.0
+IL_0033: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0038: ldarg.0
+IL_0039: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_003e: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0043: ldc.i4.1
+IL_0044: sub
+IL_0045: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::RemoveAt(System.Int32)
+IL_004a: ret
+IL_004b: ldarg.0
+IL_004c: ldfld Game.Tools.BulldozeToolSystem/Mode Game.Tools.BulldozeToolSystem/SnapJob::m_Mode
+IL_0051: brtrue IL_0120
+IL_0056: ldarg.0
+IL_0057: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_005c: ldarg.0
+IL_005d: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0062: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0067: ldc.i4.1
+IL_0068: sub
+IL_0069: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_006e: stloc.0
+IL_006f: ldarg.0
+IL_0070: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Static> Game.Tools.BulldozeToolSystem/SnapJob::m_StaticData
+IL_0075: ldloc.0
+IL_0076: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_007b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Static>::HasComponent(Unity.Entities.Entity)
+IL_0080: brfalse IL_0120
+IL_0085: ldarg.0
+IL_0086: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.BulldozeToolSystem/SnapJob::m_ServiceUpgradeData
+IL_008b: ldloc.0
+IL_008c: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0091: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_0096: brtrue IL_0120
+IL_009b: ldarg.0
+IL_009c: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/SnapJob::m_OwnerData
+IL_00a1: ldloc.0
+IL_00a2: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00a7: ldloca.s V_1
+IL_00a9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_00ae: brfalse.s IL_0120
+IL_00b0: ldloca.s V_0
+IL_00b2: ldloc.1
+IL_00b3: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_00b8: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00bd: br.s IL_00cc
+IL_00bf: ldloca.s V_0
+IL_00c1: ldloc.1
+IL_00c2: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_00c7: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00cc: ldarg.0
+IL_00cd: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Static> Game.Tools.BulldozeToolSystem/SnapJob::m_StaticData
+IL_00d2: ldloc.0
+IL_00d3: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00d8: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Static>::HasComponent(Unity.Entities.Entity)
+IL_00dd: brfalse.s IL_0107
+IL_00df: ldarg.0
+IL_00e0: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.BulldozeToolSystem/SnapJob::m_ServiceUpgradeData
+IL_00e5: ldloc.0
+IL_00e6: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00eb: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_00f0: brtrue.s IL_0107
+IL_00f2: ldarg.0
+IL_00f3: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/SnapJob::m_OwnerData
+IL_00f8: ldloc.0
+IL_00f9: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00fe: ldloca.s V_1
+IL_0100: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0105: brtrue.s IL_00bf
+IL_0107: ldarg.0
+IL_0108: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_010d: ldarg.0
+IL_010e: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0113: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0118: ldc.i4.1
+IL_0119: sub
+IL_011a: ldloc.0
+IL_011b: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::set_Item(System.Int32,!0)
+IL_0120: ldarg.0
+IL_0121: ldfld Game.Tools.BulldozeToolSystem/State Game.Tools.BulldozeToolSystem/SnapJob::m_State
+IL_0126: ldc.i4.1
+IL_0127: bne.un IL_02c0
+IL_012c: ldarg.0
+IL_012d: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0132: ldc.i4.0
+IL_0133: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_0138: stloc.2
+IL_0139: ldarg.0
+IL_013a: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_013f: ldarg.0
+IL_0140: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0145: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_014a: ldc.i4.1
+IL_014b: sub
+IL_014c: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_0151: stloc.3
+IL_0152: ldarg.0
+IL_0153: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.BulldozeToolSystem/SnapJob::m_EdgeData
+IL_0158: ldloc.2
+IL_0159: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_015e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Edge>::HasComponent(Unity.Entities.Entity)
+IL_0163: brtrue.s IL_0178
+IL_0165: ldarg.0
+IL_0166: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.BulldozeToolSystem/SnapJob::m_NodeData
+IL_016b: ldloc.2
+IL_016c: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0171: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Node>::HasComponent(Unity.Entities.Entity)
+IL_0176: brfalse.s IL_01a5
+IL_0178: ldarg.0
+IL_0179: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_017e: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Clear()
+IL_0183: ldloca.s V_4
+IL_0185: ldc.i4.2
+IL_0186: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_018b: call System.Void Unity.Collections.NativeList`1<Game.Tools.BulldozeToolSystem/PathEdge>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0190: ldarg.0
+IL_0191: ldloc.2
+IL_0192: ldloc.3
+IL_0193: ldloc.s V_4
+IL_0195: call System.Void Game.Tools.BulldozeToolSystem/SnapJob::CreatePath(Game.Tools.ControlPoint,Game.Tools.ControlPoint,Unity.Collections.NativeList`1<Game.Tools.BulldozeToolSystem/PathEdge>)
+IL_019a: ldarg.0
+IL_019b: ldloc.2
+IL_019c: ldloc.3
+IL_019d: ldloc.s V_4
+IL_019f: call System.Void Game.Tools.BulldozeToolSystem/SnapJob::AddControlPoints(Game.Tools.ControlPoint,Game.Tools.ControlPoint,Unity.Collections.NativeList`1<Game.Tools.BulldozeToolSystem/PathEdge>)
+IL_01a4: ret
+IL_01a5: ldarg.0
+IL_01a6: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.BulldozeToolSystem/SnapJob::m_EdgeData
+IL_01ab: ldloc.3
+IL_01ac: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_01b1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Edge>::HasComponent(Unity.Entities.Entity)
+IL_01b6: brtrue.s IL_01cb
+IL_01b8: ldarg.0
+IL_01b9: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.BulldozeToolSystem/SnapJob::m_NodeData
+IL_01be: ldloc.3
+IL_01bf: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_01c4: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Node>::HasComponent(Unity.Entities.Entity)
+IL_01c9: brfalse.s IL_01e4
+IL_01cb: ldarg.0
+IL_01cc: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_01d1: ldarg.0
+IL_01d2: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_01d7: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_01dc: ldc.i4.1
+IL_01dd: sub
+IL_01de: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::RemoveAt(System.Int32)
+IL_01e3: ret
+IL_01e4: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_01e9: stloc.s V_5
+IL_01eb: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_01f0: stloc.s V_6
+IL_01f2: ldarg.0
+IL_01f3: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/SnapJob::m_OwnerData
+IL_01f8: ldloc.2
+IL_01f9: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_01fe: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_0203: brfalse.s IL_021d
+IL_0205: ldarg.0
+IL_0206: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/SnapJob::m_OwnerData
+IL_020b: ldloc.2
+IL_020c: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0211: call !0 Unity.Entities.ComponentLookup`1<Game.Common.Owner>::get_Item(Unity.Entities.Entity)
+IL_0216: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_021b: stloc.s V_5
+IL_021d: ldarg.0
+IL_021e: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/SnapJob::m_OwnerData
+IL_0223: ldloc.3
+IL_0224: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0229: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_022e: brfalse.s IL_0248
+IL_0230: ldarg.0
+IL_0231: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/SnapJob::m_OwnerData
+IL_0236: ldloc.3
+IL_0237: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_023c: call !0 Unity.Entities.ComponentLookup`1<Game.Common.Owner>::get_Item(Unity.Entities.Entity)
+IL_0241: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0246: stloc.s V_6
+IL_0248: ldloc.s V_5
+IL_024a: ldloc.s V_6
+IL_024c: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0251: brfalse.s IL_026c
+IL_0253: ldarg.0
+IL_0254: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0259: ldarg.0
+IL_025a: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_025f: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0264: ldc.i4.1
+IL_0265: sub
+IL_0266: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::RemoveAt(System.Int32)
+IL_026b: ret
+IL_026c: ldc.i4.0
+IL_026d: stloc.s V_7
+IL_026f: br.s IL_02af
+IL_0271: ldarg.0
+IL_0272: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0277: ldloc.s V_7
+IL_0279: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_027e: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0283: ldloc.3
+IL_0284: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0289: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_028e: brfalse.s IL_02a9
+IL_0290: ldarg.0
+IL_0291: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_0296: ldarg.0
+IL_0297: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_029c: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_02a1: ldc.i4.1
+IL_02a2: sub
+IL_02a3: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::RemoveAt(System.Int32)
+IL_02a8: ret
+IL_02a9: ldloc.s V_7
+IL_02ab: ldc.i4.1
+IL_02ac: add
+IL_02ad: stloc.s V_7
+IL_02af: ldloc.s V_7
+IL_02b1: ldarg.0
+IL_02b2: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/SnapJob::m_ControlPoints
+IL_02b7: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_02bc: ldc.i4.1
+IL_02bd: sub
+IL_02be: blt.s IL_0271
+IL_02c0: ret
+System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::Execute()
+IL_0000: ldloca.s V_0
+IL_0002: ldc.i4.s 16
+IL_0004: ldc.i4.2
+IL_0005: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_000a: call System.Void Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_000f: ldarg.0
+IL_0010: ldfld Game.Tools.BulldozeToolSystem/State Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_State
+IL_0015: ldc.i4.1
+IL_0016: bne.un IL_0222
+IL_001b: ldarg.0
+IL_001c: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_0021: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0026: ldc.i4.2
+IL_0027: blt IL_0222
+IL_002c: ldarg.0
+IL_002d: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_EdgeData
+IL_0032: ldarg.0
+IL_0033: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_0038: ldc.i4.0
+IL_0039: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_003e: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0043: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Edge>::HasComponent(Unity.Entities.Entity)
+IL_0048: brtrue.s IL_006b
+IL_004a: ldarg.0
+IL_004b: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_NodeData
+IL_0050: ldarg.0
+IL_0051: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_0056: ldc.i4.0
+IL_0057: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_005c: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0061: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Node>::HasComponent(Unity.Entities.Entity)
+IL_0066: brfalse IL_0222
+IL_006b: ldarg.0
+IL_006c: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_0071: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0076: ldc.i4.2
+IL_0077: div
+IL_0078: ldc.i4.1
+IL_0079: sub
+IL_007a: stloc.1
+IL_007b: ldloc.1
+IL_007c: brtrue IL_010f
+IL_0081: ldarg.0
+IL_0082: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_0087: ldc.i4.0
+IL_0088: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_008d: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0092: ldarg.0
+IL_0093: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_0098: ldc.i4.1
+IL_0099: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_009e: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00a3: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00a8: brfalse.s IL_010f
+IL_00aa: ldarg.0
+IL_00ab: ldfld Game.Tools.BulldozeToolSystem/Mode Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_Mode
+IL_00b0: brtrue.s IL_00f1
+IL_00b2: ldarg.0
+IL_00b3: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_00b8: ldarg.0
+IL_00b9: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_00be: ldc.i4.0
+IL_00bf: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_00c4: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00c9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_00ce: brfalse.s IL_00f1
+IL_00d0: ldarg.0
+IL_00d1: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ServiceUpgradeData
+IL_00d6: ldarg.0
+IL_00d7: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_00dc: ldc.i4.0
+IL_00dd: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_00e2: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_00e7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_00ec: brfalse IL_0256
+IL_00f1: ldloca.s V_0
+IL_00f3: ldarg.0
+IL_00f4: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_00f9: ldc.i4.0
+IL_00fa: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_00ff: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0104: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Add(!0)
+IL_0109: pop
+IL_010a: br IL_0256
+IL_010f: ldc.i4.0
+IL_0110: stloc.2
+IL_0111: br IL_0219
+IL_0116: ldarg.0
+IL_0117: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_011c: ldloc.2
+IL_011d: ldc.i4.2
+IL_011e: mul
+IL_011f: ldc.i4.1
+IL_0120: add
+IL_0121: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_0126: stloc.3
+IL_0127: ldarg.0
+IL_0128: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_012d: ldloc.2
+IL_012e: ldc.i4.2
+IL_012f: mul
+IL_0130: ldc.i4.2
+IL_0131: add
+IL_0132: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_0137: stloc.s V_4
+IL_0139: ldarg.0
+IL_013a: ldflda Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ConnectedEdges
+IL_013f: ldloc.3
+IL_0140: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0145: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge>::get_Item(Unity.Entities.Entity)
+IL_014a: stloc.s V_5
+IL_014c: ldc.i4.0
+IL_014d: stloc.s V_6
+IL_014f: br IL_0207
+IL_0154: ldloca.s V_5
+IL_0156: ldloc.s V_6
+IL_0158: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>::get_Item(System.Int32)
+IL_015d: ldfld Unity.Entities.Entity Game.Net.ConnectedEdge::m_Edge
+IL_0162: stloc.s V_7
+IL_0164: ldarg.0
+IL_0165: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_EdgeData
+IL_016a: ldloc.s V_7
+IL_016c: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Edge>::get_Item(Unity.Entities.Entity)
+IL_0171: stloc.s V_8
+IL_0173: ldarg.0
+IL_0174: ldfld Game.Tools.BulldozeToolSystem/Mode Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_Mode
+IL_0179: brtrue.s IL_0199
+IL_017b: ldarg.0
+IL_017c: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_0181: ldloc.s V_7
+IL_0183: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_0188: brfalse.s IL_0199
+IL_018a: ldarg.0
+IL_018b: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ServiceUpgradeData
+IL_0190: ldloc.s V_7
+IL_0192: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_0197: brfalse.s IL_0201
+IL_0199: ldloc.s V_8
+IL_019b: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_01a0: ldloc.3
+IL_01a1: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_01a6: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01ab: brfalse.s IL_01ce
+IL_01ad: ldloc.s V_8
+IL_01af: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_01b4: ldloc.s V_4
+IL_01b6: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_01bb: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01c0: brfalse.s IL_01ce
+IL_01c2: ldloca.s V_0
+IL_01c4: ldloc.s V_7
+IL_01c6: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Add(!0)
+IL_01cb: pop
+IL_01cc: br.s IL_0201
+IL_01ce: ldloc.s V_8
+IL_01d0: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_01d5: ldloc.3
+IL_01d6: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_01db: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01e0: brfalse.s IL_0201
+IL_01e2: ldloc.s V_8
+IL_01e4: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_01e9: ldloc.s V_4
+IL_01eb: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_01f0: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01f5: brfalse.s IL_0201
+IL_01f7: ldloca.s V_0
+IL_01f9: ldloc.s V_7
+IL_01fb: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Add(!0)
+IL_0200: pop
+IL_0201: ldloc.s V_6
+IL_0203: ldc.i4.1
+IL_0204: add
+IL_0205: stloc.s V_6
+IL_0207: ldloc.s V_6
+IL_0209: ldloca.s V_5
+IL_020b: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>::get_Length()
+IL_0210: blt IL_0154
+IL_0215: ldloc.2
+IL_0216: ldc.i4.1
+IL_0217: add
+IL_0218: stloc.2
+IL_0219: ldloc.2
+IL_021a: ldloc.1
+IL_021b: blt IL_0116
+IL_0220: br.s IL_0256
+IL_0222: ldc.i4.0
+IL_0223: stloc.s V_9
+IL_0225: br.s IL_0247
+IL_0227: ldloca.s V_0
+IL_0229: ldarg.0
+IL_022a: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_022f: ldloc.s V_9
+IL_0231: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_0236: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_023b: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Add(!0)
+IL_0240: pop
+IL_0241: ldloc.s V_9
+IL_0243: ldc.i4.1
+IL_0244: add
+IL_0245: stloc.s V_9
+IL_0247: ldloc.s V_9
+IL_0249: ldarg.0
+IL_024a: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ControlPoints
+IL_024f: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0254: blt.s IL_0227
+IL_0256: ldloca.s V_0
+IL_0258: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::get_IsEmpty()
+IL_025d: brtrue.s IL_02cb
+IL_025f: ldloca.s V_10
+IL_0261: ldc.i4.s 16
+IL_0263: ldc.i4.2
+IL_0264: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0269: call System.Void Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_026e: ldloca.s V_11
+IL_0270: ldc.i4.s 16
+IL_0272: ldc.i4.2
+IL_0273: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0278: call System.Void Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_027d: ldloca.s V_0
+IL_027f: ldc.i4.2
+IL_0280: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0285: call Unity.Collections.NativeArray`1<!0> Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::ToNativeArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_028a: stloc.s V_12
+IL_028c: ldc.i4.0
+IL_028d: stloc.s V_13
+IL_028f: br.s IL_02ab
+IL_0291: ldarg.0
+IL_0292: ldloca.s V_12
+IL_0294: ldloc.s V_13
+IL_0296: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_029b: ldloc.s V_10
+IL_029d: ldloc.0
+IL_029e: ldloc.s V_11
+IL_02a0: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::Execute(Unity.Entities.Entity,Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>)
+IL_02a5: ldloc.s V_13
+IL_02a7: ldc.i4.1
+IL_02a8: add
+IL_02a9: stloc.s V_13
+IL_02ab: ldloc.s V_13
+IL_02ad: ldloca.s V_12
+IL_02af: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_02b4: blt.s IL_0291
+IL_02b6: ldloca.s V_12
+IL_02b8: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.Entity>::Dispose()
+IL_02bd: ldloca.s V_10
+IL_02bf: call System.Void Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>::Dispose()
+IL_02c4: ldloca.s V_11
+IL_02c6: call System.Void Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Dispose()
+IL_02cb: ldloca.s V_0
+IL_02cd: call System.Void Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Dispose()
+IL_02d2: ret
+System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::Execute(Unity.Entities.Entity,Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>)
+IL_0000: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0005: stloc.0
+IL_0006: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_000b: stloc.1
+IL_000c: ldloca.s V_2
+IL_000e: initobj Game.Tools.OwnerDefinition
+IL_0014: ldc.i4.0
+IL_0015: stloc.3
+IL_0016: ldarg.0
+IL_0017: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_001c: ldarg.1
+IL_001d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_0022: brfalse IL_00bd
+IL_0027: ldarg.0
+IL_0028: ldfld System.Boolean Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_EditorMode
+IL_002d: brfalse.s IL_009b
+IL_002f: ldarg.1
+IL_0030: stloc.s V_4
+IL_0032: br.s IL_005a
+IL_0034: ldarg.0
+IL_0035: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_003a: ldloc.s V_4
+IL_003c: call !0 Unity.Entities.ComponentLookup`1<Game.Common.Owner>::get_Item(Unity.Entities.Entity)
+IL_0041: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0046: stloc.s V_4
+IL_0048: ldarg.0
+IL_0049: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ServiceUpgradeData
+IL_004e: ldloc.s V_4
+IL_0050: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_0055: brfalse.s IL_005a
+IL_0057: ldloc.s V_4
+IL_0059: stloc.1
+IL_005a: ldarg.0
+IL_005b: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_0060: ldloc.s V_4
+IL_0062: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_0067: brfalse.s IL_0078
+IL_0069: ldarg.0
+IL_006a: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_BuildingData
+IL_006f: ldloc.s V_4
+IL_0071: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::HasComponent(Unity.Entities.Entity)
+IL_0076: brfalse.s IL_0034
+IL_0078: ldarg.0
+IL_0079: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_007e: ldloc.s V_4
+IL_0080: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::HasComponent(Unity.Entities.Entity)
+IL_0085: brfalse.s IL_00bd
+IL_0087: ldarg.0
+IL_0088: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_SubObjects
+IL_008d: ldloc.s V_4
+IL_008f: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::HasBuffer(Unity.Entities.Entity)
+IL_0094: brfalse.s IL_00bd
+IL_0096: ldloc.s V_4
+IL_0098: stloc.0
+IL_0099: br.s IL_00bd
+IL_009b: ldarg.0
+IL_009c: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ServiceUpgradeData
+IL_00a1: ldarg.1
+IL_00a2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_00a7: brfalse.s IL_00bd
+IL_00a9: ldarg.0
+IL_00aa: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_00af: ldarg.1
+IL_00b0: call !0 Unity.Entities.ComponentLookup`1<Game.Common.Owner>::get_Item(Unity.Entities.Entity)
+IL_00b5: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_00ba: stloc.0
+IL_00bb: ldc.i4.1
+IL_00bc: stloc.3
+IL_00bd: ldarg.0
+IL_00be: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_00c3: ldloc.0
+IL_00c4: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::HasComponent(Unity.Entities.Entity)
+IL_00c9: brfalse IL_0286
+IL_00ce: ldarga.s ownerDefinitions
+IL_00d0: ldloc.0
+IL_00d1: ldloca.s V_2
+IL_00d3: call System.Boolean Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>::TryGetValue(!0,!1&)
+IL_00d8: brtrue IL_046a
+IL_00dd: ldarg.0
+IL_00de: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_00e3: ldloc.0
+IL_00e4: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_00e9: stloc.s V_5
+IL_00eb: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00f0: stloc.s V_6
+IL_00f2: ldarg.0
+IL_00f3: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_00f8: ldloc.0
+IL_00f9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_00fe: brfalse.s IL_0113
+IL_0100: ldarg.0
+IL_0101: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_0106: ldloc.0
+IL_0107: call !0 Unity.Entities.ComponentLookup`1<Game.Common.Owner>::get_Item(Unity.Entities.Entity)
+IL_010c: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0111: stloc.s V_6
+IL_0113: ldarg.0
+IL_0114: ldarg.2
+IL_0115: ldarg.3
+IL_0116: ldarg.s attachedEntities
+IL_0118: ldloc.0
+IL_0119: ldloc.s V_6
+IL_011b: ldloca.s V_8
+IL_011d: initobj Game.Tools.OwnerDefinition
+IL_0123: ldloc.s V_8
+IL_0125: ldloc.1
+IL_0126: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_012b: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0130: ldloc.3
+IL_0131: ldc.i4.0
+IL_0132: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_0137: ldloca.s V_2
+IL_0139: ldarg.0
+IL_013a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PrefabRefData
+IL_013f: ldloc.0
+IL_0140: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0145: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_014a: stfld Unity.Entities.Entity Game.Tools.OwnerDefinition::m_Prefab
+IL_014f: ldloca.s V_2
+IL_0151: ldloc.s V_5
+IL_0153: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0158: stfld Unity.Mathematics.float3 Game.Tools.OwnerDefinition::m_Position
+IL_015d: ldloca.s V_2
+IL_015f: ldloc.s V_5
+IL_0161: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0166: stfld Unity.Mathematics.quaternion Game.Tools.OwnerDefinition::m_Rotation
+IL_016b: ldarg.0
+IL_016c: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_InstalledUpgrades
+IL_0171: ldloc.0
+IL_0172: call System.Boolean Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade>::HasBuffer(Unity.Entities.Entity)
+IL_0177: brfalse.s IL_01de
+IL_0179: ldarg.0
+IL_017a: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_InstalledUpgrades
+IL_017f: ldloc.0
+IL_0180: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade>::get_Item(Unity.Entities.Entity)
+IL_0185: stloc.s V_9
+IL_0187: ldc.i4.0
+IL_0188: stloc.s V_10
+IL_018a: br.s IL_01d3
+IL_018c: ldloca.s V_9
+IL_018e: ldloc.s V_10
+IL_0190: call !0 Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_Item(System.Int32)
+IL_0195: ldfld Unity.Entities.Entity Game.Buildings.InstalledUpgrade::m_Upgrade
+IL_019a: stloc.s V_11
+IL_019c: ldloc.s V_11
+IL_019e: ldarg.1
+IL_019f: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01a4: brfalse.s IL_01cd
+IL_01a6: ldarga.s bulldozeEntities
+IL_01a8: ldloc.s V_11
+IL_01aa: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_01af: brtrue.s IL_01cd
+IL_01b1: ldarg.0
+IL_01b2: ldarg.2
+IL_01b3: ldarg.3
+IL_01b4: ldarg.s attachedEntities
+IL_01b6: ldloc.s V_11
+IL_01b8: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_01bd: ldloc.2
+IL_01be: ldloc.1
+IL_01bf: ldloc.s V_11
+IL_01c1: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01c6: ldloc.3
+IL_01c7: ldc.i4.0
+IL_01c8: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_01cd: ldloc.s V_10
+IL_01cf: ldc.i4.1
+IL_01d0: add
+IL_01d1: stloc.s V_10
+IL_01d3: ldloc.s V_10
+IL_01d5: ldloca.s V_9
+IL_01d7: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_Length()
+IL_01dc: blt.s IL_018c
+IL_01de: ldarg.0
+IL_01df: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_AttachmentData
+IL_01e4: ldloc.0
+IL_01e5: ldloca.s V_7
+IL_01e7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Attachment>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_01ec: brfalse.s IL_0225
+IL_01ee: ldarg.0
+IL_01ef: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_01f4: ldloc.s V_7
+IL_01f6: ldfld Unity.Entities.Entity Game.Objects.Attachment::m_Attached
+IL_01fb: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::HasComponent(Unity.Entities.Entity)
+IL_0200: brfalse.s IL_0225
+IL_0202: ldarg.0
+IL_0203: ldarg.2
+IL_0204: ldarg.3
+IL_0205: ldarg.s attachedEntities
+IL_0207: ldloc.s V_7
+IL_0209: ldfld Unity.Entities.Entity Game.Objects.Attachment::m_Attached
+IL_020e: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0213: ldloca.s V_8
+IL_0215: initobj Game.Tools.OwnerDefinition
+IL_021b: ldloc.s V_8
+IL_021d: ldc.i4.1
+IL_021e: ldloc.3
+IL_021f: ldc.i4.0
+IL_0220: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_0225: ldarga.s ownerDefinitions
+IL_0227: ldloc.0
+IL_0228: ldloc.2
+IL_0229: call System.Void Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>::Add(!0,!1)
+IL_022e: ldarg.0
+IL_022f: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_0234: ldloc.1
+IL_0235: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::HasComponent(Unity.Entities.Entity)
+IL_023a: brfalse IL_046a
+IL_023f: ldarg.0
+IL_0240: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_0245: ldloc.1
+IL_0246: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_024b: stloc.s V_5
+IL_024d: ldloca.s V_2
+IL_024f: ldarg.0
+IL_0250: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PrefabRefData
+IL_0255: ldloc.1
+IL_0256: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_025b: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0260: stfld Unity.Entities.Entity Game.Tools.OwnerDefinition::m_Prefab
+IL_0265: ldloca.s V_2
+IL_0267: ldloc.s V_5
+IL_0269: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_026e: stfld Unity.Mathematics.float3 Game.Tools.OwnerDefinition::m_Position
+IL_0273: ldloca.s V_2
+IL_0275: ldloc.s V_5
+IL_0277: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_027c: stfld Unity.Mathematics.quaternion Game.Tools.OwnerDefinition::m_Rotation
+IL_0281: br IL_046a
+IL_0286: ldarg.0
+IL_0287: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_AttachmentData
+IL_028c: ldarg.1
+IL_028d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Attachment>::HasComponent(Unity.Entities.Entity)
+IL_0292: brfalse IL_031f
+IL_0297: ldarg.0
+IL_0298: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_AttachmentData
+IL_029d: ldarg.1
+IL_029e: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Attachment>::get_Item(Unity.Entities.Entity)
+IL_02a3: stloc.s V_12
+IL_02a5: ldarga.s bulldozeEntities
+IL_02a7: ldloc.s V_12
+IL_02a9: ldfld Unity.Entities.Entity Game.Objects.Attachment::m_Attached
+IL_02ae: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_02b3: brtrue IL_046a
+IL_02b8: ldarg.0
+IL_02b9: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_02be: ldloc.s V_12
+IL_02c0: ldfld Unity.Entities.Entity Game.Objects.Attachment::m_Attached
+IL_02c5: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::HasComponent(Unity.Entities.Entity)
+IL_02ca: brfalse IL_046a
+IL_02cf: ldarg.0
+IL_02d0: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Placeholder> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PlaceholderData
+IL_02d5: ldarg.1
+IL_02d6: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Placeholder>::HasComponent(Unity.Entities.Entity)
+IL_02db: brfalse IL_046a
+IL_02e0: ldarg.0
+IL_02e1: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_02e6: ldloc.s V_12
+IL_02e8: ldfld Unity.Entities.Entity Game.Objects.Attachment::m_Attached
+IL_02ed: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_02f2: brtrue IL_046a
+IL_02f7: ldarg.0
+IL_02f8: ldarg.2
+IL_02f9: ldarg.3
+IL_02fa: ldarg.s attachedEntities
+IL_02fc: ldloc.s V_12
+IL_02fe: ldfld Unity.Entities.Entity Game.Objects.Attachment::m_Attached
+IL_0303: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0308: ldloca.s V_8
+IL_030a: initobj Game.Tools.OwnerDefinition
+IL_0310: ldloc.s V_8
+IL_0312: ldc.i4.0
+IL_0313: ldc.i4.0
+IL_0314: ldc.i4.1
+IL_0315: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_031a: br IL_046a
+IL_031f: ldarg.0
+IL_0320: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_AttachedData
+IL_0325: ldarg.1
+IL_0326: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Attached>::HasComponent(Unity.Entities.Entity)
+IL_032b: brfalse IL_046a
+IL_0330: ldarg.0
+IL_0331: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_AttachedData
+IL_0336: ldarg.1
+IL_0337: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Attached>::get_Item(Unity.Entities.Entity)
+IL_033c: stloc.s V_13
+IL_033e: ldarga.s bulldozeEntities
+IL_0340: ldloc.s V_13
+IL_0342: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_0347: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_034c: brtrue IL_046a
+IL_0351: ldarg.0
+IL_0352: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_AttachmentData
+IL_0357: ldloc.s V_13
+IL_0359: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_035e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Attachment>::HasComponent(Unity.Entities.Entity)
+IL_0363: brfalse IL_046a
+IL_0368: ldarg.0
+IL_0369: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_AttachmentData
+IL_036e: ldloc.s V_13
+IL_0370: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_0375: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Attachment>::get_Item(Unity.Entities.Entity)
+IL_037a: ldfld Unity.Entities.Entity Game.Objects.Attachment::m_Attached
+IL_037f: ldarg.1
+IL_0380: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0385: brfalse IL_046a
+IL_038a: ldarg.0
+IL_038b: ldarg.2
+IL_038c: ldarg.3
+IL_038d: ldarg.s attachedEntities
+IL_038f: ldloc.s V_13
+IL_0391: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_0396: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_039b: ldloca.s V_8
+IL_039d: initobj Game.Tools.OwnerDefinition
+IL_03a3: ldloc.s V_8
+IL_03a5: ldc.i4.0
+IL_03a6: ldc.i4.0
+IL_03a7: ldc.i4.1
+IL_03a8: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_03ad: ldarg.0
+IL_03ae: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_InstalledUpgrades
+IL_03b3: ldloc.s V_13
+IL_03b5: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_03ba: call System.Boolean Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade>::HasBuffer(Unity.Entities.Entity)
+IL_03bf: brfalse IL_046a
+IL_03c4: ldarg.0
+IL_03c5: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_03ca: ldloc.s V_13
+IL_03cc: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_03d1: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_03d6: stloc.s V_14
+IL_03d8: ldarg.0
+IL_03d9: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_InstalledUpgrades
+IL_03de: ldloc.s V_13
+IL_03e0: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_03e5: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade>::get_Item(Unity.Entities.Entity)
+IL_03ea: stloc.s V_15
+IL_03ec: ldloca.s V_16
+IL_03ee: initobj Game.Tools.OwnerDefinition
+IL_03f4: ldloca.s V_16
+IL_03f6: ldarg.0
+IL_03f7: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PrefabRefData
+IL_03fc: ldloc.s V_13
+IL_03fe: ldfld Unity.Entities.Entity Game.Objects.Attached::m_Parent
+IL_0403: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0408: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_040d: stfld Unity.Entities.Entity Game.Tools.OwnerDefinition::m_Prefab
+IL_0412: ldloca.s V_16
+IL_0414: ldloc.s V_14
+IL_0416: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_041b: stfld Unity.Mathematics.float3 Game.Tools.OwnerDefinition::m_Position
+IL_0420: ldloca.s V_16
+IL_0422: ldloc.s V_14
+IL_0424: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0429: stfld Unity.Mathematics.quaternion Game.Tools.OwnerDefinition::m_Rotation
+IL_042e: ldc.i4.0
+IL_042f: stloc.s V_17
+IL_0431: br.s IL_045f
+IL_0433: ldloca.s V_15
+IL_0435: ldloc.s V_17
+IL_0437: call !0 Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_Item(System.Int32)
+IL_043c: ldfld Unity.Entities.Entity Game.Buildings.InstalledUpgrade::m_Upgrade
+IL_0441: stloc.s V_18
+IL_0443: ldarg.0
+IL_0444: ldarg.2
+IL_0445: ldarg.3
+IL_0446: ldarg.s attachedEntities
+IL_0448: ldloc.s V_18
+IL_044a: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_044f: ldloc.s V_16
+IL_0451: ldc.i4.0
+IL_0452: ldc.i4.0
+IL_0453: ldc.i4.1
+IL_0454: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_0459: ldloc.s V_17
+IL_045b: ldc.i4.1
+IL_045c: add
+IL_045d: stloc.s V_17
+IL_045f: ldloc.s V_17
+IL_0461: ldloca.s V_15
+IL_0463: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_Length()
+IL_0468: blt.s IL_0433
+IL_046a: ldarg.0
+IL_046b: ldflda Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ConnectedEdges
+IL_0470: ldarg.1
+IL_0471: call System.Boolean Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge>::HasBuffer(Unity.Entities.Entity)
+IL_0476: brfalse IL_05ff
+IL_047b: ldarg.0
+IL_047c: ldflda Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_ConnectedEdges
+IL_0481: ldarg.1
+IL_0482: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge>::get_Item(Unity.Entities.Entity)
+IL_0487: stloc.s V_19
+IL_0489: ldarg.0
+IL_048a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PrefabRefData
+IL_048f: ldarg.1
+IL_0490: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0495: stloc.s V_20
+IL_0497: ldarg.0
+IL_0498: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PrefabNetData
+IL_049d: ldloc.s V_20
+IL_049f: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_04a4: ldloca.s V_21
+IL_04a6: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_04ab: pop
+IL_04ac: ldc.i4.1
+IL_04ad: stloc.s V_22
+IL_04af: ldc.i4.0
+IL_04b0: stloc.s V_23
+IL_04b2: ldc.i4.0
+IL_04b3: stloc.s V_24
+IL_04b5: br IL_0559
+IL_04ba: ldloca.s V_19
+IL_04bc: ldloc.s V_24
+IL_04be: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>::get_Item(System.Int32)
+IL_04c3: ldfld Unity.Entities.Entity Game.Net.ConnectedEdge::m_Edge
+IL_04c8: stloc.s V_25
+IL_04ca: ldarg.0
+IL_04cb: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_EdgeData
+IL_04d0: ldloc.s V_25
+IL_04d2: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Edge>::get_Item(Unity.Entities.Entity)
+IL_04d7: stloc.s V_26
+IL_04d9: ldloc.s V_26
+IL_04db: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_04e0: ldarg.1
+IL_04e1: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_04e6: brtrue.s IL_04f7
+IL_04e8: ldloc.s V_26
+IL_04ea: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_04ef: ldarg.1
+IL_04f0: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_04f5: brfalse.s IL_0553
+IL_04f7: ldarg.0
+IL_04f8: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PrefabRefData
+IL_04fd: ldloc.s V_25
+IL_04ff: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0504: stloc.s V_27
+IL_0506: ldarg.0
+IL_0507: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PrefabNetData
+IL_050c: ldloc.s V_27
+IL_050e: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0513: ldloca.s V_28
+IL_0515: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_051a: pop
+IL_051b: ldloc.s V_21
+IL_051d: ldfld Game.Net.Layer Game.Prefabs.NetData::m_RequiredLayers
+IL_0522: ldloc.s V_28
+IL_0524: ldfld Game.Net.Layer Game.Prefabs.NetData::m_RequiredLayers
+IL_0529: and
+IL_052a: brtrue.s IL_0531
+IL_052c: ldc.i4.1
+IL_052d: stloc.s V_23
+IL_052f: br.s IL_0553
+IL_0531: ldarga.s bulldozeEntities
+IL_0533: ldloc.s V_25
+IL_0535: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_053a: brtrue.s IL_0550
+IL_053c: ldarg.0
+IL_053d: ldarg.2
+IL_053e: ldarg.3
+IL_053f: ldarg.s attachedEntities
+IL_0541: ldloc.s V_25
+IL_0543: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0548: ldloc.2
+IL_0549: ldc.i4.0
+IL_054a: ldc.i4.1
+IL_054b: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEdge(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean)
+IL_0550: ldc.i4.0
+IL_0551: stloc.s V_22
+IL_0553: ldloc.s V_24
+IL_0555: ldc.i4.1
+IL_0556: add
+IL_0557: stloc.s V_24
+IL_0559: ldloc.s V_24
+IL_055b: ldloca.s V_19
+IL_055d: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>::get_Length()
+IL_0562: blt IL_04ba
+IL_0567: ldloc.s V_22
+IL_0569: ldloc.s V_23
+IL_056b: and
+IL_056c: brfalse.s IL_05e3
+IL_056e: ldc.i4.0
+IL_056f: stloc.s V_29
+IL_0571: br.s IL_05d8
+IL_0573: ldloca.s V_19
+IL_0575: ldloc.s V_29
+IL_0577: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>::get_Item(System.Int32)
+IL_057c: ldfld Unity.Entities.Entity Game.Net.ConnectedEdge::m_Edge
+IL_0581: stloc.s V_30
+IL_0583: ldarg.0
+IL_0584: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_EdgeData
+IL_0589: ldloc.s V_30
+IL_058b: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Edge>::get_Item(Unity.Entities.Entity)
+IL_0590: stloc.s V_31
+IL_0592: ldloc.s V_31
+IL_0594: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_0599: ldarg.1
+IL_059a: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_059f: brtrue.s IL_05b0
+IL_05a1: ldloc.s V_31
+IL_05a3: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_05a8: ldarg.1
+IL_05a9: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_05ae: brfalse.s IL_05d2
+IL_05b0: ldarga.s bulldozeEntities
+IL_05b2: ldloc.s V_30
+IL_05b4: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_05b9: brtrue.s IL_05cf
+IL_05bb: ldarg.0
+IL_05bc: ldarg.2
+IL_05bd: ldarg.3
+IL_05be: ldarg.s attachedEntities
+IL_05c0: ldloc.s V_30
+IL_05c2: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_05c7: ldloc.2
+IL_05c8: ldc.i4.0
+IL_05c9: ldc.i4.1
+IL_05ca: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEdge(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean)
+IL_05cf: ldc.i4.0
+IL_05d0: stloc.s V_22
+IL_05d2: ldloc.s V_29
+IL_05d4: ldc.i4.1
+IL_05d5: add
+IL_05d6: stloc.s V_29
+IL_05d8: ldloc.s V_29
+IL_05da: ldloca.s V_19
+IL_05dc: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedEdge>::get_Length()
+IL_05e1: blt.s IL_0573
+IL_05e3: ldloc.s V_22
+IL_05e5: brfalse IL_076f
+IL_05ea: ldarg.0
+IL_05eb: ldarg.2
+IL_05ec: ldarg.3
+IL_05ed: ldarg.s attachedEntities
+IL_05ef: ldarg.1
+IL_05f0: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_05f5: ldloc.2
+IL_05f6: ldc.i4.0
+IL_05f7: ldc.i4.0
+IL_05f8: ldc.i4.1
+IL_05f9: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_05fe: ret
+IL_05ff: ldarg.0
+IL_0600: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_EdgeData
+IL_0605: ldarg.1
+IL_0606: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Edge>::HasComponent(Unity.Entities.Entity)
+IL_060b: brfalse.s IL_0621
+IL_060d: ldarg.0
+IL_060e: ldarg.2
+IL_060f: ldarg.3
+IL_0610: ldarg.s attachedEntities
+IL_0612: ldarg.1
+IL_0613: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0618: ldloc.2
+IL_0619: ldc.i4.0
+IL_061a: ldc.i4.1
+IL_061b: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEdge(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean)
+IL_0620: ret
+IL_0621: ldarg.0
+IL_0622: ldflda Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_AreaNodes
+IL_0627: ldarg.1
+IL_0628: call System.Boolean Unity.Entities.BufferLookup`1<Game.Areas.Node>::HasBuffer(Unity.Entities.Entity)
+IL_062d: brfalse IL_06b2
+IL_0632: ldarg.0
+IL_0633: ldarg.2
+IL_0634: ldarg.3
+IL_0635: ldarg.s attachedEntities
+IL_0637: ldarg.1
+IL_0638: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_063d: ldloc.2
+IL_063e: ldc.i4.0
+IL_063f: ldc.i4.0
+IL_0640: ldc.i4.1
+IL_0641: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_0646: ldarg.0
+IL_0647: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_SubObjects
+IL_064c: ldarg.1
+IL_064d: ldloca.s V_32
+IL_064f: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0654: brfalse IL_076f
+IL_0659: ldc.i4.0
+IL_065a: stloc.s V_33
+IL_065c: br.s IL_06a6
+IL_065e: ldloca.s V_32
+IL_0660: ldloc.s V_33
+IL_0662: call !0 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Item(System.Int32)
+IL_0667: stloc.s V_34
+IL_0669: ldarg.0
+IL_066a: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_BuildingData
+IL_066f: ldloc.s V_34
+IL_0671: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_0676: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::HasComponent(Unity.Entities.Entity)
+IL_067b: brfalse.s IL_06a0
+IL_067d: ldarg.0
+IL_067e: ldarg.2
+IL_067f: ldarg.3
+IL_0680: ldarg.s attachedEntities
+IL_0682: ldloc.s V_34
+IL_0684: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_0689: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_068e: ldloca.s V_8
+IL_0690: initobj Game.Tools.OwnerDefinition
+IL_0696: ldloc.s V_8
+IL_0698: ldc.i4.0
+IL_0699: ldc.i4.0
+IL_069a: ldc.i4.1
+IL_069b: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_06a0: ldloc.s V_33
+IL_06a2: ldc.i4.1
+IL_06a3: add
+IL_06a4: stloc.s V_33
+IL_06a6: ldloc.s V_33
+IL_06a8: ldloca.s V_32
+IL_06aa: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_06af: blt.s IL_065e
+IL_06b1: ret
+IL_06b2: ldarg.0
+IL_06b3: ldarg.2
+IL_06b4: ldarg.3
+IL_06b5: ldarg.s attachedEntities
+IL_06b7: ldarg.1
+IL_06b8: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_06bd: ldloc.2
+IL_06be: ldc.i4.0
+IL_06bf: ldc.i4.0
+IL_06c0: ldc.i4.1
+IL_06c1: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_06c6: ldarg.0
+IL_06c7: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_InstalledUpgrades
+IL_06cc: ldarg.1
+IL_06cd: call System.Boolean Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade>::HasBuffer(Unity.Entities.Entity)
+IL_06d2: brfalse IL_076f
+IL_06d7: ldarg.0
+IL_06d8: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_06dd: ldarg.1
+IL_06de: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::HasComponent(Unity.Entities.Entity)
+IL_06e3: brfalse IL_076f
+IL_06e8: ldarg.0
+IL_06e9: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_TransformData
+IL_06ee: ldarg.1
+IL_06ef: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_06f4: stloc.s V_35
+IL_06f6: ldloca.s V_2
+IL_06f8: ldarg.0
+IL_06f9: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_PrefabRefData
+IL_06fe: ldarg.1
+IL_06ff: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0704: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0709: stfld Unity.Entities.Entity Game.Tools.OwnerDefinition::m_Prefab
+IL_070e: ldloca.s V_2
+IL_0710: ldloc.s V_35
+IL_0712: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0717: stfld Unity.Mathematics.float3 Game.Tools.OwnerDefinition::m_Position
+IL_071c: ldloca.s V_2
+IL_071e: ldloc.s V_35
+IL_0720: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0725: stfld Unity.Mathematics.quaternion Game.Tools.OwnerDefinition::m_Rotation
+IL_072a: ldarg.0
+IL_072b: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::m_InstalledUpgrades
+IL_0730: ldarg.1
+IL_0731: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade>::get_Item(Unity.Entities.Entity)
+IL_0736: stloc.s V_36
+IL_0738: ldc.i4.0
+IL_0739: stloc.s V_37
+IL_073b: br.s IL_0764
+IL_073d: ldarg.0
+IL_073e: ldarg.2
+IL_073f: ldarg.3
+IL_0740: ldarg.s attachedEntities
+IL_0742: ldloca.s V_36
+IL_0744: ldloc.s V_37
+IL_0746: call !0 Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_Item(System.Int32)
+IL_074b: ldfld Unity.Entities.Entity Game.Buildings.InstalledUpgrade::m_Upgrade
+IL_0750: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0755: ldloc.2
+IL_0756: ldc.i4.0
+IL_0757: ldc.i4.0
+IL_0758: ldc.i4.1
+IL_0759: call System.Void Game.Tools.BulldozeToolSystem/CreateDefinitionsJob::AddEntity(Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Tools.OwnerDefinition>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition,System.Boolean,System.Boolean,System.Boolean)
+IL_075e: ldloc.s V_37
+IL_0760: ldc.i4.1
+IL_0761: add
+IL_0762: stloc.s V_37
+IL_0764: ldloc.s V_37
+IL_0766: ldloca.s V_36
+IL_0768: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Buildings.InstalledUpgrade>::get_Length()
+IL_076d: blt.s IL_073d
+IL_076f: ret

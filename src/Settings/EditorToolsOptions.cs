@@ -26,7 +26,7 @@ namespace MW.EditorTools.Settings
         private readonly Action resetPosition;
         private readonly ProxyBinding undoTemplate, redoTemplate;
         private readonly ProxyBinding[] browserTemplates;
-        internal const string Help = "Click a shortcut field and press the complete combination with a letter A–Z (for example Ctrl+Alt+T), then click Apply changes to activate and save. History limit: 20–50; changing it clears history. Defaults: Ctrl+Z Undo and Ctrl+Shift+Z Redo. Extra modifiers prevent activation; identical shortcuts are inactive. Shortcuts pause while typing or recording, during native dialogs or if focus reporting stops. Invalid or empty bindings retain the previous shortcut.";
+        internal const string Help = "Undo the last supported action with Ctrl+Z. Apply saves edited options.";
         internal EditorToolsOptions(IMod mod, EditorToolsSettings settings, ListRecovery history, Action reset) : base(mod)
         { current = settings; recovery = history; resetPosition = reset; undoTemplate = UndoShortcut; redoTemplate = RedoShortcut; browserTemplates=new[]{BuildingsShortcut,PropsShortcut,FoliageShortcut,AreasShortcut,EffectsShortcut,SurfacesShortcut}; ReadCurrent(); }
         [SettingsUISection("Recovery")]
@@ -37,32 +37,32 @@ namespace MW.EditorTools.Settings
         public bool EnableRecovery { get; set; }
         [SettingsUISection("Recovery")]
         public bool InspectorControls { get; set; }
-        [SettingsUISection("Recovery"), SettingsUITextInput]
+        [SettingsUIHidden]
         public string HistoryLimit { get; set; }
         [SettingsUISection("Recovery"), SettingsUIKeyboardBinding(BindingKeyboard.Z, "Undo", ctrl: true)]
         public ProxyBinding UndoShortcut { get; set; }
-        [SettingsUISection("Recovery"), SettingsUIKeyboardBinding(BindingKeyboard.Z, "Redo", ctrl: true, shift: true)]
+        [SettingsUIHidden, SettingsUIKeyboardBinding(BindingKeyboard.Z, "Redo", ctrl: true, shift: true)]
         public ProxyBinding RedoShortcut { get; set; }
         [SettingsUISection("Recovery"), SettingsUIButton] public bool ApplyChanges { set { Commit(); } }
-        [SettingsUISection("Recovery"), SettingsUIMultilineText]
+        [SettingsUIHidden]
         public string Guidance => Help;
         [SettingsUISection("Recovery"), SettingsUIButton]
         public bool ResetWindowPosition { set { resetPosition(); } }
         [SettingsUISection("Browser")] public bool EnableBrowserShortcuts { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.B, "BrowserBuildings", ctrl: true, alt: true)]
+        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.B, "BrowserBuildings", alt: true)]
         public ProxyBinding BuildingsShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.P, "BrowserProps", ctrl: true, alt: true)]
+        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.D, "BrowserProps", alt: true)]
         public ProxyBinding PropsShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.F, "BrowserFoliage", ctrl: true, alt: true)]
+        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.F, "BrowserFoliage", alt: true)]
         public ProxyBinding FoliageShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.A, "BrowserAreas", ctrl: true, alt: true)]
+        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.A, "BrowserAreas", alt: true)]
         public ProxyBinding AreasShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.E, "BrowserEffects", ctrl: true, alt: true)]
+        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.E, "BrowserEffects", alt: true)]
         public ProxyBinding EffectsShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.S, "BrowserSurfaces", ctrl: true, alt: true)]
+        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.S, "BrowserSurfaces", alt: true)]
         public ProxyBinding SurfacesShortcut { get; set; }
         [SettingsUISection("Browser"), SettingsUIButton] public bool ApplyBrowserChanges { set { Commit(); } }
-        [SettingsUISection("Browser"), SettingsUIMultilineText] public string BrowserGuidance => "Enable browser shortcuts, record a combination with a letter A–Z, then click Apply changes. Defaults use Ctrl+Alt plus B, P, F, A, E or S. Duplicate combinations with other enabled MW shortcuts are inactive. Existing browser search text is retained. Shortcuts pause while typing, recording, using dialogs, saving or recovering.";
+        [SettingsUIHidden] public string BrowserGuidance => "Alt+B Buildings · Alt+D Props · Alt+F Foliage · Alt+A Areas · Alt+E Effects · Alt+S Surfaces.";
         private void ReadCurrent()
         {
             EnableBrowserShortcuts=current.browserShortcuts;
@@ -99,7 +99,7 @@ namespace MW.EditorTools.Settings
         }
         public override void SetDefaults()
         { EnableBrowserShortcuts=false;
-            if(browserTemplates!=null) {BuildingsShortcut=NativeShortcutCodec.Restore(browserTemplates[0],"B",5);PropsShortcut=NativeShortcutCodec.Restore(browserTemplates[1],"P",5);FoliageShortcut=NativeShortcutCodec.Restore(browserTemplates[2],"F",5);AreasShortcut=NativeShortcutCodec.Restore(browserTemplates[3],"A",5);EffectsShortcut=NativeShortcutCodec.Restore(browserTemplates[4],"E",5);SurfacesShortcut=NativeShortcutCodec.Restore(browserTemplates[5],"S",5);}
+            if(browserTemplates!=null) {BuildingsShortcut=NativeShortcutCodec.Restore(browserTemplates[0],"B",4);PropsShortcut=NativeShortcutCodec.Restore(browserTemplates[1],"D",4);FoliageShortcut=NativeShortcutCodec.Restore(browserTemplates[2],"F",4);AreasShortcut=NativeShortcutCodec.Restore(browserTemplates[3],"A",4);EffectsShortcut=NativeShortcutCodec.Restore(browserTemplates[4],"E",4);SurfacesShortcut=NativeShortcutCodec.Restore(browserTemplates[5],"S",4);}
             EnableShortcuts = true; ConfirmDeletion=true;EnableRecovery=true;InspectorControls=true;HistoryLimit = "20";
             if (current != null) { UndoShortcut=NativeShortcutCodec.Restore(undoTemplate,"Z",1); RedoShortcut=NativeShortcutCodec.Restore(redoTemplate,"Z",3); } }
     }
@@ -112,20 +112,20 @@ namespace MW.EditorTools.Settings
             var entries = new Dictionary<string,string> {
                 {options.GetSettingsLocaleID(), "MW Editor Tools"},
                 {options.GetOptionGroupLocaleID("Recovery"), "Editor tools"},
-                {options.GetOptionLabelLocaleID(nameof(options.ConfirmDeletion)), "Confirm component removal and Clear lists"},
-                {options.GetOptionDescLocaleID(nameof(options.ConfirmDeletion)), "Show a confirmation before removing a component or clearing its list. Click Apply changes to save."},
-                {options.GetOptionLabelLocaleID(nameof(options.EnableRecovery)), "Enable supported Undo / Redo"},
-                {options.GetOptionDescLocaleID(nameof(options.EnableRecovery)), "Record supported deletions. Changing this setting clears history. Click Apply changes to save."},
-                {options.GetOptionLabelLocaleID(nameof(options.InspectorControls)), "Show recovery controls in the inspector"},
-                {options.GetOptionDescLocaleID(nameof(options.InspectorControls)), "Show Undo and Redo in the asset inspector. Click Apply changes to save."},
-                {options.GetOptionLabelLocaleID(nameof(options.EnableShortcuts)), "Enable Undo / Redo shortcuts"},
-                {options.GetOptionDescLocaleID(nameof(options.EnableShortcuts)), "Enable shortcuts for supported Undo / Redo in the Asset Editor."},
+                {options.GetOptionLabelLocaleID(nameof(options.ConfirmDeletion)), "Confirm deletions"},
+                {options.GetOptionDescLocaleID(nameof(options.ConfirmDeletion)), "Confirm component removal and clearing lists."},
+                {options.GetOptionLabelLocaleID(nameof(options.EnableRecovery)), "Enable Undo"},
+                {options.GetOptionDescLocaleID(nameof(options.EnableRecovery)), "Capture supported moves, node edits and deletions. Changing this clears Undo."},
+                {options.GetOptionLabelLocaleID(nameof(options.InspectorControls)), "Show inspector Undo"},
+                {options.GetOptionDescLocaleID(nameof(options.InspectorControls)), "Show the Undo button in Object Info."},
+                {options.GetOptionLabelLocaleID(nameof(options.EnableShortcuts)), "Enable Undo shortcut"},
+                {options.GetOptionDescLocaleID(nameof(options.EnableShortcuts)), "Use the configured Undo shortcut in the Asset Editor."},
                 {options.GetOptionLabelLocaleID(nameof(options.HistoryLimit)), "History limit"},
                 {options.GetOptionDescLocaleID(nameof(options.HistoryLimit)), "Enter 20–50. Changing this limit clears recovery history."},
                 {options.GetOptionLabelLocaleID(nameof(options.UndoShortcut)), "Undo shortcut"},
-                {options.GetOptionDescLocaleID(nameof(options.UndoShortcut)), "Click the binding and press the complete key combination. Click Apply changes to save."},
+                {options.GetOptionDescLocaleID(nameof(options.UndoShortcut)), "Click and press a key combination, then Apply."},
                 {options.GetOptionLabelLocaleID(nameof(options.RedoShortcut)), "Redo shortcut"},
-                {options.GetOptionDescLocaleID(nameof(options.RedoShortcut)), "Click the binding and press the complete key combination. Click Apply changes to save."},
+                {options.GetOptionDescLocaleID(nameof(options.RedoShortcut)), "Click and press a key combination, then Apply."},
                 {options.GetOptionLabelLocaleID(nameof(options.Guidance)), EditorToolsOptions.Help},
                 {options.GetOptionDescLocaleID(nameof(options.Guidance)), EditorToolsOptions.Help},
                 {options.GetOptionLabelLocaleID(nameof(options.ResetWindowPosition)), "Reset window position"},
@@ -135,31 +135,31 @@ namespace MW.EditorTools.Settings
             entries[options.GetBindingKeyLocaleID("Redo")]="Redo shortcut";
             entries[options.GetBindingMapLocaleID()]="MW Editor Tools";
             entries[options.GetOptionLabelLocaleID(nameof(options.ApplyChanges))] = "Apply changes";
-            entries[options.GetOptionDescLocaleID(nameof(options.ApplyChanges))] = "Validate, activate and save the edited history and shortcut options.";
-            entries[options.GetOptionGroupLocaleID("Browser")]="Browser category shortcuts";
-            entries[options.GetOptionLabelLocaleID(nameof(options.EnableBrowserShortcuts))]="Enable browser category shortcuts";
-            entries[options.GetOptionDescLocaleID(nameof(options.EnableBrowserShortcuts))]="Open the Asset Editor browser at the chosen category. Click Apply changes to save.";
+            entries[options.GetOptionDescLocaleID(nameof(options.ApplyChanges))] = "Save edited options.";
+            entries[options.GetOptionGroupLocaleID("Browser")]="Browser shortcuts";
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnableBrowserShortcuts))]="Enable browser shortcuts";
+            entries[options.GetOptionDescLocaleID(nameof(options.EnableBrowserShortcuts))]="Open browser categories using the shortcuts below.";
             entries[options.GetOptionLabelLocaleID(nameof(options.BrowserGuidance))]=options.BrowserGuidance;
             entries[options.GetOptionDescLocaleID(nameof(options.BrowserGuidance))]=options.BrowserGuidance;
             entries[options.GetOptionLabelLocaleID(nameof(options.ApplyBrowserChanges))]="Apply changes";
-            entries[options.GetOptionDescLocaleID(nameof(options.ApplyBrowserChanges))]="Activate and save all edited MW Editor Tools options.";
+            entries[options.GetOptionDescLocaleID(nameof(options.ApplyBrowserChanges))]="Save edited options.";
             entries[options.GetOptionLabelLocaleID(nameof(options.BuildingsShortcut))]="Buildings";
-            entries[options.GetOptionDescLocaleID(nameof(options.BuildingsShortcut))]="Open the browser and select Buildings. Click Apply changes to save.";
+            entries[options.GetOptionDescLocaleID(nameof(options.BuildingsShortcut))]="Open Buildings in the browser.";
             entries[options.GetBindingKeyLocaleID("BrowserBuildings")]="Browser: Buildings";
             entries[options.GetOptionLabelLocaleID(nameof(options.PropsShortcut))]="Props";
-            entries[options.GetOptionDescLocaleID(nameof(options.PropsShortcut))]="Open the browser and select Props. Click Apply changes to save.";
+            entries[options.GetOptionDescLocaleID(nameof(options.PropsShortcut))]="Open Props in the browser.";
             entries[options.GetBindingKeyLocaleID("BrowserProps")]="Browser: Props";
             entries[options.GetOptionLabelLocaleID(nameof(options.FoliageShortcut))]="Foliage";
-            entries[options.GetOptionDescLocaleID(nameof(options.FoliageShortcut))]="Open the browser and select Foliage. Click Apply changes to save.";
+            entries[options.GetOptionDescLocaleID(nameof(options.FoliageShortcut))]="Open Foliage in the browser.";
             entries[options.GetBindingKeyLocaleID("BrowserFoliage")]="Browser: Foliage";
             entries[options.GetOptionLabelLocaleID(nameof(options.AreasShortcut))]="Areas";
-            entries[options.GetOptionDescLocaleID(nameof(options.AreasShortcut))]="Open the browser and select Areas. Click Apply changes to save.";
+            entries[options.GetOptionDescLocaleID(nameof(options.AreasShortcut))]="Open Areas in the browser.";
             entries[options.GetBindingKeyLocaleID("BrowserAreas")]="Browser: Areas";
             entries[options.GetOptionLabelLocaleID(nameof(options.EffectsShortcut))]="Effects";
-            entries[options.GetOptionDescLocaleID(nameof(options.EffectsShortcut))]="Open the browser and select Effects. Click Apply changes to save.";
+            entries[options.GetOptionDescLocaleID(nameof(options.EffectsShortcut))]="Open Effects in the browser.";
             entries[options.GetBindingKeyLocaleID("BrowserEffects")]="Browser: Effects";
             entries[options.GetOptionLabelLocaleID(nameof(options.SurfacesShortcut))]="Surfaces";
-            entries[options.GetOptionDescLocaleID(nameof(options.SurfacesShortcut))]="Open the browser and select Surfaces. Click Apply changes to save.";
+            entries[options.GetOptionDescLocaleID(nameof(options.SurfacesShortcut))]="Open Surfaces in the browser.";
             entries[options.GetBindingKeyLocaleID("BrowserSurfaces")]="Browser: Surfaces";
             return entries;
         }

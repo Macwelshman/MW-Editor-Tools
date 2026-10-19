@@ -1,0 +1,14 @@
+Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=3d6b23ae-b281-44a6-a5f4-cbd5fd3d75e6
+METHOD Unity.Collections.NativeArray`1/Enumerator<T> Unity.Entities.DynamicBuffer`1::GetEnumerator()
+IL_0000: ldarg.0
+IL_0001: call Unity.Collections.NativeArray`1<T> Unity.Entities.DynamicBuffer`1<T>::AsNativeArray()
+IL_0006: stloc.0
+IL_0007: ldloca.s V_0
+IL_0009: newobj System.Void Unity.Collections.NativeArray`1/Enumerator<T>::.ctor(Unity.Collections.NativeArray`1<!0>&)
+IL_000e: ret
+METHOD System.Collections.IEnumerator Unity.Entities.DynamicBuffer`1::System.Collections.IEnumerable.GetEnumerator()
+IL_0000: newobj System.Void System.NotImplementedException::.ctor()
+IL_0005: throw
+METHOD System.Collections.Generic.IEnumerator`1<T> Unity.Entities.DynamicBuffer`1::System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+IL_0000: newobj System.Void System.NotImplementedException::.ctor()
+IL_0005: throw

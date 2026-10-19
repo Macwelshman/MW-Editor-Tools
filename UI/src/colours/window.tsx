@@ -66,7 +66,7 @@ function ColorSection({ title, children, initiallyExpanded = true }: React.Props
     </section>;
 }
 function InfoLines({ text, className = "" }: { text?: string; className?: string }) {
-    return <div className={"mwet-colors-info " + className}>{(text || "").replace(/([.!?])\s+(?=[A-Z])/g, "$1\n").split("\n").filter(Boolean).map((line, i) => <p key={i}>{line}</p>)}</div>;
+    return <div className={"mwet-colors-info " + className}>{(text || "").replace(/\bColor\b/g,"Colour").replace(/\bColors\b/g,"Colours").replace(/\bcolor\b/g,"colour").replace(/\bcolors\b/g,"colours").replace(/([.!?])\s+(?=[A-Z])/g, "$1\n").split("\n").filter(Boolean).map((line, i) => <p key={i}>{line}</p>)}</div>;
 }
 // Keep palette drafts when switching away from Colours or closing the tools window.
 let savedDraft: { revision?: number; pairs: string; channel2: string; append: boolean } | undefined;
@@ -119,11 +119,11 @@ export function ColourVariationsContent() {
             {s.changed && hasDraft ? <div className="mwet-colors-confirm" role="alert">
                 <p>There are uncommitted palette edits for {s.target}. Return to that item to keep editing, or discard them to use the newly selected item.</p>
                 <Button disabled={!!s.blockedReason} onSelect={() => { followed.current = s.selectionRevision; command("follow", { index: s.selectionRevision }); }}>Discard edits and follow selection</Button>
-            </div> : <p>Colours follow the selected item automatically.</p>}
+            </div> : null}
         </div>
         <div className="mwet-colors-body mwet-colors-fixed-controls">
             <div className="mwet-colors-body-inner">
-            <h3>Target mesh</h3>
+            {s.hasTarget&&<h3>Target mesh</h3>}
             {s.hasTarget && <p className="mwet-colors-target-name">{s.target || s.targets?.[s.targetIndex || 0]}</p>}
             {(s.targets || []).length > 1 && <label className="mwet-colors-target-choice">Choose mesh <select aria-label="Choose target mesh" value={s.targetIndex || 0} onChange={e => { const index = Number(e.currentTarget.value); if (hasDraft) setPendingMesh(index); else command("target", { index }); }}>{s.targets!.map((t,i) => <option key={i} value={i}>{t}</option>)}</select></label>}
             {pendingMesh !== null && <div className="mwet-colors-confirm" role="alert">
@@ -131,10 +131,10 @@ export function ColourVariationsContent() {
                 <Button disabled={blocked} onSelect={() => { command("target", { index: pendingMesh }); setPendingMesh(null); }}>Discard edits and switch mesh</Button>
                 <Button onSelect={() => setPendingMesh(null)}>Keep editing</Button>
             </div>}
-            {!s.hasTarget && <p>Select an object or render mesh in Object Info. Its colour settings will appear here.</p>}
+            {!s.hasTarget && <p>Select an object or mesh in Object Info.</p>}
             {s.hasTarget && <>
                 <h3>Copy Colour Properties</h3>
-                <p>{s.source ? "Copied from: " + s.source : "Copy the full colour setup for use on another asset."}</p>
+                <p>{s.source ? "Copied from: " + s.source : ""}</p>
                 <div className="mwet-colors-actions mwet-colors-copy-actions"><Button disabled={blocked || !s.hasColors} onSelect={() => command("copy")}>Copy colour settings</Button>
                     <Button disabled={blocked || !s.canPaste} onSelect={() => command("paste")}>Paste colour settings</Button></div>
                 {!s.hasColors && <p>Paste will add Colour Properties to this mesh.</p>}
@@ -166,12 +166,14 @@ export function ColourVariationsContent() {
                 {dirty && <InfoLines className="mwet-colors-status" text="Palette changed. Generate combinations before applying." />}
                 {s.readOnly && <InfoLines className="mwet-colors-status" text="This asset is read-only. Make an editable copy to apply changes." />}
             </>}
-            {!s.hasColors && <InfoLines className="mwet-colors-status" text={s.status} />}
+            {s.hasTarget&&!s.hasColors && <InfoLines className="mwet-colors-status" text={s.status} />}
             </div>
         </div>
         </div>
-        {footer}</div>;
+        {s.hasTarget&&footer}</div>;
 }
+
+
 
 
 

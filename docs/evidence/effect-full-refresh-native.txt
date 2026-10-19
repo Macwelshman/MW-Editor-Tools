@@ -1,0 +1,17 @@
+METHOD System.Void Game.Tools.ToolSystem::set_fullUpdateRequired(System.Boolean) public=False
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.Tools.ToolSystem::<fullUpdateRequired>k__BackingField
+IL_0007: ret
+METHOD System.Void Game.Tools.ToolSystem::RequireFullUpdate() public=True
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Tools.ToolSystem::m_IsUpdating
+IL_0006: brfalse.s IL_0010
+IL_0008: ldarg.0
+IL_0009: ldc.i4.1
+IL_000a: stfld System.Boolean Game.Tools.ToolSystem::m_FullUpdateRequired
+IL_000f: ret
+IL_0010: ldarg.0
+IL_0011: ldc.i4.1
+IL_0012: call System.Void Game.Tools.ToolSystem::set_fullUpdateRequired(System.Boolean)
+IL_0017: ret

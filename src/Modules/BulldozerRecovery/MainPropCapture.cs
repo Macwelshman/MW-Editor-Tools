@@ -11,21 +11,19 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             internal PrefabBase Prefab;
             internal Entity Original;
             internal MainPropData Data;
-            internal bool DetachedValid=>Prefab!=null&&Data!=null&&Data.Matches(Data.Clone());
+            internal NestedNode[] Group;
+            internal Dictionary<PrefabBase,Payload> References;
+            internal bool DetachedValid=>Prefab!=null&&Data!=null&&Data.Matches(Data.Clone())&&
+                (Group==null||(Group.All(n=>n.Prefab!=null&&n.Data.Matches(n.Data.Clone()))&&References!=null&&References.All(p=>NestedReferenceMatches(p.Key,p.Value))));
         }
         private MainPropImage mainImage;
-        private static readonly HashSet<string> MainKnownTypes=new HashSet<string>{
-            "Game.Prefabs.PrefabRef","Game.Rendering.CullingInfo","Game.Objects.Surface","Game.Common.PseudoRandomSeed","Game.Objects.Transform",
-            "Game.Rendering.MeshColor","Game.Rendering.MeshBatch","Game.Net.SubNet","Game.Objects.SubObject","Game.Areas.SubArea","Game.Rendering.CustomMeshColor",
-            "Game.Tools.Hidden","Game.Objects.Object","Game.Objects.ObjectGeometry","Game.Objects.Static","Unity.Entities.Simulate"
-        };
+        private static readonly HashSet<string> MainKnownTypes=PropComponentSchema.Known;
         private MainPropImage CaptureMainProp(Entity entity,bool log=true) {
             var em=world.EntityManager;
             if(!em.Exists(entity)||em.HasComponent<Game.Common.Owner>(entity)||em.HasComponent<Game.Common.Deleted>(entity)||em.HasComponent<Game.Tools.Temp>(entity)||
                 !em.HasComponent<Game.Objects.Static>(entity)||!em.HasComponent<Game.Objects.Transform>(entity)||!em.HasComponent<Game.Common.PseudoRandomSeed>(entity)||!em.HasComponent<Game.Objects.Surface>(entity)||!em.HasComponent<PrefabRef>(entity))throw new NotSupportedException("Not a simple standalone static prop.");
-            using(var types=em.GetComponentTypes(entity,Allocator.Temp))foreach(var type in types)if(!MainKnownTypes.Contains(type.GetManagedType()?.FullName??"unknown"))throw new NotSupportedException("Unhandled component: "+type.GetManagedType()?.FullName);
-            if((em.HasBuffer<Game.Objects.SubObject>(entity)&&em.GetBuffer<Game.Objects.SubObject>(entity,true).Length!=0)||
-                (em.HasBuffer<Game.Net.SubNet>(entity)&&em.GetBuffer<Game.Net.SubNet>(entity,true).Length!=0)||
+            using(var types=em.GetComponentTypes(entity,Allocator.Temp))foreach(var type in types)if(!MainKnownTypes.Contains(type.GetManagedType()?.FullName??"unknown")&&type.GetManagedType()?.FullName!="Game.Objects.Plant"&&type.GetManagedType()?.FullName!="Game.Objects.Tree"&&(type.GetManagedType()?.FullName!="Game.Simulation.UpdateFrame"||(!em.HasComponent<Game.Objects.Plant>(entity)&&!em.HasComponent<Game.Objects.Tree>(entity))))throw new NotSupportedException("Unhandled component: "+type.GetManagedType()?.FullName);
+            if((em.HasBuffer<Game.Net.SubNet>(entity)&&em.GetBuffer<Game.Net.SubNet>(entity,true).Length!=0)||
                 (em.HasBuffer<Game.Areas.SubArea>(entity)&&em.GetBuffer<Game.Areas.SubArea>(entity,true).Length!=0))throw new NotSupportedException("Prop has related objects, networks or areas.");
             var prefabs=world.GetExistingSystemManaged<PrefabSystem>();var reference=em.GetComponentData<PrefabRef>(entity);
             if(!em.HasComponent<ObjectData>(reference.m_Prefab))throw new NotSupportedException("Missing native object archetype.");
@@ -37,6 +35,12 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 if(colours.Length>256||custom.Length>256)throw new NotSupportedException("Colour buffer exceeds bounded test size.");
                 var image=new MainPropImage{Original=entity,Prefab=prefabs.GetPrefab<PrefabBase>(reference),
                     Data=new MainPropData(em.GetComponentData<Game.Objects.Transform>(entity),em.GetComponentData<Game.Common.PseudoRandomSeed>(entity),em.GetComponentData<Game.Objects.Surface>(entity),colours.IsCreated?colours.ToArray():null,custom.IsCreated?custom.ToArray():null)};
+                if(em.HasComponent<Game.Objects.Color>(entity)||em.HasComponent<Game.Objects.Decoration>(entity)||em.HasComponent<Game.Objects.Plant>(entity)||em.HasComponent<Game.Objects.Tree>(entity)||(em.HasBuffer<Game.Objects.SubObject>(entity)&&em.GetBuffer<Game.Objects.SubObject>(entity,true).Length>0)) {
+                    image.Group=CaptureNestedImage(entity,false,true);OrdinaryGroupSupported(image.Group);
+                    image.References=GroupReferences(image.Group).Distinct().ToDictionary(p=>p,Capture);
+                    if(image.References.Values.Sum(p=>p.Weight)>250000)throw new NotSupportedException("Standalone nested references exceed capture budget.");
+                }
+                if(image.Group==null&&em.HasBuffer<Game.Effects.EnabledEffect>(entity)&&em.GetBuffer<Game.Effects.EnabledEffect>(entity,true).Length>0)throw new NotSupportedException("Enabled effects require a typed vegetation/group snapshot.");
                 if(!image.DetachedValid)throw new NotSupportedException("Detached snapshot round trip failed.");
                 if(log)Mod.Log.Info("Main prop capture round trip verified; prefab="+image.Prefab.name+" seed="+em.GetComponentData<Game.Common.PseudoRandomSeed>(entity).m_Seed+" meshColours="+colours.Length+" customColours="+custom.Length+"; derived mesh batches and preview Hidden are not copied.");
                 return image;

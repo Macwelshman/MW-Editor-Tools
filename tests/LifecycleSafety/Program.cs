@@ -65,9 +65,12 @@ namespace MW.EditorTools.Modules.DeletionProtection {
     public class ComponentConfirmation {public void Initialize(Settings.EditorToolsSettings settings){}public void Release(){Probe.ConfirmationReleases++;}}
     public class ListRecovery {public bool OperationBusy=>false;public void ClearHistory(){}public void SetSaveBusy(Func<bool> value){}public void Initialize(Game.TestWorld world,Settings.EditorToolsSettings settings,Services.EditorContextService context){}public void Release(){Probe.RecoveryReleases++;}}
 }
-namespace MW.EditorTools.UI {public class EditorToolsUISystem {public void Initialize(Settings.EditorToolsSettings settings,Services.EditorContextService context,Modules.DeletionProtection.ListRecovery history,Modules.DeletionProtection.ComponentConfirmation protection){}public void ResetWindowPosition(){}public void Release(){Probe.UiReleases++;}}}
+namespace MW.EditorTools.UI {public class EditorToolsUISystem {public bool ClipboardShortcutAllowed=>true;public void Initialize(Settings.EditorToolsSettings settings,Services.EditorContextService context,Modules.DeletionProtection.ListRecovery history,Modules.DeletionProtection.ComponentConfirmation protection){}public void ResetWindowPosition(){}public void Release(){Probe.UiReleases++;}}}
 
 namespace MW.EditorTools.Modules.MultiSave {public class MultiSaveSystem {public bool Enabled;public bool IsBusy=>false;public Func<string> BlockReason;public void Release(){Probe.MultiSaveReleases++;}}}namespace MW.EditorTools.Modules.ColourVariations {
  public class MWUISystem {public bool Enabled;public void Release(){Probe.ColoursReleases++;}}
  public class PaletteWindow:UnityEngine.Object {public static PaletteWindow Instance;public bool enabled=true;public Func<string> BlockReason;public Action BeforeWrite;}
 }
+namespace MW.EditorTools.Modules.ComponentManager.Systems {public class ComponentToolSystem {public bool Enabled;public void Initialize(Action beforeWrite,Func<bool> allowWrite){}public void Release(){}}}
+namespace MW.EditorTools.Modules.PropReplacer {public class PropReplacerSystem {public bool Enabled;public void Initialize(MW.EditorTools.Services.EditorContextService context,Action beforeWrite,Func<bool> shortcutAllowed){}public void Release(){}}}
+

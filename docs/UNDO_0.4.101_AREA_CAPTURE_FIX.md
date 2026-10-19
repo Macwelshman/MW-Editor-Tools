@@ -1,0 +1,18 @@
+# Undo 0.4.101 — area/surface runtime schema corrections
+
+VERIFIED-RUNTIME: preserved docs/evidence/undo-0.4.100-runtime.log records bound area capture refusing Game.Effects.EnabledEffect, standalone area capture refusing Game.Net.SubLane, and standalone surface capture refusing Game.Areas.Batch. No area/surface capture completed in these attempts. Bound nested Carport recovery continued to complete, including retained descriptor reordering.
+
+VERIFIED-STATIC fixes:
+- Standalone area schema accepts native Batch rendering data without copying its allocator fields; native rendering initializes the new area. SubLane/SubNet buffers enter the existing bounded closed companion-graph capture, remapping, geometry/path/ownership and source-survival validation. Capture/readiness waits for original lane entities to disappear. Undo resolves referenced prefabs and compares the regenerated graph; seeds are restored only after complete graph preflight, followed by exact validation. External/ambiguous connected graphs remain unsupported.
+- Area prop companions may carry unchanged, nonanimated built-in effects. EnabledEffect snapshots keep sorted m_EffectIndex identities; native m_EnabledIndex allocation slots are never restored. Enabled state must match during companion checks and native restoration. Attached areas/networks/lanes/activity and animation data on prop companions remain refused.
+- Effect container classification now uses native EditorContainer.m_Prefab having EffectData, matching ApplyPrefabsSystem.ListObjectSubObjects IL_025f–IL_027e, instead of depending on managed prefab type checks. Existing effect companion geometry/reference checks remain.
+- Area target schema is logged before capture, and nested refusals identify their prefab/container status, so another unsupported schema can be identified from one attempt.
+
+VERIFIED-STATIC evidence: installed Game 0.0.0.0, MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef, unchanged SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A. Batch is IComponentData/IEmptySerializable with native allocation/index fields. SubLane is IBufferElementData/IEmptySerializable containing an entity and PathMethod. EnabledEffect is IBufferElementData/IEmptySerializable. CompleteEnabledSystem.EffectCleanupJob.Execute writes m_EnabledIndex at IL_00ec; EffectControlSystem.EnabledActionJob.Enable writes m_EffectIndex at IL_01a1 and m_EnabledIndex at IL_01a9. Runtime allocation indices must remain owned by native systems.
+
+VERIFIED-STATIC checks: clean Release build, production UI and TypeScript; 409 relevant managed assertions pass (Phase3Safety 183, BulldozerSafety 39, NestedRecoveryRunner 132, StandaloneNestedSafety 23, LastPropHistory 12, LifecycleSafety 20). Six new effect-image tests cover allocation-index exclusion, buffer ordering, identity changes, detachment, empty buffers, null and size refusals. Existing companion graph tests cover remapped ownership/path nodes, source orphans, geometry/reference differences and seeds. Compiled native collection audit passes.
+
+UNPROVEN: 0.4.101 native area/surface recovery and native lane/effect regeneration. This corrects observed capture refusals; it does not assert successful in-game restoration. No computer use or game/asset files edited. Package prepared; installation deferred while Cities2 runs. Keep one-step Ctrl+Z workflow and existing bound/unbound mode instructions.
+
+VERIFIED-STATIC installation: 0.4.101 installed after Cities2 exit checks; five package hashes and all rollback hashes verified. See docs/evidence/recovery-0.4.101-installed-hashes.csv. Native recovery acceptance pending.
+

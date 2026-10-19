@@ -1,0 +1,292 @@
+TYPE Game.Rendering.PreCullingSystem
+Game.Common.BoundsMask Game.Rendering.PreCullingSystem::get_visibleMask()
+Game.Common.BoundsMask Game.Rendering.PreCullingSystem::get_becameVisible()
+Game.Common.BoundsMask Game.Rendering.PreCullingSystem::get_becameHidden()
+System.Void Game.Rendering.PreCullingSystem::PostDeserialize(Colossal.Serialization.Entities.Context)
+System.Void Game.Rendering.PreCullingSystem::ResetCulling()
+Unity.Entities.Entity Game.Rendering.PreCullingSystem::GetFadeContainer()
+Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::GetCullingData(System.Boolean,Unity.Jobs.JobHandle&)
+Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::GetUpdatedData(System.Boolean,Unity.Jobs.JobHandle&)
+System.Void Game.Rendering.PreCullingSystem::AddCullingDataReader(Unity.Jobs.JobHandle)
+System.Void Game.Rendering.PreCullingSystem::AddCullingDataWriter(Unity.Jobs.JobHandle)
+System.Void Game.Rendering.PreCullingSystem::.ctor()
+METHOD Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::GetUpdatedData(System.Boolean,Unity.Jobs.JobHandle&)
+IL_0000: ldarg.2
+IL_0001: ldarg.1
+IL_0002: brtrue.s IL_0017
+IL_0004: ldarg.0
+IL_0005: ldfld Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_WriteDependencies
+IL_000a: ldarg.0
+IL_000b: ldfld Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_ReadDependencies
+IL_0010: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_0015: br.s IL_001d
+IL_0017: ldarg.0
+IL_0018: ldfld Unity.Jobs.JobHandle Game.Rendering.PreCullingSystem::m_WriteDependencies
+IL_001d: stobj Unity.Jobs.JobHandle
+IL_0022: ldarg.0
+IL_0023: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::m_UpdatedData
+IL_0028: ret
+TYPE Game.Rendering.RenderingSystem
+System.UInt32 Game.Rendering.RenderingSystem::get_frameIndex()
+System.Single Game.Rendering.RenderingSystem::get_frameTime()
+System.Single Game.Rendering.RenderingSystem::get_frameDelta()
+System.Single Game.Rendering.RenderingSystem::get_frameLod()
+System.Single Game.Rendering.RenderingSystem::get_timeOfDay()
+System.Int32 Game.Rendering.RenderingSystem::get_lodTimerDelta()
+System.Single Game.Rendering.RenderingSystem::get_frameOffset()
+System.Void Game.Rendering.RenderingSystem::set_frameOffset(System.Single)
+System.Boolean Game.Rendering.RenderingSystem::get_hideOverlay()
+System.Void Game.Rendering.RenderingSystem::set_hideOverlay(System.Boolean)
+System.Boolean Game.Rendering.RenderingSystem::get_unspawnedVisible()
+System.Void Game.Rendering.RenderingSystem::set_unspawnedVisible(System.Boolean)
+System.Boolean Game.Rendering.RenderingSystem::get_markersVisible()
+System.Void Game.Rendering.RenderingSystem::set_markersVisible(System.Boolean)
+System.Single Game.Rendering.RenderingSystem::get_levelOfDetail()
+System.Void Game.Rendering.RenderingSystem::set_levelOfDetail(System.Single)
+System.Int32 Game.Rendering.RenderingSystem::get_shadowBias()
+System.Void Game.Rendering.RenderingSystem::set_shadowBias(System.Int32)
+System.Boolean Game.Rendering.RenderingSystem::get_lodCrossFade()
+System.Void Game.Rendering.RenderingSystem::set_lodCrossFade(System.Boolean)
+System.Int32 Game.Rendering.RenderingSystem::get_maxLightCount()
+System.Void Game.Rendering.RenderingSystem::set_maxLightCount(System.Int32)
+System.Boolean Game.Rendering.RenderingSystem::get_debugCrossFade()
+System.Void Game.Rendering.RenderingSystem::set_debugCrossFade(System.Boolean)
+System.Boolean Game.Rendering.RenderingSystem::get_disableLodModels()
+System.Void Game.Rendering.RenderingSystem::set_disableLodModels(System.Boolean)
+Unity.Mathematics.float4 Game.Rendering.RenderingSystem::get_editorBuildingStateOverride()
+System.Void Game.Rendering.RenderingSystem::set_editorBuildingStateOverride(Unity.Mathematics.float4)
+System.Single Game.Rendering.RenderingSystem::get_loadingProgress()
+System.Boolean Game.Rendering.RenderingSystem::get_motionVectors()
+System.Collections.Generic.IReadOnlyDictionary`2<UnityEngine.Shader,System.Boolean> Game.Rendering.RenderingSystem::get_enabledShaders()
+System.Void Game.Rendering.RenderingSystem::PrepareRendering()
+System.Boolean Game.Rendering.RenderingSystem::IsShaderEnabled(UnityEngine.Shader)
+System.Void Game.Rendering.RenderingSystem::SetShaderEnabled(UnityEngine.Shader,System.Boolean)
+System.Void Game.Rendering.RenderingSystem::PostDeserialize(Colossal.Serialization.Entities.Context)
+Unity.Mathematics.float3 Game.Rendering.RenderingSystem::GetShadowCullingData()
+System.Void Game.Rendering.RenderingSystem::.ctor()
+METHOD System.Void Game.Rendering.RenderingSystem::UpdateLoadingProgress()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Rendering.BatchMeshSystem Game.Rendering.RenderingSystem::m_BatchMeshSystem
+IL_0006: callvirt System.Int32 Game.Rendering.BatchMeshSystem::get_loadingRemaining()
+IL_000b: stloc.0
+IL_000c: ldarg.0
+IL_000d: call System.Single Game.Rendering.RenderingSystem::get_frameLod()
+IL_0012: ldarg.0
+IL_0013: call System.Single Game.Rendering.RenderingSystem::get_levelOfDetail()
+IL_0018: bge.un.s IL_0043
+IL_001a: ldc.i4.1
+IL_001b: ldloc.0
+IL_001c: conv.r4
+IL_001d: ldarg.0
+IL_001e: call System.Single Game.Rendering.RenderingSystem::get_levelOfDetail()
+IL_0023: mul
+IL_0024: ldarg.0
+IL_0025: call System.Single Game.Rendering.RenderingSystem::get_frameLod()
+IL_002a: ldarg.0
+IL_002b: call System.Single Game.Rendering.RenderingSystem::get_levelOfDetail()
+IL_0030: ldc.r4 0.01
+IL_0035: mul
+IL_0036: call System.Single Unity.Mathematics.math::max(System.Single,System.Single)
+IL_003b: div
+IL_003c: conv.i4
+IL_003d: call System.Int32 Unity.Mathematics.math::max(System.Int32,System.Int32)
+IL_0042: stloc.0
+IL_0043: ldarg.0
+IL_0044: ldloc.0
+IL_0045: ldarg.0
+IL_0046: ldfld System.Int32 Game.Rendering.RenderingSystem::m_TotalLoadingCount
+IL_004b: call System.Int32 Unity.Mathematics.math::max(System.Int32,System.Int32)
+IL_0050: stfld System.Int32 Game.Rendering.RenderingSystem::m_TotalLoadingCount
+IL_0055: ldloc.0
+IL_0056: ldc.i4.0
+IL_0057: ble.s IL_0080
+IL_0059: ldarg.0
+IL_005a: ldarg.0
+IL_005b: ldfld System.Int32 Game.Rendering.RenderingSystem::m_TotalLoadingCount
+IL_0060: ldloc.0
+IL_0061: sub
+IL_0062: conv.r4
+IL_0063: ldarg.0
+IL_0064: ldfld System.Int32 Game.Rendering.RenderingSystem::m_TotalLoadingCount
+IL_0069: conv.r4
+IL_006a: div
+IL_006b: ldc.r4 0
+IL_0070: ldc.r4 0.99999
+IL_0075: call System.Single Unity.Mathematics.math::clamp(System.Single,System.Single,System.Single)
+IL_007a: call System.Void Game.Rendering.RenderingSystem::set_loadingProgress(System.Single)
+IL_007f: ret
+IL_0080: ldarg.0
+IL_0081: ldc.r4 1
+IL_0086: call System.Void Game.Rendering.RenderingSystem::set_loadingProgress(System.Single)
+IL_008b: ldarg.0
+IL_008c: ldc.i4.0
+IL_008d: stfld System.Boolean Game.Rendering.RenderingSystem::m_IsLoading
+IL_0092: ret
+TYPE Game.Effects.EffectControlSystem
+System.Void Game.Effects.EffectControlSystem::PostDeserialize(Colossal.Serialization.Entities.Context)
+Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem::GetEnabledData(System.Boolean,Unity.Jobs.JobHandle&)
+System.Void Game.Effects.EffectControlSystem::AddEnabledDataReader(Unity.Jobs.JobHandle)
+System.Void Game.Effects.EffectControlSystem::AddEnabledDataWriter(Unity.Jobs.JobHandle)
+System.Void Game.Effects.EffectControlSystem::GetLodParameters(Unity.Mathematics.float4&,Unity.Mathematics.float3&,Unity.Mathematics.float3&)
+System.Void Game.Effects.EffectControlSystem::.ctor()
+METHOD System.Void Game.Rendering.EffectTransformSystem/EffectTransformJob::Execute(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_EnabledData
+IL_0006: ldarg.1
+IL_0007: call !0& Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::ElementAt(System.Int32)
+IL_000c: stloc.0
+IL_000d: ldloc.0
+IL_000e: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0013: ldc.i4.1
+IL_0014: and
+IL_0015: brfalse.s IL_0025
+IL_0017: ldloc.0
+IL_0018: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_001d: ldc.i4 5122
+IL_0022: and
+IL_0023: brtrue.s IL_0026
+IL_0025: ret
+IL_0026: ldarg.0
+IL_0027: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_Prefabs
+IL_002c: ldloc.0
+IL_002d: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Owner
+IL_0032: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0037: stloc.1
+IL_0038: ldarg.0
+IL_0039: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_EffectDatas
+IL_003e: ldloc.0
+IL_003f: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Prefab
+IL_0044: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData>::get_Item(Unity.Entities.Entity)
+IL_0049: stloc.2
+IL_004a: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_004f: stloc.3
+IL_0050: ldloc.0
+IL_0051: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0056: ldc.i4 128
+IL_005b: and
+IL_005c: brfalse IL_01ab
+IL_0061: ldarg.0
+IL_0062: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_EditorContainerData
+IL_0067: ldloc.0
+IL_0068: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Owner
+IL_006d: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::get_Item(Unity.Entities.Entity)
+IL_0072: stloc.s V_10
+IL_0074: ldloca.s V_4
+IL_0076: initobj Game.Prefabs.Effect
+IL_007c: ldloca.s V_4
+IL_007e: ldloc.s V_10
+IL_0080: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0085: stfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_008a: ldloca.s V_4
+IL_008c: ldloc.s V_10
+IL_008e: ldfld Unity.Mathematics.float3 Game.Tools.EditorContainer::m_Scale
+IL_0093: stfld Unity.Mathematics.float3 Game.Prefabs.Effect::m_Scale
+IL_0098: ldloca.s V_4
+IL_009a: ldloc.s V_10
+IL_009c: ldfld System.Single Game.Tools.EditorContainer::m_Intensity
+IL_00a1: stfld System.Single Game.Prefabs.Effect::m_Intensity
+IL_00a6: ldloca.s V_4
+IL_00a8: ldloc.s V_10
+IL_00aa: ldfld System.Int32 Game.Tools.EditorContainer::m_GroupIndex
+IL_00af: stfld System.Int32 Game.Prefabs.Effect::m_AnimationIndex
+IL_00b4: ldloca.s V_4
+IL_00b6: ldsfld Unity.Mathematics.quaternion Unity.Mathematics.quaternion::identity
+IL_00bb: stfld Unity.Mathematics.quaternion Game.Prefabs.Effect::m_Rotation
+IL_00c0: ldloca.s V_4
+IL_00c2: ldc.i4.m1
+IL_00c3: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Implicit(System.Int32)
+IL_00c8: stfld Unity.Mathematics.int2 Game.Prefabs.Effect::m_BoneIndex
+IL_00cd: ldarg.0
+IL_00ce: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_OwnerData
+IL_00d3: ldloc.0
+IL_00d4: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Owner
+IL_00d9: ldloca.s V_11
+IL_00db: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_00e0: brfalse IL_01cd
+IL_00e5: ldloc.s V_11
+IL_00e7: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_00ec: stloc.3
+IL_00ed: ldloc.3
+IL_00ee: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00f3: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00f8: brfalse IL_01cd
+IL_00fd: ldarg.0
+IL_00fe: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_Prefabs
+IL_0103: ldloc.3
+IL_0104: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::HasComponent(Unity.Entities.Entity)
+IL_0109: brfalse IL_01cd
+IL_010e: ldarg.0
+IL_010f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_Prefabs
+IL_0114: ldloc.3
+IL_0115: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_011a: stloc.1
+IL_011b: ldarg.0
+IL_011c: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_Effects
+IL_0121: ldloc.1
+IL_0122: call Unity.Entities.Entity Game.Prefabs.PrefabRef::op_Implicit(Game.Prefabs.PrefabRef)
+IL_0127: ldloca.s V_12
+IL_0129: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.Effect>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_012e: brfalse IL_01cd
+IL_0133: ldc.i4.0
+IL_0134: stloc.s V_13
+IL_0136: br.s IL_019e
+IL_0138: ldloca.s V_12
+IL_013a: ldloc.s V_13
+IL_013c: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Item(System.Int32)
+IL_0141: stloc.s V_14
+IL_0143: ldloc.s V_14
+IL_0145: ldfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_014a: ldfld System.Int32 Unity.Entities.Entity::Index
+IL_014f: ldloc.s V_10
+IL_0151: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0156: ldfld System.Int32 Unity.Entities.Entity::Index
+IL_015b: bne.un.s IL_0198
+IL_015d: ldloca.s V_4
+IL_015f: ldloc.s V_14
+IL_0161: ldfld Unity.Mathematics.int2 Game.Prefabs.Effect::m_BoneIndex
+IL_0166: stfld Unity.Mathematics.int2 Game.Prefabs.Effect::m_BoneIndex
+IL_016b: ldloc.s V_14
+IL_016d: ldfld Unity.Mathematics.int2 Game.Prefabs.Effect::m_BoneIndex
+IL_0172: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0177: ldc.i4.0
+IL_0178: blt.s IL_01cd
+IL_017a: ldloca.s V_4
+IL_017c: ldloc.s V_14
+IL_017e: ldfld Unity.Mathematics.float3 Game.Prefabs.Effect::m_Position
+IL_0183: stfld Unity.Mathematics.float3 Game.Prefabs.Effect::m_Position
+IL_0188: ldloca.s V_4
+IL_018a: ldloc.s V_14
+IL_018c: ldfld Unity.Mathematics.quaternion Game.Prefabs.Effect::m_Rotation
+IL_0191: stfld Unity.Mathematics.quaternion Game.Prefabs.Effect::m_Rotation
+IL_0196: br.s IL_01cd
+IL_0198: ldloc.s V_13
+IL_019a: ldc.i4.1
+IL_019b: add
+IL_019c: stloc.s V_13
+IL_019e: ldloc.s V_13
+IL_01a0: ldloca.s V_12
+IL_01a2: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Length()
+IL_01a7: blt.s IL_0138
+IL_01a9: br.s IL_01cd
+IL_01ab: ldarg.0
+IL_01ac: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_Effects
+IL_01b1: ldloc.1
+IL_01b2: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_01b7: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Prefabs.Effect>::get_Item(Unity.Entities.Entity)
+IL_01bc: stloc.s V_15
+IL_01be: ldloca.s V_15
+IL_01c0: ldloc.0
+IL_01c1: ldfld System.Int32 Game.Effects.EnabledEffectData::m_EffectIndex
+IL_01c6: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Item(System.Int32)
+IL_01cb: stloc.s V_4
+IL_01cd: ldloc.0
+IL_01ce: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Owner
+IL_01d3: stloc.s V_5
+IL_01d5: ldloc.0
+IL_01d6: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_01db: ldc.i4 512
+IL_01e0: and
+IL_01e1: brfalse.s IL_0210
+IL_01e3: ldarg.0
+IL_01e4: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.EffectTransformSystem/EffectTransformJob::m_TempData
+IL_01e9: ldloc.s V_5

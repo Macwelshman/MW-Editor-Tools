@@ -14,6 +14,8 @@ namespace MW.EditorTools
         private MW.EditorTools.Modules.MultiSave.MultiSaveSystem multiSave;
         private MW.EditorTools.Modules.ColourVariations.MWUISystem colours;
         private MW.EditorTools.Modules.ColourVariations.PaletteWindow colourWindow;
+        private MW.EditorTools.Modules.ComponentManager.Systems.ComponentToolSystem componentTool;
+        private MW.EditorTools.Modules.PropReplacer.PropReplacerSystem propReplacer;
         private MW.EditorTools.Settings.EditorToolsOptions options;
         private MW.EditorTools.Settings.OptionsLocale optionsLocale;
         // The game's ModInfo.Load uses GetUninitializedObject: field initializers
@@ -39,6 +41,22 @@ namespace MW.EditorTools
                 ui = updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.UI.EditorToolsUISystem>();
                 ui.Initialize(settings, context, host.GetComponent<ListRecovery>(), protection);
                 updateSystem.UpdateAt<MW.EditorTools.UI.EditorToolsUISystem>(SystemUpdatePhase.UIUpdate);
+                try {
+                    propReplacer=updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.PropReplacer.PropReplacerSystem>();
+                    propReplacer.Initialize(context,()=>host?.GetComponent<ListRecovery>()?.ClearHistory(),()=>ui?.ClipboardShortcutAllowed==true);
+                    updateSystem.UpdateAt<MW.EditorTools.Modules.PropReplacer.PropReplacerSystem>(SystemUpdatePhase.UIUpdate);
+                } catch(Exception error){if(propReplacer!=null)propReplacer.Enabled=false;propReplacer=null;Log.Error(error,"Prop Replacer unavailable; other editor tools remain active.");}
+                try {
+                    componentTool = updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.ComponentManager.Systems.ComponentToolSystem>();
+                    componentTool.Initialize(()=>host?.GetComponent<ListRecovery>()?.ClearHistory(),()=>ui?.ClipboardShortcutAllowed==true);
+                    componentTool.Enabled = true;
+                    updateSystem.UpdateAt<MW.EditorTools.Modules.ComponentManager.Systems.ComponentToolSystem>(SystemUpdatePhase.UIUpdate);
+                    Log.Info("MW Editor Tools: component transfer engine integrated in the shared Components tab.");
+                } catch(Exception error) {
+                    if(componentTool!=null) componentTool.Enabled=false;
+                    componentTool=null;
+                    Log.Error(error,"Component transfer unavailable; other editor tools remain active.");
+                }
                 try {
                     multiSave = updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.MultiSave.MultiSaveSystem>();
                     multiSave.BlockReason = () => context.DialogBusy ? "Close the open editor dialog before saving." :
@@ -102,6 +120,10 @@ namespace MW.EditorTools
             Cleanup(()=>{if(oldColourWindow!=null){oldColourWindow.BlockReason=null;oldColourWindow.BeforeWrite=null;oldColourWindow.enabled=false;}},"Colours controller");
             var oldMultiSave = multiSave; multiSave = null;
             Cleanup(() => { if(oldMultiSave!=null){oldMultiSave.Enabled=false;oldMultiSave.BlockReason=null;oldMultiSave.Release();} }, "Multi-Save");
+            var oldComponentTool=componentTool;componentTool=null;
+            Cleanup(()=>{if(oldComponentTool!=null){oldComponentTool.Enabled=false;oldComponentTool.Release();}},"Component transfer");
+            var oldPropReplacer=propReplacer;propReplacer=null;
+            Cleanup(()=>oldPropReplacer?.Release(),"Prop Replacer");
             var oldUi = ui; ui = null;
             Cleanup(() => oldUi?.Release(), "shared UI");
             var oldHost = host; host = null;

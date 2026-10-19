@@ -32,6 +32,7 @@ namespace MW.EditorTools.History
             try { return Equal(root, Take(value).root); }
             catch { return false; }
         }
+        public bool MatchesNativeGeometry(object value) {try{return Equal(root,Take(value).root,true);}catch{return false;}}
         public bool ReferencesValid => Valid(root);
 
         private static Node Capture(object value, ref int budget, int depth)
@@ -99,15 +100,16 @@ namespace MW.EditorTools.History
             return result;
         }
 
-        private static bool Equal(Node a, Node b)
+        private static bool Equal(Node a, Node b,bool nativeGeometry=false)
         {
             if (a.Type != b.Type) return false;
             if (a.Type == null) return true;
             if (a.Scalar is PrefabBase || b.Scalar is PrefabBase) return ReferenceEquals(a.Scalar, b.Scalar);
+            if(nativeGeometry&&a.Scalar is float x&&b.Scalar is float y)return !float.IsNaN(x)&&!float.IsInfinity(x)&&!float.IsNaN(y)&&!float.IsInfinity(y)&&Math.Abs(x-y)<.0001f;
             if (a.Scalar != null || b.Scalar != null) return Equals(a.Scalar, b.Scalar);
             if (a.Keys != null || b.Keys != null)
                 return a.Keys != null && b.Keys != null && a.Pre == b.Pre && a.Post == b.Post && a.Keys.SequenceEqual(b.Keys);
-            return a.Children.Length == b.Children.Length && a.Children.Zip(b.Children, Equal).All(v => v);
+            return a.Children.Length == b.Children.Length && a.Children.Zip(b.Children,(x,y)=>Equal(x,y,nativeGeometry)).All(v => v);
         }
         private static bool Valid(Node node)
         {

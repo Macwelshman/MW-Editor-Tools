@@ -71,7 +71,7 @@ namespace MW.EditorTools.Modules.DeletionProtection {
             showingOwnDialog=true;
             try{
                 ui.ShowConfirmationDialog(new ConfirmationDialog(LocalizedString.Value("MW Editor Tools"),
-                    LocalizedString.Value("Clear all "+storage.Count+" entries from "+component.GetType().Name+" / "+member.Name+" on "+root.name+"?\n\nThis clears the entire list, including entries hidden by search or pagination. MW Editor Tools cannot undo this action."),
+                    LocalizedString.Value("Clear all "+storage.Count+" entries from "+component.GetType().Name+" / "+member.Name+" on "+root.name+"?\n\nThis clears the entire list, including entries hidden by search or pagination. Undo is available only if this Clear is recorded in History."),
                     LocalizedString.Value("Clear all"),LocalizedString.Value("Cancel"),new LocalizedString[0]),
                     action=>answers.Enqueue(new Answer{Token=token,Action=action}));
             }finally{showingOwnDialog=false;}

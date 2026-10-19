@@ -1,0 +1,1995 @@
+TYPE Game.Effects.EffectControlSystem
+METHOD System.Void Game.Effects.EffectControlSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: call System.Boolean Game.Effects.EffectControlSystem::GetLoaded()
+IL_0006: dup
+IL_0007: brtrue.s IL_0011
+IL_0009: ldarg.0
+IL_000a: ldfld Unity.Entities.EntityQuery Game.Effects.EffectControlSystem::m_UpdatedEffectsQuery
+IL_000f: br.s IL_0017
+IL_0011: ldarg.0
+IL_0012: ldfld Unity.Entities.EntityQuery Game.Effects.EffectControlSystem::m_AllEffectsQuery
+IL_0017: stloc.0
+IL_0018: ldarg.0
+IL_0019: ldflda Game.Effects.EffectControlData Game.Effects.EffectControlSystem::m_EffectControlData
+IL_001e: ldarg.0
+IL_001f: ldarg.0
+IL_0020: ldfld Game.Effects.EffectFlagSystem Game.Effects.EffectControlSystem::m_EffectFlagSystem
+IL_0025: callvirt Game.Effects.EffectFlagSystem/EffectFlagData Game.Effects.EffectFlagSystem::GetData()
+IL_002a: ldarg.0
+IL_002b: ldfld Game.Simulation.SimulationSystem Game.Effects.EffectControlSystem::m_SimulationSystem
+IL_0030: callvirt System.UInt32 Game.Simulation.SimulationSystem::get_frameIndex()
+IL_0035: ldarg.0
+IL_0036: ldfld Game.Tools.ToolSystem Game.Effects.EffectControlSystem::m_ToolSystem
+IL_003b: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0040: call System.Void Game.Effects.EffectControlData::Update(Unity.Entities.SystemBase,Game.Effects.EffectFlagSystem/EffectFlagData,System.UInt32,Unity.Entities.Entity)
+IL_0045: ldarg.0
+IL_0046: ldflda Unity.Jobs.JobHandle Game.Effects.EffectControlSystem::m_EnabledWriteDependencies
+IL_004b: call System.Void Unity.Jobs.JobHandle::Complete()
+IL_0050: ldarg.0
+IL_0051: ldflda Unity.Jobs.JobHandle Game.Effects.EffectControlSystem::m_EnabledReadDependencies
+IL_0056: call System.Void Unity.Jobs.JobHandle::Complete()
+IL_005b: ldarg.0
+IL_005c: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem::m_EnabledData
+IL_0061: call System.Int32 Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::get_Length()
+IL_0066: stloc.1
+IL_0067: ldloca.s V_2
+IL_0069: ldc.i4.3
+IL_006a: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_006f: call System.Void Colossal.Collections.NativeParallelQueue`1<Game.Effects.EffectControlSystem/EnabledAction>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0074: ldloca.s V_3
+IL_0076: ldc.i4.3
+IL_0077: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_007c: call System.Void Unity.Collections.NativeQueue`1<Game.Effects.EffectControlSystem/OverflowAction>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0081: ldloca.s V_4
+IL_0083: ldloc.1
+IL_0084: ldc.i4.3
+IL_0085: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_008a: call System.Void Unity.Collections.NativeReference`1<System.Int32>::.ctor(!0,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_008f: ldarg.0
+IL_0090: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraPosition
+IL_0095: stloc.s V_5
+IL_0097: ldarg.0
+IL_0098: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraDirection
+IL_009d: stloc.s V_6
+IL_009f: ldarg.0
+IL_00a0: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem::m_PrevLodParameters
+IL_00a5: stloc.s V_7
+IL_00a7: ldarg.0
+IL_00a8: ldfld Game.Rendering.CameraUpdateSystem Game.Effects.EffectControlSystem::m_CameraUpdateSystem
+IL_00ad: ldloca.s V_8
+IL_00af: callvirt System.Boolean Game.Rendering.CameraUpdateSystem::TryGetLODParameters(UnityEngine.Rendering.LODParameters&)
+IL_00b4: brfalse.s IL_0104
+IL_00b6: ldloca.s V_8
+IL_00b8: call UnityEngine.Vector3 UnityEngine.Rendering.LODParameters::get_cameraPosition()
+IL_00bd: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Implicit(UnityEngine.Vector3)
+IL_00c2: stloc.s V_5
+IL_00c4: ldarg.0
+IL_00c5: ldfld Game.Rendering.CameraUpdateSystem Game.Effects.EffectControlSystem::m_CameraUpdateSystem
+IL_00ca: callvirt Game.Rendering.IGameCameraController Game.Rendering.CameraUpdateSystem::get_activeCameraController()
+IL_00cf: stloc.s V_14
+IL_00d1: ldarg.0
+IL_00d2: ldfld Game.Rendering.BatchDataSystem Game.Effects.EffectControlSystem::m_BatchDataSystem
+IL_00d7: ldarg.0
+IL_00d8: ldfld Game.Rendering.RenderingSystem Game.Effects.EffectControlSystem::m_RenderingSystem
+IL_00dd: callvirt System.Single Game.Rendering.RenderingSystem::get_frameLod()
+IL_00e2: ldloc.s V_14
+IL_00e4: callvirt System.Single Game.Rendering.BatchDataSystem::GetLevelOfDetail(System.Single,Game.Rendering.IGameCameraController)
+IL_00e9: ldloc.s V_8
+IL_00eb: call Unity.Mathematics.float4 Game.Rendering.RenderingUtils::CalculateLodParameters(System.Single,UnityEngine.Rendering.LODParameters)
+IL_00f0: stloc.s V_7
+IL_00f2: ldarg.0
+IL_00f3: ldfld Game.Rendering.CameraUpdateSystem Game.Effects.EffectControlSystem::m_CameraUpdateSystem
+IL_00f8: callvirt Game.Rendering.Viewer Game.Rendering.CameraUpdateSystem::get_activeViewer()
+IL_00fd: callvirt Unity.Mathematics.float3 Game.Rendering.Viewer::get_forward()
+IL_0102: stloc.s V_6
+IL_0104: ldarg.0
+IL_0105: ldfld System.Boolean Game.Effects.EffectControlSystem::m_ResetPrevious
+IL_010a: brfalse.s IL_0124
+IL_010c: ldarg.0
+IL_010d: ldloc.s V_5
+IL_010f: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraPosition
+IL_0114: ldarg.0
+IL_0115: ldloc.s V_6
+IL_0117: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraDirection
+IL_011c: ldarg.0
+IL_011d: ldloc.s V_7
+IL_011f: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem::m_PrevLodParameters
+IL_0124: ldloca.s V_15
+IL_0126: initobj Game.Effects.EffectControlSystem/EffectControlJob
+IL_012c: ldloca.s V_15
+IL_012e: ldarg.0
+IL_012f: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0134: ldflda Unity.Entities.EntityTypeHandle Game.Effects.EffectControlSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_0139: ldarg.0
+IL_013a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_013f: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_0144: stfld Unity.Entities.EntityTypeHandle Game.Effects.EffectControlSystem/EffectControlJob::m_EntityType
+IL_0149: ldloca.s V_15
+IL_014b: ldarg.0
+IL_014c: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0151: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Effects.EffectControlSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentTypeHandle
+IL_0156: ldarg.0
+IL_0157: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_015c: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0161: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Effects.EffectControlSystem/EffectControlJob::m_DeletedType
+IL_0166: ldloca.s V_15
+IL_0168: ldarg.0
+IL_0169: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_016e: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Effects.EffectControlSystem/TypeHandle::__Game_Rendering_CullingInfo_RO_ComponentTypeHandle
+IL_0173: ldarg.0
+IL_0174: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0179: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Rendering.CullingInfo>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_017e: stfld Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Effects.EffectControlSystem/EffectControlJob::m_CullingInfoType
+IL_0183: ldloca.s V_15
+IL_0185: ldarg.0
+IL_0186: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_018b: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Effects.EffectControlSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_0190: ldarg.0
+IL_0191: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0196: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_019b: stfld Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Effects.EffectControlSystem/EffectControlJob::m_TempType
+IL_01a0: ldloca.s V_15
+IL_01a2: ldarg.0
+IL_01a3: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_01a8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/TypeHandle::__Game_Tools_EditorContainer_RO_ComponentTypeHandle
+IL_01ad: ldarg.0
+IL_01ae: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01b3: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.EditorContainer>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_01b8: stfld Unity.Entities.ComponentTypeHandle`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/EffectControlJob::m_EditorContainerType
+IL_01bd: ldloca.s V_15
+IL_01bf: ldarg.0
+IL_01c0: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_01c5: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Object> Game.Effects.EffectControlSystem/TypeHandle::__Game_Objects_Object_RO_ComponentTypeHandle
+IL_01ca: ldarg.0
+IL_01cb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01d0: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Object>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_01d5: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Object> Game.Effects.EffectControlSystem/EffectControlJob::m_ObjectType
+IL_01da: ldloca.s V_15
+IL_01dc: ldarg.0
+IL_01dd: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_01e2: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Static> Game.Effects.EffectControlSystem/TypeHandle::__Game_Objects_Static_RO_ComponentTypeHandle
+IL_01e7: ldarg.0
+IL_01e8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01ed: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Static>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_01f2: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Static> Game.Effects.EffectControlSystem/EffectControlJob::m_StaticType
+IL_01f7: ldloca.s V_15
+IL_01f9: ldarg.0
+IL_01fa: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_01ff: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Effects.EffectControlSystem/TypeHandle::__Game_Objects_Transform_RO_ComponentTypeHandle
+IL_0204: ldarg.0
+IL_0205: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_020a: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_020f: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Effects.EffectControlSystem/EffectControlJob::m_TransformType
+IL_0214: ldloca.s V_15
+IL_0216: ldarg.0
+IL_0217: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_021c: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Events.Event> Game.Effects.EffectControlSystem/TypeHandle::__Game_Events_Event_RO_ComponentTypeHandle
+IL_0221: ldarg.0
+IL_0222: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0227: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Events.Event>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_022c: stfld Unity.Entities.ComponentTypeHandle`1<Game.Events.Event> Game.Effects.EffectControlSystem/EffectControlJob::m_EventType
+IL_0231: ldloca.s V_15
+IL_0233: ldarg.0
+IL_0234: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0239: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Curve> Game.Effects.EffectControlSystem/TypeHandle::__Game_Net_Curve_RO_ComponentTypeHandle
+IL_023e: ldarg.0
+IL_023f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0244: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.Curve>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0249: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.Curve> Game.Effects.EffectControlSystem/EffectControlJob::m_CurveType
+IL_024e: ldloca.s V_15
+IL_0250: ldarg.0
+IL_0251: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0256: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_PrefabRef_RO_ComponentTypeHandle
+IL_025b: ldarg.0
+IL_025c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0261: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0266: stfld Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabRefType
+IL_026b: ldloca.s V_15
+IL_026d: ldarg.0
+IL_026e: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0273: ldflda Unity.Entities.BufferTypeHandle`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/TypeHandle::__Game_Effects_EnabledEffect_RO_BufferTypeHandle
+IL_0278: ldarg.0
+IL_0279: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_027e: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Effects.EnabledEffect>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0283: stfld Unity.Entities.BufferTypeHandle`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/EffectControlJob::m_EffectOwnerType
+IL_0288: ldloca.s V_15
+IL_028a: ldarg.0
+IL_028b: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0290: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_EffectData_RO_ComponentLookup
+IL_0295: ldarg.0
+IL_0296: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_029b: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.EffectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02a0: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabEffectData
+IL_02a5: ldloca.s V_15
+IL_02a7: ldarg.0
+IL_02a8: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_02ad: ldflda Unity.Entities.ComponentLookup`1<Game.Net.TrafficLights> Game.Effects.EffectControlSystem/TypeHandle::__Game_Net_TrafficLights_RO_ComponentLookup
+IL_02b2: ldarg.0
+IL_02b3: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02b8: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.TrafficLights>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02bd: stfld Unity.Entities.ComponentLookup`1<Game.Net.TrafficLights> Game.Effects.EffectControlSystem/EffectControlJob::m_TrafficLightsData
+IL_02c2: ldloca.s V_15
+IL_02c4: ldarg.0
+IL_02c5: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_02ca: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.LightEffectData> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_LightEffectData_RO_ComponentLookup
+IL_02cf: ldarg.0
+IL_02d0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02d5: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.LightEffectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02da: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.LightEffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabLightEffectData
+IL_02df: ldloca.s V_15
+IL_02e1: ldarg.0
+IL_02e2: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_02e7: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.AudioEffectData> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_AudioEffectData_RO_ComponentLookup
+IL_02ec: ldarg.0
+IL_02ed: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02f2: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.AudioEffectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02f7: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.AudioEffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabAudioEffectData
+IL_02fc: ldloca.s V_15
+IL_02fe: ldarg.0
+IL_02ff: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0304: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_Effect_RO_BufferLookup
+IL_0309: ldarg.0
+IL_030a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_030f: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.Effect>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0314: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabEffects
+IL_0319: ldloca.s V_15
+IL_031b: ldloc.s V_7
+IL_031d: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/EffectControlJob::m_LodParameters
+IL_0322: ldloca.s V_15
+IL_0324: ldloc.s V_5
+IL_0326: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/EffectControlJob::m_CameraPosition
+IL_032b: ldloca.s V_15
+IL_032d: ldloc.s V_6
+IL_032f: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/EffectControlJob::m_CameraDirection
+IL_0334: ldloca.s V_15
+IL_0336: ldarg.0
+IL_0337: ldfld Game.Rendering.PreCullingSystem Game.Effects.EffectControlSystem::m_PreCullingSystem
+IL_033c: ldc.i4.1
+IL_033d: ldloca.s V_9
+IL_033f: callvirt Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::GetCullingData(System.Boolean,Unity.Jobs.JobHandle&)
+IL_0344: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Effects.EffectControlSystem/EffectControlJob::m_CullingData
+IL_0349: ldloca.s V_15
+IL_034b: ldarg.0
+IL_034c: ldfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem::m_EnabledData
+IL_0351: stfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_EnabledEffectData
+IL_0356: ldloca.s V_15
+IL_0358: ldloca.s V_2
+IL_035a: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Effects.EffectControlSystem/EnabledAction>::AsWriter()
+IL_035f: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectControlJob::m_ActionQueue
+IL_0364: ldloc.s V_15
+IL_0366: ldloc.0
+IL_0367: ldloc.s V_9
+IL_0369: ldarg.0
+IL_036a: call Unity.Jobs.JobHandle Unity.Entities.SystemBase::get_Dependency()
+IL_036f: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_0374: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Effects.EffectControlSystem/EffectControlJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_0379: stloc.s V_10
+IL_037b: brtrue IL_05ea
+IL_0380: ldarg.0
+IL_0381: ldfld Game.Effects.SearchSystem Game.Effects.EffectControlSystem::m_SearchSystem
+IL_0386: ldc.i4.1
+IL_0387: ldloca.s V_17
+IL_0389: callvirt Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ> Game.Effects.SearchSystem::GetSearchTree(System.Boolean,Unity.Jobs.JobHandle&)
+IL_038e: stloc.s V_16
+IL_0390: ldloca.s V_18
+IL_0392: ldc.i4 256
+IL_0397: ldc.i4.3
+IL_0398: ldc.i4.0
+IL_0399: call System.Void Unity.Collections.NativeArray`1<System.Int32>::.ctor(System.Int32,Unity.Collections.Allocator,Unity.Collections.NativeArrayOptions)
+IL_039e: ldloca.s V_19
+IL_03a0: ldc.i4 256
+IL_03a5: ldc.i4.3
+IL_03a6: ldc.i4.0
+IL_03a7: call System.Void Unity.Collections.NativeArray`1<System.Int32>::.ctor(System.Int32,Unity.Collections.Allocator,Unity.Collections.NativeArrayOptions)
+IL_03ac: ldloca.s V_26
+IL_03ae: initobj Game.Effects.EffectControlSystem/TreeCullingJob1
+IL_03b4: ldloca.s V_26
+IL_03b6: ldloc.s V_16
+IL_03b8: stfld Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ> Game.Effects.EffectControlSystem/TreeCullingJob1::m_EffectSearchTree
+IL_03bd: ldloca.s V_26
+IL_03bf: ldloc.s V_7
+IL_03c1: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingJob1::m_LodParameters
+IL_03c6: ldloca.s V_26
+IL_03c8: ldarg.0
+IL_03c9: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem::m_PrevLodParameters
+IL_03ce: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingJob1::m_PrevLodParameters
+IL_03d3: ldloca.s V_26
+IL_03d5: ldloc.s V_5
+IL_03d7: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob1::m_CameraPosition
+IL_03dc: ldloca.s V_26
+IL_03de: ldarg.0
+IL_03df: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraPosition
+IL_03e4: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob1::m_PrevCameraPosition
+IL_03e9: ldloca.s V_26
+IL_03eb: ldloc.s V_6
+IL_03ed: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob1::m_CameraDirection
+IL_03f2: ldloca.s V_26
+IL_03f4: ldarg.0
+IL_03f5: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraDirection
+IL_03fa: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob1::m_PrevCameraDirection
+IL_03ff: ldloca.s V_26
+IL_0401: ldloc.s V_18
+IL_0403: stfld Unity.Collections.NativeArray`1<System.Int32> Game.Effects.EffectControlSystem/TreeCullingJob1::m_NodeBuffer
+IL_0408: ldloca.s V_26
+IL_040a: ldloc.s V_19
+IL_040c: stfld Unity.Collections.NativeArray`1<System.Int32> Game.Effects.EffectControlSystem/TreeCullingJob1::m_SubDataBuffer
+IL_0411: ldloca.s V_26
+IL_0413: ldloca.s V_2
+IL_0415: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Effects.EffectControlSystem/EnabledAction>::AsWriter()
+IL_041a: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/TreeCullingJob1::m_ActionQueue
+IL_041f: ldloc.s V_26
+IL_0421: stloc.s V_20
+IL_0423: ldloca.s V_27
+IL_0425: initobj Game.Effects.EffectControlSystem/TreeCullingJob2
+IL_042b: ldloca.s V_27
+IL_042d: ldloc.s V_16
+IL_042f: stfld Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ> Game.Effects.EffectControlSystem/TreeCullingJob2::m_EffectSearchTree
+IL_0434: ldloca.s V_27
+IL_0436: ldloc.s V_7
+IL_0438: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingJob2::m_LodParameters
+IL_043d: ldloca.s V_27
+IL_043f: ldarg.0
+IL_0440: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem::m_PrevLodParameters
+IL_0445: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingJob2::m_PrevLodParameters
+IL_044a: ldloca.s V_27
+IL_044c: ldloc.s V_5
+IL_044e: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob2::m_CameraPosition
+IL_0453: ldloca.s V_27
+IL_0455: ldarg.0
+IL_0456: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraPosition
+IL_045b: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob2::m_PrevCameraPosition
+IL_0460: ldloca.s V_27
+IL_0462: ldloc.s V_6
+IL_0464: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob2::m_CameraDirection
+IL_0469: ldloca.s V_27
+IL_046b: ldarg.0
+IL_046c: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraDirection
+IL_0471: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob2::m_PrevCameraDirection
+IL_0476: ldloca.s V_27
+IL_0478: ldloc.s V_18
+IL_047a: stfld Unity.Collections.NativeArray`1<System.Int32> Game.Effects.EffectControlSystem/TreeCullingJob2::m_NodeBuffer
+IL_047f: ldloca.s V_27
+IL_0481: ldloc.s V_19
+IL_0483: stfld Unity.Collections.NativeArray`1<System.Int32> Game.Effects.EffectControlSystem/TreeCullingJob2::m_SubDataBuffer
+IL_0488: ldloca.s V_27
+IL_048a: ldloca.s V_2
+IL_048c: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Effects.EffectControlSystem/EnabledAction>::AsWriter()
+IL_0491: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/TreeCullingJob2::m_ActionQueue
+IL_0496: ldloc.s V_27
+IL_0498: stloc.s V_21
+IL_049a: ldloca.s V_28
+IL_049c: initobj Game.Effects.EffectControlSystem/EffectCullingJob
+IL_04a2: ldloca.s V_28
+IL_04a4: ldarg.0
+IL_04a5: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_04aa: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/TypeHandle::__Game_Tools_EditorContainer_RO_ComponentLookup
+IL_04af: ldarg.0
+IL_04b0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04b5: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.EditorContainer>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_04ba: stfld Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/EffectCullingJob::m_EditorContainerData
+IL_04bf: ldloca.s V_28
+IL_04c1: ldarg.0
+IL_04c2: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_04c7: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Static> Game.Effects.EffectControlSystem/TypeHandle::__Game_Objects_Static_RO_ComponentLookup
+IL_04cc: ldarg.0
+IL_04cd: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04d2: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Static>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_04d7: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Static> Game.Effects.EffectControlSystem/EffectCullingJob::m_StaticData
+IL_04dc: ldloca.s V_28
+IL_04de: ldarg.0
+IL_04df: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_04e4: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_PrefabRef_RO_ComponentLookup
+IL_04e9: ldarg.0
+IL_04ea: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_04ef: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_04f4: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/EffectCullingJob::m_PrefabRefData
+IL_04f9: ldloca.s V_28
+IL_04fb: ldarg.0
+IL_04fc: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0501: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_EffectData_RO_ComponentLookup
+IL_0506: ldarg.0
+IL_0507: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_050c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.EffectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0511: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/EffectCullingJob::m_PrefabEffectData
+IL_0516: ldloca.s V_28
+IL_0518: ldarg.0
+IL_0519: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_051e: ldflda Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/TypeHandle::__Game_Effects_EnabledEffect_RO_BufferLookup
+IL_0523: ldarg.0
+IL_0524: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0529: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Effects.EnabledEffect>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_052e: stfld Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/EffectCullingJob::m_EffectOwners
+IL_0533: ldloca.s V_28
+IL_0535: ldarg.0
+IL_0536: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_053b: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_Effect_RO_BufferLookup
+IL_0540: ldarg.0
+IL_0541: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0546: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.Effect>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_054b: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/EffectCullingJob::m_PrefabEffects
+IL_0550: ldloca.s V_28
+IL_0552: ldarg.0
+IL_0553: ldfld Game.Rendering.PreCullingSystem Game.Effects.EffectControlSystem::m_PreCullingSystem
+IL_0558: ldc.i4.1
+IL_0559: ldloca.s V_22
+IL_055b: callvirt Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.PreCullingSystem::GetUpdatedData(System.Boolean,Unity.Jobs.JobHandle&)
+IL_0560: stfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Effects.EffectControlSystem/EffectCullingJob::m_CullingData
+IL_0565: ldloca.s V_28
+IL_0567: ldarg.0
+IL_0568: ldfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem::m_EnabledData
+IL_056d: stfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EffectCullingJob::m_EnabledEffectData
+IL_0572: ldloca.s V_28
+IL_0574: ldloca.s V_2
+IL_0576: call Colossal.Collections.NativeParallelQueue`1/Writer<!0> Colossal.Collections.NativeParallelQueue`1<Game.Effects.EffectControlSystem/EnabledAction>::AsWriter()
+IL_057b: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectCullingJob::m_ActionQueue
+IL_0580: ldloc.s V_28
+IL_0582: ldloc.s V_20
+IL_0584: ldloc.s V_17
+IL_0586: call Unity.Jobs.JobHandle Unity.Jobs.IJobExtensions::Schedule<Game.Effects.EffectControlSystem/TreeCullingJob1>(!!0,Unity.Jobs.JobHandle)
+IL_058b: stloc.s V_23
+IL_058d: ldloc.s V_21
+IL_058f: ldloca.s V_18
+IL_0591: call System.Int32 Unity.Collections.NativeArray`1<System.Int32>::get_Length()
+IL_0596: ldc.i4.1
+IL_0597: ldloc.s V_23
+IL_0599: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Effects.EffectControlSystem/TreeCullingJob2>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_059e: stloc.s V_24
+IL_05a0: dup
+IL_05a1: ldfld Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Effects.EffectControlSystem/EffectCullingJob::m_CullingData
+IL_05a6: ldc.i4.s 16
+IL_05a8: ldarg.0
+IL_05a9: call Unity.Jobs.JobHandle Unity.Entities.SystemBase::get_Dependency()
+IL_05ae: ldloc.s V_22
+IL_05b0: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_05b5: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForDeferExtensions::Schedule<Game.Effects.EffectControlSystem/EffectCullingJob,Game.Rendering.PreCullingData>(!!0,Unity.Collections.NativeList`1<!!1>,System.Int32,Unity.Jobs.JobHandle)
+IL_05ba: stloc.s V_25
+IL_05bc: ldloca.s V_18
+IL_05be: ldloc.s V_24
+IL_05c0: call Unity.Jobs.JobHandle Unity.Collections.NativeArray`1<System.Int32>::Dispose(Unity.Jobs.JobHandle)
+IL_05c5: pop
+IL_05c6: ldloca.s V_19
+IL_05c8: ldloc.s V_24
+IL_05ca: call Unity.Jobs.JobHandle Unity.Collections.NativeArray`1<System.Int32>::Dispose(Unity.Jobs.JobHandle)
+IL_05cf: pop
+IL_05d0: ldarg.0
+IL_05d1: ldfld Game.Effects.SearchSystem Game.Effects.EffectControlSystem::m_SearchSystem
+IL_05d6: ldloc.s V_24
+IL_05d8: callvirt System.Void Game.Effects.SearchSystem::AddSearchTreeReader(Unity.Jobs.JobHandle)
+IL_05dd: ldloc.s V_10
+IL_05df: ldloc.s V_24
+IL_05e1: ldloc.s V_25
+IL_05e3: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_05e8: stloc.s V_10
+IL_05ea: ldloca.s V_29
+IL_05ec: initobj Game.Effects.EffectControlSystem/EnabledActionJob
+IL_05f2: ldloca.s V_29
+IL_05f4: ldarg.0
+IL_05f5: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_05fa: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/TypeHandle::__Game_Tools_EditorContainer_RO_ComponentLookup
+IL_05ff: ldarg.0
+IL_0600: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0605: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.EditorContainer>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_060a: stfld Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/EnabledActionJob::m_EditorContainerData
+IL_060f: ldloca.s V_29
+IL_0611: ldarg.0
+IL_0612: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0617: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Effects.EffectControlSystem/TypeHandle::__Game_Rendering_InterpolatedTransform_RO_ComponentLookup
+IL_061c: ldarg.0
+IL_061d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0622: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Rendering.InterpolatedTransform>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0627: stfld Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Effects.EffectControlSystem/EnabledActionJob::m_InterpolatedTransformData
+IL_062c: ldloca.s V_29
+IL_062e: ldarg.0
+IL_062f: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0634: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Effects.EffectControlSystem/TypeHandle::__Game_Common_Destroyed_RO_ComponentLookup
+IL_0639: ldarg.0
+IL_063a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_063f: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Destroyed>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0644: stfld Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Effects.EffectControlSystem/EnabledActionJob::m_DestroyedData
+IL_0649: ldloca.s V_29
+IL_064b: ldarg.0
+IL_064c: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_0651: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_PrefabRef_RO_ComponentLookup
+IL_0656: ldarg.0
+IL_0657: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_065c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0661: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/EnabledActionJob::m_PrefabRefs
+IL_0666: ldloca.s V_29
+IL_0668: ldarg.0
+IL_0669: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_066e: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.VFXData> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_VFXData_RO_ComponentLookup
+IL_0673: ldarg.0
+IL_0674: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0679: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.VFXData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_067e: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.VFXData> Game.Effects.EffectControlSystem/EnabledActionJob::m_VFXDatas
+IL_0683: ldloca.s V_29
+IL_0685: ldarg.0
+IL_0686: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_068b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.RandomTransformData> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_RandomTransformData_RO_ComponentLookup
+IL_0690: ldarg.0
+IL_0691: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0696: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.RandomTransformData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_069b: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.RandomTransformData> Game.Effects.EffectControlSystem/EnabledActionJob::m_RandomTransformDatas
+IL_06a0: ldloca.s V_29
+IL_06a2: ldarg.0
+IL_06a3: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_06a8: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_ObjectGeometryData_RO_ComponentLookup
+IL_06ad: ldarg.0
+IL_06ae: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06b3: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.ObjectGeometryData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_06b8: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Effects.EffectControlSystem/EnabledActionJob::m_ObjectGeometryDatas
+IL_06bd: ldloca.s V_29
+IL_06bf: ldarg.0
+IL_06c0: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_06c5: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.AudioSourceData> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_AudioSourceData_RO_BufferLookup
+IL_06ca: ldarg.0
+IL_06cb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06d0: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.AudioSourceData>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_06d5: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.AudioSourceData> Game.Effects.EffectControlSystem/EnabledActionJob::m_AudioSourceDatas
+IL_06da: ldloca.s V_29
+IL_06dc: ldarg.0
+IL_06dd: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_06e2: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/TypeHandle::__Game_Prefabs_Effect_RO_BufferLookup
+IL_06e7: ldarg.0
+IL_06e8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_06ed: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.Effect>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_06f2: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/EnabledActionJob::m_PrefabEffects
+IL_06f7: ldloca.s V_29
+IL_06f9: ldarg.0
+IL_06fa: ldflda Game.Effects.EffectControlSystem/TypeHandle Game.Effects.EffectControlSystem::__TypeHandle
+IL_06ff: ldflda Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/TypeHandle::__Game_Effects_EnabledEffect_RW_BufferLookup
+IL_0704: ldarg.0
+IL_0705: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_070a: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Effects.EnabledEffect>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_070f: stfld Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/EnabledActionJob::m_EffectOwners
+IL_0714: ldloca.s V_29
+IL_0716: ldloca.s V_2
+IL_0718: call Colossal.Collections.NativeParallelQueue`1/Reader<!0> Colossal.Collections.NativeParallelQueue`1<Game.Effects.EffectControlSystem/EnabledAction>::AsReader()
+IL_071d: stfld Colossal.Collections.NativeParallelQueue`1/Reader<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EnabledActionJob::m_CullingActions
+IL_0722: ldloca.s V_29
+IL_0724: ldloca.s V_3
+IL_0726: call Unity.Collections.NativeQueue`1/ParallelWriter<!0> Unity.Collections.NativeQueue`1<Game.Effects.EffectControlSystem/OverflowAction>::AsParallelWriter()
+IL_072b: stfld Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.EffectControlSystem/OverflowAction> Game.Effects.EffectControlSystem/EnabledActionJob::m_OverflowActions
+IL_0730: ldloca.s V_29
+IL_0732: ldarg.0
+IL_0733: ldfld Game.Effects.VFXSystem Game.Effects.EffectControlSystem::m_VFXSystem
+IL_0738: callvirt Unity.Collections.NativeQueue`1<Game.Effects.VFXUpdateInfo> Game.Effects.VFXSystem::GetSourceUpdateData()
+IL_073d: stloc.s V_30
+IL_073f: ldloca.s V_30
+IL_0741: call Unity.Collections.NativeQueue`1/ParallelWriter<!0> Unity.Collections.NativeQueue`1<Game.Effects.VFXUpdateInfo>::AsParallelWriter()
+IL_0746: stfld Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.VFXUpdateInfo> Game.Effects.EffectControlSystem/EnabledActionJob::m_VFXUpdateQueue
+IL_074b: ldloca.s V_29
+IL_074d: ldarg.0
+IL_074e: ldfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem::m_EnabledData
+IL_0753: stfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledData
+IL_0758: ldloca.s V_29
+IL_075a: ldloc.s V_4
+IL_075c: stfld Unity.Collections.NativeReference`1<System.Int32> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledDataIndex
+IL_0761: ldloca.s V_29
+IL_0763: ldarg.0
+IL_0764: ldfld Game.Effects.EffectControlData Game.Effects.EffectControlSystem::m_EffectControlData
+IL_0769: stfld Game.Effects.EffectControlData Game.Effects.EffectControlSystem/EnabledActionJob::m_EffectControlData
+IL_076e: ldloc.s V_29
+IL_0770: stloc.s V_11
+IL_0772: ldloca.s V_31
+IL_0774: initobj Game.Effects.EffectControlSystem/ResizeEnabledDataJob
+IL_077a: ldloca.s V_31
+IL_077c: ldloc.s V_4
+IL_077e: stfld Unity.Collections.NativeReference`1<System.Int32> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_EnabledDataIndex
+IL_0783: ldloca.s V_31
+IL_0785: ldarg.0
+IL_0786: ldfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem::m_EnabledData
+IL_078b: stfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_EnabledData
+IL_0790: ldloca.s V_31
+IL_0792: ldloc.3
+IL_0793: stfld Unity.Collections.NativeQueue`1<Game.Effects.EffectControlSystem/OverflowAction> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_OverflowActions
+IL_0798: ldloc.s V_31
+IL_079a: ldloc.s V_11
+IL_079c: ldloca.s V_2
+IL_079e: call System.Int32 Colossal.Collections.NativeParallelQueue`1<Game.Effects.EffectControlSystem/EnabledAction>::get_HashRange()
+IL_07a3: ldc.i4.1
+IL_07a4: ldloc.s V_10
+IL_07a6: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Effects.EffectControlSystem/EnabledActionJob>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_07ab: stloc.s V_12
+IL_07ad: ldloc.s V_12
+IL_07af: call Unity.Jobs.JobHandle Unity.Jobs.IJobExtensions::Schedule<Game.Effects.EffectControlSystem/ResizeEnabledDataJob>(!!0,Unity.Jobs.JobHandle)
+IL_07b4: stloc.s V_13
+IL_07b6: ldarg.0
+IL_07b7: ldloc.s V_13
+IL_07b9: stfld Unity.Jobs.JobHandle Game.Effects.EffectControlSystem::m_EnabledWriteDependencies
+IL_07be: ldloca.s V_2
+IL_07c0: ldloc.s V_12
+IL_07c2: call Unity.Jobs.JobHandle Colossal.Collections.NativeParallelQueue`1<Game.Effects.EffectControlSystem/EnabledAction>::Dispose(Unity.Jobs.JobHandle)
+IL_07c7: pop
+IL_07c8: ldloca.s V_3
+IL_07ca: ldloc.s V_13
+IL_07cc: call Unity.Jobs.JobHandle Unity.Collections.NativeQueue`1<Game.Effects.EffectControlSystem/OverflowAction>::Dispose(Unity.Jobs.JobHandle)
+IL_07d1: pop
+IL_07d2: ldloca.s V_4
+IL_07d4: ldloc.s V_13
+IL_07d6: call Unity.Jobs.JobHandle Unity.Collections.NativeReference`1<System.Int32>::Dispose(Unity.Jobs.JobHandle)
+IL_07db: pop
+IL_07dc: ldarg.0
+IL_07dd: ldfld Game.Effects.VFXSystem Game.Effects.EffectControlSystem::m_VFXSystem
+IL_07e2: ldloc.s V_12
+IL_07e4: callvirt System.Void Game.Effects.VFXSystem::AddSourceUpdateWriter(Unity.Jobs.JobHandle)
+IL_07e9: ldarg.0
+IL_07ea: ldfld Game.Rendering.PreCullingSystem Game.Effects.EffectControlSystem::m_PreCullingSystem
+IL_07ef: ldloc.s V_10
+IL_07f1: callvirt System.Void Game.Rendering.PreCullingSystem::AddCullingDataReader(Unity.Jobs.JobHandle)
+IL_07f6: ldarg.0
+IL_07f7: ldloc.s V_5
+IL_07f9: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraPosition
+IL_07fe: ldarg.0
+IL_07ff: ldloc.s V_6
+IL_0801: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem::m_PrevCameraDirection
+IL_0806: ldarg.0
+IL_0807: ldloc.s V_7
+IL_0809: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem::m_PrevLodParameters
+IL_080e: ldarg.0
+IL_080f: ldc.i4.0
+IL_0810: stfld System.Boolean Game.Effects.EffectControlSystem::m_ResetPrevious
+IL_0815: ldarg.0
+IL_0816: ldloc.s V_12
+IL_0818: call System.Void Unity.Entities.SystemBase::set_Dependency(Unity.Jobs.JobHandle)
+IL_081d: ret
+TYPE Game.Effects.EffectControlSystem/EffectControlJob
+METHOD System.Void Game.Effects.EffectControlSystem/EffectControlJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0000: ldarg.1
+IL_0001: ldarg.0
+IL_0002: ldfld Unity.Entities.EntityTypeHandle Game.Effects.EffectControlSystem/EffectControlJob::m_EntityType
+IL_0007: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.ArchetypeChunk::GetNativeArray(Unity.Entities.EntityTypeHandle)
+IL_000c: stloc.0
+IL_000d: ldarg.1
+IL_000e: ldarg.0
+IL_000f: ldflda Unity.Entities.BufferTypeHandle`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/EffectControlJob::m_EffectOwnerType
+IL_0014: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Effects.EnabledEffect>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0019: stloc.1
+IL_001a: ldarg.1
+IL_001b: ldarg.0
+IL_001c: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Effects.EffectControlSystem/EffectControlJob::m_DeletedType
+IL_0021: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0026: brfalse.s IL_00a2
+IL_0028: ldc.i4.0
+IL_0029: stloc.2
+IL_002a: br.s IL_0097
+IL_002c: ldloca.s V_0
+IL_002e: ldloc.2
+IL_002f: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0034: stloc.3
+IL_0035: ldloca.s V_1
+IL_0037: ldloc.2
+IL_0038: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Effects.EnabledEffect>::get_Item(System.Int32)
+IL_003d: stloc.s V_4
+IL_003f: ldc.i4.0
+IL_0040: stloc.s V_5
+IL_0042: br.s IL_0088
+IL_0044: ldloca.s V_4
+IL_0046: ldloc.s V_5
+IL_0048: call !0 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Item(System.Int32)
+IL_004d: stloc.s V_6
+IL_004f: ldarg.0
+IL_0050: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectControlJob::m_ActionQueue
+IL_0055: ldloca.s V_7
+IL_0057: initobj Game.Effects.EffectControlSystem/EnabledAction
+IL_005d: ldloca.s V_7
+IL_005f: ldloc.3
+IL_0060: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_0065: ldloca.s V_7
+IL_0067: ldloc.s V_6
+IL_0069: ldfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_006e: stfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_0073: ldloca.s V_7
+IL_0075: ldc.i4.2
+IL_0076: stfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_007b: ldloc.s V_7
+IL_007d: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction>::Enqueue(!0)
+IL_0082: ldloc.s V_5
+IL_0084: ldc.i4.1
+IL_0085: add
+IL_0086: stloc.s V_5
+IL_0088: ldloc.s V_5
+IL_008a: ldloca.s V_4
+IL_008c: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Length()
+IL_0091: blt.s IL_0044
+IL_0093: ldloc.2
+IL_0094: ldc.i4.1
+IL_0095: add
+IL_0096: stloc.2
+IL_0097: ldloc.2
+IL_0098: ldloca.s V_0
+IL_009a: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_009f: blt.s IL_002c
+IL_00a1: ret
+IL_00a2: ldarg.1
+IL_00a3: ldarg.0
+IL_00a4: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Effects.EffectControlSystem/EffectControlJob::m_TempType
+IL_00a9: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_00ae: brtrue.s IL_00e3
+IL_00b0: ldarg.1
+IL_00b1: ldarg.0
+IL_00b2: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Static> Game.Effects.EffectControlSystem/EffectControlJob::m_StaticType
+IL_00b7: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Objects.Static>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_00bc: brtrue.s IL_00e0
+IL_00be: ldarg.1
+IL_00bf: ldarg.0
+IL_00c0: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Object> Game.Effects.EffectControlSystem/EffectControlJob::m_ObjectType
+IL_00c5: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Objects.Object>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_00ca: brtrue.s IL_00dd
+IL_00cc: ldarg.1
+IL_00cd: ldarg.0
+IL_00ce: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Events.Event> Game.Effects.EffectControlSystem/EffectControlJob::m_EventType
+IL_00d3: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Events.Event>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_00d8: ldc.i4.0
+IL_00d9: ceq
+IL_00db: br.s IL_00e4
+IL_00dd: ldc.i4.0
+IL_00de: br.s IL_00e4
+IL_00e0: ldc.i4.1
+IL_00e1: br.s IL_00e4
+IL_00e3: ldc.i4.0
+IL_00e4: stloc.s V_8
+IL_00e6: ldarg.1
+IL_00e7: ldarg.0
+IL_00e8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Rendering.CullingInfo> Game.Effects.EffectControlSystem/EffectControlJob::m_CullingInfoType
+IL_00ed: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Rendering.CullingInfo>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_00f2: stloc.s V_9
+IL_00f4: ldarg.1
+IL_00f5: ldarg.0
+IL_00f6: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/EffectControlJob::m_EditorContainerType
+IL_00fb: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Tools.EditorContainer>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0100: stloc.s V_10
+IL_0102: ldloca.s V_11
+IL_0104: initobj Unity.Collections.NativeArray`1<Game.Objects.Transform>
+IL_010a: ldloca.s V_12
+IL_010c: initobj Unity.Collections.NativeArray`1<Game.Net.Curve>
+IL_0112: ldloca.s V_13
+IL_0114: initobj Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>
+IL_011a: ldloc.s V_8
+IL_011c: brfalse.s IL_013a
+IL_011e: ldarg.1
+IL_011f: ldarg.0
+IL_0120: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Effects.EffectControlSystem/EffectControlJob::m_TransformType
+IL_0125: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_012a: stloc.s V_11
+IL_012c: ldarg.1
+IL_012d: ldarg.0
+IL_012e: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Curve> Game.Effects.EffectControlSystem/EffectControlJob::m_CurveType
+IL_0133: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Net.Curve>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0138: stloc.s V_12
+IL_013a: ldloca.s V_10
+IL_013c: call System.Int32 Unity.Collections.NativeArray`1<Game.Tools.EditorContainer>::get_Length()
+IL_0141: brtrue.s IL_0151
+IL_0143: ldarg.1
+IL_0144: ldarg.0
+IL_0145: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabRefType
+IL_014a: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_014f: stloc.s V_13
+IL_0151: ldc.i4.0
+IL_0152: stloc.s V_14
+IL_0154: br IL_0462
+IL_0159: ldloca.s V_0
+IL_015b: ldloc.s V_14
+IL_015d: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0162: stloc.s V_15
+IL_0164: ldloca.s V_1
+IL_0166: ldloc.s V_14
+IL_0168: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Effects.EnabledEffect>::get_Item(System.Int32)
+IL_016d: stloc.s V_16
+IL_016f: ldloc.s V_8
+IL_0171: brfalse.s IL_0192
+IL_0173: ldarg.0
+IL_0174: ldflda Unity.Entities.ComponentLookup`1<Game.Net.TrafficLights> Game.Effects.EffectControlSystem/EffectControlJob::m_TrafficLightsData
+IL_0179: ldloc.s V_15
+IL_017b: ldloca.s V_18
+IL_017d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.TrafficLights>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0182: brfalse.s IL_0192
+IL_0184: ldloc.s V_18
+IL_0186: ldfld Game.Net.TrafficLightFlags Game.Net.TrafficLights::m_Flags
+IL_018b: ldc.i4.2
+IL_018c: and
+IL_018d: brfalse.s IL_0192
+IL_018f: ldc.i4.0
+IL_0190: stloc.s V_8
+IL_0192: ldloc.s V_10
+IL_0194: ldloc.s V_14
+IL_0196: ldloca.s V_17
+IL_0198: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Tools.EditorContainer>(Unity.Collections.NativeArray`1<!!0>,System.Int32,!!0&)
+IL_019d: brfalse IL_02c5
+IL_01a2: ldc.i4.0
+IL_01a3: stloc.s V_20
+IL_01a5: br.s IL_0216
+IL_01a7: ldloca.s V_16
+IL_01a9: ldloc.s V_20
+IL_01ab: call !0 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Item(System.Int32)
+IL_01b0: stloc.s V_21
+IL_01b2: ldarg.0
+IL_01b3: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_EnabledEffectData
+IL_01b8: ldloc.s V_21
+IL_01ba: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_01bf: call !0 Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::get_Item(System.Int32)
+IL_01c4: stloc.s V_22
+IL_01c6: ldloc.s V_17
+IL_01c8: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_01cd: ldloc.s V_22
+IL_01cf: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Prefab
+IL_01d4: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01d9: brfalse.s IL_0210
+IL_01db: ldarg.0
+IL_01dc: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectControlJob::m_ActionQueue
+IL_01e1: ldloca.s V_7
+IL_01e3: initobj Game.Effects.EffectControlSystem/EnabledAction
+IL_01e9: ldloca.s V_7
+IL_01eb: ldloc.s V_15
+IL_01ed: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_01f2: ldloca.s V_7
+IL_01f4: ldloc.s V_21
+IL_01f6: ldfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_01fb: stfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_0200: ldloca.s V_7
+IL_0202: ldc.i4.s 32
+IL_0204: stfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_0209: ldloc.s V_7
+IL_020b: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction>::Enqueue(!0)
+IL_0210: ldloc.s V_20
+IL_0212: ldc.i4.1
+IL_0213: add
+IL_0214: stloc.s V_20
+IL_0216: ldloc.s V_20
+IL_0218: ldloca.s V_16
+IL_021a: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Length()
+IL_021f: blt.s IL_01a7
+IL_0221: ldarg.0
+IL_0222: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabEffectData
+IL_0227: ldloc.s V_17
+IL_0229: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_022e: ldloca.s V_19
+IL_0230: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0235: brfalse IL_045c
+IL_023a: ldloc.s V_8
+IL_023c: brtrue.s IL_0242
+IL_023e: ldc.i4.s 17
+IL_0240: br.s IL_0244
+IL_0242: ldc.i4.s 25
+IL_0244: stloc.s V_23
+IL_0246: ldloc.s V_19
+IL_0248: ldfld System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+IL_024d: brfalse.s IL_0260
+IL_024f: ldarg.0
+IL_0250: ldloc.s V_9
+IL_0252: ldloc.s V_14
+IL_0254: call System.Boolean Game.Effects.EffectControlSystem/EffectControlJob::IsNearCamera(Unity.Collections.NativeArray`1<Game.Rendering.CullingInfo>,System.Int32)
+IL_0259: brtrue.s IL_0291
+IL_025b: br IL_045c
+IL_0260: ldloc.s V_8
+IL_0262: brfalse.s IL_0291
+IL_0264: ldloca.s V_25
+IL_0266: initobj Game.Prefabs.Effect
+IL_026c: ldloca.s V_25
+IL_026e: ldloc.s V_17
+IL_0270: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0275: stfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_027a: ldloc.s V_25
+IL_027c: stloc.s V_24
+IL_027e: ldarg.0
+IL_027f: ldloc.s V_11
+IL_0281: ldloc.s V_12
+IL_0283: ldloc.s V_14
+IL_0285: ldloc.s V_24
+IL_0287: call System.Boolean Game.Effects.EffectControlSystem/EffectControlJob::IsNearCamera(Unity.Collections.NativeArray`1<Game.Objects.Transform>,Unity.Collections.NativeArray`1<Game.Net.Curve>,System.Int32,Game.Prefabs.Effect)
+IL_028c: brtrue.s IL_0291
+IL_028e: ldc.i4.0
+IL_028f: stloc.s V_23
+IL_0291: ldarg.0
+IL_0292: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectControlJob::m_ActionQueue
+IL_0297: ldloca.s V_7
+IL_0299: initobj Game.Effects.EffectControlSystem/EnabledAction
+IL_029f: ldloca.s V_7
+IL_02a1: ldloc.s V_15
+IL_02a3: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_02a8: ldloca.s V_7
+IL_02aa: ldc.i4.0
+IL_02ab: stfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_02b0: ldloca.s V_7
+IL_02b2: ldloc.s V_23
+IL_02b4: stfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_02b9: ldloc.s V_7
+IL_02bb: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction>::Enqueue(!0)
+IL_02c0: br IL_045c
+IL_02c5: ldloca.s V_13
+IL_02c7: ldloc.s V_14
+IL_02c9: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>::get_Item(System.Int32)
+IL_02ce: stloc.s V_26
+IL_02d0: ldarg.0
+IL_02d1: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabEffects
+IL_02d6: ldloc.s V_26
+IL_02d8: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_02dd: ldloca.s V_27
+IL_02df: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.Effect>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_02e4: pop
+IL_02e5: ldc.i4.0
+IL_02e6: stloc.s V_28
+IL_02e8: br IL_0381
+IL_02ed: ldloca.s V_16
+IL_02ef: ldloc.s V_28
+IL_02f1: call !0 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Item(System.Int32)
+IL_02f6: stloc.s V_29
+IL_02f8: ldarg.0
+IL_02f9: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_EnabledEffectData
+IL_02fe: ldloc.s V_29
+IL_0300: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_0305: call !0 Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::get_Item(System.Int32)
+IL_030a: stloc.s V_30
+IL_030c: ldloca.s V_27
+IL_030e: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_IsCreated()
+IL_0313: brfalse.s IL_0346
+IL_0315: ldloca.s V_27
+IL_0317: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Length()
+IL_031c: ldloc.s V_29
+IL_031e: ldfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_0323: ble.s IL_0346
+IL_0325: ldloca.s V_27
+IL_0327: ldloc.s V_29
+IL_0329: ldfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_032e: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Item(System.Int32)
+IL_0333: ldfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_0338: ldloc.s V_30
+IL_033a: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Prefab
+IL_033f: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0344: brfalse.s IL_037b
+IL_0346: ldarg.0
+IL_0347: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectControlJob::m_ActionQueue
+IL_034c: ldloca.s V_7
+IL_034e: initobj Game.Effects.EffectControlSystem/EnabledAction
+IL_0354: ldloca.s V_7
+IL_0356: ldloc.s V_15
+IL_0358: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_035d: ldloca.s V_7
+IL_035f: ldloc.s V_29
+IL_0361: ldfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_0366: stfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_036b: ldloca.s V_7
+IL_036d: ldc.i4.s 32
+IL_036f: stfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_0374: ldloc.s V_7
+IL_0376: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction>::Enqueue(!0)
+IL_037b: ldloc.s V_28
+IL_037d: ldc.i4.1
+IL_037e: add
+IL_037f: stloc.s V_28
+IL_0381: ldloc.s V_28
+IL_0383: ldloca.s V_16
+IL_0385: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Length()
+IL_038a: blt IL_02ed
+IL_038f: ldloca.s V_27
+IL_0391: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_IsCreated()
+IL_0396: brfalse IL_045c
+IL_039b: ldarg.0
+IL_039c: ldloc.s V_9
+IL_039e: ldloc.s V_14
+IL_03a0: call System.Boolean Game.Effects.EffectControlSystem/EffectControlJob::IsNearCamera(Unity.Collections.NativeArray`1<Game.Rendering.CullingInfo>,System.Int32)
+IL_03a5: stloc.s V_31
+IL_03a7: ldc.i4.0
+IL_03a8: stloc.s V_32
+IL_03aa: br IL_044e
+IL_03af: ldloca.s V_27
+IL_03b1: ldloc.s V_32
+IL_03b3: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Item(System.Int32)
+IL_03b8: stloc.s V_33
+IL_03ba: ldarg.0
+IL_03bb: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabEffectData
+IL_03c0: ldloc.s V_33
+IL_03c2: ldfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_03c7: ldloca.s V_34
+IL_03c9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_03ce: brfalse.s IL_0448
+IL_03d0: ldloc.s V_8
+IL_03d2: brtrue.s IL_03d8
+IL_03d4: ldc.i4.s 17
+IL_03d6: br.s IL_03da
+IL_03d8: ldc.i4.s 25
+IL_03da: stloc.s V_35
+IL_03dc: ldloc.s V_34
+IL_03de: ldfld System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+IL_03e3: brfalse.s IL_0401
+IL_03e5: ldarg.0
+IL_03e6: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.AudioEffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabAudioEffectData
+IL_03eb: ldloc.s V_33
+IL_03ed: ldfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_03f2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.AudioEffectData>::HasComponent(Unity.Entities.Entity)
+IL_03f7: stloc.s V_36
+IL_03f9: ldloc.s V_31
+IL_03fb: brtrue.s IL_0401
+IL_03fd: ldloc.s V_36
+IL_03ff: brfalse.s IL_0448
+IL_0401: ldloc.s V_8
+IL_0403: brfalse.s IL_0418
+IL_0405: ldarg.0
+IL_0406: ldloc.s V_11
+IL_0408: ldloc.s V_12
+IL_040a: ldloc.s V_14
+IL_040c: ldloc.s V_33
+IL_040e: call System.Boolean Game.Effects.EffectControlSystem/EffectControlJob::IsNearCamera(Unity.Collections.NativeArray`1<Game.Objects.Transform>,Unity.Collections.NativeArray`1<Game.Net.Curve>,System.Int32,Game.Prefabs.Effect)
+IL_0413: brtrue.s IL_0418
+IL_0415: ldc.i4.0
+IL_0416: stloc.s V_35
+IL_0418: ldarg.0
+IL_0419: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectControlJob::m_ActionQueue
+IL_041e: ldloca.s V_7
+IL_0420: initobj Game.Effects.EffectControlSystem/EnabledAction
+IL_0426: ldloca.s V_7
+IL_0428: ldloc.s V_15
+IL_042a: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_042f: ldloca.s V_7
+IL_0431: ldloc.s V_32
+IL_0433: stfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_0438: ldloca.s V_7
+IL_043a: ldloc.s V_35
+IL_043c: stfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_0441: ldloc.s V_7
+IL_0443: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction>::Enqueue(!0)
+IL_0448: ldloc.s V_32
+IL_044a: ldc.i4.1
+IL_044b: add
+IL_044c: stloc.s V_32
+IL_044e: ldloc.s V_32
+IL_0450: ldloca.s V_27
+IL_0452: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Length()
+IL_0457: blt IL_03af
+IL_045c: ldloc.s V_14
+IL_045e: ldc.i4.1
+IL_045f: add
+IL_0460: stloc.s V_14
+IL_0462: ldloc.s V_14
+IL_0464: ldloca.s V_0
+IL_0466: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_046b: blt IL_0159
+IL_0470: ret
+METHOD System.Boolean Game.Effects.EffectControlSystem/EffectControlJob::IsNearCamera(Unity.Collections.NativeArray`1<Game.Objects.Transform>,Unity.Collections.NativeArray`1<Game.Net.Curve>,System.Int32,Game.Prefabs.Effect)
+IL_0000: ldarg.1
+IL_0001: ldarg.2
+IL_0002: ldarg.3
+IL_0003: ldarg.s effect
+IL_0005: ldarg.0
+IL_0006: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.LightEffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabLightEffectData
+IL_000b: ldarg.0
+IL_000c: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.AudioEffectData> Game.Effects.EffectControlSystem/EffectControlJob::m_PrefabAudioEffectData
+IL_0011: call Game.Common.QuadTreeBoundsXZ Game.Effects.SearchSystem::GetBounds(Unity.Collections.NativeArray`1<Game.Objects.Transform>,Unity.Collections.NativeArray`1<Game.Net.Curve>,System.Int32,Game.Prefabs.Effect,Unity.Entities.ComponentLookup`1<Game.Prefabs.LightEffectData>&,Unity.Entities.ComponentLookup`1<Game.Prefabs.AudioEffectData>&)
+IL_0016: stloc.0
+IL_0017: ldloc.0
+IL_0018: ldfld Colossal.Mathematics.Bounds3 Game.Common.QuadTreeBoundsXZ::m_Bounds
+IL_001d: ldarg.0
+IL_001e: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/EffectControlJob::m_CameraPosition
+IL_0023: ldarg.0
+IL_0024: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/EffectControlJob::m_CameraDirection
+IL_0029: ldarg.0
+IL_002a: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/EffectControlJob::m_LodParameters
+IL_002f: call System.Single Game.Rendering.RenderingUtils::CalculateMinDistance(Colossal.Mathematics.Bounds3,Unity.Mathematics.float3,Unity.Mathematics.float3,Unity.Mathematics.float4)
+IL_0034: dup
+IL_0035: mul
+IL_0036: ldarg.0
+IL_0037: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/EffectControlJob::m_LodParameters
+IL_003c: call System.Int32 Game.Rendering.RenderingUtils::CalculateLod(System.Single,Unity.Mathematics.float4)
+IL_0041: ldloc.0
+IL_0042: ldfld System.Byte Game.Common.QuadTreeBoundsXZ::m_MinLod
+IL_0047: clt
+IL_0049: ldc.i4.0
+IL_004a: ceq
+IL_004c: ret
+METHOD System.Boolean Game.Effects.EffectControlSystem/EffectControlJob::IsNearCamera(Unity.Collections.NativeArray`1<Game.Rendering.CullingInfo>,System.Int32)
+IL_0000: ldarg.1
+IL_0001: ldarg.2
+IL_0002: ldloca.s V_0
+IL_0004: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Rendering.CullingInfo>(Unity.Collections.NativeArray`1<!!0>,System.Int32,!!0&)
+IL_0009: brfalse.s IL_002f
+IL_000b: ldloc.0
+IL_000c: ldfld System.Int32 Game.Rendering.CullingInfo::m_CullingIndex
+IL_0011: brfalse.s IL_002f
+IL_0013: ldarg.0
+IL_0014: ldflda Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Effects.EffectControlSystem/EffectControlJob::m_CullingData
+IL_0019: ldloc.0
+IL_001a: ldfld System.Int32 Game.Rendering.CullingInfo::m_CullingIndex
+IL_001f: call !0 Unity.Collections.NativeList`1<Game.Rendering.PreCullingData>::get_Item(System.Int32)
+IL_0024: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0029: ldc.i4.2
+IL_002a: and
+IL_002b: ldc.i4.0
+IL_002c: cgt.un
+IL_002e: ret
+IL_002f: ldc.i4.0
+IL_0030: ret
+METHOD System.Void Game.Effects.EffectControlSystem/EffectControlJob::Unity.Entities.IJobChunk.Execute(Unity.Entities.ArchetypeChunk& modreq(System.Runtime.InteropServices.InAttribute),System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128& modreq(System.Runtime.InteropServices.InAttribute))
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: ldarg.3
+IL_0004: ldarg.s chunkEnabledMask
+IL_0006: call System.Void Game.Effects.EffectControlSystem/EffectControlJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_000b: ret
+TYPE Game.Effects.EffectControlSystem/EffectCullingJob
+METHOD System.Void Game.Effects.EffectControlSystem/EffectCullingJob::Execute(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Effects.EffectControlSystem/EffectCullingJob::m_CullingData
+IL_0006: ldarg.1
+IL_0007: call !0 Unity.Collections.NativeList`1<Game.Rendering.PreCullingData>::get_Item(System.Int32)
+IL_000c: stloc.0
+IL_000d: ldloc.0
+IL_000e: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0013: ldc.i4 8388652
+IL_0018: and
+IL_0019: ldc.i4 8388612
+IL_001e: beq.s IL_0021
+IL_0020: ret
+IL_0021: ldloc.0
+IL_0022: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0027: ldc.i4.2
+IL_0028: and
+IL_0029: brfalse IL_0178
+IL_002e: ldarg.0
+IL_002f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/EffectCullingJob::m_PrefabRefData
+IL_0034: ldloc.0
+IL_0035: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_003a: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_003f: stloc.1
+IL_0040: ldloc.0
+IL_0041: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0046: ldc.i4 256
+IL_004b: and
+IL_004c: brtrue.s IL_005c
+IL_004e: ldloc.0
+IL_004f: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0054: ldc.i4 1024
+IL_0059: and
+IL_005a: brfalse.s IL_006f
+IL_005c: ldarg.0
+IL_005d: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Static> Game.Effects.EffectControlSystem/EffectCullingJob::m_StaticData
+IL_0062: ldloc.0
+IL_0063: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0068: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Static>::HasComponent(Unity.Entities.Entity)
+IL_006d: br.s IL_0070
+IL_006f: ldc.i4.1
+IL_0070: stloc.2
+IL_0071: ldarg.0
+IL_0072: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/EffectCullingJob::m_PrefabEffects
+IL_0077: ldloc.1
+IL_0078: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_007d: ldloca.s V_3
+IL_007f: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.Effect>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0084: brfalse.s IL_0101
+IL_0086: ldc.i4.0
+IL_0087: stloc.s V_4
+IL_0089: br.s IL_00f5
+IL_008b: ldloca.s V_3
+IL_008d: ldloc.s V_4
+IL_008f: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Item(System.Int32)
+IL_0094: stloc.s V_5
+IL_0096: ldarg.0
+IL_0097: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/EffectCullingJob::m_PrefabEffectData
+IL_009c: ldloc.s V_5
+IL_009e: ldfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_00a3: ldloca.s V_6
+IL_00a5: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_00aa: brfalse.s IL_00ef
+IL_00ac: ldloc.s V_6
+IL_00ae: ldfld System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+IL_00b3: brfalse.s IL_00ef
+IL_00b5: ldarg.0
+IL_00b6: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectCullingJob::m_ActionQueue
+IL_00bb: ldloca.s V_7
+IL_00bd: initobj Game.Effects.EffectControlSystem/EnabledAction
+IL_00c3: ldloca.s V_7
+IL_00c5: ldloc.0
+IL_00c6: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00cb: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_00d0: ldloca.s V_7
+IL_00d2: ldloc.s V_4
+IL_00d4: stfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_00d9: ldloca.s V_7
+IL_00db: ldloc.2
+IL_00dc: brtrue.s IL_00e1
+IL_00de: ldc.i4.1
+IL_00df: br.s IL_00e3
+IL_00e1: ldc.i4.s 9
+IL_00e3: stfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_00e8: ldloc.s V_7
+IL_00ea: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction>::Enqueue(!0)
+IL_00ef: ldloc.s V_4
+IL_00f1: ldc.i4.1
+IL_00f2: add
+IL_00f3: stloc.s V_4
+IL_00f5: ldloc.s V_4
+IL_00f7: ldloca.s V_3
+IL_00f9: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Length()
+IL_00fe: blt.s IL_008b
+IL_0100: ret
+IL_0101: ldarg.0
+IL_0102: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/EffectCullingJob::m_EditorContainerData
+IL_0107: ldloc.0
+IL_0108: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_010d: ldloca.s V_8
+IL_010f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0114: brfalse IL_0214
+IL_0119: ldarg.0
+IL_011a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/EffectCullingJob::m_PrefabEffectData
+IL_011f: ldloc.s V_8
+IL_0121: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0126: ldloca.s V_9
+IL_0128: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_012d: brfalse IL_0214
+IL_0132: ldloc.s V_9
+IL_0134: ldfld System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+IL_0139: brfalse IL_0214
+IL_013e: ldarg.0
+IL_013f: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectCullingJob::m_ActionQueue
+IL_0144: ldloca.s V_7
+IL_0146: initobj Game.Effects.EffectControlSystem/EnabledAction
+IL_014c: ldloca.s V_7
+IL_014e: ldloc.0
+IL_014f: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0154: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_0159: ldloca.s V_7
+IL_015b: ldc.i4.0
+IL_015c: stfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_0161: ldloca.s V_7
+IL_0163: ldloc.2
+IL_0164: brtrue.s IL_0169
+IL_0166: ldc.i4.1
+IL_0167: br.s IL_016b
+IL_0169: ldc.i4.s 9
+IL_016b: stfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_0170: ldloc.s V_7
+IL_0172: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction>::Enqueue(!0)
+IL_0177: ret
+IL_0178: ldarg.0
+IL_0179: ldflda Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/EffectCullingJob::m_EffectOwners
+IL_017e: ldloc.0
+IL_017f: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0184: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect>::get_Item(Unity.Entities.Entity)
+IL_0189: stloc.s V_10
+IL_018b: ldc.i4.0
+IL_018c: stloc.s V_11
+IL_018e: br.s IL_0206
+IL_0190: ldloca.s V_10
+IL_0192: ldloc.s V_11
+IL_0194: call !0 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Item(System.Int32)
+IL_0199: stloc.s V_12
+IL_019b: ldarg.0
+IL_019c: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EffectCullingJob::m_EnabledEffectData
+IL_01a1: ldloc.s V_12
+IL_01a3: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_01a8: call !0 Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::get_Item(System.Int32)
+IL_01ad: stloc.s V_13
+IL_01af: ldarg.0
+IL_01b0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Effects.EffectControlSystem/EffectCullingJob::m_PrefabEffectData
+IL_01b5: ldloc.s V_13
+IL_01b7: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Prefab
+IL_01bc: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData>::get_Item(Unity.Entities.Entity)
+IL_01c1: ldfld System.Boolean Game.Prefabs.EffectData::m_OwnerCulling
+IL_01c6: brfalse.s IL_0200
+IL_01c8: ldarg.0
+IL_01c9: ldflda Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EffectCullingJob::m_ActionQueue
+IL_01ce: ldloca.s V_7
+IL_01d0: initobj Game.Effects.EffectControlSystem/EnabledAction
+IL_01d6: ldloca.s V_7
+IL_01d8: ldloc.0
+IL_01d9: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_01de: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_01e3: ldloca.s V_7
+IL_01e5: ldloc.s V_12
+IL_01e7: ldfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_01ec: stfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_01f1: ldloca.s V_7
+IL_01f3: ldc.i4.0
+IL_01f4: stfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_01f9: ldloc.s V_7
+IL_01fb: call System.Void Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction>::Enqueue(!0)
+IL_0200: ldloc.s V_11
+IL_0202: ldc.i4.1
+IL_0203: add
+IL_0204: stloc.s V_11
+IL_0206: ldloc.s V_11
+IL_0208: ldloca.s V_10
+IL_020a: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Length()
+IL_020f: blt IL_0190
+IL_0214: ret
+TYPE Game.Effects.EffectControlSystem/TreeCullingJob1
+METHOD System.Void Game.Effects.EffectControlSystem/TreeCullingJob1::Execute()
+IL_0000: ldloca.s V_1
+IL_0002: initobj Game.Effects.EffectControlSystem/TreeCullingIterator
+IL_0008: ldloca.s V_1
+IL_000a: ldarg.0
+IL_000b: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingJob1::m_LodParameters
+IL_0010: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingIterator::m_LodParameters
+IL_0015: ldloca.s V_1
+IL_0017: ldarg.0
+IL_0018: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingJob1::m_PrevLodParameters
+IL_001d: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingIterator::m_PrevLodParameters
+IL_0022: ldloca.s V_1
+IL_0024: ldarg.0
+IL_0025: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob1::m_CameraPosition
+IL_002a: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingIterator::m_CameraPosition
+IL_002f: ldloca.s V_1
+IL_0031: ldarg.0
+IL_0032: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob1::m_PrevCameraPosition
+IL_0037: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingIterator::m_PrevCameraPosition
+IL_003c: ldloca.s V_1
+IL_003e: ldarg.0
+IL_003f: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob1::m_CameraDirection
+IL_0044: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingIterator::m_CameraDirection
+IL_0049: ldloca.s V_1
+IL_004b: ldarg.0
+IL_004c: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob1::m_PrevCameraDirection
+IL_0051: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingIterator::m_PrevCameraDirection
+IL_0056: ldloca.s V_1
+IL_0058: ldarg.0
+IL_0059: ldfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/TreeCullingJob1::m_ActionQueue
+IL_005e: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/TreeCullingIterator::m_ActionQueue
+IL_0063: ldloc.1
+IL_0064: stloc.0
+IL_0065: ldarg.0
+IL_0066: ldflda Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ> Game.Effects.EffectControlSystem/TreeCullingJob1::m_EffectSearchTree
+IL_006b: ldloca.s V_0
+IL_006d: ldc.i4.3
+IL_006e: ldarg.0
+IL_006f: ldfld Unity.Collections.NativeArray`1<System.Int32> Game.Effects.EffectControlSystem/TreeCullingJob1::m_NodeBuffer
+IL_0074: ldarg.0
+IL_0075: ldfld Unity.Collections.NativeArray`1<System.Int32> Game.Effects.EffectControlSystem/TreeCullingJob1::m_SubDataBuffer
+IL_007a: call System.Void Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ>::Iterate<Game.Effects.EffectControlSystem/TreeCullingIterator,System.Int32>(!!0&,!!1,Unity.Collections.NativeArray`1<System.Int32>,Unity.Collections.NativeArray`1<!!1>)
+IL_007f: ret
+TYPE Game.Effects.EffectControlSystem/TreeCullingJob2
+METHOD System.Void Game.Effects.EffectControlSystem/TreeCullingJob2::Execute(System.Int32)
+IL_0000: ldloca.s V_1
+IL_0002: initobj Game.Effects.EffectControlSystem/TreeCullingIterator
+IL_0008: ldloca.s V_1
+IL_000a: ldarg.0
+IL_000b: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingJob2::m_LodParameters
+IL_0010: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingIterator::m_LodParameters
+IL_0015: ldloca.s V_1
+IL_0017: ldarg.0
+IL_0018: ldfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingJob2::m_PrevLodParameters
+IL_001d: stfld Unity.Mathematics.float4 Game.Effects.EffectControlSystem/TreeCullingIterator::m_PrevLodParameters
+IL_0022: ldloca.s V_1
+IL_0024: ldarg.0
+IL_0025: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob2::m_CameraPosition
+IL_002a: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingIterator::m_CameraPosition
+IL_002f: ldloca.s V_1
+IL_0031: ldarg.0
+IL_0032: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob2::m_PrevCameraPosition
+IL_0037: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingIterator::m_PrevCameraPosition
+IL_003c: ldloca.s V_1
+IL_003e: ldarg.0
+IL_003f: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob2::m_CameraDirection
+IL_0044: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingIterator::m_CameraDirection
+IL_0049: ldloca.s V_1
+IL_004b: ldarg.0
+IL_004c: ldfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingJob2::m_PrevCameraDirection
+IL_0051: stfld Unity.Mathematics.float3 Game.Effects.EffectControlSystem/TreeCullingIterator::m_PrevCameraDirection
+IL_0056: ldloca.s V_1
+IL_0058: ldarg.0
+IL_0059: ldfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/TreeCullingJob2::m_ActionQueue
+IL_005e: stfld Colossal.Collections.NativeParallelQueue`1/Writer<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/TreeCullingIterator::m_ActionQueue
+IL_0063: ldloc.1
+IL_0064: stloc.0
+IL_0065: ldarg.0
+IL_0066: ldflda Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ> Game.Effects.EffectControlSystem/TreeCullingJob2::m_EffectSearchTree
+IL_006b: ldloca.s V_0
+IL_006d: ldarg.0
+IL_006e: ldflda Unity.Collections.NativeArray`1<System.Int32> Game.Effects.EffectControlSystem/TreeCullingJob2::m_SubDataBuffer
+IL_0073: ldarg.1
+IL_0074: call !0 Unity.Collections.NativeArray`1<System.Int32>::get_Item(System.Int32)
+IL_0079: ldarg.0
+IL_007a: ldflda Unity.Collections.NativeArray`1<System.Int32> Game.Effects.EffectControlSystem/TreeCullingJob2::m_NodeBuffer
+IL_007f: ldarg.1
+IL_0080: call !0 Unity.Collections.NativeArray`1<System.Int32>::get_Item(System.Int32)
+IL_0085: call System.Void Colossal.Collections.NativeQuadTree`2<Game.Effects.SourceInfo,Game.Common.QuadTreeBoundsXZ>::Iterate<Game.Effects.EffectControlSystem/TreeCullingIterator,System.Int32>(!!0&,!!1,System.Int32)
+IL_008a: ret
+TYPE Game.Effects.EffectControlSystem/TreeCullingIterator
+TYPE Game.Effects.EffectControlSystem/ActionFlags
+TYPE Game.Effects.EffectControlSystem/EnabledAction
+TYPE Game.Effects.EffectControlSystem/OverflowAction
+TYPE Game.Effects.EffectControlSystem/EnabledActionJob
+METHOD System.Void Game.Effects.EffectControlSystem/EnabledActionJob::Execute(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Colossal.Collections.NativeParallelQueue`1/Reader<Game.Effects.EffectControlSystem/EnabledAction> Game.Effects.EffectControlSystem/EnabledActionJob::m_CullingActions
+IL_0006: ldarg.1
+IL_0007: call Colossal.Collections.NativeParallelQueue`1/Enumerator<!0> Colossal.Collections.NativeParallelQueue`1/Reader<Game.Effects.EffectControlSystem/EnabledAction>::GetEnumerator(System.Int32)
+IL_000c: stloc.0
+IL_000d: br IL_0102
+IL_0012: ldloca.s V_0
+IL_0014: call !0 Colossal.Collections.NativeParallelQueue`1/Enumerator<Game.Effects.EffectControlSystem/EnabledAction>::get_Current()
+IL_0019: stloc.1
+IL_001a: ldloc.1
+IL_001b: ldfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_0020: ldc.i4.5
+IL_0021: and
+IL_0022: brfalse IL_00fb
+IL_0027: ldarg.0
+IL_0028: ldflda Game.Effects.EffectControlData Game.Effects.EffectControlSystem/EnabledActionJob::m_EffectControlData
+IL_002d: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlData::m_Prefabs
+IL_0032: ldloc.1
+IL_0033: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_0038: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_003d: stloc.2
+IL_003e: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0043: stloc.3
+IL_0044: ldc.i4.0
+IL_0045: stloc.s V_4
+IL_0047: ldc.i4.0
+IL_0048: stloc.s V_5
+IL_004a: ldarg.0
+IL_004b: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.Effect> Game.Effects.EffectControlSystem/EnabledActionJob::m_PrefabEffects
+IL_0050: ldloc.2
+IL_0051: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0056: ldloca.s V_6
+IL_0058: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.Effect>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_005d: brfalse.s IL_0099
+IL_005f: ldloca.s V_6
+IL_0061: ldloc.1
+IL_0062: ldfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_0067: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Item(System.Int32)
+IL_006c: stloc.s V_8
+IL_006e: ldloc.s V_8
+IL_0070: ldfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_0075: stloc.3
+IL_0076: ldloc.s V_8
+IL_0078: ldfld Unity.Mathematics.int2 Game.Prefabs.Effect::m_BoneIndex
+IL_007d: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0082: ldc.i4.0
+IL_0083: bge.s IL_0094
+IL_0085: ldloc.s V_8
+IL_0087: ldfld System.Int32 Game.Prefabs.Effect::m_AnimationIndex
+IL_008c: ldc.i4.0
+IL_008d: clt
+IL_008f: ldc.i4.0
+IL_0090: ceq
+IL_0092: br.s IL_0095
+IL_0094: ldc.i4.1
+IL_0095: stloc.s V_4
+IL_0097: br.s IL_00c8
+IL_0099: ldarg.0
+IL_009a: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Effects.EffectControlSystem/EnabledActionJob::m_EditorContainerData
+IL_009f: ldloc.1
+IL_00a0: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_00a5: ldloca.s V_9
+IL_00a7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_00ac: brfalse.s IL_00c8
+IL_00ae: ldloc.s V_9
+IL_00b0: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_00b5: stloc.3
+IL_00b6: ldloc.s V_9
+IL_00b8: ldfld System.Int32 Game.Tools.EditorContainer::m_GroupIndex
+IL_00bd: ldc.i4.0
+IL_00be: clt
+IL_00c0: ldc.i4.0
+IL_00c1: ceq
+IL_00c3: stloc.s V_4
+IL_00c5: ldc.i4.1
+IL_00c6: stloc.s V_5
+IL_00c8: ldloc.1
+IL_00c9: ldfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_00ce: ldc.i4.1
+IL_00cf: and
+IL_00d0: ldc.i4.0
+IL_00d1: cgt.un
+IL_00d3: stloc.s V_7
+IL_00d5: ldarg.0
+IL_00d6: ldflda Game.Effects.EffectControlData Game.Effects.EffectControlSystem/EnabledActionJob::m_EffectControlData
+IL_00db: ldloc.1
+IL_00dc: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_00e1: ldloc.3
+IL_00e2: ldloc.s V_7
+IL_00e4: ldloc.s V_5
+IL_00e6: call System.Boolean Game.Effects.EffectControlData::ShouldBeEnabled(Unity.Entities.Entity,Unity.Entities.Entity,System.Boolean,System.Boolean)
+IL_00eb: brfalse.s IL_00fb
+IL_00ed: ldarg.0
+IL_00ee: ldloc.1
+IL_00ef: ldloc.3
+IL_00f0: ldloc.s V_4
+IL_00f2: ldloc.s V_5
+IL_00f4: call System.Void Game.Effects.EffectControlSystem/EnabledActionJob::Enable(Game.Effects.EffectControlSystem/EnabledAction,Unity.Entities.Entity,System.Boolean,System.Boolean)
+IL_00f9: br.s IL_0102
+IL_00fb: ldarg.0
+IL_00fc: ldloc.1
+IL_00fd: call System.Void Game.Effects.EffectControlSystem/EnabledActionJob::Disable(Game.Effects.EffectControlSystem/EnabledAction)
+IL_0102: ldloca.s V_0
+IL_0104: call System.Boolean Colossal.Collections.NativeParallelQueue`1/Enumerator<Game.Effects.EffectControlSystem/EnabledAction>::MoveNext()
+IL_0109: brtrue IL_0012
+IL_010e: ldloca.s V_0
+IL_0110: call System.Void Colossal.Collections.NativeParallelQueue`1/Enumerator<Game.Effects.EffectControlSystem/EnabledAction>::Dispose()
+IL_0115: ret
+METHOD System.Void Game.Effects.EffectControlSystem/EnabledActionJob::Enable(Game.Effects.EffectControlSystem/EnabledAction,Unity.Entities.Entity,System.Boolean,System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/EnabledActionJob::m_EffectOwners
+IL_0006: ldarg.1
+IL_0007: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_000c: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect>::get_Item(Unity.Entities.Entity)
+IL_0011: stloc.0
+IL_0012: ldc.i4.0
+IL_0013: stloc.3
+IL_0014: br IL_016a
+IL_0019: ldloca.s V_0
+IL_001b: ldloc.3
+IL_001c: call !0& Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::ElementAt(System.Int32)
+IL_0021: stloc.s V_4
+IL_0023: ldloc.s V_4
+IL_0025: ldfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_002a: ldarg.1
+IL_002b: ldfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_0030: bne.un IL_0166
+IL_0035: ldloc.s V_4
+IL_0037: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_003c: ldarg.0
+IL_003d: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledData
+IL_0042: call System.Int32 Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::get_Length()
+IL_0047: bge IL_0165
+IL_004c: ldarg.0
+IL_004d: ldfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledData
+IL_0052: call !!0* Unity.Collections.LowLevel.Unsafe.NativeListUnsafeUtility::GetUnsafePtr<Game.Effects.EnabledEffectData>(Unity.Collections.NativeList`1<!!0>)
+IL_0057: ldloc.s V_4
+IL_0059: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_005e: call !!0& Unity.Collections.LowLevel.Unsafe.UnsafeUtility::ArrayElementAsRef<Game.Effects.EnabledEffectData>(System.Void*,System.Int32)
+IL_0063: stloc.s V_5
+IL_0065: ldloc.s V_5
+IL_0067: ldfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Prefab
+IL_006c: ldarg.2
+IL_006d: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0072: brtrue IL_0166
+IL_0077: ldarg.1
+IL_0078: ldfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_007d: ldc.i4.s 16
+IL_007f: and
+IL_0080: brfalse.s IL_00f6
+IL_0082: ldarg.1
+IL_0083: ldfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_0088: ldc.i4.8
+IL_0089: and
+IL_008a: ldc.i4.0
+IL_008b: ceq
+IL_008d: ldarg.3
+IL_008e: or
+IL_008f: brtrue.s IL_00a4
+IL_0091: ldarg.0
+IL_0092: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Effects.EffectControlSystem/EnabledActionJob::m_InterpolatedTransformData
+IL_0097: ldarg.1
+IL_0098: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_009d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform>::HasComponent(Unity.Entities.Entity)
+IL_00a2: brfalse.s IL_00b6
+IL_00a4: ldloc.s V_5
+IL_00a6: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_00ab: dup
+IL_00ac: ldind.u4
+IL_00ad: ldc.i4 1024
+IL_00b2: or
+IL_00b3: stind.i4
+IL_00b4: br.s IL_00c6
+IL_00b6: ldloc.s V_5
+IL_00b8: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_00bd: dup
+IL_00be: ldind.u4
+IL_00bf: ldc.i4 -1025
+IL_00c4: and
+IL_00c5: stind.i4
+IL_00c6: ldarg.0
+IL_00c7: ldarg.1
+IL_00c8: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_00cd: call System.Boolean Game.Effects.EffectControlSystem/EnabledActionJob::OwnerCollapsed(Unity.Entities.Entity)
+IL_00d2: brfalse.s IL_00e6
+IL_00d4: ldloc.s V_5
+IL_00d6: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_00db: dup
+IL_00dc: ldind.u4
+IL_00dd: ldc.i4 8192
+IL_00e2: or
+IL_00e3: stind.i4
+IL_00e4: br.s IL_00f6
+IL_00e6: ldloc.s V_5
+IL_00e8: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_00ed: dup
+IL_00ee: ldind.u4
+IL_00ef: ldc.i4 -8193
+IL_00f4: and
+IL_00f5: stind.i4
+IL_00f6: ldloc.s V_5
+IL_00f8: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_00fd: ldc.i4.1
+IL_00fe: and
+IL_00ff: brtrue.s IL_014a
+IL_0101: ldloc.s V_5
+IL_0103: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0108: dup
+IL_0109: ldind.u4
+IL_010a: ldc.i4.3
+IL_010b: or
+IL_010c: stind.i4
+IL_010d: ldloc.s V_5
+IL_010f: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0114: ldc.i4.s 16
+IL_0116: and
+IL_0117: brfalse.s IL_0165
+IL_0119: ldarg.0
+IL_011a: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.VFXUpdateInfo> Game.Effects.EffectControlSystem/EnabledActionJob::m_VFXUpdateQueue
+IL_011f: ldloca.s V_6
+IL_0121: initobj Game.Effects.VFXUpdateInfo
+IL_0127: ldloca.s V_6
+IL_0129: ldc.i4.0
+IL_012a: stfld Game.Effects.VFXUpdateType Game.Effects.VFXUpdateInfo::m_Type
+IL_012f: ldloca.s V_6
+IL_0131: ldloc.s V_4
+IL_0133: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_0138: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Implicit(System.Int32)
+IL_013d: stfld Unity.Mathematics.int2 Game.Effects.VFXUpdateInfo::m_EnabledIndex
+IL_0142: ldloc.s V_6
+IL_0144: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.VFXUpdateInfo>::Enqueue(!0)
+IL_0149: ret
+IL_014a: ldarg.1
+IL_014b: ldfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_0150: ldc.i4.s 16
+IL_0152: and
+IL_0153: brfalse.s IL_0165
+IL_0155: ldloc.s V_5
+IL_0157: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_015c: dup
+IL_015d: ldind.u4
+IL_015e: ldc.i4 4096
+IL_0163: or
+IL_0164: stind.i4
+IL_0165: ret
+IL_0166: ldloc.3
+IL_0167: ldc.i4.1
+IL_0168: add
+IL_0169: stloc.3
+IL_016a: ldloc.3
+IL_016b: ldloca.s V_0
+IL_016d: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Length()
+IL_0172: blt IL_0019
+IL_0177: ldarg.0
+IL_0178: ldfld Unity.Collections.NativeReference`1<System.Int32> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledDataIndex
+IL_017d: call !!0* Unity.Collections.LowLevel.Unsafe.NativeReferenceUnsafeUtility::GetUnsafePtr<System.Int32>(Unity.Collections.NativeReference`1<!!0>)
+IL_0182: call !!0& Unity.Collections.LowLevel.Unsafe.UnsafeUtility::AsRef<System.Int32>(System.Void*)
+IL_0187: call System.Int32 System.Threading.Interlocked::Increment(System.Int32&)
+IL_018c: ldc.i4.1
+IL_018d: sub
+IL_018e: stloc.1
+IL_018f: ldloca.s V_0
+IL_0191: ldloca.s V_7
+IL_0193: initobj Game.Effects.EnabledEffect
+IL_0199: ldloca.s V_7
+IL_019b: ldarg.1
+IL_019c: ldfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_01a1: stfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_01a6: ldloca.s V_7
+IL_01a8: ldloc.1
+IL_01a9: stfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_01ae: ldloc.s V_7
+IL_01b0: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::Add(!0)
+IL_01b5: pop
+IL_01b6: ldc.i4.3
+IL_01b7: stloc.2
+IL_01b8: ldarg.s isEditorContainer
+IL_01ba: brfalse.s IL_01c4
+IL_01bc: ldloc.2
+IL_01bd: ldc.i4 128
+IL_01c2: or
+IL_01c3: stloc.2
+IL_01c4: ldarg.0
+IL_01c5: ldflda Game.Effects.EffectControlData Game.Effects.EffectControlSystem/EnabledActionJob::m_EffectControlData
+IL_01ca: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.LightEffectData> Game.Effects.EffectControlData::m_LightEffectDatas
+IL_01cf: ldarg.2
+IL_01d0: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.LightEffectData>::HasComponent(Unity.Entities.Entity)
+IL_01d5: brfalse.s IL_01db
+IL_01d7: ldloc.2
+IL_01d8: ldc.i4.8
+IL_01d9: or
+IL_01da: stloc.2
+IL_01db: ldarg.0
+IL_01dc: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.VFXData> Game.Effects.EffectControlSystem/EnabledActionJob::m_VFXDatas
+IL_01e1: ldarg.2
+IL_01e2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.VFXData>::HasComponent(Unity.Entities.Entity)
+IL_01e7: brfalse.s IL_0218
+IL_01e9: ldloc.2
+IL_01ea: ldc.i4.s 16
+IL_01ec: or
+IL_01ed: stloc.2
+IL_01ee: ldarg.0
+IL_01ef: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.VFXUpdateInfo> Game.Effects.EffectControlSystem/EnabledActionJob::m_VFXUpdateQueue
+IL_01f4: ldloca.s V_6
+IL_01f6: initobj Game.Effects.VFXUpdateInfo
+IL_01fc: ldloca.s V_6
+IL_01fe: ldc.i4.0
+IL_01ff: stfld Game.Effects.VFXUpdateType Game.Effects.VFXUpdateInfo::m_Type
+IL_0204: ldloca.s V_6
+IL_0206: ldloc.1
+IL_0207: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Implicit(System.Int32)
+IL_020c: stfld Unity.Mathematics.int2 Game.Effects.VFXUpdateInfo::m_EnabledIndex
+IL_0211: ldloc.s V_6
+IL_0213: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.VFXUpdateInfo>::Enqueue(!0)
+IL_0218: ldarg.0
+IL_0219: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.AudioSourceData> Game.Effects.EffectControlSystem/EnabledActionJob::m_AudioSourceDatas
+IL_021e: ldarg.2
+IL_021f: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.AudioSourceData>::HasBuffer(Unity.Entities.Entity)
+IL_0224: brfalse.s IL_022b
+IL_0226: ldloc.2
+IL_0227: ldc.i4.s 32
+IL_0229: or
+IL_022a: stloc.2
+IL_022b: ldarg.0
+IL_022c: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.RandomTransformData> Game.Effects.EffectControlSystem/EnabledActionJob::m_RandomTransformDatas
+IL_0231: ldarg.2
+IL_0232: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.RandomTransformData>::HasComponent(Unity.Entities.Entity)
+IL_0237: brfalse.s IL_0241
+IL_0239: ldloc.2
+IL_023a: ldc.i4 256
+IL_023f: or
+IL_0240: stloc.2
+IL_0241: ldarg.0
+IL_0242: ldflda Game.Effects.EffectControlData Game.Effects.EffectControlSystem/EnabledActionJob::m_EffectControlData
+IL_0247: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Effects.EffectControlData::m_Temps
+IL_024c: ldarg.1
+IL_024d: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_0252: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_0257: brfalse.s IL_0261
+IL_0259: ldloc.2
+IL_025a: ldc.i4 512
+IL_025f: or
+IL_0260: stloc.2
+IL_0261: ldarg.1
+IL_0262: ldfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_0267: ldc.i4.8
+IL_0268: and
+IL_0269: ldc.i4.0
+IL_026a: ceq
+IL_026c: ldarg.3
+IL_026d: or
+IL_026e: brtrue.s IL_0283
+IL_0270: ldarg.0
+IL_0271: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Effects.EffectControlSystem/EnabledActionJob::m_InterpolatedTransformData
+IL_0276: ldarg.1
+IL_0277: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_027c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform>::HasComponent(Unity.Entities.Entity)
+IL_0281: brfalse.s IL_028b
+IL_0283: ldloc.2
+IL_0284: ldc.i4 1024
+IL_0289: or
+IL_028a: stloc.2
+IL_028b: ldarg.0
+IL_028c: ldarg.1
+IL_028d: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_0292: call System.Boolean Game.Effects.EffectControlSystem/EnabledActionJob::OwnerCollapsed(Unity.Entities.Entity)
+IL_0297: brfalse.s IL_02a1
+IL_0299: ldloc.2
+IL_029a: ldc.i4 8192
+IL_029f: or
+IL_02a0: stloc.2
+IL_02a1: ldloc.1
+IL_02a2: ldarg.0
+IL_02a3: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledData
+IL_02a8: call System.Int32 Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::get_Capacity()
+IL_02ad: blt.s IL_02f7
+IL_02af: ldarg.0
+IL_02b0: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.EffectControlSystem/OverflowAction> Game.Effects.EffectControlSystem/EnabledActionJob::m_OverflowActions
+IL_02b5: ldloca.s V_8
+IL_02b7: initobj Game.Effects.EffectControlSystem/OverflowAction
+IL_02bd: ldloca.s V_8
+IL_02bf: ldarg.1
+IL_02c0: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_02c5: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/OverflowAction::m_Owner
+IL_02ca: ldloca.s V_8
+IL_02cc: ldarg.2
+IL_02cd: stfld Unity.Entities.Entity Game.Effects.EffectControlSystem/OverflowAction::m_Prefab
+IL_02d2: ldloca.s V_8
+IL_02d4: ldloc.1
+IL_02d5: stfld System.Int32 Game.Effects.EffectControlSystem/OverflowAction::m_DataIndex
+IL_02da: ldloca.s V_8
+IL_02dc: ldarg.1
+IL_02dd: ldfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_02e2: stfld System.Int32 Game.Effects.EffectControlSystem/OverflowAction::m_EffectIndex
+IL_02e7: ldloca.s V_8
+IL_02e9: ldloc.2
+IL_02ea: stfld Game.Effects.EnabledEffectFlags Game.Effects.EffectControlSystem/OverflowAction::m_Flags
+IL_02ef: ldloc.s V_8
+IL_02f1: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.EffectControlSystem/OverflowAction>::Enqueue(!0)
+IL_02f6: ret
+IL_02f7: ldarg.0
+IL_02f8: ldfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledData
+IL_02fd: call !!0* Unity.Collections.LowLevel.Unsafe.NativeListUnsafeUtility::GetUnsafePtr<Game.Effects.EnabledEffectData>(Unity.Collections.NativeList`1<!!0>)
+IL_0302: ldloc.1
+IL_0303: call !!0& Unity.Collections.LowLevel.Unsafe.UnsafeUtility::ArrayElementAsRef<Game.Effects.EnabledEffectData>(System.Void*,System.Int32)
+IL_0308: dup
+IL_0309: initobj Game.Effects.EnabledEffectData
+IL_030f: dup
+IL_0310: ldarg.1
+IL_0311: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_0316: stfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Owner
+IL_031b: dup
+IL_031c: ldarg.2
+IL_031d: stfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Prefab
+IL_0322: dup
+IL_0323: ldarg.1
+IL_0324: ldfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_0329: stfld System.Int32 Game.Effects.EnabledEffectData::m_EffectIndex
+IL_032e: ldloc.2
+IL_032f: stfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0334: ret
+METHOD System.Boolean Game.Effects.EffectControlSystem/EnabledActionJob::OwnerCollapsed(Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Effects.EffectControlSystem/EnabledActionJob::m_DestroyedData
+IL_0006: ldarg.1
+IL_0007: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Destroyed>::HasComponent(Unity.Entities.Entity)
+IL_000c: brfalse.s IL_0047
+IL_000e: ldarg.0
+IL_000f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Effects.EffectControlSystem/EnabledActionJob::m_PrefabRefs
+IL_0014: ldarg.1
+IL_0015: ldloca.s V_0
+IL_0017: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_001c: brfalse.s IL_0047
+IL_001e: ldarg.0
+IL_001f: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Effects.EffectControlSystem/EnabledActionJob::m_ObjectGeometryDatas
+IL_0024: ldloc.0
+IL_0025: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_002a: ldloca.s V_1
+IL_002c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0031: brfalse.s IL_0047
+IL_0033: ldloc.1
+IL_0034: ldfld Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0039: ldc.i4 1048608
+IL_003e: and
+IL_003f: ldc.i4 1048608
+IL_0044: ceq
+IL_0046: ret
+IL_0047: ldc.i4.0
+IL_0048: ret
+METHOD System.Void Game.Effects.EffectControlSystem/EnabledActionJob::Disable(Game.Effects.EffectControlSystem/EnabledAction)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect> Game.Effects.EffectControlSystem/EnabledActionJob::m_EffectOwners
+IL_0006: ldarg.1
+IL_0007: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/EnabledAction::m_Owner
+IL_000c: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Effects.EnabledEffect>::get_Item(Unity.Entities.Entity)
+IL_0011: stloc.0
+IL_0012: ldc.i4.0
+IL_0013: stloc.1
+IL_0014: br IL_00ef
+IL_0019: ldloca.s V_0
+IL_001b: ldloc.1
+IL_001c: call !0& Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::ElementAt(System.Int32)
+IL_0021: stloc.2
+IL_0022: ldloc.2
+IL_0023: ldfld System.Int32 Game.Effects.EnabledEffect::m_EffectIndex
+IL_0028: ldarg.1
+IL_0029: ldfld System.Int32 Game.Effects.EffectControlSystem/EnabledAction::m_EffectIndex
+IL_002e: bne.un IL_00eb
+IL_0033: ldloc.2
+IL_0034: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_0039: ldarg.0
+IL_003a: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledData
+IL_003f: call System.Int32 Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::get_Length()
+IL_0044: bge IL_00ea
+IL_0049: ldarg.0
+IL_004a: ldfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/EnabledActionJob::m_EnabledData
+IL_004f: call !!0* Unity.Collections.LowLevel.Unsafe.NativeListUnsafeUtility::GetUnsafePtr<Game.Effects.EnabledEffectData>(Unity.Collections.NativeList`1<!!0>)
+IL_0054: ldloc.2
+IL_0055: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_005a: call !!0& Unity.Collections.LowLevel.Unsafe.UnsafeUtility::ArrayElementAsRef<Game.Effects.EnabledEffectData>(System.Void*,System.Int32)
+IL_005f: stloc.3
+IL_0060: ldloc.3
+IL_0061: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0066: ldc.i4.1
+IL_0067: and
+IL_0068: brfalse.s IL_00bb
+IL_006a: ldloc.3
+IL_006b: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0070: dup
+IL_0071: ldind.u4
+IL_0072: ldc.i4.s -2
+IL_0074: and
+IL_0075: stind.i4
+IL_0076: ldloc.3
+IL_0077: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_007c: dup
+IL_007d: ldind.u4
+IL_007e: ldc.i4.2
+IL_007f: or
+IL_0080: stind.i4
+IL_0081: ldloc.3
+IL_0082: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0087: ldc.i4.s 16
+IL_0089: and
+IL_008a: brfalse.s IL_00bb
+IL_008c: ldarg.0
+IL_008d: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.VFXUpdateInfo> Game.Effects.EffectControlSystem/EnabledActionJob::m_VFXUpdateQueue
+IL_0092: ldloca.s V_4
+IL_0094: initobj Game.Effects.VFXUpdateInfo
+IL_009a: ldloca.s V_4
+IL_009c: ldc.i4.1
+IL_009d: stfld Game.Effects.VFXUpdateType Game.Effects.VFXUpdateInfo::m_Type
+IL_00a2: ldloca.s V_4
+IL_00a4: ldloc.2
+IL_00a5: ldfld System.Int32 Game.Effects.EnabledEffect::m_EnabledIndex
+IL_00aa: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Implicit(System.Int32)
+IL_00af: stfld Unity.Mathematics.int2 Game.Effects.VFXUpdateInfo::m_EnabledIndex
+IL_00b4: ldloc.s V_4
+IL_00b6: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Game.Effects.VFXUpdateInfo>::Enqueue(!0)
+IL_00bb: ldarg.1
+IL_00bc: ldfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_00c1: ldc.i4.2
+IL_00c2: and
+IL_00c3: brfalse.s IL_00d0
+IL_00c5: ldloc.3
+IL_00c6: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_00cb: dup
+IL_00cc: ldind.u4
+IL_00cd: ldc.i4.4
+IL_00ce: or
+IL_00cf: stind.i4
+IL_00d0: ldarg.1
+IL_00d1: ldfld Game.Effects.EffectControlSystem/ActionFlags Game.Effects.EffectControlSystem/EnabledAction::m_Flags
+IL_00d6: ldc.i4.s 32
+IL_00d8: and
+IL_00d9: brfalse.s IL_00ea
+IL_00db: ldloc.3
+IL_00dc: ldflda Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_00e1: dup
+IL_00e2: ldind.u4
+IL_00e3: ldc.i4 16384
+IL_00e8: or
+IL_00e9: stind.i4
+IL_00ea: ret
+IL_00eb: ldloc.1
+IL_00ec: ldc.i4.1
+IL_00ed: add
+IL_00ee: stloc.1
+IL_00ef: ldloc.1
+IL_00f0: ldloca.s V_0
+IL_00f2: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Effects.EnabledEffect>::get_Length()
+IL_00f7: blt IL_0019
+IL_00fc: ret
+TYPE Game.Effects.EffectControlSystem/ResizeEnabledDataJob
+METHOD System.Void Game.Effects.EffectControlSystem/ResizeEnabledDataJob::Execute()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_EnabledData
+IL_0006: ldarg.0
+IL_0007: ldflda Unity.Collections.NativeReference`1<System.Int32> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_EnabledDataIndex
+IL_000c: call !0 Unity.Collections.NativeReference`1<System.Int32>::get_Value()
+IL_0011: ldarg.0
+IL_0012: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_EnabledData
+IL_0017: call System.Int32 Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::get_Capacity()
+IL_001c: call System.Int32 Unity.Mathematics.math::min(System.Int32,System.Int32)
+IL_0021: ldc.i4.0
+IL_0022: call System.Void Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::Resize(System.Int32,Unity.Collections.NativeArrayOptions)
+IL_0027: ldarg.0
+IL_0028: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_EnabledData
+IL_002d: ldarg.0
+IL_002e: ldflda Unity.Collections.NativeReference`1<System.Int32> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_EnabledDataIndex
+IL_0033: call !0 Unity.Collections.NativeReference`1<System.Int32>::get_Value()
+IL_0038: ldc.i4.0
+IL_0039: call System.Void Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::Resize(System.Int32,Unity.Collections.NativeArrayOptions)
+IL_003e: ldarg.0
+IL_003f: ldflda Unity.Collections.NativeQueue`1<Game.Effects.EffectControlSystem/OverflowAction> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_OverflowActions
+IL_0044: ldloca.s V_0
+IL_0046: call System.Boolean Unity.Collections.NativeQueue`1<Game.Effects.EffectControlSystem/OverflowAction>::TryDequeue(!0&)
+IL_004b: brfalse.s IL_0096
+IL_004d: ldarg.0
+IL_004e: ldflda Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem/ResizeEnabledDataJob::m_EnabledData
+IL_0053: ldloc.0
+IL_0054: ldfld System.Int32 Game.Effects.EffectControlSystem/OverflowAction::m_DataIndex
+IL_0059: call !0& Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::ElementAt(System.Int32)
+IL_005e: dup
+IL_005f: initobj Game.Effects.EnabledEffectData
+IL_0065: dup
+IL_0066: ldloc.0
+IL_0067: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/OverflowAction::m_Owner
+IL_006c: stfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Owner
+IL_0071: dup
+IL_0072: ldloc.0
+IL_0073: ldfld Unity.Entities.Entity Game.Effects.EffectControlSystem/OverflowAction::m_Prefab
+IL_0078: stfld Unity.Entities.Entity Game.Effects.EnabledEffectData::m_Prefab
+IL_007d: dup
+IL_007e: ldloc.0
+IL_007f: ldfld System.Int32 Game.Effects.EffectControlSystem/OverflowAction::m_EffectIndex
+IL_0084: stfld System.Int32 Game.Effects.EnabledEffectData::m_EffectIndex
+IL_0089: ldloc.0
+IL_008a: ldfld Game.Effects.EnabledEffectFlags Game.Effects.EffectControlSystem/OverflowAction::m_Flags
+IL_008f: stfld Game.Effects.EnabledEffectFlags Game.Effects.EnabledEffectData::m_Flags
+IL_0094: br.s IL_003e
+IL_0096: ret
+TYPE Game.Effects.EffectControlSystem/TypeHandle

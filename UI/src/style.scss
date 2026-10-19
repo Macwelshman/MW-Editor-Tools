@@ -3,8 +3,8 @@
 .mw-tools-launcher-button:hover { background-color: #3b5666; }
 .mw-tools-panel { width: 860rem; max-width: 95vw; }
 .mw-tools-heading { display:flex; align-items:center; justify-content:space-between; width:100%; }
-.mw-tools-body { height:85vh; max-height:85vh; display:flex; flex-direction:column; overflow:hidden; color:#eef0f2; }
-.mw-tools-section { flex:1 1 auto; min-height:0; padding:14rem; overflow-y:auto; }
+.mw-tools-body { height:auto; max-height:85vh; display:flex; flex-direction:column; overflow:hidden; color:#eef0f2; }
+.mw-tools-section { flex:0 1 auto; min-height:0; padding:14rem; overflow-y:auto; }
 .mw-tools-context { padding:6rem; color:#acbdcd; }
 .mw-tools-actions { display:flex; flex-wrap:wrap; gap:6rem; margin:8rem 0; }
 .mw-tools-tabs { display:flex; flex:0 0 auto; flex-wrap:nowrap; overflow-x:auto; padding:0 10rem; border-bottom:2rem solid #7ca4ba; background:#20262b; }
@@ -12,9 +12,6 @@
 .mw-tools-tabs > button[aria-selected="true"] { border-bottom-color:#8ed3f5; background:#344b59; color:#fff; }
 .mw-tools-save-report { max-height:260rem; background:#20262b; padding:10rem; }
 .mw-tools-save-report > div { white-space:pre-wrap; }
-.mw-tools-multisave .mw-tools-save-primary { min-width:260rem; padding:18rem 28rem; background-color:#367ba0; color:#fff; border:2rem solid #8ed3f5; font-size:var(--fontSizeM); }
-.mw-tools-multisave .mw-tools-save-primary:hover { background-color:#4794bb; }
-.mw-tools-multisave .mw-tools-save-primary:disabled { background-color:#344b59; color:#acbdcd; border-color:#607788; }
 .mw-tools-save-progress { height:12rem; margin:12rem 0 20rem; background-color:#20262b; border-radius:4rem; overflow:hidden; }
 .mw-tools-save-progress > div { height:100%; background-color:#8ed3f5; }
 .mw-tools-save-details { margin-top:12rem; color:#acbdcd; }
@@ -28,4 +25,37 @@
 .mw-tools-test > strong { display:block; margin-bottom:8rem; }
 .mw-tools-test-status { padding:12rem; margin:8rem 0 12rem; background:#17232b; color:#fff; font-size:var(--fontSizeM); border-left:4rem solid #8ed3f5; }
 .mw-tools-diagnostics { display:flex; flex-wrap:wrap; gap:6rem; padding:10rem; margin:10rem 0; background:#20262b; }
+.mw-component-list { max-height:300rem; overflow-y:auto; background:#20262b; }
+.mw-component-row { display:flex; width:100%; justify-content:space-between; padding:7rem 10rem; }
+.mw-component-result { white-space:pre-wrap; overflow-wrap:anywhere; padding:8rem; background:#20262b; }
 .mw-tools-diagnostics > p { width:100%; }
+
+/* Shared compact layout; explicit block flow prevents native heading flex rules
+   from splitting text and counts into separate rows. */
+.mw-tools-section h3 { display:block; white-space:normal; margin:6rem 0; font-size:var(--fontSizeM); }
+.mw-tools-section p { display:block; margin:5rem 0; }
+.mw-tools-context { display:block; padding:0; margin:0 0 10rem; }
+.mw-tools-header-actions { display:flex; align-items:center; }
+.mw-tools-header-actions > * + * { margin-left:6rem; }
+.mw-tools-heading button { flex:0 0 auto; }
+.mw-tools-subheading { display:flex; align-items:center; justify-content:space-between; margin-bottom:6rem; }
+.mw-tools-subheading > span { color:#acbdcd; }
+.mw-tools-button-wrap { display:inline-flex; flex:0 0 auto; }
+.mw-tools-button-wrap > button { white-space:nowrap; }
+.mw-tools-clipboard { display:flex; align-items:center; justify-content:space-between; padding:8rem 10rem; margin:8rem 0; background:#20262b; }
+.mw-tools-clipboard > span { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; padding-right:8rem; }
+.mw-tools-shortcuts { color:#acbdcd; margin-bottom:10rem; }
+.mw-component-list { max-height:240rem; }
+.mw-component-list:empty { display:none; }
+.mw-component-row { align-items:center; text-align:left; }
+.mw-component-row > span:first-child { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+.mw-component-row > span:last-child { flex:0 0 auto; margin-left:14rem; color:#acbdcd; }
+.mw-tools-result { display:block; margin-top:8rem; color:#acbdcd; overflow-wrap:anywhere; }
+.mw-tools-multisave > button { width:auto; align-self:flex-start; }
+.mw-tools-section .mwet-colors-fixed-controls { padding:0; }
+.mw-tools-section .mwet-colors-footer-actions { flex-wrap:wrap; }
+.mw-tools-section .mwet-colors-footer-actions > * { flex:0 0 auto; min-width:0; }
+.mw-tools-section .mwet-colors-copy-actions .mwet-colors-button { flex:0 0 auto; min-height:0; padding:6rem 10rem; font-size:var(--fontSizeS); }
+
+.mw-tools-section .mw-tools-introduction { display:block; margin:0 0 12rem; color:#acbdcd; line-height:1.35; }
+

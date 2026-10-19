@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType></PropertyGroup>
-<ItemGroup><Compile Include="../../src/Modules/BulldozerRecovery/BulldozerTraceSession.cs" Link="BulldozerTraceSession.cs" /><Compile Include="../../src/History/TransactionHistory.cs" Link="TransactionHistory.cs" /><Compile Include="../../src/Modules/BulldozerRecovery/AutomaticStandaloneCapture.cs" Link="AutomaticStandaloneCapture.cs" /></ItemGroup>
+<ItemGroup>
+<Compile Include="../../src/Modules/BulldozerRecovery/BulldozerTraceSession.cs" Link="BulldozerTraceSession.cs" /><Compile Include="../../src/History/TransactionHistory.cs" Link="TransactionHistory.cs" /><Compile Include="../../src/Modules/BulldozerRecovery/AutomaticStandaloneCapture.cs" Link="AutomaticStandaloneCapture.cs" /></ItemGroup>
+<ItemGroup>
+<Compile Include="../../src/Modules/BulldozerRecovery/RecoveryApplyGuard.cs" Link="RecoveryApplyGuard.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/AutomaticBoundCapture.cs" Link="AutomaticBoundCapture.cs" /></ItemGroup>
 </Project>

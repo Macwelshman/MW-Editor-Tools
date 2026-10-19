@@ -1,0 +1,1791 @@
+TYPE Game.Tools.ToolClearSystem
+FIELD Game.Tools.ToolOutputBarrier m_ToolOutputBarrier
+FIELD Unity.Entities.EntityQuery m_ClearQuery
+FIELD Game.Tools.ToolClearSystem/TypeHandle __TypeHandle
+METHOD System.Void Game.Tools.ToolClearSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolOutputBarrier>()
+IL_0012: stfld Game.Tools.ToolOutputBarrier Game.Tools.ToolClearSystem::m_ToolOutputBarrier
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: ldc.i4.1
+IL_001a: newarr Unity.Entities.ComponentType
+IL_001f: dup
+IL_0020: ldc.i4.0
+IL_0021: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_0026: stelem.any Unity.Entities.ComponentType
+IL_002b: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0030: stfld Unity.Entities.EntityQuery Game.Tools.ToolClearSystem::m_ClearQuery
+IL_0035: ldarg.0
+IL_0036: ldarg.0
+IL_0037: ldfld Unity.Entities.EntityQuery Game.Tools.ToolClearSystem::m_ClearQuery
+IL_003c: call System.Void Unity.Entities.ComponentSystemBase::RequireForUpdate(Unity.Entities.EntityQuery)
+IL_0041: ret
+METHOD System.Void Game.Tools.ToolClearSystem::OnUpdate()
+IL_0000: ldloca.s V_1
+IL_0002: initobj Game.Tools.ToolClearSystem/ClearEntitiesJob
+IL_0008: ldloca.s V_1
+IL_000a: ldarg.0
+IL_000b: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_0010: ldflda Unity.Entities.EntityTypeHandle Game.Tools.ToolClearSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_0015: ldarg.0
+IL_0016: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_001b: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_0020: stfld Unity.Entities.EntityTypeHandle Game.Tools.ToolClearSystem/ClearEntitiesJob::m_EntityType
+IL_0025: ldloca.s V_1
+IL_0027: ldarg.0
+IL_0028: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_002d: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Tools.ToolClearSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_0032: ldarg.0
+IL_0033: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0038: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_003d: stfld Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_TempType
+IL_0042: ldloca.s V_1
+IL_0044: ldarg.0
+IL_0045: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_004a: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Tools.ToolClearSystem/TypeHandle::__Game_Common_Owner_RO_ComponentTypeHandle
+IL_004f: ldarg.0
+IL_0050: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0055: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Owner>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_005a: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_OwnerType
+IL_005f: ldloca.s V_1
+IL_0061: ldarg.0
+IL_0062: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_0067: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Net.Lane> Game.Tools.ToolClearSystem/TypeHandle::__Game_Net_Lane_RO_ComponentTypeHandle
+IL_006c: ldarg.0
+IL_006d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0072: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Net.Lane>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0077: stfld Unity.Entities.ComponentTypeHandle`1<Game.Net.Lane> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_LaneType
+IL_007c: ldloca.s V_1
+IL_007e: ldarg.0
+IL_007f: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_0084: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Object> Game.Tools.ToolClearSystem/TypeHandle::__Game_Objects_Object_RO_ComponentTypeHandle
+IL_0089: ldarg.0
+IL_008a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_008f: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Object>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0094: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Object> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_ObjectType
+IL_0099: ldloca.s V_1
+IL_009b: ldarg.0
+IL_009c: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_00a1: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Vehicles.Vehicle> Game.Tools.ToolClearSystem/TypeHandle::__Game_Vehicles_Vehicle_RO_ComponentTypeHandle
+IL_00a6: ldarg.0
+IL_00a7: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00ac: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Vehicles.Vehicle>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00b1: stfld Unity.Entities.ComponentTypeHandle`1<Game.Vehicles.Vehicle> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_VehicleType
+IL_00b6: ldloca.s V_1
+IL_00b8: ldarg.0
+IL_00b9: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_00be: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Creatures.Creature> Game.Tools.ToolClearSystem/TypeHandle::__Game_Creatures_Creature_RO_ComponentTypeHandle
+IL_00c3: ldarg.0
+IL_00c4: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00c9: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Creatures.Creature>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00ce: stfld Unity.Entities.ComponentTypeHandle`1<Game.Creatures.Creature> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_CreatureType
+IL_00d3: ldloca.s V_1
+IL_00d5: ldarg.0
+IL_00d6: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_00db: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Buildings.Building> Game.Tools.ToolClearSystem/TypeHandle::__Game_Buildings_Building_RO_ComponentTypeHandle
+IL_00e0: ldarg.0
+IL_00e1: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00e6: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Buildings.Building>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00eb: stfld Unity.Entities.ComponentTypeHandle`1<Game.Buildings.Building> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_BuildingType
+IL_00f0: ldloca.s V_1
+IL_00f2: ldarg.0
+IL_00f3: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_00f8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Buildings.ServiceUpgrade> Game.Tools.ToolClearSystem/TypeHandle::__Game_Buildings_ServiceUpgrade_RO_ComponentTypeHandle
+IL_00fd: ldarg.0
+IL_00fe: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0103: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Buildings.ServiceUpgrade>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0108: stfld Unity.Entities.ComponentTypeHandle`1<Game.Buildings.ServiceUpgrade> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_ServiceUpgradeType
+IL_010d: ldloca.s V_1
+IL_010f: ldarg.0
+IL_0110: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_0115: ldflda Unity.Entities.BufferTypeHandle`1<Game.Net.AggregateElement> Game.Tools.ToolClearSystem/TypeHandle::__Game_Net_AggregateElement_RO_BufferTypeHandle
+IL_011a: ldarg.0
+IL_011b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0120: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Net.AggregateElement>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0125: stfld Unity.Entities.BufferTypeHandle`1<Game.Net.AggregateElement> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_AggregateElementType
+IL_012a: ldloca.s V_1
+IL_012c: ldarg.0
+IL_012d: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_0132: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Tools.ToolClearSystem/TypeHandle::__Game_Tools_Hidden_RO_ComponentLookup
+IL_0137: ldarg.0
+IL_0138: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_013d: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.Hidden>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0142: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_HiddenData
+IL_0147: ldloca.s V_1
+IL_0149: ldarg.0
+IL_014a: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_014f: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Tools.ToolClearSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentLookup
+IL_0154: ldarg.0
+IL_0155: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_015a: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.Temp>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_015f: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Tools.ToolClearSystem/ClearEntitiesJob::m_TempData
+IL_0164: ldloca.s V_1
+IL_0166: ldarg.0
+IL_0167: ldfld Game.Tools.ToolOutputBarrier Game.Tools.ToolClearSystem::m_ToolOutputBarrier
+IL_016c: callvirt Unity.Entities.EntityCommandBuffer Game.SafeCommandBufferSystem::CreateCommandBuffer()
+IL_0171: stloc.2
+IL_0172: ldloca.s V_2
+IL_0174: call Unity.Entities.EntityCommandBuffer/ParallelWriter Unity.Entities.EntityCommandBuffer::AsParallelWriter()
+IL_0179: stfld Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.ToolClearSystem/ClearEntitiesJob::m_CommandBuffer
+IL_017e: ldloc.1
+IL_017f: ldarg.0
+IL_0180: ldfld Unity.Entities.EntityQuery Game.Tools.ToolClearSystem::m_ClearQuery
+IL_0185: ldarg.0
+IL_0186: call Unity.Jobs.JobHandle Unity.Entities.SystemBase::get_Dependency()
+IL_018b: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Tools.ToolClearSystem/ClearEntitiesJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_0190: stloc.0
+IL_0191: ldarg.0
+IL_0192: ldfld Game.Tools.ToolOutputBarrier Game.Tools.ToolClearSystem::m_ToolOutputBarrier
+IL_0197: ldloc.0
+IL_0198: callvirt System.Void Unity.Entities.EntityCommandBufferSystem::AddJobHandleForProducer(Unity.Jobs.JobHandle)
+IL_019d: ldarg.0
+IL_019e: ldloc.0
+IL_019f: call System.Void Unity.Entities.SystemBase::set_Dependency(Unity.Jobs.JobHandle)
+IL_01a4: ret
+METHOD System.Void Game.Tools.ToolClearSystem::__AssignQueries(Unity.Entities.SystemState&)
+IL_0000: ldloca.s V_0
+IL_0002: ldc.i4.2
+IL_0003: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0008: call System.Void Unity.Entities.EntityQueryBuilder::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_000d: ldloca.s V_0
+IL_000f: call System.Void Unity.Entities.EntityQueryBuilder::Dispose()
+IL_0014: ret
+METHOD System.Void Game.Tools.ToolClearSystem::OnCreateForCompiler()
+IL_0000: ldarg.0
+IL_0001: call System.Void Unity.Entities.ComponentSystemBase::OnCreateForCompiler()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_000d: call System.Void Game.Tools.ToolClearSystem::__AssignQueries(Unity.Entities.SystemState&)
+IL_0012: ldarg.0
+IL_0013: ldflda Game.Tools.ToolClearSystem/TypeHandle Game.Tools.ToolClearSystem::__TypeHandle
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_001e: call System.Void Game.Tools.ToolClearSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+IL_0023: ret
+METHOD System.Void Game.Tools.ToolClearSystem::.ctor()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::.ctor()
+IL_0006: ret
+TYPE Game.Tools.DefaultToolSystem
+FIELD System.String kToolID
+FIELD System.Boolean <underground>k__BackingField
+FIELD System.Boolean <ignoreErrors>k__BackingField
+FIELD System.Boolean <allowManipulation>k__BackingField
+FIELD System.Boolean <debugSelect>k__BackingField
+FIELD System.Boolean <debugLandValue>k__BackingField
+FIELD Game.Tools.ToolOutputBarrier m_ToolOutputBarrier
+FIELD Game.Audio.AudioManager m_AudioManager
+FIELD Game.Rendering.RenderingSystem m_RenderingSystem
+FIELD Unity.Entities.EntityQuery m_DefinitionQuery
+FIELD Unity.Entities.EntityQuery m_DragQuery
+FIELD Unity.Entities.EntityQuery m_TempQuery
+FIELD Unity.Entities.EntityQuery m_InfomodeQuery
+FIELD Unity.Entities.EntityQuery m_SoundQuery
+FIELD Unity.Entities.EntityQuery m_UpdateQuery
+FIELD Unity.Entities.Entity m_LastRaycastEntity
+FIELD Unity.Mathematics.float3 m_MouseDownPosition
+FIELD Game.Tools.DefaultToolSystem/State m_State
+FIELD Game.Input.IProxyAction m_DefaultToolApply
+FIELD System.Int32 m_LastSelectedIndex
+FIELD Game.Tools.DefaultToolSystem/TypeHandle __TypeHandle
+METHOD System.String Game.Tools.DefaultToolSystem::get_toolID()
+IL_0000: ldstr "Default Tool"
+IL_0005: ret
+METHOD System.Boolean Game.Tools.DefaultToolSystem::get_allowUnderground()
+IL_0000: ldc.i4.1
+IL_0001: ret
+METHOD System.Boolean Game.Tools.DefaultToolSystem::get_underground()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Tools.DefaultToolSystem::<underground>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::set_underground(System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.Tools.DefaultToolSystem::<underground>k__BackingField
+IL_0007: ret
+METHOD System.Boolean Game.Tools.DefaultToolSystem::get_ignoreErrors()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Tools.DefaultToolSystem::<ignoreErrors>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::set_ignoreErrors(System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.Tools.DefaultToolSystem::<ignoreErrors>k__BackingField
+IL_0007: ret
+METHOD System.Boolean Game.Tools.DefaultToolSystem::get_allowManipulation()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Tools.DefaultToolSystem::<allowManipulation>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::set_allowManipulation(System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.Tools.DefaultToolSystem::<allowManipulation>k__BackingField
+IL_0007: ret
+METHOD System.Boolean Game.Tools.DefaultToolSystem::get_debugSelect()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Tools.DefaultToolSystem::<debugSelect>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::set_debugSelect(System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.Tools.DefaultToolSystem::<debugSelect>k__BackingField
+IL_0007: ret
+METHOD System.Boolean Game.Tools.DefaultToolSystem::get_debugLandValue()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.Tools.DefaultToolSystem::<debugLandValue>k__BackingField
+IL_0006: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::set_debugLandValue(System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld System.Boolean Game.Tools.DefaultToolSystem::<debugLandValue>k__BackingField
+IL_0007: ret
+METHOD System.Collections.Generic.IEnumerable`1<Game.Input.IProxyAction> Game.Tools.DefaultToolSystem::get_toolActions()
+IL_0000: ldc.i4.s -2
+IL_0002: newobj System.Void Game.Tools.DefaultToolSystem/<get_toolActions>d__41::.ctor(System.Int32)
+IL_0007: dup
+IL_0008: ldarg.0
+IL_0009: stfld Game.Tools.DefaultToolSystem Game.Tools.DefaultToolSystem/<get_toolActions>d__41::<>4__this
+IL_000e: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Tools.ToolBaseSystem::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolOutputBarrier>()
+IL_0012: stfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Audio.AudioManager>()
+IL_0023: stfld Game.Audio.AudioManager Game.Tools.DefaultToolSystem::m_AudioManager
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.RenderingSystem>()
+IL_0034: stfld Game.Rendering.RenderingSystem Game.Tools.DefaultToolSystem::m_RenderingSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.EntityQuery Game.Tools.ToolBaseSystem::GetDefinitionQuery()
+IL_0040: stfld Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DefinitionQuery
+IL_0045: ldarg.0
+IL_0046: ldarg.0
+IL_0047: ldc.i4.2
+IL_0048: newarr Unity.Entities.ComponentType
+IL_004d: dup
+IL_004e: ldc.i4.0
+IL_004f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_0054: stelem.any Unity.Entities.ComponentType
+IL_0059: dup
+IL_005a: ldc.i4.1
+IL_005b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Common.Owner>()
+IL_0060: stelem.any Unity.Entities.ComponentType
+IL_0065: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_006a: stfld Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DragQuery
+IL_006f: ldarg.0
+IL_0070: ldarg.0
+IL_0071: ldc.i4.1
+IL_0072: newarr Unity.Entities.ComponentType
+IL_0077: dup
+IL_0078: ldc.i4.0
+IL_0079: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_007e: stelem.any Unity.Entities.ComponentType
+IL_0083: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0088: stfld Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_TempQuery
+IL_008d: ldarg.0
+IL_008e: ldarg.0
+IL_008f: ldc.i4.1
+IL_0090: newarr Unity.Entities.EntityQueryDesc
+IL_0095: dup
+IL_0096: ldc.i4.0
+IL_0097: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_009c: stloc.0
+IL_009d: ldloc.0
+IL_009e: ldc.i4.1
+IL_009f: newarr Unity.Entities.ComponentType
+IL_00a4: dup
+IL_00a5: ldc.i4.0
+IL_00a6: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.InfomodeActive>()
+IL_00ab: stelem.any Unity.Entities.ComponentType
+IL_00b0: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00b5: ldloc.0
+IL_00b6: ldc.i4.3
+IL_00b7: newarr Unity.Entities.ComponentType
+IL_00bc: dup
+IL_00bd: ldc.i4.0
+IL_00be: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.InfoviewRouteData>()
+IL_00c3: stelem.any Unity.Entities.ComponentType
+IL_00c8: dup
+IL_00c9: ldc.i4.1
+IL_00ca: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.InfoviewNetStatusData>()
+IL_00cf: stelem.any Unity.Entities.ComponentType
+IL_00d4: dup
+IL_00d5: ldc.i4.2
+IL_00d6: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.InfoviewHeatmapData>()
+IL_00db: stelem.any Unity.Entities.ComponentType
+IL_00e0: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00e5: ldloc.0
+IL_00e6: stelem.ref
+IL_00e7: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00ec: stfld Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_InfomodeQuery
+IL_00f1: ldarg.0
+IL_00f2: ldarg.0
+IL_00f3: ldc.i4.1
+IL_00f4: newarr Unity.Entities.ComponentType
+IL_00f9: dup
+IL_00fa: ldc.i4.0
+IL_00fb: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.ToolUXSoundSettingsData>()
+IL_0100: stelem.any Unity.Entities.ComponentType
+IL_0105: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_010a: stfld Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_SoundQuery
+IL_010f: ldarg.0
+IL_0110: ldarg.0
+IL_0111: ldc.i4.1
+IL_0112: newarr Unity.Entities.ComponentType
+IL_0117: dup
+IL_0118: ldc.i4.0
+IL_0119: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Routes.ColorUpdated>()
+IL_011e: stelem.any Unity.Entities.ComponentType
+IL_0123: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0128: stfld Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_UpdateQuery
+IL_012d: ldarg.0
+IL_012e: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_0133: callvirt Game.Input.UIInputActionCollection Game.Input.InputManager::get_toolActionCollection()
+IL_0138: ldstr "Default Tool"
+IL_013d: ldarg.0
+IL_013e: call System.Type System.Object::GetType()
+IL_0143: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_0148: callvirt Game.Input.IProxyAction Game.Input.UIInputActionCollection::GetActionState(System.String,System.String)
+IL_014d: stfld Game.Input.IProxyAction Game.Tools.DefaultToolSystem::m_DefaultToolApply
+IL_0152: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::OnStartRunning()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Tools.ToolBaseSystem::OnStartRunning()
+IL_0006: ldarg.0
+IL_0007: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_000c: stfld Unity.Entities.Entity Game.Tools.DefaultToolSystem::m_LastRaycastEntity
+IL_0011: ldarg.0
+IL_0012: ldc.i4.0
+IL_0013: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_0018: ldarg.0
+IL_0019: ldc.i4.0
+IL_001a: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_001f: ldarg.0
+IL_0020: ldc.i4.0
+IL_0021: call System.Void Game.Tools.ToolBaseSystem::set_requireUnderground(System.Boolean)
+IL_0026: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::UpdateActions()
+IL_0000: call Game.Input.ProxyAction/DeferActionStateUpdatingWrapper Game.Input.ProxyAction::DeferStateUpdating()
+IL_0005: stloc.0
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: ldfld Unity.Entities.Entity Game.Tools.DefaultToolSystem::m_LastRaycastEntity
+IL_000d: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0012: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0017: brtrue.s IL_0021
+IL_0019: ldarg.0
+IL_001a: ldfld Game.Input.IProxyAction Game.Tools.ToolBaseSystem::m_MouseApply
+IL_001f: br.s IL_0027
+IL_0021: ldarg.0
+IL_0022: ldfld Game.Input.IProxyAction Game.Tools.DefaultToolSystem::m_DefaultToolApply
+IL_0027: call System.Void Game.Tools.ToolBaseSystem::set_applyActionOverride(Game.Input.IProxyAction)
+IL_002c: ldarg.0
+IL_002d: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_0032: ldarg.0
+IL_0033: call System.Boolean Game.Tools.ToolBaseSystem::get_actionsEnabled()
+IL_0038: callvirt System.Void Game.Input.IProxyAction::set_shouldBeEnabled(System.Boolean)
+IL_003d: ldarg.0
+IL_003e: ldarg.0
+IL_003f: ldfld Game.Input.IProxyAction Game.Tools.ToolBaseSystem::m_MouseCancel
+IL_0044: call System.Void Game.Tools.ToolBaseSystem::set_cancelActionOverride(Game.Input.IProxyAction)
+IL_0049: ldarg.0
+IL_004a: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_cancelAction()
+IL_004f: ldarg.0
+IL_0050: call System.Boolean Game.Tools.ToolBaseSystem::get_actionsEnabled()
+IL_0055: callvirt System.Void Game.Input.IProxyAction::set_shouldBeEnabled(System.Boolean)
+IL_005a: leave.s IL_0066
+IL_005c: ldloc.0
+IL_005d: brfalse.s IL_0065
+IL_005f: ldloc.0
+IL_0060: callvirt System.Void System.IDisposable::Dispose()
+IL_0065: endfinally
+IL_0066: ret
+METHOD Game.Prefabs.PrefabBase Game.Tools.DefaultToolSystem::GetPrefab()
+IL_0000: ldnull
+IL_0001: ret
+METHOD System.Boolean Game.Tools.DefaultToolSystem::TrySetPrefab(Game.Prefabs.PrefabBase)
+IL_0000: ldc.i4.0
+IL_0001: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::SetUnderground(System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Tools.DefaultToolSystem::set_underground(System.Boolean)
+IL_0007: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::ElevationUp()
+IL_0000: ldarg.0
+IL_0001: ldc.i4.0
+IL_0002: call System.Void Game.Tools.DefaultToolSystem::set_underground(System.Boolean)
+IL_0007: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::ElevationDown()
+IL_0000: ldarg.0
+IL_0001: ldc.i4.1
+IL_0002: call System.Void Game.Tools.DefaultToolSystem::set_underground(System.Boolean)
+IL_0007: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::ElevationScroll()
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: call System.Boolean Game.Tools.DefaultToolSystem::get_underground()
+IL_0007: ldc.i4.0
+IL_0008: ceq
+IL_000a: call System.Void Game.Tools.DefaultToolSystem::set_underground(System.Boolean)
+IL_000f: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::InitializeRaycast()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()
+IL_0006: ldarg.0
+IL_0007: call System.Boolean Game.Tools.DefaultToolSystem::get_underground()
+IL_000c: brfalse.s IL_001c
+IL_000e: ldarg.0
+IL_000f: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0014: ldc.i4.4
+IL_0015: callvirt System.Void Game.Tools.ToolRaycastSystem::set_collisionMask(Game.Common.CollisionMask)
+IL_001a: br.s IL_0028
+IL_001c: ldarg.0
+IL_001d: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0022: ldc.i4.3
+IL_0023: callvirt System.Void Game.Tools.ToolRaycastSystem::set_collisionMask(Game.Common.CollisionMask)
+IL_0028: ldarg.0
+IL_0029: ldfld Game.Tools.DefaultToolSystem/State Game.Tools.DefaultToolSystem::m_State
+IL_002e: brfalse.s IL_0066
+IL_0030: ldarg.0
+IL_0031: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0036: ldc.i4.s 9
+IL_0038: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_003d: ldarg.0
+IL_003e: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0043: ldc.i4.1
+IL_0044: callvirt System.Void Game.Tools.ToolRaycastSystem::set_netLayerMask(Game.Net.Layer)
+IL_0049: ldarg.0
+IL_004a: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_004f: ldc.i4.0
+IL_0050: callvirt System.Void Game.Tools.ToolRaycastSystem::set_areaTypeMask(Game.Areas.AreaTypeMask)
+IL_0055: ldarg.0
+IL_0056: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_005b: ldc.i4.0
+IL_005c: callvirt System.Void Game.Tools.ToolRaycastSystem::set_iconLayerMask(Game.Notifications.IconLayerMask)
+IL_0061: br IL_0176
+IL_0066: ldarg.0
+IL_0067: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_006c: ldc.i4 1286
+IL_0071: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_0076: ldarg.0
+IL_0077: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_007c: dup
+IL_007d: callvirt Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_0082: ldc.i4 279552
+IL_0087: or
+IL_0088: callvirt System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_008d: ldarg.0
+IL_008e: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0093: ldc.i4.0
+IL_0094: callvirt System.Void Game.Tools.ToolRaycastSystem::set_netLayerMask(Game.Net.Layer)
+IL_0099: ldarg.0
+IL_009a: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_009f: ldc.i4.0
+IL_00a0: callvirt System.Void Game.Tools.ToolRaycastSystem::set_areaTypeMask(Game.Areas.AreaTypeMask)
+IL_00a5: ldarg.0
+IL_00a6: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00ab: ldc.i4.1
+IL_00ac: callvirt System.Void Game.Tools.ToolRaycastSystem::set_iconLayerMask(Game.Notifications.IconLayerMask)
+IL_00b1: ldarg.0
+IL_00b2: call System.Boolean Game.Tools.DefaultToolSystem::get_underground()
+IL_00b7: brtrue.s IL_00e0
+IL_00b9: ldarg.0
+IL_00ba: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00bf: dup
+IL_00c0: callvirt Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_00c5: ldc.i4.s 32
+IL_00c7: or
+IL_00c8: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_00cd: ldarg.0
+IL_00ce: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00d3: dup
+IL_00d4: callvirt Game.Areas.AreaTypeMask Game.Tools.ToolRaycastSystem::get_areaTypeMask()
+IL_00d9: ldc.i4.1
+IL_00da: or
+IL_00db: callvirt System.Void Game.Tools.ToolRaycastSystem::set_areaTypeMask(Game.Areas.AreaTypeMask)
+IL_00e0: ldarg.0
+IL_00e1: call System.Boolean Game.Tools.DefaultToolSystem::get_debugSelect()
+IL_00e6: brfalse.s IL_0148
+IL_00e8: ldarg.0
+IL_00e9: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00ee: dup
+IL_00ef: callvirt Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_00f4: ldc.i4.8
+IL_00f5: or
+IL_00f6: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_00fb: ldarg.0
+IL_00fc: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0101: dup
+IL_0102: callvirt Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_0107: ldc.i4.s 32
+IL_0109: or
+IL_010a: callvirt System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_010f: ldarg.0
+IL_0110: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0115: dup
+IL_0116: callvirt Game.Net.Layer Game.Tools.ToolRaycastSystem::get_netLayerMask()
+IL_011b: ldc.i4.m1
+IL_011c: or
+IL_011d: callvirt System.Void Game.Tools.ToolRaycastSystem::set_netLayerMask(Game.Net.Layer)
+IL_0122: ldarg.0
+IL_0123: ldfld Game.Rendering.RenderingSystem Game.Tools.DefaultToolSystem::m_RenderingSystem
+IL_0128: callvirt System.Boolean Game.Rendering.RenderingSystem::get_markersVisible()
+IL_012d: brfalse.s IL_0163
+IL_012f: ldarg.0
+IL_0130: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0135: dup
+IL_0136: callvirt Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_013b: ldc.i4 128
+IL_0140: or
+IL_0141: callvirt System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_0146: br.s IL_0163
+IL_0148: ldarg.0
+IL_0149: call System.Boolean Game.Tools.DefaultToolSystem::get_debugLandValue()
+IL_014e: brfalse.s IL_0163
+IL_0150: ldarg.0
+IL_0151: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0156: dup
+IL_0157: callvirt Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_015c: ldc.i4.1
+IL_015d: or
+IL_015e: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_0163: ldarg.0
+IL_0164: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_InfomodeQuery
+IL_0169: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_016e: brtrue.s IL_0176
+IL_0170: ldarg.0
+IL_0171: call System.Void Game.Tools.DefaultToolSystem::SetInfomodeRaycastSettings()
+IL_0176: ldarg.0
+IL_0177: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_017c: callvirt Game.GameMode Game.Tools.ToolSystem::get_actionMode()
+IL_0181: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_0186: brfalse.s IL_01a0
+IL_0188: ldarg.0
+IL_0189: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_018e: dup
+IL_018f: callvirt Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_0194: ldc.i4 33504
+IL_0199: or
+IL_019a: callvirt System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_019f: ret
+IL_01a0: ldarg.0
+IL_01a1: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_01a6: dup
+IL_01a7: callvirt Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_01ac: ldc.i4 65536
+IL_01b1: or
+IL_01b2: callvirt System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_01b7: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::SetInfomodeRaycastSettings()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_InfomodeQuery
+IL_0006: ldc.i4.3
+IL_0007: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_000c: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0011: stloc.0
+IL_0012: ldc.i4.0
+IL_0013: stloc.1
+IL_0014: br IL_014a
+IL_0019: ldloca.s V_0
+IL_001b: ldloc.1
+IL_001c: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0021: stloc.2
+IL_0022: ldarg.0
+IL_0023: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0028: ldloc.2
+IL_0029: ldloca.s V_3
+IL_002b: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.InfoviewRouteData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0030: brfalse.s IL_005a
+IL_0032: ldarg.0
+IL_0033: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0038: dup
+IL_0039: callvirt Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_003e: ldc.i4 192
+IL_0043: or
+IL_0044: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_0049: ldarg.0
+IL_004a: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_004f: ldloc.3
+IL_0050: ldfld Game.Routes.RouteType Game.Prefabs.InfoviewRouteData::m_Type
+IL_0055: callvirt System.Void Game.Tools.ToolRaycastSystem::set_routeType(Game.Routes.RouteType)
+IL_005a: ldarg.0
+IL_005b: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0060: ldloc.2
+IL_0061: ldloca.s V_4
+IL_0063: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.InfoviewNetStatusData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0068: brfalse IL_0146
+IL_006d: ldloc.s V_4
+IL_006f: ldfld Game.Prefabs.NetStatusType Game.Prefabs.InfoviewNetStatusData::m_Type
+IL_0074: stloc.s V_5
+IL_0076: ldloc.s V_5
+IL_0078: ldc.i4.5
+IL_0079: sub
+IL_007a: switch IL_0094,IL_00c3,IL_00f0,IL_011c
+IL_008f: br IL_0146
+IL_0094: ldarg.0
+IL_0095: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_009a: dup
+IL_009b: callvirt Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_00a0: ldc.i4 4096
+IL_00a5: or
+IL_00a6: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_00ab: ldarg.0
+IL_00ac: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00b1: dup
+IL_00b2: callvirt Game.Net.UtilityTypes Game.Tools.ToolRaycastSystem::get_utilityTypeMask()
+IL_00b7: ldc.i4.8
+IL_00b8: or
+IL_00b9: callvirt System.Void Game.Tools.ToolRaycastSystem::set_utilityTypeMask(Game.Net.UtilityTypes)
+IL_00be: br IL_0146
+IL_00c3: ldarg.0
+IL_00c4: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00c9: dup
+IL_00ca: callvirt Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_00cf: ldc.i4 4096
+IL_00d4: or
+IL_00d5: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_00da: ldarg.0
+IL_00db: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00e0: dup
+IL_00e1: callvirt Game.Net.UtilityTypes Game.Tools.ToolRaycastSystem::get_utilityTypeMask()
+IL_00e6: ldc.i4.s 64
+IL_00e8: or
+IL_00e9: callvirt System.Void Game.Tools.ToolRaycastSystem::set_utilityTypeMask(Game.Net.UtilityTypes)
+IL_00ee: br.s IL_0146
+IL_00f0: ldarg.0
+IL_00f1: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00f6: dup
+IL_00f7: callvirt Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_00fc: ldc.i4 4096
+IL_0101: or
+IL_0102: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_0107: ldarg.0
+IL_0108: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_010d: dup
+IL_010e: callvirt Game.Net.UtilityTypes Game.Tools.ToolRaycastSystem::get_utilityTypeMask()
+IL_0113: ldc.i4.1
+IL_0114: or
+IL_0115: callvirt System.Void Game.Tools.ToolRaycastSystem::set_utilityTypeMask(Game.Net.UtilityTypes)
+IL_011a: br.s IL_0146
+IL_011c: ldarg.0
+IL_011d: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0122: dup
+IL_0123: callvirt Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_0128: ldc.i4 4096
+IL_012d: or
+IL_012e: callvirt System.Void Game.Tools.ToolRaycastSystem::set_typeMask(Game.Common.TypeMask)
+IL_0133: ldarg.0
+IL_0134: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0139: dup
+IL_013a: callvirt Game.Net.UtilityTypes Game.Tools.ToolRaycastSystem::get_utilityTypeMask()
+IL_013f: ldc.i4.2
+IL_0140: or
+IL_0141: callvirt System.Void Game.Tools.ToolRaycastSystem::set_utilityTypeMask(Game.Net.UtilityTypes)
+IL_0146: ldloc.1
+IL_0147: ldc.i4.1
+IL_0148: add
+IL_0149: stloc.1
+IL_014a: ldloc.1
+IL_014b: ldloca.s V_0
+IL_014d: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_0152: blt IL_0019
+IL_0157: leave.s IL_0161
+IL_0159: ldloca.s V_0
+IL_015b: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.Entity>::Dispose()
+IL_0160: endfinally
+IL_0161: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::PlaySelectedSound(Unity.Entities.Entity,System.Boolean)
+IL_0000: ldarg.0
+IL_0001: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0006: ldarg.1
+IL_0007: ldloca.s V_1
+IL_0009: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Creatures.Resident>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_000e: brfalse.s IL_0055
+IL_0010: ldarg.0
+IL_0011: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0016: ldloc.1
+IL_0017: ldfld Unity.Entities.Entity Game.Creatures.Resident::m_Citizen
+IL_001c: ldloca.s V_2
+IL_001e: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Citizens.Citizen>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0023: brfalse.s IL_0055
+IL_0025: ldarg.0
+IL_0026: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_002b: ldloc.1
+IL_002c: ldfld Unity.Entities.Entity Game.Creatures.Resident::m_Citizen
+IL_0031: ldloca.s V_3
+IL_0033: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.PrefabRef>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0038: brfalse.s IL_0055
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0040: ldloc.1
+IL_0041: ldfld Unity.Entities.Entity Game.Creatures.Resident::m_Citizen
+IL_0046: ldloc.2
+IL_0047: ldloc.3
+IL_0048: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_004d: call Unity.Entities.Entity Game.Citizens.CitizenUtils::GetCitizenSelectedSound(Unity.Entities.EntityManager,Unity.Entities.Entity,Game.Citizens.Citizen,Unity.Entities.Entity)
+IL_0052: stloc.0
+IL_0053: br.s IL_0096
+IL_0055: ldarg.0
+IL_0056: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_005b: ldarg.1
+IL_005c: ldloca.s V_4
+IL_005e: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.PrefabRef>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0063: brfalse.s IL_0085
+IL_0065: ldarg.0
+IL_0066: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_006b: ldloc.s V_4
+IL_006d: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0072: ldloca.s V_5
+IL_0074: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.SelectedSoundData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0079: brfalse.s IL_0085
+IL_007b: ldloc.s V_5
+IL_007d: ldfld Unity.Entities.Entity Game.Prefabs.SelectedSoundData::m_selectedSound
+IL_0082: stloc.0
+IL_0083: br.s IL_0096
+IL_0085: ldarg.0
+IL_0086: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_SoundQuery
+IL_008b: call !!0 Unity.Entities.EntityQuery::GetSingleton<Game.Prefabs.ToolUXSoundSettingsData>()
+IL_0090: ldfld Unity.Entities.Entity Game.Prefabs.ToolUXSoundSettingsData::m_SelectEntitySound
+IL_0095: stloc.0
+IL_0096: ldarg.2
+IL_0097: brfalse.s IL_00ab
+IL_0099: ldarg.0
+IL_009a: ldfld Game.Audio.AudioManager Game.Tools.DefaultToolSystem::m_AudioManager
+IL_009f: ldloc.0
+IL_00a0: ldc.r4 1
+IL_00a5: callvirt System.Void Game.Audio.AudioManager::PlayUISound(Unity.Entities.Entity,System.Single)
+IL_00aa: ret
+IL_00ab: ldarg.0
+IL_00ac: ldfld Game.Audio.AudioManager Game.Tools.DefaultToolSystem::m_AudioManager
+IL_00b1: ldloc.0
+IL_00b2: ldc.r4 1
+IL_00b7: callvirt System.Boolean Game.Audio.AudioManager::PlayUISoundIfNotPlaying(Unity.Entities.Entity,System.Single)
+IL_00bc: pop
+IL_00bd: ret
+METHOD Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::OnUpdate(Unity.Jobs.JobHandle)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: call System.Boolean Game.Tools.DefaultToolSystem::get_underground()
+IL_0007: call System.Void Game.Tools.ToolBaseSystem::set_requireUnderground(System.Boolean)
+IL_000c: ldarg.0
+IL_000d: ldarg.0
+IL_000e: ldfld System.Boolean Game.Tools.ToolBaseSystem::m_ForceUpdate
+IL_0013: ldarg.0
+IL_0014: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_UpdateQuery
+IL_0019: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_001e: ldc.i4.0
+IL_001f: ceq
+IL_0021: or
+IL_0022: stfld System.Boolean Game.Tools.ToolBaseSystem::m_ForceUpdate
+IL_0027: ldarg.0
+IL_0028: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_002d: callvirt Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_0032: ldc.i4.3
+IL_0033: and
+IL_0034: brtrue.s IL_00b3
+IL_0036: ldarg.0
+IL_0037: ldfld Game.Tools.DefaultToolSystem/State Game.Tools.DefaultToolSystem::m_State
+IL_003c: brtrue.s IL_006b
+IL_003e: ldarg.0
+IL_003f: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_0044: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()
+IL_0049: brfalse.s IL_006b
+IL_004b: ldarg.0
+IL_004c: ldarg.1
+IL_004d: ldarg.0
+IL_004e: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_0053: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_0058: ldarg.0
+IL_0059: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_cancelAction()
+IL_005e: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()
+IL_0063: call Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Apply(Unity.Jobs.JobHandle,System.Boolean,System.Boolean)
+IL_0068: stloc.0
+IL_0069: br.s IL_00ab
+IL_006b: ldarg.0
+IL_006c: ldfld Game.Tools.DefaultToolSystem/State Game.Tools.DefaultToolSystem::m_State
+IL_0071: brfalse.s IL_008c
+IL_0073: ldarg.0
+IL_0074: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_0079: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_007e: brfalse.s IL_008c
+IL_0080: ldarg.0
+IL_0081: ldarg.1
+IL_0082: ldc.i4.0
+IL_0083: ldc.i4.0
+IL_0084: call Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Apply(Unity.Jobs.JobHandle,System.Boolean,System.Boolean)
+IL_0089: stloc.0
+IL_008a: br.s IL_00ab
+IL_008c: ldarg.0
+IL_008d: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_cancelAction()
+IL_0092: callvirt System.Boolean Game.Input.IProxyAction::IsInProgress()
+IL_0097: brfalse.s IL_00a3
+IL_0099: ldarg.0
+IL_009a: ldarg.1
+IL_009b: call Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Cancel(Unity.Jobs.JobHandle)
+IL_00a0: stloc.0
+IL_00a1: br.s IL_00ab
+IL_00a3: ldarg.0
+IL_00a4: ldarg.1
+IL_00a5: call Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Update(Unity.Jobs.JobHandle)
+IL_00aa: stloc.0
+IL_00ab: ldarg.0
+IL_00ac: callvirt System.Void Game.Tools.ToolBaseSystem::UpdateActions()
+IL_00b1: ldloc.0
+IL_00b2: ret
+IL_00b3: ldarg.0
+IL_00b4: ldfld Game.Tools.DefaultToolSystem/State Game.Tools.DefaultToolSystem::m_State
+IL_00b9: brtrue.s IL_00c8
+IL_00bb: ldarg.0
+IL_00bc: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00c1: stfld Unity.Entities.Entity Game.Tools.DefaultToolSystem::m_LastRaycastEntity
+IL_00c6: br.s IL_00e7
+IL_00c8: ldarg.0
+IL_00c9: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_00ce: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_00d3: brfalse.s IL_00e7
+IL_00d5: ldarg.0
+IL_00d6: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00db: stfld Unity.Entities.Entity Game.Tools.DefaultToolSystem::m_LastRaycastEntity
+IL_00e0: ldarg.0
+IL_00e1: ldc.i4.0
+IL_00e2: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_00e7: ldarg.0
+IL_00e8: callvirt System.Void Game.Tools.ToolBaseSystem::UpdateActions()
+IL_00ed: ldarg.0
+IL_00ee: ldarg.1
+IL_00ef: call Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Clear(Unity.Jobs.JobHandle)
+IL_00f4: ret
+METHOD Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Clear(Unity.Jobs.JobHandle)
+IL_0000: ldarg.0
+IL_0001: ldc.i4.2
+IL_0002: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0007: ldarg.1
+IL_0008: ret
+METHOD Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Cancel(Unity.Jobs.JobHandle)
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.DefaultToolSystem/State Game.Tools.DefaultToolSystem::m_State
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: brfalse.s IL_001d
+IL_000a: ldloc.0
+IL_000b: ldc.i4.3
+IL_000c: bne.un.s IL_0036
+IL_000e: ldarg.0
+IL_000f: call System.Void Game.Tools.DefaultToolSystem::StopDragging()
+IL_0014: ldarg.0
+IL_0015: ldc.i4.0
+IL_0016: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_001b: ldarg.1
+IL_001c: ret
+IL_001d: ldarg.0
+IL_001e: ldc.i4.0
+IL_001f: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0024: ldarg.0
+IL_0025: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_002a: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_002f: callvirt System.Void Game.Tools.ToolSystem::set_selected(Unity.Entities.Entity)
+IL_0034: ldarg.1
+IL_0035: ret
+IL_0036: ldarg.0
+IL_0037: ldc.i4.0
+IL_0038: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_003d: ldarg.0
+IL_003e: ldc.i4.0
+IL_003f: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0044: ldarg.1
+IL_0045: ret
+METHOD Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Apply(Unity.Jobs.JobHandle,System.Boolean,System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.DefaultToolSystem/State Game.Tools.DefaultToolSystem::m_State
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: brfalse.s IL_0010
+IL_000a: ldloc.0
+IL_000b: ldc.i4.3
+IL_000c: beq.s IL_002a
+IL_000e: br.s IL_0039
+IL_0010: ldarg.2
+IL_0011: brtrue.s IL_001a
+IL_0013: ldarg.0
+IL_0014: ldc.i4.1
+IL_0015: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_001a: ldarg.0
+IL_001b: ldc.i4.0
+IL_001c: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0021: ldarg.0
+IL_0022: ldarg.1
+IL_0023: ldarg.3
+IL_0024: call Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::SelectTempEntity(Unity.Jobs.JobHandle,System.Boolean)
+IL_0029: ret
+IL_002a: ldarg.0
+IL_002b: call System.Void Game.Tools.DefaultToolSystem::StopDragging()
+IL_0030: ldarg.0
+IL_0031: ldc.i4.1
+IL_0032: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0037: ldarg.1
+IL_0038: ret
+IL_0039: ldarg.0
+IL_003a: ldc.i4.0
+IL_003b: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_0040: ldarg.0
+IL_0041: ldc.i4.0
+IL_0042: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0047: ldarg.1
+IL_0048: ret
+METHOD Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::Update(Unity.Jobs.JobHandle)
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.DefaultToolSystem/State Game.Tools.DefaultToolSystem::m_State
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: switch IL_0022,IL_0077,IL_00a0,IL_00d6
+IL_001d: br IL_01d3
+IL_0022: ldarg.0
+IL_0023: ldloca.s V_1
+IL_0025: ldloca.s V_2
+IL_0027: ldloca.s V_3
+IL_0029: call System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&,System.Boolean&)
+IL_002e: brfalse.s IL_004a
+IL_0030: ldloc.1
+IL_0031: ldarg.0
+IL_0032: ldfld Unity.Entities.Entity Game.Tools.DefaultToolSystem::m_LastRaycastEntity
+IL_0037: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_003c: brfalse.s IL_004a
+IL_003e: ldloc.3
+IL_003f: brtrue.s IL_004a
+IL_0041: ldarg.0
+IL_0042: ldc.i4.0
+IL_0043: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0048: ldarg.1
+IL_0049: ret
+IL_004a: ldarg.0
+IL_004b: ldloc.1
+IL_004c: stfld Unity.Entities.Entity Game.Tools.DefaultToolSystem::m_LastRaycastEntity
+IL_0051: ldarg.0
+IL_0052: ldc.i4.2
+IL_0053: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0058: ldarg.0
+IL_0059: ldarg.1
+IL_005a: ldloc.1
+IL_005b: ldloc.2
+IL_005c: ldfld Unity.Mathematics.int2 Game.Common.RaycastHit::m_CellIndex
+IL_0061: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0066: ldloca.s V_4
+IL_0068: initobj Unity.Mathematics.float3
+IL_006e: ldloc.s V_4
+IL_0070: ldc.i4.0
+IL_0071: call Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Entities.Entity,System.Int32,Unity.Mathematics.float3,System.Boolean)
+IL_0076: ret
+IL_0077: ldarg.0
+IL_0078: ldloca.s V_5
+IL_007a: ldloca.s V_6
+IL_007c: call System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)
+IL_0081: brfalse.s IL_0097
+IL_0083: ldarg.0
+IL_0084: ldloc.s V_6
+IL_0086: ldfld Unity.Mathematics.float3 Game.Common.RaycastHit::m_HitPosition
+IL_008b: stfld Unity.Mathematics.float3 Game.Tools.DefaultToolSystem::m_MouseDownPosition
+IL_0090: ldarg.0
+IL_0091: ldc.i4.2
+IL_0092: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_0097: ldarg.0
+IL_0098: ldc.i4.0
+IL_0099: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_009e: ldarg.1
+IL_009f: ret
+IL_00a0: ldarg.0
+IL_00a1: ldloca.s V_7
+IL_00a3: ldloca.s V_8
+IL_00a5: call System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)
+IL_00aa: brfalse.s IL_00cd
+IL_00ac: ldloc.s V_8
+IL_00ae: ldfld Unity.Mathematics.float3 Game.Common.RaycastHit::m_HitPosition
+IL_00b3: ldarg.0
+IL_00b4: ldfld Unity.Mathematics.float3 Game.Tools.DefaultToolSystem::m_MouseDownPosition
+IL_00b9: call System.Single Unity.Mathematics.math::distance(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_00be: ldc.r4 1
+IL_00c3: ble.un.s IL_00cd
+IL_00c5: ldarg.0
+IL_00c6: ldloc.s V_8
+IL_00c8: call System.Void Game.Tools.DefaultToolSystem::StartDragging(Game.Common.RaycastHit)
+IL_00cd: ldarg.0
+IL_00ce: ldc.i4.0
+IL_00cf: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_00d4: ldarg.1
+IL_00d5: ret
+IL_00d6: ldarg.0
+IL_00d7: ldloca.s V_9
+IL_00d9: ldloca.s V_10
+IL_00db: call System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)
+IL_00e0: brfalse IL_01ca
+IL_00e5: ldarg.0
+IL_00e6: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DragQuery
+IL_00eb: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_00f0: brtrue IL_0191
+IL_00f5: ldarg.0
+IL_00f6: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DragQuery
+IL_00fb: ldc.i4.3
+IL_00fc: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0101: call Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk> Unity.Entities.EntityQuery::ToArchetypeChunkArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0106: stloc.s V_11
+IL_0108: ldloca.s V_11
+IL_010a: ldc.i4.0
+IL_010b: call !0 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Item(System.Int32)
+IL_0110: stloc.s V_16
+IL_0112: ldloca.s V_16
+IL_0114: ldarg.0
+IL_0115: call Unity.Entities.EntityTypeHandle Unity.Entities.ComponentSystemBase::GetEntityTypeHandle()
+IL_011a: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.ArchetypeChunk::GetNativeArray(Unity.Entities.EntityTypeHandle)
+IL_011f: stloc.s V_17
+IL_0121: ldloca.s V_17
+IL_0123: ldc.i4.0
+IL_0124: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0129: stloc.s V_12
+IL_012b: ldarg.0
+IL_012c: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0131: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Objects_Transform_RO_ComponentTypeHandle
+IL_0136: ldarg.0
+IL_0137: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_013c: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0141: stloc.s V_13
+IL_0143: ldloca.s V_11
+IL_0145: ldc.i4.0
+IL_0146: call !0 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Item(System.Int32)
+IL_014b: stloc.s V_16
+IL_014d: ldloca.s V_16
+IL_014f: ldloca.s V_13
+IL_0151: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0156: stloc.s V_18
+IL_0158: ldloca.s V_18
+IL_015a: ldc.i4.0
+IL_015b: call !0 Unity.Collections.NativeArray`1<Game.Objects.Transform>::get_Item(System.Int32)
+IL_0160: stloc.s V_14
+IL_0162: ldloca.s V_11
+IL_0164: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::Dispose()
+IL_0169: ldarg.0
+IL_016a: ldfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_016f: callvirt Unity.Entities.EntityCommandBuffer Game.SafeCommandBufferSystem::CreateCommandBuffer()
+IL_0174: stloc.s V_15
+IL_0176: ldloca.s V_14
+IL_0178: ldloc.s V_10
+IL_017a: ldfld Unity.Mathematics.float3 Game.Common.RaycastHit::m_HitPosition
+IL_017f: stfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0184: ldloca.s V_15
+IL_0186: ldloc.s V_12
+IL_0188: ldloc.s V_14
+IL_018a: call System.Void Unity.Entities.EntityCommandBuffer::SetComponent<Game.Objects.Transform>(Unity.Entities.Entity,!!0)
+IL_018f: br.s IL_01ca
+IL_0191: ldarg.0
+IL_0192: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0197: stloc.s V_19
+IL_0199: ldloca.s V_19
+IL_019b: ldarg.0
+IL_019c: ldfld Unity.Entities.Entity Game.Tools.DefaultToolSystem::m_LastRaycastEntity
+IL_01a1: call System.Boolean Unity.Entities.EntityManager::Exists(Unity.Entities.Entity)
+IL_01a6: brfalse.s IL_01ca
+IL_01a8: ldarg.0
+IL_01a9: ldarg.1
+IL_01aa: ldarg.0
+IL_01ab: ldfld Unity.Entities.Entity Game.Tools.DefaultToolSystem::m_LastRaycastEntity
+IL_01b0: ldloc.s V_10
+IL_01b2: ldfld Unity.Mathematics.int2 Game.Common.RaycastHit::m_CellIndex
+IL_01b7: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_01bc: ldloc.s V_10
+IL_01be: ldfld Unity.Mathematics.float3 Game.Common.RaycastHit::m_HitPosition
+IL_01c3: ldc.i4.1
+IL_01c4: call Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Entities.Entity,System.Int32,Unity.Mathematics.float3,System.Boolean)
+IL_01c9: ret
+IL_01ca: ldarg.0
+IL_01cb: ldc.i4.0
+IL_01cc: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_01d1: ldarg.1
+IL_01d2: ret
+IL_01d3: ldarg.0
+IL_01d4: ldc.i4.0
+IL_01d5: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_01da: ldarg.1
+IL_01db: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::StartDragging(Game.Common.RaycastHit)
+IL_0000: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0005: stloc.0
+IL_0006: ldloca.s V_1
+IL_0008: initobj Game.Tools.Temp
+IL_000e: ldloca.s V_2
+IL_0010: initobj Game.Objects.Transform
+IL_0016: ldc.i4.0
+IL_0017: stloc.3
+IL_0018: ldarg.0
+IL_0019: call System.Boolean Game.Tools.DefaultToolSystem::get_allowManipulation()
+IL_001e: brfalse IL_0111
+IL_0023: ldarg.0
+IL_0024: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DragQuery
+IL_0029: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_002e: brtrue IL_0111
+IL_0033: ldarg.0
+IL_0034: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DragQuery
+IL_0039: ldc.i4.3
+IL_003a: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_003f: call Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk> Unity.Entities.EntityQuery::ToArchetypeChunkArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0044: stloc.s V_4
+IL_0046: ldloca.s V_4
+IL_0048: ldc.i4.0
+IL_0049: call !0 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Item(System.Int32)
+IL_004e: stloc.s V_8
+IL_0050: ldloca.s V_8
+IL_0052: ldarg.0
+IL_0053: call Unity.Entities.EntityTypeHandle Unity.Entities.ComponentSystemBase::GetEntityTypeHandle()
+IL_0058: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.ArchetypeChunk::GetNativeArray(Unity.Entities.EntityTypeHandle)
+IL_005d: stloc.s V_9
+IL_005f: ldloca.s V_9
+IL_0061: ldc.i4.0
+IL_0062: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0067: stloc.0
+IL_0068: ldarg.0
+IL_0069: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_006e: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_0073: ldarg.0
+IL_0074: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0079: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_007e: stloc.s V_5
+IL_0080: ldloca.s V_4
+IL_0082: ldc.i4.0
+IL_0083: call !0 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Item(System.Int32)
+IL_0088: stloc.s V_8
+IL_008a: ldloca.s V_8
+IL_008c: ldloca.s V_5
+IL_008e: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0093: stloc.s V_10
+IL_0095: ldloca.s V_10
+IL_0097: ldc.i4.0
+IL_0098: call !0 Unity.Collections.NativeArray`1<Game.Tools.Temp>::get_Item(System.Int32)
+IL_009d: stloc.1
+IL_009e: ldarg.0
+IL_009f: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_00a4: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Objects_Transform_RO_ComponentTypeHandle
+IL_00a9: ldarg.0
+IL_00aa: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00af: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00b4: stloc.s V_6
+IL_00b6: ldloca.s V_4
+IL_00b8: ldc.i4.0
+IL_00b9: call !0 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Item(System.Int32)
+IL_00be: stloc.s V_8
+IL_00c0: ldloca.s V_8
+IL_00c2: ldloca.s V_6
+IL_00c4: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Objects.Transform>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_00c9: stloc.s V_7
+IL_00cb: ldloca.s V_7
+IL_00cd: call System.Int32 Unity.Collections.NativeArray`1<Game.Objects.Transform>::get_Length()
+IL_00d2: brfalse.s IL_0105
+IL_00d4: ldloca.s V_7
+IL_00d6: ldc.i4.0
+IL_00d7: call !0 Unity.Collections.NativeArray`1<Game.Objects.Transform>::get_Item(System.Int32)
+IL_00dc: stloc.2
+IL_00dd: ldarg.0
+IL_00de: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00e3: stloc.s V_11
+IL_00e5: ldloca.s V_11
+IL_00e7: ldloc.0
+IL_00e8: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Moving>(Unity.Entities.Entity)
+IL_00ed: brtrue.s IL_0101
+IL_00ef: ldarg.0
+IL_00f0: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00f5: stloc.s V_11
+IL_00f7: ldloca.s V_11
+IL_00f9: ldloc.0
+IL_00fa: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Marker>(Unity.Entities.Entity)
+IL_00ff: br.s IL_0102
+IL_0101: ldc.i4.1
+IL_0102: stloc.3
+IL_0103: leave.s IL_0111
+IL_0105: ldc.i4.0
+IL_0106: stloc.3
+IL_0107: leave.s IL_0111
+IL_0109: ldloca.s V_4
+IL_010b: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::Dispose()
+IL_0110: endfinally
+IL_0111: ldloc.3
+IL_0112: brfalse.s IL_0167
+IL_0114: ldarg.0
+IL_0115: ldfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_011a: callvirt Unity.Entities.EntityCommandBuffer Game.SafeCommandBufferSystem::CreateCommandBuffer()
+IL_011f: stloc.s V_12
+IL_0121: ldloca.s V_1
+IL_0123: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0128: dup
+IL_0129: ldind.u4
+IL_012a: ldc.i4.s 16
+IL_012c: or
+IL_012d: stind.i4
+IL_012e: ldloca.s V_2
+IL_0130: ldarg.1
+IL_0131: ldfld Unity.Mathematics.float3 Game.Common.RaycastHit::m_HitPosition
+IL_0136: stfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_013b: ldloca.s V_12
+IL_013d: ldloc.0
+IL_013e: ldloc.1
+IL_013f: call System.Void Unity.Entities.EntityCommandBuffer::SetComponent<Game.Tools.Temp>(Unity.Entities.Entity,!!0)
+IL_0144: ldloca.s V_12
+IL_0146: ldloc.0
+IL_0147: ldloc.2
+IL_0148: call System.Void Unity.Entities.EntityCommandBuffer::SetComponent<Game.Objects.Transform>(Unity.Entities.Entity,!!0)
+IL_014d: ldloca.s V_12
+IL_014f: ldloc.0
+IL_0150: ldloca.s V_13
+IL_0152: initobj Game.Common.Updated
+IL_0158: ldloc.s V_13
+IL_015a: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.Updated>(Unity.Entities.Entity,!!0)
+IL_015f: ldarg.0
+IL_0160: ldc.i4.3
+IL_0161: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_0166: ret
+IL_0167: ldarg.0
+IL_0168: ldc.i4.0
+IL_0169: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_016e: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::StopDragging()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DragQuery
+IL_0006: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_000b: brtrue IL_00b5
+IL_0010: ldarg.0
+IL_0011: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DragQuery
+IL_0016: ldc.i4.3
+IL_0017: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_001c: call Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk> Unity.Entities.EntityQuery::ToArchetypeChunkArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0021: stloc.0
+IL_0022: ldloca.s V_0
+IL_0024: ldc.i4.0
+IL_0025: call !0 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Item(System.Int32)
+IL_002a: stloc.s V_5
+IL_002c: ldloca.s V_5
+IL_002e: ldarg.0
+IL_002f: call Unity.Entities.EntityTypeHandle Unity.Entities.ComponentSystemBase::GetEntityTypeHandle()
+IL_0034: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.ArchetypeChunk::GetNativeArray(Unity.Entities.EntityTypeHandle)
+IL_0039: stloc.s V_6
+IL_003b: ldloca.s V_6
+IL_003d: ldc.i4.0
+IL_003e: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0043: stloc.1
+IL_0044: ldarg.0
+IL_0045: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_004a: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_004f: ldarg.0
+IL_0050: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0055: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_005a: stloc.2
+IL_005b: ldloca.s V_0
+IL_005d: ldc.i4.0
+IL_005e: call !0 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Item(System.Int32)
+IL_0063: stloc.s V_5
+IL_0065: ldloca.s V_5
+IL_0067: ldloca.s V_2
+IL_0069: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_006e: stloc.s V_7
+IL_0070: ldloca.s V_7
+IL_0072: ldc.i4.0
+IL_0073: call !0 Unity.Collections.NativeArray`1<Game.Tools.Temp>::get_Item(System.Int32)
+IL_0078: stloc.3
+IL_0079: ldloca.s V_0
+IL_007b: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::Dispose()
+IL_0080: ldarg.0
+IL_0081: ldfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_0086: callvirt Unity.Entities.EntityCommandBuffer Game.SafeCommandBufferSystem::CreateCommandBuffer()
+IL_008b: stloc.s V_4
+IL_008d: ldloca.s V_3
+IL_008f: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0094: dup
+IL_0095: ldind.u4
+IL_0096: ldc.i4.s -17
+IL_0098: and
+IL_0099: stind.i4
+IL_009a: ldloca.s V_4
+IL_009c: ldloc.1
+IL_009d: ldloc.3
+IL_009e: call System.Void Unity.Entities.EntityCommandBuffer::SetComponent<Game.Tools.Temp>(Unity.Entities.Entity,!!0)
+IL_00a3: ldloca.s V_4
+IL_00a5: ldloc.1
+IL_00a6: ldloca.s V_8
+IL_00a8: initobj Game.Common.Updated
+IL_00ae: ldloc.s V_8
+IL_00b0: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.Updated>(Unity.Entities.Entity,!!0)
+IL_00b5: ldarg.0
+IL_00b6: ldc.i4.0
+IL_00b7: call System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_00bc: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::SetState(Game.Tools.DefaultToolSystem/State)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Game.Tools.DefaultToolSystem/State Game.Tools.DefaultToolSystem::m_State
+IL_0007: ret
+METHOD Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Entities.Entity,System.Int32,Unity.Mathematics.float3,System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldfld Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_DefinitionQuery
+IL_0007: ldarg.0
+IL_0008: ldfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_000d: ldarg.1
+IL_000e: call Unity.Jobs.JobHandle Game.Tools.ToolBaseSystem::DestroyDefinitions(Unity.Entities.EntityQuery,Game.Tools.ToolOutputBarrier,Unity.Jobs.JobHandle)
+IL_0013: stloc.0
+IL_0014: ldarg.2
+IL_0015: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_001a: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_001f: brfalse IL_02f9
+IL_0024: ldloca.s V_2
+IL_0026: initobj Game.Tools.DefaultToolSystem/CreateDefinitionsJob
+IL_002c: ldloca.s V_2
+IL_002e: ldarg.2
+IL_002f: stfld Unity.Entities.Entity Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_Entity
+IL_0034: ldloca.s V_2
+IL_0036: ldarg.s position
+IL_0038: stfld Unity.Mathematics.float3 Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_Position
+IL_003d: ldloca.s V_2
+IL_003f: ldarg.s setPosition
+IL_0041: stfld System.Boolean Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_SetPosition
+IL_0046: ldloca.s V_2
+IL_0048: ldarg.0
+IL_0049: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_004e: ldflda Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Net_ConnectedEdge_RO_BufferLookup
+IL_0053: ldarg.0
+IL_0054: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0059: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Net.ConnectedEdge>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_005e: stfld Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_Edges
+IL_0063: ldloca.s V_2
+IL_0065: ldarg.0
+IL_0066: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_006b: ldflda Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Buildings_InstalledUpgrade_RO_BufferLookup
+IL_0070: ldarg.0
+IL_0071: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0076: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Buildings.InstalledUpgrade>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_007b: stfld Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_InstalledUpgrades
+IL_0080: ldloca.s V_2
+IL_0082: ldarg.0
+IL_0083: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0088: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Tools_LocalTransformCache_RO_ComponentLookup
+IL_008d: ldarg.0
+IL_008e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0093: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.LocalTransformCache>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0098: stfld Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_LocalTransformCacheData
+IL_009d: ldloca.s V_2
+IL_009f: ldarg.0
+IL_00a0: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_00a5: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Net_Edge_RO_ComponentLookup
+IL_00aa: ldarg.0
+IL_00ab: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00b0: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Edge>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_00b5: stfld Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_EdgeData
+IL_00ba: ldloca.s V_2
+IL_00bc: ldarg.0
+IL_00bd: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_00c2: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Net_Node_RO_ComponentLookup
+IL_00c7: ldarg.0
+IL_00c8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00cd: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Node>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_00d2: stfld Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_NodeData
+IL_00d7: ldloca.s V_2
+IL_00d9: ldarg.0
+IL_00da: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_00df: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Net_Curve_RO_ComponentLookup
+IL_00e4: ldarg.0
+IL_00e5: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00ea: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Net.Curve>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_00ef: stfld Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_CurveData
+IL_00f4: ldloca.s V_2
+IL_00f6: ldarg.0
+IL_00f7: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_00fc: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Common_Owner_RO_ComponentLookup
+IL_0101: ldarg.0
+IL_0102: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0107: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Owner>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_010c: stfld Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_OwnerData
+IL_0111: ldloca.s V_2
+IL_0113: ldarg.0
+IL_0114: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0119: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Tools_EditorContainer_RO_ComponentLookup
+IL_011e: ldarg.0
+IL_011f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0124: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.EditorContainer>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0129: stfld Unity.Entities.ComponentLookup`1<Game.Tools.EditorContainer> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_EditorContainerData
+IL_012e: ldloca.s V_2
+IL_0130: ldarg.0
+IL_0131: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0136: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Objects_Transform_RO_ComponentLookup
+IL_013b: ldarg.0
+IL_013c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0141: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Transform>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0146: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_TransformData
+IL_014b: ldloca.s V_2
+IL_014d: ldarg.0
+IL_014e: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0153: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Objects_Elevation_RO_ComponentLookup
+IL_0158: ldarg.0
+IL_0159: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_015e: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Elevation>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0163: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_ElevationData
+IL_0168: ldloca.s V_2
+IL_016a: ldarg.0
+IL_016b: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0170: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Objects_Attached_RO_ComponentLookup
+IL_0175: ldarg.0
+IL_0176: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_017b: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Attached>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0180: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Attached> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_AttachedData
+IL_0185: ldloca.s V_2
+IL_0187: ldarg.0
+IL_0188: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_018d: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Objects_Attachment_RO_ComponentLookup
+IL_0192: ldarg.0
+IL_0193: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0198: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Objects.Attachment>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_019d: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_AttachmentData
+IL_01a2: ldloca.s V_2
+IL_01a4: ldarg.0
+IL_01a5: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_01aa: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Buildings_ServiceUpgrade_RO_ComponentLookup
+IL_01af: ldarg.0
+IL_01b0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01b5: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.ServiceUpgrade>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_01ba: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_ServiceUpgradeData
+IL_01bf: ldloca.s V_2
+IL_01c1: ldarg.0
+IL_01c2: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_01c7: ldflda Unity.Entities.ComponentLookup`1<Game.Areas.Lot> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Areas_Lot_RO_ComponentLookup
+IL_01cc: ldarg.0
+IL_01cd: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01d2: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Areas.Lot>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_01d7: stfld Unity.Entities.ComponentLookup`1<Game.Areas.Lot> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_LotData
+IL_01dc: ldloca.s V_2
+IL_01de: ldarg.0
+IL_01df: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_01e4: ldflda Unity.Entities.ComponentLookup`1<Game.Routes.Position> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Routes_Position_RO_ComponentLookup
+IL_01e9: ldarg.0
+IL_01ea: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01ef: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Routes.Position>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_01f4: stfld Unity.Entities.ComponentLookup`1<Game.Routes.Position> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_RoutePositionData
+IL_01f9: ldloca.s V_2
+IL_01fb: ldarg.0
+IL_01fc: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0201: ldflda Unity.Entities.ComponentLookup`1<Game.Routes.Connected> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Routes_Connected_RO_ComponentLookup
+IL_0206: ldarg.0
+IL_0207: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_020c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Routes.Connected>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0211: stfld Unity.Entities.ComponentLookup`1<Game.Routes.Connected> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_RouteConnectedData
+IL_0216: ldloca.s V_2
+IL_0218: ldarg.0
+IL_0219: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_021e: ldflda Unity.Entities.ComponentLookup`1<Game.Notifications.Icon> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Notifications_Icon_RO_ComponentLookup
+IL_0223: ldarg.0
+IL_0224: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0229: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Notifications.Icon>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_022e: stfld Unity.Entities.ComponentLookup`1<Game.Notifications.Icon> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_IconData
+IL_0233: ldloca.s V_2
+IL_0235: ldarg.0
+IL_0236: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_023b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Prefabs_PrefabRef_RO_ComponentLookup
+IL_0240: ldarg.0
+IL_0241: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0246: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_024b: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_PrefabRefData
+IL_0250: ldloca.s V_2
+IL_0252: ldarg.0
+IL_0253: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0258: ldflda Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Areas_Node_RO_BufferLookup
+IL_025d: ldarg.0
+IL_025e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0263: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Areas.Node>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0268: stfld Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_AreaNodes
+IL_026d: ldloca.s V_2
+IL_026f: ldarg.0
+IL_0270: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0275: ldflda Unity.Entities.BufferLookup`1<Game.Areas.SubArea> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Areas_SubArea_RO_BufferLookup
+IL_027a: ldarg.0
+IL_027b: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0280: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Areas.SubArea>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0285: stfld Unity.Entities.BufferLookup`1<Game.Areas.SubArea> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_SubAreas
+IL_028a: ldloca.s V_2
+IL_028c: ldarg.0
+IL_028d: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0292: ldflda Unity.Entities.BufferLookup`1<Game.Routes.RouteWaypoint> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Routes_RouteWaypoint_RO_BufferLookup
+IL_0297: ldarg.0
+IL_0298: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_029d: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Routes.RouteWaypoint>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02a2: stfld Unity.Entities.BufferLookup`1<Game.Routes.RouteWaypoint> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_RouteWaypoints
+IL_02a7: ldloca.s V_2
+IL_02a9: ldarg.0
+IL_02aa: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_02af: ldflda Unity.Entities.BufferLookup`1<Game.Net.AggregateElement> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Net_AggregateElement_RO_BufferLookup
+IL_02b4: ldarg.0
+IL_02b5: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02ba: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Net.AggregateElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_02bf: stfld Unity.Entities.BufferLookup`1<Game.Net.AggregateElement> Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_AggregateElements
+IL_02c4: ldloca.s V_2
+IL_02c6: ldarg.0
+IL_02c7: ldfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_02cc: callvirt Unity.Entities.EntityCommandBuffer Game.SafeCommandBufferSystem::CreateCommandBuffer()
+IL_02d1: stfld Unity.Entities.EntityCommandBuffer Game.Tools.DefaultToolSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_02d6: ldloc.2
+IL_02d7: ldarg.1
+IL_02d8: call Unity.Jobs.JobHandle Unity.Jobs.IJobExtensions::Schedule<Game.Tools.DefaultToolSystem/CreateDefinitionsJob>(!!0,Unity.Jobs.JobHandle)
+IL_02dd: stloc.1
+IL_02de: ldarg.0
+IL_02df: ldfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_02e4: ldloc.1
+IL_02e5: callvirt System.Void Unity.Entities.EntityCommandBufferSystem::AddJobHandleForProducer(Unity.Jobs.JobHandle)
+IL_02ea: ldloc.0
+IL_02eb: ldloc.1
+IL_02ec: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_02f1: stloc.0
+IL_02f2: ldarg.0
+IL_02f3: ldarg.3
+IL_02f4: stfld System.Int32 Game.Tools.DefaultToolSystem::m_LastSelectedIndex
+IL_02f9: ldloc.0
+IL_02fa: ret
+METHOD Unity.Jobs.JobHandle Game.Tools.DefaultToolSystem::SelectTempEntity(Unity.Jobs.JobHandle,System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_TempQuery
+IL_0006: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_000b: brfalse.s IL_001f
+IL_000d: ldarg.0
+IL_000e: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_0013: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0018: callvirt System.Void Game.Tools.ToolSystem::set_selected(Unity.Entities.Entity)
+IL_001d: ldarg.1
+IL_001e: ret
+IL_001f: ldarg.0
+IL_0020: ldflda Unity.Entities.EntityQuery Game.Tools.DefaultToolSystem::m_TempQuery
+IL_0025: ldc.i4.3
+IL_0026: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_002b: ldloca.s V_1
+IL_002d: call Unity.Collections.NativeList`1<Unity.Entities.ArchetypeChunk> Unity.Entities.EntityQuery::ToArchetypeChunkListAsync(Unity.Collections.AllocatorManager/AllocatorHandle,Unity.Jobs.JobHandle&)
+IL_0032: stloc.0
+IL_0033: ldloca.s V_2
+IL_0035: ldc.i4.3
+IL_0036: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_003b: ldc.i4.1
+IL_003c: call System.Void Unity.Collections.NativeReference`1<Unity.Entities.Entity>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle,Unity.Collections.NativeArrayOptions)
+IL_0041: ldloca.s V_4
+IL_0043: initobj Game.Tools.DefaultToolSystem/SelectEntityJob
+IL_0049: ldloca.s V_4
+IL_004b: ldloc.0
+IL_004c: stfld Unity.Collections.NativeList`1<Unity.Entities.ArchetypeChunk> Game.Tools.DefaultToolSystem/SelectEntityJob::m_Chunks
+IL_0051: ldloca.s V_4
+IL_0053: ldarg.0
+IL_0054: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0059: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Common_Owner_RO_ComponentTypeHandle
+IL_005e: ldarg.0
+IL_005f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0064: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Owner>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0069: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Owner> Game.Tools.DefaultToolSystem/SelectEntityJob::m_OwnerType
+IL_006e: ldloca.s V_4
+IL_0070: ldarg.0
+IL_0071: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0076: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentTypeHandle
+IL_007b: ldarg.0
+IL_007c: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0081: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Tools.Temp>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0086: stfld Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp> Game.Tools.DefaultToolSystem/SelectEntityJob::m_TempType
+IL_008b: ldloca.s V_4
+IL_008d: ldarg.0
+IL_008e: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0093: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Objects.Attachment> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Objects_Attachment_RO_ComponentTypeHandle
+IL_0098: ldarg.0
+IL_0099: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_009e: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Objects.Attachment>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00a3: stfld Unity.Entities.ComponentTypeHandle`1<Game.Objects.Attachment> Game.Tools.DefaultToolSystem/SelectEntityJob::m_AttachmentType
+IL_00a8: ldloca.s V_4
+IL_00aa: ldarg.0
+IL_00ab: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_00b0: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Vehicles.Controller> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Vehicles_Controller_RO_ComponentTypeHandle
+IL_00b5: ldarg.0
+IL_00b6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00bb: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Vehicles.Controller>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00c0: stfld Unity.Entities.ComponentTypeHandle`1<Game.Vehicles.Controller> Game.Tools.DefaultToolSystem/SelectEntityJob::m_ControllerType
+IL_00c5: ldloca.s V_4
+IL_00c7: ldarg.0
+IL_00c8: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_00cd: ldflda Unity.Entities.EntityStorageInfoLookup Game.Tools.DefaultToolSystem/TypeHandle::__EntityStorageInfoLookup
+IL_00d2: ldarg.0
+IL_00d3: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00d8: call Unity.Entities.EntityStorageInfoLookup Unity.Entities.Internal.InternalCompilerInterface::GetEntityStorageInfoLookup(Unity.Entities.EntityStorageInfoLookup&,Unity.Entities.SystemState&)
+IL_00dd: stfld Unity.Entities.EntityStorageInfoLookup Game.Tools.DefaultToolSystem/SelectEntityJob::m_EntityLookup
+IL_00e2: ldloca.s V_4
+IL_00e4: ldarg.0
+IL_00e5: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_00ea: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Tools_Temp_RO_ComponentLookup
+IL_00ef: ldarg.0
+IL_00f0: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00f5: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.Temp>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_00fa: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Tools.DefaultToolSystem/SelectEntityJob::m_TempData
+IL_00ff: ldloca.s V_4
+IL_0101: ldarg.0
+IL_0102: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0107: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Common_Owner_RO_ComponentLookup
+IL_010c: ldarg.0
+IL_010d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0112: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Owner>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0117: stfld Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Tools.DefaultToolSystem/SelectEntityJob::m_OwnerData
+IL_011c: ldloca.s V_4
+IL_011e: ldarg.0
+IL_011f: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0124: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Target> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Common_Target_RO_ComponentLookup
+IL_0129: ldarg.0
+IL_012a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_012f: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Target>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0134: stfld Unity.Entities.ComponentLookup`1<Game.Common.Target> Game.Tools.DefaultToolSystem/SelectEntityJob::m_TargetData
+IL_0139: ldloca.s V_4
+IL_013b: ldarg.0
+IL_013c: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0141: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Debug> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Tools_Debug_RO_ComponentLookup
+IL_0146: ldarg.0
+IL_0147: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_014c: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Tools.Debug>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0151: stfld Unity.Entities.ComponentLookup`1<Game.Tools.Debug> Game.Tools.DefaultToolSystem/SelectEntityJob::m_DebugData
+IL_0156: ldloca.s V_4
+IL_0158: ldarg.0
+IL_0159: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_015e: ldflda Unity.Entities.ComponentLookup`1<Game.Notifications.Icon> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Notifications_Icon_RO_ComponentLookup
+IL_0163: ldarg.0
+IL_0164: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0169: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Notifications.Icon>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_016e: stfld Unity.Entities.ComponentLookup`1<Game.Notifications.Icon> Game.Tools.DefaultToolSystem/SelectEntityJob::m_IconData
+IL_0173: ldloca.s V_4
+IL_0175: ldarg.0
+IL_0176: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_017b: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Vehicles_Vehicle_RO_ComponentLookup
+IL_0180: ldarg.0
+IL_0181: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0186: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Vehicles.Vehicle>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_018b: stfld Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle> Game.Tools.DefaultToolSystem/SelectEntityJob::m_VehicleData
+IL_0190: ldloca.s V_4
+IL_0192: ldarg.0
+IL_0193: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0198: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Tools.DefaultToolSystem/TypeHandle::__Game_Buildings_Building_RO_ComponentLookup
+IL_019d: ldarg.0
+IL_019e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01a3: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Buildings.Building>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_01a8: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Tools.DefaultToolSystem/SelectEntityJob::m_BuildingData
+IL_01ad: ldloca.s V_4
+IL_01af: ldarg.0
+IL_01b0: call System.Boolean Game.Tools.DefaultToolSystem::get_debugSelect()
+IL_01b5: stfld System.Boolean Game.Tools.DefaultToolSystem/SelectEntityJob::m_DebugSelect
+IL_01ba: ldloca.s V_4
+IL_01bc: ldloc.2
+IL_01bd: stfld Unity.Collections.NativeReference`1<Unity.Entities.Entity> Game.Tools.DefaultToolSystem/SelectEntityJob::m_Selected
+IL_01c2: ldloca.s V_4
+IL_01c4: ldarg.0
+IL_01c5: ldfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_01ca: callvirt Unity.Entities.EntityCommandBuffer Game.SafeCommandBufferSystem::CreateCommandBuffer()
+IL_01cf: stfld Unity.Entities.EntityCommandBuffer Game.Tools.DefaultToolSystem/SelectEntityJob::m_CommandBuffer
+IL_01d4: ldloc.s V_4
+IL_01d6: ldarg.1
+IL_01d7: ldloc.1
+IL_01d8: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_01dd: call Unity.Jobs.JobHandle Unity.Jobs.IJobExtensions::Schedule<Game.Tools.DefaultToolSystem/SelectEntityJob>(!!0,Unity.Jobs.JobHandle)
+IL_01e2: stloc.3
+IL_01e3: ldloca.s V_0
+IL_01e5: ldloc.3
+IL_01e6: call Unity.Jobs.JobHandle Unity.Collections.NativeList`1<Unity.Entities.ArchetypeChunk>::Dispose(Unity.Jobs.JobHandle)
+IL_01eb: pop
+IL_01ec: ldarg.0
+IL_01ed: ldfld Game.Tools.ToolOutputBarrier Game.Tools.DefaultToolSystem::m_ToolOutputBarrier
+IL_01f2: ldloc.3
+IL_01f3: callvirt System.Void Unity.Entities.EntityCommandBufferSystem::AddJobHandleForProducer(Unity.Jobs.JobHandle)
+IL_01f8: ldloca.s V_3
+IL_01fa: call System.Void Unity.Jobs.JobHandle::Complete()
+IL_01ff: ldarg.0
+IL_0200: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0205: stloc.s V_5
+IL_0207: ldloca.s V_5
+IL_0209: ldloca.s V_2
+IL_020b: call !0 Unity.Collections.NativeReference`1<Unity.Entities.Entity>::get_Value()
+IL_0210: call System.Boolean Unity.Entities.EntityManager::HasBuffer<Game.Net.AggregateElement>(Unity.Entities.Entity)
+IL_0215: brtrue.s IL_021e
+IL_0217: ldarg.0
+IL_0218: ldc.i4.m1
+IL_0219: stfld System.Int32 Game.Tools.DefaultToolSystem::m_LastSelectedIndex
+IL_021e: ldarg.0
+IL_021f: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_0224: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0229: ldloca.s V_2
+IL_022b: call !0 Unity.Collections.NativeReference`1<Unity.Entities.Entity>::get_Value()
+IL_0230: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0235: brtrue.s IL_024a
+IL_0237: ldarg.0
+IL_0238: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_023d: callvirt System.Int32 Game.Tools.ToolSystem::get_selectedIndex()
+IL_0242: ldarg.0
+IL_0243: ldfld System.Int32 Game.Tools.DefaultToolSystem::m_LastSelectedIndex
+IL_0248: beq.s IL_027d
+IL_024a: ldarg.0
+IL_024b: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_0250: ldloca.s V_2
+IL_0252: call !0 Unity.Collections.NativeReference`1<Unity.Entities.Entity>::get_Value()
+IL_0257: callvirt System.Void Game.Tools.ToolSystem::set_selected(Unity.Entities.Entity)
+IL_025c: ldarg.0
+IL_025d: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_0262: ldarg.0
+IL_0263: ldfld System.Int32 Game.Tools.DefaultToolSystem::m_LastSelectedIndex
+IL_0268: callvirt System.Void Game.Tools.ToolSystem::set_selectedIndex(System.Int32)
+IL_026d: ldarg.0
+IL_026e: ldloca.s V_2
+IL_0270: call !0 Unity.Collections.NativeReference`1<Unity.Entities.Entity>::get_Value()
+IL_0275: ldc.i4.1
+IL_0276: call System.Void Game.Tools.DefaultToolSystem::PlaySelectedSound(Unity.Entities.Entity,System.Boolean)
+IL_027b: br.s IL_02a0
+IL_027d: ldarg.2
+IL_027e: brfalse.s IL_0292
+IL_0280: ldarg.0
+IL_0281: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_0286: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_028b: callvirt System.Void Game.Tools.ToolSystem::set_selected(Unity.Entities.Entity)
+IL_0290: br.s IL_02a0
+IL_0292: ldarg.0
+IL_0293: ldloca.s V_2
+IL_0295: call !0 Unity.Collections.NativeReference`1<Unity.Entities.Entity>::get_Value()
+IL_029a: ldc.i4.0
+IL_029b: call System.Void Game.Tools.DefaultToolSystem::PlaySelectedSound(Unity.Entities.Entity,System.Boolean)
+IL_02a0: ldloca.s V_2
+IL_02a2: call System.Void Unity.Collections.NativeReference`1<Unity.Entities.Entity>::Dispose()
+IL_02a7: ldloc.3
+IL_02a8: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::__AssignQueries(Unity.Entities.SystemState&)
+IL_0000: ldloca.s V_0
+IL_0002: ldc.i4.2
+IL_0003: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0008: call System.Void Unity.Entities.EntityQueryBuilder::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_000d: ldloca.s V_0
+IL_000f: call System.Void Unity.Entities.EntityQueryBuilder::Dispose()
+IL_0014: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::OnCreateForCompiler()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Tools.ToolBaseSystem::OnCreateForCompiler()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_000d: call System.Void Game.Tools.DefaultToolSystem::__AssignQueries(Unity.Entities.SystemState&)
+IL_0012: ldarg.0
+IL_0013: ldflda Game.Tools.DefaultToolSystem/TypeHandle Game.Tools.DefaultToolSystem::__TypeHandle
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_001e: call System.Void Game.Tools.DefaultToolSystem/TypeHandle::__AssignHandles(Unity.Entities.SystemState&)
+IL_0023: ret
+METHOD System.Void Game.Tools.DefaultToolSystem::.ctor()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Tools.ToolBaseSystem::.ctor()
+IL_0006: ret

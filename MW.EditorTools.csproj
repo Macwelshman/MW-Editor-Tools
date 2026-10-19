@@ -3,7 +3,7 @@
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>MW.EditorTools</AssemblyName>
     <RootNamespace>MW.EditorTools</RootNamespace>
-    <Version>0.4.88</Version>
+    <Version>0.4.163</Version>
     <LangVersion>latest</LangVersion>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GamePath Condition="'$(GamePath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Cities Skylines II</GamePath>
@@ -12,25 +12,12 @@
   <ItemGroup>
     <Compile Include="src/**/*.cs" />
     <PackageReference Include="Lib.Harmony" Version="2.4.2" />
-    <Reference Include="Game;Colossal.Core;Colossal.Logging;Colossal.UI;Colossal.UI.Binding;Colossal.Localization;Colossal.IO.AssetDatabase;Colossal.AssetPipeline;Colossal.Mathematics;Unity.Entities;Unity.Collections;Unity.Mathematics;Unity.InputSystem;UnityEngine.JSONSerializeModule;UnityEngine.CoreModule;UnityEngine.AnimationModule;netstandard">
+    <Reference Include="Game;Colossal.Collections;Colossal.Core;Colossal.Logging;Colossal.UI;Colossal.UI.Binding;Colossal.Localization;Colossal.IO.AssetDatabase;Colossal.AssetPipeline;Colossal.Mathematics;Unity.Entities;Unity.Collections;Unity.Mathematics;Unity.InputSystem;UnityEngine.JSONSerializeModule;UnityEngine.CoreModule;UnityEngine.AnimationModule;netstandard">
       <HintPath>$(ManagedPath)\%(Identity).dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
 </Project>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

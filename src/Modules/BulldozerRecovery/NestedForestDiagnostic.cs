@@ -11,7 +11,8 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         private void CaptureNestedForest(Entity target,PrefabBase[] rootTypes=null){
             nestedForest=null;nestedForestReferences=null;
             if(nestedFixture==null)return;
-            var roots=NestedRoots(rootTypes??AdoptedNestedTypes);
+            var owner=world.EntityManager.GetComponentData<Game.Common.Owner>(target).m_Owner;
+            var roots=NestedRoots(rootTypes??AdoptedNestedTypes,owner);
             if(!roots.Contains(target))return;
             var image=roots.Select(root=>CaptureNestedImage(root,false)).ToArray();
             if(image.Length<1)return;
@@ -19,7 +20,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             foreach(var group in image)OrdinaryGroupSupported(group);
             var ids=image.SelectMany(group=>group.Select(node=>node.Original)).ToArray();
             if(ids.Distinct().Count()!=ids.Length)throw new NotSupportedException("Forest shares descendants.");
-            var references=image.SelectMany(group=>group.Select(node=>node.Prefab)).Distinct().ToDictionary(prefab=>prefab,Capture);
+            var references=image.SelectMany(GroupReferences).Distinct().ToDictionary(prefab=>prefab,Capture);
             if(references.Values.Sum(value=>value.Weight)>250000||references.Any(pair=>!NestedReferenceMatches(pair.Key,pair.Value)))throw new NotSupportedException("Forest referenced payload invalid or over budget.");
             nestedForest=image;nestedForestTarget=target;nestedForestReferences=references;
             Mod.Log.Info("Nested forest captured groups="+image.Length+" nodes="+ids.Length+" target="+target+"; typed images detached; recovery requires explicit arming.");

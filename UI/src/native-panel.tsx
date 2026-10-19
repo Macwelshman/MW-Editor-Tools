@@ -1,69 +1,77 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { getModule } from "cs2/modding";
 import { PanelProps } from "cs2/ui";
 
+type Position = { x: number; y: number };
 type WindowProps = Omit<PanelProps, "draggable"> & {
-    initialPosition?: { x: number; y: number };
-    onPositionChange?: (position: { x: number; y: number }) => void;
+    initialPosition?: Position;
+    onPositionChange?: (position: Position) => void;
 };
 
-// Preserve native dragging and focus handling; persist position through the mod backend.
-export function NativePanel({ header, children, onPositionChange, ...props }: WindowProps) {
-    const host = useRef<HTMLDivElement>(null);
-    // Initial coordinates apply only when this panel mounts (or Reset remounts it).
-    // Changing sections or refreshing backend state must not reset native dragging.
-    const initialPosition = useRef(props.initialPosition);
-    const [positionReady, setPositionReady] = useState(false);
-    useEffect(() => {
-        // Native positioning runs after mounting. Hide both initial frames so
-        // the unsaved starting coordinates never become visible.
-        let frame = requestAnimationFrame(() => {
-            frame = requestAnimationFrame(() => setPositionReady(true));
-        });
-        return () => cancelAnimationFrame(frame);
-    }, []);
+// Native panel/focus/drag handle, with a single pixel-coordinate owner.
+export function NativePanel({ header, children, initialPosition, onPositionChange, ...props }: WindowProps) {
+    const panelRef = useRef<HTMLDivElement>(null);
+    const opening = useRef(initialPosition ?? { x: .5, y: .5 });
+    const current = useRef<Position | null>(null);
+    const pending = useRef(false);
+    const [position, setPosition] = useState<Position | null>(null);
     const savePosition = useRef(onPositionChange);
     savePosition.current = onPositionChange;
-    useEffect(() => {
-        const panel = host.current?.querySelector<HTMLElement>(".draggable-panel");
-        if (!panel) return;
-        let timer: ReturnType<typeof setTimeout> | undefined;
-        let pending = false;
-        const save = () => {
-            if (!pending) return;
-            pending = false;
-            const rect = panel.getBoundingClientRect();
-            if (!rect.width || !rect.height) return;
-            const normalize = (offset: number, space: number) => space > 0 ? Math.max(0, Math.min(1, offset / space)) : 0;
-            savePosition.current?.({ x: normalize(rect.left, window.innerWidth - rect.width), y: normalize(rect.top, window.innerHeight - rect.height) });
+    useLayoutEffect(() => {
+        let cancelled = false, frame = 0, attempts = 0;
+        const initialize = () => {
+            if (cancelled) return;
+            const rect = panelRef.current?.getBoundingClientRect();
+            if ((!rect || rect.width <= 0 || rect.height <= 0) && ++attempts < 60) {
+                frame = window.requestAnimationFrame(initialize);
+                return;
+            }
+            const fraction = (value: number) => Number.isFinite(value) ? Math.max(0, Math.min(1, value)) : .2;
+            const start = rect && rect.width > 0 && rect.height > 0 ? {
+                x: fraction(opening.current.x) * Math.max(0, window.innerWidth - rect.width),
+                y: fraction(opening.current.y) * Math.max(0, window.innerHeight - rect.height)
+            } : { x: 20, y: 130 };
+            current.current = start;
+            setPosition(start);
         };
-        // Same observation approach as the color variation mod: save after native style updates.
-        const observer = new MutationObserver(() => {
-            if (panel.style.visibility === "hidden") return;
-            pending = true;
-            clearTimeout(timer);
-            timer = setTimeout(save, 300);
-        });
-        observer.observe(panel, { attributes: true, attributeFilter: ["style"] });
-        window.addEventListener("mouseup", save);
-        return () => {
-            observer.disconnect();
-            clearTimeout(timer);
-            window.removeEventListener("mouseup", save);
-            save();
-        };
+        initialize();
+        return () => { cancelled = true; window.cancelAnimationFrame(frame); };
     }, []);
-    const DraggablePanel = getModule("game-ui/common/panel/draggable-panel/draggable-panel.tsx", "DraggablePanel") as React.ComponentType<WindowProps>;
+    useEffect(() => {
+        const save = () => {
+            if (!pending.current || !current.current) return;
+            pending.current = false;
+            const rect = panelRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            const normalize = (offset: number, space: number) => space > 0 ? Math.max(0, Math.min(1, offset / space)) : 0;
+            savePosition.current?.({ x: normalize(current.current.x, window.innerWidth - rect.width),
+                y: normalize(current.current.y, window.innerHeight - rect.height) });
+        };
+        window.addEventListener("mouseup", save);
+        window.addEventListener("blur", save);
+        return () => { window.removeEventListener("mouseup", save); window.removeEventListener("blur", save); save(); };
+    }, []);
+    const drag = (clientX: number, clientY: number, offsetX: number, offsetY: number) => {
+        const rect = panelRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        const next = { x: Math.max(0, Math.min(clientX - offsetX, Math.max(0, window.innerWidth - rect.width))),
+            y: Math.max(0, Math.min(clientY - offsetY, Math.max(0, window.innerHeight - 40))) };
+        current.current = next;
+        pending.current = true;
+        setPosition(next);
+    };
+    const Panel = getModule("game-ui/common/panel/panel.tsx", "Panel") as React.ComponentType<PanelProps & React.RefAttributes<HTMLDivElement>>;
+    const DragHandle = getModule("game-ui/common/input/drag-handle.tsx", "DragHandle") as
+        React.ComponentType<React.PropsWithChildren<{ onDrag: typeof drag }>>;
     const TitleBar = getModule("game-ui/common/panel/panel-title-bar.tsx", "PanelTitleBar") as React.ComponentType<React.PropsWithChildren<{}>>;
     const ContentNavigation = getModule("game-ui/common/focus/auto-navigation-scope.tsx", "AutoNavigationScope") as
         React.ComponentType<React.PropsWithChildren<{ focusKey: string }>>;
     const editorTheme = getModule("game-ui/editor/themes/editor-panel.module.scss", "classes");
-    // Disable the native opening transition to avoid a visible centre-to-position jump.
-    return <div ref={host} style={{ position:"fixed",left:0,top:0,width:"100%",height:"100%",zIndex:100,
-        opacity:positionReady?1:0,pointerEvents:"none" }}><DraggablePanel {...props} initialPosition={initialPosition.current} transition={null}
-        style={{...props.style,pointerEvents:positionReady?"auto":"none"}}
-        theme={editorTheme} header={<TitleBar>{header}</TitleBar>}>
-        <ContentNavigation focusKey="mwEditorTools.content">{children}</ContentNavigation>
-    </DraggablePanel></div>;
+    return <div style={{ position:"fixed",left:0,top:0,width:"100%",height:"100%",zIndex:100,pointerEvents:"none" }}>
+        <Panel {...props} ref={panelRef} transition={null} style={{...props.style,position:"absolute",left:position?.x ?? 0,top:position?.y ?? 0,
+            visibility:position ? "visible" : "hidden",pointerEvents:position ? "auto" : "none"}}
+            theme={editorTheme} header={<DragHandle onDrag={drag}><TitleBar>{header}</TitleBar></DragHandle>}>
+            <ContentNavigation focusKey="mwEditorTools.content">{children}</ContentNavigation>
+        </Panel>
+    </div>;
 }
-

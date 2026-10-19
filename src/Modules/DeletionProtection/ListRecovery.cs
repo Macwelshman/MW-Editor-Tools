@@ -26,9 +26,9 @@ namespace MW.EditorTools.Modules.DeletionProtection
     {
         private const string Id = DeletionPatchPolicy.RecoveryOwner;
         private static ListRecovery active;
-        private static readonly Type[] Supported = { typeof(ObjectSubObjects), typeof(ObjectSubAreas), typeof(ObjectSubNets), typeof(EffectSource) };
-        private static readonly string[] Members = { "m_SubObjects", "m_SubAreas", "m_SubNets", "m_Effects" };
-        private readonly TransactionHistory<Entry> history = new TransactionHistory<Entry>(20);
+        private static readonly Type[] Supported = RecoveryListSchema.Components;
+        private static readonly string[] Members = RecoveryListSchema.Members;
+        private readonly LastDeletion<Entry> history = new LastDeletion<Entry>();
         private World world;
         private Harmony harmony;
         private FieldInfo parentField, sectionObjects, dialogCallback, dismissibleCallback;
@@ -43,12 +43,12 @@ namespace MW.EditorTools.Modules.DeletionProtection
         private EditorContextService context;
         private MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace bulldozerTrace;
         private string StartTestBlockReason=>!enabledFeature?"Recovery module unavailable.":settings?.recovery!=true?"Enable deletion recovery in Options first.":bulldozerTrace==null?"Bulldozer recovery module unavailable.":bulldozerTrace.StartTestBlockReason;
-        public string BulldozerDiagnostic => bulldozerTrace?.Busy==true||bulldozerTrace?.NestedTestRunning==true||bulldozerTrace?.NestedHistoryEnabled==true||bulldozerTrace?.MainHistoryEnabled==true||bulldozerTrace?.HasRecord==true?bulldozerTrace.Status:StartTestBlockReason!=null?"Cannot start recovery: "+StartTestBlockReason:bulldozerTrace.Status;
+        public string BulldozerDiagnostic => !enabledFeature ? "Recovery module unavailable." : settings?.recovery!=true ? "Enable deletion recovery in Options." : bulldozerTrace?.Status ?? "Bulldozer recovery unavailable.";
         public bool RecoveryInstalled => enabledFeature;
         private Func<bool> saveBusy;
         private bool Saving => saveBusy?.Invoke()==true;
         internal void SetSaveBusy(Func<bool> value) { saveBusy = value; }
-        internal bool OperationBusy => pending != null || applying || bulldozerTrace?.Busy==true || bulldozerTrace?.NestedTestRunning==true;
+        internal bool OperationBusy => pending != null || applying || bulldozerTrace?.Busy==true || bulldozerTrace?.MovePreviewActive==true || bulldozerTrace?.NestedTestRunning==true;
         public int UndoCount => history.UndoCount + (bulldozerTrace?.UndoCount ?? 0);
         public int RedoCount => history.RedoCount + (bulldozerTrace?.RedoCount ?? 0);
         public string UndoTarget => bulldozerTrace?.HasRecord==true?bulldozerTrace.UndoTarget:history.Latest?.Label;
@@ -84,7 +84,7 @@ namespace MW.EditorTools.Modules.DeletionProtection
         public void Redo() { if(!CanRedo)return;if(bulldozerTrace?.HasRecord==true)bulldozerTrace.Redo();else Command(false); }
         public void ClearHistory() { if(bulldozerTrace?.Busy==true)return;bulldozerTrace?.Invalidate();Clear("History cleared"); }
         public void ApplySettings() { bulldozerTrace?.Invalidate();bulldozerTrace?.SetDepth(settings.historyDepth);history.SetDepth(settings.historyDepth); Clear("Settings changed — history cleared"); }
-        private string status = "List recovery test build — no history";
+        private string status = "No deletion to undo";
         private EditorSection section;
         private InspectorPanelSystem sectionInspector;
 
@@ -148,6 +148,11 @@ namespace MW.EditorTools.Modules.DeletionProtection
             {
                 foreach (var method in deletedMethods)
                     harmony.Patch(method, prefix: Patch(nameof(BeforeDelete)), finalizer: Patch(nameof(DeleteFailed)));
+                var clear = Method(typeof(PagedList), "Clear");
+                if (Harmony.GetPatchInfo(clear)?.Owners.Any(id => !DeletionPatchPolicy.IsKnownOwner(id)) == true)
+                    throw new NotSupportedException("Another list Clear patch is active.");
+                harmony.Patch(clear, prefix: new HarmonyMethod(typeof(ListRecovery).GetMethod(nameof(BeforeClear), BindingFlags.Static | BindingFlags.NonPublic))
+                    { priority = Priority.Last, after = new[] { DeletionPatchPolicy.ConfirmationOwner } }, finalizer: Patch(nameof(DeleteFailed)));
                 harmony.Patch(Method(typeof(InspectorPanelSystem), "OnValueChanged", typeof(IWidget)),
                     postfix: Patch(nameof(ValueChanged)));
                 harmony.Patch(Method(typeof(InspectorPanelSystem), "RefreshSections"), postfix: Patch(nameof(RefreshUI)));
@@ -156,9 +161,9 @@ namespace MW.EditorTools.Modules.DeletionProtection
                 harmony.Patch(Method(typeof(InspectorPanelSystem), "RemoveComponent", typeof(ComponentBase)), prefix: Patch(nameof(ClearAllContext)));
                 harmony.Patch(Method(typeof(BulldozeToolSystem), "Apply", typeof(Unity.Jobs.JobHandle)), prefix: Patch(nameof(ClearContext)));
                 enabledFeature = true;
-                try { bulldozerTrace = new MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace(world, context); bulldozerTrace.AutomaticCaptureAllowed=()=>enabledFeature && settings?.recovery==true && !Saving; bulldozerTrace.SetDepth(settings.historyDepth); bulldozerTrace.Attach(); }
+                try { bulldozerTrace = new MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace(world, context); bulldozerTrace.MoveCommitted=()=>Clear("Move committed — previous Undo cleared"); bulldozerTrace.AutomaticCaptureAllowed=()=>enabledFeature && settings?.recovery==true && !Saving; bulldozerTrace.SetDepth(settings.historyDepth); bulldozerTrace.Attach(); }
                 catch (Exception error) { bulldozerTrace = null; Mod.Log.Warn("Bulldozer diagnostic unavailable: " + error.Message); }
-                Mod.Log.Info("MW Editor Tools 0.4: prefab-list recovery test feature loaded; bulldozer recovery unsupported.");
+                Mod.Log.Info("Prefab-list recovery loaded: Object/Area/Net/Effect/Lane rows and Clear; bulldozer routes have separate eligibility checks.");
             }
             catch { Release(); throw; }
         }
@@ -188,6 +193,17 @@ namespace MW.EditorTools.Modules.DeletionProtection
             {
                 active.Clear("Snapshot failed — deletion blocked");
                 Mod.Log.Error(error, "Supported list deletion blocked because its snapshot could not be captured.");
+                return false;
+            }
+        }
+        private static bool BeforeClear(PagedList __instance, bool __runOriginal)
+        {
+            if (!__runOriginal || active == null) return true;
+            try { return active.CaptureDeletion(__instance.adapter, -1, true); }
+            catch (Exception error)
+            {
+                active.Clear("Snapshot failed — Clear blocked");
+                Mod.Log.Error(error, "Supported list Clear blocked because its snapshot could not be captured.");
                 return false;
             }
         }
@@ -226,7 +242,7 @@ namespace MW.EditorTools.Modules.DeletionProtection
                     Values = fields.Select(f => PrefabSnapshot.Take(f.GetValue(c))).ToArray() };
             }).ToArray();
 
-        private bool CaptureDeletion(object adapter, int index)
+        private bool CaptureDeletion(object adapter, int index, bool clear = false)
         {
             if (settings == null || !settings.recovery) return true;
             var inspector = Inspector;
@@ -234,42 +250,37 @@ namespace MW.EditorTools.Modules.DeletionProtection
             var root = Root(inspector);
             if (root == null) return true;
             var elementType = adapter.GetType().GetProperty("elementType").GetValue(adapter) as Type;
-            if (elementType != typeof(ObjectSubObjectInfo) && elementType != typeof(ObjectSubAreaInfo) &&
-                elementType != typeof(ObjectSubNetInfo) && elementType != typeof(EffectSource.EffectSettings)) return true;
+            if (!RecoveryListSchema.Elements.Contains(elementType)) return true;
             var accessor = adapter.GetType().GetProperty("accessor").GetValue(adapter) as IValueAccessor;
             if (accessor == null) return true;
             var storage = accessor.GetValue();
             ComponentBase owner = null; FieldInfo field = null;
             for (int i = 0; i < Supported.Length; i++)
             {
-                var component = root.components.FirstOrDefault(c => c != null && c.GetType() == Supported[i]);
                 var member = Supported[i].GetField(Members[i]);
-                if (component != null && ReferenceEquals(member.GetValue(component), storage))
-                { owner = component; field = member; break; }
+                foreach (var component in root.components.Where(c => c != null && c.GetType() == Supported[i]))
+                {
+                    if (!ReferenceEquals(member.GetValue(component), storage)) continue;
+                    if (owner != null || elementType != RecoveryListSchema.Elements[i])
+                        throw new NotSupportedException("List storage has ambiguous ownership or an incompatible element type.");
+                    owner = component; field = member;
+                }
             }
             if (owner == null) return true; // No patch effect on unmapped lists.
             if (applying || pending != null || bulldozerTrace?.Busy==true || root.isReadOnly || BusyUI()) return false;
             bulldozerTrace?.Invalidate();
-            var method = Method(adapter.GetType(), "DeleteElementInternal", typeof(int));
-            if (Harmony.GetPatchInfo(method)?.Owners.Any(id => id != Id) == true)
+            var method = clear ? Method(typeof(PagedList), "Clear") : Method(adapter.GetType(), "DeleteElementInternal", typeof(int));
+            if (Harmony.GetPatchInfo(method)?.Owners.Any(id => !DeletionPatchPolicy.IsKnownOwner(id)) == true)
                 throw new NotSupportedException("List interception conflict.");
             var list = storage as IList;
-            if (list == null || index < 0 || index >= list.Count) throw new InvalidOperationException("Invalid underlying deletion index.");
+            if (clear && list != null && list.Count == 0) return true;
             if (!ReferenceEquals(asset, root)) { Clear("New asset — history cleared"); asset = root; }
-            var expected = PrefabSnapshot.Take(storage).Materialize() as IList;
-            if (storage is Array original)
-            {
-                var shorter = Array.CreateInstance(original.GetType().GetElementType(), original.Length - 1);
-                int at = 0;
-                for (int i = 0; i < expected.Count; i++) if (i != index) shorter.SetValue(expected[i], at++);
-                expected = shorter;
-            }
-            else expected.RemoveAt(index);
+            var expected = RecoveryListSchema.AfterDeletion(list, index, clear);
             pending = new Pending
             {
-                Inspector = inspector, Adapter = adapter, Owner = owner, Field = field, Expected = PrefabSnapshot.Take(expected), Frame = Time.frameCount,
+                Inspector = inspector, Adapter = adapter, Owner = owner, Field = field, Expected = expected, Frame = Time.frameCount,
                 Entry = new Entry { Asset = root, Components = root.components.ToArray(), Before = Capture(root),
-                    Label = new[] { "Object", "Area", "Net", "Effect" }[Array.IndexOf(Supported, owner.GetType())] + " row " + (index + 1) }
+                    Label = RecoveryListSchema.Labels[Array.IndexOf(Supported, owner.GetType())] + (clear ? " Clear (" + list.Count + " entries)" : " row " + (index + 1)) }
             };
             return true; // Original array/list mutation and native UI change event proceed unchanged.
         }
@@ -363,15 +374,15 @@ namespace MW.EditorTools.Modules.DeletionProtection
                 var redo = new Button { path = "mwRedo", displayName = LocalizedString.Value("Redo deletion"),
                     action = Redo, disabled = () => !CanRedo,
                     shouldTriggerValueChangedEvent = false };
-                var clear = new Button { path = "mwClear", displayName = LocalizedString.Value("Clear history"),
+                var clear = new Button { path = "mwClear", displayName = LocalizedString.Value("Forget last deletion"),
                     action = ClearHistory, shouldTriggerValueChangedEvent = false };
                 section = new EditorSection { path = "mwRecovery", expanded = true,
-                    displayName = LocalizedString.Value("MW Editor Tools — deletion history"),
-                    children = new IWidget[] { new ButtonRow { path = "mwHistoryActions", children = new[] { undo, redo, clear } } } };
+                    displayName = LocalizedString.Value("MW Editor Tools — Undo"),
+                    children = new IWidget[] { new ButtonRow { path = "mwHistoryActions", children = new[] { undo, clear } } } };
             }
             var children = (IList<IWidget>)panelChildren.GetValue(inspector);
             if (!children.Contains(section)) panelChildren.SetValue(inspector, new[] { section }.Cast<IWidget>().Concat(children).ToList());
-            section.displayName = LocalizedString.Value("MW recovery (" + UndoCount + " undo / " + RedoCount + " redo) — " + status);
+            section.displayName = LocalizedString.Value("MW Undo — " + status);
             section.SetPropertiesChanged();
         }
 
@@ -412,13 +423,3 @@ namespace MW.EditorTools.Modules.DeletionProtection
         }
     }
 }
-
-
-
-
-
-
-
-
-
-

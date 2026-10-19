@@ -1,0 +1,121 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+System.Void Game.Tools.AreaToolSystem/SnapJob::FindParent(Game.Tools.ControlPoint&,Game.Tools.ControlPoint,Game.Areas.AreaType,System.Single)
+IL_020f: stfld Unity.Mathematics.int2 Game.Tools.ControlPoint::m_ElementIndex
+IL_0214: br.s IL_0229
+IL_0216: ldarg.1
+IL_0217: ldarg.0
+IL_0218: ldarg.2
+IL_0219: call System.Int32 Game.Tools.AreaToolSystem/SnapJob::FindParentMesh(Game.Tools.ControlPoint)
+IL_021e: ldc.i4.m1
+IL_021f: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_0224: stfld Unity.Mathematics.int2 Game.Tools.ControlPoint::m_ElementIndex
+IL_0229: ldarg.1
+IL_022a: ldloc.0
+IL_022b: ldfld Unity.Entities.Entity Game.Tools.AreaToolSystem/SnapJob/ParentObjectIterator::m_Parent
+IL_0230: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0235: ret
+IL_0236: ldloc.s V_6
+IL_0238: ldc.i4.1
+IL_0239: add
+IL_023a: stloc.s V_6
+IL_023c: ldloc.s V_6
+IL_023e: ldloc.2
+IL_022b: ldfld Unity.Entities.Entity Game.Tools.AreaToolSystem/SnapJob/ParentObjectIterator::m_Parent
+IL_0230: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0235: ret
+IL_0236: ldloc.s V_6
+IL_0238: ldc.i4.1
+IL_0239: add
+IL_023a: stloc.s V_6
+IL_023c: ldloc.s V_6
+IL_023e: ldloc.2
+IL_023f: blt IL_00ed
+IL_0244: ldarg.1
+IL_0245: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_024a: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_024f: ldarg.1
+IL_0250: ldc.i4.m1
+IL_0251: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Implicit(System.Int32)
+IL_0256: stfld Unity.Mathematics.int2 Game.Tools.ControlPoint::m_ElementIndex
+IL_025b: ret
+System.Boolean Game.Tools.AreaToolSystem/SnapJob::FindControlPoint(Game.Tools.ControlPoint&,Game.Tools.ControlPoint,Game.Areas.AreaType,System.Single,Unity.Entities.Entity,System.Boolean,System.Int32)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0006: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_000b: ldloca.s V_0
+IL_000d: ldc.i4.s 10
+IL_000f: ldc.i4.2
+IL_0010: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0015: call System.Void Unity.Collections.NativeList`1<Game.Tools.SnapLine>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_001a: ldarg.0
+IL_001b: ldfld Game.Tools.Snap Game.Tools.AreaToolSystem/SnapJob::m_Snap
+IL_0020: ldc.i4.4
+IL_0021: and
+IL_0022: brfalse IL_061f
+IL_0027: ldarg.0
+IL_0028: ldfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem/SnapJob::m_State
+IL_002d: ldc.i4.1
+IL_002e: bne.un IL_0237
+IL_0033: ldarg.2
+IL_0034: stloc.1
+IL_0035: ldloca.s V_1
+IL_001b: ldfld Game.Tools.Snap Game.Tools.AreaToolSystem/SnapJob::m_Snap
+IL_0020: ldc.i4.4
+IL_0021: and
+IL_0022: brfalse IL_061f
+IL_0027: ldarg.0
+IL_0028: ldfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem/SnapJob::m_State
+IL_002d: ldc.i4.1
+IL_002e: bne.un IL_0237
+IL_0033: ldarg.2
+IL_0034: stloc.1
+IL_0035: ldloca.s V_1
+IL_0037: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_003c: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0041: ldloca.s V_1
+IL_0043: ldarg.2
+IL_0044: ldfld Unity.Mathematics.float3 Game.Tools.ControlPoint::m_HitPosition
+IL_0049: stfld Unity.Mathematics.float3 Game.Tools.ControlPoint::m_Position
+IL_004e: ldloca.s V_2
+IL_0050: initobj Unity.Mathematics.float3
+IL_0056: ldc.r4 3.4028235E+38
+IL_03de: call Unity.Mathematics.float2 Unity.Mathematics.math::normalizesafe(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_03e3: stloc.s V_21
+IL_03e5: ldloca.s V_20
+IL_03e7: ldloca.s V_5
+IL_03e9: initobj Unity.Mathematics.float2
+IL_03ef: ldloc.s V_5
+IL_03f1: call System.Boolean Unity.Mathematics.float2::Equals(Unity.Mathematics.float2)
+IL_03f6: brtrue IL_04f6
+IL_03fb: ldarg.2
+IL_03fc: stloc.s V_23
+IL_03fe: ldloca.s V_23
+IL_0400: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0405: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_040a: ldloca.s V_23
+IL_040c: ldarg.2
+IL_040d: ldfld Unity.Mathematics.float3 Game.Tools.ControlPoint::m_HitPosition
+IL_0412: stfld Unity.Mathematics.float3 Game.Tools.ControlPoint::m_Position
+IL_0417: ldloca.s V_24
+IL_0419: initobj Unity.Mathematics.float3
+IL_041f: ldc.r4 3.4028235E+38
+IL_04ec: newobj System.Void Game.Tools.SnapLine::.ctor(Game.Tools.ControlPoint,Colossal.Mathematics.Bezier4x3,Game.Tools.SnapLineFlags,System.Single)
+IL_04f1: call System.Void Game.Tools.ToolUtils::AddSnapLine(Game.Tools.ControlPoint&,Unity.Collections.NativeList`1<Game.Tools.SnapLine>,Game.Tools.SnapLine)
+IL_04f6: ldloca.s V_21
+IL_04f8: ldloca.s V_5
+IL_04fa: initobj Unity.Mathematics.float2
+IL_0500: ldloc.s V_5
+IL_0502: call System.Boolean Unity.Mathematics.float2::Equals(Unity.Mathematics.float2)
+IL_0507: brtrue IL_0607
+IL_050c: ldarg.2
+IL_050d: stloc.s V_28
+IL_050f: ldloca.s V_28
+IL_0511: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0516: stfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_051b: ldloca.s V_28
+IL_051d: ldarg.2
+IL_051e: ldfld Unity.Mathematics.float3 Game.Tools.ControlPoint::m_HitPosition
+IL_0523: stfld Unity.Mathematics.float3 Game.Tools.ControlPoint::m_Position
+IL_0528: ldloca.s V_29
+IL_052a: initobj Unity.Mathematics.float3
+IL_0530: ldc.r4 3.4028235E+38

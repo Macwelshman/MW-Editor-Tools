@@ -21,7 +21,7 @@ let checks=0;const check=(b,m)=>{if(!b)throw Error(m);checks++;};
 const render=()=>{effects=[];stringHook=0;return renderToStaticMarkup(React.createElement(component));};
 let html=render();
 check(!html.includes('draggable-panel')&&!html.includes('launcher'),'Integrated content creates no second window or launcher');
-check(html.includes('Colours follow the selected item automatically.')&&!html.includes('Use current selection')&&html.includes('Choose target mesh'),'Selection and multi-mesh choice retained');
+check(!html.includes('Colours follow the selected item automatically.')&&!html.includes('Use current selection')&&html.includes('Choose target mesh'),'Selection and multi-mesh choice retained');
 check(html.includes('Copy')&&html.includes('Paste')&&html.includes('Undo last edit'),'Copy paste and own edit Undo retained');
 check(html.includes('Channel 0')&&html.includes('Channel 1')&&html.includes('Channel 2')&&html.includes('#FF000080'),'All channel lists and alpha value retained');
 check(html.includes('Previous group')&&html.includes('Next group')&&html.includes('Replace group')&&html.includes('Append to group'),'Group and append controls retained');
@@ -34,7 +34,7 @@ state={...state,confirmPaste:true};html=render();check(html.includes('Confirm pa
 state={...state,changed:true};html=render();check(/<button[^>]*disabled=""[^>]*>Generate combinations/.test(html),'Stale selection blocks generated palette');
 state={...state,changed:false,blockedReason:'Wait for saving',canApply:false,canUndo:false,canPaste:false};html=render();
 check(html.includes('Wait for saving')&&/<button[^>]*disabled=""[^>]*>Apply combinations/.test(html)&&/<button[^>]*disabled=""[^>]*>Undo last edit/.test(html),'Saving or recovery interlock visible and mutation actions disabled');
-state={...state,hasTarget:false,hasColors:false,canUndo:false};html=render();check(!html.includes('Channel 0')&&html.includes('Select an object or render mesh'),'No compatible target has actionable capture guidance');
+state={...state,hasTarget:false,hasColors:false,canUndo:false};html=render();check(!html.includes('Channel 0')&&html.includes('Select an object or mesh in Object Info.'),'No compatible target has actionable capture guidance');
 state={available:false};html=render();check(html.includes('Waiting for Colour Variations'),'Unavailable module has visible status');
 for(const count of [0,1,2,3,4,7]) {
  state={available:true,visible:true,hasTarget:true,hasColors:true,target:'Mesh',pairs:Array(count).fill('#FF000080 #00FF00FF').join('\n'),channel2:Array(count).fill('#0000FFFF').join('\n'),canApply:false};
@@ -56,3 +56,6 @@ console.log('PASS: automatic selection and draft confirmation checks.');state={.
 check(html.includes('Discard edits and follow selection')&&!calls.slice(beforeEdits).some(c=>JSON.parse(c[2]).action==='follow'),'Ungenerated colour edits also block automatic capture');
 paletteOverride=undefined;
 console.log('PASS: ungenerated draft protection check.');
+state={available:true,hasTarget:false,hasColors:false,status:'Select an object or mesh so its Object Info panel is active first.'};html=render();check(html.includes('Select an object or mesh in Object Info.')&&!html.includes('Apply combinations')&&!html.includes('Target mesh'),'One compact empty-state prompt without disabled actions');
+
+

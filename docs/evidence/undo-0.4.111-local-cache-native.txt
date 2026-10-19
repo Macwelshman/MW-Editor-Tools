@@ -1,0 +1,340 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+System.Void Game.Tools.ApplyPrefabsSystem::ListObjectSubNets(Unity.Entities.Entity,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubNetInfo>&,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubLaneInfo>&,System.UInt32&,System.UInt32&)
+IL_027f: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0284: ldloc.s V_9
+IL_0286: ldloca.s V_21
+IL_0288: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Tools.LocalCurveCache>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_028d: brfalse.s IL_02ef
+IL_028f: ldloca.s V_18
+IL_0291: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0296: ldloc.s V_21
+IL_0298: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_029d: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_02a2: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02a7: ldloca.s V_18
+IL_02a9: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_02ae: ldloc.s V_21
+IL_02b0: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02b5: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_02ba: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+System.Void Game.Tools.ApplyPrefabsSystem::ListObjectSubNets(Unity.Entities.Entity,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubNetInfo>&,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubLaneInfo>&,System.UInt32&,System.UInt32&)
+IL_0291: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0296: ldloc.s V_21
+IL_0298: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_029d: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_02a2: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02a7: ldloca.s V_18
+IL_02a9: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_02ae: ldloc.s V_21
+IL_02b0: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02b5: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_02ba: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02bf: ldloca.s V_18
+IL_02c1: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_02c6: ldloc.s V_21
+IL_02c8: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02cd: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_02d2: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+System.Void Game.Tools.ApplyPrefabsSystem::ListObjectSubNets(Unity.Entities.Entity,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubNetInfo>&,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubLaneInfo>&,System.UInt32&,System.UInt32&)
+IL_02a9: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_02ae: ldloc.s V_21
+IL_02b0: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02b5: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_02ba: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02bf: ldloca.s V_18
+IL_02c1: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_02c6: ldloc.s V_21
+IL_02c8: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02cd: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_02d2: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02d7: ldloca.s V_18
+IL_02d9: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_02de: ldloc.s V_21
+IL_02e0: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02e5: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_02ea: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+System.Void Game.Tools.ApplyPrefabsSystem::ListObjectSubNets(Unity.Entities.Entity,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubNetInfo>&,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubLaneInfo>&,System.UInt32&,System.UInt32&)
+IL_02c1: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_02c6: ldloc.s V_21
+IL_02c8: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02cd: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_02d2: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02d7: ldloca.s V_18
+IL_02d9: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_02de: ldloc.s V_21
+IL_02e0: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02e5: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_02ea: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_02ef: ldarg.0
+IL_02f0: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_02f5: ldloc.s V_9
+IL_02f7: ldloca.s V_22
+IL_02f9: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Net.Composition>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_02fe: brfalse.s IL_0364
+System.Void Game.Tools.CourseSplitSystem/CheckCourseIntersectionResultsJob::AddCourse(Game.Tools.NetCourse,Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Net.Upgraded,Unity.Entities.Entity,System.Int32,Game.Prefabs.NetData,System.Int32&)
+IL_006a: ldarg.3
+IL_006b: ldfld Unity.Mathematics.float3 Game.Tools.OwnerDefinition::m_Position
+IL_0070: ldarg.3
+IL_0071: ldfld Unity.Mathematics.quaternion Game.Tools.OwnerDefinition::m_Rotation
+IL_0076: newobj System.Void Game.Objects.Transform::.ctor(Unity.Mathematics.float3,Unity.Mathematics.quaternion)
+IL_007b: call Game.Objects.Transform Game.Objects.ObjectUtils::InverseTransform(Game.Objects.Transform)
+IL_0080: stloc.2
+IL_0081: ldloca.s V_1
+IL_0083: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_0088: ldloc.2
+IL_0089: ldarg.1
+IL_008a: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_008f: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0094: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0099: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_009e: ldloca.s V_1
+IL_00a0: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+System.Void Game.Tools.CourseSplitSystem/CheckCourseIntersectionResultsJob::AddCourse(Game.Tools.NetCourse,Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Net.Upgraded,Unity.Entities.Entity,System.Int32,Game.Prefabs.NetData,System.Int32&)
+IL_0083: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_0088: ldloc.2
+IL_0089: ldarg.1
+IL_008a: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_008f: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0094: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0099: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_009e: ldloca.s V_1
+IL_00a0: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_00a5: ldloc.2
+IL_00a6: ldarg.1
+IL_00a7: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_00ac: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_00b1: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_00b6: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_00bb: ldloca.s V_1
+IL_00bd: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+System.Void Game.Tools.CourseSplitSystem/CheckCourseIntersectionResultsJob::AddCourse(Game.Tools.NetCourse,Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Net.Upgraded,Unity.Entities.Entity,System.Int32,Game.Prefabs.NetData,System.Int32&)
+IL_00a0: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_00a5: ldloc.2
+IL_00a6: ldarg.1
+IL_00a7: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_00ac: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_00b1: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_00b6: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_00bb: ldloca.s V_1
+IL_00bd: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_00c2: ldloc.2
+IL_00c3: ldarg.1
+IL_00c4: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_00c9: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_00ce: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_00d3: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_00d8: ldloca.s V_1
+IL_00da: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+System.Void Game.Tools.CourseSplitSystem/CheckCourseIntersectionResultsJob::AddCourse(Game.Tools.NetCourse,Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Net.Upgraded,Unity.Entities.Entity,System.Int32,Game.Prefabs.NetData,System.Int32&)
+IL_00bd: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_00c2: ldloc.2
+IL_00c3: ldarg.1
+IL_00c4: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_00c9: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_00ce: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_00d3: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_00d8: ldloca.s V_1
+IL_00da: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_00df: ldloc.2
+IL_00e0: ldarg.1
+IL_00e1: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_00e6: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_00eb: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_00f0: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_00f5: ldarg.s courseIndex
+IL_00f7: ldarg.s courseIndex
+System.Void Game.Tools.GenerateNodesSystem/FillNodeMapJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_01e0: ldloc.s V_8
+IL_01e2: ldloc.s V_9
+IL_01e4: ldloc.s V_10
+IL_01e6: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_01eb: ldloc.s V_12
+IL_01ed: ldloc.s V_10
+IL_01ef: ldfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_01f4: ldloc.s V_11
+IL_01f6: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_01fb: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0200: ldloca.s V_5
+IL_0202: call System.Int32 Unity.Collections.NativeArray`1<Game.Tools.LocalCurveCache>::get_Length()
+IL_0207: ldc.i4.0
+IL_0208: cgt.un
+IL_020a: ldc.i4.0
+IL_020b: call System.Void Game.Tools.GenerateNodesSystem/FillNodeMapJob::AddNode(Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Tools.CoursePos,Game.Net.Upgraded,System.Int32,Unity.Mathematics.float3,System.Boolean,System.Boolean)
+IL_0210: br IL_0307
+System.Void Game.Tools.GenerateNodesSystem/FillNodeMapJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0224: ldloc.s V_8
+IL_0226: ldloc.s V_9
+IL_0228: ldloc.s V_10
+IL_022a: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_022f: ldloc.s V_12
+IL_0231: ldloc.s V_10
+IL_0233: ldfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_0238: ldloc.s V_11
+IL_023a: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_023f: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0244: ldloca.s V_5
+IL_0246: call System.Int32 Unity.Collections.NativeArray`1<Game.Tools.LocalCurveCache>::get_Length()
+IL_024b: ldc.i4.0
+IL_024c: cgt.un
+IL_024e: ldc.i4.0
+IL_024f: call System.Void Game.Tools.GenerateNodesSystem/FillNodeMapJob::AddNode(Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Tools.CoursePos,Game.Net.Upgraded,System.Int32,Unity.Mathematics.float3,System.Boolean,System.Boolean)
+IL_0254: br IL_0307
+System.Void Game.Tools.GenerateNodesSystem/FillNodeMapJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0282: ldloc.s V_8
+IL_0284: ldloc.s V_9
+IL_0286: ldloc.s V_10
+IL_0288: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_028d: ldloc.s V_12
+IL_028f: ldloc.s V_10
+IL_0291: ldfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_0296: ldloc.s V_11
+IL_0298: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_029d: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_02a2: ldloca.s V_5
+IL_02a4: call System.Int32 Unity.Collections.NativeArray`1<Game.Tools.LocalCurveCache>::get_Length()
+IL_02a9: ldc.i4.0
+IL_02aa: cgt.un
+IL_02ac: ldloc.s V_8
+IL_02ae: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_02b3: ldc.i4.4
+System.Void Game.Tools.GenerateNodesSystem/FillNodeMapJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_02cc: ldloc.s V_8
+IL_02ce: ldloc.s V_9
+IL_02d0: ldloc.s V_10
+IL_02d2: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_02d7: ldloc.s V_12
+IL_02d9: ldloc.s V_10
+IL_02db: ldfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_02e0: ldloc.s V_11
+IL_02e2: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02e7: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_02ec: ldloca.s V_5
+IL_02ee: call System.Int32 Unity.Collections.NativeArray`1<Game.Tools.LocalCurveCache>::get_Length()
+IL_02f3: ldc.i4.0
+IL_02f4: cgt.un
+IL_02f6: ldloc.s V_8
+IL_02f8: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_02fd: ldc.i4.4
+System.Void Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::CreateSubNet(Unity.Entities.Entity,Unity.Entities.Entity,Colossal.Mathematics.Bezier4x3,Unity.Mathematics.int2,Unity.Mathematics.int2,Game.Prefabs.CompositionFlags,Unity.Collections.NativeList`1<Unity.Mathematics.float4>,Game.Objects.Transform,Game.Tools.OwnerDefinition,Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>,Game.Buildings.BuildingUtils/LotInfo,System.Boolean,System.Boolean,Unity.Mathematics.Random&)
+IL_068d: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Net.Upgraded>(Unity.Entities.Entity,!!0)
+IL_0692: ldarg.0
+IL_0693: ldfld System.Boolean Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_EditorMode
+IL_0698: brfalse.s IL_06b9
+IL_069a: ldloca.s V_18
+IL_069c: initobj Game.Tools.LocalCurveCache
+IL_06a2: ldloca.s V_18
+IL_06a4: ldarg.3
+IL_06a5: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_06aa: ldarg.0
+IL_06ab: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_06b0: ldloc.s V_5
+IL_06b2: ldloc.s V_18
+IL_06b4: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.LocalCurveCache>(Unity.Entities.Entity,!!0)
+IL_06b9: ret
+System.Boolean Game.Tools.NetToolSystem/CreateDefinitionsJob::GetLocalCurve(Game.Tools.NetCourse,Game.Tools.OwnerDefinition,Game.Tools.LocalCurveCache&)
+IL_0006: ldarg.2
+IL_0007: ldfld Unity.Mathematics.quaternion Game.Tools.OwnerDefinition::m_Rotation
+IL_000c: newobj System.Void Game.Objects.Transform::.ctor(Unity.Mathematics.float3,Unity.Mathematics.quaternion)
+IL_0011: call Game.Objects.Transform Game.Objects.ObjectUtils::InverseTransform(Game.Objects.Transform)
+IL_0016: stloc.0
+IL_0017: ldarg.3
+IL_0018: initobj Game.Tools.LocalCurveCache
+IL_001e: ldarg.3
+IL_001f: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_0024: ldloc.0
+IL_0025: ldarg.1
+IL_0026: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_002b: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0030: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0035: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_003a: ldarg.3
+IL_003b: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+System.Boolean Game.Tools.NetToolSystem/CreateDefinitionsJob::GetLocalCurve(Game.Tools.NetCourse,Game.Tools.OwnerDefinition,Game.Tools.LocalCurveCache&)
+IL_001f: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_0024: ldloc.0
+IL_0025: ldarg.1
+IL_0026: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_002b: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0030: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0035: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_003a: ldarg.3
+IL_003b: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_0040: ldloc.0
+IL_0041: ldarg.1
+IL_0042: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0047: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_004c: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0051: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0056: ldarg.3
+IL_0057: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+System.Boolean Game.Tools.NetToolSystem/CreateDefinitionsJob::GetLocalCurve(Game.Tools.NetCourse,Game.Tools.OwnerDefinition,Game.Tools.LocalCurveCache&)
+IL_003b: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_0040: ldloc.0
+IL_0041: ldarg.1
+IL_0042: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0047: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_004c: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0051: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0056: ldarg.3
+IL_0057: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_005c: ldloc.0
+IL_005d: ldarg.1
+IL_005e: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0063: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0068: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_006d: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0072: ldarg.3
+IL_0073: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+System.Boolean Game.Tools.NetToolSystem/CreateDefinitionsJob::GetLocalCurve(Game.Tools.NetCourse,Game.Tools.OwnerDefinition,Game.Tools.LocalCurveCache&)
+IL_0057: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_005c: ldloc.0
+IL_005d: ldarg.1
+IL_005e: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0063: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0068: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_006d: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0072: ldarg.3
+IL_0073: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_0078: ldloc.0
+IL_0079: ldarg.1
+IL_007a: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_007f: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0084: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0089: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_008e: ldc.i4.1
+IL_008f: ret
+System.Void Game.Tools.NetToolSystem/CreateDefinitionsJob::CreateSubNets(Game.Objects.Transform,Unity.Entities.Entity)
+IL_04a0: ldarg.0
+IL_04a1: ldfld System.Boolean Game.Tools.NetToolSystem/CreateDefinitionsJob::m_EditorMode
+IL_04a6: brfalse.s IL_04cd
+IL_04a8: ldloca.s V_18
+IL_04aa: initobj Game.Tools.LocalCurveCache
+IL_04b0: ldloca.s V_18
+IL_04b2: ldloc.s V_9
+IL_04b4: ldfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.SubNet::m_Curve
+IL_04b9: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_04be: ldarg.0
+IL_04bf: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.NetToolSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_04c4: ldloc.s V_10
+IL_04c6: ldloc.s V_18
+IL_04c8: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.LocalCurveCache>(Unity.Entities.Entity,!!0)
+IL_04cd: ldloc.s V_8
+IL_04cf: ldc.i4.1
+IL_04d0: add
+System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateSubNet(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Colossal.Mathematics.Bezier4x3,Unity.Mathematics.int2,Unity.Mathematics.int2,Game.Prefabs.CompositionFlags,Unity.Collections.NativeList`1<Unity.Mathematics.float4>,Unity.Entities.Entity,Game.Objects.Transform,Unity.Mathematics.Random&)
+IL_02ca: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.Upgraded>(System.Int32,Unity.Entities.Entity,!!0)
+IL_02cf: ldarg.0
+IL_02d0: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_02d5: brfalse.s IL_02f7
+IL_02d7: ldloca.s V_8
+IL_02d9: initobj Game.Tools.LocalCurveCache
+IL_02df: ldloca.s V_8
+IL_02e1: ldarg.s curve
+IL_02e3: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_02e8: ldarg.0
+IL_02e9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_02ee: ldarg.1
+IL_02ef: ldloc.0
+IL_02f0: ldloc.s V_8
+IL_02f2: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.LocalCurveCache>(System.Int32,Unity.Entities.Entity,!!0)
+IL_02f7: ret

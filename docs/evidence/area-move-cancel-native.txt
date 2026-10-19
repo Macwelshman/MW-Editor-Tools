@@ -1,0 +1,688 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::Cancel(Unity.Jobs.JobHandle,System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: switch IL_0022,IL_01a3,IL_02e5,IL_034f
+IL_001d: br IL_0419
+IL_0022: ldarg.0
+IL_0023: call Game.Tools.AreaToolSystem/Mode Game.Tools.AreaToolSystem::get_actualMode()
+IL_0028: ldc.i4.1
+IL_0029: bne.un.s IL_0034
+IL_002b: ldarg.0
+IL_002c: ldarg.1
+IL_002d: ldc.i4.0
+IL_002e: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::Update(Unity.Jobs.JobHandle,System.Boolean)
+IL_0033: ret
+IL_0034: ldarg.0
+IL_0035: callvirt System.Boolean Game.Tools.ToolBaseSystem::GetAllowApply()
+IL_003a: brfalse IL_019a
+IL_003f: ldarg.0
+IL_0040: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0045: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_004a: ldc.i4.0
+IL_004b: ble IL_019a
+IL_0050: ldarg.0
+IL_0051: ldc.i4.2
+IL_0052: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_0057: ldarg.0
+IL_0058: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_005d: ldc.i4.0
+IL_005e: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_0063: stloc.1
+IL_0064: ldarg.0
+IL_0065: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_006a: stloc.2
+IL_006b: ldloca.s V_2
+IL_006d: ldloc.1
+IL_006e: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_0073: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Areas.Area>(Unity.Entities.Entity)
+IL_0078: brfalse IL_0191
+IL_007d: ldloc.1
+IL_007e: ldfld Unity.Mathematics.int2 Game.Tools.ControlPoint::m_ElementIndex
+IL_0083: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0088: ldc.i4.0
+IL_0089: blt IL_0191
+IL_008e: ldarg.0
+IL_008f: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0094: ldloc.1
+IL_0095: ldfld Unity.Entities.Entity Game.Tools.ControlPoint::m_OriginalEntity
+IL_009a: ldc.i4.1
+IL_009b: ldloca.s V_3
+IL_009d: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetBuffer<Game.Areas.Node>(Unity.Entities.EntityManager,Unity.Entities.Entity,System.Boolean,Unity.Entities.DynamicBuffer`1<!!0>&)
+IL_00a2: brfalse.s IL_00d0
+IL_00a4: ldloca.s V_3
+IL_00a6: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::get_Length()
+IL_00ab: ldc.i4.3
+IL_00ac: bgt.s IL_00d0
+IL_00ae: ldarg.0
+IL_00af: ldfld Game.Audio.AudioManager Game.Tools.AreaToolSystem::m_AudioManager
+IL_00b4: ldarg.0
+IL_00b5: ldflda Unity.Entities.EntityQuery Game.Tools.AreaToolSystem::m_SoundQuery
+IL_00ba: call !!0 Unity.Entities.EntityQuery::GetSingleton<Game.Prefabs.ToolUXSoundSettingsData>()
+IL_00bf: ldfld Unity.Entities.Entity Game.Prefabs.ToolUXSoundSettingsData::m_PolygonToolDeleteAreaSound
+IL_00c4: ldc.r4 1
+IL_00c9: callvirt System.Void Game.Audio.AudioManager::PlayUISound(Unity.Entities.Entity,System.Single)
+IL_00ce: br.s IL_00f0
+IL_00d0: ldarg.0
+IL_00d1: ldfld Game.Audio.AudioManager Game.Tools.AreaToolSystem::m_AudioManager
+IL_00d6: ldarg.0
+IL_00d7: ldflda Unity.Entities.EntityQuery Game.Tools.AreaToolSystem::m_SoundQuery
+IL_00dc: call !!0 Unity.Entities.EntityQuery::GetSingleton<Game.Prefabs.ToolUXSoundSettingsData>()
+IL_00e1: ldfld Unity.Entities.Entity Game.Prefabs.ToolUXSoundSettingsData::m_PolygonToolRemovePointSound
+IL_00e6: ldc.r4 1
+IL_00eb: callvirt System.Void Game.Audio.AudioManager::PlayUISound(Unity.Entities.Entity,System.Single)
+IL_00f0: ldarg.0
+IL_00f1: ldc.i4.3
+IL_00f2: stfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_00f7: ldarg.0
+IL_00f8: ldc.i4.0
+IL_00f9: stfld System.Boolean Game.Tools.AreaToolSystem::m_ControlPointsMoved
+IL_00fe: ldarg.0
+IL_00ff: ldarg.2
+IL_0100: stfld System.Boolean Game.Tools.AreaToolSystem::m_ForceCancel
+IL_0105: ldarg.0
+IL_0106: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_MoveStartPositions
+IL_010b: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Clear()
+IL_0110: ldarg.0
+IL_0111: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_MoveStartPositions
+IL_0116: ldarg.0
+IL_0117: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_011c: call Unity.Collections.NativeArray`1<!0> Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::AsArray()
+IL_0121: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::AddRange(Unity.Collections.NativeArray`1<!0>)
+IL_0126: ldarg.0
+IL_0127: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_012c: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Clear()
+IL_0131: ldarg.0
+IL_0132: ldloca.s V_4
+IL_0134: callvirt System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Game.Tools.ControlPoint&)
+IL_0139: brfalse.s IL_0182
+IL_013b: ldarg.0
+IL_013c: ldloc.s V_4
+IL_013e: stfld Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_0143: ldarg.0
+IL_0144: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0149: ldloca.s V_4
+IL_014b: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Add(!0&)
+IL_0150: ldarg.0
+IL_0151: ldarg.1
+IL_0152: ldloca.s V_5
+IL_0154: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_015a: ldloc.s V_5
+IL_015c: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::SnapControlPoints(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0161: starg.s inputDeps
+IL_0163: ldarg.0
+IL_0164: ldarg.1
+IL_0165: ldloca.s V_5
+IL_0167: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_016d: ldloc.s V_5
+IL_016f: ldloca.s V_5
+IL_0171: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0177: ldloc.s V_5
+IL_0179: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_017e: starg.s inputDeps
+IL_0180: br.s IL_018f
+IL_0182: ldarg.0
+IL_0183: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0188: ldloca.s V_1
+IL_018a: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Add(!0&)
+IL_018f: ldarg.1
+IL_0190: ret
+IL_0191: ldarg.0
+IL_0192: ldarg.1
+IL_0193: ldc.i4.0
+IL_0194: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::Update(Unity.Jobs.JobHandle,System.Boolean)
+IL_0199: ret
+IL_019a: ldarg.0
+IL_019b: ldarg.1
+IL_019c: ldc.i4.0
+IL_019d: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::Update(Unity.Jobs.JobHandle,System.Boolean)
+IL_01a2: ret
+IL_01a3: ldarg.0
+IL_01a4: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_01a9: ldarg.0
+IL_01aa: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_01af: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_01b4: ldc.i4.1
+IL_01b5: sub
+IL_01b6: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::RemoveAtSwapBack(System.Int32)
+IL_01bb: ldarg.0
+IL_01bc: ldc.i4.2
+IL_01bd: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_01c2: ldarg.0
+IL_01c3: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_01c8: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_01cd: ldc.i4.1
+IL_01ce: bgt.s IL_01d7
+IL_01d0: ldarg.0
+IL_01d1: ldc.i4.0
+IL_01d2: stfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_01d7: ldarg.0
+IL_01d8: call Unity.Entities.Entity Game.Tools.AreaToolSystem::get_recreate()
+IL_01dd: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_01e2: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01e7: brfalse.s IL_020a
+IL_01e9: ldarg.0
+IL_01ea: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_01ef: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_01f4: ldc.i4.2
+IL_01f5: bgt.s IL_020a
+IL_01f7: ldarg.0
+IL_01f8: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_01fd: ldarg.0
+IL_01fe: ldfld Game.Tools.ObjectToolSystem Game.Tools.AreaToolSystem::m_ObjectToolSystem
+IL_0203: callvirt System.Void Game.Tools.ToolSystem::set_activeTool(Game.Tools.ToolBaseSystem)
+IL_0208: ldarg.1
+IL_0209: ret
+IL_020a: ldarg.0
+IL_020b: ldfld Game.Audio.AudioManager Game.Tools.AreaToolSystem::m_AudioManager
+IL_0210: ldarg.0
+IL_0211: ldflda Unity.Entities.EntityQuery Game.Tools.AreaToolSystem::m_SoundQuery
+IL_0216: call !!0 Unity.Entities.EntityQuery::GetSingleton<Game.Prefabs.ToolUXSoundSettingsData>()
+IL_021b: ldfld Unity.Entities.Entity Game.Prefabs.ToolUXSoundSettingsData::m_PolygonToolRemovePointSound
+IL_0220: ldc.r4 1
+IL_0225: callvirt System.Void Game.Audio.AudioManager::PlayUISound(Unity.Entities.Entity,System.Single)
+IL_022a: ldarg.0
+IL_022b: ldloca.s V_6
+IL_022d: callvirt System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Game.Tools.ControlPoint&)
+IL_0232: brfalse.s IL_0288
+IL_0234: ldarg.0
+IL_0235: ldloc.s V_6
+IL_0237: stfld Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_023c: ldarg.0
+IL_023d: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0242: ldarg.0
+IL_0243: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0248: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_024d: ldc.i4.1
+IL_024e: sub
+IL_024f: ldloc.s V_6
+IL_0251: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::set_Item(System.Int32,!0)
+IL_0256: ldarg.0
+IL_0257: ldarg.1
+IL_0258: ldloca.s V_5
+IL_025a: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0260: ldloc.s V_5
+IL_0262: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::SnapControlPoints(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0267: starg.s inputDeps
+IL_0269: ldarg.0
+IL_026a: ldarg.1
+IL_026b: ldloca.s V_5
+IL_026d: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0273: ldloc.s V_5
+IL_0275: ldloca.s V_5
+IL_0277: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_027d: ldloc.s V_5
+IL_027f: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0284: starg.s inputDeps
+IL_0286: br.s IL_02e3
+IL_0288: ldarg.0
+IL_0289: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_028e: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0293: ldc.i4.2
+IL_0294: blt.s IL_02e3
+IL_0296: ldarg.0
+IL_0297: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_029c: ldarg.0
+IL_029d: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_02a2: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_02a7: ldc.i4.1
+IL_02a8: sub
+IL_02a9: ldarg.0
+IL_02aa: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_02af: ldarg.0
+IL_02b0: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_02b5: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_02ba: ldc.i4.2
+IL_02bb: sub
+IL_02bc: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_02c1: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::set_Item(System.Int32,!0)
+IL_02c6: ldarg.0
+IL_02c7: ldarg.1
+IL_02c8: ldloca.s V_5
+IL_02ca: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_02d0: ldloc.s V_5
+IL_02d2: ldloca.s V_5
+IL_02d4: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_02da: ldloc.s V_5
+IL_02dc: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_02e1: starg.s inputDeps
+IL_02e3: ldarg.1
+IL_02e4: ret
+IL_02e5: ldarg.0
+IL_02e6: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_02eb: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Clear()
+IL_02f0: ldarg.0
+IL_02f1: ldc.i4.2
+IL_02f2: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_02f7: ldarg.0
+IL_02f8: ldc.i4.0
+IL_02f9: stfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_02fe: ldarg.0
+IL_02ff: ldloca.s V_7
+IL_0301: callvirt System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Game.Tools.ControlPoint&)
+IL_0306: brfalse.s IL_034d
+IL_0308: ldarg.0
+IL_0309: ldloc.s V_7
+IL_030b: stfld Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_0310: ldarg.0
+IL_0311: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0316: ldloca.s V_7
+IL_0318: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Add(!0&)
+IL_031d: ldarg.0
+IL_031e: ldarg.1
+IL_031f: ldloca.s V_5
+IL_0321: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0327: ldloc.s V_5
+IL_0329: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::SnapControlPoints(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_032e: starg.s inputDeps
+IL_0330: ldarg.0
+IL_0331: ldarg.1
+IL_0332: ldloca.s V_5
+IL_0334: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_033a: ldloc.s V_5
+IL_033c: ldloca.s V_5
+IL_033e: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0344: ldloc.s V_5
+IL_0346: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_034b: starg.s inputDeps
+IL_034d: ldarg.1
+IL_034e: ret
+IL_034f: ldloca.s V_8
+IL_0351: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0357: ldloca.s V_9
+IL_0359: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_035f: ldarg.0
+IL_0360: callvirt System.Boolean Game.Tools.ToolBaseSystem::GetAllowApply()
+IL_0365: brfalse.s IL_03a3
+IL_0367: ldarg.0
+IL_0368: ldflda Unity.Entities.EntityQuery Game.Tools.AreaToolSystem::m_TempAreaQuery
+IL_036d: call System.Boolean Unity.Entities.EntityQuery::get_IsEmptyIgnoreFilter()
+IL_0372: brtrue.s IL_03a3
+IL_0374: ldarg.0
+IL_0375: ldc.i4.1
+IL_0376: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_037b: ldarg.0
+IL_037c: ldflda Unity.Entities.EntityQuery Game.Tools.AreaToolSystem::m_TempAreaQuery
+IL_0381: ldc.i4.3
+IL_0382: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0387: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_038c: stloc.s V_8
+IL_038e: ldarg.0
+IL_038f: ldflda Unity.Entities.EntityQuery Game.Tools.AreaToolSystem::m_TempBuildingQuery
+IL_0394: ldc.i4.3
+IL_0395: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_039a: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_039f: stloc.s V_9
+IL_03a1: br.s IL_03aa
+IL_03a3: ldarg.0
+IL_03a4: ldc.i4.2
+IL_03a5: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_03aa: ldarg.0
+IL_03ab: ldc.i4.0
+IL_03ac: stfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_03b1: ldarg.0
+IL_03b2: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_03b7: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Clear()
+IL_03bc: ldarg.0
+IL_03bd: ldloca.s V_10
+IL_03bf: callvirt System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Game.Tools.ControlPoint&)
+IL_03c4: brfalse.s IL_03f3
+IL_03c6: ldarg.0
+IL_03c7: ldloc.s V_10
+IL_03c9: stfld Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_03ce: ldarg.0
+IL_03cf: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_03d4: ldloca.s V_10
+IL_03d6: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Add(!0&)
+IL_03db: ldarg.0
+IL_03dc: ldarg.1
+IL_03dd: ldloc.s V_8
+IL_03df: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::SnapControlPoints(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_03e4: starg.s inputDeps
+IL_03e6: ldarg.0
+IL_03e7: ldarg.1
+IL_03e8: ldloc.s V_8
+IL_03ea: ldloc.s V_9
+IL_03ec: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_03f1: starg.s inputDeps
+IL_03f3: ldloca.s V_8
+IL_03f5: call System.Boolean Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_IsCreated()
+IL_03fa: brfalse.s IL_0405
+IL_03fc: ldloca.s V_8
+IL_03fe: ldarg.1
+IL_03ff: call Unity.Jobs.JobHandle Unity.Collections.NativeArray`1<Unity.Entities.Entity>::Dispose(Unity.Jobs.JobHandle)
+IL_0404: pop
+IL_0405: ldloca.s V_9
+IL_0407: call System.Boolean Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_IsCreated()
+IL_040c: brfalse.s IL_0417
+IL_040e: ldloca.s V_9
+IL_0410: ldarg.1
+IL_0411: call Unity.Jobs.JobHandle Unity.Collections.NativeArray`1<Unity.Entities.Entity>::Dispose(Unity.Jobs.JobHandle)
+IL_0416: pop
+IL_0417: ldarg.1
+IL_0418: ret
+IL_0419: ldarg.0
+IL_041a: ldarg.1
+IL_041b: ldc.i4.0
+IL_041c: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::Update(Unity.Jobs.JobHandle,System.Boolean)
+IL_0421: ret
+Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::Update(Unity.Jobs.JobHandle,System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldloca.s V_0
+IL_0003: ldloca.s V_1
+IL_0005: callvirt System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Game.Tools.ControlPoint&,System.Boolean&)
+IL_000a: brfalse IL_018b
+IL_000f: ldloc.1
+IL_0010: ldarg.2
+IL_0011: or
+IL_0012: stloc.1
+IL_0013: ldarg.0
+IL_0014: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0019: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_001e: brtrue.s IL_0067
+IL_0020: ldarg.0
+IL_0021: ldloc.0
+IL_0022: stfld Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_0027: ldarg.0
+IL_0028: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_002d: ldloca.s V_0
+IL_002f: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Add(!0&)
+IL_0034: ldarg.0
+IL_0035: ldarg.1
+IL_0036: ldloca.s V_2
+IL_0038: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_003e: ldloc.2
+IL_003f: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::SnapControlPoints(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0044: starg.s inputDeps
+IL_0046: ldarg.0
+IL_0047: ldc.i4.2
+IL_0048: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_004d: ldarg.0
+IL_004e: ldarg.1
+IL_004f: ldloca.s V_2
+IL_0051: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0057: ldloc.2
+IL_0058: ldloca.s V_2
+IL_005a: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0060: ldloc.2
+IL_0061: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0066: ret
+IL_0067: ldarg.0
+IL_0068: ldflda Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_006d: ldloc.0
+IL_006e: call System.Boolean Game.Tools.ControlPoint::Equals(Game.Tools.ControlPoint)
+IL_0073: brfalse.s IL_0081
+IL_0075: ldloc.1
+IL_0076: brtrue.s IL_0081
+IL_0078: ldarg.0
+IL_0079: ldc.i4.0
+IL_007a: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_007f: ldarg.1
+IL_0080: ret
+IL_0081: ldarg.0
+IL_0082: ldloc.0
+IL_0083: stfld Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_0088: ldc.i4.0
+IL_0089: ldarg.0
+IL_008a: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_008f: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0094: ldc.i4.1
+IL_0095: sub
+IL_0096: ldarg.0
+IL_0097: ldfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_009c: ldc.i4.1
+IL_009d: ceq
+IL_009f: call System.Int32 Unity.Mathematics.math::select(System.Int32,System.Int32,System.Boolean)
+IL_00a4: stloc.3
+IL_00a5: ldarg.0
+IL_00a6: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_00ab: ldloc.3
+IL_00ac: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_00b1: stloc.s V_4
+IL_00b3: ldarg.0
+IL_00b4: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_00b9: ldloc.3
+IL_00ba: ldloc.0
+IL_00bb: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::set_Item(System.Int32,!0)
+IL_00c0: ldarg.0
+IL_00c1: ldarg.1
+IL_00c2: ldloca.s V_2
+IL_00c4: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_00ca: ldloc.2
+IL_00cb: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::SnapControlPoints(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_00d0: starg.s inputDeps
+IL_00d2: call System.Void Unity.Jobs.JobHandle::ScheduleBatchedJobs()
+IL_00d7: ldarga.s inputDeps
+IL_00d9: call System.Void Unity.Jobs.JobHandle::Complete()
+IL_00de: ldarg.0
+IL_00df: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_00e4: ldloc.3
+IL_00e5: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_00ea: stloc.s V_5
+IL_00ec: ldloca.s V_4
+IL_00ee: ldloc.s V_5
+IL_00f0: call System.Boolean Game.Tools.ControlPoint::EqualsIgnoreHit(Game.Tools.ControlPoint)
+IL_00f5: brfalse.s IL_0103
+IL_00f7: ldarg.0
+IL_00f8: ldc.i4.0
+IL_00f9: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_00fe: br IL_0189
+IL_0103: ldarg.0
+IL_0104: ldfld Game.Prefabs.PrefabSystem Game.Tools.ToolBaseSystem::m_PrefabSystem
+IL_0109: ldarg.0
+IL_010a: call Game.Prefabs.AreaPrefab Game.Tools.AreaToolSystem::get_prefab()
+IL_010f: callvirt T Game.Prefabs.PrefabSystem::GetComponentData<Game.Prefabs.AreaGeometryData>(Game.Prefabs.PrefabBase)
+IL_0114: call System.Single Game.Areas.AreaUtils::GetMinNodeDistance(Game.Prefabs.AreaGeometryData)
+IL_0119: stloc.s V_6
+IL_011b: ldarg.0
+IL_011c: ldfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_0121: ldc.i4.2
+IL_0122: bne.un.s IL_0160
+IL_0124: ldarg.0
+IL_0125: ldfld System.Boolean Game.Tools.AreaToolSystem::m_ControlPointsMoved
+IL_012a: brtrue.s IL_0160
+IL_012c: ldloc.s V_4
+IL_012e: ldfld Unity.Mathematics.float3 Game.Tools.ControlPoint::m_Position
+IL_0133: ldloc.s V_5
+IL_0135: ldfld Unity.Mathematics.float3 Game.Tools.ControlPoint::m_Position
+IL_013a: call System.Single Unity.Mathematics.math::distance(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_013f: ldloc.s V_6
+IL_0141: ldc.r4 0.5
+IL_0146: mul
+IL_0147: bge.un.s IL_0160
+IL_0149: ldarg.0
+IL_014a: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_014f: ldloc.3
+IL_0150: ldloc.s V_4
+IL_0152: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::set_Item(System.Int32,!0)
+IL_0157: ldarg.0
+IL_0158: ldc.i4.0
+IL_0159: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_015e: br.s IL_0189
+IL_0160: ldarg.0
+IL_0161: ldc.i4.1
+IL_0162: stfld System.Boolean Game.Tools.AreaToolSystem::m_ControlPointsMoved
+IL_0167: ldarg.0
+IL_0168: ldc.i4.2
+IL_0169: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_016e: ldarg.0
+IL_016f: ldarg.1
+IL_0170: ldloca.s V_2
+IL_0172: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0178: ldloc.2
+IL_0179: ldloca.s V_2
+IL_017b: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0181: ldloc.2
+IL_0182: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0187: starg.s inputDeps
+IL_0189: ldarg.1
+IL_018a: ret
+IL_018b: ldarg.0
+IL_018c: ldflda Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_0191: ldloc.0
+IL_0192: call System.Boolean Game.Tools.ControlPoint::Equals(Game.Tools.ControlPoint)
+IL_0197: brfalse.s IL_01ca
+IL_0199: ldloc.1
+IL_019a: ldarg.2
+IL_019b: or
+IL_019c: stloc.1
+IL_019d: ldloc.1
+IL_019e: brfalse.s IL_01c1
+IL_01a0: ldarg.0
+IL_01a1: ldc.i4.2
+IL_01a2: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_01a7: ldarg.0
+IL_01a8: ldarg.1
+IL_01a9: ldloca.s V_2
+IL_01ab: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_01b1: ldloc.2
+IL_01b2: ldloca.s V_2
+IL_01b4: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_01ba: ldloc.2
+IL_01bb: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_01c0: ret
+IL_01c1: ldarg.0
+IL_01c2: ldc.i4.0
+IL_01c3: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_01c8: ldarg.1
+IL_01c9: ret
+IL_01ca: ldarg.0
+IL_01cb: ldloc.0
+IL_01cc: stfld Game.Tools.ControlPoint Game.Tools.AreaToolSystem::m_LastRaycastPoint
+IL_01d1: ldarg.0
+IL_01d2: ldfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_01d7: brtrue.s IL_0227
+IL_01d9: ldarg.0
+IL_01da: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_01df: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_01e4: ldc.i4.1
+IL_01e5: blt.s IL_0227
+IL_01e7: ldarg.0
+IL_01e8: ldc.i4.2
+IL_01e9: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_01ee: ldarg.0
+IL_01ef: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_01f4: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Clear()
+IL_01f9: ldarg.0
+IL_01fa: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_01ff: ldloca.s V_7
+IL_0201: dup
+IL_0202: initobj Game.Tools.ControlPoint
+IL_0208: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::Add(!0&)
+IL_020d: ldarg.0
+IL_020e: ldarg.1
+IL_020f: ldloca.s V_2
+IL_0211: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0217: ldloc.2
+IL_0218: ldloca.s V_2
+IL_021a: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0220: ldloc.2
+IL_0221: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_0226: ret
+IL_0227: ldarg.0
+IL_0228: ldfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_022d: ldc.i4.2
+IL_022e: bne.un.s IL_027e
+IL_0230: ldarg.0
+IL_0231: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0236: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_023b: ldc.i4.1
+IL_023c: blt.s IL_027e
+IL_023e: ldarg.0
+IL_023f: ldc.i4.1
+IL_0240: stfld System.Boolean Game.Tools.AreaToolSystem::m_ControlPointsMoved
+IL_0245: ldarg.0
+IL_0246: ldc.i4.2
+IL_0247: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_024c: ldarg.0
+IL_024d: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0252: ldc.i4.0
+IL_0253: ldarg.0
+IL_0254: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_MoveStartPositions
+IL_0259: ldc.i4.0
+IL_025a: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_025f: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::set_Item(System.Int32,!0)
+IL_0264: ldarg.0
+IL_0265: ldarg.1
+IL_0266: ldloca.s V_2
+IL_0268: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_026e: ldloc.2
+IL_026f: ldloca.s V_2
+IL_0271: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0277: ldloc.2
+IL_0278: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_027d: ret
+IL_027e: ldarg.0
+IL_027f: ldfld Game.Tools.AreaToolSystem/State Game.Tools.AreaToolSystem::m_State
+IL_0284: ldc.i4.3
+IL_0285: bne.un.s IL_02d5
+IL_0287: ldarg.0
+IL_0288: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_028d: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0292: ldc.i4.1
+IL_0293: blt.s IL_02d5
+IL_0295: ldarg.0
+IL_0296: ldc.i4.1
+IL_0297: stfld System.Boolean Game.Tools.AreaToolSystem::m_ControlPointsMoved
+IL_029c: ldarg.0
+IL_029d: ldc.i4.2
+IL_029e: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_02a3: ldarg.0
+IL_02a4: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_02a9: ldc.i4.0
+IL_02aa: ldarg.0
+IL_02ab: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_MoveStartPositions
+IL_02b0: ldc.i4.0
+IL_02b1: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_02b6: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::set_Item(System.Int32,!0)
+IL_02bb: ldarg.0
+IL_02bc: ldarg.1
+IL_02bd: ldloca.s V_2
+IL_02bf: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_02c5: ldloc.2
+IL_02c6: ldloca.s V_2
+IL_02c8: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_02ce: ldloc.2
+IL_02cf: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_02d4: ret
+IL_02d5: ldarg.0
+IL_02d6: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_02db: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_02e0: ldc.i4.2
+IL_02e1: blt.s IL_033b
+IL_02e3: ldarg.0
+IL_02e4: ldc.i4.1
+IL_02e5: stfld System.Boolean Game.Tools.AreaToolSystem::m_ControlPointsMoved
+IL_02ea: ldarg.0
+IL_02eb: ldc.i4.2
+IL_02ec: call System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)
+IL_02f1: ldarg.0
+IL_02f2: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_02f7: ldarg.0
+IL_02f8: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_02fd: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0302: ldc.i4.1
+IL_0303: sub
+IL_0304: ldarg.0
+IL_0305: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_030a: ldarg.0
+IL_030b: ldflda Unity.Collections.NativeList`1<Game.Tools.ControlPoint> Game.Tools.AreaToolSystem::m_ControlPoints
+IL_0310: call System.Int32 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Length()
+IL_0315: ldc.i4.2
+IL_0316: sub
+IL_0317: call !0 Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::get_Item(System.Int32)
+IL_031c: call System.Void Unity.Collections.NativeList`1<Game.Tools.ControlPoint>::set_Item(System.Int32,!0)
+IL_0321: ldarg.0
+IL_0322: ldarg.1
+IL_0323: ldloca.s V_2
+IL_0325: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_032b: ldloc.2
+IL_032c: ldloca.s V_2
+IL_032e: initobj Unity.Collections.NativeArray`1<Unity.Entities.Entity>
+IL_0334: ldloc.2
+IL_0335: call Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::UpdateDefinitions(Unity.Jobs.JobHandle,Unity.Collections.NativeArray`1<Unity.Entities.Entity>,Unity.Collections.NativeArray`1<Unity.Entities.Entity>)
+IL_033a: ret
+IL_033b: ldarg.1
+IL_033c: ret

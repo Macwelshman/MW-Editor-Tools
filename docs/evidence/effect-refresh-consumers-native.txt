@@ -1,0 +1,32 @@
+METHOD System.Void Game.Tools.ToolRaycastSystem::OnUpdate()
+IL_001e: ldfld Game.Rendering.CameraUpdateSystem Game.Tools.ToolRaycastSystem::m_CameraUpdateSystem
+IL_0023: ldloca.s V_0
+IL_0025: callvirt System.Boolean Game.Rendering.CameraUpdateSystem::TryGetViewer(Game.Rendering.Viewer&)
+IL_002a: brtrue.s IL_002d
+IL_002c: ret
+IL_002d: ldarg.0
+IL_002e: ldfld Game.Tools.ToolSystem Game.Tools.ToolRaycastSystem::m_ToolSystem
+IL_0033: callvirt System.Boolean Game.Tools.ToolSystem::get_fullUpdateRequired()
+IL_0038: brfalse.s IL_004a
+IL_003a: ldarg.0
+IL_003b: ldarg.0
+IL_003c: call Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_0041: ldc.i4.4
+IL_0042: or
+IL_0043: call System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+METHOD Unity.Jobs.JobHandle Game.Tools.UpgradeToolSystem::OnUpdate(Unity.Jobs.JobHandle)
+IL_00c8: ldarg.0
+IL_00c9: ldfld Unity.Entities.Entity Game.Tools.UpgradeToolSystem::m_UpgradingObject
+IL_00ce: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00d3: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00d8: brfalse.s IL_0128
+IL_00da: ldarg.0
+IL_00db: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_00e0: callvirt System.Boolean Game.Tools.ToolSystem::get_fullUpdateRequired()
+IL_00e5: brtrue.s IL_0128
+IL_00e7: ldarg.0
+IL_00e8: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_00ed: callvirt Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_00f2: ldc.i4.3
+IL_00f3: and
+IL_00f4: brtrue.s IL_0128

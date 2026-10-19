@@ -1,0 +1,431 @@
+METHOD System.Void Game.Objects.SubObjectSystem/UpdateSubObjectsJob::CreateContainerObject(System.Int32,Unity.Entities.Entity,System.Boolean,Game.Tools.Temp,System.Single,Unity.Entities.Entity,Game.Objects.Transform,Game.Objects.Transform,Game.Objects.SubObjectSystem/UpdateSubObjectsData&,Unity.Entities.Entity,Unity.Mathematics.float3,System.Single,System.Int32,System.Int32,System.Int32)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.s ownerElevation
+IL_0004: ldc.i4.0
+IL_0005: call System.Void Game.Objects.Elevation::.ctor(System.Single,Game.Objects.ElevationFlags)
+IL_000a: ldloca.s V_0
+IL_000c: ldflda System.Single Game.Objects.Elevation::m_Elevation
+IL_0011: dup
+IL_0012: ldind.r4
+IL_0013: ldarg.s localTransformData
+IL_0015: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_001a: ldfld System.Single Unity.Mathematics.float3::y
+IL_001f: add
+IL_0020: stind.r4
+IL_0021: ldarg.s oldSubObject
+IL_0023: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0028: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_002d: brfalse.s IL_003e
+IL_002f: ldarg.0
+IL_0030: ldarg.s prefab
+IL_0032: ldarg.s transformData
+IL_0034: ldc.i4.m1
+IL_0035: ldarg.s updateData
+IL_0037: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOldSubObject(Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_003c: starg.s oldSubObject
+IL_003e: ldarg.s oldSubObject
+IL_0040: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0045: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_004a: brfalse IL_01fc
+IL_004f: ldarg.0
+IL_0050: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0055: ldarg.1
+IL_0056: ldarg.s oldSubObject
+IL_0058: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity)
+IL_005d: ldarg.3
+IL_005e: brfalse IL_0112
+IL_0063: ldarg.0
+IL_0064: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_0069: ldarg.s oldSubObject
+IL_006b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_0070: brfalse.s IL_00d9
+IL_0072: ldarg.0
+IL_0073: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TempData
+IL_0078: ldarg.s oldSubObject
+IL_007a: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::get_Item(Unity.Entities.Entity)
+IL_007f: stloc.3
+IL_0080: ldloca.s V_3
+IL_0082: ldarg.s ownerTemp
+IL_0084: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0089: ldc.i4 132211
+IL_008e: and
+IL_008f: stfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0094: ldarg.s ownerTemp
+IL_0096: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_009b: ldc.i4 256
+IL_00a0: and
+IL_00a1: brfalse.s IL_00b0
+IL_00a3: ldloca.s V_3
+IL_00a5: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_00aa: dup
+IL_00ab: ldind.u4
+IL_00ac: ldc.i4.s 64
+IL_00ae: or
+IL_00af: stind.i4
+IL_00b0: ldloca.s V_3
+IL_00b2: ldarg.0
+IL_00b3: ldarg.s prefab
+IL_00b5: ldloc.3
+IL_00b6: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_00bb: ldarg.s transformData
+IL_00bd: ldc.i4.m1
+IL_00be: ldarg.s updateData
+IL_00c0: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_00c5: stfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_00ca: ldarg.0
+IL_00cb: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_00d0: ldarg.1
+IL_00d1: ldarg.s oldSubObject
+IL_00d3: ldloc.3
+IL_00d4: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Tools.Temp>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00d9: ldarg.0
+IL_00da: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_00df: ldarg.1
+IL_00e0: ldarg.s oldSubObject
+IL_00e2: ldarg.s transformData
+IL_00e4: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Transform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00e9: ldarg.0
+IL_00ea: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UpdatedData
+IL_00ef: ldarg.s oldSubObject
+IL_00f1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Updated>::HasComponent(Unity.Entities.Entity)
+IL_00f6: brtrue.s IL_015f
+IL_00f8: ldarg.0
+IL_00f9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_00fe: ldarg.1
+IL_00ff: ldarg.s oldSubObject
+IL_0101: ldloca.s V_4
+IL_0103: initobj Game.Common.Updated
+IL_0109: ldloc.s V_4
+IL_010b: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0110: br.s IL_015f
+IL_0112: ldarga.s transformData
+IL_0114: ldarg.0
+IL_0115: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformData
+IL_011a: ldarg.s oldSubObject
+IL_011c: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_0121: call System.Boolean Game.Objects.Transform::Equals(Game.Objects.Transform)
+IL_0126: brtrue.s IL_015f
+IL_0128: ldarg.0
+IL_0129: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_012e: ldarg.1
+IL_012f: ldarg.s oldSubObject
+IL_0131: ldarg.s transformData
+IL_0133: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Transform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0138: ldarg.0
+IL_0139: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Updated> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_UpdatedData
+IL_013e: ldarg.s oldSubObject
+IL_0140: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Updated>::HasComponent(Unity.Entities.Entity)
+IL_0145: brtrue.s IL_015f
+IL_0147: ldarg.0
+IL_0148: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_014d: ldarg.1
+IL_014e: ldarg.s oldSubObject
+IL_0150: ldloca.s V_4
+IL_0152: initobj Game.Common.Updated
+IL_0158: ldloc.s V_4
+IL_015a: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_015f: ldloca.s V_1
+IL_0161: ldarg.s localTransformData
+IL_0163: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0168: stfld Unity.Mathematics.float3 Game.Tools.LocalTransformCache::m_Position
+IL_016d: ldloca.s V_1
+IL_016f: ldarg.s localTransformData
+IL_0171: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0176: stfld Unity.Mathematics.quaternion Game.Tools.LocalTransformCache::m_Rotation
+IL_017b: ldloca.s V_1
+IL_017d: ldarg.s parentMesh
+IL_017f: stfld System.Int32 Game.Tools.LocalTransformCache::m_ParentMesh
+IL_0184: ldloca.s V_1
+IL_0186: ldarg.s groupIndex
+IL_0188: stfld System.Int32 Game.Tools.LocalTransformCache::m_GroupIndex
+IL_018d: ldloca.s V_1
+IL_018f: ldc.i4.s 100
+IL_0191: stfld System.Int32 Game.Tools.LocalTransformCache::m_Probability
+IL_0196: ldloca.s V_1
+IL_0198: ldarg.s prefabSubIndex
+IL_019a: stfld System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+IL_019f: ldarg.0
+IL_01a0: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_01a5: ldarg.1
+IL_01a6: ldarg.s oldSubObject
+IL_01a8: ldloc.1
+IL_01a9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.LocalTransformCache>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01ae: ldarg.0
+IL_01af: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_01b4: ldarg.1
+IL_01b5: ldarg.s oldSubObject
+IL_01b7: ldloc.0
+IL_01b8: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Elevation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01bd: ldloca.s V_5
+IL_01bf: initobj Game.Tools.EditorContainer
+IL_01c5: ldloca.s V_5
+IL_01c7: ldarg.s prefab
+IL_01c9: stfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_01ce: ldloca.s V_5
+IL_01d0: ldarg.s scale
+IL_01d2: stfld Unity.Mathematics.float3 Game.Tools.EditorContainer::m_Scale
+IL_01d7: ldloca.s V_5
+IL_01d9: ldarg.s intensity
+IL_01db: stfld System.Single Game.Tools.EditorContainer::m_Intensity
+IL_01e0: ldloca.s V_5
+IL_01e2: ldarg.s groupIndex
+IL_01e4: stfld System.Int32 Game.Tools.EditorContainer::m_GroupIndex
+IL_01e9: ldloc.s V_5
+IL_01eb: stloc.2
+IL_01ec: ldarg.0
+IL_01ed: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_01f2: ldarg.1
+IL_01f3: ldarg.s oldSubObject
+IL_01f5: ldloc.2
+IL_01f6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Tools.EditorContainer>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01fb: ret
+IL_01fc: ldarg.0
+IL_01fd: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabObjectData
+IL_0202: ldarg.0
+IL_0203: ldfld Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformEditor
+IL_0208: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectData>::get_Item(Unity.Entities.Entity)
+IL_020d: stloc.s V_6
+IL_020f: ldloca.s V_6
+IL_0211: ldflda Unity.Entities.EntityArchetype Game.Prefabs.ObjectData::m_Archetype
+IL_0216: call System.Boolean Unity.Entities.EntityArchetype::get_Valid()
+IL_021b: brfalse IL_0398
+IL_0220: ldarg.0
+IL_0221: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0226: ldarg.1
+IL_0227: ldloc.s V_6
+IL_0229: ldfld Unity.Entities.EntityArchetype Game.Prefabs.ObjectData::m_Archetype
+IL_022e: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32,Unity.Entities.EntityArchetype)
+IL_0233: stloc.s V_7
+IL_0235: ldarg.0
+IL_0236: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_023b: ldarg.1
+IL_023c: ldloc.s V_7
+IL_023e: ldarg.2
+IL_023f: newobj System.Void Game.Common.Owner::.ctor(Unity.Entities.Entity)
+IL_0244: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Owner>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0249: ldarg.0
+IL_024a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_024f: ldarg.1
+IL_0250: ldloc.s V_7
+IL_0252: ldarg.0
+IL_0253: ldfld Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_TransformEditor
+IL_0258: newobj System.Void Game.Prefabs.PrefabRef::.ctor(Unity.Entities.Entity)
+IL_025d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Prefabs.PrefabRef>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0262: ldarg.0
+IL_0263: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_0268: ldarg.1
+IL_0269: ldloc.s V_7
+IL_026b: ldarg.s transformData
+IL_026d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Objects.Transform>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0272: ldloca.s V_8
+IL_0274: initobj Game.Tools.Temp
+IL_027a: ldarg.3
+IL_027b: brfalse.s IL_02d6
+IL_027d: ldloca.s V_8
+IL_027f: ldarg.s ownerTemp
+IL_0281: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0286: ldc.i4 132211
+IL_028b: and
+IL_028c: stfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0291: ldarg.s ownerTemp
+IL_0293: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0298: ldc.i4 256
+IL_029d: and
+IL_029e: brfalse.s IL_02ad
+IL_02a0: ldloca.s V_8
+IL_02a2: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_02a7: dup
+IL_02a8: ldind.u4
+IL_02a9: ldc.i4.s 64
+IL_02ab: or
+IL_02ac: stind.i4
+IL_02ad: ldloca.s V_8
+IL_02af: ldarg.0
+IL_02b0: ldarg.s prefab
+IL_02b2: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_02b7: ldarg.s transformData
+IL_02b9: ldc.i4.m1
+IL_02ba: ldarg.s updateData
+IL_02bc: call Unity.Entities.Entity Game.Objects.SubObjectSystem/UpdateSubObjectsJob::FindOriginalSubObject(Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Int32,Game.Objects.SubObjectSystem/UpdateSubObjectsData&)
+IL_02c1: stfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_02c6: ldarg.0
+IL_02c7: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_02cc: ldarg.1
+IL_02cd: ldloc.s V_7
+IL_02cf: ldloc.s V_8
+IL_02d1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Temp>(System.Int32,Unity.Entities.Entity,!!0)
+IL_02d6: ldloca.s V_9
+IL_02d8: ldarg.s localTransformData
+IL_02da: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_02df: stfld Unity.Mathematics.float3 Game.Tools.LocalTransformCache::m_Position
+IL_02e4: ldloca.s V_9
+IL_02e6: ldarg.s localTransformData
+IL_02e8: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_02ed: stfld Unity.Mathematics.quaternion Game.Tools.LocalTransformCache::m_Rotation
+IL_02f2: ldloca.s V_9
+IL_02f4: ldarg.s parentMesh
+IL_02f6: stfld System.Int32 Game.Tools.LocalTransformCache::m_ParentMesh
+IL_02fb: ldloca.s V_9
+IL_02fd: ldarg.s groupIndex
+IL_02ff: stfld System.Int32 Game.Tools.LocalTransformCache::m_GroupIndex
+IL_0304: ldloca.s V_9
+IL_0306: ldc.i4.s 100
+IL_0308: stfld System.Int32 Game.Tools.LocalTransformCache::m_Probability
+IL_030d: ldloca.s V_9
+IL_030f: ldarg.s prefabSubIndex
+IL_0311: stfld System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+IL_0316: ldarg.0
+IL_0317: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_031c: ldarg.1
+IL_031d: ldloc.s V_7
+IL_031f: ldloc.s V_9
+IL_0321: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.LocalTransformCache>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0326: ldarg.0
+IL_0327: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_032c: ldarg.1
+IL_032d: ldloc.s V_7
+IL_032f: ldloc.0
+IL_0330: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Objects.Elevation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0335: ldloca.s V_5
+IL_0337: initobj Game.Tools.EditorContainer
+IL_033d: ldloca.s V_5
+IL_033f: ldarg.s prefab
+IL_0341: stfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0346: ldloca.s V_5
+IL_0348: ldarg.s scale
+IL_034a: stfld Unity.Mathematics.float3 Game.Tools.EditorContainer::m_Scale
+IL_034f: ldloca.s V_5
+IL_0351: ldarg.s intensity
+IL_0353: stfld System.Single Game.Tools.EditorContainer::m_Intensity
+IL_0358: ldloca.s V_5
+IL_035a: ldarg.s groupIndex
+IL_035c: stfld System.Int32 Game.Tools.EditorContainer::m_GroupIndex
+IL_0361: ldloc.s V_5
+IL_0363: stloc.s V_10
+IL_0365: ldarg.0
+IL_0366: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_036b: ldarg.1
+IL_036c: ldloc.s V_7
+IL_036e: ldloc.s V_10
+IL_0370: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Tools.EditorContainer>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0375: ldarg.0
+IL_0376: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData> Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_PrefabEffectData
+IL_037b: ldloc.s V_10
+IL_037d: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0382: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.EffectData>::HasComponent(Unity.Entities.Entity)
+IL_0387: brfalse.s IL_0398
+IL_0389: ldarg.0
+IL_038a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Objects.SubObjectSystem/UpdateSubObjectsJob::m_CommandBuffer
+IL_038f: ldarg.1
+IL_0390: ldloc.s V_7
+IL_0392: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Effects.EnabledEffect>(System.Int32,Unity.Entities.Entity)
+IL_0397: pop
+IL_0398: ret
+METHOD System.Void Game.Effects.EffectControlSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Effects.VFXSystem>()
+IL_0012: stfld Game.Effects.VFXSystem Game.Effects.EffectControlSystem::m_VFXSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Effects.SearchSystem>()
+IL_0023: stfld Game.Effects.SearchSystem Game.Effects.EffectControlSystem::m_SearchSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Effects.EffectFlagSystem>()
+IL_0034: stfld Game.Effects.EffectFlagSystem Game.Effects.EffectControlSystem::m_EffectFlagSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0040: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Simulation.SimulationSystem>()
+IL_0045: stfld Game.Simulation.SimulationSystem Game.Effects.EffectControlSystem::m_SimulationSystem
+IL_004a: ldarg.0
+IL_004b: ldarg.0
+IL_004c: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0051: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.PreCullingSystem>()
+IL_0056: stfld Game.Rendering.PreCullingSystem Game.Effects.EffectControlSystem::m_PreCullingSystem
+IL_005b: ldarg.0
+IL_005c: ldarg.0
+IL_005d: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0062: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0067: stfld Game.Tools.ToolSystem Game.Effects.EffectControlSystem::m_ToolSystem
+IL_006c: ldarg.0
+IL_006d: ldarg.0
+IL_006e: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0073: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.RenderingSystem>()
+IL_0078: stfld Game.Rendering.RenderingSystem Game.Effects.EffectControlSystem::m_RenderingSystem
+IL_007d: ldarg.0
+IL_007e: ldarg.0
+IL_007f: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0084: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.BatchDataSystem>()
+IL_0089: stfld Game.Rendering.BatchDataSystem Game.Effects.EffectControlSystem::m_BatchDataSystem
+IL_008e: ldarg.0
+IL_008f: ldarg.0
+IL_0090: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0095: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.CameraUpdateSystem>()
+IL_009a: stfld Game.Rendering.CameraUpdateSystem Game.Effects.EffectControlSystem::m_CameraUpdateSystem
+IL_009f: ldarg.0
+IL_00a0: ldarg.0
+IL_00a1: newobj System.Void Game.Effects.EffectControlData::.ctor(Unity.Entities.SystemBase)
+IL_00a6: stfld Game.Effects.EffectControlData Game.Effects.EffectControlSystem::m_EffectControlData
+IL_00ab: ldarg.0
+IL_00ac: ldc.i4.4
+IL_00ad: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_00b2: newobj System.Void Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_00b7: stfld Unity.Collections.NativeList`1<Game.Effects.EnabledEffectData> Game.Effects.EffectControlSystem::m_EnabledData
+IL_00bc: ldarg.0
+IL_00bd: ldarg.0
+IL_00be: ldc.i4.1
+IL_00bf: newarr Unity.Entities.EntityQueryDesc
+IL_00c4: dup
+IL_00c5: ldc.i4.0
+IL_00c6: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00cb: stloc.0
+IL_00cc: ldloc.0
+IL_00cd: ldc.i4.1
+IL_00ce: newarr Unity.Entities.ComponentType
+IL_00d3: dup
+IL_00d4: ldc.i4.0
+IL_00d5: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Effects.EnabledEffect>()
+IL_00da: stelem.any Unity.Entities.ComponentType
+IL_00df: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00e4: ldloc.0
+IL_00e5: ldc.i4.4
+IL_00e6: newarr Unity.Entities.ComponentType
+IL_00eb: dup
+IL_00ec: ldc.i4.0
+IL_00ed: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_00f2: stelem.any Unity.Entities.ComponentType
+IL_00f7: dup
+IL_00f8: ldc.i4.1
+IL_00f9: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_00fe: stelem.any Unity.Entities.ComponentType
+IL_0103: dup
+IL_0104: ldc.i4.2
+IL_0105: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.EffectsUpdated>()
+IL_010a: stelem.any Unity.Entities.ComponentType
+IL_010f: dup
+IL_0110: ldc.i4.3
+IL_0111: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.BatchesUpdated>()
+IL_0116: stelem.any Unity.Entities.ComponentType
+IL_011b: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0120: ldloc.0
+IL_0121: stelem.ref
+IL_0122: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0127: stfld Unity.Entities.EntityQuery Game.Effects.EffectControlSystem::m_UpdatedEffectsQuery
+IL_012c: ldarg.0
+IL_012d: ldarg.0
+IL_012e: ldc.i4.1
+IL_012f: newarr Unity.Entities.ComponentType
+IL_0134: dup
+IL_0135: ldc.i4.0
+IL_0136: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Effects.EnabledEffect>()
+IL_013b: stelem.any Unity.Entities.ComponentType
+IL_0140: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0145: stfld Unity.Entities.EntityQuery Game.Effects.EffectControlSystem::m_AllEffectsQuery
+IL_014a: ret

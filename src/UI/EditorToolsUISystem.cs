@@ -110,13 +110,17 @@ namespace MW.EditorTools.UI
             var keyboard = Keyboard.current;
             if(keyboard != null) {
                 var undo = keyboard[(Key)Enum.Parse(typeof(Key), options.undoKey)];
-                var redo = keyboard[(Key)Enum.Parse(typeof(Key), options.redoKey)];
+
                 var action = ShortcutPolicy.Resolve(options.shortcuts, context.EditorAvailable,
                     typing || UnityEngine.Time.realtimeSinceStartup - heartbeat > .75f || !Application.isFocused,
                     context.DialogBusy, false, keyboard.ctrlKey.isPressed, keyboard.shiftKey.isPressed,
                     keyboard.altKey.isPressed, keyboard.leftMetaKey.isPressed || keyboard.rightMetaKey.isPressed,
-                    undo.wasPressedThisFrame, redo.wasPressedThisFrame, options.undoModifiers, options.redoModifiers);
+                    undo.wasPressedThisFrame, false, options.undoModifiers, options.redoModifiers);
                 int modifiers=(keyboard.ctrlKey.isPressed?1:0)|(keyboard.shiftKey.isPressed?2:0)|(keyboard.altKey.isPressed?4:0)|((keyboard.leftMetaKey.isPressed||keyboard.rightMetaKey.isPressed)?8:0);
+                if(undo.wasPressedThisFrame&&modifiers==options.undoModifiers&&recovery?.UndoCount>0) {
+                    bool ready=recovery.CanUndo;
+                    if(action<0||!ready||options.BrowserConflict(options.undoKey,modifiers))Mod.Log.Info("Undo shortcut blocked: ready="+ready+" typing="+typing+" heartbeatFresh="+(UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f)+" applicationFocused="+Application.isFocused+" dialog="+context.DialogBusy+" shortcuts="+options.shortcuts+" browserConflict="+options.BrowserConflict(options.undoKey,modifiers));
+                }
                 if(action>=0 && !options.BrowserConflict(action==0?options.undoKey:options.redoKey,modifiers)) recovery?.RequestShortcut(action,ShortcutDispatchAllowed);
                 if(BrowserDispatchAllowed()) for(int i=0;i<EditorToolsSettings.BrowserCategories.Length;i++) {
                     var key=options.BrowserKey(i);
@@ -128,6 +132,9 @@ namespace MW.EditorTools.UI
         }
         private bool ShortcutDispatchAllowed()=>options?.shortcuts==true && context?.EditorAvailable==true && !context.DialogBusy && !typing &&
             UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f && Application.isFocused;
+        internal bool ClipboardShortcutAllowed=>context?.EditorAvailable==true&&!context.DialogBusy&&!typing&&
+            UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f&&Application.isFocused&&recovery?.OperationBusy!=true&&
+            World.GetExistingSystemManaged<MW.EditorTools.Modules.MultiSave.MultiSaveSystem>()?.IsBusy!=true;
         private bool BrowserDispatchAllowed()=>options?.browserShortcuts==true && context?.EditorAvailable==true && !context.DialogBusy && !typing &&
             UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f && Application.isFocused && recovery?.OperationBusy!=true &&
             World.GetExistingSystemManaged<MW.EditorTools.Modules.MultiSave.MultiSaveSystem>()?.IsBusy!=true;

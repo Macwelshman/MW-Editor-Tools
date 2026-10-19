@@ -21,8 +21,8 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         }
         private bool SelectedAssetUsesNestedGroup()=>context.Asset!=null&&(context.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects?.Any(value=>value!=null&&ReferenceEquals(value.m_Object,nestedFixture))??false);
         private static bool AllowedNestedTopology(NestedNode[] group)=>NestedPropPolicy.Accept(group.Select(node=>node.Parent).ToArray(),group.Select(node=>node.Depth).ToArray(),group.Select(node=>(object)node.Prefab).ToArray(),group.Select(node=>true).ToArray());
-        private static bool AllowedBoundTopology(NestedNode[] group)=>BoundPropPolicy.Accept(group.Select(node=>node.Parent).ToArray(),group.Select(node=>node.Depth).ToArray(),group.Select(node=>(object)node.Prefab).ToArray(),group.Select(node=>node.Local.m_Probability==100&&node.Local.m_GroupIndex==0).ToArray());
-        private static bool OrdinaryGroupSupported(NestedNode[] group){
+        private static bool AllowedBoundTopology(NestedNode[] group)=>BoundPropPolicy.Accept(group.Select(node=>node.Parent).ToArray(),group.Select(node=>node.Depth).ToArray(),group.Select(node=>(object)node.Prefab).ToArray(),group.Select(node=>(node.Parent==-1?node.Local.m_Probability>=0&&node.Local.m_Probability<=100:node.Local.m_Probability==100)&&node.Local.m_GroupIndex==0).ToArray());
+        private static bool OrdinaryGroupSupported(NestedNode[] group,bool areaCompanion=false){
             if(!AllowedBoundTopology(group))throw new NotSupportedException("Live child topology does not match the supported tree limits (nodes="+group.Length+").");
             for(int i=0;i<group.Length;i++){
                 var node=group[i];var prefab=node.Prefab;
@@ -31,7 +31,8 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                     prefab.GetComponent<ObjectSubAreas>()?.m_SubAreas?.Length??0,
                     prefab.GetComponent<ObjectSubNets>()?.m_SubNets?.Length??0,
                     prefab.GetComponent<ObjectSubLanes>()?.m_SubLanes?.Length??0,
-                    effects?.m_Effects?.Count??0,effects?.m_AnimationCurves?.Count??0))throw new NotSupportedException("Unsupported attached area, network, lane, effect, animation or activity data on "+prefab.name+".");
+                    0,effects?.m_AnimationCurves?.Count??0))throw new NotSupportedException("Unsupported attached area, network, lane, effect, animation or activity data on "+prefab.name+".");
+                if(node.Effects.Length>(effects?.m_Effects?.Count??0))throw new NotSupportedException("Effect companion count does not match its definition on "+prefab.name+".");
                 var links=prefab.GetComponent<ObjectSubObjects>()?.m_SubObjects;
                 var children=group.Where(child=>child.Parent==i).ToArray();
                 if((links?.Length??0)!=children.Length)throw new NotSupportedException("Child count mismatch on "+prefab.name+": definition="+(links?.Length??0)+", live="+children.Length+".");
@@ -46,21 +47,22 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             }
             return true;
         }
-        private bool UseOrdinaryNestedGroup(){
-            if(!CanArm)return false;
-            var direct=context.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects?.Where(value=>value?.m_Object is ObjectPrefab).Select(value=>value.m_Object).Distinct().ToArray();
+        private bool UseOrdinaryNestedGroup(PrefabBase targetAsset=null,Unity.Entities.Entity targetOwner=default(Unity.Entities.Entity)){
+            var selected=targetAsset??context.Asset;
+            if(targetAsset==null?!CanArm:disabled||Busy||context.DialogBusy||!context.EditorAvailable||selected.isReadOnly)return false;
+            var direct=selected.GetComponent<ObjectSubObjects>()?.m_SubObjects?.Where(value=>value?.m_Object is ObjectPrefab).Select(value=>value.m_Object).Distinct().ToArray();
             var candidates=BoundPropSelection.Select(direct,prefab=>(prefab.GetComponent<ObjectSubObjects>()?.m_SubObjects?.Length??0)>0);
             if(candidates.Length==0){Status="No bound object props found in this asset.";return false;}
             try{
-                    var roots=NestedRoots(candidates);
+                    var roots=NestedRoots(candidates,targetOwner);
                     foreach(var root in roots)LogOrdinarySchema(root);
                     var images=roots.Select(root=>CaptureNestedImage(root,false)).ToArray();
                     if(images.Length==0||candidates.Any(candidate=>!images.Any(image=>ReferenceEquals(image[0].Prefab,candidate))))throw new NotSupportedException("A prop type has no live placed group. Adding a list entry alone may not have created a placed instance.");
                     foreach(var image in images)OrdinaryGroupSupported(image);
                     var owner=images[0][0].Owner;
-                    if(images.Any(image=>image[0].Owner!=owner)||!OwnerMatches(new Record{Asset=context.Asset,Owner=owner})||MatchForest(images,images)==null)throw new NotSupportedException("Group ownership or root placement is ambiguous or does not match the selected asset.");
+                    if(images.Any(image=>image[0].Owner!=owner)||!OwnerMatches(new Record{Asset=selected,Owner=owner})||MatchForest(images,images)==null)throw new NotSupportedException("Group ownership or root placement is ambiguous or does not match the owning asset.");
                     var ids=images.SelectMany(image=>image.Select(node=>node.Original)).ToArray();if(ids.Distinct().Count()!=ids.Length)throw new NotSupportedException("Groups share live child objects.");
-                    var refs=images.SelectMany(image=>image.Select(node=>node.Prefab)).Distinct().ToDictionary(prefab=>prefab,Capture);
+                    var refs=images.SelectMany(GroupReferences).Distinct().ToDictionary(prefab=>prefab,Capture);
                     if(refs.Values.Sum(value=>value.Weight)>250000||refs.Any(pair=>!NestedReferenceMatches(pair.Key,pair.Value)))throw new NotSupportedException("Reference snapshot changed or exceeds the snapshot budget.");
                     ordinaryNestedTypes=NestedRootTypes.Copy(candidates);nestedFixture=(ObjectPrefab)candidates[0];ordinaryNested=true;
                     Mod.Log.Info("Bound props adopted after read-only typed/schema/reference checks; types="+string.Join(",",candidates.Select(candidate=>candidate.name))+" groups="+images.Length+" nodes="+ids.Length+"; recovery remains unarmed.");

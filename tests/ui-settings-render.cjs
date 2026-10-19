@@ -19,6 +19,8 @@ vm.runInNewContext(code,{exports:exportsObject,require:name=>{
     if(name==='cs2/ui') return {Button:button,Tooltip:({children})=>children};
     if(name==='./native-panel') return {NativePanel:({children})=>React.createElement('section',null,children)};
     if(name==='./colours/window') return {ColourVariationsContent:()=>React.createElement('div',null,'Colours content')};
+    if(name==='./components') return {ComponentsContent:()=>React.createElement('div',null,'Components content')};
+    if(name==='./prop-replacer') return {PropReplacerContent:()=>React.createElement('div',null,'Prop Replacer content')};
     if(name==='./multi-save') return {MultiSaveContent:()=>React.createElement('div',null,'Multi-Save content')};
     if(name==='./style.scss') return {};
     throw new Error('Unexpected import '+name);

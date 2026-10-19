@@ -28,7 +28,11 @@ class Program {
         options.ConfirmDeletion=true;options.InspectorControls=true;options.ApplyChanges=true;
         Check(settings.confirmation&&settings.inspectorControls&&recovery.Changes==2,"display and confirmation change preserve history");
         options.EnableBrowserShortcuts=true; options.PropsShortcut=NativeShortcutCodec.Restore(template,"Q",7); options.Apply(); Check(!settings.browserShortcuts&&settings.BrowserKey(1)=="P","browser drafts remain inactive"); options.ApplyChanges=true; Check(settings.browserShortcuts&&settings.BrowserKey(1)=="Q"&&settings.BrowserModifiers(1)==7,"browser combination committed"); options.PropsShortcut=template.WithPath(""); options.ApplyChanges=true; Check(settings.BrowserKey(1)=="Q","empty browser binding retains previous value");
-        options.SetDefaults();Check(!options.EnableBrowserShortcuts&&NativeShortcutCodec.TryRead(options.PropsShortcut,out key,out mask)&&key=="P"&&mask==5,"browser defaults restored without activating");Check(options.ConfirmDeletion&&options.EnableRecovery&&options.InspectorControls,"defaults include all moved settings");
+        options.SetDefaults();Check(!options.EnableBrowserShortcuts&&NativeShortcutCodec.TryRead(options.PropsShortcut,out key,out mask)&&key=="D"&&mask==4,"browser defaults restored without activating");Check(options.ConfirmDeletion&&options.EnableRecovery&&options.InspectorControls,"defaults include all moved settings");
+        var defaults=new[]{options.BuildingsShortcut,options.PropsShortcut,options.FoliageShortcut,options.AreasShortcut,options.EffectsShortcut,options.SurfacesShortcut};
+        var letters=new[]{"B","D","F","A","E","S"};
+        for(int i=0;i<defaults.Length;i++)Check(NativeShortcutCodec.TryRead(defaults[i],out key,out mask)&&key==letters[i]&&mask==4,"six Alt-only browser defaults");
+        foreach(var name in new[]{"Guidance","BrowserGuidance"})Check(Attribute.IsDefined(typeof(EditorToolsOptions).GetProperty(name),typeof(Game.Settings.SettingsUIHiddenAttribute)),"long options guidance hidden");
         Console.WriteLine("PASS: "+checks+" Options editing assertions against actual Options source; native typing test pending.");
     }
 }
@@ -44,6 +48,7 @@ namespace Game.Settings {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple=true)] public class SettingsUIKeyboardActionAttribute:Attribute{public SettingsUIKeyboardActionAttribute(string name,Game.Input.ActionType type){}}
     public class SettingsUIKeyboardBindingAttribute:Attribute{public SettingsUIKeyboardBindingAttribute(Game.Input.BindingKeyboard key,string action,bool ctrl=false,bool shift=false,bool alt=false){}}
     public class SettingsUITextInputAttribute:Attribute{}
+    public class SettingsUIHiddenAttribute:Attribute{}
     public class SettingsUIMultilineTextAttribute:Attribute{}
     public class SettingsUIButtonAttribute:Attribute{}
 }
@@ -53,8 +58,10 @@ namespace MW.EditorTools.Settings {
 }
 namespace MW.EditorTools.Modules.DeletionProtection {public class ListRecovery {public int Changes;public void ApplySettings(){Changes++;}}}
 namespace Game.Input {
-public enum BindingKeyboard{Z,B,P,F,A,E,S} public enum ActionType{Button}
+public enum BindingKeyboard{Z,B,D,P,F,A,E,S} public enum ActionType{Button}
 public struct ProxyModifier{public string m_Path,m_Name;}
 public struct ProxyBinding {public string path;public System.Collections.Generic.IReadOnlyList<ProxyModifier> modifiers;public bool isKeyboard=>path!=null&&path.StartsWith("<Keyboard>/");public ProxyBinding WithPath(string value){var copy=this;copy.path=value;return copy;}public ProxyBinding WithModifiers(System.Collections.Generic.IReadOnlyList<ProxyModifier> value){var copy=this;copy.modifiers=value;return copy;}}
 }
+
+
 
