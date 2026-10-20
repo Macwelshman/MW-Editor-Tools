@@ -16,7 +16,7 @@ namespace MWEditorToolsInstaller {
         internal int Files;
     }
     internal static class InstallerCore {
-        internal const string Version="0.4.171";
+        internal const string Version="0.4.173";
         internal static string DefaultDestination {
             get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),@"AppData\LocalLow\Colossal Order\Cities Skylines II\Mods\MWEditorTools"); }
         }

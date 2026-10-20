@@ -22,8 +22,13 @@ function Launcher() {
     const raw = useValue(binding), workspaceWidth = useValue(width);
     const slot = useRef<HTMLDivElement>(null);
     const [offset,setOffset] = useState(0);
+    const appliedOffset = useRef(0);
+    appliedOffset.current = offset;
     useLayoutEffect(() => {
+        let frame = 0, cancelled = false;
         const position = () => {
+            frame = 0;
+            if (cancelled) return;
             const element = slot.current;
             if (!element) return;
             const own = element.getBoundingClientRect();
@@ -37,15 +42,18 @@ function Launcher() {
                     const style = window.getComputedStyle(button);
                     return style.display !== "none" && style.visibility !== "hidden" && style.visibility !== "collapse";
                 }).map(button => button.getBoundingClientRect());
-            const base = own.left-offset;
+            const base = own.left-appliedOffset.current;
             const next = launcherLeft(base,own,neighbours,own.width*8/56)-base;
-            if (Math.abs(next-offset) > .5) setOffset(next);
+            if (Number.isFinite(next) && Math.abs(next-appliedOffset.current) > .5) setOffset(next);
         };
-        position();
-        const timer = window.setInterval(position,500);
-        window.addEventListener("resize",position);
-        return () => { window.clearInterval(timer); window.removeEventListener("resize",position); };
-    },[raw,workspaceWidth,offset]);
+        // Developer-menu transitions can invalidate native layout measurements.
+        // Never synchronously remeasure in response to our own offset update.
+        const schedule = () => { if (!cancelled && !frame) frame = window.requestAnimationFrame(position); };
+        schedule();
+        const timer = window.setInterval(schedule,500);
+        window.addEventListener("resize",schedule);
+        return () => { cancelled = true; window.cancelAnimationFrame(frame); window.clearInterval(timer); window.removeEventListener("resize",schedule); };
+    },[raw,workspaceWidth]);
     let state: Partial<State>;
     try { state = JSON.parse(raw || "{}"); } catch { return null; }
     if (!state.available) return null;

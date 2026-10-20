@@ -1,0 +1,1 @@
+PASS: original launcher reproduces maximum update depth with frozen developer-overlay bounds

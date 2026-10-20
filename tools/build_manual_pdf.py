@@ -12,7 +12,7 @@ from reportlab.lib.pagesizes import A4
 from pypdf import PdfReader
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'output/pdf/MW-Editor-Tools-User-Manual-0.4.171.pdf'
+OUT=ROOT/'output/pdf/MW-Editor-Tools-User-Manual-0.4.173.pdf'
 OUT.parent.mkdir(parents=True,exist_ok=True)
 for name,file in [('Body','calibri.ttf'),('BodyBold','calibrib.ttf'),('BodyItalic','calibrii.ttf')]:
     pdfmetrics.registerFont(TTFont(name,'C:/Windows/Fonts/'+file))
@@ -49,14 +49,14 @@ def footer(c,doc):
     w,h=A4;c.saveState()
     c.setStrokeColor(colors.HexColor('#d8e4eb'));c.line(43,39,w-43,39)
     c.setFont('Body',8);c.setFillColor(grey)
-    c.drawString(43,25,'MW Editor Tools  |  User Manual  |  0.4.171')
+    c.drawString(43,25,'MW Editor Tools  |  User Manual  |  0.4.173')
     c.drawRightString(w-43,25,str(doc.page))
     if doc.page>1:
         c.setFont('Body',8);c.drawString(43,h-27,'CITIES: SKYLINES II ASSET EDITOR')
     c.restoreState()
 
 lines=(ROOT/'docs/USER_MANUAL.md').read_text(encoding='utf-8-sig').splitlines()
-story=[Image(str(ROOT/'UI/src/assets/mw-editor-tools.png'),width=62,height=62,hAlign='LEFT'),Spacer(1,14),Paragraph('MW Editor Tools',styles['h1']),Paragraph('User Manual',styles['h2']),Paragraph('Version <b>0.4.171</b>  |  Cities: Skylines II Asset Editor',styles['body']),Spacer(1,7),Paragraph('Element replacement, component transfer, colour variations, workspace saving and supported Undo.',styles['body']),Spacer(1,14),Paragraph('Contents',styles['h3'])]
+story=[Image(str(ROOT/'UI/src/assets/mw-editor-tools.png'),width=62,height=62,hAlign='LEFT'),Spacer(1,14),Paragraph('MW Editor Tools',styles['h1']),Paragraph('User Manual',styles['h2']),Paragraph('Version <b>0.4.173</b>  |  Cities: Skylines II Asset Editor',styles['body']),Spacer(1,7),Paragraph('Element replacement, component transfer, colour variations, workspace saving and supported Undo.',styles['body']),Spacer(1,14),Paragraph('Contents',styles['h3'])]
 toc=TableOfContents();toc.levelStyles=[styles['toc']];story += [toc,PageBreak()]
 i=0
 while i<len(lines) and lines[i]!='## Install or update':i+=1
@@ -94,7 +94,7 @@ while i<len(lines):
     para=[s];i+=1
     while i<len(lines) and lines[i].strip() and not re.match(r'^(#|\||```|\d+\. |\s*- )',lines[i]):para.append(lines[i].strip());i+=1
     story.append(Paragraph(inline(' '.join(para)),styles['body']))
-doc=Manual(str(OUT),pagesize=A4,leftMargin=43,rightMargin=43,topMargin=45,bottomMargin=54,title='MW Editor Tools - User Manual 0.4.171',author='MW Editor Tools',pageCompression=1)
+doc=Manual(str(OUT),pagesize=A4,leftMargin=43,rightMargin=43,topMargin=45,bottomMargin=54,title='MW Editor Tools - User Manual 0.4.173',author='MW Editor Tools',pageCompression=1)
 doc.multiBuild(story,onFirstPage=footer,onLaterPages=footer)
 reader=PdfReader(OUT)
 text='\n'.join(p.extract_text() for p in reader.pages)

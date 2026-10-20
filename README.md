@@ -1,12 +1,14 @@
 # MW Editor Tools
 
-Tools for the Cities: Skylines II Asset Editor. Current release: **0.4.171**. The GitHub repository and release are private.
+Tools for the Cities: Skylines II Asset Editor. Current release: **0.4.173**. The GitHub repository and release are private.
+
+Version 0.4.173 fixes the launcher update loop that could leave the game UI blank after closing the developer menu with TAB. The user confirmed that the UI now returns normally. Confirmed component removal also submits the missing native prefab refresh.
 
 The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with a compact **Undo** button in its header. Most guidance is available through tooltips or Details. The coloured diamond icon stays visible and toggles the window open or closed; it starts beside the sidebar and moves right around occupied icon positions.
 
-**[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting. A [PDF reference copy](output/pdf/MW-Editor-Tools-User-Manual-0.4.171.pdf) is also available.
+**[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting. A [PDF reference copy](output/pdf/MW-Editor-Tools-User-Manual-0.4.173.pdf) is also available.
 
-**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.171)**. Close Cities: Skylines II before installation. The installer backs up the existing mod folder and verifies installed files.
+**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.173)**. Close Cities: Skylines II before installation. The installer backs up the existing mod folder and verifies installed files.
 
 ## Features
 
@@ -36,9 +38,9 @@ Former default Ctrl+Alt combinations migrate to these defaults. Other customised
 
 Undo does not cover network moves, standalone network/junction recovery, whole-polygon creation/deletion through node tools, multi-polygon/merged edits, whole-building/component recovery or third-party tools. Component Restore is separate from the shared Undo action. Undo history is session-only; persistence acceptance concerns the resulting saved asset, not preserving an Undo slot across reloads.
 
-The requested Undo and Phase 5 workflows have user-reported native acceptance, including persistence. The newer compact UI/Options have automated checks and user-reported appearance/Options acceptance on 0.4.163. A fresh combined native run and individual Alt key dispatch were not separately reported in this readiness pass. Version 0.4.171 replacement Undo has user-reported in-game acceptance, with completed wall and foliage batch restoration recorded in the log. The broader surface/area/network mapping checks are automated; a fresh persistence acceptance run for the replacement fixes is not claimed.
+The requested Undo and Phase 5 workflows have user-reported native acceptance, including persistence. The newer compact UI/Options have automated checks and user-reported appearance/Options acceptance on 0.4.163. A fresh combined native run and individual Alt key dispatch were not separately reported in this readiness pass. Version 0.4.173 replacement Undo has user-reported in-game acceptance, with completed wall and foliage batch restoration recorded in the log. The broader surface/area/network mapping checks are automated; a fresh persistence acceptance run for the replacement fixes is not claimed.
 
-Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.171.md), [release notes](docs/RELEASE_NOTES_0.4.171.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
+Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.173.md), [release notes](docs/RELEASE_NOTES_0.4.173.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
 
 ## Build and checks
 

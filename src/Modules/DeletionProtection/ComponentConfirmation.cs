@@ -231,9 +231,9 @@ namespace MW.EditorTools.Modules.DeletionProtection
                     pending = null;
                     if (request == null || !Valid(request)) continue;
                     bypass = request;
-                    try { if(request.List!=null)ApplyClear(request);else remove.Invoke(request.Inspector, new object[] { request.Component }); }
+                    try { if(request.List!=null)ApplyClear(request);else ApplyConfirmedComponentRemoval(request); }
                     finally { bypass = null; }
-                    Mod.Log.Info(request.List!=null?"Confirmed list Clear delegated to the vanilla handler.":"Confirmed component removal delegated to the vanilla handler.");
+                    Mod.Log.Info(request.List!=null?"Confirmed list Clear delegated to the vanilla handler.":"Confirmed component removal completed with native prefab refresh.");
                 }
             }
             catch (Exception error)

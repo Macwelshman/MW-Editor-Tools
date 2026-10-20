@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-For version **0.4.171** · Cities: Skylines II Asset Editor
+For version **0.4.173** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -20,11 +20,11 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 
 ## Install or update
 
-Download the installer or manual ZIP from the [0.4.171 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.171). The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.173 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.173). The repository contains development source; cloning it does not install the mod.
 
 ### Windows installer
 
-Close Cities: Skylines II, run **MWEditorTools-0.4.171-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+Close Cities: Skylines II, run **MWEditorTools-0.4.173-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
 
 The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
 
@@ -269,6 +269,11 @@ Shortcuts pause while typing, recording a binding, using dialogs, saving or reco
 
 ## Troubleshooting
 
+Version 0.4.173 corrects a launcher layout loop that could leave the game UI blank after using **TAB** to open the developer menu. Closing that menu with TAB should restore the normal UI. If it happens again, keep the UI log for diagnosis.
+
+Confirmed component removal now refreshes the edited prefab and inspector after the dialog. This includes removing an Effects component copied onto an imported asset. Whole-component removal is not covered by the shared Undo; cancel the dialog to retain it. Effects belonging to other components or nested props are separate.
+
+
 | Symptom | What to check |
 |---|---|
 | Empty tab or disabled controls | Select a supported editable asset or mesh in Object Info. Wait for loading/saving/recovery or dialogs to finish. |
@@ -307,6 +312,6 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.171.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.173.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
 
 

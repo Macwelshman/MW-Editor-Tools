@@ -1,0 +1,1 @@
+PASS: 37 actual-source component removal and Clear confirmation checks with managed UI stubs; native dialog and snapshot integration pending.

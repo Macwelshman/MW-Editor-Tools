@@ -1,0 +1,1 @@
+Browser shortcuts: 15 assertions passed; native runtime acceptance pending.

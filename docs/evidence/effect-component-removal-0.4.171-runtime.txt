@@ -1,0 +1,332 @@
+[2026-10-20 12:12:10,119] [INFO]  MW Editor Tools: component-header and list Clear confirmation installed; recovery eligibility is checked separately.
+[2026-10-20 12:12:10,209] [INFO]  Built-in prop move Undo attached; native completion checks required.
+[2026-10-20 12:12:10,236] [INFO]  Built-in area/surface move Undo attached; native completion checks required.
+[2026-10-20 12:12:10,288] [INFO]  MW Editor Tools: User-approved Sub-element deletion history attached; explicit arm and native completion checks required.
+[2026-10-20 12:12:10,288] [INFO]  Prefab-list recovery loaded: Object/Area/Net/Effect/Lane rows and Clear; bulldozer routes have separate eligibility checks.
+[2026-10-20 12:12:10,289] [INFO]  MW Editor Tools: shared UI bindings created.
+[2026-10-20 12:12:10,290] [INFO]  MW Editor Tools: component transfer engine integrated in the shared Components tab.
+[2026-10-20 12:12:10,292] [INFO]  MW Editor Tools: Colours engine 0.5.11 integrated in shared tab.
+[2026-10-20 12:12:10,318] [INFO]  MW Editor Tools: Options registered.
+[2026-10-20 12:12:18,336] [INFO]  MW Editor Tools: shared UI available = False; inspector present = True; inspector enabled = False
+[2026-10-20 12:12:19,439] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:12:21,243] [INFO]  MW Editor Tools: frontend mounted; focus heartbeat received.
+[2026-10-20 12:12:21,478] [INFO]  MW Editor Tools: frontend diagnostic {"available":false,"settings":true,"workspaceWidth":500,"launcher":false}
+[2026-10-20 12:12:28,967] [INFO]  MW Editor Tools: shared UI available = True; inspector present = True; inspector enabled = False
+[2026-10-20 12:12:28,969] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:12:28,984] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-20 12:12:29,137] [INFO]  MW Editor Tools: frontend diagnostic {"available":true,"settings":true,"workspaceWidth":500,"launcher":true,"left":520,"top":65,"width":56,"height":56,"position":"fixed","display":"block","visibility":"visible"}
+[2026-10-20 12:12:30,438] [INFO]  Nested prop discovery: read-only definition scan; object prefabs=19410 candidates=61. Typed placement/recovery UNPROVEN. Candidates: Adult_Female (2 props); Adult_Male (2 props); Carport01 (2 props); Carport02 (2 props); Carport03 (4 props); Child_Female (2 props); Child_Male (2 props); EU_MixedStorefront_1x1_Random_01 (2 props); EU_MixedStorefront_2x1_Random_01 (2 props); EU_MixedStorefront_3x1_Random_01 (2 props); EU_MixedStorefront_4x1_Random_01 (2 props); Elderly_Female (2 props); Elderly_Male (2 props); FoodCart01 (3 props); FoodCart03 (7 props); FoodStall01 (4 props); FoodStall02 (6 props); Gazebo01 (2 props); Gazebo02 (2 props); Gazebo03 (2 props)
+[2026-10-20 12:13:40,202] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=none
+[2026-10-20 12:13:59,163] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-20 12:14:00,971] [INFO]  MW Editor Tools: browser shortcut selected Buildings; index=1
+[2026-10-20 12:14:05,781] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=none
+[2026-10-20 12:14:10,704] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-20 12:14:12,149] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:14:15,745] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:14:19,922] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:14:24,173] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:14:26,145] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:14:33,420] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:14:37,170] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:14:43,734] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:14:46,566] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:14:49,926] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:14:58,608] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:15:19,415] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:15:25,385] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:15:29,473] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:15:35,946] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:15:44,144] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:15:49,997] [INFO]  MW Editor Tools: browser shortcut selected Buildings; index=1
+[2026-10-20 12:15:53,900] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=none
+[2026-10-20 12:15:56,246] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-20 12:15:57,659] [INFO]  Selected prefab: SR ResidentialLow S02_L2 2x4 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:16:01,800] [INFO]  MW Editor Tools: window command open
+[2026-10-20 12:16:10,309] [INFO]  Copied 8 component(s).
+[2026-10-20 12:16:14,574] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:16:24,802] [INFO]  Preview for SR ResidentialLow M01_L1: 8 change(s).
+[2026-10-20 12:16:28,153] [INFO]  Preview for SR ResidentialLow M01_L1: 8 change(s).
+[2026-10-20 12:16:32,412] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:16:32,434] [INFO]  Applied 8 component change(s) to SR ResidentialLow M01_L1. Refresh queued. New components retain copied activation; existing component activation is preserved. Restore available.
+[2026-10-20 12:16:32,518] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:16:40,997] [INFO]  Selected prefab: SR ResidentialLow S02_L2 2x4 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:16:44,800] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:16:51,850] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:16:51,852] [INFO]  Integrated Colours completed command: confirm
+[2026-10-20 12:16:53,922] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:16:57,166] [INFO]  MW Editor Tools: window command close
+[2026-10-20 12:17:00,579] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:17:05,270] [INFO]  MW Editor Tools: window command open
+[2026-10-20 12:17:08,966] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:17:08,966] [INFO]  Integrated Colours completed command: confirm
+[2026-10-20 12:17:10,444] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:17:13,109] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:17:13,110] [INFO]  Integrated Colours completed command: confirm
+[2026-10-20 12:17:14,051] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:17:18,393] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:17:22,707] [INFO]  Copied 8 component(s).
+[2026-10-20 12:17:26,990] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:17:30,606] [INFO]  Preview for SR ResidentialLow M01_L3: 8 change(s).
+[2026-10-20 12:17:32,191] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:17:32,212] [INFO]  Applied 8 component change(s) to SR ResidentialLow M01_L3. Refresh queued. New components retain copied activation; existing component activation is preserved. Restore available.
+[2026-10-20 12:17:32,297] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:17:35,109] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:17:37,046] [INFO]  Preview for SR ResidentialLow M01_L5: 8 change(s).
+[2026-10-20 12:17:38,411] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:17:38,433] [INFO]  Applied 8 component change(s) to SR ResidentialLow M01_L5. Refresh queued. New components retain copied activation; existing component activation is preserved. Restore available.
+[2026-10-20 12:17:38,654] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:17:41,203] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:17:43,235] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:17:46,585] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:17:49,052] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:17:50,850] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:17:57,429] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:17:59,314] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:09,329] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:09,330] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:10,440] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:10,441] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:18:10,551] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 7 components.
+[2026-10-20 12:18:12,697] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:12,698] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:13,724] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:13,724] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:18:13,892] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 6 components.
+[2026-10-20 12:18:15,439] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:16,726] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:18:17,985] [INFO]  MW Editor Tools: frontend diagnostic {"available":true,"settings":true,"workspaceWidth":500,"launcher":true,"left":520,"top":65,"width":56,"height":56,"position":"fixed","display":"block","visibility":"visible"}
+[2026-10-20 12:18:18,788] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 6 components.
+[2026-10-20 12:18:20,060] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:20,061] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:21,216] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:21,216] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:18:21,353] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 5 components.
+[2026-10-20 12:18:25,203] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:25,204] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:26,402] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:26,402] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:18:26,498] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:18:27,278] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:18:29,870] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:18:38,665] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:18:41,525] [INFO]  Selected prefab: SR ResidentialLow S02_L2 2x4 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:18:46,442] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:18:48,001] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:18:54,305] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:54,306] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:55,266] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:55,266] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:18:55,475] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 7 components.
+[2026-10-20 12:18:57,216] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:57,217] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:57,993] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:57,993] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:18:58,047] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 6 components.
+[2026-10-20 12:18:59,512] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:18:59,512] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:00,511] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:00,512] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:19:00,607] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 5 components.
+[2026-10-20 12:19:02,317] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:02,318] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:03,230] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:03,230] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:19:03,425] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:19:04,983] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:19:07,391] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:07,392] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:08,381] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:08,381] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:19:08,590] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 7 components.
+[2026-10-20 12:19:11,690] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:11,691] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:12,705] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:12,705] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:19:12,718] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 6 components.
+[2026-10-20 12:19:13,985] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:13,986] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:15,302] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:15,302] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:19:15,525] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 5 components.
+[2026-10-20 12:19:16,714] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:16,715] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:17,554] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:19:17,554] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:19:17,566] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:19:28,359] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:19:29,134] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:19:38,664] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:19:39,699] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:19:46,622] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:19:46,631] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=SR ResidentialLow M01_L1
+[2026-10-20 12:19:47,530] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=SR ResidentialLow M01_L1
+[2026-10-20 12:19:48,278] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:19:48,285] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=SR ResidentialLow M01_L1
+[2026-10-20 12:19:49,018] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=SR ResidentialLow M01_L1
+[2026-10-20 12:19:51,676] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:19:52,708] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:19:58,118] [INFO]  Selected prefab: Transform Editor Container (Game.Prefabs.ObjectPrefab); found 1 components.
+[2026-10-20 12:20:09,593] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:20:11,151] [INFO]  Selected prefab: SR ResidentialLow S02_L2 2x4 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:20:12,972] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:20:15,300] [INFO]  Selected prefab: Transform Editor Container (Game.Prefabs.ObjectPrefab); found 1 components.
+[2026-10-20 12:20:33,838] [INFO]  MW bulldozer tool context: active=BulldozeToolSystem; inspector root=none
+[2026-10-20 12:20:34,008] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:20:36,609] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:36,620] [INFO]  Effect capture deletion: entity=Entity(51108:3) owner=Entity(50889:1) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(-10.9064f, 514.3805f, -28.57736f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(4.563355f, 2.435181f, 7.890884f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=3] elevation=True [value=2.435181 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:36,623] [WARN]  Effect deletion Undo unavailable: Isolated effect source does not uniquely match native local placements.
+[2026-10-20 12:20:38,203] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:38,204] [INFO]  Effect capture deletion: entity=Entity(51107:3) owner=Entity(50889:1) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(-5.799605f, 514.2706f, -28.59614f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(-0.543441f, 2.325256f, 7.909669f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=2] elevation=True [value=2.325256 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:38,208] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:20:38,597] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:20:39,019] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:39,019] [INFO]  Effect capture deletion: entity=Entity(51106:3) owner=Entity(50889:1) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(-4.432583f, 514.2356f, -24.6874f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(-1.910463f, 2.290283f, 4.000922f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=1] elevation=True [value=2.290283 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:39,020] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:20:39,506] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:20:40,213] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:40,214] [INFO]  Effect capture deletion: entity=Entity(51109:3) owner=Entity(50889:1) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(-12.26451f, 514.1635f, -22.05556f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(5.921461f, 2.218201f, 1.369083f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=1] elevation=True [value=2.218201 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:40,214] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:20:40,691] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:20:51,949] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:51,950] [INFO]  Effect capture deletion: entity=Entity(51343:1) owner=Entity(50891:11) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(55.46807f, 514.1635f, -16.8483f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(5.921461f, 2.218201f, 1.369083f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=4] elevation=True [value=2.218201 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:51,950] [WARN]  Effect deletion Undo unavailable: Isolated effect source does not uniquely match native local placements.
+[2026-10-20 12:20:53,808] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:53,809] [INFO]  Effect capture deletion: entity=Entity(51339:1) owner=Entity(50891:11) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(60.02626f, 513.9711f, -11.73715f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(1.363272f, 2.025757f, -3.742072f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=0] elevation=True [value=2.025757 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:53,810] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:20:54,199] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:20:55,666] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:55,666] [INFO]  Effect capture deletion: entity=Entity(51340:1) owner=Entity(50891:11) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(63.3f, 514.2356f, -19.48014f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(-1.910463f, 2.290283f, 4.000922f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=0] elevation=True [value=2.290283 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:55,667] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:20:56,169] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:20:56,902] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:56,902] [INFO]  Effect capture deletion: entity=Entity(51341:1) owner=Entity(50891:11) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(61.93298f, 514.2706f, -23.38889f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(-0.543441f, 2.325256f, 7.909669f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=0] elevation=True [value=2.325256 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:56,903] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:20:57,405] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:20:57,691] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:20:57,691] [INFO]  Effect capture deletion: entity=Entity(51342:1) owner=Entity(50891:11) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(56.82618f, 514.3805f, -23.3701f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(4.563355f, 2.435181f, 7.890884f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=0] elevation=True [value=2.435181 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:20:57,691] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:20:58,177] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:21:12,588] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-20 12:21:16,442] [INFO]  MW Editor Tools: browser shortcut selected Buildings; index=1
+[2026-10-20 12:21:18,890] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=none
+[2026-10-20 12:21:26,169] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-20 12:21:28,006] [INFO]  MW bulldozer tool context: active=BulldozeToolSystem; inspector root=none
+[2026-10-20 12:21:31,008] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:21:31,008] [INFO]  Effect capture deletion: entity=Entity(50898:451) owner=Entity(50888:2647) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(20.78236f, 514.1635f, -22.65656f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(5.921461f, 2.218201f, 1.369083f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=4] elevation=True [value=2.218201 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:21:31,009] [WARN]  Effect deletion Undo unavailable: Isolated effect source does not uniquely match native local placements.
+[2026-10-20 12:21:31,841] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:21:31,841] [INFO]  Effect capture deletion: entity=Entity(50890:103) owner=Entity(50888:2647) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(25.34055f, 513.9711f, -17.5454f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(1.363272f, 2.025757f, -3.742072f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=0] elevation=True [value=2.025757 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:21:31,841] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:21:32,241] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:21:32,804] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:21:32,804] [INFO]  Effect capture deletion: entity=Entity(50895:509) owner=Entity(50888:2647) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(28.61429f, 514.2356f, -25.2884f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(-1.910463f, 2.290283f, 4.000922f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=0] elevation=True [value=2.290283 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:21:32,805] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:21:33,300] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:21:33,654] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:21:33,654] [INFO]  Effect capture deletion: entity=Entity(50896:453) owner=Entity(50888:2647) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(27.24726f, 514.2706f, -29.19714f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(-0.543441f, 2.325256f, 7.909669f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=0] elevation=True [value=2.325256 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:21:33,655] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:21:34,162] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:21:34,475] [INFO]  Bulldozer Undo capture attempt; mode=SubElements; automatic=True
+[2026-10-20 12:21:34,475] [INFO]  Effect capture deletion: entity=Entity(50897:457) owner=Entity(50888:2647) inspector=none effect=FireMediumVFX placeholder=Transform Editor Container position=float3(22.14047f, 514.3805f, -29.17836f) rotation=quaternion(0f, 1f, 0f, -9.313226E-10f) scale=float3(1f, 1f, 1f) intensity=1 group=-1 local=True [position=float3(4.563355f, 2.435181f, 7.890884f) rotation=quaternion(0f, 9.313226E-10f, 0f, 1f) mesh=0 probability=100 group=-1 rawIndex=0] elevation=True [value=2.435181 flags=0] seed=False surface=False decoration=False enabledBuffer=True
+[2026-10-20 12:21:34,476] [INFO]  Capturing effect deletion… effect=FireMediumVFX bound=True
+[2026-10-20 12:21:34,962] [INFO]  Effect deletion ready to Undo.
+[2026-10-20 12:21:41,687] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-20 12:21:50,185] [INFO]  Effect Undo preflight blocked: NotSupportedException: Effect parent is not the writable edited asset.
+[2026-10-20 12:21:50,318] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 5 components.
+[2026-10-20 12:22:03,046] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:03,686] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:04,101] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:04,446] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:04,612] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:04,847] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:05,069] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:05,509] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:05,758] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:06,269] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:06,766] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:06,959] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:07,358] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:07,744] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:08,393] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:08,612] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:08,875] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:10,651] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:10,804] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:10,984] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:12,131] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:12,420] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:16,575] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:18,942] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:21,379] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:23,210] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:23,486] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:24,753] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:25,236] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:26,733] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:32,827] [INFO]  Selected prefab: SR ResidentialLow S02_L2 2x4 (Game.Prefabs.BuildingPrefab); found 8 components.
+[2026-10-20 12:22:38,041] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 5 components.
+[2026-10-20 12:22:45,841] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:22:48,971] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:50,937] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:51,434] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:53,903] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:22:56,323] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:58,372] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:22:58,841] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:23:03,575] [INFO]  MW bulldozer tool context: active=BulldozeToolSystem; inspector root=none
+[2026-10-20 12:23:03,788] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:23:07,635] [INFO]  Bulldozer Undo capture attempt; mode=MainElements; automatic=True
+[2026-10-20 12:23:07,643] [INFO]  Main bulldozer diagnostic #1 targets=1; recovery enabled=False
+[2026-10-20 12:23:07,645] [INFO]  Main diagnostic before entity=Entity(50908:9) exists=True deleted=False temp=False owner=none prefab=SR ResidentialLow S02_L2 2x4 position=float3(-19.60056f, 511.9453f, 29.44175f) rotation=float4(0f, 1f, 0f, 0f) children=53 components=Game.Buildings.Building,Game.Buildings.GarbageProducer,Game.Buildings.CrimeProducer,Game.Buildings.MailProducer,Game.Areas.CurrentDistrict,Game.Prefabs.PrefabRef,Game.Rendering.CullingInfo,Game.Objects.Color,Game.Objects.Surface,Game.Common.PseudoRandomSeed,Game.Buildings.Lot,Game.Buildings.BuildingCondition,Game.Buildings.ElectricityConsumer,Game.Buildings.CitizenPresence,Game.Buildings.WaterConsumer,Game.Buildings.BuildingNotifications,Game.Objects.Transform,Game.Policies.Policy [Buffer],Game.Buildings.Renter [Buffer],Game.Rendering.MeshColor [Buffer],Game.Rendering.MeshBatch [Buffer],Game.Rendering.Emissive [Buffer],Game.Rendering.LightState [Buffer],Game.Buildings.BuildingModifier [Buffer],Game.Net.SubNet [Buffer],Game.Net.SubLane [Buffer],Game.Objects.SubObject [Buffer],Game.Buildings.SpawnLocationElement [Buffer],Game.Areas.SubArea [Buffer],Game.Rendering.CustomMeshColor [Buffer],Game.Tools.Hidden,Game.Objects.Object,Game.Objects.ObjectGeometry,Game.Objects.Static,Game.Buildings.PropertyToBeOnMarket,Game.Buildings.ResidentialProperty,Unity.Entities.Simulate,Game.Simulation.UpdateFrame
+[2026-10-20 12:23:07,645] [INFO]  Prop Undo unavailable: Unhandled component: Game.Buildings.Building
+[2026-10-20 12:23:07,645] [INFO]  Bound prop capture not armed; mode=MainElements; status=Prop Undo unavailable: Unhandled component: Game.Buildings.Building
+[2026-10-20 12:23:07,646] [INFO]  Main diagnostic native apply accepted=True; frame=48759
+[2026-10-20 12:23:07,646] [INFO]  Main diagnostic after Apply entity=Entity(50908:9) exists=True deleted=False temp=False owner=none prefab=SR ResidentialLow S02_L2 2x4 position=float3(-19.60056f, 511.9453f, 29.44175f) rotation=float4(0f, 1f, 0f, 0f) children=53
+[2026-10-20 12:23:07,658] [INFO]  Main diagnostic age=1 entity=Entity(50908:9) exists=False
+[2026-10-20 12:23:07,715] [INFO]  Main diagnostic age=5 entity=Entity(50908:9) exists=False
+[2026-10-20 12:23:07,869] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=none
+[2026-10-20 12:23:08,074] [INFO]  Main diagnostic age=30 entity=Entity(50908:9) exists=False
+[2026-10-20 12:23:08,963] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 5 components.
+[2026-10-20 12:23:09,387] [INFO]  Main diagnostic age=120 entity=Entity(50908:9) exists=False
+[2026-10-20 12:23:28,152] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:23:28,153] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:23:29,487] [INFO]  Sub-element test history cleared.
+[2026-10-20 12:23:29,487] [INFO]  Confirmed component removal delegated to the vanilla handler.
+[2026-10-20 12:23:29,580] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:23:30,590] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:23:31,362] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:23:34,426] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:23:35,462] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:23:39,042] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:23:41,841] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:23:43,888] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:23:50,008] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:24:16,294] [INFO]  MW Editor Tools: frontend diagnostic {"available":true,"settings":true,"workspaceWidth":500,"launcher":true,"left":520,"top":65,"width":56,"height":56,"position":"fixed","display":"block","visibility":"visible"}
+[2026-10-20 12:24:27,349] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:24:27,847] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:24:27,860] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=SR ResidentialLow M01_L5
+[2026-10-20 12:24:33,645] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=SR ResidentialLow M01_L5
+[2026-10-20 12:24:35,331] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:24:35,769] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:24:35,780] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=SR ResidentialLow M01_L1
+[2026-10-20 12:24:37,735] [INFO]  MW bulldozer tool context: active=DefaultToolSystem; inspector root=SR ResidentialLow M01_L1
+[2026-10-20 12:24:38,792] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:25:36,564] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:25:43,409] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:25:43,420] [INFO]  MW bulldozer tool context: active=ObjectToolSystem; inspector root=SR ResidentialLow M01_L5
+[2026-10-20 12:25:48,252] [INFO]  Selected prefab: SR ResidentialLow M01_L3 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:25:49,285] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:25:55,836] [INFO]  Selected prefab: SR ResidentialLow M01_L1 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:25:56,378] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:26:06,248] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:26:43,264] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:26:46,116] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:26:57,591] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:27:47,447] [INFO]  MW Editor Tools: frontend diagnostic {"available":true,"settings":true,"workspaceWidth":500,"launcher":true,"left":520,"top":65,"width":56,"height":56,"position":"fixed","display":"block","visibility":"visible"}
+[2026-10-20 12:28:00,937] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:28:16,464] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:38:01,533] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:38:01,926] [INFO]  Move Undo unavailable: Move Undo currently supports props, foliage and prop groups.
+[2026-10-20 12:38:09,661] [INFO]  Select an asset so its Object Info panel is active. Selection: 
+[2026-10-20 12:38:37,667] [INFO]  Selected prefab: SR ResidentialLow M01_L5 (Game.Prefabs.BuildingPrefab); found 4 components.
+[2026-10-20 12:38:39,303] [INFO]  Select an asset so its Object Info panel is active. Selection: 

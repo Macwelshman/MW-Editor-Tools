@@ -1,0 +1,3 @@
+Bundle SHA256 4f5049122042f62c30f28f29b36a47f782ca8412ed9e97d134326415cffc01a3
+Stack line 9 column 27561
++n<=e.left)break;l<e.right+n&&l+t.width+n>e.left&&(l=e.right+n)}return l}(n,t,o,8*t.width/56)-n;Math.abs(l-A)>.5&&i(l)};e();const t=window.setInterval(e,500);return window.addEventListener("resize",e),()=>{window.clearIn

@@ -1,0 +1,78 @@
+[2026-10-20 12:49:07,178] [INFO]  Bootstrapping cohtmlUISystem
+[2026-10-20 12:49:07,198] [INFO]  Coherent Renoir library initialized!
+[2026-10-20 12:49:07,198] [INFO]  No default file writer given. Falling back on the default on.
+[2026-10-20 12:49:07,198] [INFO]  Initializing COHTML ver. 2.2.1.3
+[2026-10-20 12:49:07,198] [INFO]  Virtual allocator was not provided, falling back to the default V8 page allocator
+[2026-10-20 12:49:07,200] [INFO]  COHTML library initialized!
+[2026-10-20 12:49:07,274] [INFO]  View Id: 0 created.
+[2026-10-20 12:49:07,280] [INFO]  UIView 0 url set to assetdb://gameui/index.html
+[2026-10-20 12:49:07,755] [INFO]  Initialized rendering resources!
+[2026-10-20 12:49:07,755] [INFO]  New render target set 3840x2160
+[2026-10-20 12:49:08,012] [WARN]  Custom CSS expressions are not supported in shorthand declaration, please use the long versions of the CSS property: background - var(--toolbarToolButtonColor)
+[2026-10-20 12:49:08,013] [INFO]  Unsupported CSS property detected: word-wrap
+[2026-10-20 12:49:11,047] [WARN]  Unable to parse declaration: image-rendering - optimizeQuality
+[2026-10-20 12:49:11,047] [INFO]  Unsupported CSS property detected: text-rendering
+[2026-10-20 12:49:21,835] [WARN]  Unsupported CSS pseudo class selector encountered: empty
+[2026-10-20 12:49:21,835] [WARN]  Unable to parse declaration: display - inline-flex
+[2026-10-20 12:49:21,836] [INFO]  Unsupported CSS property detected: outline
+[2026-10-20 12:49:21,836] [WARN]  Unable to parse declaration: max-height - none
+[2026-10-20 12:49:21,836] [WARN]  Unable to parse declaration: max-width - none
+[2026-10-20 12:49:21,836] [INFO]  Unsupported CSS property detected: object-fit
+[2026-10-20 12:49:21,836] [INFO]  Unsupported CSS property detected: outline-offset
+[2026-10-20 12:49:21,836] [INFO]  Unsupported CSS property detected: outline
+[2026-10-20 12:49:21,837] [WARN]  Unable to parse shorthand declaration: font - inherit
+[2026-10-20 12:49:43,696] [INFO]  Unsupported CSS property detected: font-variant-east_asian
+[2026-10-20 12:49:43,696] [INFO]  Unsupported CSS property detected: font-variant-east_asian
+[2026-10-20 12:51:28,520] [INFO]  Unsupported CSS property detected: font-variant-east_asian
+[2026-10-20 12:51:28,520] [INFO]  Unsupported CSS property detected: font-variant-east_asian
+[2026-10-20 12:52:31,756] [ERROR]  Error: Minified React error #185; visit https://reactjs.org/docs/error-decoder.html?invariant=185 for the full message or use the non-minified dev environment for full errors and additional helpful warnings. 
+ While executing JS :15:23
+Colossal.UI.CoLogHandler:WriteLog(Severity, String, UInt64)
+cohtml.Net.LogHandler:SwigDirectorWriteLog(Int32, String, UInt64, IntPtr)
+cohtml.Net.cohtmlNativePINVOKE:View_Advance(HandleRef, UInt32, Double)
+cohtml.Net.View:Advance(UInt32, Double)
+Colossal.UI.UIView:Update()
+Colossal.UI.UISystem:Update()
+Colossal.UI.UIManager:Update()
+Game.SceneFlow.GameManager:UpdateUI()
+Game.SceneFlow.GameManager:Update()
+[2026-10-20 12:52:31,820] [ERROR]  JS Error: assetdb://gameui/index.js:1: Error: Minified React error #185; visit https://reactjs.org/docs/error-decoder.html?invariant=185 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+Colossal.UI.CoLogHandler:WriteLog(Severity, String, UInt64)
+cohtml.Net.LogHandler:SwigDirectorWriteLog(Int32, String, UInt64, IntPtr)
+cohtml.Net.cohtmlNativePINVOKE:View_Advance(HandleRef, UInt32, Double)
+cohtml.Net.View:Advance(UInt32, Double)
+Colossal.UI.UIView:Update()
+Colossal.UI.UISystem:Update()
+Colossal.UI.UIManager:Update()
+Game.SceneFlow.GameManager:UpdateUI()
+Game.SceneFlow.GameManager:Update()
+[2026-10-20 12:52:31,873] [ERROR]  JS Error (Line): (()=>{var e={639:(e,t,n)=>{var s;s=function(e,t,n){"use strict";var s=void 0!==t;if((t=t||{})._Initialized)return t;var i=[2,0,3,0];function a(){this.events={}}function o(e,t){this.code=e,this.context=t}for(var r in a.prototype._createClear=function(e,n,s,i){return function(){var a=e.events[n];if(a){var o=-1;if(void 0===s){for(var r=0;r<a.length;++r)if(void 0!==a[r].wasInCPP){o=r;break}}else o=a.indexOf(s);-1!=o&&(a.splice(o,1),0===a.length&&delete e.events[n])}else void 0!==t.RemoveOnHandler&&t.RemoveOnHandler(n,s,i||t)}},a.prototype.on=function(e,t,n){var s=this.events[e];void 0===s&&(s=this.events[e]=[]);var i=new o(t,n||this);return s.push(i),{clear:this._createClear(this,e,i,n)}},a.prototype.off=function(e,n,s){var i=this.events[e];if(void 0!==i){var a;s=s||this;var o=i.length;for(a=0;a<o;++a){var r=i[a];if(r.code==n&&r.context==s)break}a<o&&(i.splice(a,1),0===i.length&&delete this.events[e])}else t.RemoveOnHandler(e,n,s||this)},a.prototype.trigger=function(e){var t=this.events[e];if(void 0!==t){var n=Array.prototype.slice.call(arguments,1);return t.forEach((function(e){e.code.apply(e.context,n)})),!0}return!1},t.isAttached=s,t.isAttached||(a.prototype.on=function(e,t,n){var s=this.events[e];this.browserCallbackOn&&this.browserCallbackOn(e,t,n),void 0===s&&(s=this.events[e]=[]);var i=new o(t,n||this);return s.push(i),{clear:this._createClear(this,e,i)}},a.prototype.off=function(e,t,n){var s=this.events[e];if(void 0!==s){var i;n=n||this;var a=s.length;for(i=0;i<a;++i){var o=s[i];if(o.code==t&&o.context==n)break}i<a&&(s.splice(i,1),0===s.length&&(delete this.events[e],this.browserCallbackOff&&this.browserCallbackOff(e,t,n)))}},t.SendMessage=function(e,n){var s=Array.prototype.slice.call(arguments,2),i=t._ActiveRequests[n];delete t._ActiveRequests[n],window.setTimeout((function(){var n=t._mocks[e];void 0!==n&&i.resolve(n.apply(t,s))}),16)},t.TriggerEvent=function(){var e=Array.prototype.slice.call(arguments);return window.setTimeout((function(){var n=t._mocks[e[0]];void 0!==n&&n.apply(t,e.s...
+Colossal.UI.CoLogHandler:WriteLog(Severity, String, UInt64)
+cohtml.Net.LogHandler:SwigDirectorWriteLog(Int32, String, UInt64, IntPtr)
+cohtml.Net.cohtmlNativePINVOKE:View_Advance(HandleRef, UInt32, Double)
+cohtml.Net.View:Advance(UInt32, Double)
+Colossal.UI.UIView:Update()
+Colossal.UI.UISystem:Update()
+Colossal.UI.UIManager:Update()
+Game.SceneFlow.GameManager:UpdateUI()
+Game.SceneFlow.GameManager:Update()
+[2026-10-20 12:52:31,924] [ERROR]  JS Error (Stack): Error: Minified React error #185; visit https://reactjs.org/docs/error-decoder.html?invariant=185 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at Zl (assetdb://gameui/index.js:1:139469)
+    at Ko (assetdb://gameui/index.js:1:102446)
+    at e (coui://ui-mods/MW.EditorTools.mjs:9:27561)
+    at coui://ui-mods/MW.EditorTools.mjs:9:27567
+    at Jr (assetdb://gameui/index.js:1:130027)
+    at fl (assetdb://gameui/index.js:1:137285)
+    at pl (assetdb://gameui/index.js:1:137131)
+    at gl (assetdb://gameui/index.js:1:136669)
+    at assetdb://gameui/index.js:1:148453
+    at xc (assetdb://gameui/index.js:1:148964)
+Colossal.UI.CoLogHandler:WriteLog(Severity, String, UInt64)
+cohtml.Net.LogHandler:SwigDirectorWriteLog(Int32, String, UInt64, IntPtr)
+cohtml.Net.cohtmlNativePINVOKE:View_Advance(HandleRef, UInt32, Double)
+cohtml.Net.View:Advance(UInt32, Double)
+Colossal.UI.UIView:Update()
+Colossal.UI.UISystem:Update()
+Colossal.UI.UIManager:Update()
+Game.SceneFlow.GameManager:UpdateUI()
+Game.SceneFlow.GameManager:Update()

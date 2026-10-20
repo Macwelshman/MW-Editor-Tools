@@ -1,0 +1,1 @@
+PASS: 47 bulldozer lifecycle/history assertions. Native game event timing remains unproven.

@@ -1,0 +1,1 @@
+PASS: 41 actual-source effect lifecycle assertions; native timing remains unproven.

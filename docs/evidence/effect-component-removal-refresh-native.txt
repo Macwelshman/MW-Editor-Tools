@@ -1,0 +1,149 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Void Game.Tools.ApplyPrefabsSystem::RemoveComponent(Game.Prefabs.PrefabBase)
+IL_0000: ldarg.0
+IL_0001: ldtoken T
+IL_0006: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)
+IL_000b: call System.Void Game.Tools.ApplyPrefabsSystem::RemoveComponent(Game.Prefabs.PrefabBase,System.Type)
+IL_0010: ret
+METHOD System.Void Game.Tools.ApplyPrefabsSystem::RemoveComponent(Game.Prefabs.PrefabBase,System.Type)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: callvirt Game.Prefabs.ComponentBase Game.Prefabs.ComponentBase::GetComponentExactly(System.Type)
+IL_0007: stloc.0
+IL_0008: ldloc.0
+IL_0009: ldnull
+IL_000a: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_000f: brfalse.s IL_0012
+IL_0011: ret
+IL_0012: ldarg.0
+IL_0013: ldarg.1
+IL_0014: callvirt System.Void Game.Prefabs.PrefabBase::Remove(System.Type)
+IL_0019: ldloc.0
+IL_001a: ldc.i4.1
+IL_001b: call System.Void UnityEngine.Object::DestroyImmediate(UnityEngine.Object,System.Boolean)
+IL_0020: ret
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.UI.Editor.EditorPanelSystemBase::OnValueChanged(Game.UI.Widgets.IWidget)
+IL_0007: ldarg.0
+IL_0008: ldarg.1
+IL_0009: ldloca.s V_0
+IL_000b: ldloca.s V_1
+IL_000d: ldloca.s V_2
+IL_000f: call System.Boolean Game.UI.Editor.InspectorPanelSystem::IsColorVariationField(Game.UI.Widgets.IWidget,System.Int32&,System.Int32&,Game.Prefabs.RenderPrefabBase&)
+IL_0014: brfalse.s IL_002a
+IL_0016: ldarg.0
+IL_0017: ldarg.0
+IL_0018: ldfld Game.Tools.ToolSystem Game.UI.Editor.InspectorPanelSystem::m_ToolSystem
+IL_001d: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0022: ldloc.2
+IL_0023: ldloc.0
+IL_0024: ldloc.1
+IL_0025: call System.Void Game.UI.Editor.InspectorPanelSystem::OnColorVariationChanged(Unity.Entities.Entity,Game.Prefabs.RenderPrefabBase,System.Int32,System.Int32)
+IL_002a: ldarg.0
+IL_002b: ldarg.1
+IL_002c: ldloca.s V_3
+IL_002e: ldloca.s V_4
+IL_0030: ldloca.s V_2
+IL_0032: call System.Boolean Game.UI.Editor.InspectorPanelSystem::IsEmissiveField(Game.UI.Widgets.IWidget,System.Int32&,System.Int32&,Game.Prefabs.RenderPrefabBase&)
+IL_0037: brfalse.s IL_004e
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: ldfld Game.Tools.ToolSystem Game.UI.Editor.InspectorPanelSystem::m_ToolSystem
+IL_0040: callvirt Unity.Entities.Entity Game.Tools.ToolSystem::get_selected()
+IL_0045: ldloc.2
+IL_0046: ldloc.3
+IL_0047: ldloc.s V_4
+IL_0049: call System.Void Game.UI.Editor.InspectorPanelSystem::OnEmissiveChanged(Unity.Entities.Entity,Game.Prefabs.RenderPrefabBase,System.Int32,System.Int32)
+IL_004e: ldarg.0
+IL_004f: ldc.i4.1
+IL_0050: call System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0055: ret
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::RemoveComponent(Game.Prefabs.ComponentBase)
+IL_0000: ldarg.1
+IL_0001: callvirt Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()
+IL_0006: stloc.0
+IL_0007: ldarg.1
+IL_0008: callvirt System.Type System.Object::GetType()
+IL_000d: ldloc.0
+IL_000e: call System.Type[] Game.UI.Editor.InspectorPanelSystem::CollectRequiringComponents(System.Type,Game.Prefabs.PrefabBase)
+IL_0013: stloc.1
+IL_0014: ldc.i4.0
+IL_0015: stloc.2
+IL_0016: br.s IL_0027
+IL_0018: ldloc.1
+IL_0019: ldloc.2
+IL_001a: ldelem.ref
+IL_001b: stloc.3
+IL_001c: ldloc.0
+IL_001d: ldloc.3
+IL_001e: call System.Void Game.Tools.ApplyPrefabsSystem::RemoveComponent(Game.Prefabs.PrefabBase,System.Type)
+IL_0023: ldloc.2
+IL_0024: ldc.i4.1
+IL_0025: add
+IL_0026: stloc.2
+IL_0027: ldloc.2
+IL_0028: ldloc.1
+IL_0029: ldlen
+IL_002a: conv.i4
+IL_002b: blt.s IL_0018
+IL_002d: ret
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_0006: isinst Game.Prefabs.ObjectMeshInfo
+IL_000b: stloc.0
+IL_000c: ldloc.0
+IL_000d: brfalse.s IL_0048
+IL_000f: ldloc.0
+IL_0010: ldfld Game.Prefabs.RenderPrefabBase Game.Prefabs.ObjectMeshInfo::m_Mesh
+IL_0015: stloc.2
+IL_0016: ldarg.0
+IL_0017: ldfld Game.UI.Editor.EditorErrorPanelSystem Game.UI.Editor.InspectorPanelSystem::m_EditorErrorPanelSystem
+IL_001c: callvirt System.Void Game.UI.Editor.EditorErrorPanelSystem::OnPrefabModified()
+IL_0021: ldarg.0
+IL_0022: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.InspectorPanelSystem::m_PrefabSystem
+IL_0027: ldloc.2
+IL_0028: ldloca.s V_3
+IL_002a: initobj Unity.Entities.Entity
+IL_0030: ldloc.3
+IL_0031: callvirt System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)
+IL_0036: ldloc.2
+IL_0037: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_003c: dup
+IL_003d: brtrue.s IL_0042
+IL_003f: pop
+IL_0040: br.s IL_0048
+IL_0042: call System.Boolean Colossal.IO.AssetDatabase.AssetData::MarkDirty()
+IL_0047: pop
+IL_0048: ldarg.0
+IL_0049: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_004e: isinst Game.Prefabs.PrefabBase
+IL_0053: stloc.1
+IL_0054: ldloc.1
+IL_0055: brfalse.s IL_0092
+IL_0057: ldarg.1
+IL_0058: brfalse.s IL_0061
+IL_005a: ldarg.0
+IL_005b: ldloc.1
+IL_005c: call System.Void Game.UI.Editor.InspectorPanelSystem::MoveSubObjects(Game.Prefabs.PrefabBase)
+IL_0061: ldarg.0
+IL_0062: ldfld Game.UI.Editor.EditorErrorPanelSystem Game.UI.Editor.InspectorPanelSystem::m_EditorErrorPanelSystem
+IL_0067: callvirt System.Void Game.UI.Editor.EditorErrorPanelSystem::OnPrefabModified()
+IL_006c: ldarg.0
+IL_006d: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.InspectorPanelSystem::m_PrefabSystem
+IL_0072: ldloc.1
+IL_0073: ldloca.s V_3
+IL_0075: initobj Unity.Entities.Entity
+IL_007b: ldloc.3
+IL_007c: callvirt System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)
+IL_0081: ldloc.1
+IL_0082: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_0087: dup
+IL_0088: brtrue.s IL_008c
+IL_008a: pop
+IL_008b: ret
+IL_008c: call System.Boolean Colossal.IO.AssetDatabase.AssetData::MarkDirty()
+IL_0091: pop
+IL_0092: ret

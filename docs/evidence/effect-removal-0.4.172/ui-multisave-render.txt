@@ -1,0 +1,1 @@
+PASS: 19 actual Multi-Save presentation/command checks; native appearance pending.
