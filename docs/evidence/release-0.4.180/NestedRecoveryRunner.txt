@@ -1,0 +1,1 @@
+PASS: 133 automatic runner assertions against actual source; native timing remains unproven.

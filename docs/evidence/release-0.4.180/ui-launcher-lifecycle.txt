@@ -1,0 +1,1 @@
+PASS: actual launcher hook lifecycle; developer-menu frozen/hidden layout, 80 transitions, coalescing, remount and cleanup without update recursion.

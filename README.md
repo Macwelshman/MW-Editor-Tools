@@ -1,6 +1,6 @@
 # MW Editor Tools
 
-Tools for the Cities: Skylines II Asset Editor. Current source/test version: **0.4.180**. Latest packaged release: **0.4.173**. The GitHub repository and release are private.
+Tools for the Cities: Skylines II Asset Editor. Current release: **0.4.180**. The GitHub repository and release are private.
 
 Version 0.4.180 adds direct component-heading selection with native checkboxes/tooltips, Copy/Copy All and Select All/Deselect All, one-click checked component paste, and matching Clear Clipboard controls. Paste reports clear on asset switches; inspector Undo starts collapsed with normal heading casing. Builds and focused checks pass; final native acceptance remains pending. See [0.4.180 validation notes](docs/UI_POLISH_0.4.180.md).
 
@@ -8,9 +8,9 @@ Version 0.4.173 fixes the launcher update loop that could leave the game UI blan
 
 The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with a compact **Undo** button in its header. Most guidance is available through tooltips or Details. The coloured diamond icon stays visible and toggles the window open or closed; it starts beside the sidebar and moves right around occupied icon positions.
 
-**[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting. A [0.4.173 PDF reference copy](output/pdf/MW-Editor-Tools-User-Manual-0.4.173.pdf) is also available.
+**[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting. A [PDF reference copy](output/pdf/MW-Editor-Tools-User-Manual-0.4.180.pdf) is also available.
 
-**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.173)**. Close Cities: Skylines II before installation. The installer backs up the existing mod folder and verifies installed files.
+**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.180)**. Close Cities: Skylines II before installation. The installer backs up the existing mod folder and verifies installed files.
 
 ## Features
 
@@ -42,7 +42,7 @@ Undo does not cover network moves, standalone network/junction recovery, whole-p
 
 The requested Undo and Phase 5 workflows have user-reported native acceptance, including persistence. The newer compact UI/Options have automated checks and user-reported appearance/Options acceptance on 0.4.163. A fresh combined native run and individual Alt key dispatch were not separately reported in this readiness pass. Version 0.4.173 replacement Undo has user-reported in-game acceptance, with completed wall and foliage batch restoration recorded in the log. The broader surface/area/network mapping checks are automated; a fresh persistence acceptance run for the replacement fixes is not claimed.
 
-Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.173.md), [release notes](docs/RELEASE_NOTES_0.4.173.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
+Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.180.md), [release notes](docs/RELEASE_NOTES_0.4.180.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
 
 ## Build and checks
 

@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-For source/test version **0.4.180** · Cities: Skylines II Asset Editor
+For version **0.4.180** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -20,11 +20,11 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 
 ## Install or update
 
-Download the installer or manual ZIP from the [0.4.173 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.173). The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.180 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.180). The repository contains development source; cloning it does not install the mod.
 
 ### Windows installer
 
-Close Cities: Skylines II, run **MWEditorTools-0.4.173-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+Close Cities: Skylines II, run **MWEditorTools-0.4.180-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
 
 The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
 
@@ -58,7 +58,7 @@ Click the **MW Editor Tools** coloured diamond icon in the Asset Editor. The win
 
 **Undo** is in the window header and is also available through Ctrl+Z. It does not need a separate tab. The icon stays visible while the window is open. Click it again to close the window. It starts at the top-left beside the editor sidebar and shifts right to avoid other launcher icons.
 
-Drag the window by its header to move it. Its position is remembered. Use **Options → MW Editor Tools → Reset window position** if needed. Hover over controls for explanations; use **Details** for transfer or save reports.
+Drag the window by its header to move it. Its position is remembered. Use **Options → MW Editor Tools → Reset window position** if needed. Hover over controls for explanations; the component transfer report stays visible and **Details** opens save reports.
 
 Most tools follow the asset or mesh selected in the native **Object Info** panel. Select an editable asset to populate the controls. Read-only assets require an editable copy before changes can be applied.
 
@@ -68,8 +68,8 @@ Most tools follow the asset or mesh selected in the native **Object Info** panel
 |---|---|
 | Replace an element | Hover source → Ctrl+C → hover destination → Ctrl+V. |
 | Replace matching elements | Hover source → Ctrl+C → hover destination → Ctrl+Shift+V. |
-| Copy one component | Components → select source component → Copy selected → select destination → Preview → Paste. |
-| Copy all components | Components → Copy all → select destination → choose mode → Preview → Paste. |
+| Copy one component | Tick components in Object Info → Components → Copy → select destination → Paste. |
+| Copy all components | Components → Copy All → select destination → choose mode → Paste. |
 | Change colour variations | Colours → select mesh → adjust palette → Generate combinations → Apply combinations. |
 | Save workspace assets | Multi-Save → Save all assets → review the result. |
 | Undo a supported replacement, move or deletion | Ctrl+Z, or Undo in the header. |
@@ -78,7 +78,7 @@ Use an editable copy when trying an unfamiliar workflow. Clipboard contents and 
 
 ## Undo
 
-Undo automatically captures the last supported completed action when **Enable Undo** is on. The default shortcut is **Ctrl+Z**. You can also click **Undo** in the header or use the inspector control when enabled.
+Undo captures the last supported completed action when **Enable Undo** is on. Press **Ctrl+Z** or click **Undo** in the window header. The Object Info Undo section starts collapsed; expand it to show its controls.
 
 There is one shared last-action slot:
 
@@ -109,8 +109,6 @@ Adding a node and then moving **that same added node** is treated as one action.
 Whole-polygon creation/deletion through the node tool and edits that merge or affect multiple polygons are outside this workflow.
 
 ### Separate recovery controls
-
-The following controls have different scopes:
 
 | Control | Recovers |
 |---|---|
@@ -144,7 +142,7 @@ For example, copy a flower bush, hover over one of several matching destination 
 
 ### Use the Replacer tab
 
-When supported rows are available, you can choose one in the tab and use **Copy**, **Replace** or **Replace all**. **Clear** empties the element clipboard. The clipboard helps identify the source even when you move the cursor away from it.
+When supported rows are available, you can choose one in the tab and use **Copy**, **Replace** or **Replace all**. **Clear Clipboard** empties the element clipboard and is disabled when empty. The clipboard helps identify the source even when you move the cursor away from it.
 
 Objects must be replaced with compatible object rows, effects with effect rows, and so on. Copying a prop that contains an effect copies the prop reference; copying the effect itself copies an effect reference. They are different element types.
 
@@ -172,9 +170,9 @@ Components transfers the selected components' settings between assets. It leaves
 4. Select the destination asset and open **Components** in MW Editor Tools.
 5. Choose a paste mode and click **Paste**.
 
-The Components tab shows the clipboard, paste modes, **Paste**, **Restore**, and the result information. Paste checks compatibility automatically before applying supported changes. The report below stays visible and lists changes or skipped components; there is no separate Preview step or duplicate component list.
+The Components tab shows the clipboard, paste modes, **Paste**, **Restore**, and the result information. Paste checks compatibility automatically before applying supported changes. The report below stays visible and lists changes or skipped components. Selecting another asset clears the prior result information; there is no separate Preview step or duplicate component list.
 
-Selection uses the game's native small editor checkbox. The heading arrow still expands/collapses its settings; its existing activation checkbox still controls whether the component is active. Selection checkboxes are separate from activation. In-game acceptance of the updated 0.4.177 controls remains pending.
+Selection uses the game's native small editor checkbox. The heading arrow still expands/collapses its settings; its existing activation checkbox still controls whether the component is active. Selection checkboxes are separate from activation. Final in-game acceptance of the 0.4.180 selection/focus refinements remains pending.
 
 ### Paste modes
 
@@ -271,7 +269,7 @@ Shortcuts pause while typing, recording a binding, using dialogs, saving or reco
 
 ## Troubleshooting
 
-Version 0.4.173 corrects a launcher layout loop that could leave the game UI blank after using **TAB** to open the developer menu. Closing that menu with TAB should restore the normal UI. If it happens again, keep the UI log for diagnosis.
+The earlier 0.4.173 fix corrects a launcher layout loop that could leave the game UI blank after using **TAB** to open the developer menu. Closing that menu with TAB should restore the normal UI. If it happens again, keep the UI log for diagnosis.
 
 Confirmed component removal now refreshes the edited prefab and inspector after the dialog. This includes removing an Effects component copied onto an imported asset. Whole-component removal is not covered by the shared Undo; cancel the dialog to retain it. Effects belonging to other components or nested props are separate.
 
@@ -285,8 +283,8 @@ Confirmed component removal now refreshes the edited prefab and inspector after 
 | Browser category looks empty | Check the browser's retained search text. |
 | Undo is disabled or does nothing | Check Enable Undo/shortcut options and supported scope. The slot may have been consumed, cleared or replaced. Close typing/dialog focus. |
 | Area/surface node Undo does not trigger | Complete/release the node edit, keep its native area/surface tool active, then use Ctrl+Z. |
-| Component Paste asks for another Preview | Destination settings, selection or clipboard changed. Preview again. |
-| Component is skipped | Review Details for compatibility, dependencies or unsupported settings. An editable destination alone does not make every component transferable. |
+| Component Paste is refused | Check the report, select an editable destination and try Paste again. Compatibility is checked on every paste. |
+| Component is skipped | Review the report below the controls for compatibility, dependencies or unsupported settings. An editable destination alone does not make every component transferable. |
 | Restore refuses | A later destination edit, identity change or different destination prevents safe restoration. |
 | Colours asks to generate again | The palette changed after the last generation. Generate combinations again before Apply. |
 | Save is disabled or some assets were excluded | Check the ready count and Details. Locked assets are excluded; saving may already be running. |
@@ -314,6 +312,6 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.173.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.180.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
 
 

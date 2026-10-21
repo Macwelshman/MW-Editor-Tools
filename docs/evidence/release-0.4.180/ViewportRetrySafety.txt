@@ -1,0 +1,1 @@
+PASS: 30 actual-source bounded viewport retry, context cancellation and single-dispatch checks.

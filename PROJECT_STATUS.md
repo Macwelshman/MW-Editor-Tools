@@ -628,3 +628,7 @@ Added visible instructions above the Components copy controls: tick the selectio
 ## 0.4.180 — clipboard/report/Undo UI polish — 21 October 2026
 
 Replacer Clear Clipboard now matches Components. Component paste/replacer result text clears on actual asset switches; same-asset component refresh retains reports. Restore/clipboards preserved. Inspector Undo defaults collapsed; its heading overrides native uppercase styling. VERIFIED-STATIC: Release/webpack, 55 transfer checks and focused Components/heading/recovery UI checks pass. Native acceptance pending. See docs/UI_POLISH_0.4.180.md.
+
+## 0.4.180 packaged release — 21 October 2026
+
+User authorised publishing installer, ZIP and updated manual to the existing private repository. VERIFIED-STATIC: Release/webpack builds, all 27 managed suites, 11 interface scripts and 35 installer checks pass. All EXE/ZIP payload and release checksums verify. Updated 11-page PDF passed content and rendered-page visual review; both PDF/Markdown embedded in packages. All 2,278 rebuilt mod method signatures/instruction bodies match installed 0.4.180; Git informational stamp differs, so DLL file hash equality is not claimed. New focus/layout/report native acceptance and SR duplicate-prefab hierarchy issue remain explicitly unproven. See docs/RELEASE_READINESS_0.4.180.md and docs/evidence/release-0.4.180/.

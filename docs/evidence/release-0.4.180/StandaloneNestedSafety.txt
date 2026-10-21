@@ -1,0 +1,1 @@
+PASS: 25 actual-source standalone nested recovery assertions using managed ECS doubles; native regeneration unproven.

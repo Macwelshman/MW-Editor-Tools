@@ -1,0 +1,1 @@
+PASS: 11 pages, current version, selection/copy/paste/clear/collapsed Undo instructions; all section headings and game-name checks passed. All 11 rendered pages visually reviewed; no clipped text, overlaps or orphan table page.

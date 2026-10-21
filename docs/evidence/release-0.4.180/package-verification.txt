@@ -1,0 +1,1 @@
+PASS: actual EXE resources, all ZIP contents and release checksum manifest verified.
