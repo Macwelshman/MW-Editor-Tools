@@ -1,0 +1,13 @@
+# Direct Object Info component selection — 0.4.174
+
+21 October 2026. User authorised checking and implementing selection directly on component headings. No computer use or publication.
+
+VERIFIED-STATIC: installed Game.dll 0.0.0.0, MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef, SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A. InspectorPanelSystem.RefreshSections captures the actual ComponentBase in its copy callback at IL_0395–03b7. The callback's declaring type and inspector instance are checked; only references belonging to the current prefab's component list are exported. Repeated mappings are refused. No translated labels or displayed list indices are used. Read-only evidence: evidence/component-headings-0.4.174/native.txt.
+
+VERIFIED-STATIC: installed UI index.js exports game-ui/editor/widgets/section/editor-section.tsx EditorSectionBase. BoundEditorSection creates sectionId by joining binding group and the full widget path with dots. EditorSectionBase accepts title and className; its existing arrow, deletion and activation controls are preserved. The extension adds a checkbox and a Copy selected action inside the heading title, consuming mouse and keyboard events to avoid activating the enclosing expand control. The extension uses existing token-validated selection/copy commands. It does not change paste, restore or Undo behavior.
+
+VERIFIED-STATIC: Release and webpack builds pass. New managed mapping tests cover exact instance, foreign inspector rejection, duplicate refusal and component reorder invalidation. New UI tests cover unique path matching, toggle/copy commands, absent/stale context, keyboard operation and preservation of native controls. Existing 32 component-transfer checks and component, launcher lifecycle, launcher render, recovery and settings UI checks pass. Existing NU1900 dependency metadata warning remains.
+
+UNSUPPORTED/UNPROVEN: native appearance, input routing through the game's focus system and persistence/regression acceptance require an in-game check. Unknown Game.dll builds or unmapped headings receive no added controls; the Components list remains available.
+
+Grouped native acceptance on a disposable duplicate: select two different headings (expanded and collapsed), copy and transfer with settings to another asset; confirm the selection matches the Components tab; deselect one; switch assets and confirm selection clears; exercise arrow, activation and cancelled component removal; close/reopen the tools window and toggle the developer menu with TAB. Check no unwanted expansion, activation or deletion occurs when selecting/copying. Do not save over an original.

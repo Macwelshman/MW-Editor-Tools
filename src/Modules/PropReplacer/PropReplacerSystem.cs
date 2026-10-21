@@ -26,6 +26,7 @@ namespace MW.EditorTools.Modules.PropReplacer
         private static readonly string[] References={nameof(ObjectSubObjectInfo.m_Object),nameof(ObjectSubAreaInfo.m_AreaPrefab),nameof(ObjectSubNetInfo.m_NetPrefab),nameof(EffectSource.EffectSettings.m_Effect),nameof(ObjectSubLaneInfo.m_LanePrefab)};
         private string browserCandidate; private float browserCandidateTime=-100;
         private PrefabBase browserCandidateAsset;
+        private PrefabBase reportAsset;
         private EditorContextService context; private ValueBinding<string> binding; private string published,status="Hover an element in the viewport and press Ctrl+C, or choose a row below."; private Clip clipboard; private PrefabBase selectedRoot; private object selectedValue; private FieldInfo hoverEntity; private Func<bool> shortcutAllowed;
         internal Action BeforeWrite;
         public override GameMode gameMode=>GameMode.Editor;
@@ -34,6 +35,7 @@ namespace MW.EditorTools.Modules.PropReplacer
         internal void Release(){Enabled=false;pendingViewportClipboard=null;requiredViewportHit=null;context=null;BeforeWrite=null;CanRecordUndo=null;RecordUndo=null;shortcutAllowed=null;hoverEntity=null;clipboard=null;selectedRoot=null;selectedValue=null;published=null;}
         private void Command(string command)
         {
+            TrackReportAsset();
             try
             {
                 if(context==null||!context.Available||context.DialogBusy)throw new InvalidOperationException("Select an editable element row and close open dialogs.");
@@ -62,6 +64,7 @@ namespace MW.EditorTools.Modules.PropReplacer
         }
         private void CopyHover()
         {
+            TrackReportAsset();
             MW.EditorTools.Mod.Log.Info("Prop Replacer browser candidate at Ctrl+C: age="+(UnityEngine.Time.realtimeSinceStartup-browserCandidateTime)+" data="+(browserCandidate??"none"));
             if(browserCandidate!=null&&UnityEngine.Time.realtimeSinceStartup-browserCandidateTime<.75f){var previous=clipboard;HoverCopy(browserCandidate);if(!ReferenceEquals(previous,clipboard))return;}
             CopyViewport();
@@ -91,6 +94,7 @@ namespace MW.EditorTools.Modules.PropReplacer
         }
         private void HoverCopy(string json)
         {
+            TrackReportAsset();
             try
             {
                 if(shortcutAllowed?.Invoke()!=true)return;
@@ -196,7 +200,12 @@ namespace MW.EditorTools.Modules.PropReplacer
             if(ancestors!=null)foreach(var parent in ancestors){if(parent==null||parent.isReadOnly||!prefabs.TryGetEntity(parent,out entity)||!World.EntityManager.Exists(entity))throw new InvalidOperationException("A nested parent is no longer writable or registered.");prefabs.UpdatePrefab(parent);parent.asset?.MarkDirty();}
             if(ReferenceEquals(context.Asset,root)){var method=typeof(InspectorPanelSystem).GetMethod("RefreshSections",BindingFlags.NonPublic|BindingFlags.Instance);method?.Invoke(context.Inspector,null);}
         }
-        protected override void OnUpdate(){base.OnUpdate();CheckFoliageWitnesses();PollClipboardShortcuts();Publish();}
+        private void TrackReportAsset()
+        {
+            var asset = context?.Asset;
+            if (!ReferenceEquals(reportAsset, asset)) { reportAsset = asset; status = ""; }
+        }
+        protected override void OnUpdate(){base.OnUpdate();TrackReportAsset();CheckFoliageWitnesses();PollClipboardShortcuts();Publish();}
         private void Publish()
         {
             Row[] rows=new Row[0];Row row=null;try{if(context?.Available==true){rows=ResolveRows();row=Chosen(rows);}}catch{}

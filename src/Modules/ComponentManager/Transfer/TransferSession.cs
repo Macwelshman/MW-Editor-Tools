@@ -13,13 +13,24 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer
         private List<PlannedChange> undoChanges;
         private ComponentBase[] undoIdentities;
         private string undoFingerprint;
-        public string Summary { get { return Preview == null ? "Choose a mode and preview the destination." : string.Join("\n", Preview.Reports); } }
+        private string latestReport = "";
+        public string Summary { get { return Preview == null ? latestReport : string.Join("\n", Preview.Reports); } }
         public bool CanApply { get { return Preview != null && Preview.Changes.Count > 0; } }
         public bool CanRestore { get { return undoTarget != null && !undoChanges.Any(c => c.Before == null && c.Adapter == null); } }
         public void InvalidatePreview() { Preview = null; }
-        public void Clear() { Preview = null; undoTarget = null; undoChanges = null; undoIdentities = null; undoFingerprint = null; }
+        public void ClearReport() { Preview = null; latestReport = ""; }
+        public void Clear() { Preview = null; latestReport = ""; undoTarget = null; undoChanges = null; undoIdentities = null; undoFingerprint = null; }
         public string Plan(TransferTarget target, TransferClipboard clipboard, TransferMode mode)
-        { Preview = null; Preview = new TransferPlan(target, clipboard, mode); return "Preview for " + target.Prefab.name + ": " + Preview.Changes.Count + " change(s)."; }
+        { Preview = null; latestReport = ""; Preview = new TransferPlan(target, clipboard, mode); latestReport = string.Join("\n", Preview.Reports); return "Preview for " + target.Prefab.name + ": " + Preview.Changes.Count + " change(s)."; }
+
+        public string Paste(TransferTarget target, TransferClipboard clipboard, TransferMode mode)
+        {
+            // Rebuild against the current destination and clipboard in this command.
+            // Apply retains its identity, fingerprint and rollback checks.
+            Plan(target, clipboard, mode);
+            if (!CanApply) return "No transferable component changes. See the report below.";
+            return Apply(clipboard, target);
+        }
 
         public string Apply(TransferClipboard clipboard, TransferTarget current)
         {

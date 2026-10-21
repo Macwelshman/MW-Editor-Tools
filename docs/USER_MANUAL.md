@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-For version **0.4.173** · Cities: Skylines II Asset Editor
+For source/test version **0.4.180** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -166,13 +166,15 @@ Components transfers the selected components' settings between assets. It leaves
 
 ### Copy one or several components
 
-1. Select the source asset in Object Info and open **Components**.
-2. Click a component to select it. Click again to deselect it. You can select several.
-3. Choose **Copy selected**, or **Copy all** for all supported attached components.
-4. Select the destination asset in Object Info.
-5. Choose a paste mode.
-6. Click **Preview** and review the proposed changes and any skips.
-7. Click **Paste** to apply the preview.
+1. Select the source asset in Object Info.
+2. Tick the selection checkbox beside each component heading, or choose **Select All** in the Components tab. Use **Deselect All** to clear the checkmarks.
+3. Open **Components** in MW Editor Tools and choose **Copy** to copy the checked components, or **Copy All** to copy every supported attached component.
+4. Select the destination asset and open **Components** in MW Editor Tools.
+5. Choose a paste mode and click **Paste**.
+
+The Components tab shows the clipboard, paste modes, **Paste**, **Restore**, and the result information. Paste checks compatibility automatically before applying supported changes. The report below stays visible and lists changes or skipped components; there is no separate Preview step or duplicate component list.
+
+Selection uses the game's native small editor checkbox. The heading arrow still expands/collapses its settings; its existing activation checkbox still controls whether the component is active. Selection checkboxes are separate from activation. In-game acceptance of the updated 0.4.177 controls remains pending.
 
 ### Paste modes
 
@@ -192,9 +194,9 @@ Dependencies are checked and copied additions are ordered where possible. A requ
 
 Return to the latest destination and click **Restore**. This reinstates the prior settings and removes tracked additions from that paste.
 
-Restore is one level, not a history of every paste. It refuses if the destination has changed since the paste, to protect subsequent work. Changing the destination, clipboard or settings after Preview requires a new Preview before Paste.
+Restore is one level, not a history of every paste. It refuses if the destination has changed since the paste, to protect subsequent work. Every Paste checks the current destination, clipboard and settings again.
 
-Use **Details** to inspect the result or skipped-component report. **Clear** empties the component clipboard. The component clipboard is separate from Replacer's element clipboard and the Colours clipboard.
+The result and skipped-component report remain visible below the controls. **Clear Clipboard** empties the component clipboard and is disabled when empty. The component clipboard is separate from Replacer's element clipboard and the Colours clipboard.
 
 ## Colours
 

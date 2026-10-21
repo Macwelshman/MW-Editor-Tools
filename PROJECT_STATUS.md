@@ -593,3 +593,38 @@ User-requested concise Options and Alt+B/D/F/A/E/S browser defaults implemented.
 2026-10-19 — user screenshot reports persistent wall source mismatch in 0.4.166. Latest log confirms repeated refusals but omitted live/projected/source deltas; no further cause inferred. Installed diagnostic 0.4.167, preserving all match predicates and accepted Undo. Detailed bounded refusal logs now include target/owner/asset identities, world/cache/projected transforms, metadata and eight nearest same-prefab rows including signed/opposite quaternion deltas. Removed misleading wait-and-retry status. Release/UI builds, 24 managed suites and nine UI scripts pass, including 66 policy/diagnostic/network adapter checks. Backup and seven installed hashes/version verified with Cities: Skylines II closed. One native failing paste needed for evidence; repair remains unconfirmed, no publishing. See docs/PHASE5_0.4.167_PLACEMENT_DIAGNOSTICS.md.
 
 2026-10-19 — 0.4.167 diagnostics received: target Stucco wall row43 sourceY=-0.02758789, cache/projectedY=0, same XZ/rotation/prefab/mesh/probability/group and native index43. Native CreateSubObject OnGround256 resets local/worldheight and canremoveElevation. 0.4.168 installed: compiled-prefab exact unique-entry Ground proof plus upright owner/zero cacheheight, unique horizontal reference/rotation/settings match and agreeing native index. Ambiguous stacked rows, anchors/attached-parent/tilted/elevated/unproved cases refuse. Authored height and replacement/Undo behavior preserved; no Undo/History source diff. Exact logged fixture resolves guardedrow43 in tests. Release/UI builds, all24managed+nineUI scripts pass (76policy/diagnostic +10networkadapter); native-buffer gate repeated after final diagnostic logging. Seven installed hashes/version and priorfolder rollback verified with Cities: Skylines II closed. Native acceptance pending, no publication. See docs/PHASE5_0.4.168_COMPILED_GROUND_SOURCE.md.
+
+## 0.4.174 — direct component heading selection — 21 October 2026
+
+User authorised checking and implementing direct Object Info component selection. VERIFIED-STATIC: exact native copy-callback component/inspector identity is mapped to the full section path. Headings gain a separate selection checkbox and Copy selected action, sharing the existing token-validated component selection/clipboard. Expansion, activation, deletion, paste modes and accepted Undo are preserved. Builds, new mapping/UI checks, existing 32 transfer checks and launcher/recovery/settings UI regressions pass. Existing NU1900 warning remains. Installed three runtime files after confirming Cities2 exited; rollback and matching hashes are recorded in docs/evidence/component-headings-0.4.174/installation.txt. No computer use or publication. UNSUPPORTED/UNPROVEN: native heading rendering/input and grouped acceptance remain pending. See docs/COMPONENT_HEADINGS_0.4.174.md.
+
+## 0.4.175 — simplified component selection/paste — 21 October 2026
+
+User requested removal of duplicate component rows and Preview; retain result information, add Select All beside copy controls and use vanilla checkboxes. VERIFIED-STATIC: native small editor Checkbox replaces glyphs, Select All is on Object Info headings, Components retains clipboard/modes and Paste/Restore with always-visible information. Paste automatically creates/checks the current compatibility plan before Apply. 52 managed transfer checks, mapping/UI checks and focused launcher/recovery/settings regressions pass, as do Release/webpack builds. Native acceptance pending; no computer use or publication. See docs/COMPONENT_FLOW_0.4.175.md.
+
+VERIFIED-STATIC installation: Cities2 was confirmed exited immediately before installation. The three 0.4.175 runtime files were copied into the existing local mod folder and their SHA256 hashes matched. The previous installation was fully backed up and checked under outputs/rollback; see docs/evidence/component-flow-0.4.175/installation.txt.
+
+## 0.4.176 — component UI cleanup — 21 October 2026
+
+Removed repeated blue heading controls/outlines; native selection checkboxes now have native tooltips. Components has Copy, Copy All and Select All with no duplicate component list. Separate Clear Clipboard is disabled while empty. Paste modes, Paste/Restore and result information remain. VERIFIED-STATIC: Release/webpack and focused heading/panel UI checks pass; native acceptance pending. No computer use or publication. See docs/COMPONENT_UI_0.4.176.md.
+
+0.4.176 installation deferred: Cities2 was running at the guarded install step, so no installed files changed. Hash-verified runtime build staged under outputs/test-0.4.176. Installation remains pending game exit.
+
+## 0.4.177 — Deselect All — 21 October 2026
+
+Added Deselect All beside Select All in Components. Uses the existing token-validated selection command with an empty index list and is disabled when no asset/components are selected. VERIFIED-STATIC: focused Components UI check passes for empty-selection dispatch and enabled/disabled states; interface build passes. Native acceptance pending. Includes the pending 0.4.176 component UI cleanup.
+
+## 0.4.178 — embedded checkbox focus fix — 21 October 2026
+
+VERIFIED-RUNTIME: user supplied Button/Toggle child-registration error. VERIFIED-STATIC: selection Checkbox now uses native FOCUS_DISABLED, matching vanilla embedded activation Checkbox; wrapper selection keyboard handling remains. Release/webpack and focused UI checks pass. Native confirmation pending. See docs/COMPONENT_FOCUS_0.4.178.md. No computer use or publication.
+0.4.178 installation deferred because Cities2 is running; verified build staged at outputs/test-0.4.178. Installed files unchanged.
+0.4.178 installed after confirming Cities2 exited. Previous installation backed up; all three runtime SHA256 hashes match the staged checked build. Native focus acceptance remains pending.
+
+## 0.4.179 — component selection instruction — 21 October 2026
+
+Added visible instructions above the Components copy controls: tick the selection checkbox beside component headings in Object Info, then click Copy; multiple selection and Select All are explained. VERIFIED-STATIC: Release/webpack builds and existing Components UI check pass. Native layout acceptance pending. No computer use or publication.
+0.4.179 installed after confirming Cities2 exited. Previous installation backed up; all three runtime SHA256 hashes match the staged checked build. Native layout acceptance remains pending.
+
+## 0.4.180 — clipboard/report/Undo UI polish — 21 October 2026
+
+Replacer Clear Clipboard now matches Components. Component paste/replacer result text clears on actual asset switches; same-asset component refresh retains reports. Restore/clipboards preserved. Inspector Undo defaults collapsed; its heading overrides native uppercase styling. VERIFIED-STATIC: Release/webpack, 55 transfer checks and focused Components/heading/recovery UI checks pass. Native acceptance pending. See docs/UI_POLISH_0.4.180.md.

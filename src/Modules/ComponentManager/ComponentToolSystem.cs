@@ -27,6 +27,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
         private readonly SelectionRevision selectionRevision = new SelectionRevision();
         private string copyResult = "";
         private string componentSelectionToken = "";
+        private PrefabBase reportAsset;
         private int[] selectedIndices = new int[0];
         private Func<bool> writeAllowed;
         internal void Initialize(Action beforeWrite,Func<bool> allowWrite){transfer.BeforeWrite=beforeWrite;writeAllowed=allowWrite;}
@@ -53,9 +54,9 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
             {
                 TransferMode requested;
                 if (!Enum.TryParse(command.Substring(5), out requested) || !Enum.IsDefined(typeof(TransferMode), requested)) return;
-                mode = requested; transfer.InvalidatePreview(); copyResult = "Mode: " + mode + ". Preview the destination before applying.";
+                mode = requested; transfer.InvalidatePreview(); copyResult = "Mode: " + mode + ". Ready to paste into the destination.";
             }
-            else if (command != null && (command.StartsWith("preview|", StringComparison.Ordinal) || command.StartsWith("apply|", StringComparison.Ordinal) || command.StartsWith("restore|", StringComparison.Ordinal)))
+            else if (command != null && (command.StartsWith("preview|", StringComparison.Ordinal) || command.StartsWith("apply|", StringComparison.Ordinal) || command.StartsWith("paste|", StringComparison.Ordinal) || command.StartsWith("restore|", StringComparison.Ordinal)))
             {
                 try
                 {
@@ -69,7 +70,8 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
                     else
                     {
                         var target = TransferTarget.Resolve(World, prefab, selection);
-                        copyResult = parts[0] == "preview" ? transfer.Plan(target, clipboard, mode)
+                        copyResult = parts[0] == "paste" ? transfer.Paste(target, clipboard, mode)
+                            : parts[0] == "preview" ? transfer.Plan(target, clipboard, mode)
                             : parts[0] == "apply" ? transfer.Apply(clipboard, target) : transfer.Restore(target);
                     }
                     state = fresh;
@@ -134,6 +136,12 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
         private void TrackSelection(InspectorState fresh, PrefabBase prefab, object selection)
         {
             if (!fresh.hasAsset) { prefab = null; selection = null; }
+            if (!ReferenceEquals(reportAsset, prefab))
+            {
+                transfer.ClearReport();
+                copyResult = "";
+                reportAsset = prefab;
+            }
             var components = prefab == null || prefab.components == null ? new ComponentBase[0] : prefab.components.ToArray();
             fresh.selectionToken = selectionRevision.Observe(selection, prefab, components);
             if (componentSelectionToken != fresh.selectionToken)
@@ -218,6 +226,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
             copyResult = "";
             selectedIndices = new int[0];
             componentSelectionToken = "";
+            reportAsset = null;
             selectionRevision.Clear();
             Publish();
         }

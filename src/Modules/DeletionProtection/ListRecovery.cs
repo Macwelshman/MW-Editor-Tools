@@ -377,7 +377,7 @@ namespace MW.EditorTools.Modules.DeletionProtection
                     shouldTriggerValueChangedEvent = false };
                 var clear = new Button { path = "mwClear", displayName = LocalizedString.Value("Forget last action"),
                     action = ClearHistory, shouldTriggerValueChangedEvent = false };
-                section = new EditorSection { path = "mwRecovery", expanded = true,
+                section = new EditorSection { path = "mwRecovery", expanded = false,
                     displayName = LocalizedString.Value("MW Editor Tools — Undo"),
                     children = new IWidget[] { new ButtonRow { path = "mwHistoryActions", children = new[] { undo, clear } } } };
             }

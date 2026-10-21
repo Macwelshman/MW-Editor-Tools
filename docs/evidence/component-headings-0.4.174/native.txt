@@ -1,0 +1,500 @@
+Game SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Boolean Game.UI.Widgets.WidgetBindings::UpdateSubTree(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>,System.Boolean)
+IL_0000: ldc.i4.0
+IL_0001: stloc.0
+IL_0002: ldc.i4.0
+IL_0003: stloc.1
+IL_0004: br.s IL_0078
+IL_0006: ldarg.1
+IL_0007: ldloc.1
+IL_0008: callvirt !0 System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>::get_Item(System.Int32)
+IL_000d: stloc.2
+IL_000e: ldloc.2
+IL_000f: callvirt Game.UI.Widgets.WidgetChanges Game.UI.Widgets.IWidget::Update()
+IL_0014: stloc.3
+IL_0015: ldarg.0
+IL_0016: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.WidgetBindings::m_CurrentPath
+IL_001b: ldloc.1
+IL_001c: callvirt System.Void System.Collections.Generic.List`1<System.Int32>::Add(!0)
+IL_0021: ldarg.0
+IL_0022: ldloc.2
+IL_0023: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.IWidget::get_visibleChildren()
+IL_0028: ldarg.2
+IL_0029: brfalse.s IL_0033
+IL_002b: ldloc.3
+IL_002c: ldc.i4.4
+IL_002d: and
+IL_002e: ldc.i4.0
+IL_002f: ceq
+IL_0031: br.s IL_0034
+IL_0033: ldc.i4.0
+IL_0034: call System.Boolean Game.UI.Widgets.WidgetBindings::UpdateSubTree(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>,System.Boolean)
+IL_0039: brfalse.s IL_003f
+IL_003b: ldloc.3
+IL_003c: ldc.i4.4
+IL_003d: or
+IL_003e: stloc.3
+IL_003f: ldloc.3
+IL_0040: brfalse.s IL_005c
+IL_0042: ldarg.2
+IL_0043: brfalse.s IL_005a
+IL_0045: ldarg.0
+IL_0046: ldfld Colossal.UI.Binding.RawValueBinding Game.UI.Widgets.WidgetBindings::m_ChildrenBinding
+IL_004b: ldarg.0
+IL_004c: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.WidgetBindings::m_CurrentPath
+IL_0051: ldloc.2
+IL_0052: ldloc.3
+IL_0053: call System.Void Game.UI.Widgets.Widget::PatchWidget(Colossal.UI.Binding.RawValueBinding,System.Collections.Generic.IList`1<System.Int32>,Game.UI.Widgets.IWidget,Game.UI.Widgets.WidgetChanges)
+IL_0058: br.s IL_005c
+IL_005a: ldc.i4.1
+IL_005b: stloc.0
+IL_005c: ldarg.0
+IL_005d: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.WidgetBindings::m_CurrentPath
+IL_0062: ldarg.0
+IL_0063: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.WidgetBindings::m_CurrentPath
+IL_0068: callvirt System.Int32 System.Collections.Generic.List`1<System.Int32>::get_Count()
+IL_006d: ldc.i4.1
+IL_006e: sub
+IL_006f: callvirt System.Void System.Collections.Generic.List`1<System.Int32>::RemoveAt(System.Int32)
+IL_0074: ldloc.1
+IL_0075: ldc.i4.1
+IL_0076: add
+IL_0077: stloc.1
+IL_0078: ldloc.1
+IL_0079: ldarg.1
+IL_007a: callvirt System.Int32 System.Collections.Generic.ICollection`1<Game.UI.Widgets.IWidget>::get_Count()
+IL_007f: blt.s IL_0006
+IL_0081: ldloc.0
+IL_0082: ret
+METHOD System.String Game.UI.Widgets.PathSegment::ToString()
+IL_0000: ldarg.0
+IL_0001: ldfld System.String Game.UI.Widgets.PathSegment::m_Key
+IL_0006: dup
+IL_0007: brtrue.s IL_0015
+IL_0009: pop
+IL_000a: ldarg.0
+IL_000b: ldflda System.Int32 Game.UI.Widgets.PathSegment::m_Index
+IL_0010: call System.String System.Int32::ToString()
+IL_0015: ret
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::RefreshSections()
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_0006: ldarg.0
+IL_0007: call System.Collections.Generic.IEnumerable`1<System.Object> Game.UI.Editor.InspectorPanelSystem::GetSectionObjects()
+IL_000c: call System.Boolean System.Linq.Enumerable::SequenceEqual<System.Object>(System.Collections.Generic.IEnumerable`1<!!0>,System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0011: brtrue IL_043f
+IL_0016: ldarg.0
+IL_0017: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_001c: callvirt System.Void System.Collections.Generic.List`1<System.Object>::Clear()
+IL_0021: ldarg.0
+IL_0022: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_0027: ldarg.0
+IL_0028: call System.Collections.Generic.IEnumerable`1<System.Object> Game.UI.Editor.InspectorPanelSystem::GetSectionObjects()
+IL_002d: callvirt System.Void System.Collections.Generic.List`1<System.Object>::AddRange(System.Collections.Generic.IEnumerable`1<!0>)
+IL_0032: ldarg.0
+IL_0033: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_0038: callvirt System.Int32 System.Collections.Generic.List`1<System.Object>::get_Count()
+IL_003d: newobj System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::.ctor(System.Int32)
+IL_0042: stloc.0
+IL_0043: ldc.i4.0
+IL_0044: stloc.3
+IL_0045: br IL_03dc
+IL_004a: newobj System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::.ctor()
+IL_004f: stloc.s V_4
+IL_0051: ldloc.s V_4
+IL_0053: ldarg.0
+IL_0054: stfld Game.UI.Editor.InspectorPanelSystem Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::<>4__this
+IL_0059: ldarg.0
+IL_005a: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_005f: ldloc.3
+IL_0060: callvirt !0 System.Collections.Generic.List`1<System.Object>::get_Item(System.Int32)
+IL_0065: stloc.s V_5
+IL_0067: ldarg.0
+IL_0068: ldloc.s V_5
+IL_006a: call System.String Game.UI.Editor.InspectorPanelSystem::GetTypeName(System.Object)
+IL_006f: stloc.s V_6
+IL_0071: ldarg.0
+IL_0072: ldfld Game.UI.Widgets.EditorGenerator Game.UI.Editor.InspectorPanelSystem::m_EditorGenerator
+IL_0077: ldloc.s V_5
+IL_0079: ldloc.s V_5
+IL_007b: callvirt System.Type System.Object::GetType()
+IL_0080: callvirt System.Boolean System.Type::get_IsValueType()
+IL_0085: ldc.i4.0
+IL_0086: ceq
+IL_0088: newobj System.Void Game.Reflection.ObjectAccessor`1<System.Object>::.ctor(T,System.Boolean)
+IL_008d: ldc.i4.0
+IL_008e: ldloc.s V_6
+IL_0090: ldnull
+IL_0091: callvirt System.Collections.Generic.IEnumerable`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.EditorGenerator::BuildMembers(Game.Reflection.IValueAccessor,System.Int32,System.String,Colossal.OdinSerializer.ISerializationPolicy)
+IL_0096: call !!0[] System.Linq.Enumerable::ToArray<Game.UI.Widgets.IWidget>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_009b: newobj System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::.ctor(System.Collections.Generic.IEnumerable`1<!0>)
+IL_00a0: stloc.s V_7
+IL_00a2: ldloc.s V_4
+IL_00a4: ldloc.s V_5
+IL_00a6: isinst Game.Prefabs.PrefabBase
+IL_00ab: stfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_00b0: ldloc.s V_4
+IL_00b2: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_00b7: ldnull
+IL_00b8: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_00bd: brfalse IL_0199
+IL_00c2: ldloc.s V_4
+IL_00c4: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_00c9: isinst Game.Prefabs.RenderPrefabBase
+IL_00ce: brtrue IL_0199
+IL_00d3: newobj System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::.ctor()
+IL_00d8: stloc.s V_12
+IL_00da: ldloc.s V_12
+IL_00dc: ldloc.s V_4
+IL_00de: stfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::CS$<>8__locals1
+IL_00e3: newobj System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::.ctor()
+IL_00e8: stloc.s V_13
+IL_00ea: ldarg.0
+IL_00eb: ldloc.s V_12
+IL_00ed: ldfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::CS$<>8__locals1
+IL_00f2: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_00f7: ldloc.s V_13
+IL_00f9: call System.Void Game.UI.Editor.InspectorPanelSystem::BuildLocalizationFields(Game.Prefabs.PrefabBase,System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>)
+IL_00fe: newobj System.Void Game.UI.Editor.LocalizationSection::.ctor()
+IL_0103: dup
+IL_0104: ldstr "localization"
+IL_0109: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_010e: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0113: dup
+IL_0114: ldsfld Game.UI.Localization.NameTooltipPair Game.UI.Editor.InspectorPanelSystem/LocaleId::kLocalizationGroup
+IL_0119: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_displayNameAndTooltip(Game.UI.Localization.NameTooltipPair)
+IL_011e: dup
+IL_011f: ldc.i4.0
+IL_0120: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_expanded(System.Boolean)
+IL_0125: dup
+IL_0126: ldloc.s V_13
+IL_0128: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_012d: dup
+IL_012e: ldloc.s V_12
+IL_0130: ldfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::CS$<>8__locals1
+IL_0135: ldftn System.Boolean Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::<RefreshSections>b__4()
+IL_013b: newobj System.Void System.Func`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_0140: callvirt System.Void Game.UI.Widgets.Widget::set_disabled(System.Func`1<System.Boolean>)
+IL_0145: stloc.s V_14
+IL_0147: ldarg.0
+IL_0148: ldfld System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields> Game.UI.Editor.InspectorPanelSystem::m_WipLocalization
+IL_014d: ldloc.s V_12
+IL_014f: ldfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::CS$<>8__locals1
+IL_0154: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_0159: ldloc.s V_12
+IL_015b: ldflda Game.UI.Editor.InspectorPanelSystem/LocalizationFields Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::localizationFields
+IL_0160: callvirt System.Boolean System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields>::TryGetValue(!0,!1&)
+IL_0165: brfalse.s IL_018f
+IL_0167: ldloc.s V_14
+IL_0169: ldloc.s V_12
+IL_016b: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::<RefreshSections>b__2()
+IL_0171: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_0176: callvirt System.Void Game.UI.Editor.LocalizationSection::set_onCopy(System.Action)
+IL_017b: ldloc.s V_14
+IL_017d: ldloc.s V_12
+IL_017f: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_1::<RefreshSections>b__3()
+IL_0185: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_018a: callvirt System.Void Game.UI.Editor.LocalizationSection::set_onPaste(System.Action)
+IL_018f: ldloc.s V_7
+IL_0191: ldc.i4.1
+IL_0192: ldloc.s V_14
+IL_0194: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Insert(System.Int32,!0)
+IL_0199: ldloc.s V_5
+IL_019b: isinst Game.Prefabs.ObjectSubObjectInfo
+IL_01a0: brfalse IL_0256
+IL_01a5: ldarg.0
+IL_01a6: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_01ab: isinst Game.Prefabs.PrefabBase
+IL_01b0: stloc.s V_8
+IL_01b2: ldloc.s V_8
+IL_01b4: brfalse IL_0256
+IL_01b9: ldloc.s V_8
+IL_01bb: ldloca.s V_9
+IL_01bd: callvirt System.Boolean Game.Prefabs.PrefabBase::TryGet<Game.Prefabs.ObjectSubObjects>(T&)
+IL_01c2: brfalse IL_0256
+IL_01c7: ldloc.s V_9
+IL_01c9: ldfld Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+IL_01ce: brfalse IL_0256
+IL_01d3: ldloc.s V_9
+IL_01d5: ldfld Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+IL_01da: stloc.s V_16
+IL_01dc: ldloc.s V_16
+IL_01de: ldloc.s V_5
+IL_01e0: call System.Int32 System.Array::IndexOf<System.Object>(!!0[],!!0)
+IL_01e5: stloc.s V_15
+IL_01e7: ldloc.s V_15
+IL_01e9: ldc.i4.0
+IL_01ea: blt.s IL_0256
+IL_01ec: ldloc.s V_7
+IL_01ee: ldc.i4.0
+IL_01ef: newobj System.Void Game.UI.Widgets.StringInputField::.ctor()
+IL_01f4: dup
+IL_01f5: ldstr "elementIndex"
+IL_01fa: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_01ff: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0204: dup
+IL_0205: ldsfld Game.UI.Localization.NameTooltipPair Game.UI.Editor.InspectorPanelSystem/LocaleId::kElementId
+IL_020a: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_displayNameAndTooltip(Game.UI.Localization.NameTooltipPair)
+IL_020f: dup
+IL_0210: ldstr "Element {0}"
+IL_0215: ldloc.s V_15
+IL_0217: box System.Int32
+IL_021c: call System.String System.String::Format(System.String,System.Object)
+IL_0221: ldc.i4.1
+IL_0222: newobj System.Void Game.Reflection.ObjectAccessor`1<System.String>::.ctor(T,System.Boolean)
+IL_0227: callvirt System.Void Game.UI.Widgets.ReadonlyField`1<System.String>::set_accessor(Game.Reflection.ITypedValueAccessor`1<T>)
+IL_022c: dup
+IL_022d: ldsfld System.Func`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem/<>c::<>9__56_5
+IL_0232: dup
+IL_0233: brtrue.s IL_024c
+IL_0235: pop
+IL_0236: ldsfld Game.UI.Editor.InspectorPanelSystem/<>c Game.UI.Editor.InspectorPanelSystem/<>c::<>9
+IL_023b: ldftn System.Boolean Game.UI.Editor.InspectorPanelSystem/<>c::<RefreshSections>b__56_5()
+IL_0241: newobj System.Void System.Func`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_0246: dup
+IL_0247: stsfld System.Func`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem/<>c::<>9__56_5
+IL_024c: callvirt System.Void Game.UI.Widgets.Widget::set_disabled(System.Func`1<System.Boolean>)
+IL_0251: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Insert(System.Int32,!0)
+IL_0256: newobj System.Void Game.UI.Editor.EditorSection::.ctor()
+IL_025b: dup
+IL_025c: ldloc.s V_6
+IL_025e: newobj System.Void Game.UI.Widgets.PathSegment::.ctor(System.String)
+IL_0263: callvirt System.Void Game.UI.Widgets.Widget::set_path(Game.UI.Widgets.PathSegment)
+IL_0268: dup
+IL_0269: ldloc.s V_6
+IL_026b: call System.String Game.UI.Widgets.WidgetReflectionUtils::NicifyVariableName(System.String)
+IL_0270: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::Value(System.String)
+IL_0275: callvirt System.Void Game.UI.Widgets.NamedWidget::set_displayName(Game.UI.Localization.LocalizedString)
+IL_027a: dup
+IL_027b: ldloc.s V_6
+IL_027d: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::op_Implicit(System.String)
+IL_0282: newobj System.Void System.Nullable`1<Game.UI.Localization.LocalizedString>::.ctor(!0)
+IL_0287: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_tooltip(System.Nullable`1<Game.UI.Localization.LocalizedString>)
+IL_028c: dup
+IL_028d: ldarg.0
+IL_028e: call System.Boolean Game.UI.Editor.EditorPanelSystemBase::get_DefaultSectionsExpanded()
+IL_0293: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_expanded(System.Boolean)
+IL_0298: dup
+IL_0299: ldloc.s V_7
+IL_029b: callvirt System.Void Game.UI.Widgets.ExpandableGroup::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_02a0: stloc.s V_10
+IL_02a2: ldarg.0
+IL_02a3: ldloc.s V_5
+IL_02a5: ldarg.0
+IL_02a6: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_ParentObject
+IL_02ab: ldc.i4.1
+IL_02ac: ldloca.s V_11
+IL_02ae: call System.Boolean Game.UI.Editor.InspectorPanelSystem::DisableSection(System.Object,System.Object,System.Boolean,Game.UI.Localization.LocalizedString&)
+IL_02b3: brfalse.s IL_0306
+IL_02b5: ldloc.s V_10
+IL_02b7: call System.Void Game.UI.Editor.InspectorPanelSystem::DisableAllFields(Game.UI.Widgets.IWidget)
+IL_02bc: ldloc.s V_4
+IL_02be: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_02c3: ldnull
+IL_02c4: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_02c9: brtrue.s IL_02d4
+IL_02cb: ldloc.s V_5
+IL_02cd: isinst Game.Prefabs.ComponentBase
+IL_02d2: brtrue.s IL_0306
+IL_02d4: ldloc.s V_7
+IL_02d6: ldc.i4.0
+IL_02d7: newobj System.Void Game.UI.Widgets.MultilineText::.ctor()
+IL_02dc: dup
+IL_02dd: ldloc.s V_11
+IL_02df: callvirt System.Void Game.UI.Widgets.NamedWidget::set_displayName(Game.UI.Localization.LocalizedString)
+IL_02e4: dup
+IL_02e5: ldstr "Media/Glyphs/Lock.svg"
+IL_02ea: callvirt System.Void Game.UI.Widgets.MultilineText::set_icon(System.String)
+IL_02ef: dup
+IL_02f0: ldstr "#fffd"
+IL_02f5: callvirt System.Void Game.UI.Widgets.MultilineText::set_iconTint(System.String)
+IL_02fa: dup
+IL_02fb: ldc.i4.1
+IL_02fc: callvirt System.Void Game.UI.Widgets.MultilineText::set_helpBox(System.Boolean)
+IL_0301: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Insert(System.Int32,!0)
+IL_0306: ldloc.s V_4
+IL_0308: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_030d: ldnull
+IL_030e: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0313: brfalse.s IL_0343
+IL_0315: ldloc.s V_10
+IL_0317: ldc.i4.1
+IL_0318: callvirt System.Void Game.UI.Editor.EditorSection::set_primary(System.Boolean)
+IL_031d: ldloc.s V_10
+IL_031f: ldsfld UnityEngine.Color Game.UI.Editor.EditorSection::kPrefabColor
+IL_0324: newobj System.Void System.Nullable`1<UnityEngine.Color>::.ctor(!0)
+IL_0329: callvirt System.Void Game.UI.Editor.EditorSection::set_color(System.Nullable`1<UnityEngine.Color>)
+IL_032e: ldloc.s V_10
+IL_0330: ldloc.s V_4
+IL_0332: ldfld Game.Prefabs.PrefabBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::prefab
+IL_0337: call Game.Reflection.ITypedValueAccessor`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem::GetActiveAccessor(Game.Prefabs.ComponentBase)
+IL_033c: callvirt System.Void Game.UI.Editor.EditorSection::set_active(Game.Reflection.ITypedValueAccessor`1<System.Boolean>)
+IL_0341: br.s IL_0391
+IL_0343: newobj System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::.ctor()
+IL_0348: stloc.s V_17
+IL_034a: ldloc.s V_17
+IL_034c: ldloc.s V_4
+IL_034e: stfld Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0 Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::CS$<>8__locals2
+IL_0353: ldloc.s V_17
+IL_0355: ldloc.s V_5
+IL_0357: isinst Game.Prefabs.ComponentBase
+IL_035c: stfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::component
+IL_0361: ldloc.s V_17
+IL_0363: ldfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::component
+IL_0368: brfalse.s IL_0391
+IL_036a: ldloc.s V_10
+IL_036c: ldloc.s V_17
+IL_036e: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::<RefreshSections>b__6()
+IL_0374: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_0379: callvirt System.Void Game.UI.Editor.EditorSection::set_onDelete(System.Action)
+IL_037e: ldloc.s V_10
+IL_0380: ldloc.s V_17
+IL_0382: ldfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_2::component
+IL_0387: call Game.Reflection.ITypedValueAccessor`1<System.Boolean> Game.UI.Editor.InspectorPanelSystem::GetActiveAccessor(Game.Prefabs.ComponentBase)
+IL_038c: callvirt System.Void Game.UI.Editor.EditorSection::set_active(Game.Reflection.ITypedValueAccessor`1<System.Boolean>)
+IL_0391: ldloc.s V_4
+IL_0393: ldloc.s V_5
+IL_0395: isinst Game.Prefabs.ComponentBase
+IL_039a: stfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::comp
+IL_039f: ldloc.s V_4
+IL_03a1: ldfld Game.Prefabs.ComponentBase Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::comp
+IL_03a6: brfalse.s IL_03d0
+IL_03a8: ldloc.s V_10
+IL_03aa: ldloc.s V_4
+IL_03ac: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::<RefreshSections>b__0()
+IL_03b2: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_03b7: callvirt System.Void Game.UI.Editor.EditorSection::set_onCopy(System.Action)
+IL_03bc: ldloc.s V_10
+IL_03be: ldloc.s V_4
+IL_03c0: ldftn System.Void Game.UI.Editor.InspectorPanelSystem/<>c__DisplayClass56_0::<RefreshSections>b__1()
+IL_03c6: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_03cb: callvirt System.Void Game.UI.Editor.EditorSection::set_onPaste(System.Action)
+IL_03d0: ldloc.0
+IL_03d1: ldloc.s V_10
+IL_03d3: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_03d8: ldloc.3
+IL_03d9: ldc.i4.1
+IL_03da: add
+IL_03db: stloc.3
+IL_03dc: ldloc.3
+IL_03dd: ldarg.0
+IL_03de: ldfld System.Collections.Generic.List`1<System.Object> Game.UI.Editor.InspectorPanelSystem::m_SectionObjects
+IL_03e3: callvirt System.Int32 System.Collections.Generic.List`1<System.Object>::get_Count()
+IL_03e8: blt IL_004a
+IL_03ed: newobj System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::.ctor()
+IL_03f2: stloc.1
+IL_03f3: ldloc.1
+IL_03f4: ldarg.0
+IL_03f5: call Game.UI.Widgets.ButtonRow Game.UI.Editor.EditorPanelSystemBase::CreateExpandCollapseButtonRow()
+IL_03fa: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_03ff: ldloc.1
+IL_0400: ldloc.0
+IL_0401: callvirt !0[] System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::ToArray()
+IL_0406: call Game.UI.Widgets.Scrollable Game.UI.Widgets.Scrollable::WithChildren(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_040b: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_0410: ldarg.0
+IL_0411: call Game.UI.Editor.EditorSection Game.UI.Editor.InspectorPanelSystem::RefreshObjectStatePanel()
+IL_0416: stloc.2
+IL_0417: ldloc.2
+IL_0418: brfalse.s IL_0421
+IL_041a: ldloc.1
+IL_041b: ldloc.2
+IL_041c: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_0421: ldloc.1
+IL_0422: ldarg.0
+IL_0423: ldfld Game.UI.Widgets.Button[] Game.UI.Editor.InspectorPanelSystem::m_Footer
+IL_0428: call Game.UI.Widgets.ButtonRow Game.UI.Widgets.ButtonRow::WithChildren(Game.UI.Widgets.Button[])
+IL_042d: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_0432: ldarg.0
+IL_0433: ldloc.1
+IL_0434: callvirt !0[] System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::ToArray()
+IL_0439: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_043e: ret
+IL_043f: ldarg.0
+IL_0440: call Game.UI.Editor.InspectorPanelSystem/Mode Game.UI.Editor.InspectorPanelSystem::get_mode()
+IL_0445: brtrue IL_052d
+IL_044a: ldarg.0
+IL_044b: ldfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_0450: ldarg.0
+IL_0451: ldfld Unity.Entities.Entity Game.UI.Editor.InspectorPanelSystem::m_CurrentSelectedEntity
+IL_0456: ldarg.0
+IL_0457: ldfld System.Object Game.UI.Editor.InspectorPanelSystem::m_SelectedObject
+IL_045c: callvirt System.Boolean Game.UI.Editor.AnimationControlsPanel::NeedRefresh(Unity.Entities.Entity,System.Object)
+IL_0461: brfalse IL_052d
+IL_0466: ldc.i4.m1
+IL_0467: stloc.s V_18
+IL_0469: ldc.i4.0
+IL_046a: stloc.s V_20
+IL_046c: br.s IL_04a4
+IL_046e: ldarg.0
+IL_046f: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_0474: ldloc.s V_20
+IL_0476: callvirt !0 System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>::get_Item(System.Int32)
+IL_047b: callvirt Game.UI.Widgets.PathSegment Game.UI.Widgets.IWidget::get_path()
+IL_0480: ldarg.0
+IL_0481: ldarg.0
+IL_0482: ldfld Game.UI.Editor.AnimationControlsPanel Game.UI.Editor.InspectorPanelSystem::m_AnimationControlsPanel
+IL_0487: call System.String Game.UI.Editor.InspectorPanelSystem::GetTypeName(System.Object)
+IL_048c: call Game.UI.Widgets.PathSegment Game.UI.Widgets.PathSegment::op_Implicit(System.String)
+IL_0491: call System.Boolean Game.UI.Widgets.PathSegment::op_Inequality(Game.UI.Widgets.PathSegment,Game.UI.Widgets.PathSegment)
+IL_0496: brtrue.s IL_049e
+IL_0498: ldloc.s V_20
+IL_049a: stloc.s V_18
+IL_049c: br.s IL_04b3
+IL_049e: ldloc.s V_20
+IL_04a0: ldc.i4.1
+IL_04a1: add
+IL_04a2: stloc.s V_20
+IL_04a4: ldloc.s V_20
+IL_04a6: ldarg.0
+IL_04a7: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_04ac: callvirt System.Int32 System.Collections.Generic.ICollection`1<Game.UI.Widgets.IWidget>::get_Count()
+IL_04b1: blt.s IL_046e
+IL_04b3: ldarg.0
+IL_04b4: call Game.UI.Editor.EditorSection Game.UI.Editor.InspectorPanelSystem::RefreshObjectStatePanel()
+IL_04b9: stloc.s V_19
+IL_04bb: ldloc.s V_19
+IL_04bd: brfalse.s IL_04d4
+IL_04bf: ldloc.s V_18
+IL_04c1: ldc.i4.m1
+IL_04c2: beq.s IL_04d4
+IL_04c4: ldarg.0
+IL_04c5: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_04ca: ldloc.s V_18
+IL_04cc: ldloc.s V_19
+IL_04ce: callvirt System.Void System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>::set_Item(System.Int32,!0)
+IL_04d3: ret
+IL_04d4: ldloc.s V_19
+IL_04d6: brfalse.s IL_0501
+IL_04d8: ldloc.s V_18
+IL_04da: ldc.i4.m1
+IL_04db: bne.un.s IL_0501
+IL_04dd: ldarg.0
+IL_04de: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_04e3: call System.Collections.Generic.List`1<!!0> System.Linq.Enumerable::ToList<Game.UI.Widgets.IWidget>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_04e8: stloc.s V_21
+IL_04ea: ldloc.s V_21
+IL_04ec: ldloc.s V_19
+IL_04ee: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_04f3: ldarg.0
+IL_04f4: ldloc.s V_21
+IL_04f6: callvirt !0[] System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::ToArray()
+IL_04fb: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0500: ret
+IL_0501: ldloc.s V_19
+IL_0503: brtrue.s IL_052d
+IL_0505: ldloc.s V_18
+IL_0507: ldc.i4.m1
+IL_0508: beq.s IL_052d
+IL_050a: ldarg.0
+IL_050b: callvirt System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()
+IL_0510: call System.Collections.Generic.List`1<!!0> System.Linq.Enumerable::ToList<Game.UI.Widgets.IWidget>(System.Collections.Generic.IEnumerable`1<!!0>)
+IL_0515: stloc.s V_22
+IL_0517: ldloc.s V_22
+IL_0519: ldloc.s V_18
+IL_051b: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::RemoveAt(System.Int32)
+IL_0520: ldarg.0
+IL_0521: ldloc.s V_22
+IL_0523: callvirt !0[] System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::ToArray()
+IL_0528: callvirt System.Void Game.UI.Editor.EditorPanelSystemBase::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_052d: ret

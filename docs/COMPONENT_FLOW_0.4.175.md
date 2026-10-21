@@ -1,0 +1,11 @@
+# Simplified component transfer — 0.4.175
+
+21 October 2026. User requested removal of the duplicate component list and Preview button, retention of the information below, Select All beside copy controls and use of a vanilla checkbox.
+
+VERIFIED-STATIC: Object Info heading selection now renders the installed native game-ui/common/input/toggle/checkbox/checkbox.tsx Checkbox with the editor-small-checkbox theme. Select All selects valid attached component indices through the existing token-validated selection command; Copy selected retains the existing clipboard path. The native title's expansion event is isolated from these controls. Exact component ownership/path mapping is unchanged from 0.4.174; assembly hash/MVID remain recorded in that version's evidence.
+
+VERIFIED-STATIC: Components no longer repeats component rows or copy controls. Clipboard/Clear, the three paste modes and the result information remain, with Paste and Restore as the transfer actions. Paste rebuilds the existing compatibility plan and applies it in one command, retaining Apply's identity/fingerprint, read-only, dependency, rollback and activation checks. No-change pastes preserve the previous Restore. The latest compatibility report survives apply and subsequent selection/identity refreshes and remains visible below the actions. No Undo or replacement implementation changed.
+
+VERIFIED-STATIC: managed Release build and webpack pass. All 52 transfer checks pass, including direct paste in each mode, activation policy, no-op Restore preservation, retained reports, read-only refusal and refresh-failure rollback. Heading UI tests cover the native checkbox/theme, Select All excluding missing rows, copy/selection commands and event isolation. Compact panel tests cover no list/Preview, direct paste, modes, Restore, empty clipboard gating and visible reports. Managed exact heading mapping and launcher lifecycle/recovery/settings UI regressions pass. Existing NU1900 metadata and unused test-field warnings remain.
+
+UNSUPPORTED/UNPROVEN: native checkbox appearance/focus, header layout and the simplified workflow require grouped in-game acceptance on disposable assets. No computer use or publication. Check two selected headings and Select All, copy to a second asset, each paste mode and report/Restore; ensure selection does not toggle expansion or activation.

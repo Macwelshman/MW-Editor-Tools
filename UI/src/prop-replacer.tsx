@@ -13,8 +13,8 @@ export function PropReplacerContent(){
   <div className="mw-tools-context">{s.asset||"Select an asset in Object Info."}</div>
   <Tooltip tooltip="Hover an element in Object Info or the viewport. Ctrl+C copies, Ctrl+V replaces, Ctrl+Shift+V replaces all matching elements in its asset list. Destination placement and row settings are preserved. Undo or Ctrl+Z restores the last single or batch replacement."><div className="mw-tools-shortcuts">Ctrl+C · Copy　 Ctrl+V · Replace　 Ctrl+Shift+V · Replace all</div></Tooltip>
   {!!s.rows?.length&&<div className="mw-component-list">{s.rows.map(row=><Button key={row.index} className="mw-component-row" theme={theme} selected={s.selected===row.index} onSelect={()=>command(`select|${row.index}`)}><span>{row.value}</span><span>{row.type}</span></Button>)}</div>}
-  <div className="mw-tools-clipboard"><span>{s.clipboard||"Clipboard empty"}</span>{b("Clear","clear",!s.clipboard||s.clipboard.startsWith("Clipboard empty"),"Clear the element clipboard.")}</div>
-  <div className="mw-tools-actions">{b("Copy","copy",!s.hasRow,"Copy the chosen element. You can also hover an element and press Ctrl+C.")}{b("Replace","paste",!s.canPaste,"Replace the chosen row, keeping its placement and settings.")}{b("Replace all","batch",!s.canPaste,"Replace every matching element in the chosen asset list.")}</div>
+  <div className="mw-tools-clipboard"><span>{s.clipboard||"Clipboard empty"}</span></div>
+  <div className="mw-tools-actions">{b("Copy","copy",!s.hasRow,"Copy the chosen element. You can also hover an element and press Ctrl+C.")}{b("Replace","paste",!s.canPaste,"Replace the chosen row, keeping its placement and settings.")}{b("Replace all","batch",!s.canPaste,"Replace every matching element in the chosen asset list.")}{b("Clear Clipboard","clear",!s.clipboard||s.clipboard.startsWith("Clipboard empty"),"Clear the element clipboard.")}</div>
   {s.status&&!/^(Hover an element|Chosen |Copied |Ctrl\+C copied)/.test(s.status)&&<Tooltip tooltip={s.status}><div className="mw-tools-result" role="status">{s.status.startsWith("Replaced ")?"Replacement complete. Use Undo to restore it.":s.status}</div></Tooltip>}
  </div>;
 }

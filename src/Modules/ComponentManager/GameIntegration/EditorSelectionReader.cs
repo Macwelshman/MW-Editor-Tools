@@ -64,6 +64,7 @@ namespace MW.EditorTools.Modules.ComponentManager.GameIntegration
             result.assetName = prefab.name;
             result.prefabType = prefab.GetType().FullName;
             var rows = new List<ComponentRow>();
+            var headings = ComponentHeadingReader.Read(inspector);
             if (prefab.components != null)
             {
                 for (int i = 0; i < prefab.components.Count; i++)
@@ -72,13 +73,14 @@ namespace MW.EditorTools.Modules.ComponentManager.GameIntegration
                     rows.Add(new ComponentRow {
                         index = i,
                         valid = component != null,
+                        sectionId = component != null && headings.TryGetValue(component, out var heading) ? heading : "",
                         typeName = component == null ? "Missing component reference" : component.GetType().FullName,
                         active = component != null && component.active
                     });
                 }
             }
             result.components = rows.ToArray();
-            result.status = "Copy from the source, select a destination, choose a mode and preview before applying.";
+            result.status = "Copy from the source, select a destination, choose a mode and paste.";
             return result;
         }
     }

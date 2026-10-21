@@ -6,6 +6,7 @@ import {NativePanel} from "./native-panel";
 import {MultiSaveContent} from "./multi-save";
 import {ColourVariationsContent} from "./colours/window";
 import {ComponentsContent} from "./components";
+import {registerComponentHeadings} from "./component-headings";
 import {PropReplacerContent} from "./prop-replacer";
 import launcherIcon from "./assets/mw-editor-tools.png";
 import {launcherLeft} from "./launcher-position";
@@ -138,7 +139,7 @@ function Tools() {
         </NativePanel>}
     </>;
 }
-const register:ModRegistrar = registry => {registry.append("Editor",Launcher);registry.append("Editor",Tools);};
+const register:ModRegistrar = registry => {registerComponentHeadings(registry);registry.append("Editor",Launcher);registry.append("Editor",Tools);};
 export const hasCSS = true;
 export default register;
 

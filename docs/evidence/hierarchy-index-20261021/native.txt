@@ -1,0 +1,137 @@
+Game SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+METHOD System.Boolean Game.UI.Editor.EditorHierarchyUISystem::UpdateFilteredHierarchy()
+IL_0000: newobj System.Void Game.UI.Editor.EditorHierarchyUISystem/<>c__DisplayClass102_0::.ctor()
+IL_0005: stloc.0
+IL_0006: ldloc.0
+IL_0007: ldarg.0
+IL_0008: stfld Game.UI.Editor.EditorHierarchyUISystem Game.UI.Editor.EditorHierarchyUISystem/<>c__DisplayClass102_0::<>4__this
+IL_000d: ldc.i4.0
+IL_000e: stloc.1
+IL_000f: ldarg.0
+IL_0010: ldfld System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterTask
+IL_0015: brfalse.s IL_0084
+IL_0017: ldarg.0
+IL_0018: ldfld System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterTask
+IL_001d: callvirt System.Boolean System.Threading.Tasks.Task::get_IsCompleted()
+IL_0022: brtrue.s IL_0026
+IL_0024: ldc.i4.0
+IL_0025: ret
+IL_0026: ldarg.0
+IL_0027: ldfld System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterTask
+IL_002c: callvirt System.Boolean System.Threading.Tasks.Task::get_IsCanceled()
+IL_0031: brfalse.s IL_003c
+IL_0033: ldarg.0
+IL_0034: ldnull
+IL_0035: stfld System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterTask
+IL_003a: ldc.i4.0
+IL_003b: ret
+IL_003c: ldarg.0
+IL_003d: ldfld System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterTask
+IL_0042: callvirt !0 System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>>::get_Result()
+IL_0047: stloc.2
+IL_0048: ldarg.0
+IL_0049: ldflda Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem> Game.UI.Editor.EditorHierarchyUISystem::m_FilteredHierarchy
+IL_004e: ldloca.s V_2
+IL_0050: call System.Void Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>::CopyFrom(Unity.Collections.NativeList`1<!0>&)
+IL_0055: ldloca.s V_2
+IL_0057: call System.Void Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>::Dispose()
+IL_005c: ldarg.0
+IL_005d: ldnull
+IL_005e: stfld System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterTask
+IL_0063: ldarg.0
+IL_0064: ldarg.0
+IL_0065: ldflda Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem> Game.UI.Editor.EditorHierarchyUISystem::m_FilteredHierarchy
+IL_006a: call System.Int32 Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>::get_Length()
+IL_006f: stfld System.Int32 Game.UI.Editor.EditorHierarchyUISystem::m_TotalCount
+IL_0074: ldarg.0
+IL_0075: ldfld System.Boolean Game.UI.Editor.EditorHierarchyUISystem::m_ScrollDirty
+IL_007a: brfalse.s IL_0082
+IL_007c: ldarg.0
+IL_007d: call System.Void Game.UI.Editor.EditorHierarchyUISystem::ScrollToSelectedItem()
+IL_0082: ldc.i4.1
+IL_0083: stloc.1
+IL_0084: ldarg.0
+IL_0085: ldfld System.Boolean Game.UI.Editor.EditorHierarchyUISystem::m_FilteringDirty
+IL_008a: brfalse IL_0175
+IL_008f: ldarg.0
+IL_0090: ldfld System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterTask
+IL_0095: brtrue IL_0175
+IL_009a: ldarg.0
+IL_009b: ldflda Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterBuffer
+IL_00a0: ldarg.0
+IL_00a1: ldflda Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem> Game.UI.Editor.EditorHierarchyUISystem::m_Hierarchy
+IL_00a6: call System.Void Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>::CopyFrom(Unity.Collections.NativeList`1<!0>&)
+IL_00ab: ldloc.0
+IL_00ac: ldarg.0
+IL_00ad: ldflda Unity.Collections.NativeParallelHashSet`1<Game.UI.Editor.EditorHierarchyUISystem/ItemId> Game.UI.Editor.EditorHierarchyUISystem::m_ExpandedIds
+IL_00b2: ldc.i4.4
+IL_00b3: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_00b8: call Unity.Collections.NativeArray`1<!0> Unity.Collections.NativeParallelHashSet`1<Game.UI.Editor.EditorHierarchyUISystem/ItemId>::ToNativeArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_00bd: stfld Unity.Collections.NativeArray`1<Game.UI.Editor.EditorHierarchyUISystem/ItemId> Game.UI.Editor.EditorHierarchyUISystem/<>c__DisplayClass102_0::expandedIDs
+IL_00c2: ldloc.0
+IL_00c3: ldarg.0
+IL_00c4: ldfld System.String Game.UI.Editor.EditorHierarchyUISystem::m_SearchQuery
+IL_00c9: stfld System.String Game.UI.Editor.EditorHierarchyUISystem/<>c__DisplayClass102_0::searchQuery
+IL_00ce: ldarg.0
+IL_00cf: newobj System.Void System.Threading.CancellationTokenSource::.ctor()
+IL_00d4: stfld System.Threading.CancellationTokenSource Game.UI.Editor.EditorHierarchyUISystem::m_Cts
+IL_00d9: ldloc.0
+IL_00da: ldarg.0
+IL_00db: ldfld System.Threading.CancellationTokenSource Game.UI.Editor.EditorHierarchyUISystem::m_Cts
+IL_00e0: callvirt System.Threading.CancellationToken System.Threading.CancellationTokenSource::get_Token()
+IL_00e5: stfld System.Threading.CancellationToken Game.UI.Editor.EditorHierarchyUISystem/<>c__DisplayClass102_0::token
+IL_00ea: ldarg.0
+IL_00eb: ldflda Unity.Collections.NativeParallelHashSet`1<Game.Prefabs.PrefabData> Game.UI.Editor.EditorHierarchyUISystem::m_PrefabsCache
+IL_00f0: call Unity.Collections.NativeParallelHashSet`1/Enumerator<!0> Unity.Collections.NativeParallelHashSet`1<Game.Prefabs.PrefabData>::GetEnumerator()
+IL_00f5: stloc.3
+IL_00f6: br.s IL_0138
+IL_00f8: ldloca.s V_3
+IL_00fa: call !0 Unity.Collections.NativeParallelHashSet`1/Enumerator<Game.Prefabs.PrefabData>::get_Current()
+IL_00ff: stloc.s V_4
+IL_0101: ldarg.0
+IL_0102: ldfld Game.Prefabs.PrefabSystem Game.UI.Editor.EditorHierarchyUISystem::m_PrefabSystem
+IL_0107: ldloc.s V_4
+IL_0109: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabData)
+IL_010e: stloc.s V_5
+IL_0110: ldarg.0
+IL_0111: ldfld System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabData,System.String> Game.UI.Editor.EditorHierarchyUISystem::m_NamesCache
+IL_0116: ldloc.s V_4
+IL_0118: ldloc.s V_5
+IL_011a: callvirt System.String UnityEngine.Object::get_name()
+IL_011f: callvirt System.Void System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabData,System.String>::set_Item(!0,!1)
+IL_0124: ldarg.0
+IL_0125: ldfld System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabData,System.Boolean> Game.UI.Editor.EditorHierarchyUISystem::m_LockedCache
+IL_012a: ldloc.s V_4
+IL_012c: ldloc.s V_5
+IL_012e: callvirt System.Boolean Game.Prefabs.PrefabBase::get_isReadOnly()
+IL_0133: callvirt System.Void System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabData,System.Boolean>::set_Item(!0,!1)
+IL_0138: ldloca.s V_3
+IL_013a: call System.Boolean Unity.Collections.NativeParallelHashSet`1/Enumerator<Game.Prefabs.PrefabData>::MoveNext()
+IL_013f: brtrue.s IL_00f8
+IL_0141: leave.s IL_0151
+IL_0143: ldloca.s V_3
+IL_0145: constrained. Unity.Collections.NativeParallelHashSet`1/Enumerator<Game.Prefabs.PrefabData>
+IL_014b: callvirt System.Void System.IDisposable::Dispose()
+IL_0150: endfinally
+IL_0151: ldarg.0
+IL_0152: ldloc.0
+IL_0153: ldftn Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem> Game.UI.Editor.EditorHierarchyUISystem/<>c__DisplayClass102_0::<UpdateFilteredHierarchy>b__0()
+IL_0159: newobj System.Void System.Func`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>>::.ctor(System.Object,System.IntPtr)
+IL_015e: ldloc.0
+IL_015f: ldfld System.Threading.CancellationToken Game.UI.Editor.EditorHierarchyUISystem/<>c__DisplayClass102_0::token
+IL_0164: call System.Threading.Tasks.Task`1<!!0> System.Threading.Tasks.Task::Run<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>>(System.Func`1<!!0>,System.Threading.CancellationToken)
+IL_0169: stfld System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>> Game.UI.Editor.EditorHierarchyUISystem::m_HierarchyFilterTask
+IL_016e: ldarg.0
+IL_016f: ldc.i4.0
+IL_0170: stfld System.Boolean Game.UI.Editor.EditorHierarchyUISystem::m_FilteringDirty
+IL_0175: ldloc.1
+IL_0176: ret
+METHOD T Game.Prefabs.PrefabSystem::GetPrefab(Game.Prefabs.PrefabData)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<Game.Prefabs.PrefabBase> Game.Prefabs.PrefabSystem::m_Prefabs
+IL_0006: ldarg.1
+IL_0007: ldfld System.Int32 Game.Prefabs.PrefabData::m_Index
+IL_000c: callvirt !0 System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>::get_Item(System.Int32)
+IL_0011: isinst T
+IL_0016: unbox.any T
+IL_001b: ret

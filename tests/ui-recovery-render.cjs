@@ -11,6 +11,7 @@ const button=({children,onSelect,theme,selected,focusKey,disableHint,...props})=
 const exported={};
 const code=ts.transpileModule(fs.readFileSync(path.join(ui,'src/index.tsx'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.React,esModuleInterop:true}}).outputText;
 vm.runInNewContext(code,{exports:exported,require:name=>{
+  if(name==='./component-headings')return {registerComponentHeadings:()=>{}};
   if(name==='./assets/mw-editor-tools.png')return 'icon.png';
   if(name==='./launcher-position')return {};
   if(name==='react')return react;

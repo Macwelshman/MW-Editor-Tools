@@ -47,6 +47,22 @@ class Program {
  session.Plan(otherTarget,clipboard,TransferMode.SettingsOnly);var writeCount=writes;second.Number=100;Refuses(()=>session.Apply(clipboard,otherTarget),"later scalar edit accepted");Check(writes==writeCount,"refused operation cleared Undo slot");Check(writes>0,"successful writes did not invalidate Undo slot");
  var finite=rich.Number;rich.Number=float.NaN;rev=clipboard.Revision;clipboard.Copy(source,new[]{0});Check(clipboard.Revision==rev,"nonfinite setting replaced clipboard");rich.Number=finite;
  empty.isReadOnly=true;Refuses(()=>session.Plan(emptyTarget,clipboard,TransferMode.ComponentsOnly),"read-only target accepted");
+ var directClipboard=new TransferClipboard();directClipboard.Copy(source,new[]{0,1});
+ foreach(var pasteMode in new[]{TransferMode.ComponentsOnly,TransferMode.SettingsOnly,TransferMode.ComponentsAndSettings}){
+  var directDest=new PrefabBase{name="direct"};var directExisting=(RichSettings)directDest.AddComponent(typeof(RichSettings));directExisting.Number=-12;directExisting.active=false;
+  var directTarget=new TransferTarget(world,directDest,directDest);var direct=new TransferSession();
+  direct.Paste(directTarget,directClipboard,pasteMode);
+  Check(directDest.components.Count==(pasteMode==TransferMode.SettingsOnly?1:2),"one-click paste mode addition policy");
+  Check(directExisting.Number==(pasteMode==TransferMode.ComponentsOnly?-12:rich.Number)&&!directExisting.active,"one-click paste settings/activation policy");
+  Check(direct.Summary.Contains(pasteMode==TransferMode.ComponentsOnly?"unchanged":"replace settings"),"one-click report lost after apply");
+  direct.InvalidatePreview();Check(direct.Summary.Length>0,"selection refresh erased paste report");
+  direct.ClearReport();Check(direct.Summary.Length==0&&direct.CanRestore,"asset report clear lost restore or retained report");
+  if(pasteMode==TransferMode.SettingsOnly){direct.Paste(directTarget,directClipboard,TransferMode.ComponentsOnly);direct.Restore(directTarget);Check(directDest.components.Count==1,"latest paste restore");}
+  else {var beforeNoOp=direct.Summary;direct.Paste(directTarget,directClipboard,TransferMode.ComponentsOnly);Check(direct.CanRestore,"no-op paste lost restore");direct.Restore(directTarget);Check(directDest.components.Count==1&&directExisting.Number==-12,"one-click paste restore");}
+ }
+ var failureDest=new PrefabBase();var failureTarget=new TransferTarget(world,failureDest,failureDest);var directFailure=new TransferSession();registry.FailUpdates=1;
+ Refuses(()=>directFailure.Paste(failureTarget,directClipboard,TransferMode.ComponentsAndSettings),"one-click refresh failure accepted");Check(failureDest.components.Count==0,"one-click rollback leaked components");
+ failureDest.isReadOnly=true;Refuses(()=>directFailure.Paste(failureTarget,directClipboard,TransferMode.ComponentsAndSettings),"one-click read-only accepted");
  Console.WriteLine("PASS: "+count+" actual-source component transfer checks (managed doubles; native editor acceptance pending).");
  }
 }

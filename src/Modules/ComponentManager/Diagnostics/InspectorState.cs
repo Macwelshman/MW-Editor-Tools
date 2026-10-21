@@ -17,7 +17,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Diagnostics
         public string copyResult = "";
         public int[] selectedIndices = new int[0];
         public string transferMode = "ComponentsAndSettings";
-        public string previewSummary = "Choose a mode and preview the destination.";
+        public string previewSummary = "Choose a mode and paste into the destination.";
         public bool canApply, canRestore;
         public ComponentRow[] components = new ComponentRow[0];
     }
@@ -27,6 +27,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Diagnostics
     {
         public int index;
         public string typeName;
+        public string sectionId = "";
         public bool active;
         public bool valid;
     }

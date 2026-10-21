@@ -60,3 +60,6 @@
 
 .mw-tools-section .mw-tools-introduction { display:block; margin:0 0 12rem; color:#acbdcd; line-height:1.35; }
 
+.mw-component-heading-title { display:flex; align-items:center; }
+.mw-component-heading-check { display:flex; align-items:center; margin-right:8rem; }
+.mw-component-heading-check:focus { outline:2rem solid #c8edff; }
