@@ -1,0 +1,6 @@
+
+Algorithm : SHA256
+Hash      : AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A
+Path      : C:\Program Files (x86)\Steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed\Game.dll
+
+

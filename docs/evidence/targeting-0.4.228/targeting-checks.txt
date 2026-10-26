@@ -1,0 +1,1 @@
+PASS: 68 actual-source targeting, overlay, selection and read-only Undo feedback assertions. Native tool acceptance pending.

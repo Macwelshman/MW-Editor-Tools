@@ -1,0 +1,12 @@
+Phase3Safety: 1036 passed
+MoveUndoSafety: 39 passed
+BoundCompletionSafety: 77 passed
+SpawnAccessSafety: 55 passed
+EffectUndoSafety: 41 passed
+EffectRestoreSafety: 35 passed
+BoundFoliageSafety: 25 passed
+AreaMoveSafety: 97 passed
+Total: 1405 managed checks; native acceptance pending
+Release build: pass (NU1900 warning, zero errors)
+UI build: pass
+Game.dll SHA256: AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A

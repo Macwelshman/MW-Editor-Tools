@@ -1,0 +1,13 @@
+# Surface replacement crash containment — 0.4.234
+
+VERIFIED-RUNTIME (logs): the retained log starts with MW Editor Tools 0.4.232.0. At 2026-10-24 00:00:15.898, viewport copy captured Tiles Surface 03. At 00:00:17.915, replacement of area source row 5 reported success on MW Mixed Test Components. Player.log ends in `Item not found (NativeQuadTree.Update)!` and Burst's application-abort message. This predates installation of 0.4.233. Evidence is preserved under `evidence/surface-paste-crash-0.4.233` (folder named for investigation version, not crash-session version).
+
+VERIFIED-STATIC: inspected Game.dll MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef, identity Game 0.0.0.0. SHA-256 and narrow IL are retained with the logs. Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob.UpdateAreas marks old areas Deleted at IL_0073 and calls CreateAreas at IL_00d6. Game.Areas.SearchSystem/UpdateSearchTreeJob.Execute uses triangle-count bookkeeping and calls NativeQuadTree.Update at IL_02f3. The native crash stack does not identify its precise generic caller, so attribution to this area search job is HYPOTHESIS, not a proved root cause. A safe regenerated-area lifecycle repair remains UNPROVEN.
+
+VERIFIED-STATIC: 0.4.234 contains the crash path by rejecting ObjectSubAreaInfo replacement in the shared Replace entry point, before snapshots, history clearing, mutation or refresh. Browser, viewport, single, batch and shortcut paths converge there. Same-prefab no-op remains harmless. Published state disables both replacement buttons and explains why; selection, copying and clipboard clearing remain available. Deletion/move Undo and outline implementations are untouched. This is a temporary restriction, not a completed surface replacement repair.
+
+VERIFIED-RUNTIME (managed): Release/UI builds pass; UI render/dispatch checks 32, hover/ownership checks 26 and replacement Undo checks 45 pass. Focused whitespace check passes. Release build reports advisory-feed warning NU1900; no fresh package vulnerability audit is claimed. No Unity native reproduction was attempted.
+
+VERIFIED-RUNTIME (installation): installed 0.4.234 after game-absence checks, nine-file verified rollback backup and matching package hashes. See `../outputs/installation-0.4.234.txt` and evidence `installed-hashes.csv`.
+
+Remaining work: establish the native spatial-index lifecycle failure, implement a narrowly verified surface replacement strategy preserving destination geometry/settings and companion references, and pass native replacement/Undo acceptance before lifting the restriction. No game files edited or publishing performed.

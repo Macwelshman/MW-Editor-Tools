@@ -28,7 +28,7 @@
 .mw-tools-diagnostics { display:flex; flex-wrap:wrap; gap:6rem; padding:10rem; margin:10rem 0; background:#20262b; }
 .mw-component-list { max-height:300rem; overflow-y:auto; background:#20262b; }
 .mw-component-row { display:flex; width:100%; justify-content:space-between; padding:7rem 10rem; }
-.mw-component-result { white-space:pre-wrap; overflow-wrap:anywhere; padding:8rem; background:#20262b; }
+.mw-component-result { white-space:pre-wrap; overflow-wrap:normal; padding:8rem; background:#20262b; }
 .mw-tools-diagnostics > p { width:100%; }
 
 /* Shared compact layout; explicit block flow prevents native heading flex rules
@@ -44,14 +44,14 @@
 .mw-tools-button-wrap { display:inline-flex; flex:0 0 auto; }
 .mw-tools-button-wrap > button { white-space:nowrap; }
 .mw-tools-clipboard { display:flex; align-items:center; justify-content:space-between; padding:8rem 10rem; margin:8rem 0; background:#20262b; }
-.mw-tools-clipboard > span { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; padding-right:8rem; }
+.mw-tools-clipboard > span { flex:1 1 auto; min-width:0; overflow-wrap:normal; padding-right:8rem; }
 .mw-tools-shortcuts { color:#acbdcd; margin-bottom:10rem; }
 .mw-component-list { max-height:240rem; }
 .mw-component-list:empty { display:none; }
 .mw-component-row { align-items:center; text-align:left; }
-.mw-component-row > span:first-child { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+.mw-component-row > span:first-child { flex:1 1 auto; min-width:0; overflow-wrap:normal; }
 .mw-component-row > span:last-child { flex:0 0 auto; margin-left:14rem; color:#acbdcd; }
-.mw-tools-result { display:block; margin-top:8rem; color:#acbdcd; overflow-wrap:anywhere; }
+.mw-tools-result { display:block; margin-top:8rem; color:#acbdcd; overflow-wrap:normal; }
 .mw-tools-multisave > button { width:auto; align-self:flex-start; }
 .mw-tools-section .mwet-colors-fixed-controls { padding:0; }
 .mw-tools-section .mwet-colors-footer-actions { flex-wrap:wrap; }
@@ -63,3 +63,73 @@
 .mw-component-heading-title { display:flex; align-items:center; }
 .mw-component-heading-check { display:flex; align-items:center; margin-right:8rem; }
 .mw-component-heading-check:focus { outline:2rem solid #c8edff; }
+
+.mw-pack-editor label { display:flex; flex-direction:column; margin:8rem 0; }
+.mw-pack-editor input { color:#fff; background:#20262b; border:1rem solid #647482; padding:6rem; }
+.mw-pack-inputs { display:flex; gap:12rem; }
+.mw-pack-list { max-height:230rem; overflow-y:auto; }
+.mw-pack-list button { width:100%; text-align:left; }
+.mw-pack-preview { display:block; width:100%; font-size:var(--fontSizeS); margin-top:10rem; background-color:#20262b; }
+.mw-pack-preview-row { display:flex; flex-direction:row; align-items:center; width:100%; min-height:34rem; border-bottom:1rem solid #52616b; }
+.mw-pack-preview-header { background-color:#344b59; font-weight:bold; }
+.mw-pack-preview-name { display:block; flex:1 1 0; min-width:0; padding:7rem 10rem; overflow-wrap:normal; }
+.mw-pack-preview-value { display:block; flex:0 0 105rem; width:105rem; box-sizing:border-box; padding:7rem 10rem; text-align:right; white-space:nowrap; }
+.mw-pack-preview-scroll { display:block; max-height:320rem; overflow-y:auto; }
+.mw-pack-pagination { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; margin:8rem 0; color:#bdcbd5; }
+.mw-pack-pagination > span { display:block; }
+.mw-component-tasks { display:flex; flex-wrap:wrap; gap:6rem; margin:0 0 12rem; padding-bottom:10rem; border-bottom:1rem solid #647482; }
+.mw-component-tasks > div { flex:1 1 auto; }
+.mw-component-tasks button { width:100%; }
+.mw-task-card { display:block; padding:14rem; margin:0 0 12rem; background-color:#27343c; border:1rem solid #52616b; border-radius:4rem; }
+.mw-tools-section .mw-task-card h3 { margin:0 0 8rem; }
+.mw-task-caption { display:block; color:#bdcbd5; line-height:1.4; overflow-wrap:normal; }
+.mw-task-card > .mw-tools-actions { margin:10rem 0; }
+.mw-locale-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; padding:12rem 0; border-bottom:1rem solid #52616b; }
+.mw-locale-row > div:first-child { flex:1 1 240rem; min-width:0; padding-right:12rem; }
+.mw-locale-row strong { display:block; margin-bottom:4rem; }
+.mw-locale-entry label { display:flex; flex-direction:column; margin:8rem 0; }
+.mw-locale-entry input,.mw-locale-entry textarea { display:block; width:100%; box-sizing:border-box; padding:8rem; color:#fff; background-color:#20262b; border:1rem solid #647482; }
+.mw-locale-entry textarea { min-height:110rem; resize:vertical; }
+.mw-pack-editor h3:not(:first-child) { padding-top:16rem; margin-top:14rem; border-top:1rem solid #52616b; }
+.mw-pack-inputs > label { flex:1 1 0; min-width:0; }
+.mw-pack-editor label { display:flex; align-items:stretch; width:100%; }
+.mw-pack-editor input,.mw-pack-editor textarea { box-sizing:border-box; min-width:0; width:100%; }
+.mw-pack-editor .mw-pattern-input { display:block; width:100%; min-height:112rem; padding:10rem; color:#fff; background-color:#20262b; border:1rem solid #647482; font-family:monospace; font-size:var(--fontSizeS); line-height:1.5; white-space:pre-wrap; overflow-wrap:normal; resize:vertical; }
+.mw-component-result { margin-top:10rem; }
+
+.mw-workspace-save-layout { display:flex; flex-direction:column; min-height:0; }
+.mw-workspace-save-list { flex:1 1 0; min-height:0; }
+.mw-workspace-save-footer { flex:0 0 auto; padding:8rem 12rem; border-top:1rem solid rgba(255,255,255,.2); background-color:rgba(30,40,46,.95); }
+.mw-workspace-save-footer .mw-tools-actions { margin:0; justify-content:flex-end; }
+.mw-workspace-save-status { font-size:12rem; margin-top:4rem; }
+
+/* Keep words intact; normal prose wraps only at word boundaries. */
+.mw-tools-panel, .mw-tools-panel *, .mw-workspace-save-footer, .mw-workspace-save-footer * { word-break:normal; overflow-wrap:normal; hyphens:none; }
+.mw-workspace-save-footer .mw-tools-save-progress { margin:8rem 0; }
+.mw-targeting-controls { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 8rem; }
+.mw-targeting-filter { display: flex; flex-direction: column; margin: 0 8rem 8rem; }
+.mw-targeting-dropdown { min-width: 180rem; max-width: 100%; padding: 5rem; color: #fff; background-color: #2c3941; }
+.mw-targeting-feedback { margin: 6rem 0 12rem; padding-left: 10rem; border-left: 2rem solid #63cddd; white-space: normal; word-break: normal; overflow-wrap: normal; }
+
+.mw-targeting-controls { position:relative; z-index:2; }
+.mw-targeting-popup { z-index:1000; background-color:#29363e; color:#fff; border:1rem solid #8299a6; }
+.mw-targeting-menu { display:flex; flex-direction:column; padding:4rem; background-color:#29363e; }
+.mw-targeting-menu-scroll { max-height:360rem; overflow-y:auto; }
+.mw-targeting-item { display:block; padding:7rem 12rem; color:#fff; background-color:#29363e; white-space:nowrap; }
+.mw-targeting-item:hover, .mw-targeting-item[aria-selected="true"] { background-color:#456878; }
+
+/* Fixed-height first row keeps Start/Stop anchored when controls appear. */
+.mw-replacer-body .mw-targeting-controls { align-items:center; min-height:36rem; gap:8rem; }
+.mw-replacer-body .mw-targeting-filter { flex-direction:row; align-items:center; margin:0; }
+.mw-replacer-body .mw-targeting-filter > span { flex:0 0 auto; margin:0 8rem 0 0; white-space:nowrap; }
+.mw-replacer-body .mw-tools-button-wrap > button,
+.mw-replacer-body .mw-targeting-controls > button { display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:180rem; min-width:180rem; max-width:180rem; height:36rem; min-height:36rem; padding:0 10rem; }
+/* Keep the native dropdown indicator and layout, distinct from action buttons. */
+.mw-replacer-body .mw-targeting-dropdown { box-sizing:border-box; width:210rem; min-width:210rem; max-width:210rem; height:36rem; min-height:36rem; padding:5rem 10rem; text-align:left; border:1rem solid #8299a6; background-color:#26343e; }
+
+/* Hover feedback must not change the window's viewport hit-test boundary. */
+.mw-replacer-body .mw-targeting-feedback-active { box-sizing:border-box; height:220rem; min-height:220rem; max-height:220rem; overflow-y:auto; overflow-x:auto; }
+
+.mw-viewport-selected-box { border-color:#19e6ff !important; background-color:rgba(25,230,255,.12) !important; }
+.mw-viewport-selected-label { margin-left:10rem; color:#7ff3ff; font-size:13rem; white-space:nowrap; }
+.mw-viewport-selected-component { box-shadow:inset 3rem 0 #19e6ff; }

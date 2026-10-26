@@ -16,6 +16,10 @@ namespace MW.EditorTools
         private MW.EditorTools.Modules.ColourVariations.PaletteWindow colourWindow;
         private MW.EditorTools.Modules.ComponentManager.Systems.ComponentToolSystem componentTool;
         private MW.EditorTools.Modules.PropReplacer.PropReplacerSystem propReplacer;
+        private MW.EditorTools.Modules.PropReplacer.SurfaceRenderSystem surfaceRenderer;
+        private MW.EditorTools.Modules.Targeting.EditorTargetingTool targeting;
+        private MW.EditorTools.Modules.Targeting.TargetingEditGuard targetingEditGuard;
+        private MW.EditorTools.Modules.Targeting.OutlineColourSystem outlineColours;
         private MW.EditorTools.Settings.EditorToolsOptions options;
         private MW.EditorTools.Settings.OptionsLocale optionsLocale;
         // The game's ModInfo.Load uses GetUninitializedObject: field initializers
@@ -27,20 +31,53 @@ namespace MW.EditorTools
             optionsLocales = new System.Collections.Generic.List<string>();
             try
             {
+                Log.Info("MW Editor Tools " + typeof(Mod).Assembly.GetName().Version + " loading.");
                 host = new GameObject("MW Editor Tools — component confirmation");
                 UnityEngine.Object.DontDestroyOnLoad(host);
                 var settings = MW.EditorTools.Settings.EditorToolsSettings.Load();
                 var context = new MW.EditorTools.Services.EditorContextService(updateSystem.World);
-                var protection = host.AddComponent<ComponentConfirmation>(); protection.Initialize(settings);
+                try { host.AddComponent<MW.EditorTools.Modules.Compatibility.AssetIconCreatorCompatibility>().Initialize(); }
+                catch (Exception error)
+                {
+                    Cleanup(() => host.GetComponent<MW.EditorTools.Modules.Compatibility.AssetIconCreatorCompatibility>()?.Release(), "partial Asset Icon Creator compatibility");
+                    Log.Error(error, "Asset Icon Creator compatibility unavailable; other editor tools remain active. Automatic UI Object setup is unprotected.");
+                }
+                var protection = host.AddComponent<ComponentConfirmation>();
+                try { protection.Initialize(settings); }
+                catch (Exception error)
+                {
+                    Cleanup(() => protection.Release(), "partial component confirmation");
+                    Log.Error(error, "Component confirmation unavailable; other editor tools remain active. Vanilla component removal is unprotected.");
+                }
                 try { host.AddComponent<ListRecovery>().Initialize(updateSystem.World, settings, context); }
                 catch (Exception error)
                 {
                     host.GetComponent<ListRecovery>()?.Release();
-                    Log.Error(error, "List recovery is unavailable; component confirmation remains active.");
+                    Log.Error(error, "List recovery is unavailable; other editor tools remain active.");
                 }
                 ui = updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.UI.EditorToolsUISystem>();
                 ui.Initialize(settings, context, host.GetComponent<ListRecovery>(), protection);
                 updateSystem.UpdateAt<MW.EditorTools.UI.EditorToolsUISystem>(SystemUpdatePhase.UIUpdate);
+                try {
+                    targeting=updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.Targeting.EditorTargetingTool>();
+                    targeting.Initialize(context,host.GetComponent<ListRecovery>(),()=>ui?.ComponentCommandAllowed==true);
+                    targetingEditGuard=new MW.EditorTools.Modules.Targeting.TargetingEditGuard(targeting);
+                    updateSystem.UpdateAt<MW.EditorTools.Modules.Targeting.EditorTargetingTool>(SystemUpdatePhase.ToolUpdate);
+                } catch(Exception error) {
+                    Cleanup(()=>targetingEditGuard?.Dispose(),"partial targeting edit guard");targetingEditGuard=null;
+                    Cleanup(()=>targeting?.Release(),"partial targeting");targeting=null;
+                    Log.Error(error,"Filtered targeting unavailable; existing editor tools and Undo remain active.");
+                }
+                if(targeting!=null) try {
+                    outlineColours=updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.Targeting.OutlineColourSystem>();
+                    outlineColours.Initialize(targeting);
+                    targeting.RestoreOutlineBeforeEdit=()=>outlineColours?.RestoreForInspectorEdit();
+                    updateSystem.UpdateAfter<MW.EditorTools.Modules.Targeting.OutlineColourSystem,Game.Rendering.BatchDataSystem>(SystemUpdatePhase.Rendering);
+                } catch(Exception error) {
+                    Cleanup(()=>outlineColours?.Release(),"partial outline renderer");outlineColours=null;
+                    targeting?.SetOutlineStatus("Custom outline colours unavailable in this game build; native highlighting remains active.");
+                    Log.Error(error,"Custom outline colours unavailable; targeting and Undo remain active.");
+                }
                 try {
                     propReplacer=updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.PropReplacer.PropReplacerSystem>();
                     propReplacer.Initialize(context,()=>host?.GetComponent<ListRecovery>()?.ClearHistory(),()=>ui?.ClipboardShortcutAllowed==true);
@@ -48,9 +85,14 @@ namespace MW.EditorTools
                     propReplacer.RecordUndo=action=>host.GetComponent<ListRecovery>().RecordReplacementUndo(action);
                     updateSystem.UpdateAt<MW.EditorTools.Modules.PropReplacer.PropReplacerSystem>(SystemUpdatePhase.UIUpdate);
                 } catch(Exception error){if(propReplacer!=null)propReplacer.Enabled=false;propReplacer=null;Log.Error(error,"Prop Replacer unavailable; other editor tools remain active.");}
+                if(propReplacer!=null)try {
+                    surfaceRenderer=updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.PropReplacer.SurfaceRenderSystem>();
+                    updateSystem.UpdateBefore<MW.EditorTools.Modules.PropReplacer.SurfaceRenderSystem,Game.Rendering.AreaBatchSystem>(SystemUpdatePhase.PreCulling);
+                    surfaceRenderer.Initialize(propReplacer);
+                }catch(Exception error){Cleanup(()=>surfaceRenderer?.Release(),"partial surface renderer");surfaceRenderer=null;Log.Error(error,"Surface replacement renderer unavailable; other editor tools remain active.");}
                 try {
                     componentTool = updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.ComponentManager.Systems.ComponentToolSystem>();
-                    componentTool.Initialize(()=>host?.GetComponent<ListRecovery>()?.ClearHistory(),()=>ui?.ClipboardShortcutAllowed==true);
+                    componentTool.Initialize(()=>host?.GetComponent<ListRecovery>()?.ClearHistory(),()=>ui?.ComponentCommandAllowed==true);
                     componentTool.Enabled = true;
                     updateSystem.UpdateAt<MW.EditorTools.Modules.ComponentManager.Systems.ComponentToolSystem>(SystemUpdatePhase.UIUpdate);
                     Log.Info("MW Editor Tools: component transfer engine integrated in the shared Components tab.");
@@ -115,6 +157,13 @@ namespace MW.EditorTools
         public void OnDispose()
         {
             ReleaseOptions();
+            var oldSurfaceRenderer=surfaceRenderer;surfaceRenderer=null;
+            Cleanup(()=>oldSurfaceRenderer?.Release(),"surface renderer");
+            var oldOutlines=outlineColours;outlineColours=null;
+            Cleanup(()=>oldOutlines?.Release(),"outline renderer");
+            Cleanup(()=>targetingEditGuard?.Dispose(),"targeting edit guard");targetingEditGuard=null;
+            var oldTargeting=targeting;targeting=null;
+            Cleanup(()=>oldTargeting?.Release(),"targeting");
             var oldColours=colours;colours=null;
             MW.EditorTools.Modules.ColourVariations.PaletteWindow.Instance=null;
             Cleanup(()=>oldColours?.Release(),"Colours UI");
@@ -132,6 +181,7 @@ namespace MW.EditorTools
             if (oldHost == null) return;
             Cleanup(() => oldHost.GetComponent<ListRecovery>()?.Release(), "list recovery");
             Cleanup(() => oldHost.GetComponent<ComponentConfirmation>()?.Release(), "component confirmation");
+            Cleanup(() => oldHost.GetComponent<MW.EditorTools.Modules.Compatibility.AssetIconCreatorCompatibility>()?.Release(), "Asset Icon Creator compatibility");
             Cleanup(() => UnityEngine.Object.Destroy(oldHost), "host");
         }
 

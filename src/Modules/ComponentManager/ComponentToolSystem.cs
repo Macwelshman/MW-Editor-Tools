@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace MW.EditorTools.Modules.ComponentManager.Systems
 {
-    public sealed class ComponentToolSystem : UISystemBase
+    public sealed partial class ComponentToolSystem : UISystemBase
     {
         private ValueBinding<string> binding;
         private InspectorState state = new InspectorState();
@@ -30,7 +30,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
         private PrefabBase reportAsset;
         private int[] selectedIndices = new int[0];
         private Func<bool> writeAllowed;
-        internal void Initialize(Action beforeWrite,Func<bool> allowWrite){transfer.BeforeWrite=beforeWrite;writeAllowed=allowWrite;}
+        internal void Initialize(Action beforeWrite,Func<bool> allowWrite){transfer.BeforeWrite=beforeWrite;packBeforeWrite=beforeWrite;writeAllowed=allowWrite;}
 
         public override GameMode gameMode { get { return GameMode.Editor; } }
 
@@ -39,6 +39,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
             base.OnCreate();
             AddBinding(binding = new ValueBinding<string>("mwComponentTool", "state", "{}"));
             AddBinding(new TriggerBinding<string>("mwComponentTool", "command", Command));
+            CreatePackBindings();
         }
 
         private void Command(string command)
@@ -47,6 +48,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
             if(writeAllowed?.Invoke()!=true)return;
             var manager = GameManager.instance;
             if (manager == null || manager.gameMode != GameMode.Editor || manager.isGameLoading) { Clear(); return; }
+            if (TryPackCommand(command)) return;
             if (command == "open") visible = true;
             else if (command == "close") visible = false;
             else if (command == "clearClipboard") { clipboard.Clear(); transfer.InvalidatePreview(); copyResult = "Clipboard cleared."; }
@@ -56,7 +58,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
                 if (!Enum.TryParse(command.Substring(5), out requested) || !Enum.IsDefined(typeof(TransferMode), requested)) return;
                 mode = requested; transfer.InvalidatePreview(); copyResult = "Mode: " + mode + ". Ready to paste into the destination.";
             }
-            else if (command != null && (command.StartsWith("preview|", StringComparison.Ordinal) || command.StartsWith("apply|", StringComparison.Ordinal) || command.StartsWith("paste|", StringComparison.Ordinal) || command.StartsWith("restore|", StringComparison.Ordinal)))
+            else if (command != null && (command.StartsWith("preview|", StringComparison.Ordinal) || command.StartsWith("apply|", StringComparison.Ordinal) || command.StartsWith("paste|", StringComparison.Ordinal) || command.StartsWith("restore|", StringComparison.Ordinal) || command.StartsWith("recover|", StringComparison.Ordinal)))
             {
                 try
                 {
@@ -70,9 +72,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
                     else
                     {
                         var target = TransferTarget.Resolve(World, prefab, selection);
-                        copyResult = parts[0] == "paste" ? transfer.Paste(target, clipboard, mode)
-                            : parts[0] == "preview" ? transfer.Plan(target, clipboard, mode)
-                            : parts[0] == "apply" ? transfer.Apply(clipboard, target) : transfer.Restore(target);
+                        copyResult = transfer.ExecutePasteCommand(parts[0],target,clipboard,mode);
                     }
                     state = fresh;
                     MW.EditorTools.Mod.Log.Info(copyResult);
@@ -92,7 +92,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
                     var fresh = EditorSelectionReader.Read(World, out prefab, out selection);
                     TrackSelection(fresh, prefab, selection);
                     var parts = command.Split('|');
-                    if (parts.Length != 3 || !fresh.hasAsset || parts[1] != fresh.selectionToken)
+                    if ((parts.Length != 3 && parts.Length != 4) || !fresh.hasAsset || parts[1] != fresh.selectionToken)
                         copyResult = "Selection changed. Select components again; clipboard preserved.";
                     else
                     {
@@ -109,12 +109,12 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
                                     throw new ArgumentException("Component list changed. Select components again.");
                             selectedIndices = indices;
                             componentSelectionToken = fresh.selectionToken;
-                            copyResult = indices.Length + " component(s) selected.";
+                            copyResult = indices.Length + (indices.Length == 1 ? " component selected." : " components selected.");
                             MW.EditorTools.Mod.Log.Info(copyResult);
                         }
                         else
                         {
-                            copyResult = clipboard.Copy(prefab, indices);
+                            copyResult = clipboard.Copy(prefab, indices, parts.Length==4?ReadFieldChoices(parts[3]):null);
                             transfer.InvalidatePreview();
                             MW.EditorTools.Mod.Log.Info(copyResult);
                         }
@@ -186,7 +186,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
                 if (diagnostic != lastDiagnostic)
                 {
                     MW.EditorTools.Mod.Log.Info(state.hasAsset
-                        ? "Selected prefab: " + state.assetName + " (" + state.prefabType + "); found " + state.components.Length + " components."
+                        ? "Selected prefab: " + state.assetName + " (" + state.prefabType + "); found " + state.components.Length + (state.components.Length == 1 ? " component." : " components.")
                         : state.status + " Selection: " + state.selectionKind);
                     lastDiagnostic = diagnostic;
                 }
@@ -222,6 +222,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
             nextRead = 0;
             lastDiagnostic = null;
             clipboard.Clear();
+            ClearPackSession();
             transfer.Clear();
             copyResult = "";
             selectedIndices = new int[0];
@@ -237,7 +238,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Systems
             base.OnStopRunning();
         }
 
-        public void Release() { Clear();transfer.BeforeWrite=null;writeAllowed=null; }
+        public void Release() { Clear();transfer.BeforeWrite=null;packBeforeWrite=null;writeAllowed=null; }
     }
 }
 

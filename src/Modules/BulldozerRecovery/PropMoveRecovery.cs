@@ -13,6 +13,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
     internal sealed partial class BulldozerTrace {
         private sealed class MoveEntry {
             internal Entity Target;
+            internal bool Marker;
             internal NestedNode[] Before,After;
             internal NetworkEntry BoundBefore,BoundAfter;
             internal Dictionary<PrefabBase,Payload> References;
@@ -43,24 +44,28 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 Patch(typeof(ObjectToolSystem),"GetAllowApply",Type.EmptyTypes,null,nameof(MoveAllowed));
                 Mod.Log.Info("Built-in prop move Undo attached; native completion checks required.");
             }catch(Exception error){
+                if(start!=null)patchMonitor.Forget(start);
+                if(apply!=null)patchMonitor.Forget(apply);
+                if(allowed!=null)patchMonitor.Forget(allowed);
                 if(start!=null)harmony.Unpatch(start,HarmonyLib.HarmonyPatchType.All,Id);
                 if(apply!=null)harmony.Unpatch(apply,HarmonyLib.HarmonyPatchType.All,Id);
                 if(allowed!=null)harmony.Unpatch(allowed,HarmonyLib.HarmonyPatchType.All,Id);
                 moveDisabled=true;Mod.Log.Warn("Move Undo unavailable; deletion recovery preserved: "+error.Message);
             }
         }
-        private void ClearMove(){moveHistory.Clear();moveCandidate=null;movePreviewEntered=moveCommitted=moveRestoring=objectInApply=false;moveStable=0;}
+        private void ClearMove(){FinishBikeObservation("cleared");moveHistory.Clear();moveCandidate=null;movePreviewEntered=moveCommitted=moveRestoring=objectInApply=false;moveStable=0;}
         private void ClearMovePrevious(){effectHistory.Clear();records.Clear();networkHistory.Clear();mainHistory.Clear();standaloneAreas.Clear();areaMoveHistory.Clear();MoveCommitted?.Invoke();}
-        private void FailMove(string reason){bool committed=moveCommitted||moveRestoring||(objectInApply&&objectAccepted);moveDisabled|=moveRestoring;if(committed)ClearMovePrevious();ClearMove();Status=reason;Mod.Log.Warn(reason);}
+        private void FailMove(string reason){FinishBikeObservation("failed: "+reason);bool committed=moveCommitted||moveRestoring||(objectInApply&&objectAccepted);moveDisabled|=moveRestoring;if(committed)ClearMovePrevious();ClearMove();Status=reason;Mod.Log.Warn(reason);}
         private NetworkEntry CaptureMoveOwner(Entity owner,bool effect=false) {
             var em=world.EntityManager;
             if(!em.Exists(owner)||em.HasComponent<Game.Common.Owner>(owner)||!em.HasComponent<PrefabRef>(owner)||!em.HasComponent<Game.Objects.Transform>(owner))throw new NotSupportedException("Move must remain directly bound to the edited asset.");
             var asset=world.GetExistingSystemManaged<PrefabSystem>().GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(owner));
             if(asset==null||asset.isReadOnly||asset is AssetStampPrefab||asset.components.Any(c=>c is ActivityLocation))throw new NotSupportedException("Move owner is unsupported or read-only.");
-            var entry=new NetworkEntry{Asset=asset,Owner=owner,Transform=em.GetComponentData<Game.Objects.Transform>(owner),Before=Capture(asset),
-                Network=CaptureAreaNetwork(owner,false,effect),Props=CaptureAreaProps(owner),Areas=CaptureAreas(owner),Effects=CaptureAreaEffects(owner),Move=true};
+            var companions=CaptureBoundCompanions(owner,true);
+            var entry=new NetworkEntry{Asset=asset,Owner=owner,OwnerPrefab=em.GetComponentData<PrefabRef>(owner).m_Prefab,Transform=em.GetComponentData<Game.Objects.Transform>(owner),Before=Capture(asset),
+                Network=companions.Network,CompanionMap=companions,Props=CaptureAreaProps(owner),Areas=companions.Areas,Effects=companions.Effects,Move=true};
             entry.References=entry.Props.SelectMany(GroupReferences).Concat(entry.Areas.SelectMany(a=>new[]{a.Prefab,a.Container})).Concat(entry.Effects.SelectMany(e=>new[]{e.Prefab,e.Container}))
-                .Concat(entry.Network.Items.SelectMany(i=>new[]{i.Prefab,i.Container})).Where(p=>p!=null).Distinct().ToDictionary(p=>p,Capture);
+                .Concat(entry.Network.Items.SelectMany(i=>new[]{i.Prefab,i.Container})).Concat(companions.References.Keys).Where(p=>p!=null).Distinct().ToDictionary(p=>p,Capture);
             if(entry.Before.Weight+entry.References.Values.Sum(p=>p.Weight)>250000||!entry.Before.Matches(asset)||!NetworkOwnerValid(entry)||!NetworkSettled(entry.Network)||!NetworkCompanionsMatch(entry,true))throw new NotSupportedException("Move owner has pending or ambiguous companion data.");
             return entry;
         }
@@ -70,6 +75,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             bool standalone=!em.HasComponent<Game.Common.Owner>(id);
             if(standalone)CaptureMainProp(id,false);
             var group=CaptureNestedImage(id,false,standalone);OrdinaryGroupSupported(group,true);
+            if(group.Any(n=>n.SpawnAccess.Present||n.Lanes.HasLanes)&&!SupportedMarkerMoveGroup(group,standalone))throw new NotSupportedException("Move Undo supports directly bound Restricted Spawn Location, Pedestrian Access Location and BikeRack01 companion profiles; other spawn/lane groups remain unsupported.");
             if(group.Any(n=>!PropMovePolicy.Finite(n.Data.Transform)))throw new NotSupportedException("Invalid move transform.");
             return group;
         }
@@ -93,7 +99,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             return before[0].Owner==after[0].Owner;
         }
         private bool CanMoveUndo {
-            get{try{var e=moveHistory.Latest;if(e==null)return false;
+            get{using var readinessTiming=ObserveBikeMove(moveHistory.Latest,"readiness");try{var e=moveHistory.Latest;if(e==null)return false;
                 if(moveDisabled||MovePreview||Busy||!context.EditorAvailable||context.DialogBusy||AutomaticCaptureAllowed?.Invoke()!=true)return false;
                 if(e.References.Any(p=>!NestedReferenceMatches(p.Key,p.Value)))return MoveBlocked("referenced prefab changed");
                 if(e.Bound){
@@ -106,7 +112,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 moveBlockReason=null;return true;
             }catch(Exception error){return MoveBlocked(error.Message);}}
         }
-        private bool MoveBlocked(string reason){if(reason!=moveBlockReason){moveBlockReason=reason;Mod.Log.Info("Move Undo blocked: "+reason);}return false;}
+        private bool MoveBlocked(string reason){if(reason!=moveBlockReason){moveBlockReason=reason;Mod.Log.Info("Move Undo blocked: "+reason);BikeMismatch(moveHistory.Latest,"readiness: "+reason);}return false;}
         private void UndoMove() {
             if(!CanMoveUndo)return;var e=moveHistory.Latest;
             if(e.Bound){StartBoundRestoration(e.BoundBefore);return;}
@@ -134,38 +140,47 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             if(!context.EditorAvailable){ClearMove();return;}
             if(MovePreview){var tool=world.GetExistingSystemManaged<ToolSystem>()?.activeTool as ObjectToolSystem;if(tool==null||tool.actualMode!=ObjectToolSystem.Mode.Move||!MoveMatchesTool(tool)){moveCandidate=null;movePreviewEntered=false;}return;}
             if(moveCandidate==null)return;
-            var e=moveCandidate;bool valid=false;string reason="move topology or rigid child placement differs";
+            var e=moveCandidate;using var captureTiming=ObserveBikeMove(e,"capture-validation-tick");bool valid=false;string reason="move topology or rigid child placement differs";
             try {
                 var actual=CaptureMoveGroup(e.Target);
                 if(MoveGroupSettled(actual)&&e.References.All(p=>NestedReferenceMatches(p.Key,p.Value))) {
                     if(moveRestoring)valid=ExactNestedGroup(e.Before,actual);
                     else if(!PropMovePolicy.Changed(e.Before[0].Data.Transform,actual[0].Data.Transform)){
                         if(!ExactNestedGroup(e.Before,actual)||(e.Bound&&(!e.BoundBefore.Before.Matches(e.BoundBefore.Asset)||!NetworkCompanionsMatch(e.BoundBefore,true)||!e.BoundBefore.Network.TryMap(CaptureAreaNetwork(e.BoundBefore.Owner),true,out _))))throw new NotSupportedException("Unchanged root move changed child data or bound companions.");
-                        moveCandidate=null;movePreviewEntered=moveCommitted=false;Status="Move cancelled or unchanged; previous Undo retained.";return;
+                        CancelBikeObservation(e);moveCandidate=null;movePreviewEntered=moveCommitted=false;Status="Move cancelled or unchanged; previous Undo retained.";return;
                     }
                     else if(MoveShape(e.Before,actual)) {
                         if(e.Bound){
                             var after=CaptureMoveOwner(e.BoundBefore.Owner);var prior=e.BoundBefore;
-                            var oldOther=prior.Props.Where(g=>g[0].Original!=e.Target).ToArray();var newOther=after.Props.Where(g=>g[0].Original!=e.Target).ToArray();var mapped=MatchForest(oldOther,newOther);
-                            if(mapped==null||!oldOther.Select((g,i)=>NestedGroupAtIndex(g,mapped[i],BoundDescriptorIndex.Resolve(after.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects,g[0].Prefab,g[0].Local))).All(v=>v)||!AreasMatch(prior.Areas,prior.Owner)||!AreaCompanionEffect.Matches(prior.Effects,after.Effects)||!prior.Network.TryMap(after.Network,true,out _)||!ReferenceEquals(prior.Asset,after.Asset)||!prior.Transform.Equals(after.Transform))throw new NotSupportedException("Move changed retained companions or ownership.");
-                            if(e.BoundAfter==null||!e.BoundAfter.Before.Matches(after.Asset)){e.BoundAfter=after;moveStable=0;}valid=true;
+                            if(e.Marker){valid=CaptureMarkerMoveAfter(e,after,actual);}
+                            else{
+                                var oldOther=prior.Props.Where(g=>g[0].Original!=e.Target).ToArray();var newOther=after.Props.Where(g=>g[0].Original!=e.Target).ToArray();var mapped=MatchForest(oldOther,newOther);
+                                if(mapped==null)throw new NotSupportedException("Move retained prop membership or placement changed.");
+                                if(!ReferenceEquals(prior.Asset,after.Asset)||!prior.Transform.Equals(after.Transform)||
+                                    !BoundCompanionsMap(prior.CompanionMap,after.CompanionMap,prior.Owner,out var referenceMap,prior.Asset,true))
+                                    throw new NotSupportedException("Move retained area/effect/network references or ownership changed: "+prior.Network.ExplainMismatch(after.Network,true));
+                                if(!AddForestMap(oldOther,mapped,referenceMap))throw new NotSupportedException("Move retained prop reference map is ambiguous.");
+                                if(!oldOther.Select((g,i)=>NestedGroupAtIndex(g,mapped[i],BoundDescriptorIndex.ResolveNative(after.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects,g[0].Prefab,g[0].Local,prior.Transform,g[0].Data.Transform),referenceMap)).All(v=>v))
+                                    throw new NotSupportedException("Move retained prop typed values or mapped spawn/access references changed.");
+                            }
+                            if(e.BoundAfter==null||!e.BoundAfter.Before.Matches(after.Asset)||!e.BoundAfter.Network.TryMap(after.Network,true,out var stableMap)||stableMap.Any(p=>p.Key!=p.Value)){e.BoundAfter=after;moveStable=0;}valid=true;
                         }else valid=true;
                         if(e.After==null||!ExactNestedGroup(e.After,actual)){e.After=actual;moveStable=0;}
                     }
                 }
-            }catch(NotSupportedException error){valid=false;reason=error.Message;}
+            }catch(NotSupportedException error){valid=false;reason=error.Message;BikeMismatch(e,reason);}
             if(!valid)moveStable=0;else if(moveLastFrame!=Time.frameCount){moveLastFrame=Time.frameCount;moveStable++;}
             if(moveStable>=3){
                 if(moveRestoring){moveHistory.Undo(value=>ReferenceEquals(value,e));Status="Undid prop move; placement and child graph verified.";}
-                else{ClearMovePrevious();moveHistory.Record(e);if(e.Bound){
+                else{if(!e.Marker||!IsBikeRackMoveGroup(e.Before))FinishBikeObservation("replaced by another move");ClearMovePrevious();moveHistory.Record(e);if(e.Bound){
                     // The live retained companion graphs were proved unchanged;
                     // adopt only their normalized saved representations.
                     foreach(var key in new[]{"ObjectSubAreas.m_SubAreas","ObjectSubNets.m_SubNets","ObjectSubLanes.m_SubLanes","EffectSource.m_Effects"})
                         if(e.BoundBefore.Before.Values.ContainsKey(key)&&e.BoundAfter.Before.Values.TryGetValue(key,out var value)){
                             e.BoundBefore.Before.Values[key]=value;foreach(var field in e.BoundBefore.Before.Fields.Where(f=>f.Owner.GetType().Name+"."+f.Field.Name==key))field.Data=value;
                         }
-                    e.BoundBefore.After=e.BoundAfter.Before;e.BoundBefore.Target=e.Target;e.BoundBefore.TargetPrefab=e.Before[0].Prefab;
-                }Status="Prop move ready to Undo.";}
+                    e.BoundBefore.MarkerMove=e.Marker;e.BoundBefore.After=e.BoundAfter.Before;e.BoundBefore.Target=e.Target;e.BoundBefore.TargetPrefab=e.Before[0].Prefab;
+                }Status=e.Marker?(IsBikeRackMoveGroup(e.Before)?"Bike rack move ready to Undo.":"Marker move ready to Undo."):"Prop move ready to Undo.";}
                 Mod.Log.Info(Status);moveCandidate=null;movePreviewEntered=moveCommitted=moveRestoring=false;
             }else if(Time.frameCount-moveFrame>120){Mod.Log.Info("Move validation timeout: "+reason+" target="+e.Target);FailMove(moveRestoring?"Move Undo did not validate; reload without saving.":"Move did not validate; no Undo entry recorded.");}
         }

@@ -70,7 +70,7 @@ export function NativePanel({ header, children, initialPosition, onPositionChang
     return <div style={{ position:"fixed",left:0,top:0,width:"100%",height:"100%",zIndex:100,pointerEvents:"none" }}>
         <Panel {...props} ref={panelRef} transition={null} style={{...props.style,position:"absolute",left:position?.x ?? 0,top:position?.y ?? 0,
             visibility:position ? "visible" : "hidden",pointerEvents:position ? "auto" : "none"}}
-            theme={editorTheme} header={<DragHandle onDrag={drag}><TitleBar>{header}</TitleBar></DragHandle>}>
+            theme={editorTheme} header={<DragHandle onDrag={drag}><TitleBar><ContentNavigation focusKey="mwEditorTools.header">{header}</ContentNavigation></TitleBar></DragHandle>}>
             <ContentNavigation focusKey="mwEditorTools.content">{children}</ContentNavigation>
         </Panel>
     </div>;

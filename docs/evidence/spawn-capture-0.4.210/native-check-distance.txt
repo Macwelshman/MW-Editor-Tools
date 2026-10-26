@@ -1,0 +1,26 @@
+System.Void Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::CheckDistance(System.Single,System.Single,System.Int32,System.Single&,System.Single&,System.Int32&,System.Int32&)
+IL_0000: ldarg.1
+IL_0001: ldc.r4 0
+IL_0006: blt.un.s IL_0017
+IL_0008: ldarg.2
+IL_0009: ldarg.s bestDistance1
+IL_000b: ldind.r4
+IL_000c: bge.un.s IL_0025
+IL_000e: ldarg.s bestDistance1
+IL_0010: ldarg.2
+IL_0011: stind.r4
+IL_0012: ldarg.s bestIndex1
+IL_0014: ldarg.3
+IL_0015: stind.i4
+IL_0016: ret
+IL_0017: ldarg.2
+IL_0018: ldarg.s bestDistance2
+IL_001a: ldind.r4
+IL_001b: bge.un.s IL_0025
+IL_001d: ldarg.s bestDistance2
+IL_001f: ldarg.2
+IL_0020: stind.r4
+IL_0021: ldarg.s bestIndex2
+IL_0023: ldarg.3
+IL_0024: stind.i4
+IL_0025: ret

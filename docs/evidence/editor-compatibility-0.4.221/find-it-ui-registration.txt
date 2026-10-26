@@ -1,0 +1,10 @@
+.extend("game-ui/game/components/asset-menu/asset-menu.tsx","AssetMenu",L
+.extend("game-ui/game/components/right-menu/right-menu.tsx","RightMenu",Es
+.extend("game-ui/game/components/tool-options/tool-options-panel.tsx","ToolOptionsPanel",Ns
+.extend("game-ui/game/components/toolbar/top/toggles.tsx","PhotoModeToggle",j
+.extend("game-ui/game/components/tool-options/mouse-tool-options/mouse-tool-options.tsx","MouseToolOptions",Os
+.extend("game-ui/game/components/tool-options/tool-options-panel.tsx","useToolOptionsVisible",Ds
+.append("Game",Et
+.append("Editor",Et
+.append("Editor",gs
+.extend("game-ui/editor/components/bottom-bar/bottom-bar.tsx","BottomBar",_s

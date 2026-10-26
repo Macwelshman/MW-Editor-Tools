@@ -1,0 +1,14 @@
+
+> mw-editor-tools-ui@0.4.223 build
+> webpack
+
+asset MW.EditorTools.mjs 117 KiB [emitted] [compared for emit] [javascript module] [minimized] (name: main)
+asset MW.EditorTools.css 20.6 KiB [emitted] [compared for emit] (name: main)
+Entrypoint main 137 KiB = MW.EditorTools.css 20.6 KiB MW.EditorTools.mjs 117 KiB
+orphan modules 158 KiB (javascript) 1.83 KiB (runtime) [orphan] 32 modules
+runtime modules 663 bytes 3 modules
+built modules 146 KiB (javascript) 20.5 KiB (css/mini-extract) [built]
+  ./src/index.tsx + 18 modules 146 KiB [not cacheable] [built] [code generated]
+  css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/style.scss 7.85 KiB [built] [code generated]
+  css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/colours/window.scss 12.6 KiB [built] [code generated]
+webpack 5.104.1 compiled successfully in 2477 ms

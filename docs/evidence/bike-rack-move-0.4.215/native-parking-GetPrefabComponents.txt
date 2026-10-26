@@ -1,0 +1,14 @@
+System.Void Game.Prefabs.ParkingSpace::GetPrefabComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.ParkingSpaceData>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.1
+IL_000d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.TransportStopData>()
+IL_0012: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0017: pop
+IL_0018: ldarg.1
+IL_0019: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.RouteConnectionData>()
+IL_001e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0023: pop
+IL_0024: ret

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><NoWarn>0649;0169;0414</NoWarn></PropertyGroup><ItemGroup>
+<Compile Include="../../src/Modules/PropReplacer/ViewportRowType.cs" Link="ViewportRowType.cs"/>
+<Compile Include="../../src/Modules/PropReplacer/ViewportListIndex.cs" Link="ViewportListIndex.cs"/>
+<Compile Include="../../src/Modules/PropReplacer/AreaRenderRelease.cs" Link="AreaRenderRelease.cs"/>
+<Compile Include="../../src/Modules/PropReplacer/SurfaceRenderRefresh.cs" Link="SurfaceRenderRefresh.cs"/>
+<Compile Include="../../src/Modules/PropReplacer/SurfaceReplacement.cs" Link="SurfaceReplacement.cs"/>
+<Compile Include="../../src/Modules/PropReplacer/ViewportGeometrySource.cs" Link="ViewportGeometrySource.cs"/>
+<Compile Include="../../src/History/PrefabSnapshot.cs" Link="PrefabSnapshot.cs"/>
+<Compile Include="../../src/History/ReplacementUndoAction.cs" Link="ReplacementUndoAction.cs"/>
+<Reference Include="Unity.Mathematics;Colossal.Mathematics"><HintPath>C:/Program Files (x86)/Steam/steamapps/common/Cities Skylines II/Cities2_Data/Managed/%(Identity).dll</HintPath><Private>true</Private></Reference>
+</ItemGroup></Project>

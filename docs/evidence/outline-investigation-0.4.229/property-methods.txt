@@ -1,0 +1,3118 @@
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::Execute(System.Int32)
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateObjectData(Game.Rendering.PreCullingData,Game.Rendering.BatchDataSystem/UpdateMask)
+IL_0000: ldarga.s updateMask
+IL_0002: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateTransform()
+IL_0007: brtrue.s IL_0025
+IL_0009: ldarg.0
+IL_000a: ldfld Game.Rendering.PreCullingFlags Game.Rendering.BatchDataSystem/BatchDataJob::m_CullingFlags
+IL_000f: ldarg.1
+IL_0010: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0015: and
+IL_0016: ldc.i4 327680
+IL_001b: and
+IL_001c: brfalse.s IL_0025
+IL_001e: ldarga.s updateMask
+IL_0020: call System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateTransform()
+IL_0025: ldarga.s updateMask
+IL_0027: ldc.i4.2
+IL_0028: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty)
+IL_002d: brtrue.s IL_0055
+IL_002f: ldarg.1
+IL_0030: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0035: ldc.i4 134217728
+IL_003a: and
+IL_003b: brfalse.s IL_0055
+IL_003d: ldarga.s updateMask
+IL_003f: ldc.i4.2
+IL_0040: call System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.ObjectProperty)
+IL_0045: ldarga.s updateMask
+IL_0047: ldc.i4.3
+IL_0048: call System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.ObjectProperty)
+IL_004d: ldarga.s updateMask
+IL_004f: ldc.i4.4
+IL_0050: call System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.ObjectProperty)
+IL_0055: ldarga.s updateMask
+IL_0057: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateNothing()
+IL_005c: brfalse.s IL_005f
+IL_005e: ret
+IL_005f: ldarg.0
+IL_0060: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshBatches
+IL_0065: ldarg.1
+IL_0066: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_006b: ldloca.s V_0
+IL_006d: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0072: brtrue.s IL_0075
+IL_0074: ret
+IL_0075: ldarg.0
+IL_0076: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshGroup> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshGroups
+IL_007b: ldarg.1
+IL_007c: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0081: ldloca.s V_1
+IL_0083: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshGroup>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0088: pop
+IL_0089: ldc.i4.0
+IL_008a: stloc.2
+IL_008b: br IL_105b
+IL_0090: ldloca.s V_0
+IL_0092: ldloc.2
+IL_0093: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshBatch>::get_Item(System.Int32)
+IL_0098: stloc.3
+IL_0099: ldarg.0
+IL_009a: ldflda Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchGroups
+IL_009f: ldloc.3
+IL_00a0: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_00a5: call !1 Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::GetGroupData(System.Int32)
+IL_00aa: stloc.s V_4
+IL_00ac: ldarga.s updateMask
+IL_00ae: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateAll()
+IL_00b3: brfalse IL_02b3
+IL_00b8: ldarg.1
+IL_00b9: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_00be: ldc.i4 256
+IL_00c3: and
+IL_00c4: brfalse IL_02b3
+IL_00c9: ldarg.0
+IL_00ca: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+IL_00cf: ldarg.1
+IL_00d0: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00d5: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::get_Item(Unity.Entities.Entity)
+IL_00da: stloc.s V_13
+IL_00dc: ldarg.0
+IL_00dd: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshBatches
+IL_00e2: ldloc.s V_13
+IL_00e4: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_00e9: ldloca.s V_14
+IL_00eb: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_00f0: brfalse IL_02b3
+IL_00f5: ldc.i4.0
+IL_00f6: stloc.s V_15
+IL_00f8: br IL_02a5
+IL_00fd: ldloca.s V_14
+IL_00ff: ldloc.s V_15
+IL_0101: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshBatch>::get_Item(System.Int32)
+IL_0106: stloc.s V_16
+IL_0108: ldloc.s V_16
+IL_010a: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+IL_010f: ldloc.3
+IL_0110: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+IL_0115: bne.un IL_029f
+IL_011a: ldloc.s V_16
+IL_011c: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_0121: ldloc.3
+IL_0122: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_0127: bne.un IL_029f
+IL_012c: ldloc.s V_16
+IL_012e: ldfld System.Byte Game.Rendering.MeshBatch::m_TileIndex
+IL_0133: ldloc.3
+IL_0134: ldfld System.Byte Game.Rendering.MeshBatch::m_TileIndex
+IL_0139: bne.un IL_029f
+IL_013e: ldarg.0
+IL_013f: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0144: ldloc.s V_16
+IL_0146: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_014b: ldloc.s V_16
+IL_014d: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0152: call !0& Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::AccessCullingData(System.Int32,System.Int32)
+IL_0157: stloc.s V_17
+IL_0159: ldarg.0
+IL_015a: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_015f: ldloc.3
+IL_0160: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0165: ldloc.3
+IL_0166: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_016b: call !0& Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::AccessCullingData(System.Int32,System.Int32)
+IL_0170: stloc.s V_18
+IL_0172: ldloc.s V_18
+IL_0174: ldloc.s V_17
+IL_0176: call Unity.Mathematics.int4 Game.Rendering.CullingData::get_lodFade()
+IL_017b: call System.Void Game.Rendering.CullingData::set_lodFade(Unity.Mathematics.int4)
+IL_0180: ldloc.s V_18
+IL_0182: call Unity.Mathematics.int4 Game.Rendering.CullingData::get_lodFade()
+IL_0187: stloc.s V_23
+IL_0189: ldloca.s V_23
+IL_018b: call Unity.Mathematics.int2 Unity.Mathematics.int4::get_zw()
+IL_0190: stloc.s V_19
+IL_0192: ldloc.s V_19
+IL_0194: ldloc.s V_19
+IL_0196: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_UnaryNegation(Unity.Mathematics.int2)
+IL_019b: newobj System.Void Unity.Mathematics.int4::.ctor(Unity.Mathematics.int2,Unity.Mathematics.int2)
+IL_01a0: ldloc.s V_19
+IL_01a2: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_UnaryNegation(Unity.Mathematics.int2)
+IL_01a7: ldloc.s V_19
+IL_01a9: newobj System.Void Unity.Mathematics.int4::.ctor(Unity.Mathematics.int2,Unity.Mathematics.int2)
+IL_01ae: ldloc.s V_4
+IL_01b0: ldfld System.Byte Game.Rendering.GroupData::m_LodCount
+IL_01b5: ldloc.s V_18
+IL_01b7: call Unity.Mathematics.int4 Game.Rendering.CullingData::get_lodFade()
+IL_01bc: stloc.s V_23
+IL_01be: ldloca.s V_23
+IL_01c0: call Unity.Mathematics.int2 Unity.Mathematics.int4::get_xy()
+IL_01c5: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Subtraction(System.Int32,Unity.Mathematics.int2)
+IL_01ca: ldc.i4.1
+IL_01cb: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_BitwiseAnd(Unity.Mathematics.int2,System.Int32)
+IL_01d0: ldc.i4.0
+IL_01d1: call Unity.Mathematics.bool2 Unity.Mathematics.int2::op_Inequality(Unity.Mathematics.int2,System.Int32)
+IL_01d6: stloc.s V_24
+IL_01d8: ldloca.s V_24
+IL_01da: call Unity.Mathematics.bool4 Unity.Mathematics.bool2::get_xyxy()
+IL_01df: call Unity.Mathematics.int4 Unity.Mathematics.math::select(Unity.Mathematics.int4,Unity.Mathematics.int4,Unity.Mathematics.bool4)
+IL_01e4: stloc.s V_20
+IL_01e6: ldloca.s V_20
+IL_01e8: ldc.i4 1065353471
+IL_01ed: ldloca.s V_20
+IL_01ef: call Unity.Mathematics.int2 Unity.Mathematics.int4::get_xz()
+IL_01f4: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Subtraction(System.Int32,Unity.Mathematics.int2)
+IL_01f9: ldc.i4 255
+IL_01fe: ldloca.s V_20
+IL_0200: call Unity.Mathematics.int2 Unity.Mathematics.int4::get_yw()
+IL_0205: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Subtraction(System.Int32,Unity.Mathematics.int2)
+IL_020a: ldc.i4.s 11
+IL_020c: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_LeftShift(Unity.Mathematics.int2,System.Int32)
+IL_0211: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_BitwiseOr(Unity.Mathematics.int2,Unity.Mathematics.int2)
+IL_0216: call System.Void Unity.Mathematics.int4::set_xz(Unity.Mathematics.int2)
+IL_021b: ldarga.s updateMask
+IL_021d: ldc.i4.8
+IL_021e: ldloca.s V_4
+IL_0220: ldloca.s V_21
+IL_0222: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0227: brfalse.s IL_0249
+IL_0229: ldarg.0
+IL_022a: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_022f: ldloc.s V_20
+IL_0231: ldfld System.Int32 Unity.Mathematics.int4::x
+IL_0236: ldloc.3
+IL_0237: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_023c: ldloc.s V_21
+IL_023e: ldloc.3
+IL_023f: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0244: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<System.Int32>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0249: ldarga.s updateMask
+IL_024b: ldc.i4.s 9
+IL_024d: ldloca.s V_4
+IL_024f: ldloca.s V_22
+IL_0251: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0256: brfalse.s IL_0278
+IL_0258: ldarg.0
+IL_0259: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_025e: ldloc.s V_20
+IL_0260: ldfld System.Int32 Unity.Mathematics.int4::z
+IL_0265: ldloc.3
+IL_0266: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_026b: ldloc.s V_22
+IL_026d: ldloc.3
+IL_026e: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0273: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<System.Int32>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0278: ldarg.0
+IL_0279: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_027e: ldloc.3
+IL_027f: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0284: ldloc.3
+IL_0285: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_028a: ldloc.s V_16
+IL_028c: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0291: ldloc.s V_16
+IL_0293: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0298: call System.Boolean Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::InitializeTransform(System.Int32,System.Int32,System.Int32,System.Int32)
+IL_029d: brtrue.s IL_02b3
+IL_029f: ldloc.s V_15
+IL_02a1: ldc.i4.1
+IL_02a2: add
+IL_02a3: stloc.s V_15
+IL_02a5: ldloc.s V_15
+IL_02a7: ldloca.s V_14
+IL_02a9: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshBatch>::get_Length()
+IL_02ae: blt IL_00fd
+IL_02b3: ldarga.s updateMask
+IL_02b5: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateTransform()
+IL_02ba: brfalse IL_067a
+IL_02bf: ldarg.0
+IL_02c0: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.BatchDataSystem/BatchDataJob::m_CullingInfoData
+IL_02c5: ldarg.1
+IL_02c6: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_02cb: call !0 Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo>::get_Item(Unity.Entities.Entity)
+IL_02d0: stloc.s V_25
+IL_02d2: ldarg.0
+IL_02d3: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabRefData
+IL_02d8: ldarg.1
+IL_02d9: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_02de: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_02e3: stloc.s V_26
+IL_02e5: ldloc.3
+IL_02e6: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_02eb: stloc.s V_27
+IL_02ed: ldloc.1
+IL_02ee: ldloc.3
+IL_02ef: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+IL_02f4: ldloca.s V_28
+IL_02f6: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Rendering.MeshGroup>(Unity.Entities.DynamicBuffer`1<!!0>,System.Int32,!!0&)
+IL_02fb: brfalse.s IL_0330
+IL_02fd: ldarg.0
+IL_02fe: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabSubMeshGroups
+IL_0303: ldloc.s V_26
+IL_0305: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_030a: ldloca.s V_39
+IL_030c: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0311: brfalse.s IL_0330
+IL_0313: ldloc.s V_27
+IL_0315: ldloca.s V_39
+IL_0317: ldloc.s V_28
+IL_0319: ldfld System.UInt16 Game.Rendering.MeshGroup::m_SubMeshGroup
+IL_031e: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMeshGroup>::get_Item(System.Int32)
+IL_0323: ldfld Unity.Mathematics.int2 Game.Prefabs.SubMeshGroup::m_SubMeshRange
+IL_0328: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_032d: add
+IL_032e: stloc.s V_27
+IL_0330: ldarg.0
+IL_0331: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabSubMeshes
+IL_0336: ldloc.s V_26
+IL_0338: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_033d: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh>::get_Item(Unity.Entities.Entity)
+IL_0342: stloc.s V_29
+IL_0344: ldloca.s V_29
+IL_0346: ldloc.s V_27
+IL_0348: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_034d: stloc.s V_30
+IL_034f: ldc.r4 1
+IL_0354: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Implicit(System.Single)
+IL_0359: stloc.s V_31
+IL_035b: ldarg.1
+IL_035c: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0361: ldc.i4 65536
+IL_0366: and
+IL_0367: brfalse.s IL_03a5
+IL_0369: ldarg.0
+IL_036a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.GrowthScaleData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabGrowthScaleData
+IL_036f: ldloc.s V_26
+IL_0371: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0376: ldloca.s V_40
+IL_0378: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.GrowthScaleData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_037d: brfalse.s IL_03a5
+IL_037f: ldarg.0
+IL_0380: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Rendering.BatchDataSystem/BatchDataJob::m_TreeData
+IL_0385: ldarg.1
+IL_0386: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_038b: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Tree>::get_Item(Unity.Entities.Entity)
+IL_0390: ldloc.s V_40
+IL_0392: ldloca.s V_41
+IL_0394: call Game.Prefabs.SubMeshFlags Game.Rendering.BatchDataHelpers::CalculateTreeSubMeshData(Game.Objects.Tree,Game.Prefabs.GrowthScaleData,Unity.Mathematics.float3&)
+IL_0399: pop
+IL_039a: ldloc.s V_31
+IL_039c: ldloc.s V_41
+IL_039e: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Multiply(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_03a3: stloc.s V_31
+IL_03a5: ldloc.s V_30
+IL_03a7: ldfld Game.Prefabs.SubMeshFlags Game.Prefabs.SubMesh::m_Flags
+IL_03ac: ldc.i4 57344
+IL_03b1: and
+IL_03b2: brfalse.s IL_0422
+IL_03b4: ldarg.0
+IL_03b5: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Stack> Game.Rendering.BatchDataSystem/BatchDataJob::m_StackData
+IL_03ba: ldarg.1
+IL_03bb: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_03c0: ldloca.s V_32
+IL_03c2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Stack>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_03c7: brfalse.s IL_0422
+IL_03c9: ldarg.0
+IL_03ca: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabStackData
+IL_03cf: ldloc.s V_26
+IL_03d1: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_03d6: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData>::HasComponent(Unity.Entities.Entity)
+IL_03db: brfalse.s IL_0422
+IL_03dd: ldarg.0
+IL_03de: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabStackData
+IL_03e3: ldloc.s V_26
+IL_03e5: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_03ea: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData>::get_Item(Unity.Entities.Entity)
+IL_03ef: stloc.s V_42
+IL_03f1: ldloc.s V_32
+IL_03f3: ldloc.s V_42
+IL_03f5: ldloca.s V_45
+IL_03f7: ldloca.s V_43
+IL_03f9: ldloca.s V_44
+IL_03fb: call Game.Prefabs.SubMeshFlags Game.Rendering.BatchDataHelpers::CalculateStackSubMeshData(Game.Objects.Stack,Game.Prefabs.StackData,Unity.Mathematics.int3&,Unity.Mathematics.float3&,Unity.Mathematics.float3&)
+IL_0400: pop
+IL_0401: ldloc.s V_42
+IL_0403: ldloc.s V_43
+IL_0405: ldloc.s V_44
+IL_0407: ldloc.3
+IL_0408: ldfld System.Byte Game.Rendering.MeshBatch::m_TileIndex
+IL_040d: ldloc.s V_30
+IL_040f: ldfld Game.Prefabs.SubMeshFlags Game.Prefabs.SubMesh::m_Flags
+IL_0414: ldloca.s V_30
+IL_0416: ldflda Unity.Mathematics.float3 Game.Prefabs.SubMesh::m_Position
+IL_041b: ldloca.s V_31
+IL_041d: call System.Void Game.Rendering.BatchDataHelpers::CalculateStackSubMeshData(Game.Prefabs.StackData,Unity.Mathematics.float3,Unity.Mathematics.float3,System.Int32,Game.Prefabs.SubMeshFlags,Unity.Mathematics.float3&,Unity.Mathematics.float3&)
+IL_0422: ldarg.1
+IL_0423: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0428: ldc.i4 262144
+IL_042d: and
+IL_042e: brfalse.s IL_044e
+IL_0430: ldarg.0
+IL_0431: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Rendering.BatchDataSystem/BatchDataJob::m_InterpolatedTransformData
+IL_0436: ldarg.1
+IL_0437: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_043c: call !0 Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform>::get_Item(Unity.Entities.Entity)
+IL_0441: stloc.s V_46
+IL_0443: ldloca.s V_46
+IL_0445: call Game.Objects.Transform Game.Rendering.InterpolatedTransform::ToTransform()
+IL_044a: stloc.s V_33
+IL_044c: br.s IL_0461
+IL_044e: ldarg.0
+IL_044f: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectTransformData
+IL_0454: ldarg.1
+IL_0455: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_045a: call !0 Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::get_Item(Unity.Entities.Entity)
+IL_045f: stloc.s V_33
+IL_0461: ldloc.s V_30
+IL_0463: ldfld Game.Prefabs.SubMeshFlags Game.Prefabs.SubMesh::m_Flags
+IL_0468: ldc.i4 2154496
+IL_046d: and
+IL_046e: brfalse.s IL_04a8
+IL_0470: ldloc.s V_33
+IL_0472: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0477: ldloc.s V_33
+IL_0479: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_047e: ldloc.s V_30
+IL_0480: ldfld Unity.Mathematics.float3 Game.Prefabs.SubMesh::m_Position
+IL_0485: call Unity.Mathematics.float3 Unity.Mathematics.math::rotate(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_048a: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_048f: stloc.s V_34
+IL_0491: ldloc.s V_33
+IL_0493: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0498: ldloc.s V_30
+IL_049a: ldfld Unity.Mathematics.quaternion Game.Prefabs.SubMesh::m_Rotation
+IL_049f: call Unity.Mathematics.quaternion Unity.Mathematics.math::mul(Unity.Mathematics.quaternion,Unity.Mathematics.quaternion)
+IL_04a4: stloc.s V_35
+IL_04a6: br.s IL_04ba
+IL_04a8: ldloc.s V_33
+IL_04aa: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_04af: stloc.s V_34
+IL_04b1: ldloc.s V_33
+IL_04b3: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_04b8: stloc.s V_35
+IL_04ba: ldc.i4.0
+IL_04bb: stloc.s V_38
+IL_04bd: ldloc.s V_30
+IL_04bf: ldfld Game.Prefabs.SubMeshFlags Game.Prefabs.SubMesh::m_Flags
+IL_04c4: ldc.i4 262144
+IL_04c9: and
+IL_04ca: brfalse IL_05f0
+IL_04cf: ldarg.0
+IL_04d0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.MeshData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabMeshData
+IL_04d5: ldloc.s V_30
+IL_04d7: ldfld Unity.Entities.Entity Game.Prefabs.SubMesh::m_SubMesh
+IL_04dc: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.MeshData>::get_Item(Unity.Entities.Entity)
+IL_04e1: stloc.s V_47
+IL_04e3: ldarg.0
+IL_04e4: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabObjectGeometryData
+IL_04e9: ldloc.s V_26
+IL_04eb: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_04f0: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData>::get_Item(Unity.Entities.Entity)
+IL_04f5: stloc.s V_48
+IL_04f7: ldloc.s V_30
+IL_04f9: ldfld Game.Prefabs.SubMeshFlags Game.Prefabs.SubMesh::m_Flags
+IL_04fe: ldc.i4 16384
+IL_0503: and
+IL_0504: brfalse IL_058e
+IL_0509: ldarg.0
+IL_050a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabStackData
+IL_050f: ldloc.s V_26
+IL_0511: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0516: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData>::get_Item(Unity.Entities.Entity)
+IL_051b: ldfld Game.Prefabs.StackDirection Game.Prefabs.StackData::m_Direction
+IL_0520: stloc.s V_50
+IL_0522: ldloc.s V_50
+IL_0524: ldc.i4.1
+IL_0525: sub
+IL_0526: switch IL_0539,IL_0556,IL_0573
+IL_0537: br.s IL_058e
+IL_0539: ldloca.s V_48
+IL_053b: ldflda Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_0540: ldc.r4 -1
+IL_0545: ldc.r4 1
+IL_054a: newobj System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_054f: call System.Void Colossal.Mathematics.Bounds3::set_x(Colossal.Mathematics.Bounds1)
+IL_0554: br.s IL_058e
+IL_0556: ldloca.s V_48
+IL_0558: ldflda Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_055d: ldc.r4 -1
+IL_0562: ldc.r4 1
+IL_0567: newobj System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_056c: call System.Void Colossal.Mathematics.Bounds3::set_y(Colossal.Mathematics.Bounds1)
+IL_0571: br.s IL_058e
+IL_0573: ldloca.s V_48
+IL_0575: ldflda Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_057a: ldc.r4 -1
+IL_057f: ldc.r4 1
+IL_0584: newobj System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_0589: call System.Void Colossal.Mathematics.Bounds3::set_z(Colossal.Mathematics.Bounds1)
+IL_058e: ldloc.s V_34
+IL_0590: ldloc.s V_35
+IL_0592: ldloc.s V_31
+IL_0594: ldloc.s V_48
+IL_0596: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_059b: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::Center(Colossal.Mathematics.Bounds3)
+IL_05a0: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Multiply(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_05a5: call Unity.Mathematics.float3 Unity.Mathematics.math::rotate(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_05aa: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_05af: ldloc.s V_31
+IL_05b1: ldloc.s V_48
+IL_05b3: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_05b8: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::Size(Colossal.Mathematics.Bounds3)
+IL_05bd: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Multiply(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_05c2: ldc.r4 0.5
+IL_05c7: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Multiply(Unity.Mathematics.float3,System.Single)
+IL_05cc: stloc.s V_49
+IL_05ce: ldloc.s V_35
+IL_05d0: ldloc.s V_49
+IL_05d2: call Unity.Mathematics.float3x4 Colossal.Rendering.TransformHelper::TRS(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_05d7: stloc.s V_36
+IL_05d9: ldloc.s V_36
+IL_05db: stloc.s V_37
+IL_05dd: ldloc.s V_48
+IL_05df: ldfld System.Int32 Game.Prefabs.ObjectGeometryData::m_MinLod
+IL_05e4: ldloc.s V_47
+IL_05e6: ldfld System.Byte Game.Prefabs.MeshData::m_MinLod
+IL_05eb: sub
+IL_05ec: stloc.s V_38
+IL_05ee: br.s IL_0634
+IL_05f0: ldloc.s V_34
+IL_05f2: ldloc.s V_35
+IL_05f4: ldloc.s V_31
+IL_05f6: ldloc.s V_4
+IL_05f8: ldfld Unity.Mathematics.float3 Game.Rendering.GroupData::m_SecondaryCenter
+IL_05fd: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Multiply(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_0602: call Unity.Mathematics.float3 Unity.Mathematics.math::rotate(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_0607: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_060c: ldloc.s V_31
+IL_060e: ldloc.s V_4
+IL_0610: ldfld Unity.Mathematics.float3 Game.Rendering.GroupData::m_SecondarySize
+IL_0615: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Multiply(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_061a: stloc.s V_51
+IL_061c: ldloc.s V_34
+IL_061e: ldloc.s V_35
+IL_0620: ldloc.s V_31
+IL_0622: call Unity.Mathematics.float3x4 Colossal.Rendering.TransformHelper::TRS(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_0627: stloc.s V_36
+IL_0629: ldloc.s V_35
+IL_062b: ldloc.s V_51
+IL_062d: call Unity.Mathematics.float3x4 Colossal.Rendering.TransformHelper::TRS(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_0632: stloc.s V_37
+IL_0634: ldarg.0
+IL_0635: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_063a: ldloc.s V_36
+IL_063c: ldloc.s V_37
+IL_063e: ldloc.3
+IL_063f: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0644: ldloc.3
+IL_0645: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_064a: call !0& Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetTransformValue(Unity.Mathematics.float3x4,Unity.Mathematics.float3x4,System.Int32,System.Int32)
+IL_064f: dup
+IL_0650: ldloc.s V_25
+IL_0652: ldfld Colossal.Mathematics.Bounds3 Game.Rendering.CullingInfo::m_Bounds
+IL_0657: stfld Colossal.Mathematics.Bounds3 Game.Rendering.CullingData::m_Bounds
+IL_065c: dup
+IL_065d: ldarg.0
+IL_065e: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Rendering.BatchDataSystem/BatchDataJob::m_HiddenData
+IL_0663: ldarg.1
+IL_0664: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0669: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Hidden>::HasComponent(Unity.Entities.Entity)
+IL_066e: call System.Void Game.Rendering.CullingData::set_isHidden(System.Boolean)
+IL_0673: ldloc.s V_38
+IL_0675: call System.Void Game.Rendering.CullingData::set_lodOffset(System.Int32)
+IL_067a: ldarga.s updateMask
+IL_067c: ldc.i4.5
+IL_067d: ldloca.s V_4
+IL_067f: ldloca.s V_5
+IL_0681: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0686: brfalse IL_07cb
+IL_068b: ldloca.s V_52
+IL_068d: initobj Unity.Mathematics.float2
+IL_0693: ldarg.1
+IL_0694: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0699: ldc.i4 16384
+IL_069e: and
+IL_069f: brfalse IL_07b0
+IL_06a4: ldarg.0
+IL_06a5: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Color> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectColorData
+IL_06aa: ldarg.1
+IL_06ab: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_06b0: ldloca.s V_53
+IL_06b2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Color>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_06b7: brfalse.s IL_06e1
+IL_06b9: ldloca.s V_52
+IL_06bb: ldloc.s V_53
+IL_06bd: ldfld System.Byte Game.Objects.Color::m_Index
+IL_06c2: conv.r4
+IL_06c3: ldc.r4 0.5
+IL_06c8: add
+IL_06c9: ldloc.s V_53
+IL_06cb: ldfld System.Byte Game.Objects.Color::m_Value
+IL_06d0: conv.r4
+IL_06d1: ldc.r4 0.003921569
+IL_06d6: mul
+IL_06d7: call System.Void Unity.Mathematics.float2::.ctor(System.Single,System.Single)
+IL_06dc: br IL_07b0
+IL_06e1: ldarg.0
+IL_06e2: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_06e7: ldarg.1
+IL_06e8: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_06ed: ldloca.s V_54
+IL_06ef: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_06f4: brfalse IL_07b0
+IL_06f9: ldarg.0
+IL_06fa: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectElevationData
+IL_06ff: ldarg.1
+IL_0700: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0705: ldloca.s V_56
+IL_0707: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Elevation>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_070c: brfalse.s IL_071c
+IL_070e: ldloc.s V_56
+IL_0710: ldfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_0715: ldc.i4.2
+IL_0716: and
+IL_0717: ldc.i4.0
+IL_0718: ceq
+IL_071a: br.s IL_071d
+IL_071c: ldc.i4.0
+IL_071d: stloc.s V_55
+IL_071f: ldarg.0
+IL_0720: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Color> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectColorData
+IL_0725: ldloc.s V_54
+IL_0727: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_072c: ldloca.s V_57
+IL_072e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Color>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0733: brfalse.s IL_0767
+IL_0735: ldloc.s V_55
+IL_0737: brtrue.s IL_0742
+IL_0739: ldloc.s V_57
+IL_073b: ldfld System.Boolean Game.Objects.Color::m_SubColor
+IL_0740: brfalse.s IL_07b0
+IL_0742: ldloca.s V_52
+IL_0744: ldloc.s V_57
+IL_0746: ldfld System.Byte Game.Objects.Color::m_Index
+IL_074b: conv.r4
+IL_074c: ldc.r4 0.5
+IL_0751: add
+IL_0752: ldloc.s V_57
+IL_0754: ldfld System.Byte Game.Objects.Color::m_Value
+IL_0759: conv.r4
+IL_075a: ldc.r4 0.003921569
+IL_075f: mul
+IL_0760: call System.Void Unity.Mathematics.float2::.ctor(System.Single,System.Single)
+IL_0765: br.s IL_07b0
+IL_0767: ldarg.0
+IL_0768: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_076d: ldloc.s V_54
+IL_076f: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0774: ldloca.s V_58
+IL_0776: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_077b: brfalse.s IL_07b0
+IL_077d: ldloc.s V_55
+IL_077f: ldarg.0
+IL_0780: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectElevationData
+IL_0785: ldloc.s V_54
+IL_0787: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_078c: ldloca.s V_56
+IL_078e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Elevation>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0793: brfalse.s IL_07a3
+IL_0795: ldloc.s V_56
+IL_0797: ldfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_079c: ldc.i4.2
+IL_079d: and
+IL_079e: ldc.i4.0
+IL_079f: ceq
+IL_07a1: br.s IL_07a4
+IL_07a3: ldc.i4.0
+IL_07a4: and
+IL_07a5: stloc.s V_55
+IL_07a7: ldloc.s V_58
+IL_07a9: stloc.s V_54
+IL_07ab: br IL_071f
+IL_07b0: ldarg.0
+IL_07b1: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_07b6: ldloc.s V_52
+IL_07b8: ldloc.3
+IL_07b9: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_07be: ldloc.s V_5
+IL_07c0: ldloc.3
+IL_07c1: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_07c6: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float2>(!!0,System.Int32,System.Int32,System.Int32)
+IL_07cb: ldarga.s updateMask
+IL_07cd: ldc.i4.6
+IL_07ce: ldloca.s V_4
+IL_07d0: ldloca.s V_6
+IL_07d2: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_07d7: brfalse IL_09a8
+IL_07dc: ldarg.1
+IL_07dd: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_07e2: stloc.s V_60
+IL_07e4: ldarg.1
+IL_07e5: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_07ea: ldc.i4 256
+IL_07ef: and
+IL_07f0: brfalse.s IL_0821
+IL_07f2: ldarg.0
+IL_07f3: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+IL_07f8: ldarg.1
+IL_07f9: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_07fe: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::get_Item(Unity.Entities.Entity)
+IL_0803: stloc.s V_63
+IL_0805: ldloc.s V_63
+IL_0807: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_080c: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0811: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0816: brfalse.s IL_0821
+IL_0818: ldloc.s V_63
+IL_081a: ldfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_081f: stloc.s V_60
+IL_0821: ldarg.0
+IL_0822: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Rendering.BatchDataSystem/BatchDataJob::m_PseudoRandomSeedData
+IL_0827: ldloc.s V_60
+IL_0829: ldloca.s V_61
+IL_082b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0830: pop
+IL_0831: ldarg.0
+IL_0832: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Rendering.BatchDataSystem/BatchDataJob::m_DestroyedData
+IL_0837: ldloc.s V_60
+IL_0839: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Destroyed>::HasComponent(Unity.Entities.Entity)
+IL_083e: stloc.s V_62
+IL_0840: ldarg.0
+IL_0841: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle> Game.Rendering.BatchDataSystem/BatchDataJob::m_VehicleData
+IL_0846: ldloc.s V_60
+IL_0848: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle>::HasComponent(Unity.Entities.Entity)
+IL_084d: brfalse IL_091a
+IL_0852: ldc.i4.0
+IL_0853: stloc.s V_64
+IL_0855: ldc.i4.0
+IL_0856: stloc.s V_65
+IL_0858: ldarg.0
+IL_0859: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.PublicTransport> Game.Rendering.BatchDataSystem/BatchDataJob::m_PublicTransportData
+IL_085e: ldloc.s V_60
+IL_0860: ldloca.s V_66
+IL_0862: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Vehicles.PublicTransport>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0867: brfalse.s IL_08e0
+IL_0869: ldarg.0
+IL_086a: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabRefData
+IL_086f: ldloc.s V_60
+IL_0871: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0876: stloc.s V_67
+IL_0878: ldarg.0
+IL_0879: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PublicTransportVehicleData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabPublicTransportVehicleData
+IL_087e: ldloc.s V_67
+IL_0880: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0885: ldloca.s V_68
+IL_0887: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PublicTransportVehicleData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_088c: brfalse.s IL_0897
+IL_088e: ldloc.s V_68
+IL_0890: ldfld System.Int32 Game.Prefabs.PublicTransportVehicleData::m_PassengerCapacity
+IL_0895: stloc.s V_64
+IL_0897: ldloc.s V_66
+IL_0899: ldfld Game.Vehicles.PublicTransportFlags Game.Vehicles.PublicTransport::m_State
+IL_089e: ldc.i4 8192
+IL_08a3: and
+IL_08a4: brfalse.s IL_08c4
+IL_08a6: ldloca.s V_61
+IL_08a8: ldsfld System.UInt16 Game.Common.PseudoRandomSeed::kDummyPassengers
+IL_08ad: call Unity.Mathematics.Random Game.Common.PseudoRandomSeed::GetRandom(System.UInt32)
+IL_08b2: stloc.s V_69
+IL_08b4: ldloca.s V_69
+IL_08b6: ldc.i4.0
+IL_08b7: ldloc.s V_64
+IL_08b9: ldc.i4.1
+IL_08ba: add
+IL_08bb: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32,System.Int32)
+IL_08c0: stloc.s V_65
+IL_08c2: br.s IL_0903
+IL_08c4: ldarg.0
+IL_08c5: ldflda Unity.Entities.BufferLookup`1<Game.Vehicles.Passenger> Game.Rendering.BatchDataSystem/BatchDataJob::m_Passengers
+IL_08ca: ldloc.s V_60
+IL_08cc: ldloca.s V_70
+IL_08ce: call System.Boolean Unity.Entities.BufferLookup`1<Game.Vehicles.Passenger>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_08d3: brfalse.s IL_0903
+IL_08d5: ldloca.s V_70
+IL_08d7: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Vehicles.Passenger>::get_Length()
+IL_08dc: stloc.s V_65
+IL_08de: br.s IL_0903
+IL_08e0: ldloca.s V_61
+IL_08e2: ldsfld System.UInt16 Game.Common.PseudoRandomSeed::kDummyPassengers
+IL_08e7: call Unity.Mathematics.Random Game.Common.PseudoRandomSeed::GetRandom(System.UInt32)
+IL_08ec: stloc.s V_71
+IL_08ee: ldc.i4 1000
+IL_08f3: stloc.s V_64
+IL_08f5: ldloca.s V_71
+IL_08f7: ldc.i4.0
+IL_08f8: ldloc.s V_64
+IL_08fa: ldc.i4.1
+IL_08fb: add
+IL_08fc: call System.Int32 Unity.Mathematics.Random::NextInt(System.Int32,System.Int32)
+IL_0901: stloc.s V_65
+IL_0903: ldloc.s V_61
+IL_0905: ldloc.s V_65
+IL_0907: ldloc.s V_64
+IL_0909: ldarg.0
+IL_090a: ldfld System.Single Game.Rendering.BatchDataSystem/BatchDataJob::m_LightFactor
+IL_090f: ldloc.s V_62
+IL_0911: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::GetBuildingState(Game.Common.PseudoRandomSeed,System.Int32,System.Int32,System.Single,System.Boolean)
+IL_0916: stloc.s V_59
+IL_0918: br.s IL_098d
+IL_091a: ldarg.0
+IL_091b: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_0920: ldloc.s V_60
+IL_0922: ldloca.s V_72
+IL_0924: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0929: brfalse.s IL_0934
+IL_092b: ldloc.s V_72
+IL_092d: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0932: stloc.s V_60
+IL_0934: ldarg.0
+IL_0935: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.CitizenPresence> Game.Rendering.BatchDataSystem/BatchDataJob::m_CitizenPresenceData
+IL_093a: ldloc.s V_60
+IL_093c: ldloca.s V_73
+IL_093e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.CitizenPresence>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0943: pop
+IL_0944: ldarg.0
+IL_0945: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Abandoned> Game.Rendering.BatchDataSystem/BatchDataJob::m_BuildingAbandonedData
+IL_094a: ldloc.s V_60
+IL_094c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Abandoned>::HasComponent(Unity.Entities.Entity)
+IL_0951: stloc.s V_74
+IL_0953: ldc.i4.1
+IL_0954: stloc.s V_75
+IL_0956: ldarg.0
+IL_0957: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Rendering.BatchDataSystem/BatchDataJob::m_BuildingData
+IL_095c: ldloc.s V_60
+IL_095e: ldloca.s V_76
+IL_0960: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0965: brfalse.s IL_0975
+IL_0967: ldloc.s V_76
+IL_0969: ldfld Game.Buildings.BuildingFlags Game.Buildings.Building::m_Flags
+IL_096e: ldc.i4.8
+IL_096f: and
+IL_0970: ldc.i4.0
+IL_0971: cgt.un
+IL_0973: stloc.s V_75
+IL_0975: ldloc.s V_61
+IL_0977: ldloc.s V_73
+IL_0979: ldarg.0
+IL_097a: ldfld System.Single Game.Rendering.BatchDataSystem/BatchDataJob::m_LightFactor
+IL_097f: ldloc.s V_74
+IL_0981: ldloc.s V_62
+IL_0983: or
+IL_0984: ldloc.s V_75
+IL_0986: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::GetBuildingState(Game.Common.PseudoRandomSeed,Game.Buildings.CitizenPresence,System.Single,System.Boolean,System.Boolean)
+IL_098b: stloc.s V_59
+IL_098d: ldarg.0
+IL_098e: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0993: ldloc.s V_59
+IL_0995: ldloc.3
+IL_0996: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_099b: ldloc.s V_6
+IL_099d: ldloc.3
+IL_099e: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_09a3: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_09a8: ldarga.s updateMask
+IL_09aa: ldc.i4.2
+IL_09ab: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty)
+IL_09b0: brfalse IL_0a8a
+IL_09b5: ldarg.0
+IL_09b6: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshColors
+IL_09bb: ldarg.1
+IL_09bc: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_09c1: ldloca.s V_80
+IL_09c3: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_09c8: brfalse.s IL_0a34
+IL_09ca: ldloc.3
+IL_09cb: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_09d0: stloc.s V_82
+IL_09d2: ldloc.1
+IL_09d3: ldloc.3
+IL_09d4: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+IL_09d9: ldloca.s V_83
+IL_09db: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Rendering.MeshGroup>(Unity.Entities.DynamicBuffer`1<!!0>,System.Int32,!!0&)
+IL_09e0: brfalse.s IL_09ee
+IL_09e2: ldloc.s V_82
+IL_09e4: ldloc.s V_83
+IL_09e6: ldfld System.Byte Game.Rendering.MeshGroup::m_ColorOffset
+IL_09eb: add
+IL_09ec: stloc.s V_82
+IL_09ee: ldloca.s V_80
+IL_09f0: ldloc.s V_82
+IL_09f2: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshColor>::get_Item(System.Int32)
+IL_09f7: stloc.s V_84
+IL_09f9: ldloca.s V_84
+IL_09fb: ldflda Game.Rendering.ColorSet Game.Rendering.MeshColor::m_ColorSet
+IL_0a00: ldflda UnityEngine.Color Game.Rendering.ColorSet::m_Channel0
+IL_0a05: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_0a0a: stloc.s V_77
+IL_0a0c: ldloca.s V_84
+IL_0a0e: ldflda Game.Rendering.ColorSet Game.Rendering.MeshColor::m_ColorSet
+IL_0a13: ldflda UnityEngine.Color Game.Rendering.ColorSet::m_Channel1
+IL_0a18: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_0a1d: stloc.s V_78
+IL_0a1f: ldloca.s V_84
+IL_0a21: ldflda Game.Rendering.ColorSet Game.Rendering.MeshColor::m_ColorSet
+IL_0a26: ldflda UnityEngine.Color Game.Rendering.ColorSet::m_Channel2
+IL_0a2b: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_0a30: stloc.s V_79
+IL_0a32: br.s IL_0a49
+IL_0a34: call UnityEngine.Color UnityEngine.Color::get_white()
+IL_0a39: stloc.s V_77
+IL_0a3b: call UnityEngine.Color UnityEngine.Color::get_white()
+IL_0a40: stloc.s V_78
+IL_0a42: call UnityEngine.Color UnityEngine.Color::get_white()
+IL_0a47: stloc.s V_79
+IL_0a49: ldarg.1
+IL_0a4a: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0a4f: ldc.i4 268435456
+IL_0a54: and
+IL_0a55: ldc.i4.0
+IL_0a56: cgt.un
+IL_0a58: stloc.s V_81
+IL_0a5a: ldarg.0
+IL_0a5b: ldloca.s V_4
+IL_0a5d: ldloca.s V_3
+IL_0a5f: ldarg.2
+IL_0a60: ldc.i4.2
+IL_0a61: ldloc.s V_77
+IL_0a63: ldloc.s V_81
+IL_0a65: call System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.ObjectProperty,UnityEngine.Color,System.Boolean)
+IL_0a6a: ldarg.0
+IL_0a6b: ldloca.s V_4
+IL_0a6d: ldloca.s V_3
+IL_0a6f: ldarg.2
+IL_0a70: ldc.i4.3
+IL_0a71: ldloc.s V_78
+IL_0a73: ldloc.s V_81
+IL_0a75: call System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.ObjectProperty,UnityEngine.Color,System.Boolean)
+IL_0a7a: ldarg.0
+IL_0a7b: ldloca.s V_4
+IL_0a7d: ldloca.s V_3
+IL_0a7f: ldarg.2
+IL_0a80: ldc.i4.4
+IL_0a81: ldloc.s V_79
+IL_0a83: ldloc.s V_81
+IL_0a85: call System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.ObjectProperty,UnityEngine.Color,System.Boolean)
+IL_0a8a: ldarga.s updateMask
+IL_0a8c: ldc.i4.0
+IL_0a8d: ldloca.s V_4
+IL_0a8f: ldloca.s V_7
+IL_0a91: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0a96: brfalse IL_0b8c
+IL_0a9b: ldarg.0
+IL_0a9c: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Skeleton> Game.Rendering.BatchDataSystem/BatchDataJob::m_Skeletons
+IL_0aa1: ldarg.1
+IL_0aa2: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0aa7: ldloca.s V_86
+IL_0aa9: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.Skeleton>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0aae: brfalse.s IL_0ae9
+IL_0ab0: ldloc.3
+IL_0ab1: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_0ab6: stloc.s V_87
+IL_0ab8: ldloc.1
+IL_0ab9: ldloc.3
+IL_0aba: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+IL_0abf: ldloca.s V_88
+IL_0ac1: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Rendering.MeshGroup>(Unity.Entities.DynamicBuffer`1<!!0>,System.Int32,!!0&)
+IL_0ac6: brfalse.s IL_0ad4
+IL_0ac8: ldloc.s V_87
+IL_0aca: ldloc.s V_88
+IL_0acc: ldfld System.Byte Game.Rendering.MeshGroup::m_MeshOffset
+IL_0ad1: add
+IL_0ad2: stloc.s V_87
+IL_0ad4: ldloca.s V_86
+IL_0ad6: ldloc.s V_87
+IL_0ad8: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.Skeleton>::get_Item(System.Int32)
+IL_0add: call Unity.Mathematics.float2 Game.Rendering.BatchDataHelpers::GetBoneParameters(Game.Rendering.Skeleton)
+IL_0ae2: stloc.s V_85
+IL_0ae4: br IL_0b71
+IL_0ae9: ldarg.1
+IL_0aea: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0aef: ldc.i4 524288
+IL_0af4: and
+IL_0af5: brfalse.s IL_0b6a
+IL_0af7: ldarg.0
+IL_0af8: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Animated> Game.Rendering.BatchDataSystem/BatchDataJob::m_Animateds
+IL_0afd: ldarg.1
+IL_0afe: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0b03: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Rendering.Animated>::get_Item(Unity.Entities.Entity)
+IL_0b08: stloc.s V_89
+IL_0b0a: ldarg.0
+IL_0b0b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabRefData
+IL_0b10: ldarg.1
+IL_0b11: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0b16: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0b1b: stloc.s V_90
+IL_0b1d: ldloc.3
+IL_0b1e: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_0b23: stloc.s V_91
+IL_0b25: ldarg.0
+IL_0b26: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabSubMeshGroups
+IL_0b2b: ldloc.s V_90
+IL_0b2d: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0b32: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup>::HasBuffer(Unity.Entities.Entity)
+IL_0b37: brfalse.s IL_0b58
+IL_0b39: ldloca.s V_1
+IL_0b3b: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>::get_IsCreated()
+IL_0b40: brfalse.s IL_0b55
+IL_0b42: ldloca.s V_1
+IL_0b44: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>::get_Length()
+IL_0b49: brfalse.s IL_0b55
+IL_0b4b: ldloc.3
+IL_0b4c: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+IL_0b51: stloc.s V_91
+IL_0b53: br.s IL_0b58
+IL_0b55: ldc.i4.0
+IL_0b56: stloc.s V_91
+IL_0b58: ldloca.s V_89
+IL_0b5a: ldloc.s V_91
+IL_0b5c: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.Animated>::get_Item(System.Int32)
+IL_0b61: call Unity.Mathematics.float2 Game.Rendering.BatchDataHelpers::GetBoneParameters(Game.Rendering.Animated)
+IL_0b66: stloc.s V_85
+IL_0b68: br.s IL_0b71
+IL_0b6a: ldsfld Unity.Mathematics.float2 Unity.Mathematics.float2::zero
+IL_0b6f: stloc.s V_85
+IL_0b71: ldarg.0
+IL_0b72: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0b77: ldloc.s V_85
+IL_0b79: ldloc.3
+IL_0b7a: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0b7f: ldloc.s V_7
+IL_0b81: ldloc.3
+IL_0b82: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0b87: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float2>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0b8c: ldarga.s updateMask
+IL_0b8e: ldc.i4.1
+IL_0b8f: ldloca.s V_4
+IL_0b91: ldloca.s V_8
+IL_0b93: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0b98: brfalse.s IL_0c07
+IL_0b9a: ldloc.3
+IL_0b9b: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_0ba0: stloc.s V_92
+IL_0ba2: ldloc.1
+IL_0ba3: ldloc.3
+IL_0ba4: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+IL_0ba9: ldloca.s V_93
+IL_0bab: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Rendering.MeshGroup>(Unity.Entities.DynamicBuffer`1<!!0>,System.Int32,!!0&)
+IL_0bb0: brfalse.s IL_0bbe
+IL_0bb2: ldloc.s V_92
+IL_0bb4: ldloc.s V_93
+IL_0bb6: ldfld System.Byte Game.Rendering.MeshGroup::m_MeshOffset
+IL_0bbb: add
+IL_0bbc: stloc.s V_92
+IL_0bbe: ldarg.0
+IL_0bbf: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Emissive> Game.Rendering.BatchDataSystem/BatchDataJob::m_Emissives
+IL_0bc4: ldarg.1
+IL_0bc5: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0bca: ldloca.s V_95
+IL_0bcc: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.Emissive>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0bd1: brfalse.s IL_0be5
+IL_0bd3: ldloca.s V_95
+IL_0bd5: ldloc.s V_92
+IL_0bd7: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.Emissive>::get_Item(System.Int32)
+IL_0bdc: call Unity.Mathematics.float2 Game.Rendering.BatchDataHelpers::GetLightParameters(Game.Rendering.Emissive)
+IL_0be1: stloc.s V_94
+IL_0be3: br.s IL_0bec
+IL_0be5: ldsfld Unity.Mathematics.float2 Unity.Mathematics.float2::zero
+IL_0bea: stloc.s V_94
+IL_0bec: ldarg.0
+IL_0bed: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0bf2: ldloc.s V_94
+IL_0bf4: ldloc.3
+IL_0bf5: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0bfa: ldloc.s V_8
+IL_0bfc: ldloc.3
+IL_0bfd: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0c02: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float2>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0c07: ldarga.s updateMask
+IL_0c09: ldc.i4.7
+IL_0c0a: ldloca.s V_4
+IL_0c0c: ldloca.s V_9
+IL_0c0e: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0c13: brfalse IL_0cfc
+IL_0c18: ldarg.0
+IL_0c19: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Error> Game.Rendering.BatchDataSystem/BatchDataJob::m_ErrorData
+IL_0c1e: ldarg.1
+IL_0c1f: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0c24: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Error>::HasComponent(Unity.Entities.Entity)
+IL_0c29: brfalse.s IL_0c3d
+IL_0c2b: ldarg.0
+IL_0c2c: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0c31: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_ErrorColor
+IL_0c36: stloc.s V_96
+IL_0c38: br IL_0cd8
+IL_0c3d: ldarg.0
+IL_0c3e: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Warning> Game.Rendering.BatchDataSystem/BatchDataJob::m_WarningData
+IL_0c43: ldarg.1
+IL_0c44: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0c49: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Warning>::HasComponent(Unity.Entities.Entity)
+IL_0c4e: brfalse.s IL_0c5f
+IL_0c50: ldarg.0
+IL_0c51: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0c56: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_WarningColor
+IL_0c5b: stloc.s V_96
+IL_0c5d: br.s IL_0cd8
+IL_0c5f: ldarg.0
+IL_0c60: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Override> Game.Rendering.BatchDataSystem/BatchDataJob::m_OverrideData
+IL_0c65: ldarg.1
+IL_0c66: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0c6b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Override>::HasComponent(Unity.Entities.Entity)
+IL_0c70: brfalse.s IL_0c81
+IL_0c72: ldarg.0
+IL_0c73: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0c78: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_OverrideColor
+IL_0c7d: stloc.s V_96
+IL_0c7f: br.s IL_0cd8
+IL_0c81: ldarg.1
+IL_0c82: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0c87: ldc.i4 256
+IL_0c8c: and
+IL_0c8d: brfalse.s IL_0ccb
+IL_0c8f: ldarg.0
+IL_0c90: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+IL_0c95: ldarg.1
+IL_0c96: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0c9b: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::get_Item(Unity.Entities.Entity)
+IL_0ca0: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0ca5: ldc.i4 2048
+IL_0caa: and
+IL_0cab: brfalse.s IL_0cbc
+IL_0cad: ldarg.0
+IL_0cae: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0cb3: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_OwnerColor
+IL_0cb8: stloc.s V_96
+IL_0cba: br.s IL_0cd8
+IL_0cbc: ldarg.0
+IL_0cbd: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0cc2: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_HoveredColor
+IL_0cc7: stloc.s V_96
+IL_0cc9: br.s IL_0cd8
+IL_0ccb: ldarg.0
+IL_0ccc: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0cd1: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_HoveredColor
+IL_0cd6: stloc.s V_96
+IL_0cd8: ldloca.s V_96
+IL_0cda: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_0cdf: stloc.s V_96
+IL_0ce1: ldarg.0
+IL_0ce2: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0ce7: ldloc.s V_96
+IL_0ce9: ldloc.3
+IL_0cea: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0cef: ldloc.s V_9
+IL_0cf1: ldloc.3
+IL_0cf2: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0cf7: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<UnityEngine.Color>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0cfc: ldarga.s updateMask
+IL_0cfe: ldc.i4.s 10
+IL_0d00: ldloca.s V_4
+IL_0d02: ldloca.s V_10
+IL_0d04: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0d09: brfalse IL_0db4
+IL_0d0e: ldc.r4 0
+IL_0d13: stloc.s V_97
+IL_0d15: ldarg.1
+IL_0d16: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0d1b: ldc.i4 524288
+IL_0d20: and
+IL_0d21: brfalse.s IL_0d99
+IL_0d23: ldarg.0
+IL_0d24: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.Animated> Game.Rendering.BatchDataSystem/BatchDataJob::m_Animateds
+IL_0d29: ldarg.1
+IL_0d2a: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0d2f: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Rendering.Animated>::get_Item(Unity.Entities.Entity)
+IL_0d34: stloc.s V_98
+IL_0d36: ldarg.0
+IL_0d37: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabRefData
+IL_0d3c: ldarg.1
+IL_0d3d: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0d42: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0d47: stloc.s V_99
+IL_0d49: ldloc.3
+IL_0d4a: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_0d4f: stloc.s V_100
+IL_0d51: ldarg.0
+IL_0d52: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabSubMeshGroups
+IL_0d57: ldloc.s V_99
+IL_0d59: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0d5e: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup>::HasBuffer(Unity.Entities.Entity)
+IL_0d63: brfalse.s IL_0d84
+IL_0d65: ldloca.s V_1
+IL_0d67: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>::get_IsCreated()
+IL_0d6c: brfalse.s IL_0d81
+IL_0d6e: ldloca.s V_1
+IL_0d70: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshGroup>::get_Length()
+IL_0d75: brfalse.s IL_0d81
+IL_0d77: ldloc.3
+IL_0d78: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+IL_0d7d: stloc.s V_100
+IL_0d7f: br.s IL_0d84
+IL_0d81: ldc.i4.0
+IL_0d82: stloc.s V_100
+IL_0d84: ldloca.s V_98
+IL_0d86: ldloc.s V_100
+IL_0d88: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.Animated>::get_Item(System.Int32)
+IL_0d8d: ldfld System.Int32 Game.Rendering.Animated::m_MetaIndex
+IL_0d92: call System.Single Unity.Mathematics.math::asfloat(System.Int32)
+IL_0d97: stloc.s V_97
+IL_0d99: ldarg.0
+IL_0d9a: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0d9f: ldloc.s V_97
+IL_0da1: ldloc.3
+IL_0da2: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0da7: ldloc.s V_10
+IL_0da9: ldloc.3
+IL_0daa: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0daf: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<System.Single>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0db4: ldarga.s updateMask
+IL_0db6: ldc.i4.s 11
+IL_0db8: ldloca.s V_4
+IL_0dba: ldloca.s V_11
+IL_0dbc: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0dc1: brfalse IL_0fa7
+IL_0dc6: ldloca.s V_101
+IL_0dc8: initobj Unity.Mathematics.float4
+IL_0dce: ldarg.1
+IL_0dcf: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0dd4: ldc.i4 33554432
+IL_0dd9: and
+IL_0dda: brfalse IL_0e88
+IL_0ddf: ldarg.0
+IL_0de0: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Surface> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectSurfaceData
+IL_0de5: ldarg.1
+IL_0de6: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0deb: ldloca.s V_103
+IL_0ded: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Surface>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0df2: brfalse.s IL_0e22
+IL_0df4: ldarg.0
+IL_0df5: ldflda Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle> Game.Rendering.BatchDataSystem/BatchDataJob::m_VehicleData
+IL_0dfa: ldarg.1
+IL_0dfb: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0e00: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle>::HasComponent(Unity.Entities.Entity)
+IL_0e05: brfalse.s IL_0e11
+IL_0e07: ldloca.s V_101
+IL_0e09: initobj Unity.Mathematics.float4
+IL_0e0f: br.s IL_0e88
+IL_0e11: ldloc.s V_103
+IL_0e13: ldarg.0
+IL_0e14: ldfld System.Boolean Game.Rendering.BatchDataSystem/BatchDataJob::m_SnowVisual
+IL_0e19: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::GetWetness(Game.Objects.Surface,System.Boolean)
+IL_0e1e: stloc.s V_101
+IL_0e20: br.s IL_0e88
+IL_0e22: ldarg.0
+IL_0e23: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_0e28: ldarg.1
+IL_0e29: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0e2e: ldloca.s V_104
+IL_0e30: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0e35: brfalse.s IL_0e88
+IL_0e37: ldarg.0
+IL_0e38: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Surface> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectSurfaceData
+IL_0e3d: ldloc.s V_104
+IL_0e3f: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0e44: ldloca.s V_105
+IL_0e46: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Surface>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0e4b: brfalse.s IL_0e5e
+IL_0e4d: ldloc.s V_105
+IL_0e4f: ldarg.0
+IL_0e50: ldfld System.Boolean Game.Rendering.BatchDataSystem/BatchDataJob::m_SnowVisual
+IL_0e55: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::GetWetness(Game.Objects.Surface,System.Boolean)
+IL_0e5a: stloc.s V_101
+IL_0e5c: br.s IL_0e88
+IL_0e5e: ldarg.0
+IL_0e5f: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_0e64: ldloc.s V_104
+IL_0e66: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0e6b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_0e70: brfalse.s IL_0e88
+IL_0e72: ldarg.0
+IL_0e73: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_0e78: ldloc.s V_104
+IL_0e7a: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0e7f: call !0 Unity.Entities.ComponentLookup`1<Game.Common.Owner>::get_Item(Unity.Entities.Entity)
+IL_0e84: stloc.s V_104
+IL_0e86: br.s IL_0e37
+IL_0e88: ldarg.0
+IL_0e89: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0e8e: ldloca.s V_102
+IL_0e90: ldloc.3
+IL_0e91: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0e96: ldloc.s V_11
+IL_0e98: ldloc.3
+IL_0e99: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0e9e: call System.Boolean Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::GetPropertyValue<Unity.Mathematics.float4>(!!0&,System.Int32,System.Int32,System.Int32)
+IL_0ea3: brfalse IL_0f8c
+IL_0ea8: ldloc.s V_102
+IL_0eaa: ldloc.s V_101
+IL_0eac: call Unity.Mathematics.bool4 Unity.Mathematics.float4::op_Inequality(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0eb1: call System.Boolean Unity.Mathematics.math::any(Unity.Mathematics.bool4)
+IL_0eb6: brfalse IL_0fa7
+IL_0ebb: ldloc.s V_101
+IL_0ebd: ldloc.s V_102
+IL_0ebf: call Unity.Mathematics.bool4 Unity.Mathematics.float4::op_LessThan(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0ec4: stloc.s V_106
+IL_0ec6: ldarg.0
+IL_0ec7: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+IL_0ecc: ldarg.1
+IL_0ecd: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0ed2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_0ed7: brfalse.s IL_0ef8
+IL_0ed9: ldloc.s V_101
+IL_0edb: ldc.r4 0
+IL_0ee0: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0ee5: ldc.r4 1
+IL_0eea: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0eef: call Unity.Mathematics.float4 Unity.Mathematics.math::clamp(Unity.Mathematics.float4,Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0ef4: stloc.s V_102
+IL_0ef6: br.s IL_0f4e
+IL_0ef8: ldloc.s V_102
+IL_0efa: ldarg.0
+IL_0efb: ldfld System.Single Game.Rendering.BatchDataSystem/BatchDataJob::m_SmoothnessDelta
+IL_0f00: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0f05: ldarg.0
+IL_0f06: ldfld System.Single Game.Rendering.BatchDataSystem/BatchDataJob::m_SmoothnessDelta
+IL_0f0b: neg
+IL_0f0c: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0f11: ldloc.s V_106
+IL_0f13: call Unity.Mathematics.float4 Unity.Mathematics.math::select(Unity.Mathematics.float4,Unity.Mathematics.float4,Unity.Mathematics.bool4)
+IL_0f18: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Addition(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0f1d: stloc.s V_102
+IL_0f1f: ldloc.s V_102
+IL_0f21: ldc.r4 0
+IL_0f26: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0f2b: ldloc.s V_101
+IL_0f2d: ldloc.s V_106
+IL_0f2f: call Unity.Mathematics.float4 Unity.Mathematics.math::select(Unity.Mathematics.float4,Unity.Mathematics.float4,Unity.Mathematics.bool4)
+IL_0f34: ldloc.s V_101
+IL_0f36: ldc.r4 1
+IL_0f3b: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0f40: ldloc.s V_106
+IL_0f42: call Unity.Mathematics.float4 Unity.Mathematics.math::select(Unity.Mathematics.float4,Unity.Mathematics.float4,Unity.Mathematics.bool4)
+IL_0f47: call Unity.Mathematics.float4 Unity.Mathematics.math::clamp(Unity.Mathematics.float4,Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0f4c: stloc.s V_102
+IL_0f4e: ldarg.0
+IL_0f4f: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0f54: ldloc.s V_102
+IL_0f56: ldloc.3
+IL_0f57: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0f5c: ldloc.s V_11
+IL_0f5e: ldloc.3
+IL_0f5f: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0f64: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0f69: ldloc.s V_102
+IL_0f6b: ldloc.s V_101
+IL_0f6d: call Unity.Mathematics.bool4 Unity.Mathematics.float4::op_Inequality(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0f72: call System.Boolean Unity.Mathematics.math::any(Unity.Mathematics.bool4)
+IL_0f77: brfalse.s IL_0fa7
+IL_0f79: ldarg.0
+IL_0f7a: ldflda Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Rendering.BatchDataSystem/SmoothingNeeded> Game.Rendering.BatchDataSystem/BatchDataJob::m_SmoothingNeeded
+IL_0f7f: ldc.i4.0
+IL_0f80: newobj System.Void Game.Rendering.BatchDataSystem/SmoothingNeeded::.ctor(Game.Rendering.BatchDataSystem/SmoothingType)
+IL_0f85: call System.Void Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Rendering.BatchDataSystem/SmoothingNeeded>::Accumulate(!0)
+IL_0f8a: br.s IL_0fa7
+IL_0f8c: ldarg.0
+IL_0f8d: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0f92: ldloc.s V_101
+IL_0f94: ldloc.3
+IL_0f95: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0f9a: ldloc.s V_11
+IL_0f9c: ldloc.3
+IL_0f9d: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0fa2: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0fa7: ldarga.s updateMask
+IL_0fa9: ldc.i4.s 13
+IL_0fab: ldloca.s V_4
+IL_0fad: ldloca.s V_12
+IL_0faf: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0fb4: brfalse IL_1057
+IL_0fb9: ldarg.1
+IL_0fba: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0fbf: stloc.s V_107
+IL_0fc1: ldc.r4 0
+IL_0fc6: stloc.s V_108
+IL_0fc8: ldarg.0
+IL_0fc9: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabRefData
+IL_0fce: ldarg.1
+IL_0fcf: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0fd4: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0fd9: stloc.s V_109
+IL_0fdb: ldarg.0
+IL_0fdc: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabBuildingExtensionData
+IL_0fe1: ldloc.s V_109
+IL_0fe3: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0fe8: ldloca.s V_110
+IL_0fea: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0fef: brfalse.s IL_1018
+IL_0ff1: ldloc.s V_110
+IL_0ff3: ldfld System.Boolean Game.Prefabs.BuildingExtensionData::m_External
+IL_0ff8: brtrue.s IL_1018
+IL_0ffa: ldarg.0
+IL_0ffb: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_1000: ldarg.1
+IL_1001: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_1006: ldloca.s V_112
+IL_1008: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_100d: brfalse.s IL_1018
+IL_100f: ldloc.s V_112
+IL_1011: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_1016: stloc.s V_107
+IL_1018: ldarg.0
+IL_1019: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectElevationData
+IL_101e: ldloc.s V_107
+IL_1020: ldloca.s V_111
+IL_1022: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Elevation>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_1027: brfalse.s IL_103c
+IL_1029: ldloc.s V_111
+IL_102b: ldfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_1030: ldc.i4.7
+IL_1031: and
+IL_1032: ldc.i4.2
+IL_1033: beq.s IL_103c
+IL_1035: ldc.r4 1
+IL_103a: stloc.s V_108
+IL_103c: ldarg.0
+IL_103d: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_1042: ldloc.s V_108
+IL_1044: ldloc.3
+IL_1045: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_104a: ldloc.s V_12
+IL_104c: ldloc.3
+IL_104d: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_1052: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<System.Single>(!!0,System.Int32,System.Int32,System.Int32)
+IL_1057: ldloc.2
+IL_1058: ldc.i4.1
+IL_1059: add
+IL_105a: stloc.2
+IL_105b: ldloc.2
+IL_105c: ldloca.s V_0
+IL_105e: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshBatch>::get_Length()
+IL_1063: blt IL_0090
+IL_1068: ret
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.ObjectProperty,UnityEngine.Color,System.Boolean)
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.LaneProperty,UnityEngine.Color,System.Boolean)
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.MeshBatch&,UnityEngine.Color,System.Int32,System.Boolean)
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateNetData(Game.Rendering.PreCullingData,Game.Rendering.BatchDataSystem/UpdateMask)
+IL_0000: ldarga.s updateMask
+IL_0002: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateNothing()
+IL_0007: brfalse.s IL_000a
+IL_0009: ret
+IL_000a: ldarg.0
+IL_000b: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshBatches
+IL_0010: ldarg.1
+IL_0011: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0016: ldloca.s V_0
+IL_0018: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_001d: brtrue.s IL_0020
+IL_001f: ret
+IL_0020: ldc.i4.0
+IL_0021: stloc.1
+IL_0022: br IL_07a9
+IL_0027: ldloca.s V_0
+IL_0029: ldloc.1
+IL_002a: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshBatch>::get_Item(System.Int32)
+IL_002f: stloc.2
+IL_0030: ldloc.2
+IL_0031: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_0036: stloc.3
+IL_0037: ldarg.0
+IL_0038: ldflda Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchGroups
+IL_003d: ldloc.2
+IL_003e: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0043: call !1 Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::GetGroupData(System.Int32)
+IL_0048: stloc.s V_4
+IL_004a: ldarga.s updateMask
+IL_004c: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateTransform()
+IL_0051: brfalse IL_041d
+IL_0056: ldarg.0
+IL_0057: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.BatchDataSystem/BatchDataJob::m_CullingInfoData
+IL_005c: ldarg.1
+IL_005d: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0062: call !0 Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo>::get_Item(Unity.Entities.Entity)
+IL_0067: stloc.s V_7
+IL_0069: ldloca.s V_8
+IL_006b: initobj Game.Rendering.BatchDataHelpers/CompositionParameters
+IL_0071: ldloc.3
+IL_0072: switch IL_009c,IL_009c,IL_00bd,IL_0108,IL_0150,IL_0150,IL_00bd,IL_0108
+IL_0097: br IL_01aa
+IL_009c: ldarg.0
+IL_009d: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeGeometry> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeGeometryData
+IL_00a2: ldarg.1
+IL_00a3: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00a8: call !0 Unity.Entities.ComponentLookup`1<Game.Net.EdgeGeometry>::get_Item(Unity.Entities.Entity)
+IL_00ad: ldloc.3
+IL_00ae: ldc.i4.1
+IL_00af: ceq
+IL_00b1: ldloca.s V_8
+IL_00b3: call System.Void Game.Rendering.BatchDataHelpers::CalculateEdgeParameters(Game.Net.EdgeGeometry,System.Boolean,Game.Rendering.BatchDataHelpers/CompositionParameters&)
+IL_00b8: br IL_01aa
+IL_00bd: ldarg.0
+IL_00be: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Composition> Game.Rendering.BatchDataSystem/BatchDataJob::m_CompositionData
+IL_00c3: ldarg.1
+IL_00c4: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00c9: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Composition>::get_Item(Unity.Entities.Entity)
+IL_00ce: stloc.s V_21
+IL_00d0: ldarg.0
+IL_00d1: ldflda Unity.Entities.ComponentLookup`1<Game.Net.StartNodeGeometry> Game.Rendering.BatchDataSystem/BatchDataJob::m_StartNodeGeometryData
+IL_00d6: ldarg.1
+IL_00d7: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00dc: call !0 Unity.Entities.ComponentLookup`1<Game.Net.StartNodeGeometry>::get_Item(Unity.Entities.Entity)
+IL_00e1: ldarg.0
+IL_00e2: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabCompositionData
+IL_00e7: ldloc.s V_21
+IL_00e9: ldfld Unity.Entities.Entity Game.Net.Composition::m_StartNode
+IL_00ee: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData>::get_Item(Unity.Entities.Entity)
+IL_00f3: stloc.s V_22
+IL_00f5: ldfld Game.Net.EdgeNodeGeometry Game.Net.StartNodeGeometry::m_Geometry
+IL_00fa: ldloc.s V_22
+IL_00fc: ldloca.s V_8
+IL_00fe: call System.Void Game.Rendering.BatchDataHelpers::CalculateNodeParameters(Game.Net.EdgeNodeGeometry,Game.Prefabs.NetCompositionData,Game.Rendering.BatchDataHelpers/CompositionParameters&)
+IL_0103: br IL_01aa
+IL_0108: ldarg.0
+IL_0109: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Composition> Game.Rendering.BatchDataSystem/BatchDataJob::m_CompositionData
+IL_010e: ldarg.1
+IL_010f: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0114: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Composition>::get_Item(Unity.Entities.Entity)
+IL_0119: stloc.s V_23
+IL_011b: ldarg.0
+IL_011c: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EndNodeGeometry> Game.Rendering.BatchDataSystem/BatchDataJob::m_EndNodeGeometryData
+IL_0121: ldarg.1
+IL_0122: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0127: call !0 Unity.Entities.ComponentLookup`1<Game.Net.EndNodeGeometry>::get_Item(Unity.Entities.Entity)
+IL_012c: ldarg.0
+IL_012d: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabCompositionData
+IL_0132: ldloc.s V_23
+IL_0134: ldfld Unity.Entities.Entity Game.Net.Composition::m_EndNode
+IL_0139: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData>::get_Item(Unity.Entities.Entity)
+IL_013e: stloc.s V_24
+IL_0140: ldfld Game.Net.EdgeNodeGeometry Game.Net.EndNodeGeometry::m_Geometry
+IL_0145: ldloc.s V_24
+IL_0147: ldloca.s V_8
+IL_0149: call System.Void Game.Rendering.BatchDataHelpers::CalculateNodeParameters(Game.Net.EdgeNodeGeometry,Game.Prefabs.NetCompositionData,Game.Rendering.BatchDataHelpers/CompositionParameters&)
+IL_014e: br.s IL_01aa
+IL_0150: ldarg.0
+IL_0151: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Rendering.BatchDataSystem/BatchDataJob::m_NodeData
+IL_0156: ldarg.1
+IL_0157: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_015c: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Node>::get_Item(Unity.Entities.Entity)
+IL_0161: ldarg.0
+IL_0162: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Orphan> Game.Rendering.BatchDataSystem/BatchDataJob::m_OrphanData
+IL_0167: ldarg.1
+IL_0168: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_016d: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Orphan>::get_Item(Unity.Entities.Entity)
+IL_0172: stloc.s V_25
+IL_0174: ldarg.0
+IL_0175: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeGeometry> Game.Rendering.BatchDataSystem/BatchDataJob::m_NodeGeometryData
+IL_017a: ldarg.1
+IL_017b: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0180: call !0 Unity.Entities.ComponentLookup`1<Game.Net.NodeGeometry>::get_Item(Unity.Entities.Entity)
+IL_0185: stloc.s V_26
+IL_0187: ldarg.0
+IL_0188: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabCompositionData
+IL_018d: ldloc.s V_25
+IL_018f: ldfld Unity.Entities.Entity Game.Net.Orphan::m_Composition
+IL_0194: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData>::get_Item(Unity.Entities.Entity)
+IL_0199: stloc.s V_27
+IL_019b: ldloc.s V_26
+IL_019d: ldloc.s V_27
+IL_019f: ldloc.3
+IL_01a0: ldc.i4.4
+IL_01a1: ceq
+IL_01a3: ldloca.s V_8
+IL_01a5: call System.Void Game.Rendering.BatchDataHelpers::CalculateOrphanParameters(Game.Net.Node,Game.Net.NodeGeometry,Game.Prefabs.NetCompositionData,System.Boolean,Game.Rendering.BatchDataHelpers/CompositionParameters&)
+IL_01aa: ldarg.0
+IL_01ab: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_01b0: ldloc.s V_8
+IL_01b2: ldfld Unity.Mathematics.float3x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_TransformMatrix
+IL_01b7: ldloc.s V_8
+IL_01b9: ldfld Unity.Mathematics.float3x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_TransformMatrix
+IL_01be: ldloc.2
+IL_01bf: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_01c4: ldloc.2
+IL_01c5: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_01ca: call !0& Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetTransformValue(Unity.Mathematics.float3x4,Unity.Mathematics.float3x4,System.Int32,System.Int32)
+IL_01cf: dup
+IL_01d0: ldloc.s V_7
+IL_01d2: ldfld Colossal.Mathematics.Bounds3 Game.Rendering.CullingInfo::m_Bounds
+IL_01d7: stfld Colossal.Mathematics.Bounds3 Game.Rendering.CullingData::m_Bounds
+IL_01dc: ldarg.0
+IL_01dd: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Rendering.BatchDataSystem/BatchDataJob::m_HiddenData
+IL_01e2: ldarg.1
+IL_01e3: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_01e8: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Hidden>::HasComponent(Unity.Entities.Entity)
+IL_01ed: call System.Void Game.Rendering.CullingData::set_isHidden(System.Boolean)
+IL_01f2: ldarga.s updateMask
+IL_01f4: ldc.i4.0
+IL_01f5: ldloca.s V_4
+IL_01f7: ldloca.s V_9
+IL_01f9: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_01fe: brfalse.s IL_0220
+IL_0200: ldarg.0
+IL_0201: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0206: ldloc.s V_8
+IL_0208: ldfld Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionMatrix0
+IL_020d: ldloc.2
+IL_020e: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0213: ldloc.s V_9
+IL_0215: ldloc.2
+IL_0216: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_021b: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0220: ldarga.s updateMask
+IL_0222: ldc.i4.1
+IL_0223: ldloca.s V_4
+IL_0225: ldloca.s V_10
+IL_0227: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_022c: brfalse.s IL_024e
+IL_022e: ldarg.0
+IL_022f: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0234: ldloc.s V_8
+IL_0236: ldfld Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionMatrix1
+IL_023b: ldloc.2
+IL_023c: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0241: ldloc.s V_10
+IL_0243: ldloc.2
+IL_0244: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0249: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_024e: ldarga.s updateMask
+IL_0250: ldc.i4.2
+IL_0251: ldloca.s V_4
+IL_0253: ldloca.s V_11
+IL_0255: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_025a: brfalse.s IL_027c
+IL_025c: ldarg.0
+IL_025d: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0262: ldloc.s V_8
+IL_0264: ldfld Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionMatrix2
+IL_0269: ldloc.2
+IL_026a: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_026f: ldloc.s V_11
+IL_0271: ldloc.2
+IL_0272: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0277: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_027c: ldarga.s updateMask
+IL_027e: ldc.i4.3
+IL_027f: ldloca.s V_4
+IL_0281: ldloca.s V_12
+IL_0283: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0288: brfalse.s IL_02aa
+IL_028a: ldarg.0
+IL_028b: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0290: ldloc.s V_8
+IL_0292: ldfld Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionMatrix3
+IL_0297: ldloc.2
+IL_0298: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_029d: ldloc.s V_12
+IL_029f: ldloc.2
+IL_02a0: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_02a5: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_02aa: ldarga.s updateMask
+IL_02ac: ldc.i4.4
+IL_02ad: ldloca.s V_4
+IL_02af: ldloca.s V_13
+IL_02b1: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_02b6: brfalse.s IL_02d8
+IL_02b8: ldarg.0
+IL_02b9: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_02be: ldloc.s V_8
+IL_02c0: ldfld Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionMatrix4
+IL_02c5: ldloc.2
+IL_02c6: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_02cb: ldloc.s V_13
+IL_02cd: ldloc.2
+IL_02ce: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_02d3: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_02d8: ldarga.s updateMask
+IL_02da: ldc.i4.5
+IL_02db: ldloca.s V_4
+IL_02dd: ldloca.s V_14
+IL_02df: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_02e4: brfalse.s IL_0306
+IL_02e6: ldarg.0
+IL_02e7: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_02ec: ldloc.s V_8
+IL_02ee: ldfld Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionMatrix5
+IL_02f3: ldloc.2
+IL_02f4: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_02f9: ldloc.s V_14
+IL_02fb: ldloc.2
+IL_02fc: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0301: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0306: ldarga.s updateMask
+IL_0308: ldc.i4.6
+IL_0309: ldloca.s V_4
+IL_030b: ldloca.s V_15
+IL_030d: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0312: brfalse.s IL_0334
+IL_0314: ldarg.0
+IL_0315: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_031a: ldloc.s V_8
+IL_031c: ldfld Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionMatrix6
+IL_0321: ldloc.2
+IL_0322: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0327: ldloc.s V_15
+IL_0329: ldloc.2
+IL_032a: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_032f: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0334: ldarga.s updateMask
+IL_0336: ldc.i4.7
+IL_0337: ldloca.s V_4
+IL_0339: ldloca.s V_16
+IL_033b: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0340: brfalse.s IL_0362
+IL_0342: ldarg.0
+IL_0343: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0348: ldloc.s V_8
+IL_034a: ldfld Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionMatrix7
+IL_034f: ldloc.2
+IL_0350: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0355: ldloc.s V_16
+IL_0357: ldloc.2
+IL_0358: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_035d: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0362: ldarga.s updateMask
+IL_0364: ldc.i4.8
+IL_0365: ldloca.s V_4
+IL_0367: ldloca.s V_17
+IL_0369: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_036e: brfalse.s IL_0390
+IL_0370: ldarg.0
+IL_0371: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0376: ldloc.s V_8
+IL_0378: ldfld Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionSync0
+IL_037d: ldloc.2
+IL_037e: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0383: ldloc.s V_17
+IL_0385: ldloc.2
+IL_0386: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_038b: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0390: ldarga.s updateMask
+IL_0392: ldc.i4.s 9
+IL_0394: ldloca.s V_4
+IL_0396: ldloca.s V_18
+IL_0398: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_039d: brfalse.s IL_03bf
+IL_039f: ldarg.0
+IL_03a0: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_03a5: ldloc.s V_8
+IL_03a7: ldfld Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionSync1
+IL_03ac: ldloc.2
+IL_03ad: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_03b2: ldloc.s V_18
+IL_03b4: ldloc.2
+IL_03b5: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_03ba: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_03bf: ldarga.s updateMask
+IL_03c1: ldc.i4.s 10
+IL_03c3: ldloca.s V_4
+IL_03c5: ldloca.s V_19
+IL_03c7: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_03cc: brfalse.s IL_03ee
+IL_03ce: ldarg.0
+IL_03cf: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_03d4: ldloc.s V_8
+IL_03d6: ldfld Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionSync2
+IL_03db: ldloc.2
+IL_03dc: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_03e1: ldloc.s V_19
+IL_03e3: ldloc.2
+IL_03e4: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_03e9: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_03ee: ldarga.s updateMask
+IL_03f0: ldc.i4.s 11
+IL_03f2: ldloca.s V_4
+IL_03f4: ldloca.s V_20
+IL_03f6: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_03fb: brfalse.s IL_041d
+IL_03fd: ldarg.0
+IL_03fe: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0403: ldloc.s V_8
+IL_0405: ldfld Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers/CompositionParameters::m_CompositionSync3
+IL_040a: ldloc.2
+IL_040b: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0410: ldloc.s V_20
+IL_0412: ldloc.2
+IL_0413: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0418: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_041d: ldarga.s updateMask
+IL_041f: ldc.i4.s 12
+IL_0421: ldloca.s V_4
+IL_0423: ldloca.s V_5
+IL_0425: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_042a: brfalse IL_0601
+IL_042f: ldloca.s V_28
+IL_0431: initobj Unity.Mathematics.float4
+IL_0437: ldarg.1
+IL_0438: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_043d: ldc.i4 16384
+IL_0442: and
+IL_0443: brfalse IL_05e6
+IL_0448: ldarg.0
+IL_0449: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetEdgeColorData
+IL_044e: ldarg.1
+IL_044f: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0454: ldloca.s V_29
+IL_0456: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_045b: brfalse IL_0592
+IL_0460: ldarg.0
+IL_0461: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeData
+IL_0466: ldarg.1
+IL_0467: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_046c: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Edge>::get_Item(Unity.Entities.Entity)
+IL_0471: stloc.s V_30
+IL_0473: ldloca.s V_31
+IL_0475: ldloc.s V_29
+IL_0477: ldfld System.Byte Game.Net.EdgeColor::m_Index
+IL_047c: conv.r4
+IL_047d: ldc.r4 0.5
+IL_0482: add
+IL_0483: ldloc.s V_29
+IL_0485: ldfld System.Byte Game.Net.EdgeColor::m_Value0
+IL_048a: conv.r4
+IL_048b: ldc.r4 0.003921569
+IL_0490: mul
+IL_0491: call System.Void Unity.Mathematics.float2::.ctor(System.Single,System.Single)
+IL_0496: ldloca.s V_32
+IL_0498: ldloc.s V_29
+IL_049a: ldfld System.Byte Game.Net.EdgeColor::m_Index
+IL_049f: conv.r4
+IL_04a0: ldc.r4 0.5
+IL_04a5: add
+IL_04a6: ldloc.s V_29
+IL_04a8: ldfld System.Byte Game.Net.EdgeColor::m_Value1
+IL_04ad: conv.r4
+IL_04ae: ldc.r4 0.003921569
+IL_04b3: mul
+IL_04b4: call System.Void Unity.Mathematics.float2::.ctor(System.Single,System.Single)
+IL_04b9: ldloc.s V_31
+IL_04bb: stloc.s V_33
+IL_04bd: ldloc.s V_32
+IL_04bf: stloc.s V_34
+IL_04c1: ldarg.0
+IL_04c2: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetNodeColorData
+IL_04c7: ldloc.s V_30
+IL_04c9: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_04ce: ldloca.s V_35
+IL_04d0: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NodeColor>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_04d5: brfalse.s IL_04fa
+IL_04d7: ldloca.s V_33
+IL_04d9: ldloc.s V_35
+IL_04db: ldfld System.Byte Game.Net.NodeColor::m_Index
+IL_04e0: conv.r4
+IL_04e1: ldc.r4 0.5
+IL_04e6: add
+IL_04e7: ldloc.s V_35
+IL_04e9: ldfld System.Byte Game.Net.NodeColor::m_Value
+IL_04ee: conv.r4
+IL_04ef: ldc.r4 0.003921569
+IL_04f4: mul
+IL_04f5: call System.Void Unity.Mathematics.float2::.ctor(System.Single,System.Single)
+IL_04fa: ldarg.0
+IL_04fb: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetNodeColorData
+IL_0500: ldloc.s V_30
+IL_0502: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_0507: ldloca.s V_36
+IL_0509: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NodeColor>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_050e: brfalse.s IL_0533
+IL_0510: ldloca.s V_34
+IL_0512: ldloc.s V_36
+IL_0514: ldfld System.Byte Game.Net.NodeColor::m_Index
+IL_0519: conv.r4
+IL_051a: ldc.r4 0.5
+IL_051f: add
+IL_0520: ldloc.s V_36
+IL_0522: ldfld System.Byte Game.Net.NodeColor::m_Value
+IL_0527: conv.r4
+IL_0528: ldc.r4 0.003921569
+IL_052d: mul
+IL_052e: call System.Void Unity.Mathematics.float2::.ctor(System.Single,System.Single)
+IL_0533: ldloc.3
+IL_0534: switch IL_055e,IL_056b,IL_0578,IL_0585,IL_05e6,IL_05e6,IL_055e,IL_055e
+IL_0559: br IL_05e6
+IL_055e: ldloca.s V_28
+IL_0560: ldloc.s V_31
+IL_0562: ldloc.s V_32
+IL_0564: call System.Void Unity.Mathematics.float4::.ctor(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_0569: br.s IL_05e6
+IL_056b: ldloca.s V_28
+IL_056d: ldloc.s V_32
+IL_056f: ldloc.s V_31
+IL_0571: call System.Void Unity.Mathematics.float4::.ctor(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_0576: br.s IL_05e6
+IL_0578: ldloca.s V_28
+IL_057a: ldloc.s V_31
+IL_057c: ldloc.s V_33
+IL_057e: call System.Void Unity.Mathematics.float4::.ctor(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_0583: br.s IL_05e6
+IL_0585: ldloca.s V_28
+IL_0587: ldloc.s V_32
+IL_0589: ldloc.s V_34
+IL_058b: call System.Void Unity.Mathematics.float4::.ctor(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_0590: br.s IL_05e6
+IL_0592: ldarg.0
+IL_0593: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetNodeColorData
+IL_0598: ldarg.1
+IL_0599: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_059e: ldloca.s V_37
+IL_05a0: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NodeColor>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_05a5: brfalse.s IL_05e6
+IL_05a7: ldloca.s V_28
+IL_05a9: ldloc.s V_37
+IL_05ab: ldfld System.Byte Game.Net.NodeColor::m_Index
+IL_05b0: conv.r4
+IL_05b1: ldc.r4 0.5
+IL_05b6: add
+IL_05b7: ldloc.s V_37
+IL_05b9: ldfld System.Byte Game.Net.NodeColor::m_Value
+IL_05be: conv.r4
+IL_05bf: ldc.r4 0.003921569
+IL_05c4: mul
+IL_05c5: ldloc.s V_37
+IL_05c7: ldfld System.Byte Game.Net.NodeColor::m_Index
+IL_05cc: conv.r4
+IL_05cd: ldc.r4 0.5
+IL_05d2: add
+IL_05d3: ldloc.s V_37
+IL_05d5: ldfld System.Byte Game.Net.NodeColor::m_Value
+IL_05da: conv.r4
+IL_05db: ldc.r4 0.003921569
+IL_05e0: mul
+IL_05e1: call System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_05e6: ldarg.0
+IL_05e7: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_05ec: ldloc.s V_28
+IL_05ee: ldloc.2
+IL_05ef: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_05f4: ldloc.s V_5
+IL_05f6: ldloc.2
+IL_05f7: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_05fc: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0601: ldarga.s updateMask
+IL_0603: ldc.i4.s 13
+IL_0605: ldloca.s V_4
+IL_0607: ldloca.s V_6
+IL_0609: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_060e: brfalse IL_07a5
+IL_0613: ldarg.0
+IL_0614: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Error> Game.Rendering.BatchDataSystem/BatchDataJob::m_ErrorData
+IL_0619: ldarg.1
+IL_061a: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_061f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Error>::HasComponent(Unity.Entities.Entity)
+IL_0624: brfalse.s IL_0638
+IL_0626: ldarg.0
+IL_0627: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_062c: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_ErrorColor
+IL_0631: stloc.s V_38
+IL_0633: br IL_0781
+IL_0638: ldarg.0
+IL_0639: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Warning> Game.Rendering.BatchDataSystem/BatchDataJob::m_WarningData
+IL_063e: ldarg.1
+IL_063f: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0644: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Warning>::HasComponent(Unity.Entities.Entity)
+IL_0649: brfalse.s IL_065d
+IL_064b: ldarg.0
+IL_064c: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0651: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_WarningColor
+IL_0656: stloc.s V_38
+IL_0658: br IL_0781
+IL_065d: ldarg.1
+IL_065e: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0663: ldc.i4 256
+IL_0668: and
+IL_0669: brfalse IL_0774
+IL_066e: ldarg.0
+IL_066f: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+IL_0674: ldarg.1
+IL_0675: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_067a: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::get_Item(Unity.Entities.Entity)
+IL_067f: ldarg.0
+IL_0680: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0685: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_HoveredColor
+IL_068a: stloc.s V_38
+IL_068c: dup
+IL_068d: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0692: ldc.i4 2048
+IL_0697: and
+IL_0698: brfalse.s IL_06a7
+IL_069a: ldarg.0
+IL_069b: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_06a0: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_OwnerColor
+IL_06a5: stloc.s V_38
+IL_06a7: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_06ac: ldc.i4 65536
+IL_06b1: and
+IL_06b2: brfalse IL_0781
+IL_06b7: ldloc.3
+IL_06b8: ldc.i4.2
+IL_06b9: sub
+IL_06ba: switch IL_06dc,IL_0728,IL_0781,IL_0781,IL_06dc,IL_0728
+IL_06d7: br IL_0781
+IL_06dc: ldarg.0
+IL_06dd: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeData
+IL_06e2: ldarg.1
+IL_06e3: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_06e8: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Edge>::get_Item(Unity.Entities.Entity)
+IL_06ed: stloc.s V_39
+IL_06ef: ldarg.0
+IL_06f0: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+IL_06f5: ldloc.s V_39
+IL_06f7: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_06fc: ldloca.s V_40
+IL_06fe: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0703: brfalse.s IL_0781
+IL_0705: ldloc.s V_40
+IL_0707: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_070c: ldc.i4 2560
+IL_0711: and
+IL_0712: ldc.i4 2560
+IL_0717: bne.un.s IL_0781
+IL_0719: ldarg.0
+IL_071a: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_071f: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_OwnerColor
+IL_0724: stloc.s V_38
+IL_0726: br.s IL_0781
+IL_0728: ldarg.0
+IL_0729: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeData
+IL_072e: ldarg.1
+IL_072f: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0734: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Edge>::get_Item(Unity.Entities.Entity)
+IL_0739: stloc.s V_41
+IL_073b: ldarg.0
+IL_073c: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+IL_0741: ldloc.s V_41
+IL_0743: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_0748: ldloca.s V_42
+IL_074a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_074f: brfalse.s IL_0781
+IL_0751: ldloc.s V_42
+IL_0753: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0758: ldc.i4 2560
+IL_075d: and
+IL_075e: ldc.i4 2560
+IL_0763: bne.un.s IL_0781
+IL_0765: ldarg.0
+IL_0766: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_076b: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_OwnerColor
+IL_0770: stloc.s V_38
+IL_0772: br.s IL_0781
+IL_0774: ldarg.0
+IL_0775: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_077a: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_HoveredColor
+IL_077f: stloc.s V_38
+IL_0781: ldloca.s V_38
+IL_0783: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_0788: stloc.s V_38
+IL_078a: ldarg.0
+IL_078b: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0790: ldloc.s V_38
+IL_0792: ldloc.2
+IL_0793: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0798: ldloc.s V_6
+IL_079a: ldloc.2
+IL_079b: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_07a0: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<UnityEngine.Color>(!!0,System.Int32,System.Int32,System.Int32)
+IL_07a5: ldloc.1
+IL_07a6: ldc.i4.1
+IL_07a7: add
+IL_07a8: stloc.1
+IL_07a9: ldloc.1
+IL_07aa: ldloca.s V_0
+IL_07ac: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshBatch>::get_Length()
+IL_07b1: blt IL_0027
+IL_07b6: ret
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateLaneData(Game.Rendering.PreCullingData,Game.Rendering.BatchDataSystem/UpdateMask)
+IL_0000: ldarga.s updateMask
+IL_0002: ldc.i4.s 11
+IL_0004: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty)
+IL_0009: brtrue.s IL_0034
+IL_000b: ldarg.1
+IL_000c: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0011: ldc.i4 134217728
+IL_0016: and
+IL_0017: brfalse.s IL_0034
+IL_0019: ldarga.s updateMask
+IL_001b: ldc.i4.s 11
+IL_001d: call System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.LaneProperty)
+IL_0022: ldarga.s updateMask
+IL_0024: ldc.i4.s 12
+IL_0026: call System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.LaneProperty)
+IL_002b: ldarga.s updateMask
+IL_002d: ldc.i4.s 13
+IL_002f: call System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.LaneProperty)
+IL_0034: ldarga.s updateMask
+IL_0036: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateNothing()
+IL_003b: brfalse.s IL_003e
+IL_003d: ret
+IL_003e: ldarg.0
+IL_003f: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshBatches
+IL_0044: ldarg.1
+IL_0045: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_004a: ldloca.s V_0
+IL_004c: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0051: brtrue.s IL_0054
+IL_0053: ret
+IL_0054: ldc.i4.0
+IL_0055: stloc.1
+IL_0056: br IL_0cf3
+IL_005b: ldloca.s V_0
+IL_005d: ldloc.1
+IL_005e: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshBatch>::get_Item(System.Int32)
+IL_0063: stloc.2
+IL_0064: ldarg.0
+IL_0065: ldflda Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchGroups
+IL_006a: ldloc.2
+IL_006b: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0070: call !1 Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::GetGroupData(System.Int32)
+IL_0075: stloc.3
+IL_0076: ldarga.s updateMask
+IL_0078: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateTransform()
+IL_007d: brfalse IL_0540
+IL_0082: ldarg.0
+IL_0083: ldflda Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.BatchDataSystem/BatchDataJob::m_CullingInfoData
+IL_0088: ldarg.1
+IL_0089: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_008e: call !0 Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo>::get_Item(Unity.Entities.Entity)
+IL_0093: stloc.s V_10
+IL_0095: ldarg.0
+IL_0096: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Rendering.BatchDataSystem/BatchDataJob::m_CurveData
+IL_009b: ldarg.1
+IL_009c: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00a1: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Curve>::get_Item(Unity.Entities.Entity)
+IL_00a6: stloc.s V_11
+IL_00a8: ldarg.0
+IL_00a9: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabRefData
+IL_00ae: ldarg.1
+IL_00af: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_00b4: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_00b9: stloc.s V_12
+IL_00bb: ldarg.0
+IL_00bc: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabSubMeshes
+IL_00c1: ldloc.s V_12
+IL_00c3: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_00c8: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh>::get_Item(Unity.Entities.Entity)
+IL_00cd: stloc.s V_13
+IL_00cf: ldloca.s V_13
+IL_00d1: ldloc.2
+IL_00d2: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_00d7: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_00dc: stloc.s V_14
+IL_00de: ldarg.0
+IL_00df: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.MeshData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabMeshData
+IL_00e4: ldloc.s V_14
+IL_00e6: ldfld Unity.Entities.Entity Game.Prefabs.SubMesh::m_SubMesh
+IL_00eb: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.MeshData>::get_Item(Unity.Entities.Entity)
+IL_00f0: stloc.s V_15
+IL_00f2: ldloc.s V_15
+IL_00f4: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.MeshData::m_Bounds
+IL_00f9: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::Size(Colossal.Mathematics.Bounds3)
+IL_00fe: stloc.s V_16
+IL_0100: ldloc.s V_15
+IL_0102: ldfld Colossal.Mathematics.Bounds3 Game.Prefabs.MeshData::m_Bounds
+IL_0107: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::Center(Colossal.Mathematics.Bounds3)
+IL_010c: stloc.s V_17
+IL_010e: ldloca.s V_18
+IL_0110: ldloc.s V_16
+IL_0112: ldloc.s V_17
+IL_0114: ldfld System.Single Unity.Mathematics.float3::y
+IL_0119: call System.Void Unity.Mathematics.float4::.ctor(Unity.Mathematics.float3,System.Single)
+IL_011e: ldloc.s V_15
+IL_0120: ldfld Game.Prefabs.MeshFlags Game.Prefabs.MeshData::m_State
+IL_0125: ldc.i4.s 32
+IL_0127: and
+IL_0128: ldc.i4.0
+IL_0129: cgt.un
+IL_012b: stloc.s V_19
+IL_012d: ldc.i4.1
+IL_012e: stloc.s V_20
+IL_0130: ldc.i4.0
+IL_0131: stloc.s V_21
+IL_0133: ldloc.2
+IL_0134: ldfld System.Byte Game.Rendering.MeshBatch::m_TileIndex
+IL_0139: stloc.s V_22
+IL_013b: ldarg.0
+IL_013c: ldflda Unity.Entities.BufferLookup`1<Game.Net.CutRange> Game.Rendering.BatchDataSystem/BatchDataJob::m_CutRanges
+IL_0141: ldarg.1
+IL_0142: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0147: ldloca.s V_23
+IL_0149: call System.Boolean Unity.Entities.BufferLookup`1<Game.Net.CutRange>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_014e: brfalse IL_0237
+IL_0153: ldc.r4 0
+IL_0158: stloc.s V_34
+IL_015a: ldc.i4.0
+IL_015b: stloc.s V_35
+IL_015d: br IL_0227
+IL_0162: ldloc.s V_35
+IL_0164: ldloca.s V_23
+IL_0166: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.CutRange>::get_Length()
+IL_016b: bge.s IL_0191
+IL_016d: ldloca.s V_23
+IL_016f: ldloc.s V_35
+IL_0171: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.CutRange>::get_Item(System.Int32)
+IL_0176: dup
+IL_0177: ldfld Colossal.Mathematics.Bounds1 Game.Net.CutRange::m_CurveDelta
+IL_017c: ldfld System.Single Colossal.Mathematics.Bounds1::min
+IL_0181: stloc.s V_36
+IL_0183: ldfld Colossal.Mathematics.Bounds1 Game.Net.CutRange::m_CurveDelta
+IL_0188: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_018d: stloc.s V_37
+IL_018f: br.s IL_019f
+IL_0191: ldc.r4 1
+IL_0196: stloc.s V_36
+IL_0198: ldc.r4 1
+IL_019d: stloc.s V_37
+IL_019f: ldloc.s V_36
+IL_01a1: ldloc.s V_34
+IL_01a3: blt.un.s IL_021d
+IL_01a5: ldloca.s V_39
+IL_01a7: initobj Game.Net.Curve
+IL_01ad: ldloca.s V_39
+IL_01af: ldloc.s V_11
+IL_01b1: ldfld System.Single Game.Net.Curve::m_Length
+IL_01b6: ldloc.s V_36
+IL_01b8: ldloc.s V_34
+IL_01ba: sub
+IL_01bb: mul
+IL_01bc: stfld System.Single Game.Net.Curve::m_Length
+IL_01c1: ldloc.s V_39
+IL_01c3: stloc.s V_38
+IL_01c5: ldloc.s V_38
+IL_01c7: ldfld System.Single Game.Net.Curve::m_Length
+IL_01cc: ldc.r4 0.1
+IL_01d1: ble.un.s IL_021d
+IL_01d3: ldloc.s V_38
+IL_01d5: ldloc.s V_18
+IL_01d7: ldfld System.Single Unity.Mathematics.float4::z
+IL_01dc: ldloc.s V_15
+IL_01de: ldfld System.Int32 Game.Prefabs.MeshData::m_TilingCount
+IL_01e3: ldloc.s V_19
+IL_01e5: ldloca.s V_21
+IL_01e7: call System.Int32 Game.Rendering.BatchDataHelpers::GetTileCount(Game.Net.Curve,System.Single,System.Int32,System.Boolean,System.Int32&)
+IL_01ec: stloc.s V_20
+IL_01ee: ldloc.s V_20
+IL_01f0: ldloc.s V_22
+IL_01f2: ble.s IL_0216
+IL_01f4: ldloca.s V_38
+IL_01f6: ldloc.s V_11
+IL_01f8: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_01fd: ldloc.s V_34
+IL_01ff: ldloc.s V_36
+IL_0201: newobj System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_0206: call Colossal.Mathematics.Bezier4x3 Colossal.Mathematics.MathUtils::Cut(Colossal.Mathematics.Bezier4x3,Colossal.Mathematics.Bounds1)
+IL_020b: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0210: ldloc.s V_38
+IL_0212: stloc.s V_11
+IL_0214: br.s IL_0255
+IL_0216: ldloc.s V_22
+IL_0218: ldloc.s V_20
+IL_021a: sub
+IL_021b: stloc.s V_22
+IL_021d: ldloc.s V_37
+IL_021f: stloc.s V_34
+IL_0221: ldloc.s V_35
+IL_0223: ldc.i4.1
+IL_0224: add
+IL_0225: stloc.s V_35
+IL_0227: ldloc.s V_35
+IL_0229: ldloca.s V_23
+IL_022b: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.CutRange>::get_Length()
+IL_0230: ble IL_0162
+IL_0235: br.s IL_0255
+IL_0237: ldloc.s V_19
+IL_0239: brfalse.s IL_0255
+IL_023b: ldloc.s V_11
+IL_023d: ldloc.s V_18
+IL_023f: ldfld System.Single Unity.Mathematics.float4::z
+IL_0244: ldloc.s V_15
+IL_0246: ldfld System.Int32 Game.Prefabs.MeshData::m_TilingCount
+IL_024b: ldc.i4.1
+IL_024c: ldloca.s V_21
+IL_024e: call System.Int32 Game.Rendering.BatchDataHelpers::GetTileCount(Game.Net.Curve,System.Single,System.Int32,System.Boolean,System.Int32&)
+IL_0253: stloc.s V_20
+IL_0255: ldloc.s V_15
+IL_0257: ldfld Game.Prefabs.MeshFlags Game.Prefabs.MeshData::m_State
+IL_025c: ldc.i4.s 64
+IL_025e: and
+IL_025f: brfalse.s IL_0274
+IL_0261: ldloca.s V_11
+IL_0263: ldloc.s V_11
+IL_0265: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_026a: call Colossal.Mathematics.Bezier4x3 Colossal.Mathematics.MathUtils::Invert(Colossal.Mathematics.Bezier4x3)
+IL_026f: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0274: ldloc.s V_20
+IL_0276: ldc.i4.1
+IL_0277: ble IL_036e
+IL_027c: ldloc.s V_22
+IL_027e: ldloc.s V_22
+IL_0280: ldc.i4.1
+IL_0281: add
+IL_0282: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_0287: ldloc.s V_21
+IL_0289: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Multiply(Unity.Mathematics.int2,System.Int32)
+IL_028e: ldloc.s V_20
+IL_0290: call Unity.Mathematics.int2 Unity.Mathematics.int2::op_Division(Unity.Mathematics.int2,System.Int32)
+IL_0295: stloc.s V_40
+IL_0297: ldloc.s V_11
+IL_0299: ldfld System.Single Game.Net.Curve::m_Length
+IL_029e: ldloc.s V_40
+IL_02a0: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Implicit(Unity.Mathematics.int2)
+IL_02a5: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Multiply(System.Single,Unity.Mathematics.float2)
+IL_02aa: ldloc.s V_21
+IL_02ac: conv.r4
+IL_02ad: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Division(Unity.Mathematics.float2,System.Single)
+IL_02b2: stloc.s V_41
+IL_02b4: ldloca.s V_42
+IL_02b6: ldc.r4 0
+IL_02bb: ldc.r4 1
+IL_02c0: call System.Void Unity.Mathematics.float2::.ctor(System.Single,System.Single)
+IL_02c5: ldloc.s V_40
+IL_02c7: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_02cc: brfalse.s IL_0303
+IL_02ce: ldloca.s V_43
+IL_02d0: ldc.r4 0
+IL_02d5: ldc.r4 1
+IL_02da: call System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_02df: ldloc.s V_11
+IL_02e1: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_02e6: ldloca.s V_43
+IL_02e8: ldloc.s V_41
+IL_02ea: ldfld System.Single Unity.Mathematics.float2::x
+IL_02ef: call System.Boolean Colossal.Mathematics.MathUtils::ClampLength(Colossal.Mathematics.Bezier4x3,Colossal.Mathematics.Bounds1&,System.Single)
+IL_02f4: pop
+IL_02f5: ldloca.s V_42
+IL_02f7: ldloc.s V_43
+IL_02f9: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_02fe: stfld System.Single Unity.Mathematics.float2::x
+IL_0303: ldloc.s V_40
+IL_0305: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_030a: ldloc.s V_21
+IL_030c: beq.s IL_0343
+IL_030e: ldloca.s V_44
+IL_0310: ldc.r4 0
+IL_0315: ldc.r4 1
+IL_031a: call System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_031f: ldloc.s V_11
+IL_0321: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0326: ldloca.s V_44
+IL_0328: ldloc.s V_41
+IL_032a: ldfld System.Single Unity.Mathematics.float2::y
+IL_032f: call System.Boolean Colossal.Mathematics.MathUtils::ClampLength(Colossal.Mathematics.Bezier4x3,Colossal.Mathematics.Bounds1&,System.Single)
+IL_0334: pop
+IL_0335: ldloca.s V_42
+IL_0337: ldloc.s V_44
+IL_0339: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_033e: stfld System.Single Unity.Mathematics.float2::y
+IL_0343: ldloca.s V_11
+IL_0345: ldloc.s V_11
+IL_0347: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_034c: ldloc.s V_42
+IL_034e: call Colossal.Mathematics.Bezier4x3 Colossal.Mathematics.MathUtils::Cut(Colossal.Mathematics.Bezier4x3,Unity.Mathematics.float2)
+IL_0353: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0358: ldloca.s V_11
+IL_035a: ldloc.s V_41
+IL_035c: ldfld System.Single Unity.Mathematics.float2::y
+IL_0361: ldloc.s V_41
+IL_0363: ldfld System.Single Unity.Mathematics.float2::x
+IL_0368: sub
+IL_0369: stfld System.Single Game.Net.Curve::m_Length
+IL_036e: ldarg.0
+IL_036f: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_NodeLaneData
+IL_0374: ldarg.1
+IL_0375: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_037a: ldloca.s V_25
+IL_037c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NodeLane>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0381: stloc.s V_24
+IL_0383: ldloc.s V_24
+IL_0385: brfalse.s IL_03a8
+IL_0387: ldarg.0
+IL_0388: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetLaneData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabNetLaneData
+IL_038d: ldloc.s V_12
+IL_038f: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0394: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetLaneData>::get_Item(Unity.Entities.Entity)
+IL_0399: stloc.s V_45
+IL_039b: ldloc.s V_25
+IL_039d: ldloc.s V_45
+IL_039f: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::BuildCurveScale(Game.Net.NodeLane,Game.Prefabs.NetLaneData)
+IL_03a4: stloc.s V_26
+IL_03a6: br.s IL_03cf
+IL_03a8: ldarg.0
+IL_03a9: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeLaneData
+IL_03ae: ldarg.1
+IL_03af: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_03b4: ldloca.s V_46
+IL_03b6: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.EdgeLane>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_03bb: brfalse.s IL_03c8
+IL_03bd: ldloc.s V_46
+IL_03bf: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::BuildCurveScale(Game.Net.EdgeLane)
+IL_03c4: stloc.s V_26
+IL_03c6: br.s IL_03cf
+IL_03c8: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::BuildCurveScale()
+IL_03cd: stloc.s V_26
+IL_03cf: ldloc.s V_15
+IL_03d1: ldfld Game.Prefabs.MeshFlags Game.Prefabs.MeshData::m_State
+IL_03d6: ldc.i4.1
+IL_03d7: and
+IL_03d8: ldc.i4.0
+IL_03d9: cgt.un
+IL_03db: stloc.s V_27
+IL_03dd: ldloc.s V_11
+IL_03df: ldloc.s V_18
+IL_03e1: ldloc.s V_26
+IL_03e3: ldloc.s V_15
+IL_03e5: ldfld System.Single Game.Prefabs.MeshData::m_SmoothingDistance
+IL_03ea: ldloc.s V_27
+IL_03ec: ldc.i4.1
+IL_03ed: call Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers::BuildTransformMatrix(Game.Net.Curve,Unity.Mathematics.float4,Unity.Mathematics.float4,System.Single,System.Boolean,System.Boolean)
+IL_03f2: call Unity.Mathematics.float3x4 Colossal.Rendering.TransformHelper::Convert(Unity.Mathematics.float4x4)
+IL_03f7: stloc.s V_28
+IL_03f9: ldloc.s V_11
+IL_03fb: ldloc.s V_18
+IL_03fd: ldloc.s V_26
+IL_03ff: ldloc.s V_15
+IL_0401: ldfld System.Single Game.Prefabs.MeshData::m_SmoothingDistance
+IL_0406: ldloc.s V_27
+IL_0408: ldc.i4.0
+IL_0409: call Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers::BuildTransformMatrix(Game.Net.Curve,Unity.Mathematics.float4,Unity.Mathematics.float4,System.Single,System.Boolean,System.Boolean)
+IL_040e: call Unity.Mathematics.float3x4 Colossal.Rendering.TransformHelper::Convert(Unity.Mathematics.float4x4)
+IL_0413: stloc.s V_29
+IL_0415: ldloc.s V_11
+IL_0417: ldloc.s V_28
+IL_0419: ldloc.s V_18
+IL_041b: ldloc.s V_15
+IL_041d: ldfld System.Int32 Game.Prefabs.MeshData::m_TilingCount
+IL_0422: call Unity.Mathematics.float4x4 Game.Rendering.BatchDataHelpers::BuildCurveMatrix(Game.Net.Curve,Unity.Mathematics.float3x4,Unity.Mathematics.float4,System.Int32)
+IL_0427: stloc.s V_30
+IL_0429: ldarg.0
+IL_042a: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_042f: ldloc.s V_28
+IL_0431: ldloc.s V_29
+IL_0433: ldloc.2
+IL_0434: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0439: ldloc.2
+IL_043a: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_043f: call !0& Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetTransformValue(Unity.Mathematics.float3x4,Unity.Mathematics.float3x4,System.Int32,System.Int32)
+IL_0444: dup
+IL_0445: ldloc.s V_10
+IL_0447: ldfld Colossal.Mathematics.Bounds3 Game.Rendering.CullingInfo::m_Bounds
+IL_044c: stfld Colossal.Mathematics.Bounds3 Game.Rendering.CullingData::m_Bounds
+IL_0451: ldarg.0
+IL_0452: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Rendering.BatchDataSystem/BatchDataJob::m_HiddenData
+IL_0457: ldarg.1
+IL_0458: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_045d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Hidden>::HasComponent(Unity.Entities.Entity)
+IL_0462: call System.Void Game.Rendering.CullingData::set_isHidden(System.Boolean)
+IL_0467: ldarga.s updateMask
+IL_0469: ldc.i4.0
+IL_046a: ldloca.s V_3
+IL_046c: ldloca.s V_31
+IL_046e: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0473: brfalse.s IL_0490
+IL_0475: ldarg.0
+IL_0476: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_047b: ldloc.s V_30
+IL_047d: ldloc.2
+IL_047e: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0483: ldloc.s V_31
+IL_0485: ldloc.2
+IL_0486: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_048b: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0490: ldarga.s updateMask
+IL_0492: ldc.i4.1
+IL_0493: ldloca.s V_3
+IL_0495: ldloca.s V_32
+IL_0497: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_049c: brfalse.s IL_0517
+IL_049e: ldloc.s V_24
+IL_04a0: brfalse.s IL_04af
+IL_04a2: ldloc.s V_18
+IL_04a4: ldloc.s V_25
+IL_04a6: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::BuildCurveParams(Unity.Mathematics.float4,Game.Net.NodeLane)
+IL_04ab: stloc.s V_47
+IL_04ad: br.s IL_04fc
+IL_04af: ldarg.0
+IL_04b0: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeLaneData
+IL_04b5: ldarg.1
+IL_04b6: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_04bb: ldloca.s V_48
+IL_04bd: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.EdgeLane>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_04c2: brfalse.s IL_04d1
+IL_04c4: ldloc.s V_18
+IL_04c6: ldloc.s V_48
+IL_04c8: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::BuildCurveParams(Unity.Mathematics.float4,Game.Net.EdgeLane)
+IL_04cd: stloc.s V_47
+IL_04cf: br.s IL_04fc
+IL_04d1: ldarg.0
+IL_04d2: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetElevationData
+IL_04d7: ldarg.1
+IL_04d8: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_04dd: ldloca.s V_49
+IL_04df: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Elevation>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_04e4: brfalse.s IL_04f3
+IL_04e6: ldloc.s V_18
+IL_04e8: ldloc.s V_49
+IL_04ea: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::BuildCurveParams(Unity.Mathematics.float4,Game.Net.Elevation)
+IL_04ef: stloc.s V_47
+IL_04f1: br.s IL_04fc
+IL_04f3: ldloc.s V_18
+IL_04f5: call Unity.Mathematics.float4 Game.Rendering.BatchDataHelpers::BuildCurveParams(Unity.Mathematics.float4)
+IL_04fa: stloc.s V_47
+IL_04fc: ldarg.0
+IL_04fd: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0502: ldloc.s V_47
+IL_0504: ldloc.2
+IL_0505: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_050a: ldloc.s V_32
+IL_050c: ldloc.2
+IL_050d: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0512: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0517: ldarga.s updateMask
+IL_0519: ldc.i4.2
+IL_051a: ldloca.s V_3
+IL_051c: ldloca.s V_33
+IL_051e: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0523: brfalse.s IL_0540
+IL_0525: ldarg.0
+IL_0526: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_052b: ldloc.s V_26
+IL_052d: ldloc.2
+IL_052e: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0533: ldloc.s V_33
+IL_0535: ldloc.2
+IL_0536: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_053b: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0540: ldarga.s updateMask
+IL_0542: ldc.i4.3
+IL_0543: ldloca.s V_3
+IL_0545: ldloca.s V_4
+IL_0547: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_054c: brfalse IL_074f
+IL_0551: ldloca.s V_50
+IL_0553: initobj Unity.Mathematics.float4
+IL_0559: ldarg.1
+IL_055a: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_055f: ldc.i4 16384
+IL_0564: and
+IL_0565: brfalse IL_0734
+IL_056a: ldarg.0
+IL_056b: ldflda Unity.Entities.ComponentLookup`1<Game.Net.LaneColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_LaneColorData
+IL_0570: ldarg.1
+IL_0571: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0576: ldloca.s V_51
+IL_0578: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.LaneColor>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_057d: brfalse.s IL_05c3
+IL_057f: ldloca.s V_50
+IL_0581: ldloc.s V_51
+IL_0583: ldfld System.Byte Game.Net.LaneColor::m_Index
+IL_0588: conv.r4
+IL_0589: ldc.r4 0.5
+IL_058e: add
+IL_058f: ldloc.s V_51
+IL_0591: ldfld System.Byte Game.Net.LaneColor::m_Value0
+IL_0596: conv.r4
+IL_0597: ldc.r4 0.003921569
+IL_059c: mul
+IL_059d: ldloc.s V_51
+IL_059f: ldfld System.Byte Game.Net.LaneColor::m_Index
+IL_05a4: conv.r4
+IL_05a5: ldc.r4 0.5
+IL_05aa: add
+IL_05ab: ldloc.s V_51
+IL_05ad: ldfld System.Byte Game.Net.LaneColor::m_Value1
+IL_05b2: conv.r4
+IL_05b3: ldc.r4 0.003921569
+IL_05b8: mul
+IL_05b9: call System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_05be: br IL_0734
+IL_05c3: ldarg.0
+IL_05c4: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_05c9: ldarg.1
+IL_05ca: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_05cf: ldloca.s V_52
+IL_05d1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_05d6: brfalse IL_0734
+IL_05db: ldarg.0
+IL_05dc: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeLaneData
+IL_05e1: ldarg.1
+IL_05e2: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_05e7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.EdgeLane>::HasComponent(Unity.Entities.Entity)
+IL_05ec: brfalse.s IL_064b
+IL_05ee: ldarg.0
+IL_05ef: ldflda Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetEdgeColorData
+IL_05f4: ldloc.s V_52
+IL_05f6: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_05fb: ldloca.s V_53
+IL_05fd: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0602: brfalse IL_0734
+IL_0607: ldloca.s V_50
+IL_0609: ldloc.s V_53
+IL_060b: ldfld System.Byte Game.Net.EdgeColor::m_Index
+IL_0610: conv.r4
+IL_0611: ldc.r4 0.5
+IL_0616: add
+IL_0617: ldloc.s V_53
+IL_0619: ldfld System.Byte Game.Net.EdgeColor::m_Value0
+IL_061e: conv.r4
+IL_061f: ldc.r4 0.003921569
+IL_0624: mul
+IL_0625: ldloc.s V_53
+IL_0627: ldfld System.Byte Game.Net.EdgeColor::m_Index
+IL_062c: conv.r4
+IL_062d: ldc.r4 0.5
+IL_0632: add
+IL_0633: ldloc.s V_53
+IL_0635: ldfld System.Byte Game.Net.EdgeColor::m_Value1
+IL_063a: conv.r4
+IL_063b: ldc.r4 0.003921569
+IL_0640: mul
+IL_0641: call System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_0646: br IL_0734
+IL_064b: ldarg.0
+IL_064c: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_NodeLaneData
+IL_0651: ldarg.1
+IL_0652: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0657: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NodeLane>::HasComponent(Unity.Entities.Entity)
+IL_065c: brfalse.s IL_06b8
+IL_065e: ldarg.0
+IL_065f: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NodeColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetNodeColorData
+IL_0664: ldloc.s V_52
+IL_0666: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_066b: ldloca.s V_54
+IL_066d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NodeColor>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0672: brfalse IL_0734
+IL_0677: ldloca.s V_50
+IL_0679: ldloc.s V_54
+IL_067b: ldfld System.Byte Game.Net.NodeColor::m_Index
+IL_0680: conv.r4
+IL_0681: ldc.r4 0.5
+IL_0686: add
+IL_0687: ldloc.s V_54
+IL_0689: ldfld System.Byte Game.Net.NodeColor::m_Value
+IL_068e: conv.r4
+IL_068f: ldc.r4 0.003921569
+IL_0694: mul
+IL_0695: ldloc.s V_54
+IL_0697: ldfld System.Byte Game.Net.NodeColor::m_Index
+IL_069c: conv.r4
+IL_069d: ldc.r4 0.5
+IL_06a2: add
+IL_06a3: ldloc.s V_54
+IL_06a5: ldfld System.Byte Game.Net.NodeColor::m_Value
+IL_06aa: conv.r4
+IL_06ab: ldc.r4 0.003921569
+IL_06b0: mul
+IL_06b1: call System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_06b6: br.s IL_0734
+IL_06b8: ldarg.0
+IL_06b9: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Color> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectColorData
+IL_06be: ldloc.s V_52
+IL_06c0: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_06c5: ldloca.s V_55
+IL_06c7: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Color>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_06cc: brfalse.s IL_0718
+IL_06ce: ldloc.s V_55
+IL_06d0: ldfld System.Boolean Game.Objects.Color::m_SubColor
+IL_06d5: brfalse.s IL_0734
+IL_06d7: ldloca.s V_50
+IL_06d9: ldloc.s V_55
+IL_06db: ldfld System.Byte Game.Objects.Color::m_Index
+IL_06e0: conv.r4
+IL_06e1: ldc.r4 0.5
+IL_06e6: add
+IL_06e7: ldloc.s V_55
+IL_06e9: ldfld System.Byte Game.Objects.Color::m_Value
+IL_06ee: conv.r4
+IL_06ef: ldc.r4 0.003921569
+IL_06f4: mul
+IL_06f5: ldloc.s V_55
+IL_06f7: ldfld System.Byte Game.Objects.Color::m_Index
+IL_06fc: conv.r4
+IL_06fd: ldc.r4 0.5
+IL_0702: add
+IL_0703: ldloc.s V_55
+IL_0705: ldfld System.Byte Game.Objects.Color::m_Value
+IL_070a: conv.r4
+IL_070b: ldc.r4 0.003921569
+IL_0710: mul
+IL_0711: call System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_0716: br.s IL_0734
+IL_0718: ldarg.0
+IL_0719: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_071e: ldloc.s V_52
+IL_0720: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0725: ldloca.s V_56
+IL_0727: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_072c: brfalse.s IL_0734
+IL_072e: ldloc.s V_56
+IL_0730: stloc.s V_52
+IL_0732: br.s IL_06b8
+IL_0734: ldarg.0
+IL_0735: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_073a: ldloc.s V_50
+IL_073c: ldloc.2
+IL_073d: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0742: ldloc.s V_4
+IL_0744: ldloc.2
+IL_0745: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_074a: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_074f: ldarga.s updateMask
+IL_0751: ldc.i4.s 11
+IL_0753: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty)
+IL_0758: brfalse IL_0815
+IL_075d: ldarg.0
+IL_075e: ldflda Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshColors
+IL_0763: ldarg.1
+IL_0764: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0769: ldloca.s V_60
+IL_076b: call System.Boolean Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0770: brfalse.s IL_07bc
+IL_0772: ldloca.s V_60
+IL_0774: ldloc.2
+IL_0775: ldfld System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+IL_077a: call !0 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshColor>::get_Item(System.Int32)
+IL_077f: stloc.s V_62
+IL_0781: ldloca.s V_62
+IL_0783: ldflda Game.Rendering.ColorSet Game.Rendering.MeshColor::m_ColorSet
+IL_0788: ldflda UnityEngine.Color Game.Rendering.ColorSet::m_Channel0
+IL_078d: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_0792: stloc.s V_57
+IL_0794: ldloca.s V_62
+IL_0796: ldflda Game.Rendering.ColorSet Game.Rendering.MeshColor::m_ColorSet
+IL_079b: ldflda UnityEngine.Color Game.Rendering.ColorSet::m_Channel1
+IL_07a0: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_07a5: stloc.s V_58
+IL_07a7: ldloca.s V_62
+IL_07a9: ldflda Game.Rendering.ColorSet Game.Rendering.MeshColor::m_ColorSet
+IL_07ae: ldflda UnityEngine.Color Game.Rendering.ColorSet::m_Channel2
+IL_07b3: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_07b8: stloc.s V_59
+IL_07ba: br.s IL_07d1
+IL_07bc: call UnityEngine.Color UnityEngine.Color::get_white()
+IL_07c1: stloc.s V_57
+IL_07c3: call UnityEngine.Color UnityEngine.Color::get_white()
+IL_07c8: stloc.s V_58
+IL_07ca: call UnityEngine.Color UnityEngine.Color::get_white()
+IL_07cf: stloc.s V_59
+IL_07d1: ldarg.1
+IL_07d2: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_07d7: ldc.i4 268435456
+IL_07dc: and
+IL_07dd: ldc.i4.0
+IL_07de: cgt.un
+IL_07e0: stloc.s V_61
+IL_07e2: ldarg.0
+IL_07e3: ldloca.s V_3
+IL_07e5: ldloca.s V_2
+IL_07e7: ldarg.2
+IL_07e8: ldc.i4.s 11
+IL_07ea: ldloc.s V_57
+IL_07ec: ldloc.s V_61
+IL_07ee: call System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.LaneProperty,UnityEngine.Color,System.Boolean)
+IL_07f3: ldarg.0
+IL_07f4: ldloca.s V_3
+IL_07f6: ldloca.s V_2
+IL_07f8: ldarg.2
+IL_07f9: ldc.i4.s 12
+IL_07fb: ldloc.s V_58
+IL_07fd: ldloc.s V_61
+IL_07ff: call System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.LaneProperty,UnityEngine.Color,System.Boolean)
+IL_0804: ldarg.0
+IL_0805: ldloca.s V_3
+IL_0807: ldloca.s V_2
+IL_0809: ldarg.2
+IL_080a: ldc.i4.s 13
+IL_080c: ldloc.s V_59
+IL_080e: ldloc.s V_61
+IL_0810: call System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.LaneProperty,UnityEngine.Color,System.Boolean)
+IL_0815: ldarga.s updateMask
+IL_0817: ldc.i4.8
+IL_0818: ldloca.s V_3
+IL_081a: ldloca.s V_5
+IL_081c: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0821: brfalse IL_09bf
+IL_0826: ldloca.s V_63
+IL_0828: initobj Unity.Mathematics.float4x4
+IL_082e: ldarg.1
+IL_082f: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0834: ldc.i4 16384
+IL_0839: and
+IL_083a: brfalse IL_09a4
+IL_083f: ldarg.0
+IL_0840: ldflda Unity.Entities.BufferLookup`1<Game.Net.SubFlow> Game.Rendering.BatchDataSystem/BatchDataJob::m_SubFlows
+IL_0845: ldarg.1
+IL_0846: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_084b: ldloca.s V_64
+IL_084d: call System.Boolean Unity.Entities.BufferLookup`1<Game.Net.SubFlow>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0852: brfalse IL_09a4
+IL_0857: ldloca.s V_64
+IL_0859: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Length()
+IL_085e: ldc.i4.s 16
+IL_0860: bne.un IL_09a4
+IL_0865: ldloca.s V_63
+IL_0867: ldloca.s V_64
+IL_0869: ldc.i4.0
+IL_086a: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_086f: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0874: conv.r4
+IL_0875: ldloca.s V_64
+IL_0877: ldc.i4.4
+IL_0878: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_087d: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0882: conv.r4
+IL_0883: ldloca.s V_64
+IL_0885: ldc.i4.8
+IL_0886: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_088b: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0890: conv.r4
+IL_0891: ldloca.s V_64
+IL_0893: ldc.i4.s 12
+IL_0895: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_089a: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_089f: conv.r4
+IL_08a0: newobj System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_08a5: ldc.r4 0.007874016
+IL_08aa: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Multiply(Unity.Mathematics.float4,System.Single)
+IL_08af: stfld Unity.Mathematics.float4 Unity.Mathematics.float4x4::c0
+IL_08b4: ldloca.s V_63
+IL_08b6: ldloca.s V_64
+IL_08b8: ldc.i4.1
+IL_08b9: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_08be: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_08c3: conv.r4
+IL_08c4: ldloca.s V_64
+IL_08c6: ldc.i4.5
+IL_08c7: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_08cc: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_08d1: conv.r4
+IL_08d2: ldloca.s V_64
+IL_08d4: ldc.i4.s 9
+IL_08d6: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_08db: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_08e0: conv.r4
+IL_08e1: ldloca.s V_64
+IL_08e3: ldc.i4.s 13
+IL_08e5: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_08ea: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_08ef: conv.r4
+IL_08f0: newobj System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_08f5: ldc.r4 0.007874016
+IL_08fa: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Multiply(Unity.Mathematics.float4,System.Single)
+IL_08ff: stfld Unity.Mathematics.float4 Unity.Mathematics.float4x4::c1
+IL_0904: ldloca.s V_63
+IL_0906: ldloca.s V_64
+IL_0908: ldc.i4.2
+IL_0909: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_090e: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0913: conv.r4
+IL_0914: ldloca.s V_64
+IL_0916: ldc.i4.6
+IL_0917: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_091c: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0921: conv.r4
+IL_0922: ldloca.s V_64
+IL_0924: ldc.i4.s 10
+IL_0926: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_092b: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0930: conv.r4
+IL_0931: ldloca.s V_64
+IL_0933: ldc.i4.s 14
+IL_0935: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_093a: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_093f: conv.r4
+IL_0940: newobj System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_0945: ldc.r4 0.007874016
+IL_094a: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Multiply(Unity.Mathematics.float4,System.Single)
+IL_094f: stfld Unity.Mathematics.float4 Unity.Mathematics.float4x4::c2
+IL_0954: ldloca.s V_63
+IL_0956: ldloca.s V_64
+IL_0958: ldc.i4.3
+IL_0959: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_095e: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0963: conv.r4
+IL_0964: ldloca.s V_64
+IL_0966: ldc.i4.7
+IL_0967: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_096c: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0971: conv.r4
+IL_0972: ldloca.s V_64
+IL_0974: ldc.i4.s 11
+IL_0976: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_097b: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_0980: conv.r4
+IL_0981: ldloca.s V_64
+IL_0983: ldc.i4.s 15
+IL_0985: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubFlow>::get_Item(System.Int32)
+IL_098a: ldfld System.SByte Game.Net.SubFlow::m_Value
+IL_098f: conv.r4
+IL_0990: newobj System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_0995: ldc.r4 0.007874016
+IL_099a: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Multiply(Unity.Mathematics.float4,System.Single)
+IL_099f: stfld Unity.Mathematics.float4 Unity.Mathematics.float4x4::c3
+IL_09a4: ldarg.0
+IL_09a5: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_09aa: ldloc.s V_63
+IL_09ac: ldloc.2
+IL_09ad: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_09b2: ldloc.s V_5
+IL_09b4: ldloc.2
+IL_09b5: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_09ba: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4x4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_09bf: ldarga.s updateMask
+IL_09c1: ldc.i4.s 9
+IL_09c3: ldloca.s V_3
+IL_09c5: ldloca.s V_6
+IL_09c7: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_09cc: brfalse.s IL_0a45
+IL_09ce: ldc.r4 0
+IL_09d3: stloc.s V_65
+IL_09d5: ldarg.1
+IL_09d6: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_09db: ldc.i4 16384
+IL_09e0: and
+IL_09e1: brfalse.s IL_0a2a
+IL_09e3: ldarg.0
+IL_09e4: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+IL_09e9: ldarg.1
+IL_09ea: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_09ef: ldloca.s V_66
+IL_09f1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_09f6: brfalse.s IL_0a2a
+IL_09f8: ldarg.0
+IL_09f9: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Rendering.BatchDataSystem/BatchDataJob::m_PseudoRandomSeedData
+IL_09fe: ldloc.s V_66
+IL_0a00: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0a05: ldloca.s V_67
+IL_0a07: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0a0c: brfalse.s IL_0a2a
+IL_0a0e: ldloca.s V_67
+IL_0a10: ldsfld System.UInt16 Game.Common.PseudoRandomSeed::kFlowOffset
+IL_0a15: call Unity.Mathematics.Random Game.Common.PseudoRandomSeed::GetRandom(System.UInt32)
+IL_0a1a: stloc.s V_68
+IL_0a1c: ldloca.s V_68
+IL_0a1e: ldc.r4 1
+IL_0a23: call System.Single Unity.Mathematics.Random::NextFloat(System.Single)
+IL_0a28: stloc.s V_65
+IL_0a2a: ldarg.0
+IL_0a2b: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0a30: ldloc.s V_65
+IL_0a32: ldloc.2
+IL_0a33: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0a38: ldloc.s V_6
+IL_0a3a: ldloc.2
+IL_0a3b: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0a40: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<System.Single>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0a45: ldarga.s updateMask
+IL_0a47: ldc.i4.4
+IL_0a48: ldloca.s V_3
+IL_0a4a: ldloca.s V_7
+IL_0a4c: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0a51: brfalse.s IL_0abe
+IL_0a53: ldc.r4 0
+IL_0a58: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0a5d: stloc.s V_69
+IL_0a5f: ldarg.1
+IL_0a60: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0a65: ldc.i4 131072
+IL_0a6a: and
+IL_0a6b: brfalse.s IL_0aa3
+IL_0a6d: ldarg.0
+IL_0a6e: ldflda Unity.Entities.ComponentLookup`1<Game.Net.LaneCondition> Game.Rendering.BatchDataSystem/BatchDataJob::m_LaneConditionData
+IL_0a73: ldarg.1
+IL_0a74: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0a79: ldloca.s V_70
+IL_0a7b: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.LaneCondition>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0a80: brfalse.s IL_0aa3
+IL_0a82: ldloc.s V_70
+IL_0a84: ldfld System.Single Game.Net.LaneCondition::m_Wear
+IL_0a89: ldc.r4 10
+IL_0a8e: div
+IL_0a8f: stloc.s V_71
+IL_0a91: ldloca.s V_69
+IL_0a93: ldloc.s V_71
+IL_0a95: ldloc.s V_71
+IL_0a97: ldloc.s V_71
+IL_0a99: ldc.r4 0
+IL_0a9e: call System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_0aa3: ldarg.0
+IL_0aa4: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0aa9: ldloc.s V_69
+IL_0aab: ldloc.2
+IL_0aac: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0ab1: ldloc.s V_7
+IL_0ab3: ldloc.2
+IL_0ab4: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0ab9: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0abe: ldarga.s updateMask
+IL_0ac0: ldc.i4.5
+IL_0ac1: ldloca.s V_3
+IL_0ac3: ldloca.s V_8
+IL_0ac5: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0aca: brfalse IL_0b8e
+IL_0acf: ldarg.0
+IL_0ad0: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Error> Game.Rendering.BatchDataSystem/BatchDataJob::m_ErrorData
+IL_0ad5: ldarg.1
+IL_0ad6: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0adb: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Error>::HasComponent(Unity.Entities.Entity)
+IL_0ae0: brfalse.s IL_0af1
+IL_0ae2: ldarg.0
+IL_0ae3: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0ae8: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_ErrorColor
+IL_0aed: stloc.s V_72
+IL_0aef: br.s IL_0b6a
+IL_0af1: ldarg.0
+IL_0af2: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Warning> Game.Rendering.BatchDataSystem/BatchDataJob::m_WarningData
+IL_0af7: ldarg.1
+IL_0af8: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0afd: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Warning>::HasComponent(Unity.Entities.Entity)
+IL_0b02: brfalse.s IL_0b13
+IL_0b04: ldarg.0
+IL_0b05: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0b0a: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_WarningColor
+IL_0b0f: stloc.s V_72
+IL_0b11: br.s IL_0b6a
+IL_0b13: ldarg.1
+IL_0b14: ldfld Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+IL_0b19: ldc.i4 256
+IL_0b1e: and
+IL_0b1f: brfalse.s IL_0b5d
+IL_0b21: ldarg.0
+IL_0b22: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+IL_0b27: ldarg.1
+IL_0b28: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0b2d: call !0 Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::get_Item(Unity.Entities.Entity)
+IL_0b32: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0b37: ldc.i4 2048
+IL_0b3c: and
+IL_0b3d: brfalse.s IL_0b4e
+IL_0b3f: ldarg.0
+IL_0b40: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0b45: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_OwnerColor
+IL_0b4a: stloc.s V_72
+IL_0b4c: br.s IL_0b6a
+IL_0b4e: ldarg.0
+IL_0b4f: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0b54: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_HoveredColor
+IL_0b59: stloc.s V_72
+IL_0b5b: br.s IL_0b6a
+IL_0b5d: ldarg.0
+IL_0b5e: ldflda Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+IL_0b63: ldfld UnityEngine.Color Game.Prefabs.RenderingSettingsData::m_HoveredColor
+IL_0b68: stloc.s V_72
+IL_0b6a: ldloca.s V_72
+IL_0b6c: call UnityEngine.Color UnityEngine.Color::get_linear()
+IL_0b71: stloc.s V_72
+IL_0b73: ldarg.0
+IL_0b74: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0b79: ldloc.s V_72
+IL_0b7b: ldloc.2
+IL_0b7c: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0b81: ldloc.s V_8
+IL_0b83: ldloc.2
+IL_0b84: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0b89: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<UnityEngine.Color>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0b8e: ldarga.s updateMask
+IL_0b90: ldc.i4.s 10
+IL_0b92: ldloca.s V_3
+IL_0b94: ldloca.s V_9
+IL_0b96: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0b9b: brfalse IL_0cef
+IL_0ba0: ldc.r4 0
+IL_0ba5: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0baa: stloc.s V_73
+IL_0bac: ldarg.0
+IL_0bad: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabRefData
+IL_0bb2: ldarg.1
+IL_0bb3: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0bb8: ldloca.s V_74
+IL_0bba: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0bbf: brfalse IL_0cd4
+IL_0bc4: ldarg.0
+IL_0bc5: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Rendering.BatchDataSystem/BatchDataJob::m_CurveData
+IL_0bca: ldarg.1
+IL_0bcb: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0bd0: ldloca.s V_75
+IL_0bd2: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Curve>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0bd7: brfalse IL_0cd4
+IL_0bdc: ldarg.0
+IL_0bdd: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.UtilityLaneData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabUtilityLaneData
+IL_0be2: ldloc.s V_74
+IL_0be4: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0be9: ldloca.s V_76
+IL_0beb: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.UtilityLaneData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0bf0: brfalse IL_0cd4
+IL_0bf5: ldarg.0
+IL_0bf6: ldflda Unity.Entities.ComponentLookup`1<Game.Net.HangingLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_HangingLaneData
+IL_0bfb: ldarg.1
+IL_0bfc: ldfld Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+IL_0c01: ldloca.s V_77
+IL_0c03: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.HangingLane>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0c08: pop
+IL_0c09: ldloca.s V_73
+IL_0c0b: ldloca.s V_77
+IL_0c0d: ldflda Unity.Mathematics.float2 Game.Net.HangingLane::m_Distances
+IL_0c12: call Unity.Mathematics.float2 Unity.Mathematics.float2::get_xy()
+IL_0c17: call System.Void Unity.Mathematics.float4::set_xw(Unity.Mathematics.float2)
+IL_0c1c: ldloca.s V_73
+IL_0c1e: ldloca.s V_77
+IL_0c20: ldflda Unity.Mathematics.float2 Game.Net.HangingLane::m_Distances
+IL_0c25: call Unity.Mathematics.float2 Unity.Mathematics.float2::get_xy()
+IL_0c2a: ldloc.s V_76
+IL_0c2c: ldfld System.Single Game.Prefabs.UtilityLaneData::m_Hanging
+IL_0c31: ldloc.s V_75
+IL_0c33: ldfld System.Single Game.Net.Curve::m_Length
+IL_0c38: mul
+IL_0c39: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Addition(Unity.Mathematics.float2,System.Single)
+IL_0c3e: ldc.r4 0.6666667
+IL_0c43: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Multiply(Unity.Mathematics.float2,System.Single)
+IL_0c48: call System.Void Unity.Mathematics.float4::set_yz(Unity.Mathematics.float2)
+IL_0c4d: ldloca.s V_78
+IL_0c4f: ldarg.0
+IL_0c50: ldfld Game.Simulation.CellMapData`1<Game.Simulation.Wind> Game.Rendering.BatchDataSystem/BatchDataJob::m_WindData
+IL_0c55: ldloc.s V_75
+IL_0c57: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0c5c: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0c61: call Unity.Mathematics.float2 Game.Simulation.Wind::SampleWind(Game.Simulation.CellMapData`1<Game.Simulation.Wind>,Unity.Mathematics.float3)
+IL_0c66: call System.Single Unity.Mathematics.math::lengthsq(Unity.Mathematics.float2)
+IL_0c6b: ldarg.0
+IL_0c6c: ldfld Game.Simulation.CellMapData`1<Game.Simulation.Wind> Game.Rendering.BatchDataSystem/BatchDataJob::m_WindData
+IL_0c71: ldloc.s V_75
+IL_0c73: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0c78: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0c7d: call Unity.Mathematics.float2 Game.Simulation.Wind::SampleWind(Game.Simulation.CellMapData`1<Game.Simulation.Wind>,Unity.Mathematics.float3)
+IL_0c82: call System.Single Unity.Mathematics.math::lengthsq(Unity.Mathematics.float2)
+IL_0c87: ldarg.0
+IL_0c88: ldfld Game.Simulation.CellMapData`1<Game.Simulation.Wind> Game.Rendering.BatchDataSystem/BatchDataJob::m_WindData
+IL_0c8d: ldloc.s V_75
+IL_0c8f: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0c94: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0c99: call Unity.Mathematics.float2 Game.Simulation.Wind::SampleWind(Game.Simulation.CellMapData`1<Game.Simulation.Wind>,Unity.Mathematics.float3)
+IL_0c9e: call System.Single Unity.Mathematics.math::lengthsq(Unity.Mathematics.float2)
+IL_0ca3: ldarg.0
+IL_0ca4: ldfld Game.Simulation.CellMapData`1<Game.Simulation.Wind> Game.Rendering.BatchDataSystem/BatchDataJob::m_WindData
+IL_0ca9: ldloc.s V_75
+IL_0cab: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0cb0: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0cb5: call Unity.Mathematics.float2 Game.Simulation.Wind::SampleWind(Game.Simulation.CellMapData`1<Game.Simulation.Wind>,Unity.Mathematics.float3)
+IL_0cba: call System.Single Unity.Mathematics.math::lengthsq(Unity.Mathematics.float2)
+IL_0cbf: call System.Void Unity.Mathematics.float4::.ctor(System.Single,System.Single,System.Single,System.Single)
+IL_0cc4: ldloc.s V_73
+IL_0cc6: ldloc.s V_78
+IL_0cc8: call Unity.Mathematics.float4 Unity.Mathematics.math::sqrt(Unity.Mathematics.float4)
+IL_0ccd: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Multiply(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0cd2: stloc.s V_73
+IL_0cd4: ldarg.0
+IL_0cd5: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_0cda: ldloc.s V_73
+IL_0cdc: ldloc.2
+IL_0cdd: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0ce2: ldloc.s V_9
+IL_0ce4: ldloc.2
+IL_0ce5: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_0cea: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<Unity.Mathematics.float4>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0cef: ldloc.1
+IL_0cf0: ldc.i4.1
+IL_0cf1: add
+IL_0cf2: stloc.1
+IL_0cf3: ldloc.1
+IL_0cf4: ldloca.s V_0
+IL_0cf6: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Rendering.MeshBatch>::get_Length()
+IL_0cfb: blt IL_005b
+IL_0d00: ret
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateZoneData(Game.Rendering.PreCullingData,Game.Rendering.BatchDataSystem/UpdateMask)
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateFadeData(Game.Rendering.PreCullingData)

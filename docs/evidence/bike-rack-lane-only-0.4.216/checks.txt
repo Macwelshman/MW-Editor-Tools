@@ -1,0 +1,11 @@
+Phase3Safety: 1122 passed
+MoveUndoSafety: 41 passed
+BoundCompletionSafety: 77 passed
+SpawnAccessSafety: 55 passed
+EffectUndoSafety: 41 passed
+EffectRestoreSafety: 35 passed
+BoundFoliageSafety: 25 passed
+AreaMoveSafety: 97 passed
+Total: 1493 managed checks; native acceptance pending
+Release build: pass (NU1900 warning, zero errors)
+UI build: pass

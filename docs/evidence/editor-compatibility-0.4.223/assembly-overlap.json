@@ -1,0 +1,810 @@
+{
+  "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\74604_40\\Anarchy.dll",
+  "Identity": "Anarchy, Version=1.8.0.0, Culture=neutral, PublicKeyToken=null",
+  "MVID": "6a916474-e521-436f-987b-3e623f5cf195",
+  "SHA256": "478B647F959D2051F1D7DBC5C22176AFF9EDA9D7453F4DCDF7E305C3DB56CFB9",
+  "HarmonyReferences": [
+    "0Harmony, Version=2.2.2.0, Culture=neutral, PublicKeyToken=null"
+  ],
+  "Patches": [
+    {
+      "Attribute": "HarmonyLib.HarmonyPatch",
+      "Arguments": [
+        "Game.Tools.NetToolSystem",
+        "InitializeRaycast"
+      ],
+      "Owner": "Anarchy.Patches.NetToolSystem_InitializeRaycast"
+    },
+    {
+      "Attribute": "HarmonyLib.HarmonyPatch",
+      "Arguments": [
+        "Game.UI.InGame.ToolbarUISystem",
+        "ActivatePrefabTool"
+      ],
+      "Owner": "Anarchy.Patches.ToolbarUISystemActivatePrefabToolPatch"
+    },
+    {
+      "Attribute": "HarmonyLib.HarmonyPatch",
+      "Arguments": [
+        "Game.UI.InGame.ToolbarUISystem",
+        "Apply"
+      ],
+      "Owner": "Anarchy.Patches.ToolbarUISystemApplyPatch"
+    },
+    {
+      "Attribute": "HarmonyLib.HarmonyPatch",
+      "Arguments": [
+        "Game.UI.InGame.ToolbarUISystem",
+        "OnUpdate"
+      ],
+      "Owner": "Anarchy.Patches.ToolbarUISystemOnUpdatePatch"
+    },
+    {
+      "Attribute": "HarmonyLib.HarmonyPatch",
+      "Arguments": [
+        "Game.UI.InGame.ToolUISystem",
+        "GetElevationRange"
+      ],
+      "Owner": "Anarchy.Patches.ToolUISystemGetElevationRangePatch"
+    },
+    {
+      "Attribute": "HarmonyLib.HarmonyPatch",
+      "Arguments": [
+        "Game.UI.InGame.UniqueAssetTrackingSystem",
+        "IsPlacedUniqueAsset"
+      ],
+      "Owner": "Anarchy.Patches.UniqueAssetTrackingSystemIsPlacedUniqueAssetPatch"
+    },
+    {
+      "Attribute": "HarmonyLib.HarmonyPatch",
+      "Arguments": [
+        "Game.UI.InGame.UniqueAssetTrackingSystem",
+        "OnCreate"
+      ],
+      "Owner": "Anarchy.Patches.UniqueAssetTrackingSystemOnCreatePatch"
+    }
+  ],
+  "RelevantCalls": [
+    {
+      "Offset": "IL_0126",
+      "Target": "System.Void HarmonyLib.Harmony::PatchAll()",
+      "Caller": "System.Void Anarchy.AnarchyMod::OnLoad(Game.UpdateSystem)"
+    },
+    {
+      "Offset": "IL_0019",
+      "Target": "System.Void HarmonyLib.Harmony::UnpatchAll(System.String)",
+      "Caller": "System.Void Anarchy.AnarchyMod::OnDispose()"
+    },
+    {
+      "Offset": "IL_0295",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_031d",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_000c",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0065",
+      "Target": "System.Boolean Game.Tools.ToolBaseSystem::TrySetPrefab(Game.Prefabs.PrefabBase)",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_00fd",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0169",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_030d",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_03d6",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0502",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_05c4",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.AnarchyPlopSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_000c",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.RemoveOverridenSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0058",
+      "Target": "System.Boolean Game.Tools.ToolBaseSystem::TrySetPrefab(Game.Prefabs.PrefabBase)",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.RemoveOverridenSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_00a5",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.RemoveOverridenSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_00c2",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.OverridePrevention.RemoveOverridenSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_003d",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.ObjectElevation.CheckTransformSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0001",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Boolean Anarchy.Systems.ObjectElevation.CheckTransformSystem/<>c::<OnGameLoadingComplete>b__19_0(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0001",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Boolean Anarchy.Systems.ObjectElevation.CheckTransformSystem/<>c::<OnGameLoadingComplete>b__19_1(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0056",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_0066",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_00a0",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_00b1",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_0014",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::LeftUpgradeClicked(System.Int32)"
+    },
+    {
+      "Offset": "IL_0014",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::RightUpgradeClicked(System.Int32)"
+    },
+    {
+      "Offset": "IL_0045",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::CompositionModeClicked(System.Int32)"
+    },
+    {
+      "Offset": "IL_0002",
+      "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::CheckPrefabAndUpdateButtonDisplay(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_00a2",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.NetworkAnarchyUISystem::UpdateButtonDisplay(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_0110",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.NetworkAnarchy.TempNetworkSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_000c",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.MoveItIntegration.CopyAnarchyComponentsSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0001",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Boolean Anarchy.Systems.MoveItIntegration.CopyAnarchyComponentsSystem/<>c::<OnGameLoadingComplete>b__10_0(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_000c",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.ErrorChecks.DisableToolErrorsSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0068",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+      "Caller": "System.Void Anarchy.Systems.ErrorChecks.DisableToolErrorsSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_007e",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.ErrorChecks.DisableToolErrorsSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_000c",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyTooltipSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_003e",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyTooltipSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_02b2",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnCreate()"
+    },
+    {
+      "Offset": "IL_02bf",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnCreate()"
+    },
+    {
+      "Offset": "IL_02cd",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnCreate()"
+    },
+    {
+      "Offset": "IL_02db",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnCreate()"
+    },
+    {
+      "Offset": "IL_02e9",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnCreate()"
+    },
+    {
+      "Offset": "IL_002b",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_009b",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_00e8",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_00f5",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0103",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0111",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_011f",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0140",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_014d",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_015b",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0169",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0177",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_01db",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0200",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0005",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_002b",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_00e7",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0147",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_01aa",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_021e",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_024b",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_02db",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0349",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0418",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_043b",
+      "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_allowRotation()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0448",
+      "Target": "Game.Prefabs.ObjectPrefab Game.Tools.ObjectToolSystem::get_prefab()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0461",
+      "Target": "Game.Prefabs.ObjectPrefab Game.Tools.ObjectToolSystem::get_prefab()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0468",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_003f",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_00a2",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_0120",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_0161",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_01f1",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_027d",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_0356",
+      "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_allowRotation()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_0363",
+      "Target": "Game.Prefabs.ObjectPrefab Game.Tools.ObjectToolSystem::get_prefab()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_037c",
+      "Target": "Game.Prefabs.ObjectPrefab Game.Tools.ObjectToolSystem::get_prefab()",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_0383",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.AnarchyUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+    },
+    {
+      "Offset": "IL_001f",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_007c",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0089",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0097",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_00a5",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_00b3",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0300",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_031e",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_056e",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0664",
+      "Target": "System.Single Game.Tools.ToolBaseSystem::get_brushSize()",
+      "Caller": "System.Void Anarchy.Systems.Common.ObjectDefinitionSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_003c",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Boolean Anarchy.Systems.Common.SelectedInfoPanelTogglesSystem::CheckOverridable(Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_00d2",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Boolean Anarchy.Systems.Common.SelectedInfoPanelTogglesSystem::CheckDisturbable(Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_0107",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0119",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_016c",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_017e",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_01ab",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_01b9",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_01c7",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_01d4",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_020a",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0015",
+      "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0002",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_0088",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_00b8",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_00c0",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_00e0",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_00ed",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_00fb",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_0109",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_0117",
+      "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_0128",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_0274",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_0286",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_0048",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::UnselectAllPrefabs(System.Boolean)"
+    },
+    {
+      "Offset": "IL_00c2",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::UnselectAllPrefabs(System.Boolean)"
+    },
+    {
+      "Offset": "IL_0044",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Boolean Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::ReviewPrefab(Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_003d",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::TrySelectOrUnselectPrefab(Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_0215",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::TrySelectOrUnselectPrefab(Game.Prefabs.PrefabBase,System.Boolean)"
+    },
+    {
+      "Offset": "IL_000a",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Systems.Common.SelectMultiplePrefabsUISystem::TrySelectOrUnselectPrefab(Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_0029",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Systems.ClearanceViolation.ModifyNetCompositionDataSystem::OnUpdate()"
+    },
+    {
+      "Offset": "IL_0002",
+      "Target": "System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()",
+      "Caller": "System.Void Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::InitializeRaycast()"
+    },
+    {
+      "Offset": "IL_000a",
+      "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreate()",
+      "Caller": "System.Void Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnCreate()"
+    },
+    {
+      "Offset": "IL_0002",
+      "Target": "System.Void Game.Tools.ToolBaseSystem::OnStartRunning()",
+      "Caller": "System.Void Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnStartRunning()"
+    },
+    {
+      "Offset": "IL_0009",
+      "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+      "Caller": "System.Void Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnStartRunning()"
+    },
+    {
+      "Offset": "IL_0016",
+      "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()",
+      "Caller": "System.Void Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnStartRunning()"
+    },
+    {
+      "Offset": "IL_0002",
+      "Target": "System.Void Game.Tools.ToolBaseSystem::OnStopRunning()",
+      "Caller": "System.Void Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnStopRunning()"
+    },
+    {
+      "Offset": "IL_000e",
+      "Target": "System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)",
+      "Caller": "Unity.Jobs.JobHandle Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+    },
+    {
+      "Offset": "IL_05e9",
+      "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+      "Caller": "Unity.Jobs.JobHandle Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+    },
+    {
+      "Offset": "IL_075a",
+      "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()",
+      "Caller": "Unity.Jobs.JobHandle Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+    },
+    {
+      "Offset": "IL_08c6",
+      "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+      "Caller": "Unity.Jobs.JobHandle Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+    },
+    {
+      "Offset": "IL_0a37",
+      "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()",
+      "Caller": "Unity.Jobs.JobHandle Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+    },
+    {
+      "Offset": "IL_0cad",
+      "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+      "Caller": "Unity.Jobs.JobHandle Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+    },
+    {
+      "Offset": "IL_0e9c",
+      "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()",
+      "Caller": "Unity.Jobs.JobHandle Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+    },
+    {
+      "Offset": "IL_0002",
+      "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreateForCompiler()",
+      "Caller": "System.Void Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::OnCreateForCompiler()"
+    },
+    {
+      "Offset": "IL_0013",
+      "Target": "System.Void Game.Tools.ToolBaseSystem::.ctor()",
+      "Caller": "System.Void Anarchy.Systems.AnarchyComponentsTool.AnarchyComponentsToolSystem::.ctor()"
+    },
+    {
+      "Offset": "IL_005b",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+      "Caller": "System.Void Anarchy.Patches.ToolbarUISystemActivatePrefabToolPatch::Postfix(Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_0051",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_005e",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_007d",
+      "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+      "Caller": "System.Void Anarchy.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_00af",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+      "Caller": "System.Void Anarchy.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_0146",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Void Anarchy.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+    },
+    {
+      "Offset": "IL_0277",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+      "Caller": "System.Void Anarchy.ExtendedRoadUpgrades.UpgradesManager::Install()"
+    },
+    {
+      "Offset": "IL_045e",
+      "Target": "System.Boolean Game.Prefabs.PrefabSystem::AddPrefab(Game.Prefabs.PrefabBase,System.String,Game.Prefabs.PrefabBase,Game.Prefabs.ComponentBase)",
+      "Caller": "System.Void Anarchy.ExtendedRoadUpgrades.UpgradesManager::Install()"
+    },
+    {
+      "Offset": "IL_0169",
+      "Target": "!!0 Game.Prefabs.PrefabSystem::GetComponentData<Game.Prefabs.PlaceableNetData>(Game.Prefabs.PrefabBase)",
+      "Caller": "System.Void Anarchy.ExtendedRoadUpgrades.UpgradesManager::GameManager_onGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_027d",
+      "Target": "!!0 Game.Prefabs.PrefabSystem::GetComponentData<Game.Prefabs.PlaceableNetData>(Game.Prefabs.PrefabBase)",
+      "Caller": "System.Void Anarchy.ExtendedRoadUpgrades.UpgradesManager::GameManager_onGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_0357",
+      "Target": "System.Void Game.Prefabs.PrefabSystem::AddComponentData<Game.Prefabs.PlaceableNetData>(Game.Prefabs.PrefabBase,!!0)",
+      "Caller": "System.Void Anarchy.ExtendedRoadUpgrades.UpgradesManager::GameManager_onGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+    },
+    {
+      "Offset": "IL_0013",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Boolean Anarchy.Bridge.AnarchyBridge::TryAddToolSystem(Game.Tools.ToolBaseSystem)"
+    },
+    {
+      "Offset": "IL_0029",
+      "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+      "Caller": "System.Boolean Anarchy.Bridge.AnarchyBridge::TryAddToolSystem(Game.Tools.ToolBaseSystem)"
+    }
+  ],
+  "GameModeGetters": []
+}

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><NoWarn>CS0649;CS0414</NoWarn></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/Modules/Targeting/*.cs" Exclude="../../src/Modules/Targeting/OutlineColourSystem.cs;../../src/Modules/Targeting/TargetingEditGuard.cs" Link="Targeting/%(Filename).cs" />
+    <Compile Include="../../src/Modules/PropReplacer/ViewportHitPolicy.cs" Link="ViewportHitPolicy.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/TargetUndoFeedback.cs" Link="TargetUndoFeedback.cs" />
+    <Reference Include="Newtonsoft.Json"><HintPath>C:/Program Files (x86)/Steam/steamapps/common/Cities Skylines II/Cities2_Data/Managed/Newtonsoft.Json.dll</HintPath><Private>true</Private></Reference>
+    <Reference Include="Unity.Mathematics;Colossal.Mathematics"><HintPath>C:/Program Files (x86)/Steam/steamapps/common/Cities Skylines II/Cities2_Data/Managed/%(Identity).dll</HintPath><Private>true</Private></Reference>
+  </ItemGroup>
+</Project>

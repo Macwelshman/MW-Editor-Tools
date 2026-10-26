@@ -29,6 +29,15 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer
         { Id = id; Type = type; this.validate = validate; Fields = fields; }
         internal ValueAdapter(Type type){Type=type;Id="Settings:"+type.FullName;Fields=new ValueField[0];general=true;}
 
+        internal string[] CopyFieldNames {
+            get {
+                if(!general)return Fields.Select(f=>f.Name).ToArray();
+                var names=new List<string>();
+                for(var t=Type;t!=null&&t!=typeof(ComponentBase);t=t.BaseType)
+                    names.AddRange(t.GetFields(System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.DeclaredOnly).Where(f=>!f.IsNotSerialized&&!f.IsInitOnly).Select(f=>f.Name));
+                return names.Where(n=>Type.FullName!="Game.Prefabs.UIObject"||n!="m_Icon").OrderBy(n=>n,StringComparer.Ordinal).ToArray();
+            }
+        }
         public ValueSnapshot Capture(ComponentBase component, PrefabBase owner)
         {
             if (component.GetType() != Type) throw new InvalidOperationException("Exact adapter type required.");

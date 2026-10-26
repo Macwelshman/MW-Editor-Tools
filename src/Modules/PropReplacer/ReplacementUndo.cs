@@ -47,7 +47,7 @@ namespace MW.EditorTools.Modules.PropReplacer {
      CreateFoliageCandidates(plan);row.ListField.SetValue(row.Owner,restored);row.Root.isDirty=true;Refresh(row.Root,row.Ancestors);
      if(!before.Matches(row.ListField.GetValue(row.Owner)))throw new InvalidOperationException("Restored replacement source did not verify.");
      WatchFoliageCandidates(plan,target,after);
-     selectedValue=null;pendingViewportClipboard=null;status="Undid replacement of "+indices.Length+" element(s). Original prefabs, placement and settings restored.";MW.EditorTools.Mod.Log.Info(status);return true;
+     selectedValue=null;pendingViewportClipboard=null;status="Undid replacement of "+indices.Length+(indices.Length==1?" element. Original":" elements. Original")+" prefabs, placement and settings restored.";MW.EditorTools.Mod.Log.Info(status);return true;
     }catch{
      foliageWitnesses=new FoliageWitness[0];foliagePlan=null;
      try{RemoveFoliageCandidates(plan);row.ListField.SetValue(row.Owner,current);row.Root.isDirty=dirty;Refresh(row.Root,row.Ancestors);}catch(Exception rollback){foliageFailed=true;MW.EditorTools.Mod.Log.Error(rollback,"Replacement Undo rollback failed; reload without saving.");}

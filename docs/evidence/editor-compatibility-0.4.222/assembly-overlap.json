@@ -1,0 +1,213 @@
+[
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\105288_9\\AssetIconCreator.dll",
+    "Identity": "AssetIconCreator, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "2c652cbe-d9b5-46ec-8850-c7a39cf7d8a6",
+    "SHA256": "A77E25A6EE15891D7457444014AE0DA02B57A2482076A60EF1C87BC5B7A47004",
+    "HarmonyReferences": [],
+    "Patches": [],
+    "RelevantCalls": [
+      {
+        "Caller": "System.Void AssetIconCreator.AssetIconCreatorEditorTool::.ctor(Unity.Entities.World,AssetIconCreator.AssetSetupToolSystem,Game.Tools.ToolSystem)",
+        "Offset": "IL_0010",
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreate()",
+        "Offset": "IL_0001",
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreate()"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStartRunning()",
+        "Offset": "IL_0001",
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStartRunning()"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStartRunning()",
+        "Offset": "IL_000e",
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStopRunning()",
+        "Offset": "IL_0001",
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStopRunning()"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStopRunning()",
+        "Offset": "IL_000e",
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.AssetSetupToolSystem::InitializeRaycast()",
+        "Offset": "IL_0001",
+        "Target": "System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()"
+      },
+      {
+        "Caller": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Offset": "IL_0002",
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)"
+      },
+      {
+        "Caller": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Offset": "IL_0021",
+        "Target": "System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)"
+      },
+      {
+        "Caller": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Offset": "IL_0080",
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()"
+      },
+      {
+        "Caller": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Offset": "IL_012c",
+        "Target": "!!0 Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabRef)"
+      },
+      {
+        "Caller": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Offset": "IL_0324",
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)"
+      },
+      {
+        "Caller": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Offset": "IL_0360",
+        "Target": "Unity.Jobs.JobHandle Game.Tools.ToolBaseSystem::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Caller": "System.Boolean AssetIconCreator.AssetSetupToolSystem::IsDecal(Unity.Entities.Entity)",
+        "Offset": "IL_0015",
+        "Target": "!!0 Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabRef)"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreateForCompiler()",
+        "Offset": "IL_0001",
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreateForCompiler()"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.AssetSetupToolSystem::.ctor()",
+        "Offset": "IL_000c",
+        "Target": "System.Void Game.Tools.ToolBaseSystem::.ctor()"
+      },
+      {
+        "Caller": "System.Boolean AssetIconCreator.AssetSetupToolSystem::<OnGamePreload>b__39_0(Game.UI.Editor.IEditorTool)",
+        "Offset": "IL_000d",
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()"
+      },
+      {
+        "Caller": "System.String AssetIconCreator.ScreenshotUtility::GetAssetName(Game.Prefabs.PrefabBase)",
+        "Offset": "IL_000d",
+        "Target": "Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Caller": "System.Void AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::<ProcessScreenshot>b__0()",
+        "Offset": "IL_00d9",
+        "Target": "System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)"
+      }
+    ],
+    "GameModeGetters": []
+  },
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\92671_32\\StarQWorkflowKit.dll",
+    "Identity": "StarQWorkflowKit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "40b94685-da5c-4463-8c8e-e2cd412595ab",
+    "SHA256": "AB5E79F130CA4153E6DC143465FC79AAD508AAEEE761025D0B5282FAAEFE80DC",
+    "HarmonyReferences": [
+      "0Harmony, Version=2.2.2.0, Culture=neutral, PublicKeyToken=null"
+    ],
+    "Patches": [
+      {
+        "Owner": "Patch_EditorAssetCategorySystem_AddOverrides",
+        "Arguments": [
+          "Game.UI.Editor.EditorAssetCategorySystem",
+          "AddOverrides"
+        ],
+        "Attribute": "HarmonyLib.HarmonyPatch"
+      },
+      {
+        "Owner": "PrefabBase_MarkCurrentPrefabObsolete_Patch",
+        "Arguments": [
+          "Game.Prefabs.PrefabBase",
+          "MarkCurrentPrefabObsolete"
+        ],
+        "Attribute": "HarmonyLib.HarmonyPatch"
+      }
+    ],
+    "RelevantCalls": [
+      {
+        "Caller": "System.Boolean Patch_EditorAssetCategorySystem_AddOverrides::Prefix(Game.UI.Editor.EditorAssetCategorySystem)",
+        "Offset": "IL_0075",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)"
+      },
+      {
+        "Caller": "System.String StarQ.Shared.Extensions.PrefabHelper::GetPrefabName(Unity.Entities.Entity)",
+        "Offset": "IL_0017",
+        "Target": "System.String Game.Prefabs.PrefabSystem::GetPrefabName(Unity.Entities.Entity)"
+      },
+      {
+        "Caller": "System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetEntity(Game.Prefabs.PrefabID,Unity.Entities.Entity&)",
+        "Offset": "IL_0013",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)"
+      },
+      {
+        "Caller": "System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetEntity(Game.Prefabs.PrefabID,Unity.Entities.Entity&)",
+        "Offset": "IL_0021",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)"
+      },
+      {
+        "Caller": "System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetPrefab(System.String,System.String,Colossal.Hash128,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_0011",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)"
+      },
+      {
+        "Caller": "System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetPrefab(System.String,System.String,Colossal.Hash128,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_0033",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)"
+      },
+      {
+        "Caller": "System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetEntity(System.String,System.String,Colossal.Hash128,Unity.Entities.Entity&)",
+        "Offset": "IL_001d",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)"
+      },
+      {
+        "Caller": "System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetEntity(System.String,System.String,Colossal.Hash128,Unity.Entities.Entity&)",
+        "Offset": "IL_002b",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)"
+      },
+      {
+        "Caller": "System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetEntity(System.String,System.String,Colossal.Hash128,Unity.Entities.Entity&)",
+        "Offset": "IL_004e",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)"
+      },
+      {
+        "Caller": "System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetEntity(System.String,System.String,Colossal.Hash128,Unity.Entities.Entity&)",
+        "Offset": "IL_005c",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)"
+      },
+      {
+        "Caller": "System.Void StarQWorkflowKit.Mod::OnLoad(Game.UpdateSystem)",
+        "Offset": "IL_006a",
+        "Target": "System.Void HarmonyLib.Harmony::PatchAll(System.Reflection.Assembly)"
+      },
+      {
+        "Caller": "System.Void StarQWorkflowKit.Systems.PackageSystem::SaveAsset(System.String,System.Int32,System.Boolean)",
+        "Offset": "IL_0089",
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabData,!!0&)"
+      },
+      {
+        "Caller": "System.Void StarQWorkflowKit.Systems.WorkflowSystem::AddSpawableObject()",
+        "Offset": "IL_0089",
+        "Target": "System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)"
+      },
+      {
+        "Caller": "System.Void StarQWorkflowKit.Systems.WorkflowSystem::AddAssetPack()",
+        "Offset": "IL_0082",
+        "Target": "System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)"
+      },
+      {
+        "Caller": "System.Void StarQWorkflowKit.Systems.WorkflowSystem::SaveAndContinue(Game.Prefabs.PrefabBase,StarQWorkflowKit.Systems.WorkflowSystem/ChangeType,System.String,System.String)",
+        "Offset": "IL_00b8",
+        "Target": "System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)"
+      }
+    ],
+    "GameModeGetters": []
+  }
+]

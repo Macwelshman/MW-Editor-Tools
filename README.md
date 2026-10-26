@@ -1,22 +1,28 @@
 # MW Editor Tools
 
-Tools for the Cities: Skylines II Asset Editor. Current release: **0.4.180**. The GitHub repository and release are private.
+Tools for the **Cities: Skylines II Asset Editor**. Current release: **0.4.251**. The repository and releases remain private.
 
-Version 0.4.180 adds direct component-heading selection with native checkboxes/tooltips, Copy/Copy All and Select All/Deselect All, one-click checked component paste, and matching Clear Clipboard controls. Paste reports clear on asset switches; inspector Undo starts collapsed with normal heading casing. Builds and focused checks pass; final native acceptance remains pending. See [0.4.180 validation notes](docs/UI_POLISH_0.4.180.md).
+**[Download the installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.251)** · **[User manual](docs/USER_MANUAL.md)** · **[PDF manual](output/pdf/MW-Editor-Tools-User-Manual-0.4.251.pdf)**
 
-Version 0.4.173 fixes the launcher update loop that could leave the game UI blank after closing the developer menu with TAB. The user confirmed that the UI now returns normally. Confirmed component removal also submits the missing native prefab refresh.
+Close Cities: Skylines II before installing. The unsigned .NET Framework 4.8 installer backs up the existing mod folder and verifies installed files. It installs into the current user's Mods folder and does not change game files.
 
-The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with a compact **Undo** button in its header. Most guidance is available through tooltips or Details. The coloured diamond icon stays visible and toggles the window open or closed; it starts beside the sidebar and moves right around occupied icon positions.
+## What's new since 0.4.180
 
-**[Read the user manual](docs/USER_MANUAL.md)** for installation, step-by-step workflows, shortcuts and troubleshooting. A [PDF reference copy](output/pdf/MW-Editor-Tools-User-Manual-0.4.180.pdf) is also available.
+- **Viewport selection:** Start replacing, element-type filters, gold hover/cyan selection, and exact Object Info row reveal with a rounded cyan highlight. Component/list opening, pagination and scrolling follow the selected element.
+- **Clear copy/paste targets:** viewport shortcuts follow current hover; panel buttons follow clicked selection. Native inspector edits stop replacing before rebuilding the asset.
+- **Component tasks:** separate Component copying, Localisation and Pack priorities views. Copy selected fields, use Group and Priority presets, transfer localised names/descriptions, or preview workspace priority numbering. Destination thumbnails are preserved.
+- **Recovery:** guarded bound-network, spawn/access marker and supported native bike-rack improvements, retaining companion/reference checks and the shared last-action Undo.
+- **Compatibility and diagnostics:** optional Asset Icon Creator integration, patch conflict isolation, tab error recovery and quieter successful-operation logging.
 
-**[Download the Windows installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.180)**. Close Cities: Skylines II before installation. The installer backs up the existing mod folder and verifies installed files.
+See [release notes](docs/RELEASE_NOTES_0.4.251.md) for scope and validation. Proposed precision transforms, group selection, duplication and filtered deletion tools are not included.
+
+The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with **Undo** in its header. Click the coloured diamond icon to open or close it. Drag its header to move it; the position is remembered. Workspace **Save All** starts Multi-Save; its tab shows results and details.
 
 ## Features
 
 - **Undo:** one shared last-action slot, normally Ctrl+Z. Supported paths include standalone/bound/nested props and foliage deletion/moves; bound/unbound supported surface/area deletion and node moves; single-node addition/deletion, combining addition with subsequent moves of that same node; direct native effect deletion/moves; and supported directly bound lane/network deletion. Cancelled/no-op moves preserve the previous slot. Asset changes and unrelated writes can invalidate it. There is no Redo or multiple-action history.
 - **Replacer:** hover an element in Object Info or the viewport and press Ctrl+C. Ctrl+V replaces the destination; Ctrl+Shift+V replaces all matching elements in its owning asset list. Destination placement and row settings are preserved. Ctrl+Z or the header Undo restores the last single or batch replacement as one action; foliage regeneration must finish first. Exact source-row/ownership matching is required; unsupported or ambiguous targets refuse. This replaces attached source-list elements, not arbitrary standalone placements.
-- **Components:** copy selected components or all supported components, including settings, between assets. Paste modes are Add missing, Replace present, and Replace and add. Paste automatically checks compatibility and reports changes and skips. Existing activation is preserved; additions retain copied activation. Restore is available until later destination changes invalidate it. Opaque/native or unsupported component settings are explicitly skipped.
+- **Components:** copy selected components or all supported components, including settings, between assets. Paste modes are Add missing, Replace present, and Replace and add. Paste automatically checks compatibility and reports changes and skips. Existing activation is preserved; additions retain copied activation. Recover is available until later destination changes invalidate it. Opaque/native or unsupported component settings are explicitly skipped.
 - **Colours:** edit channel palettes, generate colour combinations, replace/append variation groups, copy/paste colour settings and undo the last colour edit. Uncommitted drafts and selection changes are guarded.
 - **Multi-Save:** save unlocked workspace assets, including hidden entries, with progress, Stop and detailed results. Repeated instances save once; locked assets are excluded.
 - **Deletion confirmation:** confirmation before component removal or clearing lists, configured in Options.
@@ -38,11 +44,11 @@ Former default Ctrl+Alt combinations migrate to these defaults. Other customised
 
 ## Supported scope and limits
 
-Undo does not cover network moves, standalone network/junction recovery, whole-polygon creation/deletion through node tools, multi-polygon/merged edits, whole-building/component recovery or third-party tools. Component Restore is separate from the shared Undo action. Undo history is session-only; persistence acceptance concerns the resulting saved asset, not preserving an Undo slot across reloads.
+Undo does not cover network moves, standalone network/junction recovery, whole-polygon creation/deletion through node tools, multi-polygon/merged edits, whole-building/component recovery or third-party tools. Component Recover is separate from the shared Undo action. Undo history is session-only; persistence acceptance concerns the resulting saved asset, not preserving an Undo slot across reloads.
 
-The requested Undo and Phase 5 workflows have user-reported native acceptance, including persistence. The newer compact UI/Options have automated checks and user-reported appearance/Options acceptance on 0.4.163. A fresh combined native run and individual Alt key dispatch were not separately reported in this readiness pass. Version 0.4.173 replacement Undo has user-reported in-game acceptance, with completed wall and foliage batch restoration recorded in the log. The broader surface/area/network mapping checks are automated; a fresh persistence acceptance run for the replacement fixes is not claimed.
+VERIFIED-RUNTIME: user accepted 0.4.251 selection, highlighting and replacement/Undo. The recorded session includes single and seven-element batch replacement/Undo. This does not establish a fresh dedicated surface material/rebuild/save-reopen pass or exhaustive mod compatibility. See [native acceptance](docs/evidence/release-review-0.4.251/native-acceptance/README.md).
 
-Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.180.md), [release notes](docs/RELEASE_NOTES_0.4.180.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
+Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.251.md), [release notes](docs/RELEASE_NOTES_0.4.251.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
 
 ## Build and checks
 
@@ -66,4 +72,3 @@ To rebuild the PDF, run `python tools/build_manual_pdf.py` with ReportLab and py
 This is an independent community tool and is not affiliated with or endorsed by Iceflake Studios or Paradox Interactive.
 
 Cities: Skylines II and its associated names and trademarks belong to their respective owners.
-

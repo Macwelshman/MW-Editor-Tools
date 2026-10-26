@@ -1,0 +1,19 @@
+# Restricted Spawn Location connection regeneration — 0.4.209
+
+The 0.4.208 runtime test did not complete Undo validation. The marker returned visually, then a root connection mapping refusal blocked the following deletion while recovery was pending. See docs/evidence/spawn-acceptance-0.4.208.
+
+VERIFIED-STATIC defect: the 0.4.208 mapper reserves surviving full connection entity IDs before geometric/topological matching. A generated connection entity reused for another endpoint pair causes early refusal, even where a unique complete equivalent graph exists. The old diagnostic then reports the first still-unmapped item, which can conceal the actual refusal. A managed graph test using the observed four marker positions, a sloping endpoint, shuffled surviving object identities, and three generated connections reproduces refusal against the saved 0.4.208 DLL. The corrected mapper accepts the same graph. This establishes the mapper defect; the exact native 0.4.208 refusal predicate remains a HYPOTHESIS because that log omitted its full before graph and anchor correspondence.
+
+Native evidence reused: Game 0.0.0.0, MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef; Game.dll SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A. RoadConnectionSystem.ConnectionLaneKey::.ctor sorts endpoint keys at IL_0003–0022. UpdateSecondaryLanesJob.CheckConnection constructs endpoint index0/middle index3 and explicitly accepts inverted curves (IL_014f–0164), or swaps endpoints/inverts curve while retaining middle source (0198–01b7). Selected IL preserved under docs/evidence/spawn-reversed-0.4.208; no new game-assembly decompilation or game-file edits required.
+
+Implementation:
+
+- During active spawn/access restoration only, defer generated inside secondary connections to unique endpoint-pair matching, including ones whose full entity identity survives. Original editable networks, lanes, props, effects, move routes and capture retain existing survivor rules.
+- Forward and reverse candidates both require exact mapped object endpoints and canonical native middle on one endpoint; compare all four world controls, length, prefab, connection flags, road/track types, schema and ownership. Reversal witnesses continue to preserve physical attachment positions via 1-t.
+- Retain complete injective graph membership, path-method, restriction/reference, object-forest, seed/cache and source-orphan checks. No snapshots or live connection data are rewritten. Ambiguous/missing/reconnected/changed graphs refuse.
+- Report exact survivor/candidate refusal and the anchor correspondence on demand. Normal mapping does not construct diagnostics. Diagnostic prefab naming has a guarded fallback for unavailable native names, so logging cannot obscure the mapping error.
+- Keep pending-operation guards and the existing stable-frame completion/slot consumption rules. A failed graph is not labelled completed merely to unblock editing.
+
+Validation: Phase3Safety 755 checks, including 48 complete-network permutations/direction combinations, each tested for full map, orientation and object-anchor correspondence; changed geometry/flags/references/path methods and ordinary-scope remapping refuse; a second rebuild maps afresh. Saved 0.4.208 binary comparison reproduces the old refusal. BoundCompletionSafety77; SpawnAccessSafety55; EffectUndoSafety41; EffectRestoreSafety35; BoundFoliageSafety25; AreaMoveSafety97; MoveUndoSafety38. Total1123 managed checks. Release/UI build results and installation recorded separately. Managed tests do not prove native ECS regeneration or rendering.
+
+Native acceptance is UNPROVEN. In a fresh disposable session: Restricted Spawn Location deletion/Undo, wait for completion, then repeat; follow with ordinary prop/effect deletion/Undo. Inspect companion references and rendered markers. Do not reuse or save a prior timed-out test state.

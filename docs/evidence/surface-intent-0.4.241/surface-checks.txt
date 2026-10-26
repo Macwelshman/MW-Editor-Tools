@@ -1,0 +1,1 @@
+PASS: 62 actual-source surface transaction, native-comparison, rollback, ownership, compatibility and Undo checks. Managed ECS doubles; native acceptance pending.

@@ -1,0 +1,15 @@
+# Restricted Spawn Location reversed connections — 0.4.208
+
+VERIFIED-RUNTIME: the 0.4.207 log retained in docs/evidence/spawn-acceptance-0.4.207 records visual reconstruction followed by connection mapping refusal and timeout. The next deletion was safely skipped while that recovery remained pending. There was no completed Undo acceptance.
+
+VERIFIED-STATIC: Game 0.0.0.0, MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef, Game.dll SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A (rechecked). Game.Buildings.RoadConnectionSystem/ConnectionLaneKey::.ctor sorts its endpoint keys (IL_0003–0022). UpdateSecondaryLanesJob.CheckConnection builds endpoint PathNodes at index 0 (IL_000a/0019), middle at index 3 on the first source object (0044/0049), and a StraightCurve (0066). Existing lanes explicitly permit inverted Bezier equality (014f–0164); another branch swaps endpoints and inverts the curve while retaining the initially constructed middle node (0198–01b7). New connections have Inside flags (0257) and SecondaryLane (0646). Selected method IL is preserved under docs/evidence/spawn-reversed-0.4.208. No game files were modified.
+
+Implementation:
+
+- Capture connection flags, restriction reference, road/track types, and SecondaryLane presence alongside existing complete graph snapshots; preserve those fields in deletion projections.
+- Only active spawn/access restoration may map a reversed generated inside connection. Require secondary connection schema, root ownership, no editable source/cache/container/seed, distinct proved object anchors, swapped exact endpoint path nodes, canonical native middle on one endpoint, all four reversed world controls and unchanged length/settings/prefab. Outside connections and editable lanes remain excluded.
+- Still require unique injective mapping, exact membership/path methods, ownership, restriction remapping, full typed companion checks and source-orphan checks. Ordinary prop/effect/fence/lane/move routes retain their existing directed comparison.
+- Carry a reversal witness only after complete network validation into both retained-reference and final companion maps. Copies and stability gates preserve/check that witness alongside owner-prefab scope.
+- Compare spawn/access/route attachment positions at 1-t for proved reversed lanes (finite [0,1], at most 0.000001 complement rounding). All other companion fields remain exact. No original snapshots, live lane direction, live connection positions, geometry or membership buffers are changed by this comparison. Native reconstruction remains responsible for restoring these components.
+
+Validation: managed assertions and build results are recorded in docs/evidence/spawn-reversed-0.4.208/checks.txt. Native acceptance remains UNPROVEN. Grouped disposable test: Restricted Spawn Location deletion/Undo, wait for completed Undo, repeat deletion/Undo, inspect restored connections, then ordinary prop/effect deletion/Undo. Reload the prior timed-out disposable session without saving first.

@@ -1,0 +1,7 @@
+PASS: 77 actual-source area/surface transaction and native release adapter checks with managed ECS/renderer doubles.
+PASS: 92 actual-source targeting checks.
+PASS: 45 replacement Undo checks; 1204 Phase 3 checks.
+PASS: 22 outline checks; 34 retry checks; 76 viewport projection checks; 10 network adapter checks.
+PASS: 28 lifecycle checks; 33 UI targeting checks.
+PASS: Release/UI builds and native phase/allocation contract checks.
+Native game acceptance pending; no claim that the unknown native crash caller is established.

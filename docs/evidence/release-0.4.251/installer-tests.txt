@@ -1,0 +1,2 @@
+PASS: 43 installer checks against actual embedded release payload; production mod directory untouched.
+Test fixtures retained at C:\Users\ian\Documents\Development\MW Editor Tools\outputs\release-0.4.251\test-fixtures\7b0233c40e654694b23b9e034c0f19f0

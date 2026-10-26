@@ -1,0 +1,18 @@
+[
+  {
+    "Identity": "UnifiedIconLibrary, Version=1.0.14.0, Culture=neutral, PublicKeyToken=null",
+    "Unchanged": true
+  },
+  {
+    "Identity": "FindIt, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "Unchanged": true
+  },
+  {
+    "Identity": "AssetIconLibrary, Version=4.1.1.0, Culture=neutral, PublicKeyToken=null",
+    "Unchanged": true
+  },
+  {
+    "Identity": "MWEditorEnvironment, Version=0.1.3.0, Culture=neutral, PublicKeyToken=null",
+    "Unchanged": true
+  }
+]

@@ -1,0 +1,11 @@
+# Fence deletion Undo preflight — 0.4.197
+
+VERIFIED-RUNTIME baseline: 0.4.196 captured FenceResidentialHigh01 deletion and began Undo, then timed out with the outer owner/pending/companion message. Subsequent captures refused Nonfinite local network curve. User accepts props and visibly restored effects in that version. See preserved mixed-acceptance-0.4.196 log.
+
+VERIFIED-STATIC defect: TickNetworkRecovery already admits nonfinite LocalCurveCache during native reconstruction so a fully mapped graph can repair it from the finite recorded cache. However retained-reference validation calls CaptureBoundCompanions, which recaptured the same root network with strict local-cache validation before repair. This circular precondition could prevent reaching the existing repair stage.
+
+Fix: CaptureBoundCompanions has an explicit restoration-only option for its root network read. Network companion and retained-reference restoration preflights use it, while ordinary capture still refuses nonfinite caches. World geometry, closed topology, typed component presence, exact ownership, source payloads and references remain guarded. Recorded cache must be finite; a changed finite live cache is refused before retained companion writes. Existing repair and strict final graph validation remain required for completion. No new raw entity-reference writes or geometry normalization added. Timeout messages now identify owner/finalization, retained reference/prop preflight or retained companion stages.
+
+VERIFIED-STATIC validation: managed/UI builds pass, existing NU1900 feed warning only. BoundCompletionSafety 42 actual-source orchestration checks include strict ordinary capture refusal, read-only repair preflight, owner refusal, retained-reference access with invalid cache, and finite-cache-change refusal before writes. Phase3 455, spawn/access 47, effect lifecycle 41, effect restore 35, bound foliage 25, area move 97 and move 38 checks pass. Native scheduling/rendering not simulated.
+
+UNPROVEN: native fence Undo completion after this correction. Fresh disposable mixed asset: delete/Undo one fence, then verify original fence, retained props, effects and connections. Recheck one prop and effect as regressions. If recovery fails, stop and preserve the log; do not save test edits. No game files modified, computer use or publishing.

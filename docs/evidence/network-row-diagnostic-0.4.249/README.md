@@ -1,0 +1,7 @@
+# Network row capture — 0.4.249
+
+Diagnostic build, not a confirmed fix. User screenshot shows Network: FenceResidentialHigh01 selected and no unique list row. The 0.4.248 native log still reports zero source matches for entities 53057/53058/53059; it records successful native scroll-controller receipts for mapped prop/effect/area rows. User has not explicitly accepted all scroll behaviour.
+
+Existing captures do not include the actual network curves, caches, endpoint meshes and compiled source values. 0.4.249 captures those values with round-trip float precision on a failed presentation-only network/lane row match, up to 12 candidate rows. It includes raw world and projected curves, cached source curve/point, owning pose, root readiness, actual/container prefab identities, editable indices/meshes/curves and compiled indices/meshes/curves. Logging is once per changed failed entity, rather than each UI frame. No source/ECS/native reference writes or matching tolerance/eligibility changes. The guard remains in place; working Area/Undo/outlines/reveal code is unchanged.
+
+Release/UI builds and existing row/headings, network adapter/projection and Phase 3 checks pass. NU1900 is the existing unavailable advisory-feed warning. Native network highlighting remains FAILED pending diagnosis. Next smallest test: select the reported fence once with Start replacing active, then retain the game session/logs for inspection. No replacement or asset save is required.

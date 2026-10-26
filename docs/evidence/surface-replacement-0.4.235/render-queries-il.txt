@@ -1,0 +1,613 @@
+Game.Rendering.AreaBatchSystem
+System.Void Game.Rendering.AreaBatchSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_0012: stfld Game.Prefabs.PrefabSystem Game.Rendering.AreaBatchSystem::m_PrefabSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.CameraUpdateSystem>()
+IL_0023: stfld Game.Rendering.CameraUpdateSystem Game.Rendering.AreaBatchSystem::m_CameraUpdateSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.RenderingSystem>()
+IL_0034: stfld Game.Rendering.RenderingSystem Game.Rendering.AreaBatchSystem::m_RenderingSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0040: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.BatchDataSystem>()
+IL_0045: stfld Game.Rendering.BatchDataSystem Game.Rendering.AreaBatchSystem::m_BatchDataSystem
+IL_004a: ldarg.0
+IL_004b: ldarg.0
+IL_004c: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0051: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Areas.SearchSystem>()
+IL_0056: stfld Game.Areas.SearchSystem Game.Rendering.AreaBatchSystem::m_AreaSearchSystem
+IL_005b: ldarg.0
+IL_005c: ldarg.0
+IL_005d: ldc.i4.1
+IL_005e: newarr Unity.Entities.EntityQueryDesc
+IL_0063: dup
+IL_0064: ldc.i4.0
+IL_0065: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_006a: stloc.0
+IL_006b: ldloc.0
+IL_006c: ldc.i4.1
+IL_006d: newarr Unity.Entities.ComponentType
+IL_0072: dup
+IL_0073: ldc.i4.0
+IL_0074: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Batch>()
+IL_0079: stelem.any Unity.Entities.ComponentType
+IL_007e: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0083: ldloc.0
+IL_0084: ldc.i4.2
+IL_0085: newarr Unity.Entities.ComponentType
+IL_008a: dup
+IL_008b: ldc.i4.0
+IL_008c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Updated>()
+IL_0091: stelem.any Unity.Entities.ComponentType
+IL_0096: dup
+IL_0097: ldc.i4.1
+IL_0098: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_009d: stelem.any Unity.Entities.ComponentType
+IL_00a2: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_00a7: ldloc.0
+IL_00a8: ldc.i4.1
+IL_00a9: newarr Unity.Entities.ComponentType
+IL_00ae: dup
+IL_00af: ldc.i4.0
+IL_00b0: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_00b5: stelem.any Unity.Entities.ComponentType
+IL_00ba: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_00bf: ldloc.0
+IL_00c0: stelem.ref
+IL_00c1: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00c6: stfld Unity.Entities.EntityQuery Game.Rendering.AreaBatchSystem::m_UpdatedQuery
+IL_00cb: ldarg.0
+IL_00cc: ldarg.0
+IL_00cd: ldc.i4.1
+IL_00ce: newarr Unity.Entities.EntityQueryDesc
+IL_00d3: dup
+IL_00d4: ldc.i4.0
+IL_00d5: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00da: stloc.0
+IL_00db: ldloc.0
+IL_00dc: ldc.i4.1
+IL_00dd: newarr Unity.Entities.ComponentType
+IL_00e2: dup
+IL_00e3: ldc.i4.0
+IL_00e4: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Batch>()
+IL_00e9: stelem.any Unity.Entities.ComponentType
+IL_00ee: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00f3: ldloc.0
+IL_00f4: ldc.i4.1
+IL_00f5: newarr Unity.Entities.ComponentType
+IL_00fa: dup
+IL_00fb: ldc.i4.0
+IL_00fc: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_0101: stelem.any Unity.Entities.ComponentType
+IL_0106: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_010b: ldloc.0
+IL_010c: stelem.ref
+IL_010d: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0112: stfld Unity.Entities.EntityQuery Game.Rendering.AreaBatchSystem::m_BatchQuery
+IL_0117: ldarg.0
+IL_0118: ldarg.0
+IL_0119: ldc.i4.1
+IL_011a: newarr Unity.Entities.EntityQueryDesc
+IL_011f: dup
+IL_0120: ldc.i4.0
+IL_0121: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0126: stloc.0
+IL_0127: ldloc.0
+IL_0128: ldc.i4.1
+IL_0129: newarr Unity.Entities.ComponentType
+IL_012e: dup
+IL_012f: ldc.i4.0
+IL_0130: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.RenderedAreaData>()
+IL_0135: stelem.any Unity.Entities.ComponentType
+IL_013a: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_013f: ldloc.0
+IL_0140: ldc.i4.2
+IL_0141: newarr Unity.Entities.ComponentType
+IL_0146: dup
+IL_0147: ldc.i4.0
+IL_0148: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Created>()
+IL_014d: stelem.any Unity.Entities.ComponentType
+IL_0152: dup
+IL_0153: ldc.i4.1
+IL_0154: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_0159: stelem.any Unity.Entities.ComponentType
+IL_015e: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0163: ldloc.0
+IL_0164: stelem.ref
+IL_0165: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_016a: stfld Unity.Entities.EntityQuery Game.Rendering.AreaBatchSystem::m_PrefabQuery
+IL_016f: ldarg.0
+IL_0170: newobj System.Void System.Collections.Generic.List`1<Game.Rendering.AreaBatchSystem/ManagedBatchData>::.ctor()
+IL_0175: stfld System.Collections.Generic.List`1<Game.Rendering.AreaBatchSystem/ManagedBatchData> Game.Rendering.AreaBatchSystem::m_ManagedBatchData
+IL_017a: ldarg.0
+IL_017b: ldc.i4 4194304
+IL_0180: call System.UInt32 Game.Rendering.AreaBatchSystem::GetTriangleSize()
+IL_0185: div.un
+IL_0186: ldc.i4.1
+IL_0187: ldc.i4.4
+IL_0188: newobj System.Void Colossal.Collections.NativeHeapAllocator::.ctor(System.UInt32,System.UInt32,Unity.Collections.Allocator)
+IL_018d: stfld Colossal.Collections.NativeHeapAllocator Game.Rendering.AreaBatchSystem::m_AreaBufferAllocator
+IL_0192: ldarg.0
+IL_0193: ldc.i4.0
+IL_0194: ldc.i4.4
+IL_0195: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_019a: newobj System.Void Unity.Collections.NativeReference`1<System.Int32>::.ctor(!0,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_019f: stfld Unity.Collections.NativeReference`1<System.Int32> Game.Rendering.AreaBatchSystem::m_AllocationCount
+IL_01a4: ldarg.0
+IL_01a5: ldc.i4.4
+IL_01a6: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_01ab: newobj System.Void Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/NativeBatchData>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_01b0: stfld Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/NativeBatchData> Game.Rendering.AreaBatchSystem::m_NativeBatchData
+IL_01b5: ldarg.0
+IL_01b6: ldc.i4.4
+IL_01b7: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_01bc: newobj System.Void Unity.Collections.NativeList`1<Game.Rendering.AreaTriangleData>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_01c1: stfld Unity.Collections.NativeList`1<Game.Rendering.AreaTriangleData> Game.Rendering.AreaBatchSystem::m_AreaTriangleData
+IL_01c6: ldarg.0
+IL_01c7: ldc.i4.4
+IL_01c8: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_01cd: newobj System.Void Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_01d2: stfld Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData> Game.Rendering.AreaBatchSystem::m_TriangleMetaData
+IL_01d7: ldarg.0
+IL_01d8: ldc.i4.4
+IL_01d9: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_01de: newobj System.Void Unity.Collections.NativeList`1<Game.Rendering.AreaColorData>::.ctor(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_01e3: stfld Unity.Collections.NativeList`1<Game.Rendering.AreaColorData> Game.Rendering.AreaBatchSystem::m_AreaColorData
+IL_01e8: ldarg.0
+IL_01e9: ldc.i4.s 100
+IL_01eb: ldc.i4.4
+IL_01ec: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_01f1: newobj System.Void Unity.Collections.NativeList`1<Colossal.Collections.NativeHeapBlock>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_01f6: stfld Unity.Collections.NativeList`1<Colossal.Collections.NativeHeapBlock> Game.Rendering.AreaBatchSystem::m_UpdatedTriangles
+IL_01fb: ldarg.0
+IL_01fc: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaTriangleData> Game.Rendering.AreaBatchSystem::m_AreaTriangleData
+IL_0201: ldarg.0
+IL_0202: ldflda Colossal.Collections.NativeHeapAllocator Game.Rendering.AreaBatchSystem::m_AreaBufferAllocator
+IL_0207: call System.UInt32 Colossal.Collections.NativeHeapAllocator::get_Size()
+IL_020c: call System.Void Unity.Collections.NativeList`1<Game.Rendering.AreaTriangleData>::ResizeUninitialized(System.Int32)
+IL_0211: ldarg.0
+IL_0212: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData> Game.Rendering.AreaBatchSystem::m_TriangleMetaData
+IL_0217: ldarg.0
+IL_0218: ldflda Colossal.Collections.NativeHeapAllocator Game.Rendering.AreaBatchSystem::m_AreaBufferAllocator
+IL_021d: call System.UInt32 Colossal.Collections.NativeHeapAllocator::get_Size()
+IL_0222: call System.Void Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>::ResizeUninitialized(System.Int32)
+IL_0227: ldarg.0
+IL_0228: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaColorData> Game.Rendering.AreaBatchSystem::m_AreaColorData
+IL_022d: ldarg.0
+IL_022e: ldflda Colossal.Collections.NativeHeapAllocator Game.Rendering.AreaBatchSystem::m_AreaBufferAllocator
+IL_0233: call System.UInt32 Colossal.Collections.NativeHeapAllocator::get_Size()
+IL_0238: call System.Void Unity.Collections.NativeList`1<Game.Rendering.AreaColorData>::ResizeUninitialized(System.Int32)
+IL_023d: ldarg.0
+IL_023e: ldarg.0
+IL_023f: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaTriangleData> Game.Rendering.AreaBatchSystem::m_AreaTriangleData
+IL_0244: call System.Int32 Unity.Collections.NativeList`1<Game.Rendering.AreaTriangleData>::get_Capacity()
+IL_0249: sizeof Game.Rendering.AreaTriangleData
+IL_024f: newobj System.Void UnityEngine.ComputeBuffer::.ctor(System.Int32,System.Int32)
+IL_0254: stfld UnityEngine.ComputeBuffer Game.Rendering.AreaBatchSystem::m_AreaTriangleBuffer
+IL_0259: ldarg.0
+IL_025a: ldarg.0
+IL_025b: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaColorData> Game.Rendering.AreaBatchSystem::m_AreaColorData
+IL_0260: call System.Int32 Unity.Collections.NativeList`1<Game.Rendering.AreaColorData>::get_Capacity()
+IL_0265: sizeof Game.Rendering.AreaColorData
+IL_026b: newobj System.Void UnityEngine.ComputeBuffer::.ctor(System.Int32,System.Int32)
+IL_0270: stfld UnityEngine.ComputeBuffer Game.Rendering.AreaBatchSystem::m_AreaColorBuffer
+IL_0275: ldarg.0
+IL_0276: ldstr "_BaseColor"
+IL_027b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0280: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_BaseColor
+IL_0285: ldarg.0
+IL_0286: ldstr "_BaseColorMap"
+IL_028b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0290: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_BaseColorMap
+IL_0295: ldarg.0
+IL_0296: ldstr "_NormalMap"
+IL_029b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_02a0: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_NormalMap
+IL_02a5: ldarg.0
+IL_02a6: ldstr "_MaskMap"
+IL_02ab: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_02b0: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_MaskMap
+IL_02b5: ldarg.0
+IL_02b6: ldstr "_Metallic"
+IL_02bb: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_02c0: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_Metallic
+IL_02c5: ldarg.0
+IL_02c6: ldstr "_Smoothness"
+IL_02cb: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_02d0: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_Smoothness
+IL_02d5: ldarg.0
+IL_02d6: ldstr "_NormalOpacity"
+IL_02db: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_02e0: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_NormalOpacity
+IL_02e5: ldarg.0
+IL_02e6: ldstr "_MetallicOpacity"
+IL_02eb: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_02f0: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_MetallicOpacity
+IL_02f5: ldarg.0
+IL_02f6: ldstr "_NormalAlphaSource"
+IL_02fb: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0300: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_NormalAlphaSource
+IL_0305: ldarg.0
+IL_0306: ldstr "_MetallicAlphaSource"
+IL_030b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0310: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_MetallicAlphaSource
+IL_0315: ldarg.0
+IL_0316: ldstr "colossal_UVScale"
+IL_031b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0320: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_UVScale
+IL_0325: ldarg.0
+IL_0326: ldstr "colossal_EdgeNormal"
+IL_032b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0330: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_EdgeNormal
+IL_0335: ldarg.0
+IL_0336: ldstr "colossal_EdgeFadeRange"
+IL_033b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0340: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_EdgeFadeRange
+IL_0345: ldarg.0
+IL_0346: ldstr "colossal_EdgeNormalRange"
+IL_034b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0350: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_EdgeNormalRange
+IL_0355: ldarg.0
+IL_0356: ldstr "colossal_EdgeNoise"
+IL_035b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0360: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_EdgeNoise
+IL_0365: ldarg.0
+IL_0366: ldstr "colossal_AreaParameters"
+IL_036b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0370: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_AreaParameters
+IL_0375: ldarg.0
+IL_0376: ldstr "colossal_DecalLayerMask"
+IL_037b: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0380: stfld System.Int32 Game.Rendering.AreaBatchSystem::m_DecalLayerMask
+IL_0385: ret
+Game.Rendering.AreaBorderRenderSystem
+System.Void Game.Rendering.AreaBorderRenderSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.OverlayRenderSystem>()
+IL_0012: stfld Game.Rendering.OverlayRenderSystem Game.Rendering.AreaBorderRenderSystem::m_OverlayRenderSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0023: stfld Game.Tools.ToolSystem Game.Rendering.AreaBorderRenderSystem::m_ToolSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: ldc.i4.1
+IL_002b: newarr Unity.Entities.EntityQueryDesc
+IL_0030: dup
+IL_0031: ldc.i4.0
+IL_0032: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0037: stloc.0
+IL_0038: ldloc.0
+IL_0039: ldc.i4.1
+IL_003a: newarr Unity.Entities.ComponentType
+IL_003f: dup
+IL_0040: ldc.i4.0
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Area>()
+IL_0046: stelem.any Unity.Entities.ComponentType
+IL_004b: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_0050: ldloc.0
+IL_0051: ldc.i4.3
+IL_0052: newarr Unity.Entities.ComponentType
+IL_0057: dup
+IL_0058: ldc.i4.0
+IL_0059: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_005e: stelem.any Unity.Entities.ComponentType
+IL_0063: dup
+IL_0064: ldc.i4.1
+IL_0065: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Error>()
+IL_006a: stelem.any Unity.Entities.ComponentType
+IL_006f: dup
+IL_0070: ldc.i4.2
+IL_0071: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Warning>()
+IL_0076: stelem.any Unity.Entities.ComponentType
+IL_007b: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0080: ldloc.0
+IL_0081: ldc.i4.2
+IL_0082: newarr Unity.Entities.ComponentType
+IL_0087: dup
+IL_0088: ldc.i4.0
+IL_0089: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Hidden>()
+IL_008e: stelem.any Unity.Entities.ComponentType
+IL_0093: dup
+IL_0094: ldc.i4.1
+IL_0095: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_009a: stelem.any Unity.Entities.ComponentType
+IL_009f: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_00a4: ldloc.0
+IL_00a5: stelem.ref
+IL_00a6: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_00ab: stfld Unity.Entities.EntityQuery Game.Rendering.AreaBorderRenderSystem::m_AreaBorderQuery
+IL_00b0: ldarg.0
+IL_00b1: ldarg.0
+IL_00b2: ldc.i4.2
+IL_00b3: newarr Unity.Entities.EntityQueryDesc
+IL_00b8: dup
+IL_00b9: ldc.i4.0
+IL_00ba: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_00bf: stloc.0
+IL_00c0: ldloc.0
+IL_00c1: ldc.i4.1
+IL_00c2: newarr Unity.Entities.ComponentType
+IL_00c7: dup
+IL_00c8: ldc.i4.0
+IL_00c9: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Area>()
+IL_00ce: stelem.any Unity.Entities.ComponentType
+IL_00d3: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_00d8: ldloc.0
+IL_00d9: ldc.i4.3
+IL_00da: newarr Unity.Entities.ComponentType
+IL_00df: dup
+IL_00e0: ldc.i4.0
+IL_00e1: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Temp>()
+IL_00e6: stelem.any Unity.Entities.ComponentType
+IL_00eb: dup
+IL_00ec: ldc.i4.1
+IL_00ed: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Error>()
+IL_00f2: stelem.any Unity.Entities.ComponentType
+IL_00f7: dup
+IL_00f8: ldc.i4.2
+IL_00f9: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Warning>()
+IL_00fe: stelem.any Unity.Entities.ComponentType
+IL_0103: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::Any
+IL_0108: ldloc.0
+IL_0109: ldc.i4.2
+IL_010a: newarr Unity.Entities.ComponentType
+IL_010f: dup
+IL_0110: ldc.i4.0
+IL_0111: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Hidden>()
+IL_0116: stelem.any Unity.Entities.ComponentType
+IL_011b: dup
+IL_011c: ldc.i4.1
+IL_011d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_0122: stelem.any Unity.Entities.ComponentType
+IL_0127: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_012c: ldloc.0
+IL_012d: stelem.ref
+IL_012e: dup
+IL_012f: ldc.i4.1
+IL_0130: newobj System.Void Unity.Entities.EntityQueryDesc::.ctor()
+IL_0135: stloc.0
+IL_0136: ldloc.0
+IL_0137: ldc.i4.2
+IL_0138: newarr Unity.Entities.ComponentType
+IL_013d: dup
+IL_013e: ldc.i4.0
+IL_013f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Lot>()
+IL_0144: stelem.any Unity.Entities.ComponentType
+IL_0149: dup
+IL_014a: ldc.i4.1
+IL_014b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Owner>()
+IL_0150: stelem.any Unity.Entities.ComponentType
+IL_0155: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::All
+IL_015a: ldloc.0
+IL_015b: ldc.i4.3
+IL_015c: newarr Unity.Entities.ComponentType
+IL_0161: dup
+IL_0162: ldc.i4.0
+IL_0163: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.Hidden>()
+IL_0168: stelem.any Unity.Entities.ComponentType
+IL_016d: dup
+IL_016e: ldc.i4.1
+IL_016f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Deleted>()
+IL_0174: stelem.any Unity.Entities.ComponentType
+IL_0179: dup
+IL_017a: ldc.i4.2
+IL_017b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Batch>()
+IL_0180: stelem.any Unity.Entities.ComponentType
+IL_0185: stfld Unity.Entities.ComponentType[] Unity.Entities.EntityQueryDesc::None
+IL_018a: ldloc.0
+IL_018b: stelem.ref
+IL_018c: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.EntityQueryDesc[])
+IL_0191: stfld Unity.Entities.EntityQuery Game.Rendering.AreaBorderRenderSystem::m_AreaBorderInfoviewQuery
+IL_0196: ldarg.0
+IL_0197: ldarg.0
+IL_0198: ldc.i4.1
+IL_0199: newarr Unity.Entities.ComponentType
+IL_019e: dup
+IL_019f: ldc.i4.0
+IL_01a0: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.RenderingSettingsData>()
+IL_01a5: stelem.any Unity.Entities.ComponentType
+IL_01aa: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_01af: stfld Unity.Entities.EntityQuery Game.Rendering.AreaBorderRenderSystem::m_RenderingSettingsQuery
+IL_01b4: ret
+Game.Rendering.AreaBufferSystem
+System.Void Game.Rendering.AreaBufferSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.RenderingSystem>()
+IL_0012: stfld Game.Rendering.RenderingSystem Game.Rendering.AreaBufferSystem::m_RenderingSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.OverlayRenderSystem>()
+IL_0023: stfld Game.Rendering.OverlayRenderSystem Game.Rendering.AreaBufferSystem::m_OverlayRenderSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_0034: stfld Game.Prefabs.PrefabSystem Game.Rendering.AreaBufferSystem::m_PrefabSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0040: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0045: stfld Game.Tools.ToolSystem Game.Rendering.AreaBufferSystem::m_ToolSystem
+IL_004a: ldarg.0
+IL_004b: ldarg.0
+IL_004c: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0051: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.UI.NameSystem>()
+IL_0056: stfld Game.UI.NameSystem Game.Rendering.AreaBufferSystem::m_NameSystem
+IL_005b: ldarg.0
+IL_005c: ldc.i4.5
+IL_005d: newarr Game.Rendering.AreaBufferSystem/AreaTypeData
+IL_0062: stfld Game.Rendering.AreaBufferSystem/AreaTypeData[] Game.Rendering.AreaBufferSystem::m_AreaTypeData
+IL_0067: ldarg.0
+IL_0068: ldfld Game.Rendering.AreaBufferSystem/AreaTypeData[] Game.Rendering.AreaBufferSystem::m_AreaTypeData
+IL_006d: ldc.i4.0
+IL_006e: ldarg.0
+IL_006f: call Game.Rendering.AreaBufferSystem/AreaTypeData Game.Rendering.AreaBufferSystem::InitializeAreaData<Game.Areas.Lot>()
+IL_0074: stelem.ref
+IL_0075: ldarg.0
+IL_0076: ldfld Game.Rendering.AreaBufferSystem/AreaTypeData[] Game.Rendering.AreaBufferSystem::m_AreaTypeData
+IL_007b: ldc.i4.1
+IL_007c: ldarg.0
+IL_007d: call Game.Rendering.AreaBufferSystem/AreaTypeData Game.Rendering.AreaBufferSystem::InitializeAreaData<Game.Areas.District>()
+IL_0082: stelem.ref
+IL_0083: ldarg.0
+IL_0084: ldfld Game.Rendering.AreaBufferSystem/AreaTypeData[] Game.Rendering.AreaBufferSystem::m_AreaTypeData
+IL_0089: ldc.i4.2
+IL_008a: ldarg.0
+IL_008b: call Game.Rendering.AreaBufferSystem/AreaTypeData Game.Rendering.AreaBufferSystem::InitializeAreaData<Game.Areas.MapTile>()
+IL_0090: stelem.ref
+IL_0091: ldarg.0
+IL_0092: ldfld Game.Rendering.AreaBufferSystem/AreaTypeData[] Game.Rendering.AreaBufferSystem::m_AreaTypeData
+IL_0097: ldc.i4.3
+IL_0098: ldarg.0
+IL_0099: call Game.Rendering.AreaBufferSystem/AreaTypeData Game.Rendering.AreaBufferSystem::InitializeAreaData<Game.Areas.Space>()
+IL_009e: stelem.ref
+IL_009f: ldarg.0
+IL_00a0: ldfld Game.Rendering.AreaBufferSystem/AreaTypeData[] Game.Rendering.AreaBufferSystem::m_AreaTypeData
+IL_00a5: ldc.i4.4
+IL_00a6: ldarg.0
+IL_00a7: call Game.Rendering.AreaBufferSystem/AreaTypeData Game.Rendering.AreaBufferSystem::InitializeAreaData<Game.Areas.Surface>()
+IL_00ac: stelem.ref
+IL_00ad: ldarg.0
+IL_00ae: ldarg.0
+IL_00af: ldc.i4.2
+IL_00b0: newarr Unity.Entities.ComponentType
+IL_00b5: dup
+IL_00b6: ldc.i4.0
+IL_00b7: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Common.Created>()
+IL_00bc: stelem.any Unity.Entities.ComponentType
+IL_00c1: dup
+IL_00c2: ldc.i4.1
+IL_00c3: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Prefabs.AreaTypeData>()
+IL_00c8: stelem.any Unity.Entities.ComponentType
+IL_00cd: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_00d2: stfld Unity.Entities.EntityQuery Game.Rendering.AreaBufferSystem::m_SettingsQuery
+IL_00d7: ldarg.0
+IL_00d8: ldarg.0
+IL_00d9: ldc.i4.2
+IL_00da: newarr Unity.Entities.ComponentType
+IL_00df: dup
+IL_00e0: ldc.i4.0
+IL_00e1: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.SelectionInfo>()
+IL_00e6: stelem.any Unity.Entities.ComponentType
+IL_00eb: dup
+IL_00ec: ldc.i4.1
+IL_00ed: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Tools.SelectionElement>()
+IL_00f2: stelem.any Unity.Entities.ComponentType
+IL_00f7: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_00fc: stfld Unity.Entities.EntityQuery Game.Rendering.AreaBufferSystem::m_SelectionQuery
+IL_0101: ldarg.0
+IL_0102: ldstr "colossal_AreaParameters"
+IL_0107: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_010c: stfld System.Int32 Game.Rendering.AreaBufferSystem::m_AreaParameters
+IL_0111: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_0116: callvirt Colossal.Localization.LocalizationManager Game.SceneFlow.GameManager::get_localizationManager()
+IL_011b: ldarg.0
+IL_011c: ldftn System.Void Game.Rendering.AreaBufferSystem::OnDictionaryChanged()
+IL_0122: newobj System.Void System.Action::.ctor(System.Object,System.IntPtr)
+IL_0127: callvirt System.Void Colossal.Localization.LocalizationManager::add_onActiveDictionaryChanged(System.Action)
+IL_012c: ret
+Game.Rendering.AreaColorSystem
+System.Void Game.Rendering.AreaColorSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.AreaBatchSystem>()
+IL_0012: stfld Game.Rendering.AreaBatchSystem Game.Rendering.AreaColorSystem::m_AreaBatchSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0023: stfld Game.Tools.ToolSystem Game.Rendering.AreaColorSystem::m_ToolSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: ldc.i4.3
+IL_002b: newarr Unity.Entities.ComponentType
+IL_0030: dup
+IL_0031: ldc.i4.0
+IL_0032: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadOnly<Game.Areas.Batch>()
+IL_0037: stelem.any Unity.Entities.ComponentType
+IL_003c: dup
+IL_003d: ldc.i4.1
+IL_003e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Common.Deleted>()
+IL_0043: stelem.any Unity.Entities.ComponentType
+IL_0048: dup
+IL_0049: ldc.i4.2
+IL_004a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::Exclude<Game.Tools.Temp>()
+IL_004f: stelem.any Unity.Entities.ComponentType
+IL_0054: call Unity.Entities.EntityQuery Unity.Entities.ComponentSystemBase::GetEntityQuery(Unity.Entities.ComponentType[])
+IL_0059: stfld Unity.Entities.EntityQuery Game.Rendering.AreaColorSystem::m_AreaQuery
+IL_005e: ret
+Game.Rendering.AreaRenderSystem
+System.Void Game.Rendering.AreaRenderSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: ldarg.0
+IL_0008: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000d: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.RenderingSystem>()
+IL_0012: stfld Game.Rendering.RenderingSystem Game.Rendering.AreaRenderSystem::m_RenderingSystem
+IL_0017: ldarg.0
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.AreaBufferSystem>()
+IL_0023: stfld Game.Rendering.AreaBufferSystem Game.Rendering.AreaRenderSystem::m_AreaBufferSystem
+IL_0028: ldarg.0
+IL_0029: ldarg.0
+IL_002a: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002f: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.AreaBatchSystem>()
+IL_0034: stfld Game.Rendering.AreaBatchSystem Game.Rendering.AreaRenderSystem::m_AreaBatchSystem
+IL_0039: ldarg.0
+IL_003a: ldarg.0
+IL_003b: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0040: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Rendering.CityBoundaryMeshSystem>()
+IL_0045: stfld Game.Rendering.CityBoundaryMeshSystem Game.Rendering.AreaRenderSystem::m_CityBoundaryMeshSystem
+IL_004a: ldarg.0
+IL_004b: ldarg.0
+IL_004c: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0051: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_0056: stfld Game.Tools.ToolSystem Game.Rendering.AreaRenderSystem::m_ToolSystem
+IL_005b: ldarg.0
+IL_005c: ldstr "colossal_AreaTriangleBuffer"
+IL_0061: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0066: stfld System.Int32 Game.Rendering.AreaRenderSystem::m_AreaTriangleBuffer
+IL_006b: ldarg.0
+IL_006c: ldstr "colossal_AreaBatchBuffer"
+IL_0071: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0076: stfld System.Int32 Game.Rendering.AreaRenderSystem::m_AreaBatchBuffer
+IL_007b: ldarg.0
+IL_007c: ldstr "colossal_AreaBatchColors"
+IL_0081: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0086: stfld System.Int32 Game.Rendering.AreaRenderSystem::m_AreaBatchColors
+IL_008b: ldarg.0
+IL_008c: ldstr "colossal_VisibleIndices"
+IL_0091: call System.Int32 UnityEngine.Shader::PropertyToID(System.String)
+IL_0096: stfld System.Int32 Game.Rendering.AreaRenderSystem::m_VisibleIndices
+IL_009b: ldarg.0
+IL_009c: ldftn System.Void Game.Rendering.AreaRenderSystem::Render(UnityEngine.Rendering.ScriptableRenderContext,System.Collections.Generic.List`1<UnityEngine.Camera>)
+IL_00a2: newobj System.Void System.Action`2<UnityEngine.Rendering.ScriptableRenderContext,System.Collections.Generic.List`1<UnityEngine.Camera>>::.ctor(System.Object,System.IntPtr)
+IL_00a7: call System.Void UnityEngine.Rendering.RenderPipelineManager::add_beginContextRendering(System.Action`2<UnityEngine.Rendering.ScriptableRenderContext,System.Collections.Generic.List`1<UnityEngine.Camera>>)
+IL_00ac: ret

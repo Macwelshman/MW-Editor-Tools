@@ -7,16 +7,18 @@ using Unity.Jobs;
 namespace MW.EditorTools.Modules.BulldozerRecovery {
     internal sealed partial class BulldozerTrace {
         private static void AreaMoveAllowed(ToolBaseSystem __instance,bool __result) {
-            var a=active;if(a!=null&&__instance is AreaToolSystem&&ReferenceEquals(__instance.World,a.world)&&a.areaMoveInApply)a.areaMoveApplyAllowed=__result;
+            var a=active;if(a!=null&&a.PatchesCompatible()&&__instance is AreaToolSystem&&ReferenceEquals(__instance.World,a.world)&&a.areaMoveInApply)a.areaMoveApplyAllowed=__result;
         }
         private static bool BeforeAreaRecreate(AreaToolSystem __instance,Entity __0) {
             var a=active;if(a==null||!ReferenceEquals(__instance.World,a.world)||!a.context.EditorAvailable)return true;
+            if(!a.PatchesCompatible(true))return !a.Busy;
             if(__0==Entity.Null){if(!a.areaMoveInApply&&!a.areaMoveCommitted&&!a.areaMoveRestoring)a.CancelAreaMovePreview();return true;}
             if(a.Busy){a.Status="Wait for Undo to finish before moving an area.";return false;}
             a.BeginAreaMove(__0);return true;
         }
         private static bool BeforeAreaMoveApply(AreaToolSystem __instance,JobHandle __0,ref JobHandle __result,out bool __state) {
             __state=false;var a=active;if(a==null||!ReferenceEquals(__instance.World,a.world)||!a.context.EditorAvailable)return true;
+            if(!a.PatchesCompatible(true)){__result=__0;return !a.Busy;}
             if(a.Busy){__result=__0;a.Status="Wait for Undo to finish before editing an area.";return false;}
             a.areaMoveHookFailed=false;
             try {
@@ -36,6 +38,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         }
         private static void FinishAreaNodeApply(AreaToolSystem __instance,bool observed,bool removing) {
             var a=active;if(!observed||a==null||!ReferenceEquals(__instance.World,a.world))return;
+            if(!a.PatchesCompatible())return;
             a.areaMoveInApply=false;
             if(__instance.applyMode!=ApplyMode.Apply)return;
             if(a.areaMoveHookFailed){a.ClearMovePrevious();a.ClearMove();a.CancelAreaMovePreview();a.Status="Previous Undo cleared after unavailable area capture.";return;}
@@ -46,6 +49,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         }
         private static bool BeforeAreaMoveCancel(AreaToolSystem __instance,JobHandle __0,ref JobHandle __result,out bool __state) {
             __state=false;var a=active;if(a==null||!ReferenceEquals(__instance.World,a.world)||!a.context.EditorAvailable)return true;
+            if(!a.PatchesCompatible(true)){__result=__0;return !a.Busy;}
             if(a.Busy){__result=__0;return false;}
             if(a.areaMoveInApply)return true;
             // Native right-click starts/removes nodes through Cancel, while
@@ -58,6 +62,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         private static void AfterAreaMoveCancel(AreaToolSystem __instance,bool __state=false) {
             FinishAreaNodeApply(__instance,__state,true);
             var a=active;if(a==null||!ReferenceEquals(__instance.World,a.world)||a.areaMoveInApply||a.areaMoveCommitted||a.areaMoveRestoring)return;
+            if(!a.PatchesCompatible())return;
             try{if(Convert.ToInt32(a.areaMoveStateField.GetValue(__instance))==0)a.CancelAreaMovePreview();}
             catch(Exception error){a.CancelAreaMovePreview();Mod.Log.Warn("Area node preview cleanup unavailable; native edit preserved: "+error.Message);}
         }

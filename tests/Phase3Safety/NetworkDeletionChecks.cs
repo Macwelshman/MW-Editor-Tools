@@ -23,7 +23,44 @@ internal static class NetworkDeletionChecks {
         if(deleted)items=items.Where(i=>i.Id!=Id(4)&&i.Id!=Id(7)&&(!removeOrphans||i.Id!=Id(2))).ToArray();
         return new AreaCompanionNetwork{Owner=Id(1),Items=items,RootNets=items.Where(i=>i.Owner==Id(1)).Select(i=>i.Id).ToArray()};
     }
+    private static AreaCompanionNetwork TypedGraph(bool deleted,int kind) {
+        var graph=Graph(deleted);
+        var lane=new AreaCompanionNetwork.Item{Id=Id(8),Owner=Id(6),HasLane=true,HasCurve=true,
+            Lane=new Game.Net.Lane{m_StartNode=new Game.Pathfind.PathNode(Id(6),(ushort)0),m_MiddleNode=new Game.Pathfind.PathNode(Id(6),(ushort)1),m_EndNode=new Game.Pathfind.PathNode(Id(6),(ushort)2)},
+            Curve=new Game.Net.Curve{m_Bezier=new Colossal.Mathematics.Bezier4x3{a=new float3(11,0,0),b=new float3(14,0,0),c=new float3(17,0,0),d=new float3(20,0,0)},m_Length=9}};
+        if(kind==0){lane.HasParking=true;lane.Parking=new Game.Net.ParkingLane{m_FreeSpace=4,m_ComfortFactor=30,m_ParkingFee=2,m_AccessRestriction=Id(1),m_AdditionalStartNode=new Game.Pathfind.PathNode(Id(6),(ushort)3)};}
+        if(kind==1){lane.HasGarage=true;lane.Garage=default;}
+        if(kind==2){lane.HasCar=true;lane.Car=new Game.Net.CarLane{m_SpeedLimit=5,m_AccessRestriction=Id(1)};}
+        if(kind==3){lane.HasPedestrian=true;lane.Pedestrian=new Game.Net.PedestrianLane{m_AccessRestriction=Id(1)};}
+        if(kind==4){lane.HasSlave=true;lane.Slave=new Game.Net.SlaveLane{m_Group=3};}
+        graph.Items=graph.Items.Concat(new[]{lane}).ToArray();
+        graph.Items.Single(i=>i.Id==Id(6)).SubLanes=new[]{new Game.Net.SubLane{m_SubLane=Id(8)}};
+        return graph;
+    }
     internal static int Run() {
+        for(int kind=0;kind<5;kind++) {
+            var typedBefore=TypedGraph(false,kind);var typedAfter=TypedGraph(true,kind);
+            Check(NetworkDeletionPolicy.Matches(typedBefore,Id(4),typedAfter),"retained typed lane survives fence deletion kind="+kind);
+            Check(NetworkDeletionPolicy.Matches(typedBefore,Id(4),typedAfter),"repeat comparison retains typed snapshot kind="+kind);
+            var next=TypedGraph(true,kind);next.Items=next.Items.Where(i=>i.Id!=Id(2)).ToArray();next.RootNets=next.RootNets.Where(i=>i!=Id(2)).ToArray();
+            Check(NetworkDeletionPolicy.Matches(next,Id(6),new AreaCompanionNetwork{Owner=next.Owner}),"subsequent final edge deletion remains supported kind="+kind);
+            var original=typedBefore.Items.Single(i=>i.Id==Id(8));var changed=typedAfter.Items.Single(i=>i.Id==Id(8));
+            if(kind==0)changed.Parking.m_FreeSpace++;
+            if(kind==1)changed.HasGarage=false;
+            if(kind==2)changed.Car.m_SpeedLimit++;
+            if(kind==3)changed.HasPedestrian=false;
+            if(kind==4)changed.Slave.m_Group++;
+            Check(!NetworkDeletionPolicy.Matches(typedBefore,Id(4),typedAfter),"retained typed lane change remains refused kind="+kind);
+            Check(NetworkDeletionPolicy.ExplainMismatch(typedBefore,Id(4),typedAfter)!="matched","failed retained typed data reports a diagnostic kind="+kind);
+            if(kind==0||kind==2||kind==3) {
+                var changedReferences=TypedGraph(true,kind);var refLane=changedReferences.Items.Single(i=>i.Id==Id(8));
+                if(kind==0)refLane.Parking.m_AccessRestriction=Id(5);
+                if(kind==2)refLane.Car.m_AccessRestriction=Id(5);
+                if(kind==3)refLane.Pedestrian.m_AccessRestriction=Id(5);
+                Check(!NetworkDeletionPolicy.Matches(typedBefore,Id(4),changedReferences),"retained typed access reference change refused kind="+kind);
+            }
+            Check(original.SubLanes.Length==0&&typedBefore.Items.Single(i=>i.Id==Id(6)).SubLanes.Length==1,"comparison does not mutate captured companion links kind="+kind);
+        }
         var before=Graph();var after=Graph(true);
         Check(before.TryMap(before,true,out _),"fixture closed and unambiguous");
         Check(NetworkTargetSelection.Resolve(new[]{Id(2),Id(3)},before)==Id(4),"native endpoint pair resolves one segment");
@@ -55,6 +92,13 @@ internal static class NetworkDeletionChecks {
         after=Graph(true);after.Items=after.Items.Concat(new[]{after.Items[0]}).ToArray();Check(!NetworkDeletionPolicy.Matches(before,Id(4),after),"duplicate entity refused");
         after=Graph(true);after.Items.Single(i=>i.Id==Id(6)).Id=Id(60);Check(!NetworkDeletionPolicy.Matches(before,Id(4),after),"unrelated new network refused");
         Check(before.Items.Single(i=>i.Id==Id(3)).Connections.Length==2&&before.Items.Single(i=>i.Id==Id(4)).SubLanes.Length==1,"before-image links remain immutable");
+        before=Graph();after=Graph(true);
+        var anchorPrefab=(PrefabBase)RuntimeHelpers.GetUninitializedObject(typeof(ObjectPrefab));
+        AreaCompanionNetwork.Anchor Anchor()=>new(){Id=Id(20),Owner=Id(1),Prefab=anchorPrefab,Transform=new Game.Objects.Transform{m_Rotation=quaternion.identity}};
+        before.Anchors=new[]{Anchor()};after.Anchors=new[]{Anchor()};
+        Check(NetworkDeletionPolicy.Matches(before,Id(4),after),"deletion retains verified unrelated object anchors");
+        after.Anchors[0].Transform.m_Position.x=10;Check(!NetworkDeletionPolicy.Matches(before,Id(4),after),"deletion cannot hide changed object anchor data");
+        after=Graph(true);after.Anchors=new[]{new AreaCompanionNetwork.Anchor{Id=Id(21),Owner=Id(1),Prefab=anchorPrefab,Transform=new Game.Objects.Transform{m_Rotation=quaternion.identity}}};Check(!NetworkDeletionPolicy.Matches(before,Id(4),after),"new unrelated anchor refused");
         var lane=(NetLanePrefab)RuntimeHelpers.GetUninitializedObject(typeof(NetLanePrefab));
         var other=(NetLanePrefab)RuntimeHelpers.GetUninitializedObject(typeof(NetLanePrefab));
         ObjectSubLaneInfo Row(NetLanePrefab prefab,int mesh=2)=>new ObjectSubLaneInfo{m_LanePrefab=prefab,m_ParentMesh=new int2(mesh),m_BezierCurve=new Colossal.Mathematics.Bezier4x3{a=new float3(1),b=new float3(2),c=new float3(3),d=new float3(4)}};

@@ -8,7 +8,7 @@ import "./window.scss";
 
 type State = {
     available?: boolean; visible?: boolean; changed?: boolean; hasTarget?: boolean; hasColors?: boolean; canPaste?: boolean;
-    canUndo?: boolean; canApply?: boolean; confirmPaste?: boolean; append?: boolean; readOnly?: boolean;
+    canReset?: boolean; canUndo?: boolean; canApply?: boolean; confirmPaste?: boolean; append?: boolean; readOnly?: boolean;
     target?: string; source?: string; group?: string; status?: string; pairs?: string; channel2?: string; blockedReason?:string;
     targets?: string[]; targetIndex?: number; groupIndex?: number; groupCount?: number; paletteRevision?: number; selectionRevision?: number;
     page?: number; pages?: number; total?: number; generated?: number;
@@ -100,8 +100,8 @@ export function ColourVariationsContent() {
     const blocked = !!s.changed || !!s.blockedReason;
     const preview = s.hasColors && (s.generated || 0) > 0 ? (
         <section className="mwet-colors-combination-summary">
-            <p>{`${s.generated} combinations generated from the selected colours.`}</p>
-            <p>{`${s.total} total variations after applying.`}</p>
+            <p>{`${s.generated}\u00a0${s.generated===1?"combination":"combinations"} generated from the selected colours.`}</p>
+            <p>{`${s.total}\u00a0total ${s.total===1?"variation":"variations"} after applying.`}</p>
             {dirty && <p className="mwet-colors-warning">Colours changed. Generate combinations again before applying.</p>}
         </section>
     ) : null;
@@ -136,11 +136,10 @@ export function ColourVariationsContent() {
                 <h3>Copy Colour Properties</h3>
                 <p>{s.source ? "Copied from: " + s.source : ""}</p>
                 <div className="mwet-colors-actions mwet-colors-copy-actions"><Button disabled={blocked || !s.hasColors} onSelect={() => command("copy")}>Copy colour settings</Button>
-                    <Button disabled={blocked || !s.canPaste} onSelect={() => command("paste")}>Paste colour settings</Button></div>
+                    <Tooltip tooltip="Apply the copied Colour Properties to this mesh immediately. Reset can restore its previous settings."><div><Button disabled={blocked || !s.canPaste} onSelect={() => command("paste")}>Paste colour settings</Button></div></Tooltip>
+                    <Tooltip tooltip="Restore this mesh's colour settings from before its last paste. Later edits prevent reset."><div><Button disabled={blocked || !s.canReset} onSelect={() => command("reset")}>Reset</Button></div></Tooltip></div>
                 {!s.hasColors && <p>Paste will add Colour Properties to this mesh.</p>}
-                {s.confirmPaste && <div className="mwet-colors-confirm"><p>{s.target}: {s.hasColors ? "replace ALL Colour Properties settings?" : "add Colour Properties and paste?"}</p>
-                    <div className="mwet-colors-actions"><Button variant="primary" disabled={blocked} onSelect={() => command("confirm")}>Confirm paste</Button>
-                        <Button onSelect={() => command("cancel")}>Cancel</Button></div></div>}
+
             </>}
             {s.hasColors && <>
                 <h3>Variation group</h3><p>{s.group}</p>

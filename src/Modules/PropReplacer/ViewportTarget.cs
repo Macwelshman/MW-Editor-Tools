@@ -18,6 +18,18 @@ namespace MW.EditorTools.Modules.PropReplacer
         private Entity? requiredViewportHit;
         private Entity ViewportHit()
         {
+            var activeTool=World.GetExistingSystemManaged<ToolSystem>()?.activeTool;
+            if(activeTool is IViewportTargetSource<Entity> source)
+            {
+                Entity selected;string reason;bool found;
+                if(viewportShortcutIntent){
+                    if(!(activeTool is IViewportHoverSource<Entity> hover))throw new InvalidOperationException("This tool has no verified viewport hover source.");
+                    found=hover.TryGetHoverTarget(out selected,out reason);
+                }else found=source.TryGetTarget(out selected,out reason);
+                if(!found)throw new InvalidOperationException(reason);
+                if(requiredViewportHit.HasValue&&requiredViewportHit.Value!=selected)throw new InvalidOperationException("The selected target changed; clipboard action cancelled.");
+                return selected;
+            }
             var tool=World.GetExistingSystemManaged<ToolSystem>()?.activeTool as DefaultToolSystem;
             if(tool==null)throw new InvalidOperationException("Use the default selection tool and hover the destination element.");
             var cached=(Entity)hoverEntity.GetValue(tool);var em=World.EntityManager;
@@ -65,7 +77,10 @@ namespace MW.EditorTools.Modules.PropReplacer
         }
         private Row ResolveViewportRow()
         {
-            var id=ViewportHit();var em=World.EntityManager;
+            return ResolveViewportRow(ViewportHit(),clipboard.RowType);
+        }
+        private Row ResolveViewportRow(Entity id,Type rowType,bool presentationOnly=false) {
+            var em=World.EntityManager;
             if(id==Entity.Null||!em.Exists(id)||em.HasComponent<Game.Common.Deleted>(id)||em.HasComponent<Temp>(id)||em.HasComponent<Game.Common.Created>(id)||em.HasComponent<Game.Common.Updated>(id))throw new InvalidOperationException("The highlighted destination is missing or still updating.");
             if(!em.HasComponent<Game.Common.Owner>(id))throw new NotSupportedException("Viewport replacement requires an element bound to an editable asset.");
             var owner=em.GetComponentData<Game.Common.Owner>(id).m_Owner;
@@ -93,14 +108,14 @@ namespace MW.EditorTools.Modules.PropReplacer
             if(effect)prefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab);
             else if(em.HasComponent<EditorContainer>(id)&&prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab) is NetLanePrefab)
                 prefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab);
-            var rows=ResolveRows(root).Where(r=>r.Value.GetType()==clipboard.RowType&&ReferenceEquals(r.ReferenceField.GetValue(r.Value),prefab)).ToArray();
+            var rows=ResolveRows(root).Where(r=>r.Value.GetType()==rowType&&ReferenceEquals(r.ReferenceField.GetValue(r.Value),prefab)).ToArray();
             if(rows.Length==0){
                 var container=em.HasComponent<EditorContainer>(id)?prefabs.GetPrefab<PrefabBase>(em.GetComponentData<EditorContainer>(id).m_Prefab):null;
-                using(var types=em.GetComponentTypes(id,Unity.Collections.Allocator.Temp))MW.EditorTools.Mod.Log.Info("Prop Replacer target mismatch: copied="+clipboard.Replacement.name+" copiedType="+clipboard.RowType.FullName+" target="+id+" prefab="+(prefab?.name??"null")+" prefabType="+prefab?.GetType().FullName+" container="+(container?.name??"none")+" containerType="+container?.GetType().FullName+" owner="+owner+" root="+root.name+" components="+string.Join(",",types.Select(t=>t.GetManagedType()?.FullName))+" sourceRows="+string.Join(" | ",ResolveRows(root).Select(r=>r.Index+":"+r.Value.GetType().Name+":"+(r.ReferenceField.GetValue(r.Value) as PrefabBase)?.name)));
-                throw new InvalidOperationException("Copied "+clipboard.Label.ToLowerInvariant()+" "+clipboard.Replacement.name+" does not match the highlighted source row ("+(prefab?.name??"unknown")+").");
+                using(var types=em.GetComponentTypes(id,Unity.Collections.Allocator.Temp))MW.EditorTools.Mod.Log.Info("Prop Replacer target mismatch: copied="+(clipboard?.Replacement?.name??"selection")+" copiedType="+rowType.FullName+" target="+id+" prefab="+(prefab?.name??"null")+" prefabType="+prefab?.GetType().FullName+" container="+(container?.name??"none")+" containerType="+container?.GetType().FullName+" owner="+owner+" root="+root.name+" components="+string.Join(",",types.Select(t=>t.GetManagedType()?.FullName))+" sourceRows="+string.Join(" | ",ResolveRows(root).Select(r=>r.Index+":"+r.Value.GetType().Name+":"+(r.ReferenceField.GetValue(r.Value) as PrefabBase)?.name)));
+                throw new InvalidOperationException("Copied "+(clipboard?.Label??"element").ToLowerInvariant()+" "+(clipboard?.Replacement?.name??"selection")+" does not match the highlighted source row ("+(prefab?.name??"unknown")+").");
             }
             Row[] matches;
-            if(effect&&clipboard.RowType==typeof(EffectSource.EffectSettings))
+            if(effect&&rowType==typeof(EffectSource.EffectSettings))
             {
                 if(!em.HasComponent<Game.Objects.Transform>(id)||!em.HasComponent<Game.Objects.Transform>(owner))throw new NotSupportedException("Effect placement is unavailable.");
                 var c=em.GetComponentData<EditorContainer>(id);var pose=em.GetComponentData<Game.Objects.Transform>(id);
@@ -109,12 +124,12 @@ namespace MW.EditorTools.Modules.PropReplacer
                 var ownerPose=em.GetComponentData<Game.Objects.Transform>(owner);
                 matches=rows.Where(r=>EffectEditPolicy.Descriptor((EffectSource.EffectSettings)r.Value,image,ownerPose)).ToArray();
             }
-            else if(!effect&&clipboard.RowType==typeof(ObjectSubObjectInfo)&&em.HasComponent<Game.Objects.Object>(id)&&em.HasComponent<LocalTransformCache>(id))
+            else if(!effect&&rowType==typeof(ObjectSubObjectInfo)&&em.HasComponent<Game.Objects.Object>(id)&&em.HasComponent<LocalTransformCache>(id))
             {
                 int index=ResolveViewportObjectIndex(root,prefab,id,owner);
                 matches=rows.Where(r=>r.Index==index).ToArray();
             }
-            else if(clipboard.RowType==typeof(ObjectSubAreaInfo)&&em.HasComponent<Game.Areas.Area>(id)&&em.HasBuffer<LocalNodeCache>(id))
+            else if(rowType==typeof(ObjectSubAreaInfo)&&em.HasComponent<Game.Areas.Area>(id)&&em.HasBuffer<LocalNodeCache>(id))
             {
                 if(!em.HasBuffer<Game.Areas.Node>(id)||!em.HasComponent<Game.Objects.Transform>(owner))throw new NotSupportedException("Live area geometry relative to its owner is unavailable.");
                 var nativeLocal=em.GetBuffer<LocalNodeCache>(id,true);var nativeNodes=em.GetBuffer<Game.Areas.Node>(id,true);
@@ -124,12 +139,12 @@ namespace MW.EditorTools.Modules.PropReplacer
                 var positions=ViewportGeometrySource.Area(nodes,local,em.GetComponentData<Game.Objects.Transform>(owner));
                 matches=rows.Where(r=>ViewportGeometrySource.AreaMatches((ObjectSubAreaInfo)r.Value,prefab,positions,local)).ToArray();
             }
-            else if(clipboard.RowType==typeof(ObjectSubNetInfo)||clipboard.RowType==typeof(ObjectSubLaneInfo))
+            else if(rowType==typeof(ObjectSubNetInfo)||rowType==typeof(ObjectSubLaneInfo))
             {
-                matches=ResolveViewportNetworkRows(rows,prefab,id,owner);
+                matches=ResolveViewportNetworkRows(rows,prefab,id,owner,presentationOnly);
             }
             else throw new NotSupportedException("The highlighted element has no supported exact placement cache.");
-            if(matches.Length!=1)throw new InvalidOperationException("The highlighted placement matches "+matches.Length+" source rows; viewport replacement refused.");
+            if(matches.Length!=1){if(presentationOnly&&(rowType==typeof(ObjectSubNetInfo)||rowType==typeof(ObjectSubLaneInfo)))TraceNetworkRowFailure(rows,id,owner);throw new InvalidOperationException("The highlighted placement matches "+matches.Length+" source rows; viewport replacement refused.");}
             matches[0].Ancestors=ancestors.Distinct().ToArray();return matches[0];
         }
         private int ResolveViewportObjectIndex(PrefabBase root,PrefabBase prefab,Entity id,Entity owner)

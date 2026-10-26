@@ -1,0 +1,1 @@
+PASS: Release build, zero errors. NU1900 advisory feed unavailable; no fresh dependency audit claimed.

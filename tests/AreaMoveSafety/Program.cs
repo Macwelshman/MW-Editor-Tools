@@ -30,7 +30,7 @@ class AreaToolSystem:ToolBaseSystem{internal enum Mode{Edit,Generate}internal Mo
 namespace MW.EditorTools.Modules.BulldozerRecovery {
 static class AreaRemovalPolicy{internal static bool ValidRow(Game.Prefabs.ObjectSubAreaInfo row)=>row!=null;}
 sealed partial class BulldozerTrace {
-private static BulldozerTrace active;
+private static BulldozerTrace active; private bool compatible=true; private bool PatchesCompatible(bool force=false)=>compatible;
 private Unity.Entities.World world=new();private Context context=new();private bool Busy,areaMoveInApply,areaMoveCommitted,areaMoveRestoring,areaMovePreview,areaMoveApplyAllowed,areaMoveApplyTarget;
 private int areaMoveApplyState,areaMoveFrame,areaMoveStable,areaMoveLastFrame;private string Status;private AreaMoveEntry areaMoveCandidate;
 private FieldInfo areaMoveStateField=typeof(Game.Tools.AreaToolSystem).GetField("State",BindingFlags.Instance|BindingFlags.NonPublic);
@@ -149,7 +149,7 @@ active.WriteAreaMoveGeometry(id,new StandaloneAreaEntry{Data=new StandaloneAreaD
 Check(writeManager.GetBuffer<Game.Areas.Node>(id).SequenceEqual(originalThree)&&writeManager.GetBuffer<Game.Tools.LocalNodeCache>(id).SequenceEqual(threeCache),"Undo addition restores smaller node and attachment buffers exactly");
 active.WriteAreaMoveGeometry(id,new StandaloneAreaEntry{Data=new StandaloneAreaData(Game.Areas.AreaFlags.Complete,originalFour,fourCache)});
 Check(writeManager.GetBuffer<Game.Areas.Node>(id).SequenceEqual(originalFour)&&writeManager.GetBuffer<Game.Tools.LocalNodeCache>(id).SequenceEqual(fourCache),"Undo node deletion restores missing node and attachment buffers exactly");
-CombineChecks(ref n);CacheChecks(ref n);active=null;Console.WriteLine("PASS: "+n+" actual-source area move hook/geometry assertions; native timing remains unproven.");
+CombineChecks(ref n);CacheChecks(ref n);active=new();tool.World=active.world;active.compatible=false;Check(BeforeAreaRecreate(tool,id)&&active.captures==0,"conflict leaves native area preview available without capture");Check(BeforeAreaMoveApply(tool,deps,ref result,out observe)&&!observe&&active.prior=="prop move","conflict preserves snapshot and skips area observation");active.Busy=true;Check(!BeforeAreaMoveApply(tool,deps,ref result,out observe)&&!BeforeAreaMoveCancel(tool,deps,ref result,out observe),"in-flight conflict keeps area apply and node deletion blocked");active=null;Console.WriteLine("PASS: "+n+" actual-source area move hook/geometry assertions; native timing remains unproven.");
 }
 }}
 class Program{static void Main()=>MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace.Run();}

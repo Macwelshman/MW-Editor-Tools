@@ -1,0 +1,574 @@
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.s spawnLocationData1
+IL_0004: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Entity
+IL_0009: ldc.i4.0
+IL_000a: call System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.UInt16)
+IL_000f: ldloca.s V_1
+IL_0011: ldarg.s spawnLocationData2
+IL_0013: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Entity
+IL_0018: ldc.i4.0
+IL_0019: call System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.UInt16)
+IL_001e: ldloca.s V_2
+IL_0020: ldloc.0
+IL_0021: ldloc.1
+IL_0022: call System.Void Game.Buildings.RoadConnectionSystem/ConnectionLaneKey::.ctor(Game.Pathfind.PathNode,Game.Pathfind.PathNode)
+IL_0027: ldarga.s newConnections
+IL_0029: ldloc.2
+IL_002a: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::ContainsKey(!0)
+IL_002f: brfalse.s IL_0032
+IL_0031: ret
+IL_0032: ldloca.s V_3
+IL_0034: ldloc.0
+IL_0035: stfld Game.Pathfind.PathNode Game.Net.Lane::m_StartNode
+IL_003a: ldloca.s V_3
+IL_003c: ldarg.s spawnLocationData1
+IL_003e: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Entity
+IL_0043: ldc.i4.3
+IL_0044: newobj System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.UInt16)
+IL_0049: stfld Game.Pathfind.PathNode Game.Net.Lane::m_MiddleNode
+IL_004e: ldloca.s V_3
+IL_0050: ldloc.1
+IL_0051: stfld Game.Pathfind.PathNode Game.Net.Lane::m_EndNode
+IL_0056: ldloca.s V_4
+IL_0058: ldarg.s spawnLocationData1
+IL_005a: ldfld Unity.Mathematics.float3 Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Position
+IL_005f: ldarg.s spawnLocationData2
+IL_0061: ldfld Unity.Mathematics.float3 Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Position
+IL_0066: call Colossal.Mathematics.Bezier4x3 Game.Net.NetUtils::StraightCurve(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_006b: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0070: ldloca.s V_4
+IL_0072: ldarg.s spawnLocationData1
+IL_0074: ldfld Unity.Mathematics.float3 Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Position
+IL_0079: ldarg.s spawnLocationData2
+IL_007b: ldfld Unity.Mathematics.float3 Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Position
+IL_0080: call System.Single Unity.Mathematics.math::distance(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_0085: stfld System.Single Game.Net.Curve::m_Length
+IL_008a: ldarg.s isTemp
+IL_008c: brfalse.s IL_00e0
+IL_008e: ldarga.s originalConnections
+IL_0090: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::get_IsCreated()
+IL_0095: brfalse.s IL_00e0
+IL_0097: ldloca.s V_6
+IL_0099: ldarg.s spawnLocationData1
+IL_009b: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Original
+IL_00a0: ldc.i4.0
+IL_00a1: call System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.UInt16)
+IL_00a6: ldloca.s V_7
+IL_00a8: ldarg.s spawnLocationData2
+IL_00aa: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Original
+IL_00af: ldc.i4.0
+IL_00b0: call System.Void Game.Pathfind.PathNode::.ctor(Unity.Entities.Entity,System.UInt16)
+IL_00b5: ldloca.s V_8
+IL_00b7: ldloc.s V_6
+IL_00b9: ldloc.s V_7
+IL_00bb: call System.Void Game.Buildings.RoadConnectionSystem/ConnectionLaneKey::.ctor(Game.Pathfind.PathNode,Game.Pathfind.PathNode)
+IL_00c0: ldarga.s originalConnections
+IL_00c2: ldloc.s V_8
+IL_00c4: ldloca.s V_9
+IL_00c6: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::TryGetValue(!0,!1&)
+IL_00cb: brfalse.s IL_00e0
+IL_00cd: ldarga.s originalConnections
+IL_00cf: ldloc.s V_8
+IL_00d1: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::Remove(!0)
+IL_00d6: pop
+IL_00d7: ldarga.s temp
+IL_00d9: ldloc.s V_9
+IL_00db: stfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_00e0: ldarga.s oldConnections
+IL_00e2: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::get_IsCreated()
+IL_00e7: brfalse IL_0212
+IL_00ec: ldarga.s oldConnections
+IL_00ee: ldloc.2
+IL_00ef: ldloca.s V_5
+IL_00f1: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::TryGetValue(!0,!1&)
+IL_00f6: brfalse IL_0212
+IL_00fb: ldarga.s oldConnections
+IL_00fd: ldloc.2
+IL_00fe: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::Remove(!0)
+IL_0103: pop
+IL_0104: ldarg.0
+IL_0105: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Deleted> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_DeletedData
+IL_010a: ldloc.s V_5
+IL_010c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Deleted>::HasComponent(Unity.Entities.Entity)
+IL_0111: brfalse.s IL_0121
+IL_0113: ldarg.0
+IL_0114: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_0119: ldarg.1
+IL_011a: ldloc.s V_5
+IL_011c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity)
+IL_0121: ldarg.0
+IL_0122: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CurveData
+IL_0127: ldloc.s V_5
+IL_0129: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Curve>::get_Item(Unity.Entities.Entity)
+IL_012e: stloc.s V_10
+IL_0130: ldloca.s V_4
+IL_0132: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0137: ldloc.s V_10
+IL_0139: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_013e: call System.Boolean Colossal.Mathematics.Bezier4x3::Equals(Colossal.Mathematics.Bezier4x3)
+IL_0143: brtrue IL_01f3
+IL_0148: ldloc.s V_4
+IL_014a: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_014f: call Colossal.Mathematics.Bezier4x3 Colossal.Mathematics.MathUtils::Invert(Colossal.Mathematics.Bezier4x3)
+IL_0154: stloc.s V_11
+IL_0156: ldloca.s V_11
+IL_0158: ldloc.s V_10
+IL_015a: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_015f: call System.Boolean Colossal.Mathematics.Bezier4x3::Equals(Colossal.Mathematics.Bezier4x3)
+IL_0164: brtrue IL_01f3
+IL_0169: ldarg.0
+IL_016a: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Lane> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_LaneData
+IL_016f: ldloc.s V_5
+IL_0171: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Lane>::get_Item(Unity.Entities.Entity)
+IL_0176: stloc.s V_12
+IL_0178: ldloca.s V_12
+IL_017a: ldflda Game.Pathfind.PathNode Game.Net.Lane::m_StartNode
+IL_017f: ldloc.1
+IL_0180: call System.Boolean Game.Pathfind.PathNode::Equals(Game.Pathfind.PathNode)
+IL_0185: brfalse.s IL_01bc
+IL_0187: ldloca.s V_12
+IL_0189: ldflda Game.Pathfind.PathNode Game.Net.Lane::m_StartNode
+IL_018e: ldloc.0
+IL_018f: call System.Boolean Game.Pathfind.PathNode::Equals(Game.Pathfind.PathNode)
+IL_0194: brtrue.s IL_01bc
+IL_0196: ldloca.s V_3
+IL_0198: ldflda Game.Pathfind.PathNode Game.Net.Lane::m_StartNode
+IL_019d: ldloca.s V_3
+IL_019f: ldflda Game.Pathfind.PathNode Game.Net.Lane::m_EndNode
+IL_01a4: call System.Void Game.Common.CommonUtils::Swap<Game.Pathfind.PathNode>(T&,T&)
+IL_01a9: ldloca.s V_4
+IL_01ab: ldloc.s V_4
+IL_01ad: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_01b2: call Colossal.Mathematics.Bezier4x3 Colossal.Mathematics.MathUtils::Invert(Colossal.Mathematics.Bezier4x3)
+IL_01b7: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_01bc: ldarg.0
+IL_01bd: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_01c2: ldarg.1
+IL_01c3: ldloc.s V_5
+IL_01c5: ldloc.3
+IL_01c6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Lane>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01cb: ldarg.0
+IL_01cc: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_01d1: ldarg.1
+IL_01d2: ldloc.s V_5
+IL_01d4: ldloc.s V_4
+IL_01d6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Curve>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01db: ldarg.0
+IL_01dc: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_01e1: ldarg.1
+IL_01e2: ldloc.s V_5
+IL_01e4: ldloca.s V_13
+IL_01e6: initobj Game.Common.Updated
+IL_01ec: ldloc.s V_13
+IL_01ee: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_01f3: ldarg.s isTemp
+IL_01f5: brfalse.s IL_0207
+IL_01f7: ldarg.0
+IL_01f8: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_01fd: ldarg.1
+IL_01fe: ldloc.s V_5
+IL_0200: ldarg.s temp
+IL_0202: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Tools.Temp>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0207: ldarga.s newConnections
+IL_0209: ldloc.2
+IL_020a: ldloc.s V_5
+IL_020c: call System.Void Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::Add(!0,!1)
+IL_0211: ret
+IL_0212: ldarg.0
+IL_0213: ldflda Unity.Collections.NativeList`1<Unity.Entities.Entity> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_ConnectionPrefabs
+IL_0218: ldc.i4.0
+IL_0219: call !0 Unity.Collections.NativeList`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_021e: stloc.s V_14
+IL_0220: ldarg.0
+IL_0221: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetLaneArchetypeData> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_PrefabNetLaneArchetypeData
+IL_0226: ldloc.s V_14
+IL_0228: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetLaneArchetypeData>::get_Item(Unity.Entities.Entity)
+IL_022d: stloc.s V_15
+IL_022f: ldloca.s V_16
+IL_0231: ldarg.2
+IL_0232: call System.Void Game.Common.Owner::.ctor(Unity.Entities.Entity)
+IL_0237: ldloca.s V_17
+IL_0239: ldloc.s V_14
+IL_023b: call System.Void Game.Prefabs.PrefabRef::.ctor(Unity.Entities.Entity)
+IL_0240: ldloca.s V_18
+IL_0242: initobj Game.Net.SecondaryLane
+IL_0248: ldloca.s V_19
+IL_024a: initobj Game.Net.ConnectionLane
+IL_0250: ldloca.s V_19
+IL_0252: ldc.i4 4096
+IL_0257: stfld Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_025c: ldc.i4.0
+IL_025d: stloc.s V_20
+IL_025f: ldarg.s spawnLocationData1
+IL_0261: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_0266: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocationData::m_ConnectionType
+IL_026b: stloc.s V_22
+IL_026d: ldloc.s V_22
+IL_026f: ldc.i4.1
+IL_0270: sub
+IL_0271: switch IL_0312,IL_0293,IL_0356,IL_02fd,IL_0312,IL_0388
+IL_028e: br IL_0509
+IL_0293: ldarg.s spawnLocationData2
+IL_0295: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_029a: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocationData::m_ConnectionType
+IL_029f: ldc.i4.6
+IL_02a0: bne.un.s IL_02e4
+IL_02a2: ldarg.s spawnLocationData2
+IL_02a4: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_02a9: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_02ae: ldc.i4.s 16
+IL_02b0: bne.un.s IL_02e4
+IL_02b2: ldarg.s spawnLocationData1
+IL_02b4: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_02b9: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_02be: ldc.i4.s 16
+IL_02c0: bne.un.s IL_02e4
+IL_02c2: ldloca.s V_19
+IL_02c4: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_02c9: dup
+IL_02ca: ldind.i4
+IL_02cb: ldc.i4 152
+IL_02d0: or
+IL_02d1: stind.i4
+IL_02d2: ldloca.s V_19
+IL_02d4: ldc.i4.s 16
+IL_02d6: stfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_02db: ldc.i4.s 32
+IL_02dd: stloc.s V_20
+IL_02df: br IL_0509
+IL_02e4: ldloca.s V_19
+IL_02e6: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_02eb: dup
+IL_02ec: ldind.i4
+IL_02ed: ldc.i4 128
+IL_02f2: or
+IL_02f3: stind.i4
+IL_02f4: ldc.i4.s 32
+IL_02f6: stloc.s V_20
+IL_02f8: br IL_0509
+IL_02fd: ldloca.s V_19
+IL_02ff: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_0304: dup
+IL_0305: ldind.i4
+IL_0306: ldc.i4 1024
+IL_030b: or
+IL_030c: stind.i4
+IL_030d: br IL_0509
+IL_0312: ldloca.s V_19
+IL_0314: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_0319: dup
+IL_031a: ldind.i4
+IL_031b: ldc.i4.s 32
+IL_031d: or
+IL_031e: stind.i4
+IL_031f: ldloca.s V_19
+IL_0321: ldarg.s spawnLocationData1
+IL_0323: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_0328: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_032d: ldarg.s spawnLocationData2
+IL_032f: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_0334: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_0339: or
+IL_033a: stfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_033f: ldloc.s V_19
+IL_0341: ldfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_0346: ldc.i4.1
+IL_0347: and
+IL_0348: brfalse IL_0509
+IL_034d: ldc.i4.s 64
+IL_034f: stloc.s V_20
+IL_0351: br IL_0509
+IL_0356: ldloca.s V_19
+IL_0358: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_035d: dup
+IL_035e: ldind.i4
+IL_035f: ldc.i4.s 64
+IL_0361: or
+IL_0362: stind.i4
+IL_0363: ldloca.s V_19
+IL_0365: ldarg.s spawnLocationData1
+IL_0367: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_036c: ldfld Game.Net.TrackTypes Game.Prefabs.SpawnLocationData::m_TrackTypes
+IL_0371: ldarg.s spawnLocationData2
+IL_0373: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_0378: ldfld Game.Net.TrackTypes Game.Prefabs.SpawnLocationData::m_TrackTypes
+IL_037d: or
+IL_037e: stfld Game.Net.TrackTypes Game.Net.ConnectionLane::m_TrackTypes
+IL_0383: br IL_0509
+IL_0388: ldarg.s spawnLocationData2
+IL_038a: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Entity
+IL_038f: ldarg.s spawnLocationData1
+IL_0391: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Entity
+IL_0396: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_039b: brfalse.s IL_03c9
+IL_039d: ldloca.s V_19
+IL_039f: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_03a4: dup
+IL_03a5: ldind.i4
+IL_03a6: ldc.i4 264
+IL_03ab: or
+IL_03ac: stind.i4
+IL_03ad: ldloca.s V_19
+IL_03af: ldarg.s spawnLocationData1
+IL_03b1: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_03b6: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_03bb: stfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_03c0: ldc.i4.s 96
+IL_03c2: stloc.s V_20
+IL_03c4: br IL_0509
+IL_03c9: ldarg.s spawnLocationData2
+IL_03cb: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_03d0: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocationData::m_ConnectionType
+IL_03d5: ldc.i4.2
+IL_03d6: bne.un IL_047f
+IL_03db: ldarg.s spawnLocationData1
+IL_03dd: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_03e2: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_03e7: ldc.i4.s 16
+IL_03e9: bne.un.s IL_041d
+IL_03eb: ldarg.s spawnLocationData2
+IL_03ed: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_03f2: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_03f7: ldc.i4.s 16
+IL_03f9: bne.un.s IL_041d
+IL_03fb: ldloca.s V_19
+IL_03fd: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_0402: dup
+IL_0403: ldind.i4
+IL_0404: ldc.i4 152
+IL_0409: or
+IL_040a: stind.i4
+IL_040b: ldloca.s V_19
+IL_040d: ldc.i4.s 16
+IL_040f: stfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_0414: ldc.i4.s 32
+IL_0416: stloc.s V_20
+IL_0418: br IL_0509
+IL_041d: ldarg.s spawnLocationData1
+IL_041f: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_0424: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_0429: ldc.i4.s 16
+IL_042b: bne.un.s IL_0446
+IL_042d: ldloca.s V_19
+IL_042f: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_0434: dup
+IL_0435: ldind.i4
+IL_0436: ldc.i4 128
+IL_043b: or
+IL_043c: stind.i4
+IL_043d: ldc.i4.s 32
+IL_043f: stloc.s V_20
+IL_0441: br IL_0509
+IL_0446: ldloca.s V_19
+IL_0448: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_044d: dup
+IL_044e: ldind.i4
+IL_044f: ldc.i4 256
+IL_0454: or
+IL_0455: stind.i4
+IL_0456: ldloca.s V_19
+IL_0458: ldarg.s spawnLocationData1
+IL_045a: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_045f: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_0464: ldarg.s spawnLocationData2
+IL_0466: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_046b: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_0470: or
+IL_0471: stfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_0476: ldc.i4.s 96
+IL_0478: stloc.s V_20
+IL_047a: br IL_0509
+IL_047f: ldarg.s spawnLocationData2
+IL_0481: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_0486: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocationData::m_ConnectionType
+IL_048b: ldc.i4.6
+IL_048c: bne.un.s IL_04cd
+IL_048e: ldarg.s spawnLocationData1
+IL_0490: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_0495: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_049a: ldc.i4.s 16
+IL_049c: bne.un.s IL_04cd
+IL_049e: ldarg.s spawnLocationData2
+IL_04a0: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_04a5: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_04aa: ldc.i4.s 16
+IL_04ac: bne.un.s IL_04cd
+IL_04ae: ldloca.s V_19
+IL_04b0: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_04b5: dup
+IL_04b6: ldind.i4
+IL_04b7: ldc.i4 152
+IL_04bc: or
+IL_04bd: stind.i4
+IL_04be: ldloca.s V_19
+IL_04c0: ldc.i4.s 16
+IL_04c2: stfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_04c7: ldc.i4.s 32
+IL_04c9: stloc.s V_20
+IL_04cb: br.s IL_0509
+IL_04cd: ldloca.s V_19
+IL_04cf: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_04d4: dup
+IL_04d5: ldind.i4
+IL_04d6: ldc.i4.s 32
+IL_04d8: or
+IL_04d9: stind.i4
+IL_04da: ldloca.s V_19
+IL_04dc: ldarg.s spawnLocationData1
+IL_04de: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_04e3: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_04e8: ldarg.s spawnLocationData2
+IL_04ea: ldfld Game.Prefabs.SpawnLocationData Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_PrefabData
+IL_04ef: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_04f4: or
+IL_04f5: stfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_04fa: ldloc.s V_19
+IL_04fc: ldfld Game.Net.RoadTypes Game.Net.ConnectionLane::m_RoadTypes
+IL_0501: ldc.i4.1
+IL_0502: and
+IL_0503: brfalse.s IL_0509
+IL_0505: ldc.i4.s 64
+IL_0507: stloc.s V_20
+IL_0509: ldloc.s V_20
+IL_050b: ldarg.3
+IL_050c: ldfld Game.Prefabs.BuildingFlags Game.Prefabs.BuildingData::m_Flags
+IL_0511: and
+IL_0512: brfalse IL_05d7
+IL_0517: ldarg.s spawnLocationData1
+IL_0519: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Entity
+IL_051e: stloc.s V_23
+IL_0520: ldarg.s spawnLocationData2
+IL_0522: ldfld Unity.Entities.Entity Game.Buildings.RoadConnectionSystem/SpawnLocationData::m_Entity
+IL_0527: stloc.s V_24
+IL_0529: ldarg.0
+IL_052a: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_OwnerData
+IL_052f: ldloc.s V_23
+IL_0531: ldloca.s V_25
+IL_0533: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0538: brfalse.s IL_0554
+IL_053a: ldarg.0
+IL_053b: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_BuildingData
+IL_0540: ldloc.s V_23
+IL_0542: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::HasComponent(Unity.Entities.Entity)
+IL_0547: brtrue.s IL_0554
+IL_0549: ldloc.s V_25
+IL_054b: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_0550: stloc.s V_23
+IL_0552: br.s IL_0529
+IL_0554: ldarg.0
+IL_0555: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_OwnerData
+IL_055a: ldloc.s V_24
+IL_055c: ldloca.s V_26
+IL_055e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0563: brfalse.s IL_057f
+IL_0565: ldarg.0
+IL_0566: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_BuildingData
+IL_056b: ldloc.s V_24
+IL_056d: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.Building>::HasComponent(Unity.Entities.Entity)
+IL_0572: brtrue.s IL_057f
+IL_0574: ldloc.s V_26
+IL_0576: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_057b: stloc.s V_24
+IL_057d: br.s IL_0554
+IL_057f: ldloc.s V_23
+IL_0581: ldloc.s V_24
+IL_0583: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0588: brfalse.s IL_05d7
+IL_058a: ldloc.s V_23
+IL_058c: ldarg.2
+IL_058d: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0592: brfalse.s IL_05d7
+IL_0594: ldarg.0
+IL_0595: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_PrefabRefData
+IL_059a: ldloc.s V_23
+IL_059c: ldloca.s V_27
+IL_059e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_05a3: brfalse.s IL_05d7
+IL_05a5: ldarg.0
+IL_05a6: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingData> Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_PrefabBuildingData
+IL_05ab: ldloc.s V_27
+IL_05ad: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_05b2: ldloca.s V_28
+IL_05b4: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_05b9: brfalse.s IL_05d7
+IL_05bb: ldloc.s V_28
+IL_05bd: ldfld Game.Prefabs.BuildingFlags Game.Prefabs.BuildingData::m_Flags
+IL_05c2: ldloc.s V_20
+IL_05c4: and
+IL_05c5: brtrue.s IL_05d7
+IL_05c7: ldloca.s V_19
+IL_05c9: ldflda Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_05ce: dup
+IL_05cf: ldind.i4
+IL_05d0: ldc.i4 131072
+IL_05d5: or
+IL_05d6: stind.i4
+IL_05d7: ldarg.0
+IL_05d8: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_05dd: ldarg.1
+IL_05de: ldloc.s V_15
+IL_05e0: ldfld Unity.Entities.EntityArchetype Game.Prefabs.NetLaneArchetypeData::m_LaneArchetype
+IL_05e5: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32,Unity.Entities.EntityArchetype)
+IL_05ea: stloc.s V_21
+IL_05ec: ldarg.0
+IL_05ed: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_05f2: ldarg.1
+IL_05f3: ldloc.s V_21
+IL_05f5: ldloc.s V_17
+IL_05f7: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Prefabs.PrefabRef>(System.Int32,Unity.Entities.Entity,!!0)
+IL_05fc: ldarg.0
+IL_05fd: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_0602: ldarg.1
+IL_0603: ldloc.s V_21
+IL_0605: ldloc.3
+IL_0606: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Lane>(System.Int32,Unity.Entities.Entity,!!0)
+IL_060b: ldarg.0
+IL_060c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_0611: ldarg.1
+IL_0612: ldloc.s V_21
+IL_0614: ldloc.s V_4
+IL_0616: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Curve>(System.Int32,Unity.Entities.Entity,!!0)
+IL_061b: ldarg.0
+IL_061c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_0621: ldarg.1
+IL_0622: ldloc.s V_21
+IL_0624: ldloc.s V_19
+IL_0626: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.ConnectionLane>(System.Int32,Unity.Entities.Entity,!!0)
+IL_062b: ldarg.0
+IL_062c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_0631: ldarg.1
+IL_0632: ldloc.s V_21
+IL_0634: ldloc.s V_16
+IL_0636: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Owner>(System.Int32,Unity.Entities.Entity,!!0)
+IL_063b: ldarg.0
+IL_063c: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_0641: ldarg.1
+IL_0642: ldloc.s V_21
+IL_0644: ldloc.s V_18
+IL_0646: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.SecondaryLane>(System.Int32,Unity.Entities.Entity,!!0)
+IL_064b: ldloc.s V_19
+IL_064d: ldfld Game.Net.ConnectionLaneFlags Game.Net.ConnectionLane::m_Flags
+IL_0652: ldc.i4 256
+IL_0657: and
+IL_0658: brfalse.s IL_0672
+IL_065a: ldarg.0
+IL_065b: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_0660: ldarg.1
+IL_0661: ldloc.s V_21
+IL_0663: ldloca.s V_29
+IL_0665: initobj Game.Net.GarageLane
+IL_066b: ldloc.s V_29
+IL_066d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.GarageLane>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0672: ldarg.s isTemp
+IL_0674: brfalse.s IL_0686
+IL_0676: ldarg.0
+IL_0677: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Buildings.RoadConnectionSystem/UpdateSecondaryLanesJob::m_CommandBuffer
+IL_067c: ldarg.1
+IL_067d: ldloc.s V_21
+IL_067f: ldarg.s temp
+IL_0681: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Temp>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0686: ldarga.s newConnections
+IL_0688: ldloc.2
+IL_0689: ldloc.s V_21
+IL_068b: call System.Void Unity.Collections.NativeParallelHashMap`2<Game.Buildings.RoadConnectionSystem/ConnectionLaneKey,Unity.Entities.Entity>::Add(!0,!1)
+IL_0690: ret

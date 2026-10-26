@@ -30,7 +30,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 if(!(prefab is ObjectPrefab)||prefab is BuildingPrefab||prefab.GetComponent<ActivityLocation>()!=null||!NestedPayloadPolicy.Accept(
                     prefab.GetComponent<ObjectSubAreas>()?.m_SubAreas?.Length??0,
                     prefab.GetComponent<ObjectSubNets>()?.m_SubNets?.Length??0,
-                    prefab.GetComponent<ObjectSubLanes>()?.m_SubLanes?.Length??0,
+                    node.Lanes.SupportsDefinition(prefab.GetComponent<ObjectSubLanes>()?.m_SubLanes?.Length??0)?0:1,
                     0,effects?.m_AnimationCurves?.Count??0))throw new NotSupportedException("Unsupported attached area, network, lane, effect, animation or activity data on "+prefab.name+".");
                 if(node.Effects.Length>(effects?.m_Effects?.Count??0))throw new NotSupportedException("Effect companion count does not match its definition on "+prefab.name+".");
                 var links=prefab.GetComponent<ObjectSubObjects>()?.m_SubObjects;

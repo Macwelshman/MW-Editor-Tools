@@ -1,0 +1,1 @@
+PASS: 41 actual-source move hook/commit/pose assertions. Managed doubles; native regeneration acceptance pending.

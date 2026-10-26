@@ -1,0 +1,33 @@
+System.Void Game.Prefabs.SpawnLocation::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.0
+IL_000b: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocation::m_ConnectionType
+IL_0010: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocationData::m_ConnectionType
+IL_0015: ldloca.s V_0
+IL_0017: ldflda Game.Prefabs.ActivityMask Game.Prefabs.SpawnLocationData::m_ActivityMask
+IL_001c: initobj Game.Prefabs.ActivityMask
+IL_0022: ldloca.s V_0
+IL_0024: ldarg.0
+IL_0025: ldfld Game.Net.TrackTypes Game.Prefabs.SpawnLocation::m_TrackTypes
+IL_002a: stfld Game.Net.TrackTypes Game.Prefabs.SpawnLocationData::m_TrackTypes
+IL_002f: ldloca.s V_0
+IL_0031: ldarg.0
+IL_0032: ldfld Game.Net.RoadTypes Game.Prefabs.SpawnLocation::m_RoadTypes
+IL_0037: stfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_003c: ldloca.s V_0
+IL_003e: ldarg.0
+IL_003f: ldfld System.Boolean Game.Prefabs.SpawnLocation::m_RequireAuthorization
+IL_0044: stfld System.Boolean Game.Prefabs.SpawnLocationData::m_RequireAuthorization
+IL_0049: ldloca.s V_0
+IL_004b: ldarg.0
+IL_004c: ldfld System.Boolean Game.Prefabs.SpawnLocation::m_HangaroundOnLane
+IL_0051: stfld System.Boolean Game.Prefabs.SpawnLocationData::m_HangaroundOnLane
+IL_0056: ldarga.s entityManager
+IL_0058: ldarg.2
+IL_0059: ldloc.0
+IL_005a: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.SpawnLocationData>(Unity.Entities.Entity,!!0)
+IL_005f: ret

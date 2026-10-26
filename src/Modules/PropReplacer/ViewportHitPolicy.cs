@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 namespace MW.EditorTools.Modules.PropReplacer {
+ internal interface IViewportTargetSource<T> { bool TryGetTarget(out T entity, out string reason); }
+ internal interface IViewportHoverSource<T> { bool TryGetHoverTarget(out T entity, out string reason); }
  internal static class ViewportHitPolicy {
   internal static bool Normalize<T>(T value,Func<T,bool> live,Func<T,Tuple<bool,T>> redirect,out T result) {
    var seen=new HashSet<T>();

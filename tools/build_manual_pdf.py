@@ -12,7 +12,8 @@ from reportlab.lib.pagesizes import A4
 from pypdf import PdfReader
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'output/pdf/MW-Editor-Tools-User-Manual-0.4.180.pdf'
+VERSION='0.4.251'
+OUT=ROOT/f'output/pdf/MW-Editor-Tools-User-Manual-{VERSION}.pdf'
 OUT.parent.mkdir(parents=True,exist_ok=True)
 for name,file in [('Body','calibri.ttf'),('BodyBold','calibrib.ttf'),('BodyItalic','calibrii.ttf')]:
     pdfmetrics.registerFont(TTFont(name,'C:/Windows/Fonts/'+file))
@@ -49,26 +50,46 @@ def footer(c,doc):
     w,h=A4;c.saveState()
     c.setStrokeColor(colors.HexColor('#d8e4eb'));c.line(43,39,w-43,39)
     c.setFont('Body',8);c.setFillColor(grey)
-    c.drawString(43,25,'MW Editor Tools  |  User Manual  |  0.4.180')
+    c.drawString(43,25,'MW Editor Tools  |  User Manual  |  '+VERSION)
     c.drawRightString(w-43,25,str(doc.page))
     if doc.page>1:
         c.setFont('Body',8);c.drawString(43,h-27,'CITIES: SKYLINES II ASSET EDITOR')
     c.restoreState()
 
 lines=(ROOT/'docs/USER_MANUAL.md').read_text(encoding='utf-8-sig').splitlines()
-story=[Image(str(ROOT/'UI/src/assets/mw-editor-tools.png'),width=62,height=62,hAlign='LEFT'),Spacer(1,14),Paragraph('MW Editor Tools',styles['h1']),Paragraph('User Manual',styles['h2']),Paragraph('Version <b>0.4.180</b>  |  Cities: Skylines II Asset Editor',styles['body']),Spacer(1,7),Paragraph('Element replacement, component transfer, colour variations, workspace saving and supported Undo.',styles['body']),Spacer(1,14),Paragraph('Contents',styles['h3'])]
+story=[Image(str(ROOT/'UI/src/assets/mw-editor-tools.png'),width=62,height=62,hAlign='LEFT'),Spacer(1,14),Paragraph('MW Editor Tools',styles['h1']),Paragraph('User Manual',styles['h2']),Paragraph(f'Version <b>{VERSION}</b>  |  Cities: Skylines II Asset Editor',styles['body']),Spacer(1,7),Paragraph('Element replacement, component transfer, colour variations, workspace saving and supported Undo.',styles['body']),Spacer(1,14),Paragraph('Contents',styles['h3'])]
 toc=TableOfContents();toc.levelStyles=[styles['toc']];story += [toc,PageBreak()]
 i=0
 while i<len(lines) and lines[i]!='## Install or update':i+=1
 section=0
+screenshot_section=False
+screenshot_count=0
 while i<len(lines):
     s=lines[i].strip()
     if not s:i+=1;continue
     if s.startswith('## '):
         title=s[3:];section+=1
-        if section>1 and title != 'Quick start':story.append(PageBreak())
+        screenshot_section=title=='Screenshot guide'
+        if title=='Screenshot guide':story.append(PageBreak())
         p=Paragraph('<a name="'+slug(title)+'"/>'+inline(title),styles['h2']);p.section_key=slug(title);story.append(p);i+=1;continue
-    if s.startswith('### '):story.append(Paragraph(inline(s[4:]),styles['h3']));i+=1;continue
+    if s.startswith('### '):
+        if screenshot_section and screenshot_count:
+            story.append(PageBreak())
+        story.append(Paragraph(inline(s[4:]),styles['h3']));i+=1;continue
+    picture=re.fullmatch(r'!\[([^\]]*)\]\(([^)]+)\)',s)
+    if picture:
+        image_path=(ROOT/'docs'/picture[2]).resolve()
+        if not image_path.is_relative_to(ROOT/'docs') or not image_path.is_file():
+            raise ValueError(f'Missing or invalid manual screenshot: {picture[2]}')
+        screenshot=Image(str(image_path))
+        scale=min((A4[0]-86)/screenshot.imageWidth,585/screenshot.imageHeight)
+        screenshot.drawWidth=screenshot.imageWidth*scale
+        screenshot.drawHeight=screenshot.imageHeight*scale
+        screenshot.hAlign='LEFT'
+        screenshot.keepWithNext=True
+        story.extend([screenshot,Paragraph(inline(picture[1]),styles['body']),Spacer(1,8)])
+        screenshot_count+=1
+        i+=1;continue
     if s.startswith('```'):
         code=[];i+=1
         while i<len(lines) and not lines[i].strip().startswith('```'):code.append(lines[i]);i+=1
@@ -94,7 +115,7 @@ while i<len(lines):
     para=[s];i+=1
     while i<len(lines) and lines[i].strip() and not re.match(r'^(#|\||```|\d+\. |\s*- )',lines[i]):para.append(lines[i].strip());i+=1
     story.append(Paragraph(inline(' '.join(para)),styles['body']))
-doc=Manual(str(OUT),pagesize=A4,leftMargin=43,rightMargin=43,topMargin=45,bottomMargin=54,title='MW Editor Tools - User Manual 0.4.180',author='MW Editor Tools',pageCompression=1)
+doc=Manual(str(OUT),pagesize=A4,leftMargin=43,rightMargin=43,topMargin=45,bottomMargin=54,title='MW Editor Tools - User Manual '+VERSION,author='MW Editor Tools',pageCompression=1)
 doc.multiBuild(story,onFirstPage=footer,onLaterPages=footer)
 reader=PdfReader(OUT)
 text='\n'.join(p.extract_text() for p in reader.pages)

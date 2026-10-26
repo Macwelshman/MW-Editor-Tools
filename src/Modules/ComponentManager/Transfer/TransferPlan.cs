@@ -12,7 +12,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer
         public Type Type;
         public ValueAdapter Adapter;
         public ComponentBase Existing;
-        public ValueSnapshot Before, After;
+        public ValueSnapshot Before, After, Source;
     }
     internal sealed class TransferPlan
     {
@@ -41,12 +41,18 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer
                     if (existing != null && mode == TransferMode.ComponentsOnly) { Reports.Add(label + ": unchanged (already present)." ); continue; }
                     if (existing == null && mode == TransferMode.SettingsOnly) { Reports.Add(label + ": skipped (not present)." ); continue; }
                     if (adapter == null) throw new InvalidOperationException("Settings copying is unsupported for this component.");
-                    var change = new PlannedChange { Type = type, Adapter = adapter, Existing = existing };
+                    var change = new PlannedChange { Type = type, Adapter = adapter, Existing = existing, Source = snapshot };
                     if (existing != null) change.Before = adapter.Capture(existing, target.Prefab);
                     if (adapter != null)
                     {
                         
-                        change.After = change.Before == null ? snapshot : change.Before.Merge(snapshot, null);
+                        if (change.Before != null) change.After = change.Before.Merge(snapshot, null);
+                        else
+                        {
+                            var defaults = (ComponentBase)UnityEngine.ScriptableObject.CreateInstance(type);
+                            try { change.After = adapter.Capture(defaults, target.Prefab).Merge(snapshot, null).WithActive(snapshot.Active); }
+                            finally { UnityEngine.Object.Destroy(defaults); }
+                        }
                         string invalid = adapter.Validate(change.After); if (invalid != null) throw new InvalidOperationException(invalid);
                         if (change.Before != null)
                         {

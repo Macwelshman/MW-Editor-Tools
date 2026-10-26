@@ -11,6 +11,10 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
     internal sealed partial class BulldozerTrace {
         private sealed class Record {
             internal Entity FoliageCandidate;
+            internal BoundCompanions BoundBefore,BoundAfter,ReferenceAreas;
+            internal AreaCompanionNetwork ReferenceNetwork;
+            internal bool ReferenceRebuiltObjects;
+            internal Game.Objects.Transform? ReferenceMarkerOwner;
             internal AreaCompanionNetwork AreaNetwork;
             internal AreaCompanionNetwork AreaNetworkFrom;
             internal AreaCompanionEffect[] AreaEffects;
@@ -19,7 +23,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             internal Dictionary<PrefabBase,Payload> AreaReferences;
             internal Game.Objects.Transform AreaOwnerTransform; internal bool Area; internal AreaImage[] BeforeAreas,AfterAreas;
             internal PrefabBase[] RootTypes;
-            internal PrefabBase Asset;internal Entity Owner;internal bool Last; internal NestedNode[] Nested,NestedLive; internal NestedNode[][] ForestBefore,ForestAfter,ForestFrom; internal Dictionary<PrefabBase,Payload> NestedReferences;
+            internal PrefabBase Asset;internal Entity Owner,OwnerPrefab;internal bool Last; internal NestedNode[] Nested,NestedLive; internal NestedNode[][] ForestBefore,ForestAfter,ForestFrom; internal Dictionary<PrefabBase,Payload> NestedReferences;
             internal Payload Before,After;internal GraphValue[] BeforeGraph,AfterGraph;
         }
         private sealed class GraphValue {
@@ -48,7 +52,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         internal void SetDepth(int depth){records.SetDepth(depth);mainHistory.SetDepth(depth);}
         internal string AssetName=>effectHistory.Latest?.Before.Value.Container.name??areaMoveHistory.Latest?.BoundBefore?.Asset?.name??areaMoveHistory.Latest?.Before.Prefab?.name??moveHistory.Latest?.BoundBefore?.Asset?.name??moveHistory.Latest?.Before[0].Prefab?.name??networkHistory.Latest?.Asset?.name??standaloneAreas.Latest?.Prefab?.name??mainRecord?.Prefab?.name??record?.Asset?.name ?? armedAsset?.name;
         internal bool Busy=>EffectBusy||AreaMoveBusy||MoveBusy||NetworkBusy||StandaloneAreaBusy||preparingAsset!=null||nestedFixturePending||mainBusy||(mainArmed&&mainImage!=null)||restoring!=null||session.Asset!=null;
-        internal bool CanArm=>!disabled && !Busy && context.EditorAvailable && !context.DialogBusy && context.Asset!=null && !context.Asset.isReadOnly;
+        internal bool CanArm=>PatchesCompatible() && !disabled && !Busy && context.EditorAvailable && !context.DialogBusy && context.Asset!=null && !context.Asset.isReadOnly;
         internal string StartTestBlockReason=>disabled?"Recovery stopped after an error. Restart CS2 without saving.":Busy?"Wait for the current operation to finish.":!context.EditorAvailable?"Open the asset editor first.":context.DialogBusy?"Close the open dialog or finish shortcut recording first.":context.Asset==null?"Select the outer test asset in Workspace so its inspector opens.":context.Asset.isReadOnly?"The selected asset is read-only. Select a disposable writable duplicate.":null;
         internal void ReportTestBlocked(string reason){Status="Cannot start test: "+reason;Mod.Log.Info(Status);}
         internal void Arm() {
@@ -58,8 +62,8 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             Status="Armed for Sub-element deletion history on "+armedAsset.name+". Delete props individually; keep another prop in the asset.";
             Mod.Log.Info(Status);
         }
-        internal void ClearRecord() {effectHistory.Clear();areaMoveHistory.Clear();records.Clear();networkHistory.Clear();moveHistory.Clear();}
-        private static int RecordWeight(Record entry)=>entry.Before.Weight+entry.After.Weight+AreaWeight(entry.BeforeAreas)+AreaWeight(entry.AfterAreas)+((entry.Area?entry.AreaReferences:entry.NestedReferences)?.Values.Sum(image=>image.Weight)??0)+(entry.AreaNetwork?.Items.Sum(i=>192+16*(i.Connections.Length+i.SubNets.Length+i.SubLanes.Length))??0)+96*(entry.AreaEffects?.Length??0)+ForestWeight(entry.ForestBefore)+ForestWeight(entry.ForestAfter); private static int AreaWeight(AreaImage[] areas)=>areas?.Sum(a=>64+32*a.Nodes.Length+32*a.Local.Length)??0; private static int ForestWeight(NestedNode[][] forest)=>forest?.Sum(group=>group.Sum(node=>64+16*((node.Data.Colours?.Length??0)+(node.Data.CustomColours?.Length??0))))??0; private Record Candidate(bool undo)=>undo?records.Latest:records.NextRedo;
+        internal void ClearRecord() {FinishBikeObservation("history cleared");effectHistory.Clear();areaMoveHistory.Clear();records.Clear();networkHistory.Clear();moveHistory.Clear();}
+        private static int RecordWeight(Record entry)=>entry.Before.Weight+entry.After.Weight+(entry.BoundBefore?.Weight??0)+(entry.BoundAfter?.Weight??0)+AreaWeight(entry.BeforeAreas)+AreaWeight(entry.AfterAreas)+((entry.Area?entry.AreaReferences:entry.NestedReferences)?.Values.Sum(image=>image.Weight)??0)+(entry.AreaNetwork?.Items.Sum(i=>192+16*(i.Connections.Length+i.SubNets.Length+i.SubLanes.Length))??0)+96*(entry.AreaEffects?.Length??0)+ForestWeight(entry.ForestBefore)+ForestWeight(entry.ForestAfter); private static int AreaWeight(AreaImage[] areas)=>areas?.Sum(a=>64+32*a.Nodes.Length+32*a.Local.Length)??0; private static int ForestWeight(NestedNode[][] forest)=>forest?.Sum(group=>group.Sum(node=>64+16*((node.Data.Colours?.Length??0)+(node.Data.CustomColours?.Length??0))))??0; private Record Candidate(bool undo)=>undo?records.Latest:records.NextRedo;
         internal void Invalidate() {
             if(effectRestoring){FailEffect("Effect Undo interrupted; reload without saving.");return;}ClearEffects();
             if(areaMoveRestoring){FailAreaMove("Area move Undo interrupted; reload without saving.");return;}if(areaMoveCommitted){FailAreaMove("Area move interrupted; no Undo recorded.");return;}ClearAreaMoves();
@@ -83,17 +87,18 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 if(Root!=null&&!ReferenceEquals(Root,candidate.Asset))return false;
                 var prefabSystem=world.GetExistingSystemManaged<PrefabSystem>();
                 return !((IDictionary)updateMap.GetValue(prefabSystem)).Contains(candidate.Asset) &&
-                    (undo?candidate.After:candidate.Before).Matches(candidate.Asset) && (candidate.Area?AreaGraphMatches(undo?candidate.AfterAreas:candidate.BeforeAreas,candidate)&&AreaCompanionsMatch(candidate)&&candidate.AreaReferences.All(p=>NestedReferenceMatches(p.Key,p.Value)):GraphMatches(undo?candidate.AfterGraph:candidate.BeforeGraph,candidate.Owner)) && NestedStateMatches(candidate,!undo,false);
+                    (undo?candidate.After:candidate.Before).Matches(candidate.Asset) && (candidate.Area?AreaGraphMatches(undo?candidate.AfterAreas:candidate.BeforeAreas,candidate)&&AreaCompanionsMatch(candidate)&&candidate.AreaReferences.All(p=>NestedReferenceMatches(p.Key,p.Value)):GraphMatches(undo?candidate.AfterGraph:candidate.BeforeGraph,candidate.Owner)) && BoundRecordCompanionsMatch(candidate,!undo) && NestedStateMatches(candidate,!undo,false);
             }catch{return false;}
         }
-        internal bool CanUndo=>AreaMovePreview||MovePreview?false:effectHistory.Latest!=null?CanEffectUndo:areaMoveHistory.Latest!=null?CanAreaMoveUndo:moveHistory.Latest!=null?CanMoveUndo:networkHistory.Latest!=null?CanNetworkUndo:standaloneAreas.Latest!=null?CanStandaloneAreaUndo:HasMainRecord?CanMainUndo:CanRestore(true);
-        internal bool CanRedo=>HasMainRecord?CanMainRedo:CanRestore(false);
-        internal void Undo(){if(effectHistory.Latest!=null)Guard(UndoEffect);else if(areaMoveHistory.Latest!=null)Guard(UndoAreaMove);else if(moveHistory.Latest!=null)Guard(UndoMove);else if(networkHistory.Latest!=null)Guard(UndoNetwork);else if(standaloneAreas.Latest!=null)Guard(UndoStandaloneArea);else if(HasMainRecord)MainUndo();else Guard(()=>Restore(true));}
-        internal void Redo(){if(HasMainRecord)MainRedo();else Guard(()=>Restore(false));}
+        internal bool CanUndo=>!PatchesCompatible()||AreaMovePreview||MovePreview?false:effectHistory.Latest!=null?CanEffectUndo:areaMoveHistory.Latest!=null?CanAreaMoveUndo:moveHistory.Latest!=null?CanMoveUndo:networkHistory.Latest!=null?CanNetworkUndo:standaloneAreas.Latest!=null?CanStandaloneAreaUndo:HasMainRecord?CanMainUndo:CanRestore(true);
+        internal bool CanRedo=>PatchesCompatible() && (HasMainRecord?CanMainRedo:CanRestore(false));
+        internal void Undo(){if(!PatchesCompatible(true))return;if(effectHistory.Latest!=null)Guard(UndoEffect);else if(areaMoveHistory.Latest!=null)Guard(UndoAreaMove);else if(moveHistory.Latest!=null)Guard(UndoMove);else if(networkHistory.Latest!=null)Guard(UndoNetwork);else if(standaloneAreas.Latest!=null)Guard(UndoStandaloneArea);else if(HasMainRecord)MainUndo();else Guard(()=>Restore(true));}
+        internal void Redo(){if(!PatchesCompatible(true))return;if(HasMainRecord)MainRedo();else Guard(()=>Restore(false));}
         private void Restore(bool undo) {
             if(!CanRestore(undo))return;
             var entry=Candidate(undo);var expected=undo?entry.After:entry.Before;var target=undo?entry.Before:entry.After;
             if(!(entry.Area?AreaTargetShape(target,entry.Asset):entry.Last?LastTargetShape(target,entry.Asset):target.Shape(entry.Asset))||!target.Fields.All(v=>v.Data.ReferencesValid))return;
+            if(TryRestoreSpawnDeletion(entry,undo))return;
             // Prepare both images before any live mutation; no old Entity IDs are recreated.
             var prepared=target.Prepare();var rollback=expected.Prepare();if(entry.ForestBefore!=null)entry.ForestFrom=CaptureForestNow(entry);
             if(entry.Area){entry.AreaNetworkFrom=CaptureAreaNetwork(entry.Owner);entry.AreaEffectsFrom=CaptureAreaEffects(entry.Owner);entry.AreaSources=CaptureAreas(entry.Owner);}
@@ -179,3 +184,4 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             (!a.HasTransform||(math.lengthsq(a.Position-b.Position)<1e-8f && math.min(math.lengthsq(a.Rotation.value-b.Rotation.value),math.lengthsq(a.Rotation.value+b.Rotation.value))<1e-8f));
     }
 }
+

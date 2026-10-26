@@ -1,0 +1,1277 @@
+[
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\74324_37\\MoveIt.dll",
+    "Identity": "MoveIt, Version=0.5.16.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "fd61d311-8135-44ba-ab79-97e7f56f07d5",
+    "SHA256": "88D86CE1A305C373457638C09EB8BC487A583FC96A53056B3ABF86D3E8748AB0",
+    "HarmonyReferences": [],
+    "Patches": [],
+    "RelevantCalls": [
+      {
+        "Target": "!!0 Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabRef)",
+        "Offset": "IL_0015",
+        "Caller": "Game.Prefabs.PrefabBase QCommonLib.QCommon::GetPrefab(Unity.Entities.EntityManager,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "!!0 Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabRef)",
+        "Offset": "IL_00a2",
+        "Caller": "System.String QCommonLib.QCommon::GetPrefabName(Unity.Entities.EntityManager,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "Game.Tools.ApplyMode Game.Tools.ToolBaseSystem::get_applyMode()",
+        "Offset": "IL_0001",
+        "Caller": "Game.Tools.ApplyMode MoveIt.Tool.MIT::get_BaseApplyMode()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)",
+        "Offset": "IL_0002",
+        "Caller": "System.Void MoveIt.Tool.MIT::set_BaseApplyMode(Game.Tools.ApplyMode)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStartRunning()",
+        "Offset": "IL_0028",
+        "Caller": "System.Void MoveIt.Tool.MIT::OnStartRunning()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStopRunning()",
+        "Offset": "IL_0017",
+        "Caller": "System.Void MoveIt.Tool.MIT::OnStopRunning()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)",
+        "Offset": "IL_0048",
+        "Caller": "System.Void MoveIt.Tool.MIT::RequestEnable()"
+      },
+      {
+        "Target": "Unity.Jobs.JobHandle Game.Tools.ToolBaseSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Offset": "IL_0004",
+        "Caller": "Unity.Jobs.JobHandle MoveIt.Tool.MIT::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void MoveIt.Tool.MIT::InitializeRaycast()"
+      }
+    ],
+    "GameModeGetters": []
+  },
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\74417_17\\UnifiedIconLibrary.dll",
+    "Identity": "UnifiedIconLibrary, Version=1.0.14.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "cd9340cb-bd31-4af9-9ffa-26ebe0f7718f",
+    "SHA256": "78BFB5222239494FA314AB236C334348F967465BE16DB3EAE44843EA5E7151EF",
+    "HarmonyReferences": [],
+    "Patches": [],
+    "RelevantCalls": [],
+    "GameModeGetters": []
+  },
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\75250_26\\BetterBulldozer.dll",
+    "Identity": "BetterBulldozer, Version=1.3.19.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "e495c09f-3f08-45e7-b677-86438ffec533",
+    "SHA256": "651A96F468851627B300519A89182001D0E7908DEC635AE4545EA8F553CDC238",
+    "HarmonyReferences": [
+      "0Harmony, Version=2.2.2.0, Culture=neutral, PublicKeyToken=null"
+    ],
+    "Patches": [
+      {
+        "Arguments": [
+          "Game.Tools.BulldozeToolSystem",
+          "InitializeRaycast"
+        ],
+        "Owner": "Better_Bulldozer.Patches.BulldozeToolSystemInitializeRaycastPatch",
+        "Attribute": "HarmonyLib.HarmonyPatch"
+      },
+      {
+        "Arguments": [
+          "Game.Tools.ToolBaseSystem",
+          "GetRaycastResult",
+          "[Unity.Entities.Entity,Game.Common.RaycastHit]",
+          "[2,2]"
+        ],
+        "Owner": "Better_Bulldozer.Patches.ToolBaseSystemGetRaycastResultPatch",
+        "Attribute": "HarmonyLib.HarmonyPatch"
+      }
+    ],
+    "RelevantCalls": [
+      {
+        "Target": "System.Void HarmonyLib.Harmony::PatchAll()",
+        "Offset": "IL_00ef",
+        "Caller": "System.Void Better_Bulldozer.BetterBulldozerMod::OnLoad(Game.UpdateSystem)"
+      },
+      {
+        "Target": "System.Void HarmonyLib.Harmony::UnpatchAll(System.String)",
+        "Offset": "IL_0019",
+        "Caller": "System.Void Better_Bulldozer.BetterBulldozerMod::OnDispose()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0006",
+        "Caller": "System.String Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::get_toolID()"
+      },
+      {
+        "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+        "Offset": "IL_0007",
+        "Caller": "Game.Prefabs.PrefabBase Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::GetPrefab()"
+      },
+      {
+        "Target": "System.Void Game.Tools.BulldozeToolSystem::set_prefab(Game.Prefabs.BulldozePrefab)",
+        "Offset": "IL_0028",
+        "Caller": "System.Boolean Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::TrySetPrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::InitializeRaycast()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreate()",
+        "Offset": "IL_0080",
+        "Caller": "System.Void Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::OnCreate()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStartRunning()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::OnStartRunning()"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_0009",
+        "Caller": "System.Void Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::OnStartRunning()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStopRunning()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::OnStopRunning()"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_0009",
+        "Caller": "System.Void Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::OnStopRunning()"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)",
+        "Offset": "IL_000e",
+        "Caller": "Unity.Jobs.JobHandle Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_00e2",
+        "Caller": "Unity.Jobs.JobHandle Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreateForCompiler()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::OnCreateForCompiler()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::.ctor()",
+        "Offset": "IL_0008",
+        "Caller": "System.Void Better_Bulldozer.Tools.RemoveVehiclesCimsAndAnimalsTool::.ctor()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0006",
+        "Caller": "System.String Better_Bulldozer.Tools.SubElementBulldozerTool::get_toolID()"
+      },
+      {
+        "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+        "Offset": "IL_0007",
+        "Caller": "Game.Prefabs.PrefabBase Better_Bulldozer.Tools.SubElementBulldozerTool::GetPrefab()"
+      },
+      {
+        "Target": "System.Void Game.Tools.BulldozeToolSystem::set_prefab(Game.Prefabs.BulldozePrefab)",
+        "Offset": "IL_0028",
+        "Caller": "System.Boolean Better_Bulldozer.Tools.SubElementBulldozerTool::TrySetPrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Better_Bulldozer.Tools.SubElementBulldozerTool::InitializeRaycast()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreate()",
+        "Offset": "IL_00c4",
+        "Caller": "System.Void Better_Bulldozer.Tools.SubElementBulldozerTool::OnCreate()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStartRunning()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Better_Bulldozer.Tools.SubElementBulldozerTool::OnStartRunning()"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_0009",
+        "Caller": "System.Void Better_Bulldozer.Tools.SubElementBulldozerTool::OnStartRunning()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStopRunning()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Better_Bulldozer.Tools.SubElementBulldozerTool::OnStopRunning()"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_0009",
+        "Caller": "System.Void Better_Bulldozer.Tools.SubElementBulldozerTool::OnStopRunning()"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)",
+        "Offset": "IL_004a",
+        "Caller": "Unity.Jobs.JobHandle Better_Bulldozer.Tools.SubElementBulldozerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_0292",
+        "Caller": "Unity.Jobs.JobHandle Better_Bulldozer.Tools.SubElementBulldozerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_03f5",
+        "Caller": "Unity.Jobs.JobHandle Better_Bulldozer.Tools.SubElementBulldozerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0ede",
+        "Caller": "Unity.Jobs.JobHandle Better_Bulldozer.Tools.SubElementBulldozerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_105d",
+        "Caller": "Unity.Jobs.JobHandle Better_Bulldozer.Tools.SubElementBulldozerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_1571",
+        "Caller": "Unity.Jobs.JobHandle Better_Bulldozer.Tools.SubElementBulldozerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreateForCompiler()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Better_Bulldozer.Tools.SubElementBulldozerTool::OnCreateForCompiler()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::.ctor()",
+        "Offset": "IL_0013",
+        "Caller": "System.Void Better_Bulldozer.Tools.SubElementBulldozerTool::.ctor()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_0071",
+        "Caller": "System.Void Better_Bulldozer.Systems.AutomaticallyRemoveManicuredGrassSurfaceSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0094",
+        "Caller": "System.Void Better_Bulldozer.Systems.AutomaticallyRemoveManicuredGrassSurfaceSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0060",
+        "Caller": "System.Void Better_Bulldozer.Systems.AutomaticallyRemoveManicuredGrassSurfaceSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0044",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0107",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.BulldozeToolSystem::get_debugBypassBulldozeConfirmation()",
+        "Offset": "IL_000e",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.BulldozeToolSystem::get_debugBypassBulldozeConfirmation()",
+        "Offset": "IL_0034",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Areas.AreaTypeMask Game.Tools.ToolBaseSystem::get_requireAreas()",
+        "Offset": "IL_0060",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Areas.AreaTypeMask Game.Tools.ToolBaseSystem::get_requireAreas()",
+        "Offset": "IL_009d",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Void Game.Tools.BulldozeToolSystem::set_debugBypassBulldozeConfirmation(System.Boolean)",
+        "Offset": "IL_002c",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::BypassConfirmationToggled()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0013",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::HandleShowMarkers(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Areas.AreaTypeMask Game.Tools.ToolBaseSystem::get_requireAreas()",
+        "Offset": "IL_0173",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::HandleShowMarkers(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Areas.AreaTypeMask Game.Tools.ToolBaseSystem::get_requireAreas()",
+        "Offset": "IL_02c9",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::HandleShowMarkers(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Areas.AreaTypeMask Game.Tools.ToolBaseSystem::get_requireAreas()",
+        "Offset": "IL_02e8",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::HandleShowMarkers(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0383",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::HandleShowMarkers(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Areas.AreaTypeMask Game.Tools.ToolBaseSystem::get_requireAreas()",
+        "Offset": "IL_042b",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::HandleShowMarkers(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Areas.AreaTypeMask Game.Tools.ToolBaseSystem::get_requireAreas()",
+        "Offset": "IL_044a",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::HandleShowMarkers(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0070",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+        "Offset": "IL_00ae",
+        "Caller": "System.Void Better_Bulldozer.Systems.BetterBulldozerUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_003a",
+        "Caller": "System.Void Better_Bulldozer.Systems.RemoveExistingOwnedGrassSurfaces::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_005b",
+        "Caller": "System.Void Better_Bulldozer.Systems.RemoveExistingOwnedGrassSurfaces::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0143",
+        "Caller": "System.Void Better_Bulldozer.Systems.RemoveRegeneratedSubelementPrefabsSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0259",
+        "Caller": "System.Void Better_Bulldozer.Systems.RemoveRegeneratedSubelementPrefabsSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0374",
+        "Caller": "System.Void Better_Bulldozer.Systems.RemoveRegeneratedSubelementPrefabsSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_048f",
+        "Caller": "System.Void Better_Bulldozer.Systems.RemoveRegeneratedSubelementPrefabsSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_05aa",
+        "Caller": "System.Void Better_Bulldozer.Systems.RemoveRegeneratedSubelementPrefabsSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      }
+    ],
+    "GameModeGetters": []
+  },
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\75993_32\\Tree_Controller.dll",
+    "Identity": "Tree_Controller, Version=1.7.5.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "14299b61-ec4c-4d83-acc0-8c0ee3a0e911",
+    "SHA256": "6AE87D34962E0662C49C76AA0F28DC9AE7654DEE010917EC1698D477AC46DF8D",
+    "HarmonyReferences": [
+      "0Harmony, Version=2.2.2.0, Culture=neutral, PublicKeyToken=null"
+    ],
+    "Patches": [
+      {
+        "Arguments": [
+          "Game.Rendering.WindControl",
+          "SetGlobalProperties"
+        ],
+        "Owner": "WindGlobalPropertiesPatch",
+        "Attribute": "HarmonyLib.HarmonyPatch"
+      },
+      {
+        "Arguments": [
+          "Game.UI.InGame.ToolbarUISystem",
+          "Apply"
+        ],
+        "Owner": "Tree_Controller.Patches.ToolbarUISystemApplyPatch",
+        "Attribute": "HarmonyLib.HarmonyPatch"
+      },
+      {
+        "Arguments": [
+          "Game.UI.InGame.ToolUISystem",
+          "SetBrushStrength"
+        ],
+        "Owner": "Tree_Controller.Patches.ToolUISystemSetBrushStrengthPatch",
+        "Attribute": "HarmonyLib.HarmonyPatch"
+      }
+    ],
+    "RelevantCalls": [
+      {
+        "Target": "System.Void HarmonyLib.Harmony::PatchAll()",
+        "Offset": "IL_0104",
+        "Caller": "System.Void Tree_Controller.TreeControllerMod::OnLoad(Game.UpdateSystem)"
+      },
+      {
+        "Target": "System.Void HarmonyLib.Harmony::UnpatchAll(System.String)",
+        "Offset": "IL_0019",
+        "Caller": "System.Void Tree_Controller.TreeControllerMod::OnDispose()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0021",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::get_IsActive()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_0081",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::get_IsActive()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_008f",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::get_IsActive()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_009d",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::get_IsActive()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_00aa",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::get_IsActive()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_00bd",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::get_IsActive()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_00cf",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::get_IsActive()"
+      },
+      {
+        "Target": "Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)",
+        "Offset": "IL_0008",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::SelectTreePrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_00d7",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::SelectTreePrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)",
+        "Offset": "IL_0008",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::UnselectTreePrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_00cc",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::UnselectTreePrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::GetAvailableSnapMask(Game.Tools.Snap&,Game.Tools.Snap&)",
+        "Offset": "IL_0004",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::GetAvailableSnapMask(Game.Tools.Snap&,Game.Tools.Snap&)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0028",
+        "Caller": "System.Collections.Generic.List`1<Game.Prefabs.PrefabBase> Tree_Controller.Tools.TreeControllerTool::GetSelectedPrefabs()"
+      },
+      {
+        "Target": "Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)",
+        "Offset": "IL_0008",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::TrySetPrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+        "Offset": "IL_007f",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::TrySetPrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+        "Offset": "IL_00a0",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::TrySetPrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_01cb",
+        "Caller": "System.Boolean Tree_Controller.Tools.TreeControllerTool::TrySetPrefab(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::InitializeRaycast()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreate()",
+        "Offset": "IL_0081",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::OnCreate()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStartRunning()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::OnStartRunning()"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_0009",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::OnStartRunning()"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()",
+        "Offset": "IL_0016",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::OnStartRunning()"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)",
+        "Offset": "IL_001a",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_0201",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_0304",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabRef,!!0&)",
+        "Offset": "IL_0381",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_0472",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_0533",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_055e",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_0707",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()",
+        "Offset": "IL_0773",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_0900",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()",
+        "Offset": "IL_0b2f",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)",
+        "Offset": "IL_0b55",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Game.Tools.ApplyMode Game.Tools.ToolBaseSystem::get_applyMode()",
+        "Offset": "IL_0b5f",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_applyMode(Game.Tools.ApplyMode)",
+        "Offset": "IL_0b70",
+        "Caller": "Unity.Jobs.JobHandle Tree_Controller.Tools.TreeControllerTool::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_01e8",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::ProcessBufferForTrees(Unity.Entities.Entity,Game.Common.RaycastHit,Unity.Jobs.JobHandle&)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabRef,!!0&)",
+        "Offset": "IL_026c",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::ProcessBufferForTrees(Unity.Entities.Entity,Game.Common.RaycastHit,Unity.Jobs.JobHandle&)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_0375",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::ProcessBufferForTrees(Unity.Entities.Entity,Game.Common.RaycastHit,Unity.Jobs.JobHandle&)"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_0452",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::ProcessBufferForTrees(Unity.Entities.Entity,Game.Common.RaycastHit,Unity.Jobs.JobHandle&)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreateForCompiler()",
+        "Offset": "IL_0002",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::OnCreateForCompiler()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::.ctor()",
+        "Offset": "IL_0001",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerTool::.ctor()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ObjectToolSystem::set_decorationMode(System.Boolean)",
+        "Offset": "IL_0216",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ObjectToolSystem::set_decorationMode(System.Boolean)",
+        "Offset": "IL_0227",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_00c1",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_00eb",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_00f9",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_0107",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_0114",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_014a",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_01c5",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_022b",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_03de",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Single Game.Tools.ToolBaseSystem::get_brushStrength()",
+        "Offset": "IL_03ec",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_brushStrength(System.Single)",
+        "Offset": "IL_040d",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ObjectToolSystem::set_mode(Game.Tools.ObjectToolSystem/Mode)",
+        "Offset": "IL_00c4",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::ChangeToolMode(System.Int32)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ObjectToolSystem::set_mode(Game.Tools.ObjectToolSystem/Mode)",
+        "Offset": "IL_0114",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::ChangeToolMode(System.Int32)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ObjectToolSystem::set_ageMask(Game.Tools.AgeMask)",
+        "Offset": "IL_001e",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::SetObjectToolAgeMask(Tree_Controller.Tools.Ages)"
+      },
+      {
+        "Target": "Game.Prefabs.ObjectPrefab Game.Tools.ObjectToolSystem::get_prefab()",
+        "Offset": "IL_0040",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::ActivatePrefabChange()"
+      },
+      {
+        "Target": "Game.Prefabs.ObjectPrefab Game.Tools.ObjectToolSystem::get_prefab()",
+        "Offset": "IL_008a",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::ActivatePrefabChange()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ObjectToolSystem::set_mode(Game.Tools.ObjectToolSystem/Mode)",
+        "Offset": "IL_002a",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::ActivatePlopTrees()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ObjectToolSystem::set_mode(Game.Tools.ObjectToolSystem/Mode)",
+        "Offset": "IL_002a",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::ActivateBrushTrees()"
+      },
+      {
+        "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+        "Offset": "IL_0007",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::ChangePrefabSet(System.String)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_026b",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::ChangePrefabSet(System.String)"
+      },
+      {
+        "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+        "Offset": "IL_0015",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_002d",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_004d",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_005a",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_0068",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_0076",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_0084",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0095",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_01c6",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolOrPrefabChange(Game.Tools.ToolBaseSystem,Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_003a",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::UnselectPrefabs()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_001a",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolModeBinding()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_0062",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolModeBinding()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_00a6",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleToolModeBinding()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0061",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleShowStumps()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_010c",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::RemoveEntry(System.String)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_0074",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleShowStumpsForAdvancedSetAndTriggerUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0084",
+        "Caller": "System.Void Tree_Controller.Tools.TreeControllerUISystem::HandleShowStumpsForAdvancedSetAndTriggerUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.Climate.ClimatePrefab>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0037",
+        "Caller": "System.Void Tree_Controller.Systems.DeciduousSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_decorationMode()",
+        "Offset": "IL_0390",
+        "Caller": "System.Void Tree_Controller.Systems.ModifyTempVegetationSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_allowAge()",
+        "Offset": "IL_03c4",
+        "Caller": "System.Void Tree_Controller.Systems.ModifyTempVegetationSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ObjectToolSystem::get_allowAge()",
+        "Offset": "IL_03fa",
+        "Caller": "System.Void Tree_Controller.Systems.ModifyTempVegetationSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_000b",
+        "Caller": "System.Void Tree_Controller.Systems.ModifyTempVegetationSystem::<OnCreate>b__13_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0013",
+        "Caller": "System.Void Tree_Controller.Systems.ModifyTempVegetationSystem::<OnCreate>b__13_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_000b",
+        "Caller": "System.Void Tree_Controller.Systems.ModifyTempVegetationSystem::<__OnCreate_5CC6FCA9>b__18_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0013",
+        "Caller": "System.Void Tree_Controller.Systems.ModifyTempVegetationSystem::<__OnCreate_5CC6FCA9>b__18_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0040",
+        "Caller": "System.Void Tree_Controller.Systems.ModifyVegetationPrefabsSystem::ResetVegetationCosts()"
+      },
+      {
+        "Target": "!!0 Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity)",
+        "Offset": "IL_0188",
+        "Caller": "System.Void Tree_Controller.Systems.ReloadFoliageColorDataSystem::OnGameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)"
+      },
+      {
+        "Target": "!!0 Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.Climate.ClimatePrefab>(Unity.Entities.Entity)",
+        "Offset": "IL_0035",
+        "Caller": "System.Void Tree_Controller.Systems.ReloadFoliageColorDataSystem::OnUpdate()"
+      },
+      {
+        "Target": "!!0 Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity)",
+        "Offset": "IL_015f",
+        "Caller": "System.Void Tree_Controller.Systems.ReloadFoliageColorDataSystem::OnUpdate()"
+      },
+      {
+        "Target": "!!0 Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity)",
+        "Offset": "IL_0181",
+        "Caller": "System.Void Tree_Controller.Systems.ReloadFoliageColorDataSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0001",
+        "Caller": "System.Boolean Tree_Controller.Systems.ReloadFoliageColorDataSystem/<>c::<OnGameLoadingComplete>b__22_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_00bc",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_00ca",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_00d8",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_00e5",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_00f8",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_01ed",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_02bc",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "Game.Tools.ObjectToolSystem/Mode Game.Tools.ObjectToolSystem::get_actualMode()",
+        "Offset": "IL_0335",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Single Game.Tools.ToolBaseSystem::get_brushSize()",
+        "Offset": "IL_03d5",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::OnUpdate()"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_000b",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::<OnCreate>b__11_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0013",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::<OnCreate>b__11_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_000b",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::<__OnCreate_5CC6FCA9>b__15_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0013",
+        "Caller": "System.Void Tree_Controller.Systems.TreeObjectDefinitionSystem::<__OnCreate_5CC6FCA9>b__15_0(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ObjectToolSystem::set_decorationMode(System.Boolean)",
+        "Offset": "IL_0045",
+        "Caller": "System.Void Tree_Controller.Settings.TreeControllerSettings::SetDisableTreeGrowth(System.Boolean)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_006d",
+        "Caller": "System.Void Tree_Controller.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_007a",
+        "Caller": "System.Void Tree_Controller.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_00a7",
+        "Caller": "System.Void Tree_Controller.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "Game.Prefabs.PrefabBase Game.Tools.ToolBaseSystem::GetPrefab()",
+        "Offset": "IL_00c4",
+        "Caller": "System.Void Tree_Controller.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_00f6",
+        "Caller": "System.Void Tree_Controller.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0179",
+        "Caller": "System.Void Tree_Controller.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_01eb",
+        "Caller": "System.Void Tree_Controller.Patches.ToolbarUISystemApplyPatch::Postfix(System.Collections.Generic.List`1<Unity.Entities.Entity>,System.Collections.Generic.List`1<Unity.Entities.Entity>,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0065",
+        "Caller": "System.Boolean Tree_Controller.Patches.ToolUISystemSetBrushStrengthPatch::Prefix(System.Single)"
+      },
+      {
+        "Target": "System.Single Game.Tools.ToolBaseSystem::get_brushStrength()",
+        "Offset": "IL_0094",
+        "Caller": "System.Boolean Tree_Controller.Patches.ToolUISystemSetBrushStrengthPatch::Prefix(System.Single)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_brushStrength(System.Single)",
+        "Offset": "IL_00b9",
+        "Caller": "System.Boolean Tree_Controller.Patches.ToolUISystemSetBrushStrengthPatch::Prefix(System.Single)"
+      },
+      {
+        "Target": "System.Single Game.Tools.ToolBaseSystem::get_brushStrength()",
+        "Offset": "IL_00ca",
+        "Caller": "System.Boolean Tree_Controller.Patches.ToolUISystemSetBrushStrengthPatch::Prefix(System.Single)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::set_brushStrength(System.Single)",
+        "Offset": "IL_00f3",
+        "Caller": "System.Boolean Tree_Controller.Patches.ToolUISystemSetBrushStrengthPatch::Prefix(System.Single)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_0030",
+        "Caller": "Unity.Entities.Entity Tree_Controller.Domain.AdvancedForestBrushEntry::GetPrefabEntity()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_003b",
+        "Caller": "Unity.Entities.Entity Tree_Controller.Domain.AdvancedForestBrushEntry::GetPrefabEntity()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_0022",
+        "Caller": "System.String Tree_Controller.Domain.AdvancedForestBrushEntry::GetThumbnailOrPlaceholder(Game.Prefabs.PrefabID)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_002d",
+        "Caller": "System.String Tree_Controller.Domain.AdvancedForestBrushEntry::GetThumbnailOrPlaceholder(Game.Prefabs.PrefabID)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_0048",
+        "Caller": "System.Collections.Generic.List`1<Game.Prefabs.PrefabBase> Tree_Controller.Domain.CustomSetRepository::GetPrefabBases()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_0047",
+        "Caller": "Tree_Controller.Domain.AdvancedForestBrushEntry Tree_Controller.Domain.CustomSetRepository::GetDefaultAdvancedForestBrushEntry(System.String)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0053",
+        "Caller": "Tree_Controller.Domain.AdvancedForestBrushEntry Tree_Controller.Domain.CustomSetRepository::GetDefaultAdvancedForestBrushEntry(System.String)"
+      }
+    ],
+    "GameModeGetters": []
+  },
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\77240_59\\FindIt.dll",
+    "Identity": "FindIt, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "815f3c09-31ab-41f4-82a6-f93c21969753",
+    "SHA256": "0F14A9565BD2DC88AA8BF3A139CC9246948074DBE5E65C2FE9A8902F23B4140B",
+    "HarmonyReferences": [],
+    "Patches": [],
+    "RelevantCalls": [
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0029",
+        "Caller": "System.Boolean FindIt.Utilities.FindItUtil::Find(Game.Prefabs.PrefabBase,System.Boolean,System.Int32&)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.ZonePrefab>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_007d",
+        "Caller": "System.Boolean FindIt.Utilities.PrefabCategoryProcessor.ZonedBuildingPrefabCategoryProcessor::TryCreatePrefabIndex(Game.Prefabs.PrefabBase,Unity.Entities.Entity,FindIt.Domain.PrefabIndex&)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.ObjectGeometryPrefab>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0035",
+        "Caller": "System.Void FindIt.Systems.AutoQuantityPropGeneratorSystem::GenerateProps()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_001c",
+        "Caller": "System.Boolean FindIt.Systems.AutoQuantityPropGeneratorSystem::CreatePrefab(System.String,System.String,System.Int32,Game.Prefabs.ObjectGeometryPrefab,Game.Prefabs.ObjectMeshInfo,System.Collections.Generic.Dictionary`2<System.String,System.String>)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::AddPrefab(Game.Prefabs.PrefabBase,System.String,Game.Prefabs.PrefabBase,Game.Prefabs.ComponentBase)",
+        "Offset": "IL_01f4",
+        "Caller": "System.Boolean FindIt.Systems.AutoQuantityPropGeneratorSystem::CreatePrefab(System.String,System.String,System.Int32,Game.Prefabs.ObjectGeometryPrefab,Game.Prefabs.ObjectMeshInfo,System.Collections.Generic.Dictionary`2<System.String,System.String>)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.MovingObjectPrefab>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0041",
+        "Caller": "System.Void FindIt.Systems.AutoVehiclePropGeneratorSystem::GenerateProps()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_001d",
+        "Caller": "System.Void FindIt.Systems.AutoVehiclePropGeneratorSystem::CreatePrefab(System.String,System.Int32,System.Collections.Generic.Dictionary`2<System.String,System.String>,Game.Prefabs.ObjectGeometryPrefab,System.String)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab(Game.Prefabs.PrefabID,Game.Prefabs.PrefabBase&)",
+        "Offset": "IL_024a",
+        "Caller": "System.Void FindIt.Systems.AutoVehiclePropGeneratorSystem::CreatePrefab(System.String,System.Int32,System.Collections.Generic.Dictionary`2<System.String,System.String>,Game.Prefabs.ObjectGeometryPrefab,System.String)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::AddPrefab(Game.Prefabs.PrefabBase,System.String,Game.Prefabs.PrefabBase,Game.Prefabs.ComponentBase)",
+        "Offset": "IL_031c",
+        "Caller": "System.Void FindIt.Systems.AutoVehiclePropGeneratorSystem::CreatePrefab(System.String,System.Int32,System.Collections.Generic.Dictionary`2<System.String,System.String>,Game.Prefabs.ObjectGeometryPrefab,System.String)"
+      },
+      {
+        "Target": "System.Object Game.UI.Editor.InspectorPanelSystem::get_selectedObject()",
+        "Offset": "IL_000e",
+        "Caller": "System.Void FindIt.Systems.CreatorPropertiesUISystem::OnUpdate()"
+      },
+      {
+        "Target": "System.Object Game.UI.Editor.InspectorPanelSystem::get_selectedObject()",
+        "Offset": "IL_0015",
+        "Caller": "System.Void FindIt.Systems.CreatorPropertiesUISystem::Toggle()"
+      },
+      {
+        "Target": "System.Object Game.UI.Editor.InspectorPanelSystem::get_selectedObject()",
+        "Offset": "IL_0006",
+        "Caller": "System.Void FindIt.Systems.CreatorPropertiesUISystem::Open()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_004c",
+        "Caller": "System.Void FindIt.Systems.CreatorPropertiesUISystem::ReturnToAsset()"
+      },
+      {
+        "Target": "System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)",
+        "Offset": "IL_0015",
+        "Caller": "System.Void FindIt.Systems.CreatorPropertiesUISystem::Apply()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0031",
+        "Caller": "System.Void FindIt.Systems.FindItUISystem::OnPrefabChanged(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_0026",
+        "Caller": "System.Void FindIt.Systems.FindItUISystem::OnToolChanged(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_00bf",
+        "Caller": "System.Void FindIt.Systems.FindItUISystem::CacheMultiSelectSupport(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_018c",
+        "Caller": "System.Void FindIt.Systems.FindItUISystem::CacheMultiSelectSupport(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_01c3",
+        "Caller": "System.Void FindIt.Systems.FindItUISystem::CacheMultiSelectSupport(Game.Tools.ToolBaseSystem)"
+      },
+      {
+        "Target": "System.String Game.Tools.ToolBaseSystem::get_toolID()",
+        "Offset": "IL_007a",
+        "Caller": "System.Void FindIt.Systems.FindItUISystem::OnPrefabClicked(System.Int32)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)",
+        "Offset": "IL_0009",
+        "Caller": "System.Int32 FindIt.Systems.FindItUISystem::<RefreshSelectionBinding>b__55_0(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)",
+        "Offset": "IL_000d",
+        "Caller": "System.String FindIt.Systems.OptionsUISystem::GetAssetName(Game.Prefabs.PrefabBase)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnCreate()",
+        "Offset": "IL_0001",
+        "Caller": "System.Void FindIt.Systems.PickerToolSystem::OnCreate()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()",
+        "Offset": "IL_0001",
+        "Caller": "System.Void FindIt.Systems.PickerToolSystem::InitializeRaycast()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStartRunning()",
+        "Offset": "IL_0001",
+        "Caller": "System.Void FindIt.Systems.PickerToolSystem::OnStartRunning()"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::OnStopRunning()",
+        "Offset": "IL_0001",
+        "Caller": "System.Void FindIt.Systems.PickerToolSystem::OnStopRunning()"
+      },
+      {
+        "Target": "System.Boolean Game.Tools.ToolBaseSystem::GetRaycastResult(Unity.Entities.Entity&,Game.Common.RaycastHit&)",
+        "Offset": "IL_0007",
+        "Caller": "Unity.Jobs.JobHandle FindIt.Systems.PickerToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabRef,!!0&)",
+        "Offset": "IL_0064",
+        "Caller": "Unity.Jobs.JobHandle FindIt.Systems.PickerToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "Unity.Jobs.JobHandle Game.Tools.ToolBaseSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Offset": "IL_02fa",
+        "Caller": "Unity.Jobs.JobHandle FindIt.Systems.PickerToolSystem::OnUpdate(Unity.Jobs.JobHandle)"
+      },
+      {
+        "Target": "System.Void Game.Tools.ToolBaseSystem::.ctor()",
+        "Offset": "IL_0009",
+        "Caller": "System.Void FindIt.Systems.PickerToolSystem::.ctor()"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0059",
+        "Caller": "System.Void FindIt.Systems.PrefabIndexingSystem::IndexEntity(FindIt.Domain.Interfaces.IPrefabCategoryProcessor,Unity.Entities.Entity,System.Boolean,System.Collections.Generic.HashSet`1<System.String>)"
+      },
+      {
+        "Target": "System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+        "Offset": "IL_0344",
+        "Caller": "System.Void FindIt.Systems.PrefabIndexingSystem::AddPrefab(Game.Prefabs.PrefabBase,System.String,Unity.Entities.Entity,FindIt.Domain.PrefabIndex,FindIt.Domain.PrefabIndex)"
+      }
+    ],
+    "GameModeGetters": [
+      {
+        "IL": [
+          "IL_0000: ldc.i4.4",
+          "IL_0001: ret"
+        ],
+        "Method": "Game.GameMode FindIt.Systems.CreatorPropertiesUISystem::get_gameMode()"
+      }
+    ]
+  },
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\.cache\\Mods\\pdx_mods\\79634_23\\AssetIconLibrary.dll",
+    "Identity": "AssetIconLibrary, Version=4.1.1.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "74c22fce-e288-4fb1-abaa-f21597ee8601",
+    "SHA256": "15894654BA19ED006100C70AB78BDD647ED5C572A7B505074B1E568D8BBEA55E",
+    "HarmonyReferences": [],
+    "Patches": [],
+    "RelevantCalls": [],
+    "GameModeGetters": []
+  },
+  {
+    "File": "C:\\Users\\ian\\AppData\\LocalLow\\Colossal Order\\Cities Skylines II\\Mods\\MWEditorEnvironment\\MWEditorEnvironment.dll",
+    "Identity": "MWEditorEnvironment, Version=0.1.3.0, Culture=neutral, PublicKeyToken=null",
+    "MVID": "67dc3ba6-0e19-400a-a0c7-9f83c2d41553",
+    "SHA256": "269B767EAA795FF5014AA00C0E242C59845E4AF36D019C8BE9ABF79D757F5BCF",
+    "HarmonyReferences": [],
+    "Patches": [],
+    "RelevantCalls": [],
+    "GameModeGetters": []
+  }
+]

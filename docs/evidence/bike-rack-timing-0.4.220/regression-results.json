@@ -1,0 +1,37 @@
+[
+  {
+    "Suite": "MoveUndoSafety",
+    "Exit": 0,
+    "Result": "PASS: 41 actual-source move hook/commit/pose assertions. Managed doubles; native regeneration acceptance pending."
+  },
+  {
+    "Suite": "BoundCompletionSafety",
+    "Exit": 0,
+    "Result": "PASS: 77 actual-source bound completion checks; native scheduling remains unproven."
+  },
+  {
+    "Suite": "SpawnAccessSafety",
+    "Exit": 0,
+    "Result": "Spawn/access safety: 55 passed."
+  },
+  {
+    "Suite": "EffectUndoSafety",
+    "Exit": 0,
+    "Result": "PASS: 41 actual-source effect lifecycle assertions; native timing remains unproven."
+  },
+  {
+    "Suite": "EffectRestoreSafety",
+    "Exit": 0,
+    "Result": "PASS: 35 actual-source effect restore assertions; native rendering remains unproven."
+  },
+  {
+    "Suite": "BoundFoliageSafety",
+    "Exit": 0,
+    "Result": "PASS: 25 bound foliage safety assertions (managed doubles; native scheduling unproven)."
+  },
+  {
+    "Suite": "AreaMoveSafety",
+    "Exit": 0,
+    "Result": "PASS: 97 actual-source area move hook/geometry assertions; native timing remains unproven."
+  }
+]

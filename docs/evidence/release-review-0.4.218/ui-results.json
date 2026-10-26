@@ -1,0 +1,72 @@
+[
+  {
+    "Suite": "ui-launcher-position",
+    "Exit": 0,
+    "Result": "PASS: 12 launcher placement checks."
+  },
+  {
+    "Suite": "ui-colours-render",
+    "Exit": 0,
+    "Result": "PASS: automatic selection and draft confirmation checks. PASS: ungenerated draft protection check."
+  },
+  {
+    "Suite": "ui-launcher-lifecycle",
+    "Exit": 0,
+    "Result": "PASS: actual launcher hook lifecycle; developer-menu frozen/hidden layout, 80 transitions, coalescing, remount and cleanup without update recursion."
+  },
+  {
+    "Suite": "ui-header-focus",
+    "Exit": 0,
+    "Result": "PASS: original header focus conflict reproduced; navigation group accepts Undo/Close and unregisters exact keys without mismatch."
+  },
+  {
+    "Suite": "ui-components-render",
+    "Exit": 0,
+    "Result": "PASS: compact component panel, one-click paste, modes, restore, empty clipboard gating and persistent result information."
+  },
+  {
+    "Suite": "ui-component-headings",
+    "Exit": 0,
+    "Result": "PASS: exact unique heading mapping, selection/copy, stale/absent context, native controls, event isolation and keyboard selection."
+  },
+  {
+    "Suite": "ui-settings-render",
+    "Exit": 0,
+    "Result": "PASS: Settings tab and moved switches absent with active settings on or off."
+  },
+  {
+    "Suite": "ui-selective-fields",
+    "Exit": 0,
+    "Result": "PASS: selective field UI, Group/Priority preset, field toggle payload, hidden thumbnail and asset-token isolation."
+  },
+  {
+    "Suite": "ui-recovery-render",
+    "Exit": 0,
+    "Result": "PASS: four compact tabs, shared header Undo and no persistent recovery transcript."
+  },
+  {
+    "Suite": "ui-panel-resize",
+    "Exit": 0,
+    "Result": "PASS: native forwarded ref, delayed mount, visible fallback, cancellation, pixel position, tab resize, drag and persistence checks."
+  },
+  {
+    "Suite": "ui-panel-position",
+    "Exit": 0,
+    "Result": "PASS: native forwarded ref, delayed mount, visible fallback, cancellation, pixel position, tab resize, drag and persistence checks. PASS: content-sized shared height and internal overflow regression checks."
+  },
+  {
+    "Suite": "ui-pack-editor",
+    "Exit": 0,
+    "Result": "PASS: separate locale actions, eligible workspace choices, explicit numbering preview, token apply and changed-input invalidation."
+  },
+  {
+    "Suite": "ui-multisave-render",
+    "Exit": 0,
+    "Result": "PASS: 28 actual Multi-Save presentation/command checks; native appearance pending."
+  },
+  {
+    "Suite": "ui-launcher-render",
+    "Exit": 0,
+    "Result": "PASS: launcher visibility, transparent button, anchor and open/close dispatch."
+  }
+]

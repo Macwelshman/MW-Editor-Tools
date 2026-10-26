@@ -5,6 +5,8 @@ const react={...React,useRef:()=>({current:null}),useState:v=>[v,()=>{}],useLayo
 const out={},components=[];
 const code=ts.transpileModule(fs.readFileSync('UI/src/index.tsx','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.React,esModuleInterop:true}}).outputText;
 vm.runInNewContext(code,{exports:out,require:name=>{
+  if(name==='./multi-save')return {registerWorkspaceSaveAll:()=>{}};
+  if(name==='./viewport-row-highlight')return {registerViewportRowHighlight:()=>{}};
   if(name==='./component-headings')return {registerComponentHeadings:()=>{}};
     if(name==='react')return react;
     if(name==='cs2/api')return {bindValue:(_,key)=>key,useValue:key=>key==='width'?500:JSON.stringify(state),trigger:(group,key,value)=>sent.push(value)};

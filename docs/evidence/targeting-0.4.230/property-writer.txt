@@ -1,0 +1,22 @@
+Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::OutlineColors ATTR Game.Rendering.InstancePropertyAttribute _Outlines_Color,Unity.Mathematics.float4,32,0,True
+Game.Rendering.NetProperty Game.Rendering.NetProperty::OutlineColors ATTR Game.Rendering.InstancePropertyAttribute _Outlines_Color,Unity.Mathematics.float4,32,0,True
+Game.Rendering.LaneProperty Game.Rendering.LaneProperty::OutlineColors ATTR Game.Rendering.InstancePropertyAttribute _Outlines_Color,Unity.Mathematics.float4,32,0,True
+CORE MVID=b5ff7e4e-51b0-4c1f-a177-2afdfc22906b
+METHOD System.Boolean Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::GetPropertyValue(T&,System.Int32,System.Int32,System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldfld Colossal.Rendering.UnsafeBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>* Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<TCullingData,TGroupData,TBatchData,TInstanceData>::m_BatchData
+IL_0006: ldarg.1
+IL_0007: ldarg.2
+IL_0008: ldarg.3
+IL_0009: ldarg.s instanceIndex
+IL_000b: call System.Boolean Colossal.Rendering.UnsafeBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>::GetPropertyValue<T>(!!0&,System.Int32,System.Int32,System.Int32)
+IL_0010: ret
+METHOD System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::SetPropertyValue(T,System.Int32,System.Int32,System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldfld Colossal.Rendering.UnsafeBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>* Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<TCullingData,TGroupData,TBatchData,TInstanceData>::m_BatchData
+IL_0006: ldarg.1
+IL_0007: ldarg.2
+IL_0008: ldarg.3
+IL_0009: ldarg.s instanceIndex
+IL_000b: call System.Void Colossal.Rendering.UnsafeBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>::SetPropertyValue<T>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0010: ret

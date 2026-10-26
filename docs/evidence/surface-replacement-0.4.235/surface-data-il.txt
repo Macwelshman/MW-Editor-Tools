@@ -1,0 +1,163 @@
+Game.Prefabs.ObjectSubAreas
+Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+System.Void Game.Prefabs.ObjectSubAreas::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.SubArea>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+Game.Prefabs.SubArea
+Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+Game.Prefabs.SubAreaNode
+Unity.Mathematics.float3 Game.Prefabs.SubAreaNode::m_Position
+System.Int32 Game.Prefabs.SubAreaNode::m_ParentMesh
+Game.Prefabs.SurfacePrefab
+System.Void Game.Prefabs.SurfacePrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Surface>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ldarg.1
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Expand>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002a: pop
+IL_002b: ret
+Game.Prefabs.AreaPrefab
+UnityEngine.Color Game.Prefabs.AreaPrefab::m_Color
+UnityEngine.Color Game.Prefabs.AreaPrefab::m_EdgeColor
+UnityEngine.Color Game.Prefabs.AreaPrefab::m_SelectionColor
+UnityEngine.Color Game.Prefabs.AreaPrefab::m_SelectionEdgeColor
+System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.PrefabBase::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Node>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Triangle>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ret
+System.Void Game.Prefabs.AreaPrefab::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.PrefabBase::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: newobj System.Void System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::.ctor()
+IL_000d: stloc.0
+IL_000e: ldarg.0
+IL_000f: ldloc.0
+IL_0010: call System.Boolean Game.Prefabs.ComponentBase::GetComponents<Game.Prefabs.ComponentBase>(System.Collections.Generic.List`1<T>)
+IL_0015: pop
+IL_0016: newobj System.Void System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::.ctor()
+IL_001b: stloc.1
+IL_001c: ldloc.1
+IL_001d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Area>()
+IL_0022: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0027: pop
+IL_0028: ldc.i4.0
+IL_0029: stloc.3
+IL_002a: br.s IL_003d
+IL_002c: ldloc.0
+IL_002d: ldloc.3
+IL_002e: callvirt !0 System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::get_Item(System.Int32)
+IL_0033: ldloc.1
+IL_0034: callvirt System.Void Game.Prefabs.ComponentBase::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0039: ldloc.3
+IL_003a: ldc.i4.1
+IL_003b: add
+IL_003c: stloc.3
+IL_003d: ldloc.3
+IL_003e: ldloc.0
+IL_003f: callvirt System.Int32 System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::get_Count()
+IL_0044: blt.s IL_002c
+IL_0046: ldloc.1
+IL_0047: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Created>()
+IL_004c: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0051: pop
+IL_0052: ldloc.1
+IL_0053: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Updated>()
+IL_0058: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_005d: pop
+IL_005e: ldarga.s entityManager
+IL_0060: ldarg.2
+IL_0061: call !!0 Unity.Entities.EntityManager::GetComponentData<Game.Prefabs.AreaData>(Unity.Entities.Entity)
+IL_0066: stloc.2
+IL_0067: ldloca.s V_2
+IL_0069: ldarga.s entityManager
+IL_006b: ldloc.1
+IL_006c: call T[] Game.Prefabs.PrefabUtils::ToArray<Unity.Entities.ComponentType>(System.Collections.Generic.HashSet`1<T>)
+IL_0071: call Unity.Entities.EntityArchetype Unity.Entities.EntityManager::CreateArchetype(Unity.Entities.ComponentType[])
+IL_0076: stfld Unity.Entities.EntityArchetype Game.Prefabs.AreaData::m_Archetype
+IL_007b: ldarga.s entityManager
+IL_007d: ldarg.2
+IL_007e: ldloc.2
+IL_007f: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.AreaData>(Unity.Entities.Entity,!!0)
+IL_0084: ret
+Game.Prefabs.AreaGeometryData
+Game.Areas.AreaType Game.Prefabs.AreaGeometryData::m_Type
+Game.Areas.GeometryFlags Game.Prefabs.AreaGeometryData::m_Flags
+System.Single Game.Prefabs.AreaGeometryData::m_SnapDistance
+System.Single Game.Prefabs.AreaGeometryData::m_MaxHeight
+System.Single Game.Prefabs.AreaGeometryData::m_LodBias
+Game.Areas.Surface
+Game.Areas.Area
+Game.Areas.AreaFlags Game.Areas.Area::m_Flags
+Game.Prefabs.PrefabBase
+System.UInt16 Game.Prefabs.PrefabBase::version
+System.UInt16 Game.Prefabs.PrefabBase::m_prefabFormat
+System.Collections.Generic.List`1<Game.Prefabs.ComponentBase> Game.Prefabs.PrefabBase::components
+System.Boolean Game.Prefabs.PrefabBase::isDirty
+Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::<asset>k__BackingField
+System.Void Game.Prefabs.PrefabBase::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.PrefabRef>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+System.Void Game.Prefabs.PrefabBase::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarg.0
+IL_0009: call Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_000e: ldnull
+IL_000f: call System.Boolean Colossal.IO.AssetDatabase.AssetData::op_Inequality(Colossal.IO.AssetDatabase.AssetData,Colossal.IO.AssetDatabase.IAssetData)
+IL_0014: brfalse.s IL_0061
+IL_0016: ldarg.0
+IL_0017: call Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()
+IL_001c: callvirt Colossal.IO.AssetDatabase.SourceMeta Colossal.IO.AssetDatabase.AssetData::GetMeta()
+IL_0021: ldfld System.String Colossal.IO.AssetDatabase.SourceMeta::platformID
+IL_0026: stloc.0
+IL_0027: ldloc.0
+IL_0028: call System.Boolean System.String::IsNullOrEmpty(System.String)
+IL_002d: brtrue.s IL_0061
+IL_002f: ldarga.s entityManager
+IL_0031: call Unity.Entities.World Unity.Entities.EntityManager::get_World()
+IL_0036: callvirt !!0 Unity.Entities.World::GetExistingSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_003b: stloc.1
+IL_003c: ldarga.s entityManager
+IL_003e: ldarg.2
+IL_003f: ldloca.s V_2
+IL_0041: initobj Game.Prefabs.ModPrerequisiteData
+IL_0047: ldloca.s V_2
+IL_0049: ldloc.1
+IL_004a: ldloc.1
+IL_004b: ldloc.0
+IL_004c: callvirt Game.Prefabs.ContentPrefab Game.Prefabs.PrefabSystem::GetOrCreateContentPrefab(System.String)
+IL_0051: callvirt Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)
+IL_0056: stfld Unity.Entities.Entity Game.Prefabs.ModPrerequisiteData::m_ContentPrerequisite
+IL_005b: ldloc.2
+IL_005c: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.ModPrerequisiteData>(Unity.Entities.Entity,!!0)
+IL_0061: ret

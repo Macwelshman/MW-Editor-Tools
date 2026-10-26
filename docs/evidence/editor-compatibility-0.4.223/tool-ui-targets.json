@@ -1,0 +1,32 @@
+[
+  {
+    "Mod": "MoveIt",
+    "SHA256": "02EBEAD8EAC628C0B5B0BFC9751796D1E6DA1E1E702DE0CA3329D81A1BAE20D4",
+    "Targets": [
+      ".extend(\"game-ui/game/components/toolbar/top/toggles.tsx\",\"PhotoModeToggle\"",
+      ".append(\"Game\"",
+      ".append(\"Editor\"",
+      ".append(\"Editor\"",
+      ".append(\"Game\"",
+      ".append(\"Menu\""
+    ]
+  },
+  {
+    "Mod": "BetterBulldozer",
+    "SHA256": "58DCE9A943A96DF8D2E43BE97A6DD902493C49007144E6A29753924467F21972",
+    "Targets": [
+      ".extend(\"game-ui/game/components/tool-options/mouse-tool-options/mouse-tool-options.tsx\",\"MouseToolOptions\"",
+      ".extend(\"game-ui/game/components/tool-options/tool-options-panel.tsx\",\"useToolOptionsVisible\""
+    ]
+  },
+  {
+    "Mod": "Tree_Controller",
+    "SHA256": "3E4DA7E241066E6B7805AA77B45E44D23A55643D4D3CD032AEC8AE09BA51F81F",
+    "Targets": [
+      ".extend(\"game-ui/game/components/tool-options/mouse-tool-options/mouse-tool-options.tsx\",\"MouseToolOptions\"",
+      ".append(\"Game\"",
+      ".append(\"Editor\"",
+      ".extend(\"game-ui/game/components/tool-options/tool-options-panel.tsx\",\"useToolOptionsVisible\""
+    ]
+  }
+]

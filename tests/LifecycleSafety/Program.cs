@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 static class Probe {
-    public static bool RegisterFails, UnregisterFails, RemoveFails, MultiSaveFails,ColoursFails;
-    public static int Adds, Removes, Registered, Unregistered, UiReleases, RecoveryReleases, ConfirmationReleases, Destroyed, Errors, MultiSaveReleases,ColoursReleases;
-    public static void Reset() { RegisterFails=UnregisterFails=RemoveFails=MultiSaveFails=ColoursFails=false; Adds=Removes=Registered=Unregistered=UiReleases=RecoveryReleases=ConfirmationReleases=Destroyed=Errors=MultiSaveReleases=ColoursReleases=0; }
+    public static bool RegisterFails, UnregisterFails, RemoveFails, MultiSaveFails,ColoursFails,ConfirmationFails,IconFails,TargetingFails,OutlineFails;
+    public static int Adds, Removes, Registered, Unregistered, UiReleases, RecoveryReleases, ConfirmationReleases, Destroyed, Errors, MultiSaveReleases,ColoursReleases,IconReleases,TargetingReleases,OutlineReleases;
+    public static void Reset() { RegisterFails=UnregisterFails=RemoveFails=MultiSaveFails=ColoursFails=ConfirmationFails=IconFails=TargetingFails=OutlineFails=false; Adds=Removes=Registered=Unregistered=UiReleases=RecoveryReleases=ConfirmationReleases=Destroyed=Errors=MultiSaveReleases=ColoursReleases=IconReleases=TargetingReleases=OutlineReleases=0; }
 }
 class Program {
     static int checks;
@@ -13,7 +13,7 @@ class Program {
     static MW.EditorTools.Mod Uninitialized() => (MW.EditorTools.Mod)RuntimeHelpers.GetUninitializedObject(typeof(MW.EditorTools.Mod));
     static void Main() {
         Probe.Reset(); var empty=Uninitialized(); empty.OnDispose(); empty.OnDispose(); Check(Probe.Errors==0,"dispose before load tolerates skipped constructor");
-        Probe.Reset(); var mod=Uninitialized(); mod.OnLoad(new Game.UpdateSystem());
+        Probe.Reset(); Probe.ConfirmationFails=true; var conflict=Uninitialized(); conflict.OnLoad(new Game.UpdateSystem()); Check(Probe.Errors==1 && Probe.Registered==1 && Probe.Destroyed==0 && Probe.ConfirmationReleases==1,"confirmation conflict isolated; partial hooks released and other tools loaded"); conflict.OnDispose(); Check(Probe.UiReleases==1 && Probe.RecoveryReleases==1 && Probe.MultiSaveReleases==1 && Probe.ColoursReleases==1,"all independent modules survived confirmation conflict"); Probe.ConfirmationFails=false; Probe.Reset(); Probe.IconFails=true; var iconConflict=Uninitialized(); iconConflict.OnLoad(new Game.UpdateSystem()); Check(Probe.Errors==1&&Probe.Registered==1&&Probe.Destroyed==0&&Probe.IconReleases==1,"thumbnail adapter startup failure releases its hooks without disabling other modules"); iconConflict.OnDispose(); Check(Probe.RecoveryReleases==1&&Probe.UiReleases==1&&Probe.ColoursReleases==1,"Undo and other modules survive thumbnail adapter failure"); Probe.Reset(); Probe.TargetingFails=true; var targetingFailure=Uninitialized(); targetingFailure.OnLoad(new Game.UpdateSystem()); Check(Probe.Errors==1&&Probe.Registered==1&&Probe.Destroyed==0&&Probe.TargetingReleases==1,"targeting startup failure releases its resources without disabling Undo or other modules");targetingFailure.OnDispose();Check(Probe.RecoveryReleases==1&&Probe.UiReleases==1,"Undo and UI dispose after targeting failure");Probe.Reset();Probe.OutlineFails=true;var outlineFailure=Uninitialized();outlineFailure.OnLoad(new Game.UpdateSystem());Check(Probe.Errors==1&&Probe.OutlineReleases==1&&Probe.Registered==1,"outline startup failure is isolated and partial renderer released");outlineFailure.OnDispose();Check(Probe.UiReleases==1&&Probe.RecoveryReleases==1&&Probe.TargetingReleases==1,"Undo, targeting and UI survive optional renderer failure");Probe.Reset(); var mod=Uninitialized(); mod.OnLoad(new Game.UpdateSystem());
         Check(Probe.Adds==2 && Probe.Registered==1 && Probe.Errors==0,"loader bypass still registers all locales and Options");
         Check(MW.EditorTools.Modules.ColourVariations.PaletteWindow.Instance!=null,"Colours controller registered on startup");
         mod.OnDispose(); Check(MW.EditorTools.Modules.ColourVariations.PaletteWindow.Instance==null&&Probe.ColoursReleases==1,"Colours static state and UI released"); Check(Probe.Removes==2 && Probe.Unregistered==1,"registered resources released");
@@ -45,9 +45,9 @@ namespace UnityEngine {
     }
 }
 namespace Game {
-    public enum SystemUpdatePhase {UIUpdate}
+    public enum SystemUpdatePhase {UIUpdate,ToolUpdate,Rendering,PreCulling}
     public class TestWorld {public T GetOrCreateSystemManaged<T>() where T:new(){if(typeof(T)==typeof(MW.EditorTools.Modules.ColourVariations.MWUISystem)&&Probe.ColoursFails)throw new Exception("colours init");if(typeof(T)==typeof(MW.EditorTools.Modules.MultiSave.MultiSaveSystem)&&Probe.MultiSaveFails)throw new Exception("module init");return new T();}}
-    public class UpdateSystem {public TestWorld World=new TestWorld();public void UpdateAt<T>(SystemUpdatePhase phase){} }
+    public class UpdateSystem {public TestWorld World=new TestWorld();public void UpdateAt<T>(SystemUpdatePhase phase){} public void UpdateAfter<T,U>(SystemUpdatePhase phase){}public void UpdateBefore<T,U>(SystemUpdatePhase phase){} }
 }
 namespace Game.Modding {public interface IMod {void OnLoad(Game.UpdateSystem system);void OnDispose();}}
 namespace Game.SceneFlow {
@@ -62,10 +62,10 @@ namespace MW.EditorTools.Settings {
 }
 namespace MW.EditorTools.Services {public class EditorContextService {public bool DialogBusy=>false;public EditorContextService(Game.TestWorld world){}}}
 namespace MW.EditorTools.Modules.DeletionProtection {
-    public class ComponentConfirmation {public void Initialize(Settings.EditorToolsSettings settings){}public void Release(){Probe.ConfirmationReleases++;}}
+    public class ComponentConfirmation {public void Initialize(Settings.EditorToolsSettings settings){if(Probe.ConfirmationFails)throw new NotSupportedException("patch conflict");}public void Release(){Probe.ConfirmationReleases++;}}
     public class ListRecovery {public bool OperationBusy=>false;public bool CanRecordReplacementUndo=>true;public void RecordReplacementUndo(object action){}public void ClearHistory(){}public void SetSaveBusy(Func<bool> value){}public void Initialize(Game.TestWorld world,Settings.EditorToolsSettings settings,Services.EditorContextService context){}public void Release(){Probe.RecoveryReleases++;}}
 }
-namespace MW.EditorTools.UI {public class EditorToolsUISystem {public bool ClipboardShortcutAllowed=>true;public void Initialize(Settings.EditorToolsSettings settings,Services.EditorContextService context,Modules.DeletionProtection.ListRecovery history,Modules.DeletionProtection.ComponentConfirmation protection){}public void ResetWindowPosition(){}public void Release(){Probe.UiReleases++;}}}
+namespace MW.EditorTools.UI {public class EditorToolsUISystem {public bool ClipboardShortcutAllowed=>true;public bool ComponentCommandAllowed=>true;public void Initialize(Settings.EditorToolsSettings settings,Services.EditorContextService context,Modules.DeletionProtection.ListRecovery history,Modules.DeletionProtection.ComponentConfirmation protection){}public void ResetWindowPosition(){}public void Release(){Probe.UiReleases++;}}}
 
 namespace MW.EditorTools.Modules.MultiSave {public class MultiSaveSystem {public bool Enabled;public bool IsBusy=>false;public Func<string> BlockReason;public void Release(){Probe.MultiSaveReleases++;}}}namespace MW.EditorTools.Modules.ColourVariations {
  public class MWUISystem {public bool Enabled;public void Release(){Probe.ColoursReleases++;}}
@@ -74,3 +74,6 @@ namespace MW.EditorTools.Modules.MultiSave {public class MultiSaveSystem {public
 namespace MW.EditorTools.Modules.ComponentManager.Systems {public class ComponentToolSystem {public bool Enabled;public void Initialize(Action beforeWrite,Func<bool> allowWrite){}public void Release(){}}}
 namespace MW.EditorTools.Modules.PropReplacer {public class PropReplacerSystem {public Func<bool> CanRecordUndo;public Action<object> RecordUndo;public bool Enabled;public void Initialize(MW.EditorTools.Services.EditorContextService context,Action beforeWrite,Func<bool> shortcutAllowed){}public void Release(){}}}
 
+
+namespace MW.EditorTools.Modules.PropReplacer {public class SurfaceRenderSystem {public void Initialize(PropReplacerSystem replacer){} public void Release(){}}}
+namespace Game.Rendering {public class AreaBatchSystem {}}

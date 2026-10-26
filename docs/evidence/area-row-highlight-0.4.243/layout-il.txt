@@ -1,0 +1,2227 @@
+Game.UI.Widgets.PagedList
+System.Int32 Game.UI.Widgets.PagedList::m_Length
+System.Int32 Game.UI.Widgets.PagedList::m_CurrentPageIndex
+System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+System.Boolean Game.UI.Widgets.PagedList::m_Expanded
+System.Boolean Game.UI.Widgets.PagedList::<locked>k__BackingField
+Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::<adapter>k__BackingField
+System.Int32 Game.UI.Widgets.PagedList::<level>k__BackingField
+System.Int32 Game.UI.Widgets.PagedList::<pageSize>k__BackingField
+System.Boolean Game.UI.Widgets.PagedList::expanded()
+System.Boolean Game.UI.Widgets.PagedList::locked()
+Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::adapter()
+System.Int32 Game.UI.Widgets.PagedList::level()
+System.Int32 Game.UI.Widgets.PagedList::pageSize()
+System.Int32 Game.UI.Widgets.PagedList::pageCount()
+System.Boolean Game.UI.Widgets.PagedList::searchable()
+System.String Game.UI.Widgets.PagedList::searchQuery()
+System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::children()
+System.Int32 Game.UI.Widgets.PagedList::currentPageIndex()
+System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::visibleChildren()
+System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::get_visibleChildren()
+IL_0000: ldarg.0
+IL_0001: call System.Boolean Game.UI.Widgets.PagedList::get_expanded()
+IL_0006: brtrue.s IL_0010
+IL_0008: call !!0[] System.Array::Empty<Game.UI.Widgets.IWidget>()
+IL_000d: stloc.0
+IL_000e: ldloc.0
+IL_000f: ret
+IL_0010: ldarg.0
+IL_0011: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_0016: stloc.0
+IL_0017: ldloc.0
+IL_0018: ret
+Game.UI.Widgets.WidgetChanges Game.UI.Widgets.PagedList::Update()
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Widgets.WidgetChanges Game.UI.Widgets.NamedWidget::Update()
+IL_0006: stloc.0
+IL_0007: ldarg.0
+IL_0008: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_000d: callvirt System.Int32 Game.UI.Widgets.IListAdapter::get_length()
+IL_0012: stloc.1
+IL_0013: ldloc.1
+IL_0014: ldarg.0
+IL_0015: ldfld System.Int32 Game.UI.Widgets.PagedList::m_Length
+IL_001a: beq.s IL_0027
+IL_001c: ldloc.0
+IL_001d: ldc.i4.2
+IL_001e: or
+IL_001f: stloc.0
+IL_0020: ldarg.0
+IL_0021: ldloc.1
+IL_0022: stfld System.Int32 Game.UI.Widgets.PagedList::m_Length
+IL_0027: ldarg.0
+IL_0028: ldarg.0
+IL_0029: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_002e: ldarg.0
+IL_002f: ldfld System.Int32 Game.UI.Widgets.PagedList::m_Length
+IL_0034: ldloca.s V_2
+IL_0036: ldloca.s V_3
+IL_0038: ldloca.s V_4
+IL_003a: call System.Void Game.UI.Widgets.PagedList::CalculateIndices(System.Int32,System.Int32,System.Int32&,System.Int32&,System.Int32&)
+IL_003f: ldloc.2
+IL_0040: ldarg.0
+IL_0041: ldfld System.Int32 Game.UI.Widgets.PagedList::m_CurrentPageIndex
+IL_0046: bne.un.s IL_005b
+IL_0048: ldloc.3
+IL_0049: ldarg.0
+IL_004a: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_004f: bne.un.s IL_005b
+IL_0051: ldloc.s V_4
+IL_0053: ldarg.0
+IL_0054: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_0059: beq.s IL_0075
+IL_005b: ldloc.0
+IL_005c: ldc.i4.2
+IL_005d: or
+IL_005e: stloc.0
+IL_005f: ldarg.0
+IL_0060: ldloc.2
+IL_0061: stfld System.Int32 Game.UI.Widgets.PagedList::m_CurrentPageIndex
+IL_0066: ldarg.0
+IL_0067: ldloc.3
+IL_0068: stfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_006d: ldarg.0
+IL_006e: ldloc.s V_4
+IL_0070: stfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_0075: ldarg.0
+IL_0076: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_007b: ldarg.0
+IL_007c: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_0081: ldarg.0
+IL_0082: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_0087: callvirt System.Boolean Game.UI.Widgets.IListAdapter::UpdateRange(System.Int32,System.Int32)
+IL_008c: brfalse IL_011c
+IL_0091: ldarg.0
+IL_0092: ldfld System.Boolean Game.UI.Widgets.PagedList::m_Expanded
+IL_0097: brfalse.s IL_009d
+IL_0099: ldloc.0
+IL_009a: ldc.i4.4
+IL_009b: or
+IL_009c: stloc.0
+IL_009d: ldarg.0
+IL_009e: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_00a3: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Clear()
+IL_00a8: ldarg.0
+IL_00a9: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_00ae: ldarg.0
+IL_00af: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_00b4: callvirt System.Collections.Generic.IEnumerable`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.IListAdapter::BuildElementsInRange()
+IL_00b9: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::AddRange(System.Collections.Generic.IEnumerable`1<!0>)
+IL_00be: ldarg.0
+IL_00bf: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_00c4: ldarg.0
+IL_00c5: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_00ca: sub
+IL_00cb: ldarg.0
+IL_00cc: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_00d1: callvirt System.Int32 System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::get_Count()
+IL_00d6: call System.Void Unity.Assertions.Assert::AreEqual(System.Int32,System.Int32)
+IL_00db: ldarg.0
+IL_00dc: ldfld System.Boolean Game.UI.Widgets.Widget::m_Disabled
+IL_00e1: brfalse.s IL_011c
+IL_00e3: ldarg.0
+IL_00e4: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_00e9: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::GetEnumerator()
+IL_00ee: stloc.s V_5
+IL_00f0: br.s IL_0103
+IL_00f2: ldloca.s V_5
+IL_00f4: call !0 System.Collections.Generic.List`1/Enumerator<Game.UI.Widgets.IWidget>::get_Current()
+IL_00f9: stloc.s V_6
+IL_00fb: ldarg.0
+IL_00fc: ldloc.s V_6
+IL_00fe: call System.Void Game.UI.Widgets.PagedList::DisableChildren(Game.UI.Widgets.IWidget)
+IL_0103: ldloca.s V_5
+IL_0105: call System.Boolean System.Collections.Generic.List`1/Enumerator<Game.UI.Widgets.IWidget>::MoveNext()
+IL_010a: brtrue.s IL_00f2
+IL_010c: leave.s IL_011c
+IL_010e: ldloca.s V_5
+IL_0110: constrained. System.Collections.Generic.List`1/Enumerator<Game.UI.Widgets.IWidget>
+IL_0116: callvirt System.Void System.IDisposable::Dispose()
+IL_011b: endfinally
+IL_011c: ldloc.0
+IL_011d: ret
+System.Void Game.UI.Widgets.PagedList::WriteProperties(Colossal.UI.Binding.IJsonWriter)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.UI.Widgets.NamedWidgetWithTooltip::WriteProperties(Colossal.UI.Binding.IJsonWriter)
+IL_0007: ldarg.1
+IL_0008: ldstr "expanded"
+IL_000d: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_0012: ldarg.1
+IL_0013: ldarg.0
+IL_0014: call System.Boolean Game.UI.Widgets.PagedList::get_expanded()
+IL_0019: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_001e: ldarg.1
+IL_001f: ldstr "locked"
+IL_0024: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_0029: ldarg.1
+IL_002a: ldarg.0
+IL_002b: call System.Boolean Game.UI.Widgets.PagedList::get_locked()
+IL_0030: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_0035: ldarg.1
+IL_0036: ldstr "resizable"
+IL_003b: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_0040: ldarg.1
+IL_0041: ldarg.0
+IL_0042: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_0047: callvirt System.Boolean Game.UI.Widgets.IListAdapter::get_resizable()
+IL_004c: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_0051: ldarg.1
+IL_0052: ldstr "sortable"
+IL_0057: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_005c: ldarg.1
+IL_005d: ldarg.0
+IL_005e: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_0063: callvirt System.Boolean Game.UI.Widgets.IListAdapter::get_sortable()
+IL_0068: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_006d: ldarg.1
+IL_006e: ldstr "length"
+IL_0073: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_0078: ldarg.1
+IL_0079: ldarg.0
+IL_007a: ldfld System.Int32 Game.UI.Widgets.PagedList::m_Length
+IL_007f: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_0084: ldarg.1
+IL_0085: ldstr "currentPageIndex"
+IL_008a: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_008f: ldarg.1
+IL_0090: ldarg.0
+IL_0091: call System.Int32 Game.UI.Widgets.PagedList::get_currentPageIndex()
+IL_0096: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_009b: ldarg.1
+IL_009c: ldstr "pageCount"
+IL_00a1: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_00a6: ldarg.1
+IL_00a7: ldarg.0
+IL_00a8: call System.Int32 Game.UI.Widgets.PagedList::get_pageCount()
+IL_00ad: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_00b2: ldarg.1
+IL_00b3: ldstr "searchable"
+IL_00b8: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_00bd: ldarg.1
+IL_00be: ldarg.0
+IL_00bf: call System.Boolean Game.UI.Widgets.PagedList::get_searchable()
+IL_00c4: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_00c9: ldarg.1
+IL_00ca: ldstr "searchQuery"
+IL_00cf: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_00d4: ldarg.1
+IL_00d5: ldarg.0
+IL_00d6: call System.String Game.UI.Widgets.PagedList::get_searchQuery()
+IL_00db: dup
+IL_00dc: brtrue.s IL_00e4
+IL_00de: pop
+IL_00df: ldsfld System.String System.String::Empty
+IL_00e4: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.String)
+IL_00e9: ldarg.1
+IL_00ea: ldstr "childStartIndex"
+IL_00ef: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_00f4: ldarg.1
+IL_00f5: ldarg.0
+IL_00f6: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_00fb: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_0100: ldarg.1
+IL_0101: ldstr "childEndIndex"
+IL_0106: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_010b: ldarg.1
+IL_010c: ldarg.0
+IL_010d: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_0112: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_0117: ret
+Game.Areas.HangaroundLocation
+Game.Prefabs.AreaPrefab
+UnityEngine.Color Game.Prefabs.AreaPrefab::m_Color
+UnityEngine.Color Game.Prefabs.AreaPrefab::m_EdgeColor
+UnityEngine.Color Game.Prefabs.AreaPrefab::m_SelectionColor
+UnityEngine.Color Game.Prefabs.AreaPrefab::m_SelectionEdgeColor
+System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.PrefabBase::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Node>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Triangle>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ret
+System.Void Game.Prefabs.AreaPrefab::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.PrefabBase::LateInitialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: newobj System.Void System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::.ctor()
+IL_000d: stloc.0
+IL_000e: ldarg.0
+IL_000f: ldloc.0
+IL_0010: call System.Boolean Game.Prefabs.ComponentBase::GetComponents<Game.Prefabs.ComponentBase>(System.Collections.Generic.List`1<T>)
+IL_0015: pop
+IL_0016: newobj System.Void System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::.ctor()
+IL_001b: stloc.1
+IL_001c: ldloc.1
+IL_001d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Area>()
+IL_0022: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0027: pop
+IL_0028: ldc.i4.0
+IL_0029: stloc.3
+IL_002a: br.s IL_003d
+IL_002c: ldloc.0
+IL_002d: ldloc.3
+IL_002e: callvirt !0 System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::get_Item(System.Int32)
+IL_0033: ldloc.1
+IL_0034: callvirt System.Void Game.Prefabs.ComponentBase::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0039: ldloc.3
+IL_003a: ldc.i4.1
+IL_003b: add
+IL_003c: stloc.3
+IL_003d: ldloc.3
+IL_003e: ldloc.0
+IL_003f: callvirt System.Int32 System.Collections.Generic.List`1<Game.Prefabs.ComponentBase>::get_Count()
+IL_0044: blt.s IL_002c
+IL_0046: ldloc.1
+IL_0047: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Created>()
+IL_004c: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0051: pop
+IL_0052: ldloc.1
+IL_0053: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.Updated>()
+IL_0058: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_005d: pop
+IL_005e: ldarga.s entityManager
+IL_0060: ldarg.2
+IL_0061: call !!0 Unity.Entities.EntityManager::GetComponentData<Game.Prefabs.AreaData>(Unity.Entities.Entity)
+IL_0066: stloc.2
+IL_0067: ldloca.s V_2
+IL_0069: ldarga.s entityManager
+IL_006b: ldloc.1
+IL_006c: call T[] Game.Prefabs.PrefabUtils::ToArray<Unity.Entities.ComponentType>(System.Collections.Generic.HashSet`1<T>)
+IL_0071: call Unity.Entities.EntityArchetype Unity.Entities.EntityManager::CreateArchetype(Unity.Entities.ComponentType[])
+IL_0076: stfld Unity.Entities.EntityArchetype Game.Prefabs.AreaData::m_Archetype
+IL_007b: ldarga.s entityManager
+IL_007d: ldarg.2
+IL_007e: ldloc.2
+IL_007f: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.AreaData>(Unity.Entities.Entity,!!0)
+IL_0084: ret
+Game.Prefabs.SpaceData
+Game.Prefabs.ClearArea
+System.Void Game.Prefabs.ClearArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Clear>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+Game.Prefabs.ClipArea
+System.Void Game.Prefabs.ClipArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Clip>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+Game.Prefabs.DistrictPrefab
+UnityEngine.Color Game.Prefabs.DistrictPrefab::m_NameColor
+UnityEngine.Color Game.Prefabs.DistrictPrefab::m_SelectedNameColor
+System.Void Game.Prefabs.DistrictPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.District>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ldarg.1
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.LabelExtents>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002a: pop
+IL_002b: ldarg.1
+IL_002c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.LabelVertex>()
+IL_0031: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0036: pop
+IL_0037: ldarg.1
+IL_0038: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.DistrictModifier>()
+IL_003d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0042: pop
+IL_0043: ldarg.1
+IL_0044: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Policies.Policy>()
+IL_0049: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004e: pop
+IL_004f: ret
+System.Void Game.Prefabs.DistrictPrefab::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldloca.s V_0
+IL_000a: initobj Game.Prefabs.AreaNameData
+IL_0010: ldloca.s V_0
+IL_0012: ldarg.0
+IL_0013: ldfld UnityEngine.Color Game.Prefabs.DistrictPrefab::m_NameColor
+IL_0018: call UnityEngine.Color32 UnityEngine.Color32::op_Implicit(UnityEngine.Color)
+IL_001d: stfld UnityEngine.Color32 Game.Prefabs.AreaNameData::m_Color
+IL_0022: ldloca.s V_0
+IL_0024: ldarg.0
+IL_0025: ldfld UnityEngine.Color Game.Prefabs.DistrictPrefab::m_SelectedNameColor
+IL_002a: call UnityEngine.Color32 UnityEngine.Color32::op_Implicit(UnityEngine.Color)
+IL_002f: stfld UnityEngine.Color32 Game.Prefabs.AreaNameData::m_SelectedColor
+IL_0034: ldarga.s entityManager
+IL_0036: ldarg.2
+IL_0037: ldloc.0
+IL_0038: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.AreaNameData>(Unity.Entities.Entity,!!0)
+IL_003d: ret
+Game.Prefabs.ExtractorArea
+Game.Areas.MapFeature Game.Prefabs.ExtractorArea::m_MapFeature
+System.Single Game.Prefabs.ExtractorArea::m_ObjectSpawnFactor
+System.Single Game.Prefabs.ExtractorArea::m_MaxObjectArea
+System.Boolean Game.Prefabs.ExtractorArea::m_RequireNaturalResource
+System.Single Game.Prefabs.ExtractorArea::m_WorkAmountFactor
+System.Void Game.Prefabs.ExtractorArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Extractor>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.1
+IL_000d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_0012: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0017: pop
+IL_0018: ldarg.0
+IL_0019: ldfld Game.Areas.MapFeature Game.Prefabs.ExtractorArea::m_MapFeature
+IL_001e: ldc.i4.3
+IL_001f: bne.un.s IL_002d
+IL_0021: ldarg.1
+IL_0022: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.WoodResource>()
+IL_0027: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002c: pop
+IL_002d: ret
+System.Void Game.Prefabs.ExtractorArea::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: initobj Game.Prefabs.ExtractorAreaData
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.0
+IL_000b: ldfld Game.Areas.MapFeature Game.Prefabs.ExtractorArea::m_MapFeature
+IL_0010: stfld Game.Areas.MapFeature Game.Prefabs.ExtractorAreaData::m_MapFeature
+IL_0015: ldloca.s V_0
+IL_0017: ldarg.0
+IL_0018: ldfld System.Single Game.Prefabs.ExtractorArea::m_ObjectSpawnFactor
+IL_001d: stfld System.Single Game.Prefabs.ExtractorAreaData::m_ObjectSpawnFactor
+IL_0022: ldloca.s V_0
+IL_0024: ldarg.0
+IL_0025: ldfld System.Single Game.Prefabs.ExtractorArea::m_MaxObjectArea
+IL_002a: stfld System.Single Game.Prefabs.ExtractorAreaData::m_MaxObjectArea
+IL_002f: ldloca.s V_0
+IL_0031: ldarg.0
+IL_0032: ldfld System.Boolean Game.Prefabs.ExtractorArea::m_RequireNaturalResource
+IL_0037: stfld System.Boolean Game.Prefabs.ExtractorAreaData::m_RequireNaturalResource
+IL_003c: ldloca.s V_0
+IL_003e: ldarg.0
+IL_003f: ldfld System.Single Game.Prefabs.ExtractorArea::m_WorkAmountFactor
+IL_0044: stfld System.Single Game.Prefabs.ExtractorAreaData::m_WorkAmountFactor
+IL_0049: ldarga.s entityManager
+IL_004b: ldarg.2
+IL_004c: ldloc.0
+IL_004d: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.ExtractorAreaData>(Unity.Entities.Entity,!!0)
+IL_0052: ret
+Game.Prefabs.HangaroundArea
+Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+System.Void Game.Prefabs.HangaroundArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.HangaroundLocation>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+System.Void Game.Prefabs.HangaroundArea::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarg.0
+IL_0009: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.NavigationArea>()
+IL_000e: stloc.0
+IL_000f: ldloca.s V_1
+IL_0011: ldloc.0
+IL_0012: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.NavigationArea::m_ConnectionType
+IL_0017: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocationData::m_ConnectionType
+IL_001c: ldloca.s V_1
+IL_001e: ldloc.0
+IL_001f: ldfld Game.Net.TrackTypes Game.Prefabs.NavigationArea::m_TrackTypes
+IL_0024: stfld Game.Net.TrackTypes Game.Prefabs.SpawnLocationData::m_TrackTypes
+IL_0029: ldloca.s V_1
+IL_002b: ldloc.0
+IL_002c: ldfld Game.Net.RoadTypes Game.Prefabs.NavigationArea::m_RoadTypes
+IL_0031: stfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_0036: ldloca.s V_1
+IL_0038: ldc.i4.0
+IL_0039: stfld System.Boolean Game.Prefabs.SpawnLocationData::m_RequireAuthorization
+IL_003e: ldloca.s V_1
+IL_0040: ldc.i4.0
+IL_0041: stfld System.Boolean Game.Prefabs.SpawnLocationData::m_HangaroundOnLane
+IL_0046: ldarg.0
+IL_0047: ldfld Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+IL_004c: brfalse.s IL_009b
+IL_004e: ldarg.0
+IL_004f: ldfld Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+IL_0054: ldlen
+IL_0055: brfalse.s IL_009b
+IL_0057: ldloca.s V_1
+IL_0059: ldflda Game.Prefabs.ActivityMask Game.Prefabs.SpawnLocationData::m_ActivityMask
+IL_005e: initobj Game.Prefabs.ActivityMask
+IL_0064: ldc.i4.0
+IL_0065: stloc.2
+IL_0066: br.s IL_008e
+IL_0068: ldloca.s V_1
+IL_006a: ldflda Game.Prefabs.ActivityMask Game.Prefabs.SpawnLocationData::m_ActivityMask
+IL_006f: ldflda System.UInt32 Game.Prefabs.ActivityMask::m_Mask
+IL_0074: dup
+IL_0075: ldind.u4
+IL_0076: ldarg.0
+IL_0077: ldfld Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+IL_007c: ldloc.2
+IL_007d: ldelem.i4
+IL_007e: newobj System.Void Game.Prefabs.ActivityMask::.ctor(Game.Prefabs.ActivityType)
+IL_0083: ldfld System.UInt32 Game.Prefabs.ActivityMask::m_Mask
+IL_0088: or
+IL_0089: stind.i4
+IL_008a: ldloc.2
+IL_008b: ldc.i4.1
+IL_008c: add
+IL_008d: stloc.2
+IL_008e: ldloc.2
+IL_008f: ldarg.0
+IL_0090: ldfld Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+IL_0095: ldlen
+IL_0096: conv.i4
+IL_0097: blt.s IL_0068
+IL_0099: br.s IL_00a8
+IL_009b: ldloca.s V_1
+IL_009d: ldc.i4.1
+IL_009e: newobj System.Void Game.Prefabs.ActivityMask::.ctor(Game.Prefabs.ActivityType)
+IL_00a3: stfld Game.Prefabs.ActivityMask Game.Prefabs.SpawnLocationData::m_ActivityMask
+IL_00a8: ldarga.s entityManager
+IL_00aa: ldarg.2
+IL_00ab: ldloc.1
+IL_00ac: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.SpawnLocationData>(Unity.Entities.Entity,!!0)
+IL_00b1: ret
+Game.Prefabs.LotPrefab
+System.Single Game.Prefabs.LotPrefab::m_MaxRadius
+UnityEngine.Color Game.Prefabs.LotPrefab::m_RangeColor
+System.Boolean Game.Prefabs.LotPrefab::m_OnWater
+System.Boolean Game.Prefabs.LotPrefab::m_AllowOverlap
+System.Boolean Game.Prefabs.LotPrefab::m_AllowEditing
+System.Void Game.Prefabs.LotPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Lot>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ldarg.1
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.SubObject>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002a: pop
+IL_002b: ldarg.1
+IL_002c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.PseudoRandomSeed>()
+IL_0031: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0036: pop
+IL_0037: ret
+System.Void Game.Prefabs.LotPrefab::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarga.s entityManager
+IL_000a: ldarg.2
+IL_000b: ldarg.0
+IL_000c: ldfld System.Single Game.Prefabs.LotPrefab::m_MaxRadius
+IL_0011: ldarg.0
+IL_0012: ldfld UnityEngine.Color Game.Prefabs.LotPrefab::m_RangeColor
+IL_0017: call UnityEngine.Color32 UnityEngine.Color32::op_Implicit(UnityEngine.Color)
+IL_001c: ldarg.0
+IL_001d: ldfld System.Boolean Game.Prefabs.LotPrefab::m_OnWater
+IL_0022: ldarg.0
+IL_0023: ldfld System.Boolean Game.Prefabs.LotPrefab::m_AllowOverlap
+IL_0028: ldarg.0
+IL_0029: ldfld System.Boolean Game.Prefabs.LotPrefab::m_AllowEditing
+IL_002e: newobj System.Void Game.Prefabs.LotData::.ctor(System.Single,UnityEngine.Color32,System.Boolean,System.Boolean,System.Boolean)
+IL_0033: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.LotData>(Unity.Entities.Entity,!!0)
+IL_0038: ret
+Game.Prefabs.MapTilePrefab
+System.Single Game.Prefabs.MapTilePrefab::m_PurchaseCostFactor
+Game.Prefabs.MapTilePrefab/FeatureInfo[] Game.Prefabs.MapTilePrefab::m_MapFeatures
+System.Void Game.Prefabs.MapTilePrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.MapTile>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.MapFeatureElement>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ldarg.1
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002a: pop
+IL_002b: ret
+System.Void Game.Prefabs.MapTilePrefab::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarga.s entityManager
+IL_000a: ldarg.2
+IL_000b: ldc.i4.0
+IL_000c: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityManager::GetBuffer<Game.Prefabs.MapFeatureData>(Unity.Entities.Entity,System.Boolean)
+IL_0011: stloc.0
+IL_0012: ldloc.0
+IL_0013: ldc.i4.s 9
+IL_0015: ldloca.s V_2
+IL_0017: initobj Game.Prefabs.MapFeatureData
+IL_001d: ldloc.2
+IL_001e: call System.Void Colossal.Collections.CollectionUtils::ResizeInitialized<Game.Prefabs.MapFeatureData>(Unity.Entities.DynamicBuffer`1<!!0>,System.Int32,!!0)
+IL_0023: ldc.i4.0
+IL_0024: stloc.3
+IL_0025: br.s IL_004f
+IL_0027: ldarg.0
+IL_0028: ldfld Game.Prefabs.MapTilePrefab/FeatureInfo[] Game.Prefabs.MapTilePrefab::m_MapFeatures
+IL_002d: ldloc.3
+IL_002e: ldelem.ref
+IL_002f: stloc.s V_4
+IL_0031: ldloca.s V_0
+IL_0033: ldloc.s V_4
+IL_0035: ldfld Game.Areas.MapFeature Game.Prefabs.MapTilePrefab/FeatureInfo::m_MapFeature
+IL_003a: ldloc.s V_4
+IL_003c: ldfld System.Single Game.Prefabs.MapTilePrefab/FeatureInfo::m_Cost
+IL_0041: newobj System.Void Game.Prefabs.MapFeatureData::.ctor(System.Single)
+IL_0046: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.MapFeatureData>::set_Item(System.Int32,!0)
+IL_004b: ldloc.3
+IL_004c: ldc.i4.1
+IL_004d: add
+IL_004e: stloc.3
+IL_004f: ldloc.3
+IL_0050: ldarg.0
+IL_0051: ldfld Game.Prefabs.MapTilePrefab/FeatureInfo[] Game.Prefabs.MapTilePrefab::m_MapFeatures
+IL_0056: ldlen
+IL_0057: conv.i4
+IL_0058: blt.s IL_0027
+IL_005a: ldloca.s V_1
+IL_005c: ldarg.0
+IL_005d: ldfld System.Single Game.Prefabs.MapTilePrefab::m_PurchaseCostFactor
+IL_0062: call System.Void Game.Prefabs.TilePurchaseCostFactor::.ctor(System.Single)
+IL_0067: ldarga.s entityManager
+IL_0069: ldarg.2
+IL_006a: ldloc.1
+IL_006b: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.TilePurchaseCostFactor>(Unity.Entities.Entity,!!0)
+IL_0070: ret
+Game.Prefabs.MasterArea
+Game.Prefabs.SlaveAreaInfo[] Game.Prefabs.MasterArea::m_SlaveAreas
+System.Void Game.Prefabs.MasterArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.SubArea>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+Game.Prefabs.NavigationArea
+Game.Prefabs.RouteConnectionType Game.Prefabs.NavigationArea::m_ConnectionType
+Game.Prefabs.RouteConnectionType Game.Prefabs.NavigationArea::m_SecondaryType
+Game.Net.TrackTypes Game.Prefabs.NavigationArea::m_TrackTypes
+Game.Net.RoadTypes Game.Prefabs.NavigationArea::m_RoadTypes
+System.Void Game.Prefabs.NavigationArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Navigation>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.1
+IL_000d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.SubLane>()
+IL_0012: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0017: pop
+IL_0018: ret
+System.Void Game.Prefabs.NavigationArea::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.0
+IL_000b: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.NavigationArea::m_ConnectionType
+IL_0010: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.NavigationAreaData::m_ConnectionType
+IL_0015: ldloca.s V_0
+IL_0017: ldarg.0
+IL_0018: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.NavigationArea::m_SecondaryType
+IL_001d: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.NavigationAreaData::m_SecondaryType
+IL_0022: ldloca.s V_0
+IL_0024: ldarg.0
+IL_0025: ldfld Game.Net.TrackTypes Game.Prefabs.NavigationArea::m_TrackTypes
+IL_002a: stfld Game.Net.TrackTypes Game.Prefabs.NavigationAreaData::m_TrackTypes
+IL_002f: ldloca.s V_0
+IL_0031: ldarg.0
+IL_0032: ldfld Game.Net.RoadTypes Game.Prefabs.NavigationArea::m_RoadTypes
+IL_0037: stfld Game.Net.RoadTypes Game.Prefabs.NavigationAreaData::m_RoadTypes
+IL_003c: ldarga.s entityManager
+IL_003e: ldarg.2
+IL_003f: ldloc.0
+IL_0040: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.NavigationAreaData>(Unity.Entities.Entity,!!0)
+IL_0045: ret
+Game.Prefabs.RenderedArea
+Game.Prefabs.RenderedArea/Version Game.Prefabs.RenderedArea::m_Version
+UnityEngine.Material Game.Prefabs.RenderedArea::m_Material
+System.Single Game.Prefabs.RenderedArea::m_Roundness
+System.Single Game.Prefabs.RenderedArea::m_LodBias
+System.Int32 Game.Prefabs.RenderedArea::m_RendererPriority
+Game.Rendering.DecalLayers Game.Prefabs.RenderedArea::m_DecalLayerMask
+UnityEngine.Color Game.Prefabs.RenderedArea::m_BaseColor
+Colossal.IO.AssetDatabase.AssetReference`1<Colossal.IO.AssetDatabase.TextureAsset> Game.Prefabs.RenderedArea::m_BaseColorMap
+Colossal.IO.AssetDatabase.AssetReference`1<Colossal.IO.AssetDatabase.TextureAsset> Game.Prefabs.RenderedArea::m_NormalMap
+Colossal.IO.AssetDatabase.AssetReference`1<Colossal.IO.AssetDatabase.TextureAsset> Game.Prefabs.RenderedArea::m_MaskMap
+System.Single Game.Prefabs.RenderedArea::m_Metallic
+System.Single Game.Prefabs.RenderedArea::m_Smoothness
+System.Single Game.Prefabs.RenderedArea::m_NormalOpacity
+System.Single Game.Prefabs.RenderedArea::m_MetallicOpacity
+System.Single Game.Prefabs.RenderedArea::m_NormalAlphaSource
+System.Single Game.Prefabs.RenderedArea::m_MetallicAlphaSource
+System.Single Game.Prefabs.RenderedArea::m_UVScale
+System.Single Game.Prefabs.RenderedArea::m_EdgeNormal
+Unity.Mathematics.float2 Game.Prefabs.RenderedArea::m_EdgeFadeRange
+Unity.Mathematics.float2 Game.Prefabs.RenderedArea::m_EdgeNormalRange
+Unity.Mathematics.float2 Game.Prefabs.RenderedArea::m_EdgeNoise
+System.Void Game.Prefabs.RenderedArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Batch>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+Game.Prefabs.SpacePrefab
+System.Void Game.Prefabs.SpacePrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Space>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ret
+Game.Prefabs.StorageArea
+Game.Economy.ResourceInEditor[] Game.Prefabs.StorageArea::m_StoredResources
+System.Int32 Game.Prefabs.StorageArea::m_Capacity
+System.Void Game.Prefabs.StorageArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Storage>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.1
+IL_000d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_0012: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0017: pop
+IL_0018: ret
+System.Void Game.Prefabs.StorageArea::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldc.i4.0
+IL_0009: conv.i8
+IL_000a: stloc.0
+IL_000b: ldarg.0
+IL_000c: ldfld Game.Economy.ResourceInEditor[] Game.Prefabs.StorageArea::m_StoredResources
+IL_0011: brfalse.s IL_0036
+IL_0013: ldc.i4.0
+IL_0014: stloc.2
+IL_0015: br.s IL_002b
+IL_0017: ldloc.0
+IL_0018: ldarg.0
+IL_0019: ldfld Game.Economy.ResourceInEditor[] Game.Prefabs.StorageArea::m_StoredResources
+IL_001e: ldloc.2
+IL_001f: ldelem.i4
+IL_0020: call Game.Economy.Resource Game.Economy.EconomyUtils::GetResource(Game.Economy.ResourceInEditor)
+IL_0025: or
+IL_0026: stloc.0
+IL_0027: ldloc.2
+IL_0028: ldc.i4.1
+IL_0029: add
+IL_002a: stloc.2
+IL_002b: ldloc.2
+IL_002c: ldarg.0
+IL_002d: ldfld Game.Economy.ResourceInEditor[] Game.Prefabs.StorageArea::m_StoredResources
+IL_0032: ldlen
+IL_0033: conv.i4
+IL_0034: blt.s IL_0017
+IL_0036: ldloca.s V_1
+IL_0038: ldloc.0
+IL_0039: stfld Game.Economy.Resource Game.Prefabs.StorageAreaData::m_Resources
+IL_003e: ldloca.s V_1
+IL_0040: ldarg.0
+IL_0041: ldfld System.Int32 Game.Prefabs.StorageArea::m_Capacity
+IL_0046: stfld System.Int32 Game.Prefabs.StorageAreaData::m_Capacity
+IL_004b: ldarga.s entityManager
+IL_004d: ldarg.2
+IL_004e: ldloc.1
+IL_004f: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.StorageAreaData>(Unity.Entities.Entity,!!0)
+IL_0054: ret
+Game.Prefabs.SurfacePrefab
+System.Void Game.Prefabs.SurfacePrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Surface>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ldarg.1
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Expand>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002a: pop
+IL_002b: ret
+Game.Prefabs.TerrainArea
+System.Single Game.Prefabs.TerrainArea::m_HeightOffset
+System.Single Game.Prefabs.TerrainArea::m_SlopeWidth
+System.Single Game.Prefabs.TerrainArea::m_NoiseScale
+System.Single Game.Prefabs.TerrainArea::m_NoiseFactor
+System.Boolean Game.Prefabs.TerrainArea::m_AbsoluteHeight
+System.Void Game.Prefabs.TerrainArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Terrain>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+System.Void Game.Prefabs.TerrainArea::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.0
+IL_000b: ldfld System.Single Game.Prefabs.TerrainArea::m_HeightOffset
+IL_0010: stfld System.Single Game.Prefabs.TerrainAreaData::m_HeightOffset
+IL_0015: ldloca.s V_0
+IL_0017: ldarg.0
+IL_0018: ldfld System.Single Game.Prefabs.TerrainArea::m_SlopeWidth
+IL_001d: stfld System.Single Game.Prefabs.TerrainAreaData::m_SlopeWidth
+IL_0022: ldloca.s V_0
+IL_0024: ldc.r4 1
+IL_0029: ldc.r4 0.001
+IL_002e: ldarg.0
+IL_002f: ldfld System.Single Game.Prefabs.TerrainArea::m_NoiseScale
+IL_0034: call System.Single Unity.Mathematics.math::max(System.Single,System.Single)
+IL_0039: div
+IL_003a: stfld System.Single Game.Prefabs.TerrainAreaData::m_NoiseScale
+IL_003f: ldloca.s V_0
+IL_0041: ldarg.0
+IL_0042: ldfld System.Single Game.Prefabs.TerrainArea::m_NoiseFactor
+IL_0047: stfld System.Single Game.Prefabs.TerrainAreaData::m_NoiseFactor
+IL_004c: ldloca.s V_0
+IL_004e: ldarg.0
+IL_004f: ldfld System.Boolean Game.Prefabs.TerrainArea::m_AbsoluteHeight
+IL_0054: brtrue.s IL_005d
+IL_0056: ldc.r4 0
+IL_005b: br.s IL_0062
+IL_005d: ldc.r4 1
+IL_0062: stfld System.Single Game.Prefabs.TerrainAreaData::m_AbsoluteHeight
+IL_0067: ldarga.s entityManager
+IL_0069: ldarg.2
+IL_006a: ldloc.0
+IL_006b: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.TerrainAreaData>(Unity.Entities.Entity,!!0)
+IL_0070: ret
+Game.Prefabs.AdministrationBuilding
+System.Void Game.Prefabs.AdministrationBuilding::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.AdminBuilding>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_004e
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0034
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.0
+IL_0035: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_003a: ldnull
+IL_003b: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0040: brfalse.s IL_004e
+IL_0042: ldarg.1
+IL_0043: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0048: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004d: pop
+IL_004e: ret
+System.Void Game.Prefabs.AdministrationBuilding::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarga.s entityManager
+IL_0002: ldarg.2
+IL_0003: ldc.i4.4
+IL_0004: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0009: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_000e: ret
+Game.Prefabs.BuildingPrefab
+Game.Prefabs.BuildingAccessType Game.Prefabs.BuildingPrefab::m_AccessType
+System.Int32 Game.Prefabs.BuildingPrefab::m_LotWidth
+System.Int32 Game.Prefabs.BuildingPrefab::m_LotDepth
+System.Void Game.Prefabs.BuildingPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.StaticObjectPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Building>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.CitizenPresence>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ldarg.1
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.SpawnLocationElement>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002a: pop
+IL_002b: ldarg.1
+IL_002c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.CurrentDistrict>()
+IL_0031: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0036: pop
+IL_0037: ldarg.1
+IL_0038: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.UpdateFrame>()
+IL_003d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0042: pop
+IL_0043: ldarg.1
+IL_0044: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.Color>()
+IL_0049: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004e: pop
+IL_004f: ldarg.1
+IL_0050: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.Surface>()
+IL_0055: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_005a: pop
+IL_005b: ldarg.1
+IL_005c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.BuildingModifier>()
+IL_0061: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0066: pop
+IL_0067: ldarg.1
+IL_0068: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Policies.Policy>()
+IL_006d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0072: pop
+IL_0073: ldarg.1
+IL_0074: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.SubLane>()
+IL_0079: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_007e: pop
+IL_007f: ldarg.1
+IL_0080: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.SubObject>()
+IL_0085: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_008a: pop
+IL_008b: ldarg.1
+IL_008c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Lot>()
+IL_0091: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0096: pop
+IL_0097: ldarg.1
+IL_0098: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Effects.EnabledEffect>()
+IL_009d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_00a2: pop
+IL_00a3: ret
+Game.Prefabs.ParkData
+System.Int16 Game.Prefabs.ParkData::m_MaintenancePool
+System.Boolean Game.Prefabs.ParkData::m_AllowHomeless
+Game.Prefabs.DeathcareFacility
+System.Int32 Game.Prefabs.DeathcareFacility::m_HearseCapacity
+System.Int32 Game.Prefabs.DeathcareFacility::m_StorageCapacity
+System.Single Game.Prefabs.DeathcareFacility::m_ProcessingRate
+System.Boolean Game.Prefabs.DeathcareFacility::m_LongTermStorage
+System.Void Game.Prefabs.DeathcareFacility::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.DeathcareFacility>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_006c
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0034
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.1
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_0046: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004b: pop
+IL_004c: ldarg.1
+IL_004d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0052: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0057: pop
+IL_0058: ldarg.0
+IL_0059: ldfld System.Int32 Game.Prefabs.DeathcareFacility::m_StorageCapacity
+IL_005e: brfalse.s IL_006c
+IL_0060: ldarg.1
+IL_0061: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Patient>()
+IL_0066: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_006b: pop
+IL_006c: ret
+System.Void Game.Prefabs.DeathcareFacility::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: initobj Game.Prefabs.DeathcareFacilityData
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.0
+IL_000b: ldfld System.Int32 Game.Prefabs.DeathcareFacility::m_HearseCapacity
+IL_0010: stfld System.Int32 Game.Prefabs.DeathcareFacilityData::m_HearseCapacity
+IL_0015: ldloca.s V_0
+IL_0017: ldarg.0
+IL_0018: ldfld System.Int32 Game.Prefabs.DeathcareFacility::m_StorageCapacity
+IL_001d: stfld System.Int32 Game.Prefabs.DeathcareFacilityData::m_StorageCapacity
+IL_0022: ldloca.s V_0
+IL_0024: ldarg.0
+IL_0025: ldfld System.Boolean Game.Prefabs.DeathcareFacility::m_LongTermStorage
+IL_002a: stfld System.Boolean Game.Prefabs.DeathcareFacilityData::m_LongTermStorage
+IL_002f: ldloca.s V_0
+IL_0031: ldarg.0
+IL_0032: ldfld System.Single Game.Prefabs.DeathcareFacility::m_ProcessingRate
+IL_0037: stfld System.Single Game.Prefabs.DeathcareFacilityData::m_ProcessingRate
+IL_003c: ldarga.s entityManager
+IL_003e: ldarg.2
+IL_003f: ldloc.0
+IL_0040: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.DeathcareFacilityData>(Unity.Entities.Entity,!!0)
+IL_0045: ldarga.s entityManager
+IL_0047: ldarg.2
+IL_0048: ldc.i4.2
+IL_0049: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_004e: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_0053: ret
+Game.Prefabs.EmergencyShelter
+System.Int32 Game.Prefabs.EmergencyShelter::m_ShelterCapacity
+System.Int32 Game.Prefabs.EmergencyShelter::m_VehicleCapacity
+System.Void Game.Prefabs.EmergencyShelter::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.EmergencyShelter>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_008a
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0040
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.ServiceUsage>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.1
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Occupant>()
+IL_0046: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004b: pop
+IL_004c: ldarg.1
+IL_004d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_0052: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0057: pop
+IL_0058: ldarg.1
+IL_0059: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_005e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0063: pop
+IL_0064: ldarg.1
+IL_0065: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Economy.Resources>()
+IL_006a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_006f: pop
+IL_0070: ldarg.0
+IL_0071: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_0076: ldnull
+IL_0077: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_007c: brfalse.s IL_008a
+IL_007e: ldarg.1
+IL_007f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0084: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0089: pop
+IL_008a: ret
+System.Void Game.Prefabs.EmergencyShelter::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.Prefabs.EmergencyShelter::m_ShelterCapacity
+IL_0008: stfld System.Int32 Game.Prefabs.EmergencyShelterData::m_ShelterCapacity
+IL_000d: ldloca.s V_0
+IL_000f: ldarg.0
+IL_0010: ldfld System.Int32 Game.Prefabs.EmergencyShelter::m_VehicleCapacity
+IL_0015: stfld System.Int32 Game.Prefabs.EmergencyShelterData::m_VehicleCapacity
+IL_001a: ldarga.s entityManager
+IL_001c: ldarg.2
+IL_001d: ldloc.0
+IL_001e: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.EmergencyShelterData>(Unity.Entities.Entity,!!0)
+IL_0023: ldarga.s entityManager
+IL_0025: ldarg.2
+IL_0026: ldc.i4.s 15
+IL_0028: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_002d: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_0032: ret
+Game.Prefabs.FireStation
+System.Int32 Game.Prefabs.FireStation::m_FireEngineCapacity
+System.Int32 Game.Prefabs.FireStation::m_FireHelicopterCapacity
+System.Int32 Game.Prefabs.FireStation::m_DisasterResponseCapacity
+System.Single Game.Prefabs.FireStation::m_VehicleEfficiency
+System.Void Game.Prefabs.FireStation::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.FireStation>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_0066
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0034
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.1
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_0046: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004b: pop
+IL_004c: ldarg.0
+IL_004d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_0052: ldnull
+IL_0053: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0058: brfalse.s IL_0066
+IL_005a: ldarg.1
+IL_005b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0060: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0065: pop
+IL_0066: ret
+System.Void Game.Prefabs.FireStation::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: initobj Game.Prefabs.FireStationData
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.0
+IL_000b: ldfld System.Int32 Game.Prefabs.FireStation::m_FireEngineCapacity
+IL_0010: stfld System.Int32 Game.Prefabs.FireStationData::m_FireEngineCapacity
+IL_0015: ldloca.s V_0
+IL_0017: ldarg.0
+IL_0018: ldfld System.Int32 Game.Prefabs.FireStation::m_FireHelicopterCapacity
+IL_001d: stfld System.Int32 Game.Prefabs.FireStationData::m_FireHelicopterCapacity
+IL_0022: ldloca.s V_0
+IL_0024: ldarg.0
+IL_0025: ldfld System.Int32 Game.Prefabs.FireStation::m_DisasterResponseCapacity
+IL_002a: stfld System.Int32 Game.Prefabs.FireStationData::m_DisasterResponseCapacity
+IL_002f: ldloca.s V_0
+IL_0031: ldarg.0
+IL_0032: ldfld System.Single Game.Prefabs.FireStation::m_VehicleEfficiency
+IL_0037: stfld System.Single Game.Prefabs.FireStationData::m_VehicleEfficiency
+IL_003c: ldarga.s entityManager
+IL_003e: ldarg.2
+IL_003f: ldloc.0
+IL_0040: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.FireStationData>(Unity.Entities.Entity,!!0)
+IL_0045: ldarga.s entityManager
+IL_0047: ldarg.2
+IL_0048: ldc.i4.7
+IL_0049: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_004e: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_0053: ret
+Game.Prefabs.GarbageFacility
+System.Int32 Game.Prefabs.GarbageFacility::m_GarbageCapacity
+System.Int32 Game.Prefabs.GarbageFacility::m_VehicleCapacity
+System.Int32 Game.Prefabs.GarbageFacility::m_TransportCapacity
+System.Int32 Game.Prefabs.GarbageFacility::m_ProcessingSpeed
+System.Boolean Game.Prefabs.GarbageFacility::m_IndustrialWasteOnly
+System.Boolean Game.Prefabs.GarbageFacility::m_LongTermStorage
+System.Void Game.Prefabs.GarbageFacility::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.GarbageFacility>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_0090
+IL_001a: ldarg.1
+IL_001b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Economy.Resources>()
+IL_0020: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0025: pop
+IL_0026: ldarg.0
+IL_0027: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_002c: ldnull
+IL_002d: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0032: brfalse.s IL_004c
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.GuestVehicle>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.1
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_0046: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004b: pop
+IL_004c: ldarg.0
+IL_004d: ldfld System.Int32 Game.Prefabs.GarbageFacility::m_VehicleCapacity
+IL_0052: ldc.i4.0
+IL_0053: bgt.s IL_005e
+IL_0055: ldarg.0
+IL_0056: ldfld System.Int32 Game.Prefabs.GarbageFacility::m_TransportCapacity
+IL_005b: ldc.i4.0
+IL_005c: ble.s IL_0076
+IL_005e: ldarg.1
+IL_005f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_0064: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0069: pop
+IL_006a: ldarg.1
+IL_006b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_0070: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0075: pop
+IL_0076: ldarg.0
+IL_0077: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_007c: ldnull
+IL_007d: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0082: brfalse.s IL_0090
+IL_0084: ldarg.1
+IL_0085: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_008a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_008f: pop
+IL_0090: ret
+System.Void Game.Prefabs.GarbageFacility::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.Prefabs.GarbageFacility::m_GarbageCapacity
+IL_0008: stfld System.Int32 Game.Prefabs.GarbageFacilityData::m_GarbageCapacity
+IL_000d: ldloca.s V_0
+IL_000f: ldarg.0
+IL_0010: ldfld System.Int32 Game.Prefabs.GarbageFacility::m_VehicleCapacity
+IL_0015: stfld System.Int32 Game.Prefabs.GarbageFacilityData::m_VehicleCapacity
+IL_001a: ldloca.s V_0
+IL_001c: ldarg.0
+IL_001d: ldfld System.Int32 Game.Prefabs.GarbageFacility::m_TransportCapacity
+IL_0022: stfld System.Int32 Game.Prefabs.GarbageFacilityData::m_TransportCapacity
+IL_0027: ldloca.s V_0
+IL_0029: ldarg.0
+IL_002a: ldfld System.Int32 Game.Prefabs.GarbageFacility::m_ProcessingSpeed
+IL_002f: stfld System.Int32 Game.Prefabs.GarbageFacilityData::m_ProcessingSpeed
+IL_0034: ldloca.s V_0
+IL_0036: ldarg.0
+IL_0037: ldfld System.Boolean Game.Prefabs.GarbageFacility::m_IndustrialWasteOnly
+IL_003c: stfld System.Boolean Game.Prefabs.GarbageFacilityData::m_IndustrialWasteOnly
+IL_0041: ldloca.s V_0
+IL_0043: ldarg.0
+IL_0044: ldfld System.Boolean Game.Prefabs.GarbageFacility::m_LongTermStorage
+IL_0049: stfld System.Boolean Game.Prefabs.GarbageFacilityData::m_LongTermStorage
+IL_004e: ldarga.s entityManager
+IL_0050: ldarg.2
+IL_0051: ldloc.0
+IL_0052: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.GarbageFacilityData>(Unity.Entities.Entity,!!0)
+IL_0057: ldarga.s entityManager
+IL_0059: ldarg.2
+IL_005a: ldc.i4.5
+IL_005b: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0060: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_0065: ret
+Game.Prefabs.Hospital
+System.Int32 Game.Prefabs.Hospital::m_AmbulanceCapacity
+System.Int32 Game.Prefabs.Hospital::m_MedicalHelicopterCapacity
+System.Int32 Game.Prefabs.Hospital::m_PatientCapacity
+System.Int32 Game.Prefabs.Hospital::m_TreatmentBonus
+Unity.Mathematics.int2 Game.Prefabs.Hospital::m_HealthRange
+System.Boolean Game.Prefabs.Hospital::m_TreatDiseases
+System.Boolean Game.Prefabs.Hospital::m_TreatInjuries
+System.Void Game.Prefabs.Hospital::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0006: ldnull
+IL_0007: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_000c: brfalse.s IL_0086
+IL_000e: ldarg.1
+IL_000f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Hospital>()
+IL_0014: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0019: pop
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0040
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.ServiceUsage>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.1
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_0046: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004b: pop
+IL_004c: ldarg.1
+IL_004d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_0052: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0057: pop
+IL_0058: ldarg.0
+IL_0059: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_005e: ldnull
+IL_005f: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0064: brfalse.s IL_0072
+IL_0066: ldarg.1
+IL_0067: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_006c: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0071: pop
+IL_0072: ldarg.0
+IL_0073: ldfld System.Int32 Game.Prefabs.Hospital::m_PatientCapacity
+IL_0078: brfalse.s IL_0086
+IL_007a: ldarg.1
+IL_007b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Patient>()
+IL_0080: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0085: pop
+IL_0086: ret
+System.Void Game.Prefabs.Hospital::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarga.s entityManager
+IL_0002: ldarg.2
+IL_0003: ldloca.s V_0
+IL_0005: initobj Game.Prefabs.HospitalData
+IL_000b: ldloca.s V_0
+IL_000d: ldarg.0
+IL_000e: ldfld System.Int32 Game.Prefabs.Hospital::m_AmbulanceCapacity
+IL_0013: stfld System.Int32 Game.Prefabs.HospitalData::m_AmbulanceCapacity
+IL_0018: ldloca.s V_0
+IL_001a: ldarg.0
+IL_001b: ldfld System.Int32 Game.Prefabs.Hospital::m_MedicalHelicopterCapacity
+IL_0020: stfld System.Int32 Game.Prefabs.HospitalData::m_MedicalHelicopterCapacity
+IL_0025: ldloca.s V_0
+IL_0027: ldarg.0
+IL_0028: ldfld System.Int32 Game.Prefabs.Hospital::m_PatientCapacity
+IL_002d: stfld System.Int32 Game.Prefabs.HospitalData::m_PatientCapacity
+IL_0032: ldloca.s V_0
+IL_0034: ldarg.0
+IL_0035: ldfld System.Int32 Game.Prefabs.Hospital::m_TreatmentBonus
+IL_003a: stfld System.Int32 Game.Prefabs.HospitalData::m_TreatmentBonus
+IL_003f: ldloca.s V_0
+IL_0041: ldarg.0
+IL_0042: ldfld Unity.Mathematics.int2 Game.Prefabs.Hospital::m_HealthRange
+IL_0047: stfld Unity.Mathematics.int2 Game.Prefabs.HospitalData::m_HealthRange
+IL_004c: ldloca.s V_0
+IL_004e: ldarg.0
+IL_004f: ldfld System.Boolean Game.Prefabs.Hospital::m_TreatDiseases
+IL_0054: stfld System.Boolean Game.Prefabs.HospitalData::m_TreatDiseases
+IL_0059: ldloca.s V_0
+IL_005b: ldarg.0
+IL_005c: ldfld System.Boolean Game.Prefabs.Hospital::m_TreatInjuries
+IL_0061: stfld System.Boolean Game.Prefabs.HospitalData::m_TreatInjuries
+IL_0066: ldloc.0
+IL_0067: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.HospitalData>(Unity.Entities.Entity,!!0)
+IL_006c: ldarga.s entityManager
+IL_006e: ldarg.2
+IL_006f: ldc.i4.1
+IL_0070: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0075: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_007a: ret
+Game.Prefabs.Park
+System.Int16 Game.Prefabs.Park::m_MaintenancePool
+System.Boolean Game.Prefabs.Park::m_AllowHomeless
+System.Void Game.Prefabs.Park::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Park>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.1
+IL_000d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Renter>()
+IL_0012: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0017: pop
+IL_0018: ldarg.0
+IL_0019: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_001e: ldnull
+IL_001f: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0024: brfalse.s IL_0070
+IL_0026: ldarg.0
+IL_0027: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_002c: ldnull
+IL_002d: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0032: brfalse.s IL_0040
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.1
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.MaintenanceConsumer>()
+IL_0046: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004b: pop
+IL_004c: ldarg.1
+IL_004d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.ModifiedServiceCoverage>()
+IL_0052: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0057: pop
+IL_0058: ldarg.1
+IL_0059: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.UpdateFrame>()
+IL_005e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0063: pop
+IL_0064: ldarg.1
+IL_0065: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.CurrentDistrict>()
+IL_006a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_006f: pop
+IL_0070: ret
+System.Void Game.Prefabs.Park::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: initobj Game.Prefabs.ParkData
+IL_0008: ldloca.s V_0
+IL_000a: ldarg.0
+IL_000b: ldfld System.Int16 Game.Prefabs.Park::m_MaintenancePool
+IL_0010: stfld System.Int16 Game.Prefabs.ParkData::m_MaintenancePool
+IL_0015: ldloca.s V_0
+IL_0017: ldarg.0
+IL_0018: ldfld System.Boolean Game.Prefabs.Park::m_AllowHomeless
+IL_001d: stfld System.Boolean Game.Prefabs.ParkData::m_AllowHomeless
+IL_0022: ldarga.s entityManager
+IL_0024: ldarg.2
+IL_0025: ldloc.0
+IL_0026: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.ParkData>(Unity.Entities.Entity,!!0)
+IL_002b: ldarga.s entityManager
+IL_002d: ldarg.2
+IL_002e: ldc.i4.s 9
+IL_0030: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0035: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_003a: ret
+Game.Prefabs.PoliceStation
+System.Int32 Game.Prefabs.PoliceStation::m_PatrolCarCapacity
+System.Int32 Game.Prefabs.PoliceStation::m_PoliceHelicopterCapacity
+System.Int32 Game.Prefabs.PoliceStation::m_JailCapacity
+Game.Prefabs.PolicePurpose Game.Prefabs.PoliceStation::m_Purposes
+System.Void Game.Prefabs.PoliceStation::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.PoliceStation>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_007a
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0034
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.1
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_0046: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004b: pop
+IL_004c: ldarg.0
+IL_004d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_0052: ldnull
+IL_0053: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0058: brfalse.s IL_0066
+IL_005a: ldarg.1
+IL_005b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0060: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0065: pop
+IL_0066: ldarg.0
+IL_0067: ldfld System.Int32 Game.Prefabs.PoliceStation::m_JailCapacity
+IL_006c: brfalse.s IL_007a
+IL_006e: ldarg.1
+IL_006f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Occupant>()
+IL_0074: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0079: pop
+IL_007a: ret
+System.Void Game.Prefabs.PoliceStation::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.Prefabs.PoliceStation::m_PatrolCarCapacity
+IL_0008: stfld System.Int32 Game.Prefabs.PoliceStationData::m_PatrolCarCapacity
+IL_000d: ldloca.s V_0
+IL_000f: ldarg.0
+IL_0010: ldfld System.Int32 Game.Prefabs.PoliceStation::m_PoliceHelicopterCapacity
+IL_0015: stfld System.Int32 Game.Prefabs.PoliceStationData::m_PoliceHelicopterCapacity
+IL_001a: ldloca.s V_0
+IL_001c: ldarg.0
+IL_001d: ldfld System.Int32 Game.Prefabs.PoliceStation::m_JailCapacity
+IL_0022: stfld System.Int32 Game.Prefabs.PoliceStationData::m_JailCapacity
+IL_0027: ldloca.s V_0
+IL_0029: ldarg.0
+IL_002a: ldfld Game.Prefabs.PolicePurpose Game.Prefabs.PoliceStation::m_Purposes
+IL_002f: stfld Game.Prefabs.PolicePurpose Game.Prefabs.PoliceStationData::m_PurposeMask
+IL_0034: ldarga.s entityManager
+IL_0036: ldarg.2
+IL_0037: ldloc.0
+IL_0038: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.PoliceStationData>(Unity.Entities.Entity,!!0)
+IL_003d: ldarga.s entityManager
+IL_003f: ldarg.2
+IL_0040: ldc.i4.8
+IL_0041: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0046: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_004b: ret
+Game.Prefabs.PostFacility
+System.Int32 Game.Prefabs.PostFacility::m_PostVanCapacity
+System.Int32 Game.Prefabs.PostFacility::m_PostTruckCapacity
+System.Int32 Game.Prefabs.PostFacility::m_MailStorageCapacity
+System.Int32 Game.Prefabs.PostFacility::m_MailBoxCapacity
+System.Int32 Game.Prefabs.PostFacility::m_SortingRate
+System.Void Game.Prefabs.PostFacility::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.PostFacility>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse IL_00b2
+IL_001d: ldarg.1
+IL_001e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Economy.Resources>()
+IL_0023: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0028: pop
+IL_0029: ldarg.0
+IL_002a: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_002f: ldnull
+IL_0030: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0035: brfalse.s IL_004f
+IL_0037: ldarg.1
+IL_0038: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.GuestVehicle>()
+IL_003d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0042: pop
+IL_0043: ldarg.1
+IL_0044: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_0049: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004e: pop
+IL_004f: ldarg.0
+IL_0050: ldfld System.Int32 Game.Prefabs.PostFacility::m_PostTruckCapacity
+IL_0055: ldc.i4.0
+IL_0056: ble.s IL_0070
+IL_0058: ldarg.1
+IL_0059: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_005e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0063: pop
+IL_0064: ldarg.1
+IL_0065: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_006a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_006f: pop
+IL_0070: ldarg.0
+IL_0071: ldfld System.Int32 Game.Prefabs.PostFacility::m_PostVanCapacity
+IL_0076: ldc.i4.0
+IL_0077: ble.s IL_009d
+IL_0079: ldarg.1
+IL_007a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_007f: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0084: pop
+IL_0085: ldarg.1
+IL_0086: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_008b: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0090: pop
+IL_0091: ldarg.1
+IL_0092: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_0097: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_009c: pop
+IL_009d: ldarg.0
+IL_009e: ldfld System.Int32 Game.Prefabs.PostFacility::m_MailBoxCapacity
+IL_00a3: ldc.i4.0
+IL_00a4: ble.s IL_00b2
+IL_00a6: ldarg.1
+IL_00a7: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.MailBox>()
+IL_00ac: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_00b1: pop
+IL_00b2: ret
+System.Void Game.Prefabs.PostFacility::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.Prefabs.PostFacility::m_PostVanCapacity
+IL_0008: stfld System.Int32 Game.Prefabs.PostFacilityData::m_PostVanCapacity
+IL_000d: ldloca.s V_0
+IL_000f: ldarg.0
+IL_0010: ldfld System.Int32 Game.Prefabs.PostFacility::m_PostTruckCapacity
+IL_0015: stfld System.Int32 Game.Prefabs.PostFacilityData::m_PostTruckCapacity
+IL_001a: ldloca.s V_0
+IL_001c: ldarg.0
+IL_001d: ldfld System.Int32 Game.Prefabs.PostFacility::m_MailStorageCapacity
+IL_0022: stfld System.Int32 Game.Prefabs.PostFacilityData::m_MailCapacity
+IL_0027: ldloca.s V_0
+IL_0029: ldarg.0
+IL_002a: ldfld System.Int32 Game.Prefabs.PostFacility::m_SortingRate
+IL_002f: stfld System.Int32 Game.Prefabs.PostFacilityData::m_SortingRate
+IL_0034: ldarga.s entityManager
+IL_0036: ldarg.2
+IL_0037: ldloc.0
+IL_0038: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.PostFacilityData>(Unity.Entities.Entity,!!0)
+IL_003d: ldarg.0
+IL_003e: ldfld System.Int32 Game.Prefabs.PostFacility::m_MailBoxCapacity
+IL_0043: ldc.i4.0
+IL_0044: ble.s IL_005c
+IL_0046: ldloca.s V_1
+IL_0048: ldarg.0
+IL_0049: ldfld System.Int32 Game.Prefabs.PostFacility::m_MailBoxCapacity
+IL_004e: stfld System.Int32 Game.Prefabs.MailBoxData::m_MailCapacity
+IL_0053: ldarga.s entityManager
+IL_0055: ldarg.2
+IL_0056: ldloc.1
+IL_0057: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.MailBoxData>(Unity.Entities.Entity,!!0)
+IL_005c: ldarga.s entityManager
+IL_005e: ldarg.2
+IL_005f: ldc.i4.s 11
+IL_0061: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0066: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_006b: ret
+Game.Prefabs.Prison
+System.Int32 Game.Prefabs.Prison::m_PrisonVanCapacity
+System.Int32 Game.Prefabs.Prison::m_PrisonerCapacity
+System.SByte Game.Prefabs.Prison::m_PrisonerWellbeing
+System.SByte Game.Prefabs.Prison::m_PrisonerHealth
+System.Void Game.Prefabs.Prison::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Prison>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_007a
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0034
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.1
+IL_0041: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_0046: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004b: pop
+IL_004c: ldarg.0
+IL_004d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_0052: ldnull
+IL_0053: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0058: brfalse.s IL_0066
+IL_005a: ldarg.1
+IL_005b: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0060: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0065: pop
+IL_0066: ldarg.0
+IL_0067: ldfld System.Int32 Game.Prefabs.Prison::m_PrisonerCapacity
+IL_006c: brfalse.s IL_007a
+IL_006e: ldarg.1
+IL_006f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Occupant>()
+IL_0074: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0079: pop
+IL_007a: ret
+System.Void Game.Prefabs.Prison::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.Prefabs.Prison::m_PrisonVanCapacity
+IL_0008: stfld System.Int32 Game.Prefabs.PrisonData::m_PrisonVanCapacity
+IL_000d: ldloca.s V_0
+IL_000f: ldarg.0
+IL_0010: ldfld System.Int32 Game.Prefabs.Prison::m_PrisonerCapacity
+IL_0015: stfld System.Int32 Game.Prefabs.PrisonData::m_PrisonerCapacity
+IL_001a: ldloca.s V_0
+IL_001c: ldarg.0
+IL_001d: ldfld System.SByte Game.Prefabs.Prison::m_PrisonerWellbeing
+IL_0022: stfld System.SByte Game.Prefabs.PrisonData::m_PrisonerWellbeing
+IL_0027: ldloca.s V_0
+IL_0029: ldarg.0
+IL_002a: ldfld System.SByte Game.Prefabs.Prison::m_PrisonerHealth
+IL_002f: stfld System.SByte Game.Prefabs.PrisonData::m_PrisonerHealth
+IL_0034: ldarga.s entityManager
+IL_0036: ldarg.2
+IL_0037: ldloc.0
+IL_0038: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.PrisonData>(Unity.Entities.Entity,!!0)
+IL_003d: ldarga.s entityManager
+IL_003f: ldarg.2
+IL_0040: ldc.i4.3
+IL_0041: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0046: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_004b: ret
+Game.Prefabs.School
+System.Int32 Game.Prefabs.School::m_StudentCapacity
+Game.Prefabs.SchoolLevel Game.Prefabs.School::m_Level
+System.Single Game.Prefabs.School::m_GraduationModifier
+System.SByte Game.Prefabs.School::m_StudentWellbeing
+System.SByte Game.Prefabs.School::m_StudentHealth
+System.Void Game.Prefabs.School::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.School>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_005a
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0034
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.1
+IL_0035: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Student>()
+IL_003a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003f: pop
+IL_0040: ldarg.0
+IL_0041: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_0046: ldnull
+IL_0047: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_004c: brfalse.s IL_005a
+IL_004e: ldarg.1
+IL_004f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0054: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0059: pop
+IL_005a: ret
+System.Void Game.Prefabs.School::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.0
+IL_0003: ldfld Game.Prefabs.SchoolLevel Game.Prefabs.School::m_Level
+IL_0008: conv.u1
+IL_0009: stfld System.Byte Game.Prefabs.SchoolData::m_EducationLevel
+IL_000e: ldloca.s V_0
+IL_0010: ldarg.0
+IL_0011: ldfld System.Int32 Game.Prefabs.School::m_StudentCapacity
+IL_0016: stfld System.Int32 Game.Prefabs.SchoolData::m_StudentCapacity
+IL_001b: ldloca.s V_0
+IL_001d: ldarg.0
+IL_001e: ldfld System.Single Game.Prefabs.School::m_GraduationModifier
+IL_0023: stfld System.Single Game.Prefabs.SchoolData::m_GraduationModifier
+IL_0028: ldloca.s V_0
+IL_002a: ldarg.0
+IL_002b: ldfld System.SByte Game.Prefabs.School::m_StudentWellbeing
+IL_0030: stfld System.SByte Game.Prefabs.SchoolData::m_StudentWellbeing
+IL_0035: ldloca.s V_0
+IL_0037: ldarg.0
+IL_0038: ldfld System.SByte Game.Prefabs.School::m_StudentHealth
+IL_003d: stfld System.SByte Game.Prefabs.SchoolData::m_StudentHealth
+IL_0042: ldarga.s entityManager
+IL_0044: ldarg.2
+IL_0045: ldloc.0
+IL_0046: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.SchoolData>(Unity.Entities.Entity,!!0)
+IL_004b: ldarga.s entityManager
+IL_004d: ldarg.2
+IL_004e: ldc.i4.6
+IL_004f: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0054: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_0059: ret
+Game.Prefabs.TransportDepot
+Game.Prefabs.TransportType Game.Prefabs.TransportDepot::m_TransportType
+Game.Vehicles.EnergyTypes Game.Prefabs.TransportDepot::m_EnergyTypes
+Game.Vehicles.SizeClass Game.Prefabs.TransportDepot::m_SizeClass
+System.Int32 Game.Prefabs.TransportDepot::m_VehicleCapacity
+System.Single Game.Prefabs.TransportDepot::m_ProductionDuration
+System.Single Game.Prefabs.TransportDepot::m_MaintenanceDuration
+System.Boolean Game.Prefabs.TransportDepot::m_DispatchCenter
+System.Void Game.Prefabs.TransportDepot::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.TransportDepot>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0012: ldnull
+IL_0013: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0018: brfalse.s IL_0061
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0034
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.0
+IL_0035: ldfld Game.Prefabs.TransportType Game.Prefabs.TransportDepot::m_TransportType
+IL_003a: ldc.i4.2
+IL_003b: bne.un.s IL_0049
+IL_003d: ldarg.1
+IL_003e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0043: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0048: pop
+IL_0049: ldarg.1
+IL_004a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.ServiceDispatch>()
+IL_004f: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0054: pop
+IL_0055: ldarg.1
+IL_0056: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Vehicles.OwnedVehicle>()
+IL_005b: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0060: pop
+IL_0061: ret
+System.Void Game.Prefabs.TransportDepot::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.0
+IL_0003: ldfld Game.Prefabs.TransportType Game.Prefabs.TransportDepot::m_TransportType
+IL_0008: stfld Game.Prefabs.TransportType Game.Prefabs.TransportDepotData::m_TransportType
+IL_000d: ldloca.s V_0
+IL_000f: ldarg.0
+IL_0010: ldfld System.Boolean Game.Prefabs.TransportDepot::m_DispatchCenter
+IL_0015: stfld System.Boolean Game.Prefabs.TransportDepotData::m_DispatchCenter
+IL_001a: ldloca.s V_0
+IL_001c: ldarg.0
+IL_001d: ldfld Game.Vehicles.EnergyTypes Game.Prefabs.TransportDepot::m_EnergyTypes
+IL_0022: stfld Game.Vehicles.EnergyTypes Game.Prefabs.TransportDepotData::m_EnergyTypes
+IL_0027: ldloca.s V_0
+IL_0029: ldarg.0
+IL_002a: ldfld Game.Vehicles.SizeClass Game.Prefabs.TransportDepot::m_SizeClass
+IL_002f: stfld Game.Vehicles.SizeClass Game.Prefabs.TransportDepotData::m_SizeClass
+IL_0034: ldloca.s V_0
+IL_0036: ldarg.0
+IL_0037: ldfld System.Int32 Game.Prefabs.TransportDepot::m_VehicleCapacity
+IL_003c: stfld System.Int32 Game.Prefabs.TransportDepotData::m_VehicleCapacity
+IL_0041: ldloca.s V_0
+IL_0043: ldarg.0
+IL_0044: ldfld System.Single Game.Prefabs.TransportDepot::m_ProductionDuration
+IL_0049: stfld System.Single Game.Prefabs.TransportDepotData::m_ProductionDuration
+IL_004e: ldloca.s V_0
+IL_0050: ldarg.0
+IL_0051: ldfld System.Single Game.Prefabs.TransportDepot::m_MaintenanceDuration
+IL_0056: stfld System.Single Game.Prefabs.TransportDepotData::m_MaintenanceDuration
+IL_005b: ldarg.0
+IL_005c: ldfld Game.Vehicles.SizeClass Game.Prefabs.TransportDepot::m_SizeClass
+IL_0061: ldc.i4.3
+IL_0062: bne.un.s IL_0078
+IL_0064: ldloca.s V_0
+IL_0066: ldarg.0
+IL_0067: ldfld Game.Prefabs.TransportType Game.Prefabs.TransportDepot::m_TransportType
+IL_006c: ldc.i4.2
+IL_006d: beq.s IL_0072
+IL_006f: ldc.i4.2
+IL_0070: br.s IL_0073
+IL_0072: ldc.i4.0
+IL_0073: stfld Game.Vehicles.SizeClass Game.Prefabs.TransportDepotData::m_SizeClass
+IL_0078: ldarga.s entityManager
+IL_007a: ldarg.2
+IL_007b: ldloc.0
+IL_007c: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.TransportDepotData>(Unity.Entities.Entity,!!0)
+IL_0081: ldarga.s entityManager
+IL_0083: ldarg.2
+IL_0084: ldc.i4.2
+IL_0085: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_008a: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_008f: ret
+Game.Prefabs.WelfareOffice
+System.Void Game.Prefabs.WelfareOffice::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ServiceUpgrade>()
+IL_0006: ldnull
+IL_0007: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_000c: brfalse.s IL_004e
+IL_000e: ldarg.1
+IL_000f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.WelfareOffice>()
+IL_0014: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0019: pop
+IL_001a: ldarg.0
+IL_001b: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.CityServiceBuilding>()
+IL_0020: ldnull
+IL_0021: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0026: brfalse.s IL_0034
+IL_0028: ldarg.1
+IL_0029: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.Efficiency>()
+IL_002e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0033: pop
+IL_0034: ldarg.0
+IL_0035: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.UniqueObject>()
+IL_003a: ldnull
+IL_003b: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0040: brfalse.s IL_004e
+IL_0042: ldarg.1
+IL_0043: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.ServiceDistrict>()
+IL_0048: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004d: pop
+IL_004e: ret
+System.Void Game.Prefabs.WelfareOffice::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarga.s entityManager
+IL_0002: ldarg.2
+IL_0003: ldc.i4.5
+IL_0004: newobj System.Void Game.Prefabs.UpdateFrameData::.ctor(System.Int32)
+IL_0009: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.UpdateFrameData>(Unity.Entities.Entity,!!0)
+IL_000e: ret
+Game.Prefabs.RoadPrefab
+Game.Prefabs.RoadType Game.Prefabs.RoadPrefab::m_RoadType
+System.Single Game.Prefabs.RoadPrefab::m_SpeedLimit
+Game.Prefabs.ZoneBlockPrefab Game.Prefabs.RoadPrefab::m_ZoneBlock
+System.Boolean Game.Prefabs.RoadPrefab::m_TrafficLights
+System.Boolean Game.Prefabs.RoadPrefab::m_HighwayRules
+System.Void Game.Prefabs.RoadPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.NetGeometryPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.Edge>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Contains(!0)
+IL_0012: brfalse IL_00cb
+IL_0017: ldarg.1
+IL_0018: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.Road>()
+IL_001d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0022: pop
+IL_0023: ldarg.1
+IL_0024: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.UpdateFrame>()
+IL_0029: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002e: pop
+IL_002f: ldarg.1
+IL_0030: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.LandValue>()
+IL_0035: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003a: pop
+IL_003b: ldarg.1
+IL_003c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.EdgeColor>()
+IL_0041: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0046: pop
+IL_0047: ldarg.1
+IL_0048: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.NetCondition>()
+IL_004d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0052: pop
+IL_0053: ldarg.1
+IL_0054: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.MaintenanceConsumer>()
+IL_0059: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_005e: pop
+IL_005f: ldarg.1
+IL_0060: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.BorderDistrict>()
+IL_0065: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_006a: pop
+IL_006b: ldarg.0
+IL_006c: ldfld Game.Prefabs.ZoneBlockPrefab Game.Prefabs.RoadPrefab::m_ZoneBlock
+IL_0071: ldnull
+IL_0072: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0077: brfalse.s IL_00b6
+IL_0079: ldarg.1
+IL_007a: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Zones.SubBlock>()
+IL_007f: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0084: pop
+IL_0085: ldarg.1
+IL_0086: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.ConnectedBuilding>()
+IL_008b: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0090: pop
+IL_0091: ldarg.1
+IL_0092: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.ServiceCoverage>()
+IL_0097: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_009c: pop
+IL_009d: ldarg.1
+IL_009e: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.ResourceAvailability>()
+IL_00a3: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_00a8: pop
+IL_00a9: ldarg.1
+IL_00aa: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.Density>()
+IL_00af: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_00b4: pop
+IL_00b5: ret
+IL_00b6: ldarg.0
+IL_00b7: ldfld System.Boolean Game.Prefabs.RoadPrefab::m_HighwayRules
+IL_00bc: brtrue.s IL_013a
+IL_00be: ldarg.1
+IL_00bf: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Buildings.ConnectedBuilding>()
+IL_00c4: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_00c9: pop
+IL_00ca: ret
+IL_00cb: ldarg.1
+IL_00cc: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.Node>()
+IL_00d1: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Contains(!0)
+IL_00d6: brfalse.s IL_0121
+IL_00d8: ldarg.1
+IL_00d9: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.Road>()
+IL_00de: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_00e3: pop
+IL_00e4: ldarg.1
+IL_00e5: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Simulation.UpdateFrame>()
+IL_00ea: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_00ef: pop
+IL_00f0: ldarg.1
+IL_00f1: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.LandValue>()
+IL_00f6: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_00fb: pop
+IL_00fc: ldarg.1
+IL_00fd: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.NodeColor>()
+IL_0102: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0107: pop
+IL_0108: ldarg.1
+IL_0109: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Net.NetCondition>()
+IL_010e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0113: pop
+IL_0114: ldarg.1
+IL_0115: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.Surface>()
+IL_011a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_011f: pop
+IL_0120: ret
+IL_0121: ldarg.1
+IL_0122: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.NetCompositionData>()
+IL_0127: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Contains(!0)
+IL_012c: brfalse.s IL_013a
+IL_012e: ldarg.1
+IL_012f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Prefabs.RoadComposition>()
+IL_0134: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0139: pop
+IL_013a: ret
+Game.Prefabs.ObjectSubAreas
+Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+System.Void Game.Prefabs.ObjectSubAreas::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.SubArea>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+Game.Prefabs.MailBox
+System.Int32 Game.Prefabs.MailBox::m_MailCapacity
+System.Single Game.Prefabs.MailBox::m_ComfortFactor
+System.Void Game.Prefabs.MailBox::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.Color>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.1
+IL_000d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.TransportStop>()
+IL_0012: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0017: pop
+IL_0018: ldarg.1
+IL_0019: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.MailBox>()
+IL_001e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0023: pop
+IL_0024: ldarg.1
+IL_0025: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.AccessLane>()
+IL_002a: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002f: pop
+IL_0030: ldarg.1
+IL_0031: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.RouteLane>()
+IL_0036: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_003b: pop
+IL_003c: ldarg.1
+IL_003d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.CurrentDistrict>()
+IL_0042: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0047: pop
+IL_0048: ret
+System.Void Game.Prefabs.MailBox::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldloca.s V_0
+IL_000a: ldc.i4.2
+IL_000b: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.RouteConnectionData::m_AccessConnectionType
+IL_0010: ldloca.s V_0
+IL_0012: ldc.i4.1
+IL_0013: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.RouteConnectionData::m_RouteConnectionType
+IL_0018: ldloca.s V_0
+IL_001a: ldc.i4.0
+IL_001b: stfld Game.Net.TrackTypes Game.Prefabs.RouteConnectionData::m_AccessTrackType
+IL_0020: ldloca.s V_0
+IL_0022: ldc.i4.0
+IL_0023: stfld Game.Net.TrackTypes Game.Prefabs.RouteConnectionData::m_RouteTrackType
+IL_0028: ldloca.s V_0
+IL_002a: ldc.i4.0
+IL_002b: stfld Game.Net.RoadTypes Game.Prefabs.RouteConnectionData::m_AccessRoadType
+IL_0030: ldloca.s V_0
+IL_0032: ldc.i4.1
+IL_0033: stfld Game.Net.RoadTypes Game.Prefabs.RouteConnectionData::m_RouteRoadType
+IL_0038: ldloca.s V_0
+IL_003a: ldc.i4.3
+IL_003b: stfld Game.Vehicles.SizeClass Game.Prefabs.RouteConnectionData::m_RouteSizeClass
+IL_0040: ldloca.s V_0
+IL_0042: ldc.r4 0
+IL_0047: stfld System.Single Game.Prefabs.RouteConnectionData::m_StartLaneOffset
+IL_004c: ldloca.s V_0
+IL_004e: ldc.r4 0
+IL_0053: stfld System.Single Game.Prefabs.RouteConnectionData::m_EndMargin
+IL_0058: ldloca.s V_1
+IL_005a: ldarg.0
+IL_005b: ldfld System.Single Game.Prefabs.MailBox::m_ComfortFactor
+IL_0060: stfld System.Single Game.Prefabs.TransportStopData::m_ComfortFactor
+IL_0065: ldloca.s V_1
+IL_0067: ldc.r4 0
+IL_006c: stfld System.Single Game.Prefabs.TransportStopData::m_LoadingFactor
+IL_0071: ldloca.s V_1
+IL_0073: ldc.r4 0
+IL_0078: stfld System.Single Game.Prefabs.TransportStopData::m_AccessDistance
+IL_007d: ldloca.s V_1
+IL_007f: ldc.r4 0
+IL_0084: stfld System.Single Game.Prefabs.TransportStopData::m_BoardingTime
+IL_0089: ldloca.s V_1
+IL_008b: ldc.i4.5
+IL_008c: stfld Game.Prefabs.TransportType Game.Prefabs.TransportStopData::m_TransportType
+IL_0091: ldloca.s V_1
+IL_0093: ldc.i4.0
+IL_0094: stfld System.Boolean Game.Prefabs.TransportStopData::m_PassengerTransport
+IL_0099: ldloca.s V_1
+IL_009b: ldc.i4.1
+IL_009c: stfld System.Boolean Game.Prefabs.TransportStopData::m_CargoTransport
+IL_00a1: ldloca.s V_2
+IL_00a3: ldarg.0
+IL_00a4: ldfld System.Int32 Game.Prefabs.MailBox::m_MailCapacity
+IL_00a9: stfld System.Int32 Game.Prefabs.MailBoxData::m_MailCapacity
+IL_00ae: ldarga.s entityManager
+IL_00b0: ldarg.2
+IL_00b1: ldloc.0
+IL_00b2: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.RouteConnectionData>(Unity.Entities.Entity,!!0)
+IL_00b7: ldarga.s entityManager
+IL_00b9: ldarg.2
+IL_00ba: ldloc.1
+IL_00bb: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.TransportStopData>(Unity.Entities.Entity,!!0)
+IL_00c0: ldarga.s entityManager
+IL_00c2: ldarg.2
+IL_00c3: ldloc.2
+IL_00c4: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.MailBoxData>(Unity.Entities.Entity,!!0)
+IL_00c9: ret
+Game.Prefabs.ParkingSpace
+Game.Net.RoadTypes Game.Prefabs.ParkingSpace::m_RoadType
+System.Single Game.Prefabs.ParkingSpace::m_ComfortFactor
+System.Void Game.Prefabs.ParkingSpace::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.Color>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.1
+IL_000d: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.TransportStop>()
+IL_0012: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0017: pop
+IL_0018: ldarg.1
+IL_0019: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.ParkingSpace>()
+IL_001e: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0023: pop
+IL_0024: ldarg.0
+IL_0025: ldfld Game.Net.RoadTypes Game.Prefabs.ParkingSpace::m_RoadType
+IL_002a: stloc.0
+IL_002b: ldloc.0
+IL_002c: ldc.i4.1
+IL_002d: beq.s IL_0035
+IL_002f: ldloc.0
+IL_0030: ldc.i4.s 16
+IL_0032: beq.s IL_004e
+IL_0034: ret
+IL_0035: ldarg.1
+IL_0036: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.CarParking>()
+IL_003b: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0040: pop
+IL_0041: ldarg.1
+IL_0042: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.CurrentDistrict>()
+IL_0047: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_004c: pop
+IL_004d: ret
+IL_004e: ldarg.1
+IL_004f: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.BicycleParking>()
+IL_0054: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0059: pop
+IL_005a: ret
+System.Void Game.Prefabs.ParkingSpace::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarg.0
+IL_0009: call Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()
+IL_000e: callvirt System.Boolean Game.Prefabs.PrefabBase::Has<Game.Prefabs.TransportStop>()
+IL_0013: brtrue IL_00ee
+IL_0018: ldloca.s V_0
+IL_001a: ldc.i4.2
+IL_001b: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.RouteConnectionData::m_AccessConnectionType
+IL_0020: ldloca.s V_0
+IL_0022: ldc.i4.1
+IL_0023: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.RouteConnectionData::m_RouteConnectionType
+IL_0028: ldloca.s V_0
+IL_002a: ldc.i4.0
+IL_002b: stfld Game.Net.TrackTypes Game.Prefabs.RouteConnectionData::m_AccessTrackType
+IL_0030: ldloca.s V_0
+IL_0032: ldc.i4.0
+IL_0033: stfld Game.Net.TrackTypes Game.Prefabs.RouteConnectionData::m_RouteTrackType
+IL_0038: ldloca.s V_0
+IL_003a: ldc.i4.0
+IL_003b: stfld Game.Net.RoadTypes Game.Prefabs.RouteConnectionData::m_AccessRoadType
+IL_0040: ldloca.s V_0
+IL_0042: ldarg.0
+IL_0043: ldfld Game.Net.RoadTypes Game.Prefabs.ParkingSpace::m_RoadType
+IL_0048: stfld Game.Net.RoadTypes Game.Prefabs.RouteConnectionData::m_RouteRoadType
+IL_004d: ldloca.s V_0
+IL_004f: ldc.i4.3
+IL_0050: stfld Game.Vehicles.SizeClass Game.Prefabs.RouteConnectionData::m_RouteSizeClass
+IL_0055: ldloca.s V_0
+IL_0057: ldc.r4 0
+IL_005c: stfld System.Single Game.Prefabs.RouteConnectionData::m_StartLaneOffset
+IL_0061: ldloca.s V_0
+IL_0063: ldc.r4 0
+IL_0068: stfld System.Single Game.Prefabs.RouteConnectionData::m_EndMargin
+IL_006d: ldloca.s V_1
+IL_006f: ldarg.0
+IL_0070: ldfld System.Single Game.Prefabs.ParkingSpace::m_ComfortFactor
+IL_0075: stfld System.Single Game.Prefabs.TransportStopData::m_ComfortFactor
+IL_007a: ldloca.s V_1
+IL_007c: ldc.r4 0
+IL_0081: stfld System.Single Game.Prefabs.TransportStopData::m_LoadingFactor
+IL_0086: ldloca.s V_1
+IL_0088: ldc.r4 0
+IL_008d: stfld System.Single Game.Prefabs.TransportStopData::m_AccessDistance
+IL_0092: ldloca.s V_1
+IL_0094: ldc.r4 0
+IL_0099: stfld System.Single Game.Prefabs.TransportStopData::m_BoardingTime
+IL_009e: ldloca.s V_1
+IL_00a0: ldc.i4.m1
+IL_00a1: stfld Game.Prefabs.TransportType Game.Prefabs.TransportStopData::m_TransportType
+IL_00a6: ldloca.s V_1
+IL_00a8: ldc.i4.1
+IL_00a9: stfld System.Boolean Game.Prefabs.TransportStopData::m_PassengerTransport
+IL_00ae: ldloca.s V_1
+IL_00b0: ldc.i4.0
+IL_00b1: stfld System.Boolean Game.Prefabs.TransportStopData::m_CargoTransport
+IL_00b6: ldarg.0
+IL_00b7: ldfld Game.Net.RoadTypes Game.Prefabs.ParkingSpace::m_RoadType
+IL_00bc: stloc.2
+IL_00bd: ldloc.2
+IL_00be: ldc.i4.1
+IL_00bf: beq.s IL_00c8
+IL_00c1: ldloc.2
+IL_00c2: ldc.i4.s 16
+IL_00c4: beq.s IL_00d3
+IL_00c6: br.s IL_00dc
+IL_00c8: ldloca.s V_1
+IL_00ca: ldc.i4.s 13
+IL_00cc: stfld Game.Prefabs.TransportType Game.Prefabs.TransportStopData::m_TransportType
+IL_00d1: br.s IL_00dc
+IL_00d3: ldloca.s V_1
+IL_00d5: ldc.i4.s 12
+IL_00d7: stfld Game.Prefabs.TransportType Game.Prefabs.TransportStopData::m_TransportType
+IL_00dc: ldarga.s entityManager
+IL_00de: ldarg.2
+IL_00df: ldloc.0
+IL_00e0: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.RouteConnectionData>(Unity.Entities.Entity,!!0)
+IL_00e5: ldarga.s entityManager
+IL_00e7: ldarg.2
+IL_00e8: ldloc.1
+IL_00e9: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.TransportStopData>(Unity.Entities.Entity,!!0)
+IL_00ee: ret

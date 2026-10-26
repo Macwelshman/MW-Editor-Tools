@@ -1,0 +1,67 @@
+TYPE Game.Rendering.BatchFlags
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Outline
+TYPE Game.Rendering.ObjectProperty
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::OutlineColors
+TYPE Game.Rendering.NetProperty
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::OutlineColors
+TYPE Game.Rendering.LaneProperty
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::OutlineColors
+TYPE Game.Rendering.BatchInstanceSystem/BatchInstanceJob
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_HighlightedData
+TYPE Game.Rendering.BatchInstanceSystem/TypeHandle
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted> Game.Rendering.BatchInstanceSystem/TypeHandle::__Game_Tools_Highlighted_RO_ComponentLookup
+TYPE Game.Rendering.ManagedBatchSystem
+FIELD System.Int32 Game.Rendering.ManagedBatchSystem::m_OutlineLayer
+TYPE Game.Rendering.RequiredBatchesSystem/RequiredBatchesJob
+FIELD Unity.Entities.ComponentTypeHandle`1<Game.Tools.Highlighted> Game.Rendering.RequiredBatchesSystem/RequiredBatchesJob::m_HighlightedType
+TYPE Game.Rendering.RequiredBatchesSystem/TypeHandle
+FIELD Unity.Entities.ComponentTypeHandle`1<Game.Tools.Highlighted> Game.Rendering.RequiredBatchesSystem/TypeHandle::__Game_Tools_Highlighted_RO_ComponentTypeHandle
+TYPE Game.Rendering.OutlinesWorldUIPass
+FIELD UnityEngine.LayerMask Game.Rendering.OutlinesWorldUIPass::m_OutlineLayer
+FIELD UnityEngine.Material Game.Rendering.OutlinesWorldUIPass::m_FullscreenOutline
+FIELD UnityEngine.MaterialPropertyBlock Game.Rendering.OutlinesWorldUIPass::m_OutlineProperties
+FIELD UnityEngine.Rendering.RTHandle Game.Rendering.OutlinesWorldUIPass::m_OutlineBuffer
+FIELD UnityEngine.Profiling.CustomSampler Game.Rendering.OutlinesWorldUIPass::m_OutlinesSampler
+API UnityEngine.Rendering.RTHandle Game.Rendering.OutlinesWorldUIPass::get_outlineBuffer()
+TYPE Game.Rendering.OutlinesWorldUIPass/ShaderID
+FIELD System.Int32 Game.Rendering.OutlinesWorldUIPass/ShaderID::_OutlineBuffer
+FIELD System.Int32 Game.Rendering.OutlinesWorldUIPass/ShaderID::_Outlines_MaxDistance
+TYPE Game.Rendering.PhotoModeRenderSystem
+FIELD UnityEngine.Rendering.HighDefinition.ShadowsMidtonesHighlights Game.Rendering.PhotoModeRenderSystem::m_ShadowsMidtonesHighlights
+TYPE Game.Rendering.RouteRenderSystem/TypeHandle
+FIELD Unity.Entities.ComponentTypeHandle`1<Game.Tools.Highlighted> Game.Rendering.RouteRenderSystem/TypeHandle::__Game_Tools_Highlighted_RO_ComponentTypeHandle
+TYPE Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted> Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_HighlightData
+TYPE Game.Rendering.EditorGizmoSystem/EditorGizmoJob
+FIELD Unity.Entities.ComponentTypeHandle`1<Game.Tools.Highlighted> Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HighlightedType
+TYPE Game.Rendering.EditorGizmoSystem/TypeHandle
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted> Game.Rendering.EditorGizmoSystem/TypeHandle::__Game_Tools_Highlighted_RO_ComponentLookup
+FIELD Unity.Entities.ComponentTypeHandle`1<Game.Tools.Highlighted> Game.Rendering.EditorGizmoSystem/TypeHandle::__Game_Tools_Highlighted_RO_ComponentTypeHandle
+TYPE Game.Rendering.GuideLinesSystem/NetToolGuideLinesJob
+FIELD Game.Prefabs.ElectricityConnection/Voltage Game.Rendering.GuideLinesSystem/NetToolGuideLinesJob::m_HighlightVoltage
+FIELD Unity.Mathematics.bool2 Game.Rendering.GuideLinesSystem/NetToolGuideLinesJob::m_HighlightWater
+TYPE Game.Rendering.OverlayRenderSystem/CurveData
+FIELD UnityEngine.Color Game.Rendering.OverlayRenderSystem/CurveData::m_OutlineColor
+FIELD System.Single Game.Rendering.OverlayRenderSystem/CurveData::m_OutlineWidth
+TYPE Game.Prefabs.AreaPrefab
+FIELD UnityEngine.Color Game.Prefabs.AreaPrefab::m_SelectionColor
+TYPE Game.Prefabs.WaterSourceColorElement
+FIELD UnityEngine.Color Game.Prefabs.WaterSourceColorElement::m_Outline
+FIELD UnityEngine.Color Game.Prefabs.WaterSourceColorElement::m_ProjectedOutline
+TYPE Game.Prefabs.GuideLineSettings/WaterSourceColor
+FIELD UnityEngine.Color Game.Prefabs.GuideLineSettings/WaterSourceColor::m_Outline
+FIELD UnityEngine.Color Game.Prefabs.GuideLineSettings/WaterSourceColor::m_ProjectedOutline
+TYPE Game.Prefabs.MeshLayer
+FIELD Game.Prefabs.MeshLayer Game.Prefabs.MeshLayer::Outline
+TYPE Game.Prefabs.SubMeshFlags
+FIELD Game.Prefabs.SubMeshFlags Game.Prefabs.SubMeshFlags::OutlineOnly
+TYPE Game.Prefabs.TutorialBalloonPrefab/BalloonUITarget
+FIELD System.Boolean Game.Prefabs.TutorialBalloonPrefab/BalloonUITarget::m_HighlightUIElement
+TYPE Game.Prefabs.TutorialInfoPanelPrefab/UIHighlightTarget
+FIELD System.Boolean Game.Prefabs.TutorialInfoPanelPrefab/UIHighlightTarget::m_HighlightUIElement
+TYPE Game.Prefabs.UnlockAllSystem
+FIELD Game.UI.InGame.UIHighlightSystem Game.Prefabs.UnlockAllSystem::m_UIHighlightSystem
+TYPE Game.Prefabs.Climate.ShadowsMidtonesHighlightsProperties
+FIELD UnityEngine.Rendering.Vector4Parameter Game.Prefabs.Climate.ShadowsMidtonesHighlightsProperties::m_Highlights
+FIELD UnityEngine.Rendering.MinFloatParameter Game.Prefabs.Climate.ShadowsMidtonesHighlightsProperties::m_HighlightsStart
+FIELD UnityEngine.Rendering.MinFloatParameter Game.Prefabs.Climate.ShadowsMidtonesHighlightsProperties::m_HighlightsEnd

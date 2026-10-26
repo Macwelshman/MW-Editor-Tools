@@ -18,19 +18,19 @@ function load(file){if(cache[file])return cache[file];const out={};const code=ts
 }
 const component=load('window.tsx').ColourVariationsContent;
 let checks=0;const check=(b,m)=>{if(!b)throw Error(m);checks++;};
-const render=()=>{effects=[];stringHook=0;return renderToStaticMarkup(React.createElement(component));};
+const render=()=>{effects=[];stringHook=0;return renderToStaticMarkup(React.createElement(component)).replace(/\u00a0/g," ");};
 let html=render();
 check(!html.includes('draggable-panel')&&!html.includes('launcher'),'Integrated content creates no second window or launcher');
 check(!html.includes('Colours follow the selected item automatically.')&&!html.includes('Use current selection')&&html.includes('Choose target mesh'),'Selection and multi-mesh choice retained');
 check(html.includes('Copy')&&html.includes('Paste')&&html.includes('Undo last edit'),'Copy paste and own edit Undo retained');
 check(html.includes('Channel 0')&&html.includes('Channel 1')&&html.includes('Channel 2')&&html.includes('#FF000080'),'All channel lists and alpha value retained');
 check(html.includes('Previous group')&&html.includes('Next group')&&html.includes('Replace group')&&html.includes('Append to group'),'Group and append controls retained');
-check(html.includes('1 combinations generated')&&html.includes('1 total variations'),'Combination summary retained');
+check(html.includes('1 combination generated')&&html.includes('1 total variation'),'Combination summary retained');
 handlers['Generate combinations']();const preview=JSON.parse(calls.at(-1)[2]);
 check(calls.at(-1)[0]==='mwEditorToolsColors'&&preview.action==='preview'&&preview.pairs===state.pairs&&preview.channel2===state.channel2,'Distinct binding sends complete paired palette');
 handlers['Apply combinations']();check(JSON.parse(calls.at(-1)[2]).action==='apply','Apply command retained');
 handlers['Undo last edit']();check(JSON.parse(calls.at(-1)[2]).action==='undo','Colour Undo command retained');
-state={...state,confirmPaste:true};html=render();check(html.includes('Confirm paste')&&html.includes('replace ALL Colour Properties'),'Full paste confirmation retained');
+state={...state,confirmPaste:true,canReset:true};html=render();check(!html.includes('Confirm paste')&&html.includes('>Reset<'),'Single paste action and separate reset');handlers['Paste colour settings']();check(JSON.parse(calls.at(-1)[2]).action==='paste','Paste dispatches immediate action');handlers['Reset']();check(JSON.parse(calls.at(-1)[2]).action==='reset','Reset dispatches guarded paste recovery');state={...state,canReset:false};html=render();check(/<button[^>]*disabled=""[^>]*>Reset/.test(html),'Reset unavailable without paste snapshot');
 state={...state,changed:true};html=render();check(/<button[^>]*disabled=""[^>]*>Generate combinations/.test(html),'Stale selection blocks generated palette');
 state={...state,changed:false,blockedReason:'Wait for saving',canApply:false,canUndo:false,canPaste:false};html=render();
 check(html.includes('Wait for saving')&&/<button[^>]*disabled=""[^>]*>Apply combinations/.test(html)&&/<button[^>]*disabled=""[^>]*>Undo last edit/.test(html),'Saving or recovery interlock visible and mutation actions disabled');

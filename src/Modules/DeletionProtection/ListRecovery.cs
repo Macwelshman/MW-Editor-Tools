@@ -49,11 +49,15 @@ namespace MW.EditorTools.Modules.DeletionProtection
         private bool Saving => saveBusy?.Invoke()==true;
         internal void SetSaveBusy(Func<bool> value) { saveBusy = value; }
         internal bool OperationBusy => pending != null || applying || bulldozerTrace?.Busy==true || bulldozerTrace?.MovePreviewActive==true || bulldozerTrace?.NestedTestRunning==true;
+        internal string TargetUndoFeedback(Entity entity, bool selected) => !enabledFeature || settings?.recovery != true ?
+            "Enable MW Undo in Options to record supported native actions." : Saving ? "Wait for saving to finish." :
+            OperationBusy ? "Wait for the current edit or Undo to finish." : bulldozerTrace?.TargetUndoFeedback(entity, selected) ?? "Native Undo is unavailable in this session.";
         public int UndoCount => replacementUndo!=null?1:history.UndoCount + (bulldozerTrace?.UndoCount ?? 0);
         public int RedoCount => history.RedoCount + (bulldozerTrace?.RedoCount ?? 0);
         public string UndoTarget => replacementUndo?.Label ?? (bulldozerTrace?.HasRecord==true?bulldozerTrace.UndoTarget:history.Latest?.Label);
         public string RedoTarget => bulldozerTrace?.HasRecord==true?bulldozerTrace.RedoTarget:history.NextRedo?.Label;
-        public string Status => bulldozerTrace?.HasRecord == true || bulldozerTrace?.Busy == true ? bulldozerTrace.Status : status;
+        private bool HasBulldozerRefusal => UndoCount==0 && bulldozerTrace!=null && (bulldozerTrace.Status.IndexOf("unavailable",StringComparison.OrdinalIgnoreCase)>=0 || bulldozerTrace.Status.StartsWith("Cannot enable",StringComparison.Ordinal));
+        public string Status => bulldozerTrace?.HasRecord == true || bulldozerTrace?.Busy == true || HasBulldozerRefusal ? bulldozerTrace.Status : status;
         public string ActiveAssetName => context?.Asset?.name ?? bulldozerTrace?.AssetName;
         public bool CanArmMainTest => !Saving && enabledFeature && settings?.recovery==true && bulldozerTrace?.CanArmMain==true;
         public bool MainHistoryEnabled => bulldozerTrace?.MainHistoryEnabled==true;
@@ -383,7 +387,8 @@ namespace MW.EditorTools.Modules.DeletionProtection
             }
             var children = (IList<IWidget>)panelChildren.GetValue(inspector);
             if (!children.Contains(section)) panelChildren.SetValue(inspector, new[] { section }.Cast<IWidget>().Concat(children).ToList());
-            section.displayName = LocalizedString.Value("MW Undo — " + status);
+            section.displayName = LocalizedString.Value("MW Undo — " + Status);
+            section.tooltip = LocalizedString.Value(Status);
             section.SetPropertiesChanged();
         }
 

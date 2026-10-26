@@ -1,0 +1,11 @@
+System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.quaternion&,Unity.Mathematics.quaternion)
+IL_0000: ldarg.0
+IL_0001: ldobj Unity.Mathematics.quaternion
+IL_0006: ldarg.1
+IL_0007: call System.Single Colossal.Mathematics.MathUtils::RotationAngle(Unity.Mathematics.quaternion,Unity.Mathematics.quaternion)
+IL_000c: ldc.r4 0.017453292
+IL_0011: bge.un.s IL_001a
+IL_0013: ldarg.0
+IL_0014: ldarg.1
+IL_0015: stobj Unity.Mathematics.quaternion
+IL_001a: ret

@@ -1,0 +1,22 @@
+[
+  {
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\src\\Modules\\Targeting\\EditorTargetingTool.cs",
+    "Hash": "90A32A99A6033C154D6BFD05F507E8F5D99EFFA847D98A4DF652F57F1CBAA0D0"
+  },
+  {
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\src\\Modules\\Targeting\\OutlineColourSystem.cs",
+    "Hash": "992E46AF622411F4AD2D736F945DD468FD35806F68BB4B458394A5AA6401193A"
+  },
+  {
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\src\\Modules\\Targeting\\TargetHighlights.cs",
+    "Hash": "13A5363B77EA060907A913C0ACF4CFC854101F30F6862A9718BF7C7116D7CE2F"
+  },
+  {
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\src\\Modules\\Targeting\\TargetKinds.cs",
+    "Hash": "9F41BFD21E453A6C89C414B9FEB01E922FFF8E514D6B698C130129FA9D542034"
+  },
+  {
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\src\\Modules\\Targeting\\TargetSelection.cs",
+    "Hash": "BD287DA9B599BF703120B5DBB159AB1D8BB0B95DB37F9CFA77963C911FBC82EB"
+  }
+]

@@ -1,0 +1,633 @@
+TYPE Game.Rendering.BatchDataSystem
+FIELD System.Single Game.Rendering.BatchDataSystem::LOD_FADE_DURATION
+FIELD System.Single Game.Rendering.BatchDataSystem::DEBUG_FADE_DURATION
+FIELD Game.Rendering.RenderingSystem Game.Rendering.BatchDataSystem::m_RenderingSystem
+FIELD Game.Rendering.CameraUpdateSystem Game.Rendering.BatchDataSystem::m_CameraUpdateSystem
+FIELD Game.Rendering.BatchManagerSystem Game.Rendering.BatchDataSystem::m_BatchManagerSystem
+FIELD Game.Rendering.BatchMeshSystem Game.Rendering.BatchDataSystem::m_BatchMeshSystem
+FIELD Game.Rendering.ManagedBatchSystem Game.Rendering.BatchDataSystem::m_ManagedBatchSystem
+FIELD Game.Rendering.PreCullingSystem Game.Rendering.BatchDataSystem::m_PreCullingSystem
+FIELD Game.Rendering.LightingSystem Game.Rendering.BatchDataSystem::m_LightingSystem
+FIELD Game.Rendering.MeshColorSystem Game.Rendering.BatchDataSystem::m_MeshColorSystem
+FIELD Game.Simulation.SimulationSystem Game.Rendering.BatchDataSystem::m_SimulationSystem
+FIELD Game.Simulation.CitizenPresenceSystem Game.Rendering.BatchDataSystem::m_CitizenPresenceSystem
+FIELD Game.Simulation.TreeGrowthSystem Game.Rendering.BatchDataSystem::m_TreeGrowthSystem
+FIELD Game.Simulation.WetnessSystem Game.Rendering.BatchDataSystem::m_WetnessSystem
+FIELD Game.Simulation.WindSystem Game.Rendering.BatchDataSystem::m_WindSystem
+FIELD Game.Simulation.DirtynessSystem Game.Rendering.BatchDataSystem::m_DirtynessSystem
+FIELD Game.Tools.ToolSystem Game.Rendering.BatchDataSystem::m_ToolSystem
+FIELD Unity.Entities.EntityQuery Game.Rendering.BatchDataSystem::m_RenderingSettingsQuery
+FIELD Colossal.Collections.NativeAccumulator`1<Game.Rendering.BatchDataSystem/SmoothingNeeded> Game.Rendering.BatchDataSystem::m_SmoothingNeeded
+FIELD System.Int32 Game.Rendering.BatchDataSystem::m_SHCoefficients
+FIELD System.Int32 Game.Rendering.BatchDataSystem::m_LodParameters
+FIELD System.Boolean Game.Rendering.BatchDataSystem::m_UpdateAll
+FIELD System.Single Game.Rendering.BatchDataSystem::m_LastLightFactor
+FIELD System.Single Game.Rendering.BatchDataSystem::m_LodFadeTimer
+FIELD Unity.Mathematics.float4 Game.Rendering.BatchDataSystem::m_LastBuildingStateOverride
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastCitizenPresenceVersion
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastTreeGrowthVersion
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastWetnessVersion
+FIELD System.Boolean Game.Rendering.BatchDataSystem::m_LastSnowVisual
+FIELD Game.Settings.GameplaySettings Game.Rendering.BatchDataSystem::m_GameplaySettings
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastDirtynessVersion
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastFireDamageVersion
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastWaterDamageVersion
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastWeatherDamageVersion
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastLaneConditionFrame
+FIELD System.UInt32 Game.Rendering.BatchDataSystem::m_LastDamagedFrame
+METHOD System.Void Game.Rendering.BatchDataSystem::InstancePropertiesUpdated()
+IL_0000: ldarg.0
+IL_0001: ldc.i4.1
+IL_0002: stfld System.Boolean Game.Rendering.BatchDataSystem::m_UpdateAll
+IL_0007: ret
+TYPE Game.Rendering.BatchDataSystem/UpdateMask
+FIELD System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+METHOD System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.ObjectProperty)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0007: ldc.i4.2
+IL_0008: ldarg.1
+IL_0009: ldc.i4.s 31
+IL_000b: and
+IL_000c: shl
+IL_000d: or
+IL_000e: stfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0013: ret
+METHOD System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty)
+IL_0000: ldarg.0
+IL_0001: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0006: ldc.i4.2
+IL_0007: ldarg.1
+IL_0008: ldc.i4.s 31
+IL_000a: and
+IL_000b: shl
+IL_000c: and
+IL_000d: ldc.i4.0
+IL_000e: cgt.un
+IL_0010: ret
+METHOD System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0000: ldarg.3
+IL_0001: ldc.i4.m1
+IL_0002: stind.i4
+IL_0003: ldarg.0
+IL_0004: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0009: ldc.i4.2
+IL_000a: ldarg.1
+IL_000b: ldc.i4.s 31
+IL_000d: and
+IL_000e: shl
+IL_000f: and
+IL_0010: brfalse.s IL_0023
+IL_0012: ldarg.2
+IL_0013: ldobj Game.Rendering.GroupData
+IL_0018: stloc.0
+IL_0019: ldloca.s V_0
+IL_001b: ldarg.1
+IL_001c: ldarg.3
+IL_001d: call System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)
+IL_0022: ret
+IL_0023: ldc.i4.0
+IL_0024: ret
+METHOD System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.NetProperty)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0007: ldc.i4.2
+IL_0008: ldarg.1
+IL_0009: ldc.i4.s 31
+IL_000b: and
+IL_000c: shl
+IL_000d: or
+IL_000e: stfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0013: ret
+METHOD System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty)
+IL_0000: ldarg.0
+IL_0001: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0006: ldc.i4.2
+IL_0007: ldarg.1
+IL_0008: ldc.i4.s 31
+IL_000a: and
+IL_000b: shl
+IL_000c: and
+IL_000d: ldc.i4.0
+IL_000e: cgt.un
+IL_0010: ret
+METHOD System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.NetProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0000: ldarg.3
+IL_0001: ldc.i4.m1
+IL_0002: stind.i4
+IL_0003: ldarg.0
+IL_0004: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0009: ldc.i4.2
+IL_000a: ldarg.1
+IL_000b: ldc.i4.s 31
+IL_000d: and
+IL_000e: shl
+IL_000f: and
+IL_0010: brfalse.s IL_0023
+IL_0012: ldarg.2
+IL_0013: ldobj Game.Rendering.GroupData
+IL_0018: stloc.0
+IL_0019: ldloca.s V_0
+IL_001b: ldarg.1
+IL_001c: ldarg.3
+IL_001d: call System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)
+IL_0022: ret
+IL_0023: ldc.i4.0
+IL_0024: ret
+METHOD System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.LaneProperty)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0007: ldc.i4.2
+IL_0008: ldarg.1
+IL_0009: ldc.i4.s 31
+IL_000b: and
+IL_000c: shl
+IL_000d: or
+IL_000e: stfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0013: ret
+METHOD System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0000: ldarg.3
+IL_0001: ldc.i4.m1
+IL_0002: stind.i4
+IL_0003: ldarg.0
+IL_0004: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0009: ldc.i4.2
+IL_000a: ldarg.1
+IL_000b: ldc.i4.s 31
+IL_000d: and
+IL_000e: shl
+IL_000f: and
+IL_0010: brfalse.s IL_0023
+IL_0012: ldarg.2
+IL_0013: ldobj Game.Rendering.GroupData
+IL_0018: stloc.0
+IL_0019: ldloca.s V_0
+IL_001b: ldarg.1
+IL_001c: ldarg.3
+IL_001d: call System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)
+IL_0022: ret
+IL_0023: ldc.i4.0
+IL_0024: ret
+METHOD System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty)
+IL_0000: ldarg.0
+IL_0001: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0006: ldc.i4.2
+IL_0007: ldarg.1
+IL_0008: ldc.i4.s 31
+IL_000a: and
+IL_000b: shl
+IL_000c: and
+IL_000d: ldc.i4.0
+IL_000e: cgt.un
+IL_0010: ret
+METHOD System.Void Game.Rendering.BatchDataSystem/UpdateMask::UpdateProperty(Game.Rendering.ZoneProperty)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0007: ldc.i4.2
+IL_0008: ldarg.1
+IL_0009: ldc.i4.s 31
+IL_000b: and
+IL_000c: shl
+IL_000d: or
+IL_000e: stfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0013: ret
+METHOD System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ZoneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_0000: ldarg.3
+IL_0001: ldc.i4.m1
+IL_0002: stind.i4
+IL_0003: ldarg.0
+IL_0004: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0009: ldc.i4.2
+IL_000a: ldarg.1
+IL_000b: ldc.i4.s 31
+IL_000d: and
+IL_000e: shl
+IL_000f: and
+IL_0010: brfalse.s IL_0023
+IL_0012: ldarg.2
+IL_0013: ldobj Game.Rendering.GroupData
+IL_0018: stloc.0
+IL_0019: ldloca.s V_0
+IL_001b: ldarg.1
+IL_001c: ldarg.3
+IL_001d: call System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)
+IL_0022: ret
+IL_0023: ldc.i4.0
+IL_0024: ret
+METHOD System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ZoneProperty)
+IL_0000: ldarg.0
+IL_0001: ldfld System.UInt32 Game.Rendering.BatchDataSystem/UpdateMask::m_Mask
+IL_0006: ldc.i4.2
+IL_0007: ldarg.1
+IL_0008: ldc.i4.s 31
+IL_000a: and
+IL_000b: shl
+IL_000c: and
+IL_000d: ldc.i4.0
+IL_000e: cgt.un
+IL_0010: ret
+TYPE Game.Rendering.BatchDataSystem/UpdateMasks
+FIELD Game.Rendering.BatchDataSystem/UpdateMask Game.Rendering.BatchDataSystem/UpdateMasks::m_ObjectMask
+FIELD Game.Rendering.BatchDataSystem/UpdateMask Game.Rendering.BatchDataSystem/UpdateMasks::m_NetMask
+FIELD Game.Rendering.BatchDataSystem/UpdateMask Game.Rendering.BatchDataSystem/UpdateMasks::m_LaneMask
+FIELD Game.Rendering.BatchDataSystem/UpdateMask Game.Rendering.BatchDataSystem/UpdateMasks::m_ZoneMask
+TYPE Game.Rendering.BatchDataSystem/SmoothingType
+FIELD System.Int32 Game.Rendering.BatchDataSystem/SmoothingType::value__
+FIELD Game.Rendering.BatchDataSystem/SmoothingType Game.Rendering.BatchDataSystem/SmoothingType::SurfaceWetness
+FIELD Game.Rendering.BatchDataSystem/SmoothingType Game.Rendering.BatchDataSystem/SmoothingType::SurfaceDamage
+FIELD Game.Rendering.BatchDataSystem/SmoothingType Game.Rendering.BatchDataSystem/SmoothingType::SurfaceDirtyness
+FIELD Game.Rendering.BatchDataSystem/SmoothingType Game.Rendering.BatchDataSystem/SmoothingType::ColorMask
+TYPE Game.Rendering.BatchDataSystem/SmoothingNeeded
+FIELD System.UInt32 Game.Rendering.BatchDataSystem/SmoothingNeeded::m_Value
+TYPE Game.Rendering.BatchDataSystem/CellTypes
+FIELD Unity.Mathematics.float4x4 Game.Rendering.BatchDataSystem/CellTypes::m_CellTypes0
+FIELD Unity.Mathematics.float4x4 Game.Rendering.BatchDataSystem/CellTypes::m_CellTypes1
+FIELD Unity.Mathematics.float4x4 Game.Rendering.BatchDataSystem/CellTypes::m_CellTypes2
+FIELD Unity.Mathematics.float4x4 Game.Rendering.BatchDataSystem/CellTypes::m_CellTypes3
+TYPE Game.Rendering.BatchDataSystem/BatchDataJob
+FIELD Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.BatchDataSystem/BatchDataJob::m_CullingInfoData
+FIELD Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Rendering.BatchDataSystem/BatchDataJob::m_DestroyedData
+FIELD Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Rendering.BatchDataSystem/BatchDataJob::m_InterpolatedTransformData
+FIELD Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Rendering.BatchDataSystem/BatchDataJob::m_PseudoRandomSeedData
+FIELD Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchDataSystem/BatchDataJob::m_OwnerData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Error> Game.Rendering.BatchDataSystem/BatchDataJob::m_ErrorData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Warning> Game.Rendering.BatchDataSystem/BatchDataJob::m_WarningData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Override> Game.Rendering.BatchDataSystem/BatchDataJob::m_OverrideData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Hidden> Game.Rendering.BatchDataSystem/BatchDataJob::m_HiddenData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchDataSystem/BatchDataJob::m_TempData
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshBatches
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.FadeBatch> Game.Rendering.BatchDataSystem/BatchDataJob::m_FadeBatches
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshColors
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.MeshGroup> Game.Rendering.BatchDataSystem/BatchDataJob::m_MeshGroups
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.Animated> Game.Rendering.BatchDataSystem/BatchDataJob::m_Animateds
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.Skeleton> Game.Rendering.BatchDataSystem/BatchDataJob::m_Skeletons
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.Emissive> Game.Rendering.BatchDataSystem/BatchDataJob::m_Emissives
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Rendering.BatchDataSystem/BatchDataJob::m_TreeData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Stack> Game.Rendering.BatchDataSystem/BatchDataJob::m_StackData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectTransformData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Color> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectColorData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectElevationData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Surface> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectSurfaceData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Damaged> Game.Rendering.BatchDataSystem/BatchDataJob::m_ObjectDamagedData
+FIELD Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Rendering.BatchDataSystem/BatchDataJob::m_BuildingData
+FIELD Unity.Entities.ComponentLookup`1<Game.Buildings.CitizenPresence> Game.Rendering.BatchDataSystem/BatchDataJob::m_CitizenPresenceData
+FIELD Unity.Entities.ComponentLookup`1<Game.Buildings.Abandoned> Game.Rendering.BatchDataSystem/BatchDataJob::m_BuildingAbandonedData
+FIELD Unity.Entities.ComponentLookup`1<Game.Vehicles.Vehicle> Game.Rendering.BatchDataSystem/BatchDataJob::m_VehicleData
+FIELD Unity.Entities.ComponentLookup`1<Game.Vehicles.PublicTransport> Game.Rendering.BatchDataSystem/BatchDataJob::m_PublicTransportData
+FIELD Unity.Entities.ComponentLookup`1<Game.Events.OnFire> Game.Rendering.BatchDataSystem/BatchDataJob::m_OnFireData
+FIELD Unity.Entities.BufferLookup`1<Game.Vehicles.Passenger> Game.Rendering.BatchDataSystem/BatchDataJob::m_Passengers
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Rendering.BatchDataSystem/BatchDataJob::m_NodeData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Composition> Game.Rendering.BatchDataSystem/BatchDataJob::m_CompositionData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Orphan> Game.Rendering.BatchDataSystem/BatchDataJob::m_OrphanData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.NodeGeometry> Game.Rendering.BatchDataSystem/BatchDataJob::m_NodeGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.EdgeGeometry> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.StartNodeGeometry> Game.Rendering.BatchDataSystem/BatchDataJob::m_StartNodeGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.EndNodeGeometry> Game.Rendering.BatchDataSystem/BatchDataJob::m_EndNodeGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Rendering.BatchDataSystem/BatchDataJob::m_CurveData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.NodeLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_NodeLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.EdgeLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_EdgeLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetElevationData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.EdgeColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetEdgeColorData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.NodeColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_NetNodeColorData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.LaneColor> Game.Rendering.BatchDataSystem/BatchDataJob::m_LaneColorData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.LaneCondition> Game.Rendering.BatchDataSystem/BatchDataJob::m_LaneConditionData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.HangingLane> Game.Rendering.BatchDataSystem/BatchDataJob::m_HangingLaneData
+FIELD Unity.Entities.BufferLookup`1<Game.Net.SubFlow> Game.Rendering.BatchDataSystem/BatchDataJob::m_SubFlows
+FIELD Unity.Entities.BufferLookup`1<Game.Net.CutRange> Game.Rendering.BatchDataSystem/BatchDataJob::m_CutRanges
+FIELD Unity.Entities.ComponentLookup`1<Game.Zones.Block> Game.Rendering.BatchDataSystem/BatchDataJob::m_ZoneBlockData
+FIELD Unity.Entities.BufferLookup`1<Game.Zones.Cell> Game.Rendering.BatchDataSystem/BatchDataJob::m_ZoneCells
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabRefData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.GrowthScaleData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabGrowthScaleData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabStackData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabObjectGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.PublicTransportVehicleData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabPublicTransportVehicleData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.MeshData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabMeshData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.NetLaneData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabNetLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabCompositionData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.UtilityLaneData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabUtilityLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.BuildingExtensionData> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabBuildingExtensionData
+FIELD Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabSubMeshes
+FIELD Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabSubMeshGroups
+FIELD Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationClip> Game.Rendering.BatchDataSystem/BatchDataJob::m_PrefabAnimationClips
+FIELD System.Boolean Game.Rendering.BatchDataSystem/BatchDataJob::m_EditorMode
+FIELD System.Boolean Game.Rendering.BatchDataSystem/BatchDataJob::m_SnowVisual
+FIELD System.Single Game.Rendering.BatchDataSystem/BatchDataJob::m_LightFactor
+FIELD System.Single Game.Rendering.BatchDataSystem/BatchDataJob::m_FrameDelta
+FIELD Unity.Mathematics.float4 Game.Rendering.BatchDataSystem/BatchDataJob::m_BuildingStateOverride
+FIELD Game.Rendering.PreCullingFlags Game.Rendering.BatchDataSystem/BatchDataJob::m_CullingFlags
+FIELD System.Single Game.Rendering.BatchDataSystem/BatchDataJob::m_SmoothnessDelta
+FIELD Game.Rendering.BatchDataSystem/UpdateMasks Game.Rendering.BatchDataSystem/BatchDataJob::m_UpdateMasks
+FIELD Game.Prefabs.RenderingSettingsData Game.Rendering.BatchDataSystem/BatchDataJob::m_RenderingSettingsData
+FIELD Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchGroups
+FIELD Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.BatchDataSystem/BatchDataJob::m_CullingData
+FIELD Game.Simulation.CellMapData`1<Game.Simulation.Wind> Game.Rendering.BatchDataSystem/BatchDataJob::m_WindData
+FIELD Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+FIELD Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Rendering.BatchDataSystem/SmoothingNeeded> Game.Rendering.BatchDataSystem/BatchDataJob::m_SmoothingNeeded
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.ObjectProperty,UnityEngine.Color,System.Boolean)
+IL_0000: ldarga.s updateMask
+IL_0002: ldarg.s property
+IL_0004: ldarg.1
+IL_0005: ldloca.s V_0
+IL_0007: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.ObjectProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_000c: brfalse.s IL_001a
+IL_000e: ldarg.0
+IL_000f: ldarg.2
+IL_0010: ldarg.s color
+IL_0012: ldloc.0
+IL_0013: ldarg.s smooth
+IL_0015: call System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.MeshBatch&,UnityEngine.Color,System.Int32,System.Boolean)
+IL_001a: ret
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.GroupData&,Game.Rendering.MeshBatch&,Game.Rendering.BatchDataSystem/UpdateMask,Game.Rendering.LaneProperty,UnityEngine.Color,System.Boolean)
+IL_0000: ldarga.s updateMask
+IL_0002: ldarg.s property
+IL_0004: ldarg.1
+IL_0005: ldloca.s V_0
+IL_0007: call System.Boolean Game.Rendering.BatchDataSystem/UpdateMask::ShouldUpdateProperty(Game.Rendering.LaneProperty,Game.Rendering.GroupData&,System.Int32&)
+IL_000c: brfalse.s IL_001a
+IL_000e: ldarg.0
+IL_000f: ldarg.2
+IL_0010: ldarg.s color
+IL_0012: ldloc.0
+IL_0013: ldarg.s smooth
+IL_0015: call System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.MeshBatch&,UnityEngine.Color,System.Int32,System.Boolean)
+IL_001a: ret
+METHOD System.Void Game.Rendering.BatchDataSystem/BatchDataJob::UpdateColorMask(Game.Rendering.MeshBatch&,UnityEngine.Color,System.Int32,System.Boolean)
+IL_0000: ldarg.s smooth
+IL_0002: brfalse IL_00f7
+IL_0007: ldarg.0
+IL_0008: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_000d: ldloca.s V_0
+IL_000f: ldarg.1
+IL_0010: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0015: ldarg.3
+IL_0016: ldarg.1
+IL_0017: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_001c: call System.Boolean Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::GetPropertyValue<UnityEngine.Color>(!!0&,System.Int32,System.Int32,System.Int32)
+IL_0021: brfalse IL_00f7
+IL_0026: ldarg.2
+IL_0027: call UnityEngine.Vector4 UnityEngine.Color::op_Implicit(UnityEngine.Color)
+IL_002c: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(UnityEngine.Vector4)
+IL_0031: stloc.1
+IL_0032: ldloc.0
+IL_0033: call UnityEngine.Vector4 UnityEngine.Color::op_Implicit(UnityEngine.Color)
+IL_0038: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(UnityEngine.Vector4)
+IL_003d: stloc.2
+IL_003e: ldloc.1
+IL_003f: ldloc.2
+IL_0040: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Subtraction(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0045: stloc.3
+IL_0046: ldloc.3
+IL_0047: ldc.r4 0
+IL_004c: call Unity.Mathematics.bool4 Unity.Mathematics.float4::op_Inequality(Unity.Mathematics.float4,System.Single)
+IL_0051: call System.Boolean Unity.Mathematics.math::any(Unity.Mathematics.bool4)
+IL_0056: brfalse IL_0110
+IL_005b: ldloc.3
+IL_005c: ldc.r4 0
+IL_0061: call Unity.Mathematics.bool4 Unity.Mathematics.float4::op_LessThan(Unity.Mathematics.float4,System.Single)
+IL_0066: stloc.s V_4
+IL_0068: ldloc.2
+IL_0069: ldloc.3
+IL_006a: ldarg.0
+IL_006b: ldfld System.Single Game.Rendering.BatchDataSystem/BatchDataJob::m_SmoothnessDelta
+IL_0070: ldloc.3
+IL_0071: call Unity.Mathematics.float4 Unity.Mathematics.math::abs(Unity.Mathematics.float4)
+IL_0076: call System.Single Unity.Mathematics.math::cmax(Unity.Mathematics.float4)
+IL_007b: div
+IL_007c: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Multiply(Unity.Mathematics.float4,System.Single)
+IL_0081: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Addition(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0086: stloc.2
+IL_0087: ldloc.2
+IL_0088: ldc.r4 0
+IL_008d: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_0092: ldloc.1
+IL_0093: ldloc.s V_4
+IL_0095: call Unity.Mathematics.float4 Unity.Mathematics.math::select(Unity.Mathematics.float4,Unity.Mathematics.float4,Unity.Mathematics.bool4)
+IL_009a: ldloc.1
+IL_009b: ldc.r4 1
+IL_00a0: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Implicit(System.Single)
+IL_00a5: ldloc.s V_4
+IL_00a7: call Unity.Mathematics.float4 Unity.Mathematics.math::select(Unity.Mathematics.float4,Unity.Mathematics.float4,Unity.Mathematics.bool4)
+IL_00ac: call Unity.Mathematics.float4 Unity.Mathematics.math::clamp(Unity.Mathematics.float4,Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_00b1: stloc.2
+IL_00b2: ldloc.2
+IL_00b3: call UnityEngine.Vector4 Unity.Mathematics.float4::op_Implicit(Unity.Mathematics.float4)
+IL_00b8: call UnityEngine.Color UnityEngine.Color::op_Implicit(UnityEngine.Vector4)
+IL_00bd: stloc.0
+IL_00be: ldarg.0
+IL_00bf: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_00c4: ldloc.0
+IL_00c5: ldarg.1
+IL_00c6: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_00cb: ldarg.3
+IL_00cc: ldarg.1
+IL_00cd: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_00d2: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<UnityEngine.Color>(!!0,System.Int32,System.Int32,System.Int32)
+IL_00d7: ldloc.2
+IL_00d8: ldloc.1
+IL_00d9: call Unity.Mathematics.bool4 Unity.Mathematics.float4::op_Inequality(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_00de: call System.Boolean Unity.Mathematics.math::any(Unity.Mathematics.bool4)
+IL_00e3: brfalse.s IL_0110
+IL_00e5: ldarg.0
+IL_00e6: ldflda Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Rendering.BatchDataSystem/SmoothingNeeded> Game.Rendering.BatchDataSystem/BatchDataJob::m_SmoothingNeeded
+IL_00eb: ldc.i4.3
+IL_00ec: newobj System.Void Game.Rendering.BatchDataSystem/SmoothingNeeded::.ctor(Game.Rendering.BatchDataSystem/SmoothingType)
+IL_00f1: call System.Void Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Rendering.BatchDataSystem/SmoothingNeeded>::Accumulate(!0)
+IL_00f6: ret
+IL_00f7: ldarg.0
+IL_00f8: ldflda Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchDataJob::m_NativeBatchInstances
+IL_00fd: ldarg.2
+IL_00fe: ldarg.1
+IL_00ff: ldfld System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+IL_0104: ldarg.3
+IL_0105: ldarg.1
+IL_0106: ldfld System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+IL_010b: call System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>::SetPropertyValue<UnityEngine.Color>(!!0,System.Int32,System.Int32,System.Int32)
+IL_0110: ret
+TYPE Game.Rendering.BatchDataSystem/BatchLodJob
+FIELD System.Boolean Game.Rendering.BatchDataSystem/BatchLodJob::m_DisableLods
+FIELD System.Boolean Game.Rendering.BatchDataSystem/BatchLodJob::m_UseLodFade
+FIELD Unity.Mathematics.float4 Game.Rendering.BatchDataSystem/BatchLodJob::m_LodParameters
+FIELD Unity.Mathematics.float3 Game.Rendering.BatchDataSystem/BatchLodJob::m_CameraPosition
+FIELD Unity.Mathematics.float3 Game.Rendering.BatchDataSystem/BatchLodJob::m_CameraDirection
+FIELD System.Single Game.Rendering.BatchDataSystem/BatchLodJob::m_PixelSizeFactor
+FIELD System.Int32 Game.Rendering.BatchDataSystem/BatchLodJob::m_LodFadeDelta
+FIELD System.Int32 Game.Rendering.BatchDataSystem/BatchLodJob::m_ShadowBias
+FIELD Unity.Collections.NativeList`1<Game.Rendering.MeshLoadingState> Game.Rendering.BatchDataSystem/BatchLodJob::m_LoadingState
+FIELD Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchLodJob::m_NativeBatchGroups
+FIELD Colossal.Rendering.NativeBatchInstances`4/ParallelCullingWriter<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchDataSystem/BatchLodJob::m_NativeBatchInstances
+FIELD Unity.Collections.NativeList`1<System.Int32> Game.Rendering.BatchDataSystem/BatchLodJob::m_BatchPriority
+FIELD Unity.Collections.NativeList`1<System.Single> Game.Rendering.BatchDataSystem/BatchLodJob::m_VTRequestsMaxPixels0
+FIELD Unity.Collections.NativeList`1<System.Single> Game.Rendering.BatchDataSystem/BatchLodJob::m_VTRequestsMaxPixels1
+METHOD System.Boolean Game.Rendering.BatchDataSystem/BatchLodJob::GetLodPropertyIndex(Game.Rendering.GroupData&,System.Int32,System.Int32&)
+IL_0000: ldarg.1
+IL_0001: ldfld Game.Prefabs.MeshType Game.Rendering.GroupData::m_MeshType
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: ldc.i4.1
+IL_0009: sub
+IL_000a: switch IL_0021,IL_0047,IL_005b,IL_0034
+IL_001f: br.s IL_005b
+IL_0021: ldarg.1
+IL_0022: ldobj Game.Rendering.GroupData
+IL_0027: stloc.1
+IL_0028: ldloca.s V_1
+IL_002a: ldc.i4.8
+IL_002b: ldarg.2
+IL_002c: add
+IL_002d: ldarg.3
+IL_002e: call System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)
+IL_0033: ret
+IL_0034: ldarg.1
+IL_0035: ldobj Game.Rendering.GroupData
+IL_003a: stloc.1
+IL_003b: ldloca.s V_1
+IL_003d: ldc.i4.6
+IL_003e: ldarg.2
+IL_003f: add
+IL_0040: ldarg.3
+IL_0041: call System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)
+IL_0046: ret
+IL_0047: ldarg.1
+IL_0048: ldobj Game.Rendering.GroupData
+IL_004d: stloc.1
+IL_004e: ldloca.s V_1
+IL_0050: ldc.i4.s 14
+IL_0052: ldarg.2
+IL_0053: add
+IL_0054: ldarg.3
+IL_0055: call System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)
+IL_005a: ret
+IL_005b: ldarg.3
+IL_005c: ldc.i4.m1
+IL_005d: stind.i4
+IL_005e: ldc.i4.0
+IL_005f: ret
+TYPE Game.Rendering.BatchDataSystem/BatchLodJob/LodData
+FIELD Unity.Mathematics.int2 Game.Rendering.BatchDataSystem/BatchLodJob/LodData::m_MinLod
+FIELD System.Int32 Game.Rendering.BatchDataSystem/BatchLodJob/LodData::m_MaxPriority
+FIELD System.Int32 Game.Rendering.BatchDataSystem/BatchLodJob/LodData::m_SelectLod
+TYPE Game.Rendering.BatchDataSystem/TypeHandle
+TYPE Game.Rendering.PropertyData
+FIELD System.Int32 Game.Rendering.PropertyData::m_NameID
+FIELD System.Int32 Game.Rendering.PropertyData::m_DataIndex
+TYPE Game.Rendering.BatchInstanceSystem
+FIELD Game.Rendering.RenderingSystem Game.Rendering.BatchInstanceSystem::m_RenderingSystem
+FIELD Game.Rendering.BatchManagerSystem Game.Rendering.BatchInstanceSystem::m_BatchManagerSystem
+FIELD Game.Rendering.PreCullingSystem Game.Rendering.BatchInstanceSystem::m_PreCullingSystem
+FIELD Game.Rendering.UndergroundViewSystem Game.Rendering.BatchInstanceSystem::m_UndergroundViewSystem
+FIELD Game.City.CityConfigurationSystem Game.Rendering.BatchInstanceSystem::m_CityConfigurationSystem
+FIELD Game.Rendering.LocaleMeshStateSystem Game.Rendering.BatchInstanceSystem::m_LocaleMeshStateSystem
+FIELD Game.Tools.ToolSystem Game.Rendering.BatchInstanceSystem::m_ToolSystem
+FIELD Game.Rendering.BatchInstanceSystem/Groups Game.Rendering.BatchInstanceSystem::m_Groups
+TYPE Game.Rendering.BatchInstanceSystem/Groups
+FIELD Game.Rendering.PreCullingSystem Game.Rendering.BatchInstanceSystem/Groups::m_PreCullingSystem
+FIELD Game.Rendering.BatchManagerSystem Game.Rendering.BatchInstanceSystem/Groups::m_BatchManagerSystem
+FIELD Colossal.Collections.NativeParallelQueue`1<Game.Rendering.BatchInstanceSystem/GroupActionData> Game.Rendering.BatchInstanceSystem/Groups::m_GroupActionQueue
+FIELD Unity.Collections.NativeQueue`1<Game.Rendering.BatchInstanceSystem/VelocityData> Game.Rendering.BatchInstanceSystem/Groups::m_VelocityQueue
+FIELD Unity.Collections.NativeQueue`1<Game.Rendering.BatchInstanceSystem/FadeData> Game.Rendering.BatchInstanceSystem/Groups::m_FadeQueue
+FIELD Unity.Jobs.JobHandle Game.Rendering.BatchInstanceSystem/Groups::m_Dependency
+TYPE Game.Rendering.BatchInstanceSystem/Groups/TypeHandle
+TYPE Game.Rendering.BatchInstanceSystem/BatchInstanceJob
+FIELD Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_OwnerData
+FIELD Unity.Entities.ComponentLookup`1<Game.Rendering.InterpolatedTransform> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_InterpolatedTransformData
+FIELD Unity.Entities.ComponentLookup`1<Game.Rendering.CullingInfo> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_CullingInfoData
+FIELD Unity.Entities.ComponentLookup`1<Game.Common.Destroyed> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_DestroyedData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Error> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_ErrorData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Warning> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_WarningData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Override> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_OverrideData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_HighlightedData
+FIELD Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_TempData
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.MeshGroup> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_MeshGroups
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_MeshBatches
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.FadeBatch> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_FadeBatches
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Stopped> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_StoppedData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Unspawned> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_UnspawnedData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Tree> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_TreeData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Stack> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_StackData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.NetObject> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_NetObjectData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Quantity> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_QuantityData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Elevation> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_ObjectElevationData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Marker> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_ObjectMarkerData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.Relative> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_RelativeData
+FIELD Unity.Entities.ComponentLookup`1<Game.Objects.UnderConstruction> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_UnderConstructionData
+FIELD Unity.Entities.ComponentLookup`1<Game.Creatures.CurrentVehicle> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_CurrentVehicleData
+FIELD Unity.Entities.BufferLookup`1<Game.Objects.TransformFrame> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_TransformFrames
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Edge> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_EdgeData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Composition> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_CompositionData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Orphan> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_OrphanData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.EdgeGeometry> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_EdgeGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.StartNodeGeometry> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_StartNodeGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.EndNodeGeometry> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_EndNodeGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.OutsideConnection> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_NetOutsideConnectionData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Curve> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_CurveData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.PedestrianLane> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PedestrianLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.CarLane> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_CarLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.TrackLane> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_TrackLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.UtilityLane> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_UtilityLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_NetElevationData
+FIELD Unity.Entities.ComponentLookup`1<Game.Net.Marker> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_NetMarkerData
+FIELD Unity.Entities.BufferLookup`1<Game.Net.CutRange> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_CutRanges
+FIELD Unity.Entities.BufferLookup`1<Game.Net.ConnectedEdge> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_ConnectedEdges
+FIELD Unity.Entities.ComponentLookup`1<Game.Zones.Block> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_ZoneBlockData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabRefData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabNetData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.GrowthScaleData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabGrowthScaleData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.StackData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabStackData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.LocaleMeshData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabLocaleMeshData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.QuantityObjectData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabQuantityObjectData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.ObjectGeometryData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabObjectGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.MeshData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabMeshData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabNetGeometryData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.UtilityLaneData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabUtilityLaneData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionMeshData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabCompositionMeshData
+FIELD Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCompositionMeshRef> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabCompositionMeshRef
+FIELD Unity.Entities.BufferLookup`1<Game.Prefabs.SubMesh> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabSubMeshes
+FIELD Unity.Entities.BufferLookup`1<Game.Prefabs.SubMeshGroup> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabSubMeshGroups
+FIELD Unity.Entities.BufferLookup`1<Game.Prefabs.BatchGroup> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_PrefabBatchGroups
+FIELD System.Boolean Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_EditorMode
+FIELD System.Boolean Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_MarkersVisible
+FIELD System.Boolean Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_UnspawnedVisible
+FIELD System.Boolean Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_LeftHandTraffic
+FIELD Game.Prefabs.LocaleMeshFlags Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_CurrentLocaleFlags
+FIELD System.Boolean Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_UseLodFade
+FIELD System.UInt32 Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_FrameIndex
+FIELD System.Single Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_FrameTime
+FIELD Game.Net.UtilityTypes Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_DilatedUtilityTypes
+FIELD Game.Common.BoundsMask Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_VisibleMask
+FIELD Game.Common.BoundsMask Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_BecameVisible
+FIELD Game.Common.BoundsMask Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_BecameHidden
+FIELD Colossal.Rendering.NativeBatchInstances`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_BatchInstances
+FIELD Unity.Collections.NativeList`1<Game.Rendering.PreCullingData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_CullingData
+FIELD Colossal.Collections.NativeParallelQueue`1/Writer<Game.Rendering.BatchInstanceSystem/GroupActionData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_GroupActionQueue
+FIELD Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.BatchInstanceSystem/FadeData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_FadeQueue
+FIELD Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.BatchInstanceSystem/VelocityData> Game.Rendering.BatchInstanceSystem/BatchInstanceJob::m_VelocityQueue
+TYPE Game.Rendering.BatchInstanceSystem/GroupActionData
+FIELD System.Int32 Game.Rendering.BatchInstanceSystem/GroupActionData::m_GroupIndex
+FIELD System.Int32 Game.Rendering.BatchInstanceSystem/GroupActionData::m_RemoveInstanceIndex
+FIELD System.Int32 Game.Rendering.BatchInstanceSystem/GroupActionData::m_MergeIndex
+FIELD Game.Rendering.InstanceData Game.Rendering.BatchInstanceSystem/GroupActionData::m_AddInstanceData
+FIELD System.Boolean Game.Rendering.BatchInstanceSystem/GroupActionData::m_FadeIn
+TYPE Game.Rendering.BatchInstanceSystem/VelocityData
+FIELD Unity.Entities.Entity Game.Rendering.BatchInstanceSystem/VelocityData::m_Source
+FIELD Unity.Mathematics.float3 Game.Rendering.BatchInstanceSystem/VelocityData::m_Velocity
+TYPE Game.Rendering.BatchInstanceSystem/FadeData
+FIELD Unity.Entities.Entity Game.Rendering.BatchInstanceSystem/FadeData::m_Source
+FIELD System.Int32 Game.Rendering.BatchInstanceSystem/FadeData::m_GroupIndex
+FIELD System.Int32 Game.Rendering.BatchInstanceSystem/FadeData::m_InstanceIndex
+TYPE Game.Rendering.BatchInstanceSystem/DequeueFadesJob
+FIELD Unity.Entities.Entity Game.Rendering.BatchInstanceSystem/DequeueFadesJob::m_FadeContainer
+FIELD Colossal.Rendering.NativeBatchInstances`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchInstanceSystem/DequeueFadesJob::m_BatchInstances
+FIELD Unity.Collections.NativeQueue`1<Game.Rendering.BatchInstanceSystem/VelocityData> Game.Rendering.BatchInstanceSystem/DequeueFadesJob::m_VelocityQueue
+FIELD Unity.Collections.NativeQueue`1<Game.Rendering.BatchInstanceSystem/FadeData> Game.Rendering.BatchInstanceSystem/DequeueFadesJob::m_FadeQueue
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch> Game.Rendering.BatchInstanceSystem/DequeueFadesJob::m_MeshBatches
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.FadeBatch> Game.Rendering.BatchInstanceSystem/DequeueFadesJob::m_FadeBatches
+TYPE Game.Rendering.BatchInstanceSystem/GroupActionJob
+FIELD Unity.Entities.BufferLookup`1<Game.Rendering.MeshBatch> Game.Rendering.BatchInstanceSystem/GroupActionJob::m_MeshBatches
+FIELD Colossal.Collections.NativeParallelQueue`1/Reader<Game.Rendering.BatchInstanceSystem/GroupActionData> Game.Rendering.BatchInstanceSystem/GroupActionJob::m_GroupActions
+FIELD Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceUpdater<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchInstanceSystem/GroupActionJob::m_BatchInstanceUpdater
+TYPE Game.Rendering.BatchInstanceSystem/TypeHandle

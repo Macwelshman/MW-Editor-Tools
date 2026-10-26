@@ -15,10 +15,10 @@ namespace MW.EditorTools.Modules.PropReplacer {
   private sealed class TestWorld{public Game.Tools.ToolSystem Tool=new();public T GetExistingSystemManaged<T>() where T:class=>Tool as T;}
   private sealed class ViewportHitNotReady:InvalidOperationException{internal Unity.Entities.Entity Expected;internal Game.Tools.DefaultToolSystem Tool;internal ViewportHitNotReady(Unity.Entities.Entity id,Game.Tools.DefaultToolSystem tool){Expected=id;Tool=tool;}}
   private readonly TestWorld World=new();private Context context=new();private Clip clipboard=new();private Func<bool> shortcutAllowed=()=>true;private string status;
-  private Unity.Entities.Entity? requiredViewportHit;private Unity.Entities.Entity currentHit=new(7);private bool notReady=true,fail;private int attempts,successes,browserCalls;private bool lastBatch;
+  private Unity.Entities.Entity? requiredViewportHit;private Unity.Entities.Entity currentHit=new(7);private bool notReady=true,fail;private int attempts,successes,browserCalls;private bool lastBatch,lastShortcutIntent;
   private void CopyHover(){browserCalls++;CopyViewport();}private void PasteHover(bool batch){browserCalls++;PasteViewport(batch);}
   private void CopyViewport(){Act();clipboard=new();}private void PasteViewport(bool batch){Act();lastBatch=batch;}
-  private void Act(){attempts++;if(requiredViewportHit.HasValue&&requiredViewportHit.Value!=currentHit)throw new InvalidOperationException("Moved cursor");if(fail)throw new InvalidOperationException("Unsafe source");if(notReady)throw new ViewportHitNotReady(currentHit,(Game.Tools.DefaultToolSystem)World.Tool.activeTool);successes++;}
+  private void Act(){lastShortcutIntent=viewportShortcutIntent;attempts++;if(requiredViewportHit.HasValue&&requiredViewportHit.Value!=currentHit)throw new InvalidOperationException("Moved cursor");if(fail)throw new InvalidOperationException("Unsafe source");if(notReady)throw new ViewportHitNotReady(currentHit,(Game.Tools.DefaultToolSystem)World.Tool.activeTool);successes++;}
   private static int checks;private static void Check(bool ok,string label){if(!ok)throw new Exception(label);checks++;}
   private static PropReplacerSystem Start(bool copy=true,bool batch=false){
    UnityEngine.Time.frameCount=100;UnityEngine.Time.realtimeSinceStartup=0;
@@ -42,6 +42,7 @@ namespace MW.EditorTools.Modules.PropReplacer {
    s=Start();s.notReady=false;s.PollClipboardShortcuts();Check(s.attempts==1&&s.successes==0,"Initial frame cannot execute a second time");s.Step();Check(s.successes==1,"Next-frame action remains available");
    s=Start();s.notReady=false;s.fail=true;s.Step();Check(s.successes==0&&s.pendingViewportClipboard==null,"Non-transient source validation failure is not retried");
    s=Start();s.notReady=false;var k=UnityEngine.InputSystem.Keyboard.current;k.vKey.wasPressedThisFrame=true;s.currentHit=new(9);s.PollClipboardShortcuts();k.vKey.wasPressedThisFrame=false;s.Step();Check(s.successes==1&&s.pendingViewportClipboard==null,"New shortcut replaces pending intent without duplicate old action");
+   s=Start();Check(!s.viewportShortcutIntent,"shortcut intent is cleared after queuing a retry");s.notReady=false;s.Step();Check(s.lastShortcutIntent&&!s.viewportShortcutIntent,"deferred shortcut retains hover intent only during execution");s.CopyViewport();Check(!s.lastShortcutIntent,"panel/direct clipboard invocation does not inherit shortcut hover intent");
    Console.WriteLine("PASS: "+checks+" actual-source bounded viewport retry, context cancellation and single-dispatch checks.");
   }
  }

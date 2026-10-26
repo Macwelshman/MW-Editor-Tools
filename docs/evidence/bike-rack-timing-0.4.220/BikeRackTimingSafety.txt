@@ -1,0 +1,1 @@
+PASS: 14 actual-source bike-rack timing lifecycle/isolation checks. No native performance claim.

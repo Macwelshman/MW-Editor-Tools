@@ -29,6 +29,7 @@ namespace MW.EditorTools.UI
             public int undo, redo;
             public int positionRevision;
             public string[] recent;
+            public MW.EditorTools.Modules.Targeting.TargetingState targeting;
         }
         [Serializable] public sealed class Change { public string name, value; }
         [Serializable] public sealed class Position { public float x, y; public int revision; }
@@ -58,6 +59,10 @@ namespace MW.EditorTools.UI
         }
         private void Command(string command) {
             if (options == null || !context.EditorAvailable) return;
+            if(command!=null&&command.StartsWith("target",StringComparison.Ordinal)) {
+                World.GetExistingSystemManaged<MW.EditorTools.Modules.Targeting.EditorTargetingTool>()?.Command(command);
+                Publish();return;
+            }
             if (command == "open" || command == "close") Mod.Log.Info("MW Editor Tools: window command " + command);
             switch(command) {
                 case "open": visible = true; break;
@@ -132,9 +137,10 @@ namespace MW.EditorTools.UI
         }
         private bool ShortcutDispatchAllowed()=>options?.shortcuts==true && context?.EditorAvailable==true && !context.DialogBusy && !typing &&
             UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f && Application.isFocused;
-        internal bool ClipboardShortcutAllowed=>context?.EditorAvailable==true&&!context.DialogBusy&&!typing&&
+        internal bool ComponentCommandAllowed=>context?.EditorAvailable==true&&!context.DialogBusy&&
             UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f&&Application.isFocused&&recovery?.OperationBusy!=true&&
             World.GetExistingSystemManaged<MW.EditorTools.Modules.MultiSave.MultiSaveSystem>()?.IsBusy!=true;
+        internal bool ClipboardShortcutAllowed=>ComponentCommandAllowed&&!typing;
         private bool BrowserDispatchAllowed()=>options?.browserShortcuts==true && context?.EditorAvailable==true && !context.DialogBusy && !typing &&
             UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f && Application.isFocused && recovery?.OperationBusy!=true &&
             World.GetExistingSystemManaged<MW.EditorTools.Modules.MultiSave.MultiSaveSystem>()?.IsBusy!=true;
@@ -151,9 +157,10 @@ namespace MW.EditorTools.UI
                 undoTarget = recovery?.UndoTarget, redoTarget = recovery?.RedoTarget,
                 canUndo = context.EditorAvailable && recovery != null && recovery.CanUndo, canRedo = context.EditorAvailable && recovery != null && recovery.CanRedo,
                 protectedComponents = confirmation != null && confirmation.ProtectionInstalled, installedRecovery = recovery != null && recovery.RecoveryInstalled,
-                recent = recovery != null ? recovery.Recent : new string[0], positionRevision = positionRevision
+                recent = recovery != null ? recovery.Recent : new string[0], positionRevision = positionRevision,
+                targeting=World.GetExistingSystemManaged<MW.EditorTools.Modules.Targeting.EditorTargetingTool>()?.GetState()
             };
-            var serializedState = JsonUtility.ToJson(state);
+            var serializedState = Newtonsoft.Json.JsonConvert.SerializeObject(state);
             var json = serializedState.Substring(0, serializedState.Length - 1) + ",\"settings\":" + options.ToJson() + "}";
             if(json != published) { published = json; binding.Update(json); }
         }

@@ -1,0 +1,1 @@
+PASS: Settings tab and moved switches absent with active settings on or off.

@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-For version **0.4.180** · Cities: Skylines II Asset Editor
+Version **0.4.251** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -17,14 +17,15 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 - [Options and shortcuts](#options-and-shortcuts)
 - [Troubleshooting](#troubleshooting)
 - [Supported limits](#supported-limits)
+- [Screenshot guide](#screenshot-guide)
 
 ## Install or update
 
-Download the installer or manual ZIP from the [0.4.180 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.180). The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.251 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.251). The repository contains development source; cloning it does not install the mod.
 
 ### Windows installer
 
-Close Cities: Skylines II, run **MWEditorTools-0.4.180-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+Close Cities: Skylines II, run **MWEditorTools-0.4.251-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
 
 The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
 
@@ -71,7 +72,7 @@ Most tools follow the asset or mesh selected in the native **Object Info** panel
 | Copy one component | Tick components in Object Info → Components → Copy → select destination → Paste. |
 | Copy all components | Components → Copy All → select destination → choose mode → Paste. |
 | Change colour variations | Colours → select mesh → adjust palette → Generate combinations → Apply combinations. |
-| Save workspace assets | Multi-Save → Save all assets → review the result. |
+| Save workspace assets | Workspace → Save All → review the result. |
 | Undo a supported replacement, move or deletion | Ctrl+Z, or Undo in the header. |
 
 Use an editable copy when trying an unfamiliar workflow. Clipboard contents and recovery controls are working-session tools, not saved backups.
@@ -113,7 +114,7 @@ Whole-polygon creation/deletion through the node tool and edits that merge or af
 | Control | Recovers |
 |---|---|
 | Header Undo / Ctrl+Z | The last supported replacement, move, deletion or node edit. |
-| Components → Restore | The destination settings/components before the latest component paste. |
+| Components → Recover | The destination settings/components before the latest component paste. |
 | Colours → Undo last edit | The last supported colour edit. |
 
 
@@ -123,6 +124,14 @@ Whole-polygon creation/deletion through the node tool and edits that merge or af
 Replacer copies an element's referenced asset and uses it as a replacement. It preserves the **destination row's placement and settings**, rather than copying the source element's position.
 
 ### Copy and replace in the viewport or Object Info
+
+Surface-to-surface and compatible Area-to-Area replacement retain each destination boundary, elevation, settings and live entity references. They can be replaced individually or with Replace all, then restored with Undo. Each source row must map uniquely to its live boundary. Area navigation/activity markers can change while existing companion lane references and path-method settings are retained. Unknown layout changes, surface-to-area conversions and nested owners are refused. Surface/area compatibility is deliberately narrow: two Area entries can still be incompatible. Refused layout conversions do not change the asset. The earlier surface material/rebuild path has managed checks, but a fresh dedicated visual, repeated rebuild and save/reopen acceptance is not established by the latest general replacement test.
+
+For filtered viewport selection, click **Replacer → Start replacing** while native Select is active and an editable asset is inspected. This immediately enables viewport selection; no separate targeting step is needed. Choose an element type to filter what can be selected. Starting does not modify the asset. Eligible mesh outlines show gold on hover and cyan for MW selection, with no added circles. Surfaces, areas and networks also use polygon/curve outlines. Native effect/marker gizmos may retain the game colour; the panel reports when no eligible mesh outline is available. Panel Copy, Replace and Replace all use the clicked cyan selection. Viewport Ctrl+C, Ctrl+V and Ctrl+Shift+V use the current gold hover, even when a different element remains selected. Shortcuts refuse if the ray is blocked by UI or the hover has changed; panel buttons require a clicked selection. Surface hits are checked against the polygon boundary. Clear selection removes only the target; Stop replacing or Escape returns to native Select. Use native Select and the normal tool for moving/deleting. Changing a value in vanilla Object Info automatically stops replacing and clears its selection and outlines before the native rebuild. Click Start replacing again when the edit has finished.
+
+A clicked viewport selection also marks its exact Object Info element row with a rounded cyan box. Selecting an element opens its owning component and list, moves to the matching page and scrolls the row into view. Search filters remain unchanged; if a search excludes the selected row, clear that search to reveal it. Component-copy checkboxes are independent.
+
+The panel explains Undo eligibility for the target. A candidate or successful data preflight still needs the normal capture, source, companion and reference checks when an action occurs. Extra mod data, including Anarchy protection, may prevent capture. Filter/asset changes and stale targets clear the selection. Fine filters can reject the nearest overlapping static object; they do not guarantee selection through it.
 
 1. Use the native default selection tool for viewport targeting.
 2. Hover over the source element in the viewport, or its highlighted row in the current asset's **Object Info attached-element list**.
@@ -162,6 +171,8 @@ A replacement whose visible result or status is wrong should not be saved over a
 
 Components transfers the selected components' settings between assets. It leaves the source unchanged and attaches additions to the destination asset.
 
+Choose **Component copying**, **Localisation** or **Pack priorities** at the top of the tab to show that task's controls. A workspace scan reports how many assets were found; load assets into the editor workspace if it reports none.
+
 ### Copy one or several components
 
 1. Select the source asset in Object Info.
@@ -170,9 +181,49 @@ Components transfers the selected components' settings between assets. It leaves
 4. Select the destination asset and open **Components** in MW Editor Tools.
 5. Choose a paste mode and click **Paste**.
 
-The Components tab shows the clipboard, paste modes, **Paste**, **Restore**, and the result information. Paste checks compatibility automatically before applying supported changes. The report below stays visible and lists changes or skipped components. Selecting another asset clears the prior result information; there is no separate Preview step or duplicate component list.
+The Components tab shows the clipboard, paste modes, **Paste**, **Recover**, and the result information. Paste checks compatibility automatically before applying supported changes. The report below stays visible and lists changes or skipped components. Selecting another asset clears the prior result information; there is no separate Preview step or duplicate component list.
 
-Selection uses the game's native small editor checkbox. The heading arrow still expands/collapses its settings; its existing activation checkbox still controls whether the component is active. Selection checkboxes are separate from activation. Final in-game acceptance of the 0.4.180 selection/focus refinements remains pending.
+Selection uses the game's native small editor checkbox. The heading arrow still expands/collapses its settings; its existing activation checkbox still controls whether the component is active. Selection checkboxes are separate from activation. The component selection checkboxes do not select viewport elements.
+
+### Copy selected fields
+
+After ticking the source component heading, use **Choose fields to copy**. Included fields are highlighted. Use **All fields**, **No fields**, or the UI Object **Group and Priority** preset, then adjust individual fields and click **Copy**. Choices apply to that source selection; selecting another asset starts with its default field choices.
+
+UI Object **Icon** is always excluded from component copying, so each destination keeps its thumbnail. On a newly added component, unselected fields keep the defaults chosen by the game. Other opaque/private/native or otherwise unsupported settings can still cause a component to be skipped; this is not universal copying of arbitrary data.
+
+### Number pack priorities
+
+1. Load editable assets into the workspace and open **Components → Pack priorities**.
+2. Click **Scan workspace**, filter to the desired pack and choose its assets. **Select shown** selects eligible assets on the current page; **Select matching** selects all eligible search matches across pages. **Deselect pack** clears the selection.
+3. Set **Start priority** and a positive **Increment**.
+4. Click **Preview priorities**. By default, assets follow workspace list order. If **Use naming pattern** is enabled, the supplied pattern sorts by pack, asset number, level, plot width and depth. Every selected variant gets its own priority.
+5. Review every asset and assigned value, then click **Apply priorities**. Changing choices or inputs requires another preview. **Restore priorities** returns the last batch if the assets have not changed since.
+6. Save assets normally or through Multi-Save when satisfied. Numbering does not save automatically.
+
+Only loaded workspace assets are considered. Read-only assets and assets without UI Object are unavailable. Default numbering follows the workspace list order and accepts any naming format. Enable **Use naming pattern** only when you want names to determine the order. With it enabled, every selected name must match; an unmatched name refuses preview. Thumbnails, Group and other component values stay unchanged.
+
+The default format is `AB ZoneType_01_L1_2x2`. The named sections tell the sorter what to read: `pack` = AB (pack initials), `zone` = ZoneType, `house` = 01 (asset number), `level` = 1, `width` = 2 and `depth` = 2. These are labels, not literal words to put in names. `\d+` reads one or more digits; `[1-5]` allows levels 1–5. Spaces, underscores, `L` and `x` must match. `^` and `$` anchor the whole name. The pattern sorts by pack, asset number, level, width, then depth; zone is recognised but is not a sort key.
+
+Example with start **100** and increment **1**:
+
+| Asset | Priority |
+|---|---:|
+| AB ZoneType_01_L1_2x2 | 100 |
+| AB ZoneType_01_L1_2x3 | 101 |
+| AB ZoneType_01_L2_2x2 | 102 |
+| AB ZoneType_02_L1_2x2 | 103 |
+
+Priority asset and preview lists show 25 entries per page, with separate search and page controls. Applying affects the complete prepared preview, including entries hidden by search or on other pages.
+
+The naming pattern uses a four-line field. Use **Reset to default** beside the enabled pattern to restore the supplied expression. Preview again afterwards. Reset does not change whether pattern sorting is enabled. Disable the pattern to return to workspace list order.
+
+### Copy localised text
+
+Use **Copy name** / **Paste name** or **Copy description** / **Paste description** to transfer only that kind of text between the current Object Info assets. These use separate clipboards and include nonblank source language entries. Matching languages are updated; destination-only languages and the other kind of text remain. Internal asset names and thumbnails stay unchanged.
+
+The clipboards show copied text and language IDs. To fill an empty entry on the current asset, open **Add missing name** or **Add missing description**, enter its language ID (for example `en-US`) and text, then click **Add name** or **Add description**. Existing nonempty entries are preserved. Use Copy afterwards to transfer the new text.
+
+**Restore localisation** returns the latest destination's prior text if later changes do not prevent it. **Clear text clipboards** clears both text clipboards and that Restore entry. Save the asset normally or with Multi-Save to persist translations. A fresh dedicated save/reopen check of localisation is not included in the latest general replacement acceptance.
 
 ### Paste modes
 
@@ -188,11 +239,11 @@ Settings include supported nested lists, arrays, curves and referenced prefabs. 
 
 Dependencies are checked and copied additions are ordered where possible. A required active dependency must already be available or be included as a suitable copied addition. Incompatible components and settings that cannot be safely copied are reported as skips. **Copy all** does not override those restrictions or silently substitute default settings.
 
-### Restore a component paste
+### Recover a component paste
 
-Return to the latest destination and click **Restore**. This reinstates the prior settings and removes tracked additions from that paste.
+Return to the latest destination and click **Recover**. This reinstates the prior settings and removes tracked additions from that paste.
 
-Restore is one level, not a history of every paste. It refuses if the destination has changed since the paste, to protect subsequent work. Every Paste checks the current destination, clipboard and settings again.
+Recover is one level, not a history of every paste. It refuses if the destination has changed since the paste, to protect subsequent work. Every Paste checks the current destination, clipboard and settings again.
 
 The result and skipped-component report remain visible below the controls. **Clear Clipboard** empties the component clipboard and is disabled when empty. The component clipboard is separate from Replacer's element clipboard and the Colours clipboard.
 
@@ -217,7 +268,7 @@ Channels **0 and 1 remain paired by row**. Channel **2 combines with every pair*
 
 1. Select the source mesh and choose **Copy colour settings**.
 2. Select the destination mesh and choose **Paste colour settings**.
-3. Review and confirm the paste, or cancel it.
+3. Paste applies immediately. Choose **Reset** beside Paste to restore that mesh’s settings from before its last paste. Later edits prevent reset.
 
 Paste replaces the complete supported Colour Properties setup, or adds Colour Properties where supported. **Undo last edit** is the Colours tool's own recovery control.
 
@@ -227,10 +278,10 @@ If you change selection with uncommitted edits, the tool asks before discarding 
 
 Multi-Save saves unlocked assets in the current workspace, including hidden entries. Repeated instances of the same asset are saved once. Locked assets are excluded.
 
-1. Open **Multi-Save** and check the number ready to save.
-2. Click **Save all assets**.
-3. Follow any native editor dialogs that require a response.
-4. Review the completion summary. Open **Details** for the report or any skipped/failed items.
+1. Check the number ready to save at the bottom of **Workspace**.
+2. Click **Save All** there.
+3. Follow any native editor dialogs that require a response. The progress bar appears below Save All in Workspace while saving.
+4. Review the completion summary. Open the **Multi-Save** tab and **Details** for the report or any skipped/failed items.
 
 Existing files are updated. New assets use their current names. This is workspace saving, not automatic creation of backup copies.
 
@@ -249,6 +300,17 @@ Open **Options → MW Editor Tools**. Edit the options, then choose **Apply chan
 | Undo shortcut | Default Ctrl+Z. Click the binding field and press the desired combination. |
 | Reset window position | Return the shared tools window to its default location. |
 | Enable browser shortcuts | Enable the category shortcuts below. Off by default. |
+
+### Replacer shortcuts
+
+With **Start replacing** active, viewport shortcuts use the current gold hover. Panel buttons use the clicked cyan selection. Object Info row shortcuts use the hovered attached-element row.
+
+| Shortcut | Action |
+|---|---|
+| Ctrl+C | Copy the hovered compatible element reference. |
+| Ctrl+V | Replace the hovered destination. |
+| Ctrl+Shift+V | Replace matching elements in its owning asset list. |
+| Escape | Stop replacing and return to native Select. |
 
 ### Browser defaults
 
@@ -285,7 +347,7 @@ Confirmed component removal now refreshes the edited prefab and inspector after 
 | Area/surface node Undo does not trigger | Complete/release the node edit, keep its native area/surface tool active, then use Ctrl+Z. |
 | Component Paste is refused | Check the report, select an editable destination and try Paste again. Compatibility is checked on every paste. |
 | Component is skipped | Review the report below the controls for compatibility, dependencies or unsupported settings. An editable destination alone does not make every component transferable. |
-| Restore refuses | A later destination edit, identity change or different destination prevents safe restoration. |
+| Recover refuses | A later destination edit, identity change or different destination prevents safe restoration. |
 | Colours asks to generate again | The palette changed after the last generation. Generate combinations again before Apply. |
 | Save is disabled or some assets were excluded | Check the ready count and Details. Locked assets are excluded; saving may already be running. |
 | Window is out of reach | Use Options → MW Editor Tools → Reset window position. |
@@ -300,6 +362,12 @@ For a reproducible problem, record the mod version, source/target names, tool an
 
 Include whether the issue persists on a fresh disposable copy. Avoid saving a visibly failed operation over the original asset.
 
+### Other editor mods
+
+Move It moves and Better Bulldozer custom deletions are outside MW's advertised native-tool Undo coverage. Their histories are separate. Anarchy protection or other extra component data can cause a target to be refused. Startup coexistence does not establish recovery compatibility for every operation.
+
+The optional Asset Icon Creator integration preserves supported Group/Priority settings during its verified thumbnail callback. A different or unsupported version can disable the adapter; check the mod log. Component copying always excludes UI Object Icon so destination thumbnails stay unchanged.
+
 ## Supported limits
 
 The current release does **not** provide:
@@ -312,6 +380,40 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For candidate status and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.180.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+For release scope and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.251.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
 
+## Screenshot guide
 
+These in-game screenshots show the interface described in this manual. Example asset names and settings are illustrative; enabled buttons depend on the current selection and clipboard.
+
+### Replacer and exact row selection
+
+![The selected tree has a cyan outline and its matching Object Info row is highlighted. Start replacing enables this workflow; Stop replacing returns to native Select.](manual-replacer.png)
+
+### Component copying
+
+![Three Object Info headings are checked and their components have been copied. Choose a paste mode before pasting into the destination; selection and component activation use separate checkboxes.](manual-components.png)
+
+### Choose fields to copy
+
+![UI Object field choices are open. Gold fields are included in the next copy. The Group and Priority button selects that preset; the screenshot currently also includes Is Debug Object.](manual-fields.png)
+
+### Pack priorities
+
+![The workspace scan found seven assets. None is chosen yet, so preview and apply are disabled. Select assets, set Start priority and Increment, then preview before applying.](manual-priorities.png)
+
+### Localisation text
+
+![Separate clipboards show a copied English name and description. Select a destination before pasting. Add missing name or description fills an empty language entry.](manual-localisation.png)
+
+### Colour variations
+
+![A target mesh and three channel palettes are loaded. Forty-five combinations are generated and ready; Apply combinations writes them to the asset.](manual-colours.png)
+
+### Workspace Multi-Save
+
+![Save All is processing the fourth of seven assets. Stop requests a halt after the current asset. This screenshot shows progress, not a completed-save report.](manual-multisave.png)
+
+### Options and shortcuts
+
+![Undo and confirmation settings appear above the optional browser shortcuts. Apply changes saves edited settings. The screenshot shows browser shortcuts enabled; their default is off.](manual-options.png)

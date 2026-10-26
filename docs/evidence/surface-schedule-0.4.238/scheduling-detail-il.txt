@@ -1,0 +1,283 @@
+System.Void Game.UpdateSystem::OnBeginFrame(UnityEngine.Rendering.ScriptableRenderContext,UnityEngine.Camera[])
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<Game.IGPUSystem> Game.UpdateSystem::m_GPUSystems
+IL_0006: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<Game.IGPUSystem>::GetEnumerator()
+IL_000b: stloc.0
+IL_000c: br.s IL_006d
+IL_000e: ldloca.s V_0
+IL_0010: call !0 System.Collections.Generic.List`1/Enumerator<Game.IGPUSystem>::get_Current()
+IL_0015: stloc.1
+IL_0016: ldloc.1
+IL_0017: callvirt System.Boolean Game.IGPUSystem::get_Enabled()
+IL_001c: brfalse.s IL_006d
+IL_001e: ldstr ""
+IL_0023: call UnityEngine.Rendering.CommandBuffer UnityEngine.Rendering.CommandBufferPool::Get(System.String)
+IL_0028: stloc.2
+IL_0029: ldloc.1
+IL_002a: callvirt System.Boolean Game.IGPUSystem::get_IsAsync()
+IL_002f: brfalse.s IL_0038
+IL_0031: ldloc.2
+IL_0032: ldc.i4.2
+IL_0033: callvirt System.Void UnityEngine.Rendering.CommandBuffer::SetExecutionFlags(UnityEngine.Rendering.CommandBufferExecutionFlags)
+IL_0038: ldloc.1
+IL_0039: ldloc.2
+IL_003a: callvirt System.Void Game.IGPUSystem::OnSimulateGPU(UnityEngine.Rendering.CommandBuffer)
+IL_003f: ldloc.1
+IL_0040: callvirt System.Boolean Game.IGPUSystem::get_IsAsync()
+IL_0045: brfalse.s IL_0052
+IL_0047: ldarga.s renderContext
+IL_0049: ldloc.2
+IL_004a: ldc.i4.0
+IL_004b: call System.Void UnityEngine.Rendering.ScriptableRenderContext::ExecuteCommandBufferAsync(UnityEngine.Rendering.CommandBuffer,UnityEngine.Rendering.ComputeQueueType)
+IL_0050: br.s IL_005a
+IL_0052: ldarga.s renderContext
+IL_0054: ldloc.2
+IL_0055: call System.Void UnityEngine.Rendering.ScriptableRenderContext::ExecuteCommandBuffer(UnityEngine.Rendering.CommandBuffer)
+IL_005a: ldarga.s renderContext
+IL_005c: call System.Void UnityEngine.Rendering.ScriptableRenderContext::Submit()
+IL_0061: ldloc.2
+IL_0062: callvirt System.Void UnityEngine.Rendering.CommandBuffer::Clear()
+IL_0067: ldloc.2
+IL_0068: call System.Void UnityEngine.Rendering.CommandBufferPool::Release(UnityEngine.Rendering.CommandBuffer)
+IL_006d: ldloca.s V_0
+IL_006f: call System.Boolean System.Collections.Generic.List`1/Enumerator<Game.IGPUSystem>::MoveNext()
+IL_0074: brtrue.s IL_000e
+IL_0076: leave.s IL_0086
+IL_0078: ldloca.s V_0
+IL_007a: constrained. System.Collections.Generic.List`1/Enumerator<Game.IGPUSystem>
+IL_0080: callvirt System.Void System.IDisposable::Dispose()
+IL_0085: endfinally
+IL_0086: ret
+System.Void Game.UpdateSystem::Update(Game.SystemUpdatePhase)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.UpdateSystem::m_IsDirty
+IL_0006: brfalse.s IL_000e
+IL_0008: ldarg.0
+IL_0009: call System.Void Game.UpdateSystem::Refresh()
+IL_000e: ldarg.0
+IL_000f: ldfld System.Collections.Generic.List`1<Unity.Mathematics.int2> Game.UpdateSystem::m_UpdateRanges
+IL_0014: callvirt System.Int32 System.Collections.Generic.List`1<Unity.Mathematics.int2>::get_Count()
+IL_0019: ldarg.1
+IL_001a: bgt.s IL_001d
+IL_001c: ret
+IL_001d: ldarg.0
+IL_001e: call Game.SystemUpdatePhase Game.UpdateSystem::get_currentPhase()
+IL_0023: stloc.0
+IL_0024: ldarg.0
+IL_0025: ldarg.1
+IL_0026: call System.Void Game.UpdateSystem::set_currentPhase(Game.SystemUpdatePhase)
+IL_002b: ldarg.0
+IL_002c: ldfld System.Collections.Generic.List`1<Unity.Mathematics.int2> Game.UpdateSystem::m_UpdateRanges
+IL_0031: ldarg.1
+IL_0032: callvirt !0 System.Collections.Generic.List`1<Unity.Mathematics.int2>::get_Item(System.Int32)
+IL_0037: stloc.1
+IL_0038: ldloc.1
+IL_0039: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_003e: stloc.2
+IL_003f: br IL_00c8
+IL_0044: ldarg.0
+IL_0045: ldfld System.Collections.Generic.List`1<Game.UpdateSystem/SystemData> Game.UpdateSystem::m_Updates
+IL_004a: ldloc.2
+IL_004b: callvirt !0 System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>::get_Item(System.Int32)
+IL_0050: stloc.3
+IL_0051: ldloc.3
+IL_0052: ldfld Unity.Entities.ComponentSystemBase Game.UpdateSystem/SystemData::m_System
+IL_0057: callvirt System.Void Unity.Entities.ComponentSystemBase::Update()
+IL_005c: leave.s IL_00c4
+IL_005e: stloc.s V_4
+IL_0060: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_0065: callvirt System.Boolean Colossal.Logging.ILog::get_showsErrorsInUI()
+IL_006a: stloc.s V_5
+IL_006c: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_0071: callvirt Game.GameMode Game.SceneFlow.GameManager::get_gameMode()
+IL_0076: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_007b: brfalse.s IL_0088
+IL_007d: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_0082: ldc.i4.0
+IL_0083: callvirt System.Void Colossal.Logging.ILog::set_showsErrorsInUI(System.Boolean)
+IL_0088: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_008d: ldloc.s V_4
+IL_008f: ldstr "System update error during {0}->{1}:"
+IL_0094: ldarga.s phase
+IL_0096: constrained. Game.SystemUpdatePhase
+IL_009c: callvirt System.String System.Object::ToString()
+IL_00a1: ldloc.3
+IL_00a2: ldfld Unity.Entities.ComponentSystemBase Game.UpdateSystem/SystemData::m_System
+IL_00a7: callvirt System.Type System.Object::GetType()
+IL_00ac: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_00b1: callvirt System.Void Colossal.Logging.ILog::CriticalFormat(System.Exception,System.String,System.Object,System.Object)
+IL_00b6: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_00bb: ldloc.s V_5
+IL_00bd: callvirt System.Void Colossal.Logging.ILog::set_showsErrorsInUI(System.Boolean)
+IL_00c2: leave.s IL_00c4
+IL_00c4: ldloc.2
+IL_00c5: ldc.i4.1
+IL_00c6: add
+IL_00c7: stloc.2
+IL_00c8: ldloc.2
+IL_00c9: ldloc.1
+IL_00ca: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_00cf: blt IL_0044
+IL_00d4: leave.s IL_00de
+IL_00d6: ldarg.0
+IL_00d7: ldloc.0
+IL_00d8: call System.Void Game.UpdateSystem::set_currentPhase(Game.SystemUpdatePhase)
+IL_00dd: endfinally
+IL_00de: ret
+System.Void Game.UpdateSystem::Update(Game.SystemUpdatePhase,System.UInt32,System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Boolean Game.UpdateSystem::m_IsDirty
+IL_0006: brfalse.s IL_000e
+IL_0008: ldarg.0
+IL_0009: call System.Void Game.UpdateSystem::Refresh()
+IL_000e: ldarg.0
+IL_000f: ldfld System.Collections.Generic.List`1<Unity.Mathematics.int2> Game.UpdateSystem::m_UpdateRanges
+IL_0014: callvirt System.Int32 System.Collections.Generic.List`1<Unity.Mathematics.int2>::get_Count()
+IL_0019: ldarg.1
+IL_001a: bgt.s IL_001d
+IL_001c: ret
+IL_001d: ldarg.0
+IL_001e: call Game.SystemUpdatePhase Game.UpdateSystem::get_currentPhase()
+IL_0023: stloc.0
+IL_0024: ldarg.0
+IL_0025: ldarg.1
+IL_0026: call System.Void Game.UpdateSystem::set_currentPhase(Game.SystemUpdatePhase)
+IL_002b: ldarg.0
+IL_002c: ldfld System.Collections.Generic.List`1<Unity.Mathematics.int2> Game.UpdateSystem::m_UpdateRanges
+IL_0031: ldarg.1
+IL_0032: callvirt !0 System.Collections.Generic.List`1<Unity.Mathematics.int2>::get_Item(System.Int32)
+IL_0037: stloc.1
+IL_0038: ldloc.1
+IL_0039: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_003e: stloc.2
+IL_003f: br IL_00f7
+IL_0044: ldarg.0
+IL_0045: ldfld System.Collections.Generic.List`1<Game.UpdateSystem/SystemData> Game.UpdateSystem::m_Updates
+IL_004a: ldloc.2
+IL_004b: callvirt !0 System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>::get_Item(System.Int32)
+IL_0050: stloc.3
+IL_0051: ldarg.2
+IL_0052: ldloc.3
+IL_0053: ldfld System.Int32 Game.UpdateSystem/SystemData::m_Interval
+IL_0058: ldc.i4.1
+IL_0059: sub
+IL_005a: and
+IL_005b: ldloc.3
+IL_005c: ldfld System.Int32 Game.UpdateSystem/SystemData::m_Offset
+IL_0061: bne.un IL_00f3
+IL_0066: nop
+IL_0067: ldloc.3
+IL_0068: ldfld System.Int32 Game.UpdateSystem/SystemData::m_ResetInterval
+IL_006d: ldarg.3
+IL_006e: bgt.s IL_0080
+IL_0070: ldloc.3
+IL_0071: ldfld Unity.Entities.ComponentSystemBase Game.UpdateSystem/SystemData::m_System
+IL_0076: castclass Game.GameSystemBase
+IL_007b: callvirt System.Void Game.GameSystemBase::ResetDependency()
+IL_0080: ldloc.3
+IL_0081: ldfld Unity.Entities.ComponentSystemBase Game.UpdateSystem/SystemData::m_System
+IL_0086: callvirt System.Void Unity.Entities.ComponentSystemBase::Update()
+IL_008b: leave.s IL_00f3
+IL_008d: stloc.s V_4
+IL_008f: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_0094: callvirt System.Boolean Colossal.Logging.ILog::get_showsErrorsInUI()
+IL_0099: stloc.s V_5
+IL_009b: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_00a0: callvirt Game.GameMode Game.SceneFlow.GameManager::get_gameMode()
+IL_00a5: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_00aa: brfalse.s IL_00b7
+IL_00ac: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_00b1: ldc.i4.0
+IL_00b2: callvirt System.Void Colossal.Logging.ILog::set_showsErrorsInUI(System.Boolean)
+IL_00b7: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_00bc: ldloc.s V_4
+IL_00be: ldstr "System update error during {0}->{1}:"
+IL_00c3: ldarga.s phase
+IL_00c5: constrained. Game.SystemUpdatePhase
+IL_00cb: callvirt System.String System.Object::ToString()
+IL_00d0: ldloc.3
+IL_00d1: ldfld Unity.Entities.ComponentSystemBase Game.UpdateSystem/SystemData::m_System
+IL_00d6: callvirt System.Type System.Object::GetType()
+IL_00db: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_00e0: callvirt System.Void Colossal.Logging.ILog::CriticalFormat(System.Exception,System.String,System.Object,System.Object)
+IL_00e5: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_00ea: ldloc.s V_5
+IL_00ec: callvirt System.Void Colossal.Logging.ILog::set_showsErrorsInUI(System.Boolean)
+IL_00f1: leave.s IL_00f3
+IL_00f3: ldloc.2
+IL_00f4: ldc.i4.1
+IL_00f5: add
+IL_00f6: stloc.2
+IL_00f7: ldloc.2
+IL_00f8: ldloc.1
+IL_00f9: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_00fe: blt IL_0044
+IL_0103: leave.s IL_010d
+IL_0105: ldarg.0
+IL_0106: ldloc.0
+IL_0107: call System.Void Game.UpdateSystem::set_currentPhase(Game.SystemUpdatePhase)
+IL_010c: endfinally
+IL_010d: ret
+System.Void Game.UpdateSystem::Register(System.Int32,Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase)
+IL_0000: ldarg.2
+IL_0001: ldarg.3
+IL_0002: ldloca.s V_0
+IL_0004: ldloca.s V_1
+IL_0006: call System.Void Game.UpdateSystem::GetInterval(Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase,System.Int32&,System.Int32&)
+IL_000b: ldarg.0
+IL_000c: ldfld System.Collections.Generic.List`1<Game.UpdateSystem/SystemData> Game.UpdateSystem::m_Systems
+IL_0011: ldarg.3
+IL_0012: ldloc.0
+IL_0013: ldloc.1
+IL_0014: ldarg.1
+IL_0015: ldarg.2
+IL_0016: newobj System.Void Game.UpdateSystem/SystemData::.ctor(Game.SystemUpdatePhase,System.Int32,System.Int32,System.Int32,Unity.Entities.ComponentSystemBase)
+IL_001b: callvirt System.Void System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>::Add(!0)
+IL_0020: ldarg.0
+IL_0021: ldc.i4.1
+IL_0022: stfld System.Boolean Game.UpdateSystem::m_IsDirty
+IL_0027: ret
+System.Void Game.UpdateSystem::Register(System.Int32,Unity.Entities.ComponentSystemBase,Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase)
+IL_0000: ldarg.2
+IL_0001: ldarg.s phase
+IL_0003: ldloca.s V_0
+IL_0005: ldloca.s V_1
+IL_0007: call System.Void Game.UpdateSystem::GetInterval(Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase,System.Int32&,System.Int32&)
+IL_000c: ldarg.0
+IL_000d: ldfld System.Collections.Generic.Dictionary`2<Unity.Entities.ComponentSystemBase,System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>> Game.UpdateSystem::m_RefMap
+IL_0012: ldarg.3
+IL_0013: ldloca.s V_2
+IL_0015: callvirt System.Boolean System.Collections.Generic.Dictionary`2<Unity.Entities.ComponentSystemBase,System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>>::TryGetValue(!0,!1&)
+IL_001a: brfalse.s IL_002f
+IL_001c: ldloc.2
+IL_001d: ldarg.s phase
+IL_001f: ldloc.0
+IL_0020: ldloc.1
+IL_0021: ldarg.1
+IL_0022: ldarg.2
+IL_0023: newobj System.Void Game.UpdateSystem/SystemData::.ctor(Game.SystemUpdatePhase,System.Int32,System.Int32,System.Int32,Unity.Entities.ComponentSystemBase)
+IL_0028: callvirt System.Void System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>::Add(!0)
+IL_002d: br.s IL_0055
+IL_002f: ldc.i4.s 10
+IL_0031: newobj System.Void System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>::.ctor(System.Int32)
+IL_0036: stloc.2
+IL_0037: ldloc.2
+IL_0038: ldarg.s phase
+IL_003a: ldloc.0
+IL_003b: ldloc.1
+IL_003c: ldarg.1
+IL_003d: ldarg.2
+IL_003e: newobj System.Void Game.UpdateSystem/SystemData::.ctor(Game.SystemUpdatePhase,System.Int32,System.Int32,System.Int32,Unity.Entities.ComponentSystemBase)
+IL_0043: callvirt System.Void System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>::Add(!0)
+IL_0048: ldarg.0
+IL_0049: ldfld System.Collections.Generic.Dictionary`2<Unity.Entities.ComponentSystemBase,System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>> Game.UpdateSystem::m_RefMap
+IL_004e: ldarg.3
+IL_004f: ldloc.2
+IL_0050: callvirt System.Void System.Collections.Generic.Dictionary`2<Unity.Entities.ComponentSystemBase,System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>>::Add(!0,!1)
+IL_0055: ldarg.0
+IL_0056: ldc.i4.1
+IL_0057: stfld System.Boolean Game.UpdateSystem::m_IsDirty
+IL_005c: ret
+System.Int32 Game.GameSystemBase::GetUpdateInterval(Game.SystemUpdatePhase)
+IL_0000: ldc.i4.1
+IL_0001: ret

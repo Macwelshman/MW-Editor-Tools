@@ -1,0 +1,119 @@
+Game.Net.Curve Game.Net.NetUtils::AdjustPosition(Game.Net.Curve,System.Boolean,System.Boolean,System.Boolean,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&)
+V_0
+V_1
+V_2
+IL_0000: ldarg.0
+IL_0001: stloc.0
+IL_0002: ldarg.1
+IL_0003: brtrue.s IL_001a
+IL_0005: ldloca.s V_0
+IL_0007: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_000c: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0011: ldarg.s terrainHeightData
+IL_0013: ldarg.s waterSurfaceData
+IL_0015: call System.Void Game.Net.NetUtils::SetWaterHeight(Unity.Mathematics.float3&,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&)
+IL_001a: ldarg.3
+IL_001b: brtrue.s IL_0032
+IL_001d: ldloca.s V_0
+IL_001f: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0024: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0029: ldarg.s terrainHeightData
+IL_002b: ldarg.s waterSurfaceData
+IL_002d: call System.Void Game.Net.NetUtils::SetWaterHeight(Unity.Mathematics.float3&,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&)
+IL_0032: ldarg.2
+IL_0033: brfalse.s IL_00b0
+IL_0035: ldloca.s V_0
+IL_0037: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_003c: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0041: ldloc.0
+IL_0042: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0047: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_004c: ldfld System.Single Unity.Mathematics.float3::y
+IL_0051: ldloc.0
+IL_0052: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0057: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_005c: ldfld System.Single Unity.Mathematics.float3::y
+IL_0061: ldc.r4 0.33333334
+IL_0066: call System.Single Unity.Mathematics.math::lerp(System.Single,System.Single,System.Single)
+IL_006b: stfld System.Single Unity.Mathematics.float3::y
+IL_0070: ldloca.s V_0
+IL_0072: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0077: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_007c: ldloc.0
+IL_007d: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0082: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0087: ldfld System.Single Unity.Mathematics.float3::y
+IL_008c: ldloc.0
+IL_008d: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0092: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0097: ldfld System.Single Unity.Mathematics.float3::y
+IL_009c: ldc.r4 0.6666667
+IL_00a1: call System.Single Unity.Mathematics.math::lerp(System.Single,System.Single,System.Single)
+IL_00a6: stfld System.Single Unity.Mathematics.float3::y
+IL_00ab: br IL_0172
+IL_00b0: ldloca.s V_0
+IL_00b2: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00b7: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_00bc: ldarg.s terrainHeightData
+IL_00be: ldarg.s waterSurfaceData
+IL_00c0: call System.Void Game.Net.NetUtils::SetWaterHeight(Unity.Mathematics.float3&,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&)
+IL_00c5: ldloca.s V_0
+IL_00c7: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00cc: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_00d1: ldarg.s terrainHeightData
+IL_00d3: ldarg.s waterSurfaceData
+IL_00d5: call System.Void Game.Net.NetUtils::SetWaterHeight(Unity.Mathematics.float3&,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&)
+IL_00da: ldloc.0
+IL_00db: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00e0: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_00e5: ldfld System.Single Unity.Mathematics.float3::y
+IL_00ea: ldloca.s V_0
+IL_00ec: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00f1: call Colossal.Mathematics.Bezier4x1 Colossal.Mathematics.Bezier4x3::get_y()
+IL_00f6: ldc.r4 0.33333334
+IL_00fb: call System.Single Colossal.Mathematics.MathUtils::Position(Colossal.Mathematics.Bezier4x1,System.Single)
+IL_0100: sub
+IL_0101: stloc.1
+IL_0102: ldloc.0
+IL_0103: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0108: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_010d: ldfld System.Single Unity.Mathematics.float3::y
+IL_0112: ldloca.s V_0
+IL_0114: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0119: call Colossal.Mathematics.Bezier4x1 Colossal.Mathematics.Bezier4x3::get_y()
+IL_011e: ldc.r4 0.6666667
+IL_0123: call System.Single Colossal.Mathematics.MathUtils::Position(Colossal.Mathematics.Bezier4x1,System.Single)
+IL_0128: sub
+IL_0129: stloc.2
+IL_012a: ldloca.s V_0
+IL_012c: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0131: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0136: ldflda System.Single Unity.Mathematics.float3::y
+IL_013b: dup
+IL_013c: ldind.r4
+IL_013d: ldloc.1
+IL_013e: ldc.r4 3
+IL_0143: mul
+IL_0144: ldloc.2
+IL_0145: ldc.r4 1.5
+IL_014a: mul
+IL_014b: sub
+IL_014c: add
+IL_014d: stind.r4
+IL_014e: ldloca.s V_0
+IL_0150: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0155: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_015a: ldflda System.Single Unity.Mathematics.float3::y
+IL_015f: dup
+IL_0160: ldind.r4
+IL_0161: ldloc.2
+IL_0162: ldc.r4 3
+IL_0167: mul
+IL_0168: ldloc.1
+IL_0169: ldc.r4 1.5
+IL_016e: mul
+IL_016f: sub
+IL_0170: add
+IL_0171: stind.r4
+IL_0172: ldloc.0
+IL_0173: ret

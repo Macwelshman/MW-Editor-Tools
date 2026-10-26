@@ -38,6 +38,8 @@ namespace MW.EditorTools.Modules.ComponentManager.Diagnostics
                 json.Append("{\"index\":").Append(row.index.ToString(CultureInfo.InvariantCulture));
                 json.Append(",\"typeName\":").Append(Quote(row.typeName));
                 json.Append(",\"sectionId\":").Append(Quote(row.sectionId));
+                json.Append(",\"fields\":[");
+                for(int f=0;f<row.fields.Length;f++){if(f!=0)json.Append(',');json.Append(Quote(row.fields[f]));}json.Append(']');
                 json.Append(",\"active\":").Append(row.active ? "true" : "false");
                 json.Append(",\"valid\":").Append(row.valid ? "true" : "false").Append('}');
             }

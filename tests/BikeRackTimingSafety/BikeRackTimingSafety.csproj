@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/Modules/BulldozerRecovery/BikeRackMoveDiagnostics.cs" Link="BikeRackMoveDiagnostics.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/RecoveryTiming.cs" Link="RecoveryTiming.cs" />
+  </ItemGroup>
+</Project>

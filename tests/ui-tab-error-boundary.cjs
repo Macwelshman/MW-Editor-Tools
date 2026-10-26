@@ -1,0 +1,18 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const React=require('../UI/node_modules/react'),ts=require('../UI/node_modules/typescript');
+const {renderToStaticMarkup}=require('../UI/node_modules/react-dom/server');
+const out={},sent=[];
+vm.runInNewContext(ts.transpileModule(fs.readFileSync('UI/src/tab-error-boundary.tsx','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.React,esModuleInterop:true}}).outputText,{exports:out,require:name=>name==='react'?React:{trigger:(...args)=>sent.push(args)}});
+const Boundary=out.TabErrorBoundary,instance=new Boundary({children:React.createElement('span',null,'Tab content')});
+assert(renderToStaticMarkup(instance.render()).includes('Tab content'));
+instance.state=Boundary.getDerivedStateFromError(new Error('test tab failure'));
+instance.componentDidCatch(new Error('test tab failure'));
+const html=renderToStaticMarkup(instance.render());
+assert(html.includes('role="alert"')&&html.includes('Switch tabs or close'));
+assert(JSON.parse(sent[0][2]).tabError==='test tab failure');
+const index=fs.readFileSync('UI/src/index.tsx','utf8');
+assert(index.indexOf('mw-tools-header-actions')<index.indexOf('<TabErrorBoundary'));
+assert(index.indexOf('mw-tools-tabs')<index.indexOf('<TabErrorBoundary'));
+const replacer=fs.readFileSync('UI/src/prop-replacer.tsx','utf8');
+assert(!replacer.includes('<select')&&!replacer.includes('<option'));
+console.log('PASS: healthy tab rendering, local failure fallback/diagnostics, accessible header/tab isolation and no browser-only select.');

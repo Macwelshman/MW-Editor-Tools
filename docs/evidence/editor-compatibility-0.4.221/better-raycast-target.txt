@@ -1,0 +1,506 @@
+System.Boolean Better_Bulldozer.Patches.ToolBaseSystemGetRaycastResultPatch::Prefix(Unity.Entities.Entity&,Game.Common.RaycastHit&)
+IL_0000: nop
+IL_0001: call Unity.Entities.World Unity.Entities.World::get_DefaultGameObjectInjectionWorld()
+IL_0006: dup
+IL_0007: brtrue.s IL_000d
+IL_0009: pop
+IL_000a: ldnull
+IL_000b: br.s IL_0012
+IL_000d: call !!0 Unity.Entities.World::GetOrCreateSystemManaged<Better_Bulldozer.Systems.BetterBulldozerUISystem>()
+IL_0012: stloc.0
+IL_0013: ldloc.0
+IL_0014: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/RaycastTarget Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedRaycastTarget()
+IL_0019: ldc.i4.3
+IL_001a: beq.s IL_0027
+IL_001c: ldloc.0
+IL_001d: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/RaycastTarget Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedRaycastTarget()
+IL_0022: ldc.i4.0
+IL_0023: cgt.un
+IL_0025: br.s IL_0028
+IL_0027: ldc.i4.0
+IL_0028: stloc.s V_7
+IL_002a: ldloc.s V_7
+IL_002c: brfalse.s IL_0049
+IL_002e: nop
+IL_002f: ldarg.0
+IL_0030: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0035: stobj Unity.Entities.Entity
+IL_003a: ldarg.1
+IL_003b: initobj Game.Common.RaycastHit
+IL_0041: ldc.i4.1
+IL_0042: stloc.s V_8
+IL_0044: br IL_0550
+IL_0049: call Unity.Entities.World Unity.Entities.World::get_DefaultGameObjectInjectionWorld()
+IL_004e: dup
+IL_004f: brtrue.s IL_0055
+IL_0051: pop
+IL_0052: ldnull
+IL_0053: br.s IL_005a
+IL_0055: call !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolSystem>()
+IL_005a: stloc.1
+IL_005b: call Unity.Entities.World Unity.Entities.World::get_DefaultGameObjectInjectionWorld()
+IL_0060: dup
+IL_0061: brtrue.s IL_0067
+IL_0063: pop
+IL_0064: ldnull
+IL_0065: br.s IL_006c
+IL_0067: call !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.BulldozeToolSystem>()
+IL_006c: stloc.2
+IL_006d: ldloc.1
+IL_006e: callvirt Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::get_activeTool()
+IL_0073: ldloc.2
+IL_0074: bne.un.s IL_0086
+IL_0076: ldloc.1
+IL_0077: callvirt Game.GameMode Game.Tools.ToolSystem::get_actionMode()
+IL_007c: call System.Boolean Game.GameModeExtensions::IsGame(Game.GameMode)
+IL_0081: ldc.i4.0
+IL_0082: ceq
+IL_0084: br.s IL_0087
+IL_0086: ldc.i4.1
+IL_0087: stloc.s V_9
+IL_0089: ldloc.s V_9
+IL_008b: brfalse.s IL_00a8
+IL_008d: nop
+IL_008e: ldarg.0
+IL_008f: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0094: stobj Unity.Entities.Entity
+IL_0099: ldarg.1
+IL_009a: initobj Game.Common.RaycastHit
+IL_00a0: ldc.i4.1
+IL_00a1: stloc.s V_8
+IL_00a3: br IL_0550
+IL_00a8: call Unity.Entities.World Unity.Entities.World::get_DefaultGameObjectInjectionWorld()
+IL_00ad: dup
+IL_00ae: brtrue.s IL_00b4
+IL_00b0: pop
+IL_00b1: ldnull
+IL_00b2: br.s IL_00b9
+IL_00b4: call !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Tools.ToolRaycastSystem>()
+IL_00b9: stloc.3
+IL_00ba: call Unity.Entities.World Unity.Entities.World::get_DefaultGameObjectInjectionWorld()
+IL_00bf: dup
+IL_00c0: brtrue.s IL_00c6
+IL_00c2: pop
+IL_00c3: ldnull
+IL_00c4: br.s IL_00cb
+IL_00c6: call !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()
+IL_00cb: stloc.s V_4
+IL_00cd: ldloc.3
+IL_00ce: ldloca.s V_6
+IL_00d0: callvirt System.Boolean Game.Tools.ToolRaycastSystem::GetRaycastResult(Game.Common.RaycastResult&)
+IL_00d5: stloc.s V_5
+IL_00d7: ldloc.s V_5
+IL_00d9: brfalse.s IL_011b
+IL_00db: ldloc.1
+IL_00dc: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00e1: stloc.s V_11
+IL_00e3: ldloca.s V_11
+IL_00e5: ldloc.s V_6
+IL_00e7: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_00ec: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Common.Deleted>(Unity.Entities.Entity)
+IL_00f1: brtrue.s IL_011b
+IL_00f3: ldloc.1
+IL_00f4: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00f9: stloc.s V_11
+IL_00fb: ldloca.s V_11
+IL_00fd: ldloc.s V_6
+IL_00ff: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0104: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_0109: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Tools.EditorContainer>(Unity.Entities.Entity)
+IL_010e: brtrue.s IL_011b
+IL_0110: ldloc.0
+IL_0111: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/RaycastTarget Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedRaycastTarget()
+IL_0116: ldc.i4.3
+IL_0117: ceq
+IL_0119: br.s IL_011c
+IL_011b: ldc.i4.0
+IL_011c: stloc.s V_10
+IL_011e: ldloc.s V_10
+IL_0120: brfalse.s IL_0152
+IL_0122: nop
+IL_0123: ldarg.0
+IL_0124: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0129: stobj Unity.Entities.Entity
+IL_012e: ldarg.1
+IL_012f: initobj Game.Common.RaycastHit
+IL_0135: call Better_Bulldozer.BetterBulldozerMod Better_Bulldozer.BetterBulldozerMod::get_Instance()
+IL_013a: callvirt Colossal.Logging.ILog Better_Bulldozer.BetterBulldozerMod::get_Logger()
+IL_013f: ldstr "ToolBaseSystemGetRaycastResultPatch.Prefix skipped method."
+IL_0144: callvirt System.Void Colossal.Logging.ILog::Debug(System.Object)
+IL_0149: nop
+IL_014a: ldc.i4.0
+IL_014b: stloc.s V_8
+IL_014d: br IL_0550
+IL_0152: ldloc.s V_5
+IL_0154: brfalse.s IL_0179
+IL_0156: ldloc.1
+IL_0157: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_015c: stloc.s V_11
+IL_015e: ldloca.s V_11
+IL_0160: ldloc.s V_6
+IL_0162: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_0167: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Common.Deleted>(Unity.Entities.Entity)
+IL_016c: brtrue.s IL_0179
+IL_016e: ldloc.0
+IL_016f: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/RaycastTarget Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedRaycastTarget()
+IL_0174: ldc.i4.0
+IL_0175: ceq
+IL_0177: br.s IL_017a
+IL_0179: ldc.i4.0
+IL_017a: stloc.s V_12
+IL_017c: ldloc.s V_12
+IL_017e: brfalse IL_04f3
+IL_0183: nop
+IL_0184: ldloc.0
+IL_0185: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_018a: ldc.i4.2
+IL_018b: and
+IL_018c: ldc.i4.2
+IL_018d: beq.s IL_01ca
+IL_018f: ldloc.1
+IL_0190: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0195: stloc.s V_11
+IL_0197: ldloca.s V_11
+IL_0199: ldloc.s V_6
+IL_019b: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_01a0: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_01a5: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Buildings.Building>(Unity.Entities.Entity)
+IL_01aa: brtrue IL_02b0
+IL_01af: ldloc.1
+IL_01b0: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_01b5: stloc.s V_11
+IL_01b7: ldloca.s V_11
+IL_01b9: ldloc.s V_6
+IL_01bb: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_01c0: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Buildings.Building>(Unity.Entities.Entity)
+IL_01c5: brtrue IL_02b0
+IL_01ca: ldloc.0
+IL_01cb: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_01d0: ldc.i4.4
+IL_01d1: and
+IL_01d2: ldc.i4.4
+IL_01d3: beq.s IL_01f5
+IL_01d5: ldloc.1
+IL_01d6: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_01db: stloc.s V_11
+IL_01dd: ldloca.s V_11
+IL_01df: ldloc.s V_6
+IL_01e1: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_01e6: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_01eb: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Tree>(Unity.Entities.Entity)
+IL_01f0: brtrue IL_02b0
+IL_01f5: ldloc.0
+IL_01f6: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_01fb: ldc.i4.8
+IL_01fc: and
+IL_01fd: ldc.i4.8
+IL_01fe: beq.s IL_023a
+IL_0200: ldloc.1
+IL_0201: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0206: stloc.s V_11
+IL_0208: ldloca.s V_11
+IL_020a: ldloc.s V_6
+IL_020c: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0211: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_0216: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Plant>(Unity.Entities.Entity)
+IL_021b: brfalse.s IL_023a
+IL_021d: ldloc.1
+IL_021e: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0223: stloc.s V_11
+IL_0225: ldloca.s V_11
+IL_0227: ldloc.s V_6
+IL_0229: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_022e: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_0233: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Tree>(Unity.Entities.Entity)
+IL_0238: brfalse.s IL_02b0
+IL_023a: ldloc.0
+IL_023b: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_0240: ldc.i4.s 16
+IL_0242: and
+IL_0243: ldc.i4.s 16
+IL_0245: beq.s IL_02ad
+IL_0247: ldloc.1
+IL_0248: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_024d: ldloc.s V_6
+IL_024f: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0254: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_0259: ldloca.s V_13
+IL_025b: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.PrefabRef>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0260: brfalse.s IL_02ad
+IL_0262: ldloc.1
+IL_0263: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0268: ldloc.s V_13
+IL_026a: call Unity.Entities.Entity Game.Prefabs.PrefabRef::op_Implicit(Game.Prefabs.PrefabRef)
+IL_026f: ldc.i4.1
+IL_0270: ldloca.s V_14
+IL_0272: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetBuffer<Game.Prefabs.SubMesh>(Unity.Entities.EntityManager,Unity.Entities.Entity,System.Boolean,Unity.Entities.DynamicBuffer`1<!!0>&)
+IL_0277: brfalse.s IL_02ad
+IL_0279: ldloca.s V_14
+IL_027b: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Length()
+IL_0280: ldc.i4.0
+IL_0281: ble.s IL_02ad
+IL_0283: ldloc.1
+IL_0284: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0289: ldloca.s V_14
+IL_028b: ldc.i4.0
+IL_028c: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_0291: ldfld Unity.Entities.Entity Game.Prefabs.SubMesh::m_SubMesh
+IL_0296: ldloca.s V_15
+IL_0298: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.MeshData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_029d: brfalse.s IL_02ad
+IL_029f: ldloc.s V_15
+IL_02a1: ldfld Game.Prefabs.MeshFlags Game.Prefabs.MeshData::m_State
+IL_02a6: ldc.i4.1
+IL_02a7: and
+IL_02a8: ldc.i4.1
+IL_02a9: ceq
+IL_02ab: br.s IL_02ae
+IL_02ad: ldc.i4.0
+IL_02ae: br.s IL_02b1
+IL_02b0: ldc.i4.1
+IL_02b1: stloc.s V_16
+IL_02b3: ldloc.s V_16
+IL_02b5: brfalse.s IL_02e7
+IL_02b7: nop
+IL_02b8: ldarg.0
+IL_02b9: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_02be: stobj Unity.Entities.Entity
+IL_02c3: ldarg.1
+IL_02c4: initobj Game.Common.RaycastHit
+IL_02ca: call Better_Bulldozer.BetterBulldozerMod Better_Bulldozer.BetterBulldozerMod::get_Instance()
+IL_02cf: callvirt Colossal.Logging.ILog Better_Bulldozer.BetterBulldozerMod::get_Logger()
+IL_02d4: ldstr "ToolBaseSystemGetRaycastResultPatch.Prefix skipped method."
+IL_02d9: callvirt System.Void Colossal.Logging.ILog::Debug(System.Object)
+IL_02de: nop
+IL_02df: ldc.i4.0
+IL_02e0: stloc.s V_8
+IL_02e2: br IL_0550
+IL_02e7: ldloc.0
+IL_02e8: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_02ed: ldc.i4.s 32
+IL_02ef: and
+IL_02f0: ldc.i4.s 32
+IL_02f2: beq.s IL_0364
+IL_02f4: ldloc.1
+IL_02f5: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_02fa: stloc.s V_11
+IL_02fc: ldloca.s V_11
+IL_02fe: ldloc.s V_6
+IL_0300: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0305: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_030a: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Object>(Unity.Entities.Entity)
+IL_030f: brfalse.s IL_032e
+IL_0311: ldloc.1
+IL_0312: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0317: stloc.s V_11
+IL_0319: ldloca.s V_11
+IL_031b: ldloc.s V_6
+IL_031d: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0322: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_0327: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Static>(Unity.Entities.Entity)
+IL_032c: brtrue.s IL_0361
+IL_032e: ldloc.1
+IL_032f: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0334: stloc.s V_11
+IL_0336: ldloca.s V_11
+IL_0338: ldloc.s V_6
+IL_033a: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_033f: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Object>(Unity.Entities.Entity)
+IL_0344: brfalse.s IL_035e
+IL_0346: ldloc.1
+IL_0347: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_034c: stloc.s V_11
+IL_034e: ldloca.s V_11
+IL_0350: ldloc.s V_6
+IL_0352: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_0357: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Static>(Unity.Entities.Entity)
+IL_035c: br.s IL_035f
+IL_035e: ldc.i4.0
+IL_035f: br.s IL_0362
+IL_0361: ldc.i4.1
+IL_0362: br.s IL_0365
+IL_0364: ldc.i4.0
+IL_0365: stloc.s V_17
+IL_0367: ldloc.s V_17
+IL_0369: brfalse IL_04f2
+IL_036e: nop
+IL_036f: ldloc.0
+IL_0370: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_0375: ldc.i4.2
+IL_0376: and
+IL_0377: ldc.i4.2
+IL_0378: bne.un.s IL_03b5
+IL_037a: ldloc.1
+IL_037b: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0380: stloc.s V_11
+IL_0382: ldloca.s V_11
+IL_0384: ldloc.s V_6
+IL_0386: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_038b: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_0390: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Buildings.Building>(Unity.Entities.Entity)
+IL_0395: brtrue IL_049b
+IL_039a: ldloc.1
+IL_039b: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_03a0: stloc.s V_11
+IL_03a2: ldloca.s V_11
+IL_03a4: ldloc.s V_6
+IL_03a6: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_03ab: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Buildings.Building>(Unity.Entities.Entity)
+IL_03b0: brtrue IL_049b
+IL_03b5: ldloc.0
+IL_03b6: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_03bb: ldc.i4.4
+IL_03bc: and
+IL_03bd: ldc.i4.4
+IL_03be: bne.un.s IL_03e0
+IL_03c0: ldloc.1
+IL_03c1: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_03c6: stloc.s V_11
+IL_03c8: ldloca.s V_11
+IL_03ca: ldloc.s V_6
+IL_03cc: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_03d1: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_03d6: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Tree>(Unity.Entities.Entity)
+IL_03db: brtrue IL_049b
+IL_03e0: ldloc.0
+IL_03e1: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_03e6: ldc.i4.8
+IL_03e7: and
+IL_03e8: ldc.i4.8
+IL_03e9: bne.un.s IL_0425
+IL_03eb: ldloc.1
+IL_03ec: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_03f1: stloc.s V_11
+IL_03f3: ldloca.s V_11
+IL_03f5: ldloc.s V_6
+IL_03f7: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_03fc: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_0401: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Plant>(Unity.Entities.Entity)
+IL_0406: brfalse.s IL_0425
+IL_0408: ldloc.1
+IL_0409: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_040e: stloc.s V_11
+IL_0410: ldloca.s V_11
+IL_0412: ldloc.s V_6
+IL_0414: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0419: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_041e: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Tree>(Unity.Entities.Entity)
+IL_0423: brfalse.s IL_049b
+IL_0425: ldloc.0
+IL_0426: callvirt Better_Bulldozer.Systems.BetterBulldozerUISystem/VanillaFilters Better_Bulldozer.Systems.BetterBulldozerUISystem::get_SelectedVanillaFilters()
+IL_042b: ldc.i4.s 16
+IL_042d: and
+IL_042e: ldc.i4.s 16
+IL_0430: bne.un.s IL_0498
+IL_0432: ldloc.1
+IL_0433: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0438: ldloc.s V_6
+IL_043a: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_043f: ldfld Unity.Entities.Entity Game.Common.RaycastHit::m_HitEntity
+IL_0444: ldloca.s V_18
+IL_0446: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.PrefabRef>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_044b: brfalse.s IL_0498
+IL_044d: ldloc.1
+IL_044e: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0453: ldloc.s V_18
+IL_0455: call Unity.Entities.Entity Game.Prefabs.PrefabRef::op_Implicit(Game.Prefabs.PrefabRef)
+IL_045a: ldc.i4.1
+IL_045b: ldloca.s V_19
+IL_045d: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetBuffer<Game.Prefabs.SubMesh>(Unity.Entities.EntityManager,Unity.Entities.Entity,System.Boolean,Unity.Entities.DynamicBuffer`1<!!0>&)
+IL_0462: brfalse.s IL_0498
+IL_0464: ldloca.s V_19
+IL_0466: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Length()
+IL_046b: ldc.i4.0
+IL_046c: ble.s IL_0498
+IL_046e: ldloc.1
+IL_046f: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0474: ldloca.s V_19
+IL_0476: ldc.i4.0
+IL_0477: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_047c: ldfld Unity.Entities.Entity Game.Prefabs.SubMesh::m_SubMesh
+IL_0481: ldloca.s V_20
+IL_0483: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.MeshData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0488: brfalse.s IL_0498
+IL_048a: ldloc.s V_20
+IL_048c: ldfld Game.Prefabs.MeshFlags Game.Prefabs.MeshData::m_State
+IL_0491: ldc.i4.1
+IL_0492: and
+IL_0493: ldc.i4.1
+IL_0494: ceq
+IL_0496: br.s IL_0499
+IL_0498: ldc.i4.0
+IL_0499: br.s IL_049c
+IL_049b: ldc.i4.1
+IL_049c: stloc.s V_21
+IL_049e: ldloc.s V_21
+IL_04a0: brfalse.s IL_04c5
+IL_04a2: nop
+IL_04a3: ldarg.0
+IL_04a4: ldloc.s V_6
+IL_04a6: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_04ab: stobj Unity.Entities.Entity
+IL_04b0: ldarg.1
+IL_04b1: ldloc.s V_6
+IL_04b3: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_04b8: stobj Game.Common.RaycastHit
+IL_04bd: ldc.i4.1
+IL_04be: stloc.s V_8
+IL_04c0: br IL_0550
+IL_04c5: nop
+IL_04c6: ldarg.0
+IL_04c7: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_04cc: stobj Unity.Entities.Entity
+IL_04d1: ldarg.1
+IL_04d2: initobj Game.Common.RaycastHit
+IL_04d8: call Better_Bulldozer.BetterBulldozerMod Better_Bulldozer.BetterBulldozerMod::get_Instance()
+IL_04dd: callvirt Colossal.Logging.ILog Better_Bulldozer.BetterBulldozerMod::get_Logger()
+IL_04e2: ldstr "ToolBaseSystemGetRaycastResultPatch.Prefix skipped method."
+IL_04e7: callvirt System.Void Colossal.Logging.ILog::Debug(System.Object)
+IL_04ec: nop
+IL_04ed: ldc.i4.0
+IL_04ee: stloc.s V_8
+IL_04f0: br.s IL_0550
+IL_04f2: nop
+IL_04f3: ldloc.s V_5
+IL_04f5: brfalse.s IL_0512
+IL_04f7: ldloc.1
+IL_04f8: callvirt Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_04fd: stloc.s V_11
+IL_04ff: ldloca.s V_11
+IL_0501: ldloc.s V_6
+IL_0503: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_0508: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Common.Deleted>(Unity.Entities.Entity)
+IL_050d: ldc.i4.0
+IL_050e: ceq
+IL_0510: br.s IL_0513
+IL_0512: ldc.i4.0
+IL_0513: stloc.s V_22
+IL_0515: ldloc.s V_22
+IL_0517: brfalse.s IL_0539
+IL_0519: nop
+IL_051a: ldarg.0
+IL_051b: ldloc.s V_6
+IL_051d: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_0522: stobj Unity.Entities.Entity
+IL_0527: ldarg.1
+IL_0528: ldloc.s V_6
+IL_052a: ldfld Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_052f: stobj Game.Common.RaycastHit
+IL_0534: ldc.i4.1
+IL_0535: stloc.s V_8
+IL_0537: br.s IL_0550
+IL_0539: ldarg.0
+IL_053a: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_053f: stobj Unity.Entities.Entity
+IL_0544: ldarg.1
+IL_0545: initobj Game.Common.RaycastHit
+IL_054b: ldc.i4.1
+IL_054c: stloc.s V_8
+IL_054e: br.s IL_0550
+IL_0550: ldloc.s V_8
+IL_0552: ret
+System.Void Better_Bulldozer.Patches.ToolBaseSystemGetRaycastResultPatch::.ctor()
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Object::.ctor()
+IL_0006: nop
+IL_0007: ret

@@ -81,9 +81,10 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             if(Harmony.GetPatchInfo(m)?.Owners.Any(owner=>owner!=Id && owner!=DeletionPatchPolicy.RecoveryOwner)==true)
                 throw new NotSupportedException("Diagnostic patch conflict: "+t.Name+"."+name);
             harmony.Patch(m,prefix:prefix==null?null:Hook(prefix),postfix:postfix==null?null:Hook(postfix),finalizer:Hook(nameof(Failed)));
+            patchMonitor.Watch(m);
         }
         private static HarmonyMethod Hook(string name)=>new HarmonyMethod(typeof(BulldozerTrace).GetMethod(name,BindingFlags.Static|BindingFlags.NonPublic));
-        private static void Guard(Action action) { try { action(); } catch(Exception error) {
+        private static void Guard(Action action) { try { if(active!=null && !active.PatchesCompatible())return; action(); } catch(Exception error) {
             if(active?.preparingAsset!=null){active.EndNestedTestPreparation("Preparation callback failed. Restart without saving.");Mod.Log.Warn(error.Message);return;}
             if(active?.EffectBusy==true){active.FailEffect("Effect callback failed; reload without saving: "+error.Message);Mod.Log.Warn(error.ToString());return;}
             if(active?.MoveBusy==true){active.FailMove("Move callback failed; reload without saving: "+error.Message);Mod.Log.Warn(error.ToString());return;}
@@ -242,18 +243,20 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             if(a.restoring==null && a.session.Asset==null)return; // Synchronous finalization may already have completed.
             if(a.restoring!=null){if(!a.restoreSourceMatched){a.FailRecovery("Native restoration source did not match. Restart CS2 without saving the disposable test.");return;}a.dispatched=true;a.Status="Waiting for Undo/Redo instance regeneration…";return;}
             if(a.areaCapture&&!a.AreaCaptureReady())return;
-            if(a.areaCapture)NormalizedAreaFields.Apply(a.before.Values,a.after.Values,(key,value)=>{a.before.Values[key]=value;foreach(var field in a.before.Fields.Where(f=>f.Owner.GetType().Name+"."+f.Field.Name==key))field.Data=value;});
+            if(!a.areaCapture&&a.boundBefore!=null&&!a.BoundCaptureReady())return;
+            if(a.areaCapture||a.boundBefore!=null)NormalizedAreaFields.Apply(a.before.Values,a.after.Values,(key,value)=>{a.before.Values[key]=value;foreach(var field in a.before.Fields.Where(f=>f.Owner.GetType().Name+"."+f.Field.Name==key))field.Data=value;});
             if(a.sourceMatched && a.after!=null && a.session.Matches(a.TargetRoot) && a.after.Matches(a.session.Asset) && (a.areaCapture?a.AreasMatch(a.afterAreas,a.observedOwner):a.GraphMatches(a.afterGraph,a.observedOwner))) {
                 var prepared=a.before.Prepare();
                 if(!a.before.Fields.Select((v,i)=>v.Data.Matches(prepared[i])).All(v=>v))throw new InvalidOperationException("Before-image round trip failed.");
-                var entry=new Record{AreaNetwork=a.areaCapture?a.areaNetwork:null,AreaEffects=a.areaCapture?a.areaEffects:null,AreaReferences=a.areaCapture?a.areaReferences:null,Area=a.areaCapture,AreaOwnerTransform=a.areaOwnerTransform,BeforeAreas=a.areaCapture?a.beforeAreas:null,AfterAreas=a.areaCapture?a.afterAreas:null,RootTypes=a.nestedForestArmed?NestedRootTypes.Copy(a.capturedRootTypes):null,ForestBefore=a.areaCapture&&a.areaProps.Length>0?a.areaProps:a.forestBefore,ForestAfter=a.areaCapture&&a.areaProps.Length>0?a.CaptureAreaProps(a.observedOwner):null,Nested=a.areaCapture&&a.areaProps.Length>0?Array.Empty<NestedNode>():a.nestedArmed?a.nestedBefore:null,NestedReferences=a.areaCapture?a.areaReferences:a.nestedArmed?a.nestedReferences:null,Last=a.lastArmed,Asset=a.session.Asset,Owner=a.observedOwner,Before=a.before,After=a.after,BeforeGraph=a.beforeGraph,AfterGraph=a.afterGraph};
+                var entry=new Record{BoundBefore=a.boundBefore,BoundAfter=a.boundAfter,AreaNetwork=a.areaCapture?a.areaNetwork:null,AreaEffects=a.areaCapture?a.areaEffects:null,AreaReferences=a.areaCapture?a.areaReferences:null,Area=a.areaCapture,AreaOwnerTransform=a.areaOwnerTransform,BeforeAreas=a.areaCapture?a.beforeAreas:null,AfterAreas=a.areaCapture?a.afterAreas:null,RootTypes=a.nestedForestArmed?NestedRootTypes.Copy(a.capturedRootTypes):null,ForestBefore=a.areaCapture&&a.areaProps.Length>0?a.areaProps:a.forestBefore,ForestAfter=a.areaCapture&&a.areaProps.Length>0?a.CaptureAreaProps(a.observedOwner):null,Nested=a.areaCapture&&a.areaProps.Length>0?Array.Empty<NestedNode>():a.nestedArmed?a.nestedBefore:null,NestedReferences=a.areaCapture?a.areaReferences:a.nestedArmed?a.nestedReferences:null,Last=a.lastArmed,Asset=a.session.Asset,Owner=a.observedOwner,Before=a.before,After=a.after,BeforeGraph=a.beforeGraph,AfterGraph=a.afterGraph};
                 // Bound retained snapshot memory as well as entry count. A large next entry starts a fresh history.
                 
-                if(entry.ForestBefore!=null&&!entry.Area){entry.ForestAfter=a.CaptureForestNow(entry);var retained=entry.ForestBefore.Where(group=>group[0].Original!=a.nestedBefore[0].Original).ToArray();var matched=MatchForest(retained,entry.ForestAfter);if(matched==null||!retained.Select((group,i)=>a.RetainedAfterRemoval(group,matched[i],a.nestedBefore[0].Local.m_PrefabSubIndex)).All(value=>value))throw new InvalidOperationException("Retained nested groups changed during deletion.");}if(entry.Nested!=null&&!a.NestedReferencesMatch(entry))throw new InvalidOperationException("Nested referenced prefab changed during deletion.");if((entry.Last&&entry.ForestBefore==null)||(entry.Nested!=null&&entry.ForestBefore==null))a.ClearRecord();
+                if(entry.ForestBefore!=null&&entry.BoundBefore!=null)entry.ForestAfter=a.boundForestAfter;
+                if(entry.ForestBefore!=null&&!entry.Area&&entry.BoundBefore==null){entry.ForestAfter=a.CaptureForestNow(entry);var retained=entry.ForestBefore.Where(group=>group[0].Original!=a.nestedBefore[0].Original).ToArray();var matched=MatchForest(retained,entry.ForestAfter);if(matched==null||!retained.Select((group,i)=>a.RetainedAfterRemoval(group,matched[i],a.nestedBefore[0].Local.m_PrefabSubIndex)).All(value=>value))throw new InvalidOperationException("Retained nested groups changed during deletion.");}if(entry.Nested!=null&&!a.NestedReferencesMatch(entry))throw new InvalidOperationException("Nested referenced prefab changed during deletion.");if((entry.Last&&entry.ForestBefore==null)||(entry.Nested!=null&&entry.ForestBefore==null))a.ClearRecord();
                 if(a.records.Recent.Sum(RecordWeight)+RecordWeight(entry)>500000)a.ClearRecord();if(RecordWeight(entry)>500000)throw new NotSupportedException("Nested history image exceeds total retained snapshot budget.");a.records.Record(entry);a.Status=entry.Area?"Recorded area/surface deletion (experimental). Undo entries: "+a.UndoCount+".":entry.Nested!=null?"Recorded nested group deletion (experimental). Undo entries: "+a.UndoCount+".":"Recorded Sub-element prop deletion. Undo entries: "+a.UndoCount+".";if(entry.Nested!=null&&entry.ForestBefore==null)a.armed=a.nestedArmed=false;
                 Mod.Log.Info(a.Status+" asset="+a.record.Asset.name+"; native source identity matched.");
             } else {a.ClearRecord();a.armed=false;a.Status="Sub-element source or final payload did not match; history cleared.";}
-            a.session.Reset();a.before=a.after=null;a.beforeGraph=a.afterGraph=null;a.ClearAreaCompanions();
+            a.session.Reset();a.before=a.after=null;a.beforeGraph=a.afterGraph=null;a.ClearAreaCompanions();a.ClearBoundCapture();
         });
         private static void BeforeFinalize(GameSystemBase __instance,out bool __state) {
             bool matched=false;Guard(()=> {
@@ -274,8 +277,8 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             var entry=a.restoring;var target=a.restoringUndo?entry.Before:entry.After;
             var graph=a.restoringUndo?entry.BeforeGraph:entry.AfterGraph;
             bool ownerOk=a.OwnerMatches(entry),payloadOk=target.Matches(entry.Asset);
-            if(entry.Area&&ownerOk&&payloadOk)a.RestoreAreaCompanionSeeds(entry);
-            bool graphOk=ownerOk&&(entry.Area?a.AreaGraphMatches(a.restoringUndo?entry.BeforeAreas:entry.AfterAreas,entry)&&a.AreaCompanionsMatch(entry)&&entry.AreaReferences.All(p=>NestedReferenceMatches(p.Key,p.Value)):a.GraphMatches(graph,entry.Owner));bool directGraphOk=graphOk;if(ownerOk&&payloadOk&&graphOk&&(a.restoringUndo||entry.ForestBefore!=null)&&a.RestoreNestedSeeds(entry))return;bool nestedOk=ownerOk&&a.NestedStateMatches(entry,a.restoringUndo,Time.frameCount-a.restoreFrame>=120);graphOk=graphOk&&nestedOk;
+            if(ownerOk&&payloadOk){if(entry.BoundBefore!=null)a.RestoreBoundNetworkSeeds(entry,a.restoringUndo);else if(entry.Area)a.RestoreAreaCompanionSeeds(entry);}
+            bool graphOk=ownerOk&&(entry.Area?a.AreaGraphMatches(a.restoringUndo?entry.BeforeAreas:entry.AfterAreas,entry)&&a.AreaCompanionsMatch(entry)&&entry.AreaReferences.All(p=>NestedReferenceMatches(p.Key,p.Value)):a.GraphMatches(graph,entry.Owner));graphOk=graphOk&&a.BoundRecordCompanionsMatch(entry,a.restoringUndo);bool directGraphOk=graphOk;if(ownerOk&&payloadOk&&graphOk&&(a.restoringUndo||entry.ForestBefore!=null)&&a.RestoreNestedSeeds(entry))return;bool nestedOk=ownerOk&&a.NestedStateMatches(entry,a.restoringUndo,Time.frameCount-a.restoreFrame>=120);graphOk=graphOk&&nestedOk;
             if(!graphOk)a.nestedValidatedFrames=0;if(ownerOk&&payloadOk&&!graphOk&&Time.frameCount-a.restoreFrame<=120)return;
             if(!ownerOk||!payloadOk||!graphOk){
                 var changed=target.Fields.Where(v=>!v.Data.ReferencesValid||!v.Data.Matches(v.Field.GetValue(v.Owner))).Select(v=>v.Owner.GetType().Name+"."+v.Field.Name);
@@ -294,6 +297,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             Mod.Log.Info("MW bulldozer trace #"+events+" frame="+Time.frameCount+" age="+(Time.frameCount-session.Started)+" stage="+stage+"; "+detail);
         }
         internal void Tick() {
+            if(!PatchesCompatible())return;
             try { TickNestedPropDiscovery(); } catch(Exception discoveryError) { Mod.Log.Warn("Read-only nested prop discovery stopped: "+discoveryError.Message); }
             Guard(TickNestedTestPreparation);
             Guard(TickNestedRecoveryTest);
@@ -315,7 +319,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
                     Mod.Log.Info("MW bulldozer tool context: active="+name+"; inspector root="+(Root==null?"none":Root.name));
                 }
             });
-            if(areaCapture&&restoring==null&&session.Synchronized&&sourceMatched&&after!=null)AfterRebuild(true);
+            if((areaCapture||boundBefore!=null)&&restoring==null&&session.Synchronized&&sourceMatched&&after!=null)AfterRebuild(true);
             if(restoring!=null) {
                 Guard(()=> {
                     if(!OwnerMatches(restoring)){FailRecovery("Recovery owner changed. Restart CS2 without saving the disposable test.");return;}
@@ -328,9 +332,9 @@ namespace MW.EditorTools.Modules.BulldozerRecovery
             if(armed && (!context.EditorAvailable||(Root!=null&&!ReferenceEquals(Root,armedAsset)))){armed=false;armedAsset=null;}
             if(session.Asset==null)return;
             Guard(()=> {if(!context.EditorAvailable||!session.Matches(TargetRoot))Reset("Bulldozer diagnostic: asset changed; observation discarded.");
-                else if(session.Expired(Time.frameCount))Reset("Bulldozer diagnostic: no matching native synchronization within 120 frames.");});
+                else if(session.Expired(Time.frameCount)){if(boundBefore!=null){var reason=boundRefusal;Reset("Bound deletion Undo unavailable: companion data did not settle. See mod log.");Mod.Log.Info("Bound completion timeout: "+reason);}else Reset("Bulldozer diagnostic: no matching native synchronization within 120 frames.");}});
         }
-        private void Reset(string message) {ClearAreaCompanions();areaCapture=false;beforeAreas=afterAreas=null;session.Reset();before=after=null;beforeGraph=afterGraph=null;dispatched=false;sourceMatched=false;Status=message;Mod.Log.Info(message);}
-        internal void Release() {try {harmony.UnpatchAll(Id);}finally {ClearEffects();ClearAreaMoves();ClearMove();MoveCommitted=null;ClearNetwork();ClearStandaloneArea();session.Reset();before=after=null;ClearRecord();restoring=null;armed=false;armedAsset=null;if(ReferenceEquals(active,this))active=null;} }
+        private void Reset(string message) {ClearBoundCapture();ClearAreaCompanions();areaCapture=false;beforeAreas=afterAreas=null;session.Reset();before=after=null;beforeGraph=afterGraph=null;dispatched=false;sourceMatched=false;Status=message;Mod.Log.Info(message);}
+        internal void Release() {try {harmony.UnpatchAll(Id);}finally {ClearEffects();ClearAreaMoves();ClearMove();MoveCommitted=null;ClearNetwork();ClearStandaloneArea();ClearBoundCapture();session.Reset();before=after=null;ClearRecord();restoring=null;armed=false;armedAsset=null;if(ReferenceEquals(active,this))active=null;} }
     }
 }

@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType></PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../src/Modules/BulldozerRecovery/BikeRackMoveEligibility.cs" Link="BikeRackMoveEligibility.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/MoveToolHooks.cs" Link="MoveToolHooks.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/PropMovePolicy.cs" Link="PropMovePolicy.cs" />
     <Reference Include="Unity.Mathematics"><HintPath>C:/Program Files (x86)/Steam/steamapps/common/Cities Skylines II/Cities2_Data/Managed/Unity.Mathematics.dll</HintPath><Private>true</Private></Reference>
   </ItemGroup>
 </Project>
+

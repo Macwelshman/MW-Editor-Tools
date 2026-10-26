@@ -1,0 +1,19 @@
+System.Void Game.Buildings.RoadConnectionSystem/ConnectionLaneKey::.ctor(Game.Pathfind.PathNode,Game.Pathfind.PathNode)
+IL_0000: ldarga.s node1
+IL_0002: ldarg.2
+IL_0003: call System.Boolean Game.Pathfind.PathNode::GetOrder(Game.Pathfind.PathNode)
+IL_0008: brfalse.s IL_0019
+IL_000a: ldarg.0
+IL_000b: ldarg.2
+IL_000c: stfld Game.Pathfind.PathNode Game.Buildings.RoadConnectionSystem/ConnectionLaneKey::m_Node1
+IL_0011: ldarg.0
+IL_0012: ldarg.1
+IL_0013: stfld Game.Pathfind.PathNode Game.Buildings.RoadConnectionSystem/ConnectionLaneKey::m_Node2
+IL_0018: ret
+IL_0019: ldarg.0
+IL_001a: ldarg.1
+IL_001b: stfld Game.Pathfind.PathNode Game.Buildings.RoadConnectionSystem/ConnectionLaneKey::m_Node1
+IL_0020: ldarg.0
+IL_0021: ldarg.2
+IL_0022: stfld Game.Pathfind.PathNode Game.Buildings.RoadConnectionSystem/ConnectionLaneKey::m_Node2
+IL_0027: ret

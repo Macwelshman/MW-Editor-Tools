@@ -1,0 +1,378 @@
+Game.UI.Widgets.PagedList
+System.Int32 Game.UI.Widgets.PagedList::m_Length
+System.Int32 Game.UI.Widgets.PagedList::m_CurrentPageIndex
+System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+System.Boolean Game.UI.Widgets.PagedList::m_Expanded
+System.Boolean Game.UI.Widgets.PagedList::<locked>k__BackingField
+Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::<adapter>k__BackingField
+System.Int32 Game.UI.Widgets.PagedList::<level>k__BackingField
+System.Int32 Game.UI.Widgets.PagedList::<pageSize>k__BackingField
+System.Boolean Game.UI.Widgets.PagedList::expanded()
+System.Boolean Game.UI.Widgets.PagedList::locked()
+Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::adapter()
+System.Int32 Game.UI.Widgets.PagedList::level()
+System.Int32 Game.UI.Widgets.PagedList::pageSize()
+System.Int32 Game.UI.Widgets.PagedList::pageCount()
+System.Boolean Game.UI.Widgets.PagedList::searchable()
+System.String Game.UI.Widgets.PagedList::searchQuery()
+System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::children()
+System.Int32 Game.UI.Widgets.PagedList::currentPageIndex()
+System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::visibleChildren()
+System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::get_visibleChildren()
+IL_0000: ldarg.0
+IL_0001: call System.Boolean Game.UI.Widgets.PagedList::get_expanded()
+IL_0006: brtrue.s IL_0010
+IL_0008: call !!0[] System.Array::Empty<Game.UI.Widgets.IWidget>()
+IL_000d: stloc.0
+IL_000e: ldloc.0
+IL_000f: ret
+IL_0010: ldarg.0
+IL_0011: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_0016: stloc.0
+IL_0017: ldloc.0
+IL_0018: ret
+Game.UI.Widgets.WidgetChanges Game.UI.Widgets.PagedList::Update()
+IL_0000: ldarg.0
+IL_0001: call Game.UI.Widgets.WidgetChanges Game.UI.Widgets.NamedWidget::Update()
+IL_0006: stloc.0
+IL_0007: ldarg.0
+IL_0008: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_000d: callvirt System.Int32 Game.UI.Widgets.IListAdapter::get_length()
+IL_0012: stloc.1
+IL_0013: ldloc.1
+IL_0014: ldarg.0
+IL_0015: ldfld System.Int32 Game.UI.Widgets.PagedList::m_Length
+IL_001a: beq.s IL_0027
+IL_001c: ldloc.0
+IL_001d: ldc.i4.2
+IL_001e: or
+IL_001f: stloc.0
+IL_0020: ldarg.0
+IL_0021: ldloc.1
+IL_0022: stfld System.Int32 Game.UI.Widgets.PagedList::m_Length
+IL_0027: ldarg.0
+IL_0028: ldarg.0
+IL_0029: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_002e: ldarg.0
+IL_002f: ldfld System.Int32 Game.UI.Widgets.PagedList::m_Length
+IL_0034: ldloca.s V_2
+IL_0036: ldloca.s V_3
+IL_0038: ldloca.s V_4
+IL_003a: call System.Void Game.UI.Widgets.PagedList::CalculateIndices(System.Int32,System.Int32,System.Int32&,System.Int32&,System.Int32&)
+IL_003f: ldloc.2
+IL_0040: ldarg.0
+IL_0041: ldfld System.Int32 Game.UI.Widgets.PagedList::m_CurrentPageIndex
+IL_0046: bne.un.s IL_005b
+IL_0048: ldloc.3
+IL_0049: ldarg.0
+IL_004a: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_004f: bne.un.s IL_005b
+IL_0051: ldloc.s V_4
+IL_0053: ldarg.0
+IL_0054: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_0059: beq.s IL_0075
+IL_005b: ldloc.0
+IL_005c: ldc.i4.2
+IL_005d: or
+IL_005e: stloc.0
+IL_005f: ldarg.0
+IL_0060: ldloc.2
+IL_0061: stfld System.Int32 Game.UI.Widgets.PagedList::m_CurrentPageIndex
+IL_0066: ldarg.0
+IL_0067: ldloc.3
+IL_0068: stfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_006d: ldarg.0
+IL_006e: ldloc.s V_4
+IL_0070: stfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_0075: ldarg.0
+IL_0076: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_007b: ldarg.0
+IL_007c: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_0081: ldarg.0
+IL_0082: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_0087: callvirt System.Boolean Game.UI.Widgets.IListAdapter::UpdateRange(System.Int32,System.Int32)
+IL_008c: brfalse IL_011c
+IL_0091: ldarg.0
+IL_0092: ldfld System.Boolean Game.UI.Widgets.PagedList::m_Expanded
+IL_0097: brfalse.s IL_009d
+IL_0099: ldloc.0
+IL_009a: ldc.i4.4
+IL_009b: or
+IL_009c: stloc.0
+IL_009d: ldarg.0
+IL_009e: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_00a3: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Clear()
+IL_00a8: ldarg.0
+IL_00a9: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_00ae: ldarg.0
+IL_00af: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_00b4: callvirt System.Collections.Generic.IEnumerable`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.IListAdapter::BuildElementsInRange()
+IL_00b9: callvirt System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::AddRange(System.Collections.Generic.IEnumerable`1<!0>)
+IL_00be: ldarg.0
+IL_00bf: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_00c4: ldarg.0
+IL_00c5: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_00ca: sub
+IL_00cb: ldarg.0
+IL_00cc: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_00d1: callvirt System.Int32 System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::get_Count()
+IL_00d6: call System.Void Unity.Assertions.Assert::AreEqual(System.Int32,System.Int32)
+IL_00db: ldarg.0
+IL_00dc: ldfld System.Boolean Game.UI.Widgets.Widget::m_Disabled
+IL_00e1: brfalse.s IL_011c
+IL_00e3: ldarg.0
+IL_00e4: ldfld System.Collections.Generic.List`1<Game.UI.Widgets.IWidget> Game.UI.Widgets.PagedList::m_Children
+IL_00e9: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::GetEnumerator()
+IL_00ee: stloc.s V_5
+IL_00f0: br.s IL_0103
+IL_00f2: ldloca.s V_5
+IL_00f4: call !0 System.Collections.Generic.List`1/Enumerator<Game.UI.Widgets.IWidget>::get_Current()
+IL_00f9: stloc.s V_6
+IL_00fb: ldarg.0
+IL_00fc: ldloc.s V_6
+IL_00fe: call System.Void Game.UI.Widgets.PagedList::DisableChildren(Game.UI.Widgets.IWidget)
+IL_0103: ldloca.s V_5
+IL_0105: call System.Boolean System.Collections.Generic.List`1/Enumerator<Game.UI.Widgets.IWidget>::MoveNext()
+IL_010a: brtrue.s IL_00f2
+IL_010c: leave.s IL_011c
+IL_010e: ldloca.s V_5
+IL_0110: constrained. System.Collections.Generic.List`1/Enumerator<Game.UI.Widgets.IWidget>
+IL_0116: callvirt System.Void System.IDisposable::Dispose()
+IL_011b: endfinally
+IL_011c: ldloc.0
+IL_011d: ret
+System.Void Game.UI.Widgets.PagedList::WriteProperties(Colossal.UI.Binding.IJsonWriter)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.UI.Widgets.NamedWidgetWithTooltip::WriteProperties(Colossal.UI.Binding.IJsonWriter)
+IL_0007: ldarg.1
+IL_0008: ldstr "expanded"
+IL_000d: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_0012: ldarg.1
+IL_0013: ldarg.0
+IL_0014: call System.Boolean Game.UI.Widgets.PagedList::get_expanded()
+IL_0019: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_001e: ldarg.1
+IL_001f: ldstr "locked"
+IL_0024: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_0029: ldarg.1
+IL_002a: ldarg.0
+IL_002b: call System.Boolean Game.UI.Widgets.PagedList::get_locked()
+IL_0030: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_0035: ldarg.1
+IL_0036: ldstr "resizable"
+IL_003b: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_0040: ldarg.1
+IL_0041: ldarg.0
+IL_0042: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_0047: callvirt System.Boolean Game.UI.Widgets.IListAdapter::get_resizable()
+IL_004c: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_0051: ldarg.1
+IL_0052: ldstr "sortable"
+IL_0057: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_005c: ldarg.1
+IL_005d: ldarg.0
+IL_005e: call Game.UI.Widgets.IListAdapter Game.UI.Widgets.PagedList::get_adapter()
+IL_0063: callvirt System.Boolean Game.UI.Widgets.IListAdapter::get_sortable()
+IL_0068: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_006d: ldarg.1
+IL_006e: ldstr "length"
+IL_0073: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_0078: ldarg.1
+IL_0079: ldarg.0
+IL_007a: ldfld System.Int32 Game.UI.Widgets.PagedList::m_Length
+IL_007f: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_0084: ldarg.1
+IL_0085: ldstr "currentPageIndex"
+IL_008a: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_008f: ldarg.1
+IL_0090: ldarg.0
+IL_0091: call System.Int32 Game.UI.Widgets.PagedList::get_currentPageIndex()
+IL_0096: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_009b: ldarg.1
+IL_009c: ldstr "pageCount"
+IL_00a1: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_00a6: ldarg.1
+IL_00a7: ldarg.0
+IL_00a8: call System.Int32 Game.UI.Widgets.PagedList::get_pageCount()
+IL_00ad: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_00b2: ldarg.1
+IL_00b3: ldstr "searchable"
+IL_00b8: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_00bd: ldarg.1
+IL_00be: ldarg.0
+IL_00bf: call System.Boolean Game.UI.Widgets.PagedList::get_searchable()
+IL_00c4: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)
+IL_00c9: ldarg.1
+IL_00ca: ldstr "searchQuery"
+IL_00cf: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_00d4: ldarg.1
+IL_00d5: ldarg.0
+IL_00d6: call System.String Game.UI.Widgets.PagedList::get_searchQuery()
+IL_00db: dup
+IL_00dc: brtrue.s IL_00e4
+IL_00de: pop
+IL_00df: ldsfld System.String System.String::Empty
+IL_00e4: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.String)
+IL_00e9: ldarg.1
+IL_00ea: ldstr "childStartIndex"
+IL_00ef: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_00f4: ldarg.1
+IL_00f5: ldarg.0
+IL_00f6: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildStartIndex
+IL_00fb: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_0100: ldarg.1
+IL_0101: ldstr "childEndIndex"
+IL_0106: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)
+IL_010b: ldarg.1
+IL_010c: ldarg.0
+IL_010d: ldfld System.Int32 Game.UI.Widgets.PagedList::m_ChildEndIndex
+IL_0112: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)
+IL_0117: ret
+Game.Prefabs.HangaroundArea
+Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+System.Void Game.Prefabs.HangaroundArea::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.HangaroundLocation>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ret
+System.Void Game.Prefabs.HangaroundArea::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarg.0
+IL_0009: call T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.NavigationArea>()
+IL_000e: stloc.0
+IL_000f: ldloca.s V_1
+IL_0011: ldloc.0
+IL_0012: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.NavigationArea::m_ConnectionType
+IL_0017: stfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocationData::m_ConnectionType
+IL_001c: ldloca.s V_1
+IL_001e: ldloc.0
+IL_001f: ldfld Game.Net.TrackTypes Game.Prefabs.NavigationArea::m_TrackTypes
+IL_0024: stfld Game.Net.TrackTypes Game.Prefabs.SpawnLocationData::m_TrackTypes
+IL_0029: ldloca.s V_1
+IL_002b: ldloc.0
+IL_002c: ldfld Game.Net.RoadTypes Game.Prefabs.NavigationArea::m_RoadTypes
+IL_0031: stfld Game.Net.RoadTypes Game.Prefabs.SpawnLocationData::m_RoadTypes
+IL_0036: ldloca.s V_1
+IL_0038: ldc.i4.0
+IL_0039: stfld System.Boolean Game.Prefabs.SpawnLocationData::m_RequireAuthorization
+IL_003e: ldloca.s V_1
+IL_0040: ldc.i4.0
+IL_0041: stfld System.Boolean Game.Prefabs.SpawnLocationData::m_HangaroundOnLane
+IL_0046: ldarg.0
+IL_0047: ldfld Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+IL_004c: brfalse.s IL_009b
+IL_004e: ldarg.0
+IL_004f: ldfld Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+IL_0054: ldlen
+IL_0055: brfalse.s IL_009b
+IL_0057: ldloca.s V_1
+IL_0059: ldflda Game.Prefabs.ActivityMask Game.Prefabs.SpawnLocationData::m_ActivityMask
+IL_005e: initobj Game.Prefabs.ActivityMask
+IL_0064: ldc.i4.0
+IL_0065: stloc.2
+IL_0066: br.s IL_008e
+IL_0068: ldloca.s V_1
+IL_006a: ldflda Game.Prefabs.ActivityMask Game.Prefabs.SpawnLocationData::m_ActivityMask
+IL_006f: ldflda System.UInt32 Game.Prefabs.ActivityMask::m_Mask
+IL_0074: dup
+IL_0075: ldind.u4
+IL_0076: ldarg.0
+IL_0077: ldfld Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+IL_007c: ldloc.2
+IL_007d: ldelem.i4
+IL_007e: newobj System.Void Game.Prefabs.ActivityMask::.ctor(Game.Prefabs.ActivityType)
+IL_0083: ldfld System.UInt32 Game.Prefabs.ActivityMask::m_Mask
+IL_0088: or
+IL_0089: stind.i4
+IL_008a: ldloc.2
+IL_008b: ldc.i4.1
+IL_008c: add
+IL_008d: stloc.2
+IL_008e: ldloc.2
+IL_008f: ldarg.0
+IL_0090: ldfld Game.Prefabs.ActivityType[] Game.Prefabs.HangaroundArea::m_Activities
+IL_0095: ldlen
+IL_0096: conv.i4
+IL_0097: blt.s IL_0068
+IL_0099: br.s IL_00a8
+IL_009b: ldloca.s V_1
+IL_009d: ldc.i4.1
+IL_009e: newobj System.Void Game.Prefabs.ActivityMask::.ctor(Game.Prefabs.ActivityType)
+IL_00a3: stfld Game.Prefabs.ActivityMask Game.Prefabs.SpawnLocationData::m_ActivityMask
+IL_00a8: ldarga.s entityManager
+IL_00aa: ldarg.2
+IL_00ab: ldloc.1
+IL_00ac: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.SpawnLocationData>(Unity.Entities.Entity,!!0)
+IL_00b1: ret
+Game.Prefabs.LotPrefab
+System.Single Game.Prefabs.LotPrefab::m_MaxRadius
+UnityEngine.Color Game.Prefabs.LotPrefab::m_RangeColor
+System.Boolean Game.Prefabs.LotPrefab::m_OnWater
+System.Boolean Game.Prefabs.LotPrefab::m_AllowOverlap
+System.Boolean Game.Prefabs.LotPrefab::m_AllowEditing
+System.Void Game.Prefabs.LotPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Lot>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ldarg.1
+IL_0020: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.SubObject>()
+IL_0025: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_002a: pop
+IL_002b: ldarg.1
+IL_002c: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Common.PseudoRandomSeed>()
+IL_0031: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0036: pop
+IL_0037: ret
+System.Void Game.Prefabs.LotPrefab::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: call System.Void Game.Prefabs.ComponentBase::Initialize(Unity.Entities.EntityManager,Unity.Entities.Entity)
+IL_0008: ldarga.s entityManager
+IL_000a: ldarg.2
+IL_000b: ldarg.0
+IL_000c: ldfld System.Single Game.Prefabs.LotPrefab::m_MaxRadius
+IL_0011: ldarg.0
+IL_0012: ldfld UnityEngine.Color Game.Prefabs.LotPrefab::m_RangeColor
+IL_0017: call UnityEngine.Color32 UnityEngine.Color32::op_Implicit(UnityEngine.Color)
+IL_001c: ldarg.0
+IL_001d: ldfld System.Boolean Game.Prefabs.LotPrefab::m_OnWater
+IL_0022: ldarg.0
+IL_0023: ldfld System.Boolean Game.Prefabs.LotPrefab::m_AllowOverlap
+IL_0028: ldarg.0
+IL_0029: ldfld System.Boolean Game.Prefabs.LotPrefab::m_AllowEditing
+IL_002e: newobj System.Void Game.Prefabs.LotData::.ctor(System.Single,UnityEngine.Color32,System.Boolean,System.Boolean,System.Boolean)
+IL_0033: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Prefabs.LotData>(Unity.Entities.Entity,!!0)
+IL_0038: ret
+Game.Prefabs.SpacePrefab
+System.Void Game.Prefabs.SpacePrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: call System.Void Game.Prefabs.AreaPrefab::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0007: ldarg.1
+IL_0008: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Space>()
+IL_000d: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0012: pop
+IL_0013: ldarg.1
+IL_0014: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Areas.Geometry>()
+IL_0019: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_001e: pop
+IL_001f: ret
+Game.Prefabs.ParkData
+System.Int16 Game.Prefabs.ParkData::m_MaintenancePool
+System.Boolean Game.Prefabs.ParkData::m_AllowHomeless

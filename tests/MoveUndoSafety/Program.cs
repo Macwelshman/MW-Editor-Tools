@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using MW.EditorTools.Modules.BulldozerRecovery;
-namespace Unity.Entities {internal struct Entity {internal int Index;} internal class World {internal Manager EntityManager=new();} internal class Manager {internal bool HasComponent<T>(Entity e)=>false;}}
+namespace Unity.Entities {internal struct Entity {internal int Index;} internal class World {internal Manager EntityManager=new();} internal class Manager {internal bool Owned;internal bool HasComponent<T>(Entity e)=>Owned;}}
 namespace Unity.Jobs {internal struct JobHandle {internal int Value;}}
 namespace UnityEngine {internal static class Time {internal static int frameCount=40;}}
 namespace Game.Common {internal struct Owner {}}
@@ -15,7 +15,7 @@ internal class ObjectToolSystem {internal enum Mode {Create,Move} internal Unity
 namespace MW.EditorTools {internal static class Mod {internal static Logger Log=new();internal class Logger {internal void Info(string s){} internal void Warn(string s){}}}}
 namespace MW.EditorTools.Modules.BulldozerRecovery {
 internal sealed partial class BulldozerTrace {
-private static BulldozerTrace active;
+private static BulldozerTrace active; private bool compatible=true; private bool PatchesCompatible(bool force=false)=>compatible;
 private Unity.Entities.World world=new();private Context context=new();private bool Busy,moveCommitted,moveRestoring,objectInApply,objectAccepted,objectMoveApplying,moveDisabled;
 private bool movePreviewEntered;private Unity.Entities.Entity movePreviewTarget;private int moveFrame,moveStable,moveLastFrame;private string Status;private MoveEntry moveCandidate;private Func<bool> AutomaticCaptureAllowed=()=>true;
 private bool effectRoute,effectFinished;private bool TryBeginEffectMove(Unity.Entities.Entity id)=>effectRoute;private bool FinishEffectMove(Game.Tools.ObjectToolSystem tool)=>effectFinished;
@@ -25,7 +25,8 @@ private class Prefab {internal string name="Tree";}
 private class NestedNode {internal Prefab Prefab=new();internal Unity.Entities.Entity Owner;}
 private class Payload {internal int Weight=1;}
 private class NetworkEntry {}
-private class MoveEntry {internal Unity.Entities.Entity Target;internal NestedNode[] Before;internal Dictionary<Prefab,Payload> References;internal NetworkEntry BoundBefore;}
+private bool markerGroup,laneOnlyRack;private static bool IsMarkerMoveGroup(NestedNode[] group)=>BikeRackMoveEligibility.Dispatch(active?.markerGroup==true,active?.laneOnlyRack==true);
+private class MoveEntry {internal bool Marker;internal Unity.Entities.Entity Target;internal NestedNode[] Before;internal Dictionary<Prefab,Payload> References;internal NetworkEntry BoundBefore;}
 private NestedNode[] CaptureMoveGroup(Unity.Entities.Entity id){if(refuse)throw new NotSupportedException("unsupported");return new[]{new NestedNode()};}
 private bool MoveGroupSettled(NestedNode[] group)=>settled;private bool MoveMatchesTool(Game.Tools.ObjectToolSystem tool)=>movePreviewEntered;
 private static IEnumerable<Prefab> GroupReferences(NestedNode[] group)=>group.Select(n=>n.Prefab);
@@ -35,6 +36,9 @@ private void ClearMovePrevious(){previous=null;clearCount++;}
 private void ClearMove(){moveCandidate=null;movePreviewEntered=moveCommitted=moveRestoring=objectInApply=false;}
 internal static int RunHooks(){
 int n=0;void Check(bool v,string s){if(!v)throw new Exception("Move hooks: "+s);n++;}
+var markerCase=new BulldozerTrace{markerGroup=true};active=markerCase;markerCase.world.EntityManager.Owned=true;var markerTool=new Game.Tools.ObjectToolSystem{World=markerCase.world};
+Check(BeforeMoveStart(markerTool,new Unity.Entities.Entity{Index=42})&&markerCase.moveCandidate.Marker&&markerCase.moveCandidate.BoundBefore!=null&&markerCase.previous=="delete","marker move captures bound owner and route flag without replacing previous Undo during preview");
+
 var tool=new Game.Tools.ObjectToolSystem();var id=new Unity.Entities.Entity{Index=7};active=null;
 Check(BeforeMoveStart(tool,id),"unattached pass through");
 active=new();tool.World=active.world;active.Busy=true;
@@ -72,7 +76,11 @@ Check(BeforeMoveStart(tool,id)&&active.moveCandidate==null,"pending native initi
 active.objectInApply=false;active.objectAccepted=false;MoveAllowed(tool,true);Check(!active.objectAccepted,"acceptance query outside native Apply ignored");active.objectInApply=true;tool.World=new();MoveAllowed(tool,true);Check(!active.objectAccepted,"other-world acceptance ignored");tool.World=active.world;active.objectInApply=false;active.settled=true;active.moveDisabled=true;Check(BeforeMoveStart(tool,id)&&active.moveCandidate==null,"disabled move module passes native start");active.moveDisabled=false;active.context.DialogBusy=true;Check(BeforeMoveStart(tool,id)&&active.moveCandidate==null,"dialog gate prevents capture");active.context.DialogBusy=false;active.CaptureMoveGroup(id)[0].Owner=new Unity.Entities.Entity{Index=1};active=new();tool.World=active.world;active.effectRoute=true;Check(BeforeMoveStart(tool,id)&&active.moveCandidate==null&&active.previous!=null,"effect route bypasses prop capture without clearing prior action");
 active.effectFinished=true;BeforeObjectApply(tool,deps,ref result,out observe);MoveAllowed(tool,true);tool.applyMode=Game.Tools.ApplyMode.Apply;AfterObjectApply(tool,observe);
 Check(!active.moveCommitted&&active.clearCount==0,"completed effect route bypasses prop commit/clear policy");
-active=null;return n;
+active=new();tool.World=active.world;tool.actualMode=Game.Tools.ObjectToolSystem.Mode.Move;active.world.EntityManager.Owned=true;active.laneOnlyRack=BikeRackMoveEligibility.Supports("BikeRack01",true,1,false,false,false,false,true);
+Check(BeforeMoveStart(tool,id)&&active.moveCandidate?.Marker==true&&active.previous=="delete","lane-only bike rack reaches companion dispatch and preserves prior history during preview");
+BeforeObjectApply(tool,deps,ref result,out observe);MoveAllowed(tool,true);tool.actualMode=Game.Tools.ObjectToolSystem.Mode.Move;tool.applyMode=Game.Tools.ApplyMode.Apply;AfterObjectApply(tool,observe);
+Check(active.moveCommitted&&active.moveCandidate?.Marker==true&&active.clearCount==0,"accepted lane-only rack move waits for complete companion validation");
+active=new();tool.World=active.world;active.compatible=false;Check(BeforeMoveStart(tool,id)&&active.moveCandidate==null&&active.previous=="delete","foreign patch passes native move without capture or changing snapshot");Check(BeforeObjectApply(tool,deps,ref result,out observe)&&!observe,"foreign patch does not observe native Apply");active.Busy=true;Check(!BeforeMoveStart(tool,id)&&!BeforeObjectApply(tool,deps,ref result,out observe)&&!observe,"conflict during recovery blocks further native edits");active=null;return n;
 }
 }}
 class Program {
@@ -94,3 +102,5 @@ Check(PropMovePolicy.Commit(true,true,true,false)==PropMovePolicy.CommitAction.C
 Check(PropMovePolicy.Commit(true,true,false,true)==PropMovePolicy.CommitAction.Clear,"placement cannot become move Undo");
 Console.WriteLine("PASS: "+n+" actual-source move hook/commit/pose assertions. Managed doubles; native regeneration acceptance pending.");}
 }
+
+

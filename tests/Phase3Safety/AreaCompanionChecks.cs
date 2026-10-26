@@ -44,6 +44,19 @@ internal static class AreaCompanionChecks {
         Check(AreaCompanionNetwork.SourcesValid(new[]{Id(2)},new[]{Id(2)},_=>true),"reused source remains in mapped graph");
         Check(!AreaCompanionNetwork.SourcesValid(new[]{Id(2)},new[]{Id(102)},_=>true),"surviving orphan outside rebuilt graph refused");
         var expected=Graph();var actual=Graph(100);
+        var emptyLanes=new NestedLaneImage{HasBuffer=true,Graph=new AreaCompanionNetwork{Owner=Id(1)}};
+        Check(emptyLanes.Matches(new NestedLaneImage{HasBuffer=true,Graph=new AreaCompanionNetwork{Owner=Id(101)}}),"empty SubLane buffer permits native owner regeneration");
+        Check(!emptyLanes.Matches(new NestedLaneImage()),"missing versus empty SubLane buffer differs");
+        Check(emptyLanes.SupportsDefinition(0)&&!emptyLanes.SupportsDefinition(1),"empty live buffer cannot stand in for declared lanes");
+        var nestedLanes=new NestedLaneImage{HasBuffer=true,Graph=expected};
+        Check(nestedLanes.Matches(new NestedLaneImage{HasBuffer=true,Graph=actual}),"nested lane graph maps fresh native IDs and path references");
+        Check(nestedLanes.Sources().Count()==expected.Items.Length&&nestedLanes.HasLanes&&nestedLanes.SupportsDefinition(1),"nested lane identities retained for orphan checks");
+        var changedLanes=Graph(100);changedLanes.Items[3].Owner=Id(999);
+        Check(!nestedLanes.Matches(new NestedLaneImage{HasBuffer=true,Graph=changedLanes}),"nested lane external owner refused");
+        changedLanes=Graph(100);changedLanes.Items[2].Seed=new Game.Common.PseudoRandomSeed{m_Seed=99};
+        Check(!nestedLanes.Matches(new NestedLaneImage{HasBuffer=true,Graph=changedLanes}),"nested lane seeds must remain exact");
+        changedLanes=Graph(100);changedLanes.Items[3].Lane=new Lane{m_StartNode=new PathNode(Id(999),(ushort)7)};
+        Check(!nestedLanes.Matches(new NestedLaneImage{HasBuffer=true,Graph=changedLanes}),"nested lane external path reference refused");
         Check(expected.TryMap(actual,true,out var map)&&map[Id(4)]==Id(104),"recreated IDs map by native geometry");
         Check(expected.Items[3].Lane.m_StartNode.GetOwnerIndex()==2&&actual.Items[3].Lane.m_StartNode.GetOwnerIndex()==102,"path normalization never mutates images");
         actual.Items= new[]{actual.Items[3],actual.Items[1],actual.Items[0],actual.Items[2]};
@@ -130,6 +143,40 @@ internal static class AreaCompanionChecks {
         Check(!worldBefore.TryMap(worldAfter,true,out _,true,true),"generated lane rounding cannot exceed half-millimetre cap");
         worldAfter=Graph(100);worldBefore=Graph();worldBefore.Items[2].Curve.m_Bezier.b.y=worldAfter.Items[2].Curve.m_Bezier.b.y=511.9453f;worldAfter.Items[2].Curve.m_Bezier.b.y+=0.0003f;
         Check(!worldBefore.TryMap(worldAfter,true,out _,true,true),"source edge retains smaller rounding budget");
+        // Exact observed 0.4.200 fence shape: unchanged endpoints/XZ, regenerated
+        // interior Y and invalid native local cache. Full graph mapping is required.
+        worldBefore=Graph();worldAfter=Graph(100);
+        var originalCurve=new Colossal.Mathematics.Bezier4x3{a=new float3(1.685479f,511.9453f,28.5064f),b=new float3(1.685479f,511.9461f,20.5064f),c=new float3(1.685479f,511.9451f,12.5064f),d=new float3(1.685479f,511.9453f,4.506401f)};
+        worldBefore.Items[2].Curve=worldAfter.Items[2].Curve=new Curve{m_Bezier=originalCurve,m_Length=24};
+        worldBefore.Items[2].HasLocal=worldAfter.Items[2].HasLocal=true;
+        var local=new Game.Tools.LocalCurveCache{m_Curve=new Colossal.Mathematics.Bezier4x3{a=new float3(11.00137f,0,8.000004f),b=new float3(11.00137f,0.000793457f,0),c=new float3(11.00137f,-0.000213623f,-8),d=new float3(11.00137f,0,-16)}};
+        worldBefore.Items[2].Local=local;
+        worldAfter.Items[2].Local.m_Curve.a=new float3(float.NaN);
+        worldAfter.Items[2].Curve.m_Bezier.b.y=511.9464f;worldAfter.Items[2].Curve.m_Bezier.c.y=511.945f;
+        Check(!worldBefore.TryMap(worldAfter,false,out _,false),"observed fence stays strict outside native restoration");
+        Check(worldBefore.TryMap(worldAfter,false,out _,false,true),"observed fence native interior height regeneration maps complete graph before cache repair");
+        worldAfter.Items[2].Local=local;
+        Check(worldBefore.TryMap(worldAfter,true,out _,true,true),"observed fence passes final mapping only with repaired exact local cache and seed");
+        worldAfter.Items[2].Local.m_Curve.b.x++;
+        Check(!worldBefore.TryMap(worldAfter,false,out _,false,true),"interior height exception cannot bypass changed finite local geometry");
+        worldAfter.Items[2].Local=local;
+        worldAfter.Items[2].Curve.m_Bezier.b.x+=0.0003f;
+        Check(!worldBefore.TryMap(worldAfter,true,out _,true,true),"interior height exception does not expand horizontal tolerance");
+        worldAfter.Items[2].Curve.m_Bezier.b.x=originalCurve.b.x;
+        worldAfter.Items[2].Curve.m_Bezier.a.y+=0.0003f;
+        Check(!worldBefore.TryMap(worldAfter,true,out _,true,true),"interior height exception does not expand endpoint tolerance");
+        worldAfter.Items[2].Curve.m_Bezier.a=originalCurve.a;
+        worldAfter.Items[2].Curve.m_Bezier.b.y=originalCurve.b.y+0.0007f;
+        Check(!worldBefore.TryMap(worldAfter,true,out _,true,true),"interior height exception retains half millimetre cap");
+        worldAfter.Items[2].Curve.m_Bezier.b.y=511.9464f;
+        worldAfter.Items[2].Edge.m_End=Id(102);
+        Check(!worldBefore.TryMap(worldAfter,true,out _,true,true),"interior height exception cannot bypass endpoint references");
+        worldAfter.Items[2].Edge.m_End=Id(103);
+        worldAfter.Items[2].Seed.m_Seed++;
+        Check(!worldBefore.TryMap(worldAfter,true,out _,true,true),"interior height exception cannot bypass final seed validation");
+        worldAfter.Items[2].Seed=worldBefore.Items[2].Seed;
+        worldBefore.Items[2].Local.m_Curve.b.y=float.NaN;
+        Check(!worldBefore.TryMap(worldAfter,false,out _,false,true),"interior height exception requires finite original local curve");
         Check(expected.ExplainMismatch(Graph(100),true)=="none","diagnostics preserve successful mapping");
         actual=Graph(100);actual.Items=actual.Items.Take(2).ToArray();Check(expected.ExplainMismatch(actual,true).StartsWith("item count"),"diagnostics identify graph count mismatch");
         actual=Graph(100);actual.Items[2].Curve.m_Length=90;Check(expected.ExplainMismatch(actual,true).StartsWith("typed mapping"),"diagnostics identify typed geometry mismatch");
@@ -154,6 +201,72 @@ internal static class AreaCompanionChecks {
         Check(owned.TryMap(rebuilt,true,out _),"recreated anchor preserves exact local attachment values");
         rebuilt.Anchors[0].Local.m_ParentMesh=1;Check(!owned.TryMap(rebuilt,true,out _),"anchor mesh attachment change refused");
         rebuilt.Anchors[0].Local.m_Position.x=float.NaN;Check(!rebuilt.TryMap(rebuilt,true,out _),"nonfinite anchor local cache refused");
+        AreaCompanionNetwork ReusedAnchors(bool swapped){
+            var g=Anchored(0);var second=g.Anchors[0].DetachedCopy();second.Id=Id(21);second.Transform.m_Position.x=9;g.Anchors=new[]{g.Anchors[0],second};
+            g.Items[3].Lane.m_EndNode=new PathNode(Id(21),(ushort)9);
+            if(swapped){var a=g.Anchors[0].Transform;g.Anchors[0].Transform=second.Transform;second.Transform=a;g.Items[3].Lane.m_StartNode=new PathNode(Id(21),(ushort)7);g.Items[3].Lane.m_EndNode=new PathNode(Id(20),(ushort)9);}
+            return g;
+        }
+        var nativeBefore=ReusedAnchors(false);var nativeAfter=ReusedAnchors(true);
+        Check(!nativeBefore.TryMap(nativeAfter,true,out _,true,true),"default anchor survivor identity rule stays strict");
+        Check(nativeBefore.TryMap(nativeAfter,true,out var rebound,true,true,true)&&rebound[Id(20)]==Id(21)&&rebound[Id(21)]==Id(20),"spawn rebuild remaps repurposed survivors by unique full pose and ownership proof");
+        nativeAfter.Items[3].Lane.m_EndNode=new PathNode(Id(21),(ushort)9);
+        Check(!nativeBefore.TryMap(nativeAfter,true,out _,true,true,true),"reused anchor mapping cannot bypass lane endpoint owner references");
+        nativeAfter=ReusedAnchors(true);nativeAfter.Anchors[1].Owner=Id(999);
+        Check(!nativeBefore.TryMap(nativeAfter,true,out _,true,true,true),"reused anchor mapping cannot reparent anchors");
+        nativeAfter=ReusedAnchors(true);nativeAfter.Anchors[0].Prefab=null;
+        Check(!nativeBefore.TryMap(nativeAfter,true,out _,true,true,true),"reused anchor mapping requires exact prefab identity");
+        nativeAfter=ReusedAnchors(true);nativeAfter.Anchors[0].Transform.m_Position.x+=1;
+        Check(!nativeBefore.TryMap(nativeAfter,true,out _,true,true,true),"reused anchor mapping refuses changed world placement");
+        nativeAfter=ReusedAnchors(true);nativeBefore.Anchors[0].HasLocal=nativeBefore.Anchors[1].HasLocal=nativeAfter.Anchors[0].HasLocal=nativeAfter.Anchors[1].HasLocal=true;
+        var attachment=new Game.Tools.LocalTransformCache{m_Rotation=quaternion.identity,m_ParentMesh=-1,m_Probability=100};foreach(var anchor in nativeBefore.Anchors.Concat(nativeAfter.Anchors))anchor.Local=attachment;
+        nativeAfter.Anchors[0].Local.m_ParentMesh=0;Check(!nativeBefore.TryMap(nativeAfter,true,out _,true,true,true),"reused anchor mapping refuses attachment changes");
+        nativeBefore=ReusedAnchors(false);nativeAfter=ReusedAnchors(true);nativeBefore.Anchors[1].Transform=nativeBefore.Anchors[0].Transform;nativeAfter.Anchors[0].Transform=nativeAfter.Anchors[1].Transform;
+        nativeAfter.Anchors[0].Id=Id(120);nativeAfter.Anchors[1].Id=Id(121);
+        Check(!nativeBefore.TryMap(nativeAfter,true,out _,true,true,true),"recreated duplicate anchor poses remain ambiguous");
+        var invalidCache=new Game.Tools.LocalCurveCache{m_Curve=new Colossal.Mathematics.Bezier4x3{a=new float3(float.NaN,1,2)}};var sameInvalid=invalidCache;
+        Check(AreaCompanionNetwork.LocalSnapshotEqual(invalidCache,sameInvalid),"cache transaction can compare unchanged native NaN cache bitwise");
+        sameInvalid.m_Curve.b.x=1;Check(!AreaCompanionNetwork.LocalSnapshotEqual(invalidCache,sameInvalid),"bitwise cache guard detects concurrent native changes");
+        AreaCompanionNetwork Connection(int offset,bool reverse){
+            var g=Anchored(offset);g.Anchors=new[]{g.Anchors[0],new AreaCompanionNetwork.Anchor{Id=Id(offset+21),Owner=g.Owner,Prefab=anchorPrefab,Transform=new Game.Objects.Transform{m_Position=new float3(12,3,4),m_Rotation=quaternion.identity}}};
+            var item=g.Items[3];g.Items=new[]{item};g.RootNets=Array.Empty<Entity>();item.HasConnection=item.HasSecondary=true;item.Connection.m_Flags=ConnectionLaneFlags.Inside;
+            item.Lane=new Lane{m_StartNode=new PathNode(Id(offset+20),(ushort)0),m_MiddleNode=new PathNode(Id(offset+20),(ushort)3),m_EndNode=new PathNode(Id(offset+21),(ushort)0)};
+            if(reverse){var c=item.Curve.m_Bezier;item.Curve.m_Bezier=new Colossal.Mathematics.Bezier4x3{a=c.d,b=c.c,c=c.b,d=c.a};item.Lane=new Lane{m_StartNode=new PathNode(Id(offset+21),(ushort)0),m_MiddleNode=new PathNode(Id(offset+21),(ushort)3),m_EndNode=new PathNode(Id(offset+20),(ushort)0)};}
+            return g;
+        }
+        var cb=Connection(0,false);var ca=Connection(100,true);
+        Check(!cb.TryMap(ca,true,out _),"reversed connections refused outside spawn restoration");
+        Check(!cb.TryMap(ca,true,out _,true,false,true),"reversed connections require native restoration scope");
+        Check(cb.TryMap(ca,true,out var reverseMap,true,true,true)&&reverseMap[Id(5)]==Id(105)&&EntityReferenceMap.IsReversed(reverseMap,Id(5)),"spawn reversal proves all four controls, endpoints, canonical middle and direction witness");
+        Check(cb.Items[0].Curve.m_Bezier.a.x==0&&ca.Items[0].Curve.m_Bezier.a.x==10,"reversal comparison leaves source and native graph direction unchanged");
+        Check(cb.TryMap(Connection(0,true),true,out _,true,true,true),"native reused lane identity may retain equivalent reversed connection");
+        var beforeSpawn=new SpawnAccessImage{HasSpawn=true,HasAccess=true,HasRoute=true,Spawn=new Game.Objects.SpawnLocation{m_ConnectedLane1=Id(5),m_CurvePosition1=.2f},Access=new Game.Routes.AccessLane{m_Lane=Id(5),m_CurvePos=.3f},Route=new Game.Routes.RouteLane{m_StartLane=Id(5),m_EndLane=Id(5),m_StartCurvePos=.4f,m_EndCurvePos=.6f},References=new[]{new SpawnAccessImage.Reference{Id=Id(5),Owner=Id(1),HasOwner=true,HasLane=true,HasCurve=true,Lane=cb.Items[0].Lane,Curve=cb.Items[0].Curve}}};
+        var afterSpawn=new SpawnAccessImage{HasSpawn=true,HasAccess=true,HasRoute=true,Spawn=new Game.Objects.SpawnLocation{m_ConnectedLane1=Id(105),m_CurvePosition1=.8f},Access=new Game.Routes.AccessLane{m_Lane=Id(105),m_CurvePos=.7f},Route=new Game.Routes.RouteLane{m_StartLane=Id(105),m_EndLane=Id(105),m_StartCurvePos=.6f,m_EndCurvePos=.4f},References=new[]{new SpawnAccessImage.Reference{Id=Id(105),Owner=Id(101),HasOwner=true,HasLane=true,HasCurve=true,Lane=ca.Items[0].Lane,Curve=ca.Items[0].Curve}}};
+        Check(beforeSpawn.Matches(afterSpawn,reverseMap),"actual native spawn/access/route structs use graph-proved reversal to retain physical attachment");
+        Check(!beforeSpawn.Matches(afterSpawn,new System.Collections.Generic.Dictionary<Entity,Entity>(reverseMap)),"entity remapping alone cannot accept reversed native companion positions");
+        afterSpawn.Route.m_EndCurvePos=.5f;Check(!beforeSpawn.Matches(afterSpawn,reverseMap),"graph-proved reversal cannot hide shifted native route attachment");afterSpawn.Route.m_EndCurvePos=.4f;
+        var scope=EntityReferenceMap.WithOwnerPrefab(new System.Collections.Generic.Dictionary<Entity,Entity>(),Id(1),Id(90),Id(91));foreach(var pair in reverseMap)EntityReferenceMap.Add(scope,pair.Key,pair.Value);EntityReferenceMap.CopyDirections(reverseMap,scope);
+        Check(beforeSpawn.Matches(afterSpawn,EntityReferenceMap.Copy(scope)),"merged root reference map and completion checkpoint preserve native reverse companion proof");
+        var copied=EntityReferenceMap.Copy(reverseMap);Check(EntityReferenceMap.IsReversed(copied,Id(5))&&EntityReferenceMap.SameScope(reverseMap,copied),"direction witness survives completion checkpoint copy");
+        Check(!EntityReferenceMap.SameScope(reverseMap,new System.Collections.Generic.Dictionary<Entity,Entity>(reverseMap)),"completion stability resets when direction changes with identical entity IDs");
+        ca.Items[0].Lane.m_MiddleNode=new PathNode(Id(120),(ushort)3);Check(cb.TryMap(ca,true,out _,true,true,true),"native retained middle may be attached to other endpoint");
+        ca=Connection(100,true);ca.Items[0].Lane.m_EndNode=new PathNode(Id(120),(ushort)1);Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal cannot hide endpoint index changes");
+        ca=Connection(100,true);ca.Items[0].Lane.m_MiddleNode=new PathNode(Id(121),(ushort)4);Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal cannot hide middle index changes");
+        ca=Connection(100,true);ca.Items[0].Lane.m_MiddleNode=new PathNode(Id(999),(ushort)3);Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal cannot hide external middle owner");
+        ca=Connection(100,true);ca.Items[0].Curve.m_Bezier.b.z+=.01f;Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal cannot hide interior geometry changes");
+        ca=Connection(100,true);ca.Items[0].Curve.m_Length++;Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal preserves length");
+        ca=Connection(100,true);ca.Items[0].Connection.m_Flags=ConnectionLaneFlags.Outside;Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal preserves connection flags");
+        ca=Connection(100,true);ca.Items[0].Connection.m_RoadTypes=(RoadTypes)1;Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal preserves road types");
+        ca=Connection(100,true);ca.Items[0].Connection.m_TrackTypes=(TrackTypes)1;Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal preserves track types");
+        ca=Connection(100,true);ca.Items[0].Connection.m_AccessRestriction=Id(999);Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal preserves restriction references");
+        ca=Connection(100,true);ca.Items[0].HasSecondary=false;Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal requires native secondary schema");
+        ca=Connection(100,true);ca.RootLanes[0].m_PathMethods=(PathMethod)1;Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal preserves path methods");
+        ca=Connection(100,true);ca.Items[0].Connections=new[]{Id(999)};Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal preserves full link closure");
+        ca=Connection(100,true);ca.Items[0].Owner=Id(999);Check(!cb.TryMap(ca,true,out _,true,true,true),"reversal preserves owner");
+        ca=Connection(100,true);ca.Items=new[]{ca.Items[0],ca.Items[0].DetachedCopy()};ca.Items[1].Id=Id(106);cb.Items=new[]{cb.Items[0],cb.Items[0].DetachedCopy()};cb.Items[1].Id=Id(6);Check(!cb.TryMap(ca,true,out _,true,true,true),"ambiguous reversed connections refused");
+        cb=Connection(0,false);ca=Connection(100,true);cb.Items[0].Connection.m_Flags=ca.Items[0].Connection.m_Flags=ConnectionLaneFlags.Outside;Check(!cb.TryMap(ca,true,out _,true,true,true),"outside connections do not inherit inside building connection reversal");
+        cb=Connection(0,false);ca=Connection(100,true);cb.Items[0].HasLocal=ca.Items[0].HasLocal=true;Check(!cb.TryMap(ca,true,out _,true,true,true),"editable cached lanes cannot use generated connection reversal");
+        Check(Connection(0,false).Items[0].Lane.m_StartNode.GetOwnerIndex()==20,"source lane direction remains unchanged");
         return checks;
     }
 }

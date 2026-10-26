@@ -1,0 +1,1 @@
+PASS: compact component panel, one-click paste, modes, restore, empty clipboard gating and persistent result information.

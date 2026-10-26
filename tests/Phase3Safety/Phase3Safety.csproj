@@ -4,10 +4,16 @@
     <OutputType>Exe</OutputType>
     <ManagedPath>C:\Program Files (x86)\Steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed</ManagedPath>
   </PropertyGroup>
-  <ItemGroup><Compile Include="../../src/Modules/BulldozerRecovery/EffectChild.cs" Link="EffectChild.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/EffectEditPolicy.cs" Link="EffectEditPolicy.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/AreaNodeEditPolicy.cs" Link="AreaNodeEditPolicy.cs" />
+  <ItemGroup><Compile Include="../../src/Modules/BulldozerRecovery/BoundCompletionGate.cs" Link="BoundCompletionGate.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/EntityReferenceMap.cs" Link="EntityReferenceMap.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/EffectChild.cs" Link="EffectChild.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/EffectEditPolicy.cs" Link="EffectEditPolicy.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/AreaNodeEditPolicy.cs" Link="AreaNodeEditPolicy.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/PropComponentSchema.cs" Link="PropComponentSchema.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/AreaMovePolicy.cs" Link="AreaMovePolicy.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/NetworkTargetSelection.cs" Link="NetworkTargetSelection.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/SpawnAnchorRecovery.cs" Link="SpawnAnchorRecovery.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/AreaMoveReferenceView.cs" Link="AreaMoveReferenceView.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/BikeRackMoveEligibility.cs" Link="BikeRackMoveEligibility.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/BikeRackMovePolicy.cs" Link="BikeRackMovePolicy.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/MarkerConnectionLayout.cs" Link="MarkerConnectionLayout.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/MarkerMoveNetwork.cs" Link="MarkerMoveNetwork.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/MarkerMovePolicy.cs" Link="MarkerMovePolicy.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/SpawnConnectionDeletion.cs" Link="SpawnConnectionDeletion.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/OwnedConnectionPolicy.cs" Link="OwnedConnectionPolicy.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/NetworkDeletionPolicy.cs" Link="NetworkDeletionPolicy.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/NetworkDescriptorPolicy.cs" Link="NetworkDescriptorPolicy.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/NormalizedAreaFields.cs" Link="NormalizedAreaFields.cs" />
@@ -15,7 +21,7 @@
     <Compile Include="../../src/Modules/BulldozerRecovery/EnabledEffectImage.cs" Link="EnabledEffectImage.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/StandaloneAreaData.cs" Link="StandaloneAreaData.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/DescriptorPermutation.cs" Link="DescriptorPermutation.cs" />
-    <Compile Include="../../src/Modules/BulldozerRecovery/AreaCompanionNetwork.cs" Link="AreaCompanionNetwork.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/NestedLaneImage.cs" Link="NestedLaneImage.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/SpawnAccessCapture.cs" Link="SpawnAccessCapture.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/SpawnAccessImage.cs" Link="SpawnAccessImage.cs"/><Compile Include="../../src/Modules/BulldozerRecovery/AreaCompanionNetwork.cs" Link="AreaCompanionNetwork.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/AreaCompanionEffect.cs" Link="AreaCompanionEffect.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/BoundDescriptorIndex.cs" Link="BoundDescriptorIndex.cs" />
     <Compile Include="../../src/History/*.cs" Link="History/%(Filename)%(Extension)" />
@@ -23,9 +29,13 @@
     <Compile Include="../../src/Modules/BulldozerRecovery/AreaRemovalPolicy.cs" Link="AreaRemovalPolicy.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/MainPropData.cs" Link="MainPropData.cs" />
     <Compile Include="../../src/Modules/BulldozerRecovery/NestedPayloadPolicy.cs" Link="NestedPayloadPolicy.cs" />
-    <Reference Include="Game;UnityEngine.CoreModule;UnityEngine.AnimationModule;Unity.Mathematics;Colossal.Mathematics;Unity.Entities;Colossal.Mono.Cecil">
+    <Reference Include="Game;Colossal.Core;Unity.Collections;UnityEngine.CoreModule;UnityEngine.AnimationModule;Unity.Mathematics;Colossal.Mathematics;Unity.Entities;Colossal.Mono.Cecil">
       <HintPath>$(ManagedPath)\%(Identity).dll</HintPath>
       <Private>true</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup><Compile Include="../../src/Modules/BulldozerRecovery/RecoveryTiming.cs" Link="RecoveryTiming.cs" /></ItemGroup>
 </Project>
+
+
+

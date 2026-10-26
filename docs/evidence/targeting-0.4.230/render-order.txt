@@ -1,0 +1,105 @@
+TYPE Game.UpdateSystem
+System.Void Game.UpdateSystem::UpdateBefore(Game.SystemUpdatePhase) generic=SystemType params=phase
+System.Void Game.UpdateSystem::UpdateAfter(Game.SystemUpdatePhase) generic=SystemType params=phase
+System.Void Game.UpdateSystem::UpdateBefore(Game.SystemUpdatePhase) generic=SystemType,OtherType params=phase
+System.Void Game.UpdateSystem::UpdateAfter(Game.SystemUpdatePhase) generic=SystemType,OtherType params=phase
+TYPE Game.SystemUpdatePhase
+value__=
+Invalid=-1
+MainLoop=0
+LateUpdate=1
+Modification1=2
+Modification2=3
+Modification2B=4
+Modification3=5
+Modification4=6
+Modification4B=7
+Modification5=8
+ModificationEnd=9
+PreSimulation=10
+PostSimulation=11
+GameSimulation=12
+EditorSimulation=13
+Rendering=14
+PreTool=15
+PostTool=16
+ToolUpdate=17
+ClearTool=18
+ApplyTool=19
+Serialize=20
+Deserialize=21
+UIUpdate=22
+UITooltip=23
+PrefabUpdate=24
+DebugGizmos=25
+LoadSimulation=26
+PreCulling=27
+CompleteRendering=28
+Raycast=29
+PrefabReferences=30
+Cleanup=31
+TYPE Game.Rendering.BatchManagerSystem
+Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::GetNativeBatchGroups(System.Boolean,Unity.Jobs.JobHandle&) generic= params=readOnly,dependencies
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::.ctor(System.UInt32,System.UInt32,Unity.Collections.Allocator)
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::Dispose()
+GROUP API System.Boolean Colossal.Rendering.NativeBatchGroups`4::get_IsCreated()
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::CreateGroup(TGroupData,System.Int32,Colossal.Rendering.NativeBatchInstances`4<TCullingData,TGroupData,TBatchData,TInstanceData>,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::DestroyGroup(System.Int32,Colossal.Rendering.NativeBatchInstances`4<TCullingData,TGroupData,TBatchData,TInstanceData>,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+GROUP API Colossal.Rendering.UpdatedManagedBatchEnumerator Colossal.Rendering.NativeBatchGroups`4::GetUpdatedManagedBatches()
+GROUP API Colossal.Rendering.UpdatedPropertiesEnumerator Colossal.Rendering.NativeBatchGroups`4::GetUpdatedProperties()
+GROUP API Colossal.Rendering.UpdatedMetaDataEnumerator Colossal.Rendering.NativeBatchGroups`4::GetUpdatedMetaDatas()
+GROUP API Colossal.Rendering.ObsoleteManagedBatchEnumerator Colossal.Rendering.NativeBatchGroups`4::GetObsoleteManagedBatches()
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::ClearUpdatedManagedBatches()
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::ClearUpdatedProperties()
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::ClearUpdatedMetaDatas()
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::ClearObsoleteManagedBatches()
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::GetGroupCount()
+GROUP API System.Boolean Colossal.Rendering.NativeBatchGroups`4::IsValidGroup(System.Int32)
+GROUP API TGroupData Colossal.Rendering.NativeBatchGroups`4::GetGroupData(System.Int32)
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::SetGroupData(System.Int32,TGroupData)
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::CreateBatch(TBatchData,System.Int32,System.Int32,Colossal.Rendering.NativeBatchInstances`4<TCullingData,TGroupData,TBatchData,TInstanceData>,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+GROUP API TBatchData Colossal.Rendering.NativeBatchGroups`4::DestroyBatch(System.Int32,System.Int32,Colossal.Rendering.NativeBatchInstances`4<TCullingData,TGroupData,TBatchData,TInstanceData>,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::GetBatchCount(System.Int32)
+GROUP API TBatchData Colossal.Rendering.NativeBatchGroups`4::GetBatchData(System.Int32,System.Int32)
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::SetBatchData(System.Int32,System.Int32,TBatchData)
+GROUP API Colossal.Rendering.NativeBatchAccessor`1<TBatchData> Colossal.Rendering.NativeBatchGroups`4::GetBatchAccessor(System.Int32)
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::GetManagedBatchIndex(System.Int32,System.Int32)
+GROUP API UnityEngine.Rendering.BatchMaterialID Colossal.Rendering.NativeBatchGroups`4::GetBatchMaterialID(System.Int32,System.Int32)
+GROUP API UnityEngine.Rendering.BatchMeshID Colossal.Rendering.NativeBatchGroups`4::GetBatchMeshID(System.Int32,System.Int32)
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::GetBatchIndex(System.Int32,System.Int32)
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::GetMergedGroupCount(System.Int32)
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::GetMergedGroupIndex(System.Int32,System.Int32)
+GROUP API System.Int32 Colossal.Rendering.NativeBatchGroups`4::AddMergedGroup(System.Int32,System.Int32)
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::RemoveMergedGroup(System.Int32,System.Int32)
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::SetBatchProperties(System.Int32,System.Int32,Colossal.Rendering.NativeBatchProperties)
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::SetBatchDataIndex(System.Int32,System.Int32,System.Int32,System.Int32)
+GROUP API System.Void Colossal.Rendering.NativeBatchGroups`4::AllocatePropertyBuffers(System.Int32,System.UInt32,Colossal.Rendering.NativeBatchInstances`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+GROUP API Colossal.Rendering.NativeGroupPropertyAccessor Colossal.Rendering.NativeBatchGroups`4::GetGroupPropertyAccessor(System.Int32)
+GROUP API Colossal.Rendering.NativeBatchPropertyAccessor Colossal.Rendering.NativeBatchGroups`4::GetBatchPropertyAccessor(System.Int32,System.Int32)
+GROUP API Colossal.Rendering.WriteableBatchDefaultsAccessor Colossal.Rendering.NativeBatchGroups`4::GetBatchDefaultsAccessor(System.Int32,System.Int32)
+GROUP API Colossal.Rendering.NativeBatchGroups`4/GroupUpdater<TCullingData,TGroupData,TBatchData,TInstanceData> Colossal.Rendering.NativeBatchGroups`4::BeginGroupUpdate(Unity.Collections.Allocator)
+GROUP API Unity.Jobs.JobHandle Colossal.Rendering.NativeBatchGroups`4::EndGroupUpdate(Colossal.Rendering.NativeBatchGroups`4/GroupUpdater<TCullingData,TGroupData,TBatchData,TInstanceData>,Unity.Jobs.JobHandle)
+ORDER System.Void Game.Common.SystemOrder::Initialize(Game.UpdateSystem)
+IL_002d: callvirt System.Void Game.UpdateSystem::UpdateAt<Game.Rendering.AnimatedSystem>(Game.SystemUpdatePhase)
+IL_0032: ldarg.0
+IL_0033: ldc.i4.s 31
+IL_0035: callvirt System.Void Game.UpdateSystem::UpdateAt<Game.Rendering.BatchUploadSystem>(Game.SystemUpdatePhase)
+IL_003a: ldarg.0
+IL_003b: ldc.i4.s 31
+IL_003d: callvirt System.Void Game.UpdateSystem::UpdateAt<Game.Common.CleanUpSystem>(Game.SystemUpdatePhase)
+ORDER System.Void Game.Common.SystemOrder::Initialize(Game.UpdateSystem)
+IL_1330: callvirt System.Void Game.UpdateSystem::UpdateAt<Game.Rendering.EffectRangeRenderSystem>(Game.SystemUpdatePhase)
+IL_1335: ldarg.0
+IL_1336: ldc.i4.s 14
+IL_1338: callvirt System.Void Game.UpdateSystem::UpdateAt<Game.Rendering.BatchDataSystem>(Game.SystemUpdatePhase)
+IL_133d: ldarg.0
+IL_133e: ldc.i4.s 14
+IL_1340: callvirt System.Void Game.UpdateSystem::UpdateAt<Game.Rendering.BatchRendererSystem>(Game.SystemUpdatePhase)
+ORDER System.Void Game.Common.SystemOrder::Initialize(Game.UpdateSystem)
+IL_18d0: callvirt System.Void Game.UpdateSystem::UpdateAfter<Game.Serialization.PostDeserialize`1<Game.Rendering.RenderingSystem>>(Game.SystemUpdatePhase)
+IL_18d5: ldarg.0
+IL_18d6: ldc.i4.s 21
+IL_18d8: callvirt System.Void Game.UpdateSystem::UpdateAfter<Game.Serialization.PostDeserialize`1<Game.Rendering.BatchDataSystem>>(Game.SystemUpdatePhase)
+IL_18dd: ldarg.0
+IL_18de: ldc.i4.s 21
+IL_18e0: callvirt System.Void Game.UpdateSystem::UpdateAfter<Game.Serialization.PostDeserialize`1<Game.Simulation.CityStatisticsSystem>>(Game.SystemUpdatePhase)

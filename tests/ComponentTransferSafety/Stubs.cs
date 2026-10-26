@@ -32,11 +32,11 @@ namespace Game.Prefabs
     public class ComponentBase : UnityEngine.ScriptableObject { public PrefabBase prefab; public bool active = true; }
     public class PrefabBase : ComponentBase {
         public string name = "Test asset"; public List<ComponentBase> components = new List<ComponentBase>(); public bool isReadOnly, isDirty; public TestAsset asset;
-        public Type FailAddition;
+        public Type FailAddition;public string NativeUIIcon;public UIGroupPrefab NativeUIGroup;
         public ComponentBase AddComponent(Type type) {
             if (type == FailAddition) throw new InvalidOperationException("Injected addition failure");
             if (components.Exists(c => c != null && c.GetType() == type)) return null;
-            var added = (ComponentBase)UnityEngine.ScriptableObject.CreateInstance(type); added.prefab = this; components.Add(added); isDirty = true; return added;
+            var added = (ComponentBase)UnityEngine.ScriptableObject.CreateInstance(type); added.prefab = this;if(added is UIObject ui){ui.m_Icon=NativeUIIcon;ui.m_Group=NativeUIGroup;} components.Add(added); isDirty = true; return added;
         }
         public void Remove(Type type) { int index = components.FindIndex(c => c != null && c.GetType() == type); if(index >= 0)components.RemoveAt(index); isDirty = true; }
     }
@@ -134,3 +134,23 @@ namespace Game.Prefabs
     }
 }
 
+
+namespace Game.Prefabs {
+ public class UIGroupPrefab:PrefabBase {}
+ [ComponentMenu(typeof(PrefabBase))] public class UIObject:ComponentBase {public UIGroupPrefab m_Group;public int m_Priority;public string m_Icon;public bool m_IsDebugObject;}
+}
+namespace MW.EditorTools.Modules.ComponentManager.Pack {
+ internal sealed partial class PriorityBatch {internal static Game.Prefabs.PrefabBase[] TestWorkspace;internal static Game.Prefabs.PrefabBase[] Workspace(Unity.Entities.World world)=>TestWorkspace;}
+}
+
+namespace Game.UI.Widgets {public interface IWidget {}}
+namespace Game.UI.Editor {
+ public class LocalizationField {
+  public class LocalizationFieldEntry {public string localeId,text;public LocalizationFieldEntry(string locale,string value){localeId=locale;text=value;}}
+  private List<LocalizationFieldEntry> entries=new();
+  public IReadOnlyList<LocalizationFieldEntry> localization=>entries;
+  public void Initialize(IEnumerable<LocalizationFieldEntry> values){entries=values.Select(e=>new LocalizationFieldEntry(e.localeId,e.text)).ToList();}
+  public IEnumerable<LocalizationFieldEntry> ValidEntries()=>entries.Where(e=>!string.IsNullOrWhiteSpace(e.text));
+  public void SetPropertiesChanged(){}
+ }
+}

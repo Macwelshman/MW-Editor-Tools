@@ -1,0 +1,13 @@
+Game.Net.Node Game.Net.NetUtils::AdjustPosition(Game.Net.Node,Game.Simulation.TerrainHeightData&)
+V_0
+IL_0000: ldarg.0
+IL_0001: stloc.0
+IL_0002: ldloca.s V_0
+IL_0004: ldflda Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_0009: ldarg.1
+IL_000a: ldarg.0
+IL_000b: ldfld Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_0010: call System.Single Game.Simulation.TerrainUtils::SampleHeight(Game.Simulation.TerrainHeightData&,Unity.Mathematics.float3)
+IL_0015: stfld System.Single Unity.Mathematics.float3::y
+IL_001a: ldloc.0
+IL_001b: ret

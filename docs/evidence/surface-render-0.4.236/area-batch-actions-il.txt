@@ -1,0 +1,340 @@
+System.Void Game.Rendering.AreaBatchSystem/CullingActionJob::PassedCulling(Game.Rendering.AreaBatchSystem/CullingAction)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Areas.Batch> Game.Rendering.AreaBatchSystem/CullingActionJob::m_BatchData
+IL_0006: ldarg.1
+IL_0007: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_000c: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_0011: call Unity.Entities.RefRW`1<!0> Unity.Entities.ComponentLookup`1<Game.Areas.Batch>::GetRefRW(Unity.Entities.Entity)
+IL_0016: stloc.1
+IL_0017: ldloca.s V_1
+IL_0019: call !0& Unity.Entities.RefRW`1<Game.Areas.Batch>::get_ValueRW()
+IL_001e: stloc.0
+IL_001f: ldloc.0
+IL_0020: ldfld System.Int32 Game.Areas.Batch::m_VisibleCount
+IL_0025: brtrue IL_00b4
+IL_002a: ldloc.0
+IL_002b: ldc.i4.m1
+IL_002c: stfld System.Int32 Game.Areas.Batch::m_VisibleCount
+IL_0031: ldarg.0
+IL_0032: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Rendering.AreaBatchSystem/CullingActionJob::m_PrefabRefData
+IL_0037: ldarg.1
+IL_0038: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_003d: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_0042: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_0047: stloc.2
+IL_0048: ldarg.0
+IL_0049: ldloc.2
+IL_004a: ldloca.s V_3
+IL_004c: call System.Boolean Game.Rendering.AreaBatchSystem/CullingActionJob::TryGetRenderedAreaData(Game.Prefabs.PrefabRef,Game.Prefabs.RenderedAreaData&)
+IL_0051: brfalse.s IL_00ad
+IL_0053: ldloc.0
+IL_0054: ldloc.3
+IL_0055: ldfld System.Int32 Game.Prefabs.RenderedAreaData::m_BatchIndex
+IL_005a: stfld System.Int32 Game.Areas.Batch::m_BatchIndex
+IL_005f: ldarg.0
+IL_0060: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.AreaBatchSystem/AllocationAction> Game.Rendering.AreaBatchSystem/CullingActionJob::m_AllocationActions
+IL_0065: ldloca.s V_4
+IL_0067: initobj Game.Rendering.AreaBatchSystem/AllocationAction
+IL_006d: ldloca.s V_4
+IL_006f: ldarg.1
+IL_0070: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_0075: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_007a: stfld Unity.Entities.Entity Game.Rendering.AreaBatchSystem/AllocationAction::m_Entity
+IL_007f: ldloca.s V_4
+IL_0081: ldarg.0
+IL_0082: ldflda Unity.Entities.BufferLookup`1<Game.Areas.Triangle> Game.Rendering.AreaBatchSystem/CullingActionJob::m_Triangles
+IL_0087: ldarg.1
+IL_0088: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_008d: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_0092: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Areas.Triangle>::get_Item(Unity.Entities.Entity)
+IL_0097: stloc.s V_5
+IL_0099: ldloca.s V_5
+IL_009b: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Areas.Triangle>::get_Length()
+IL_00a0: stfld System.Int32 Game.Rendering.AreaBatchSystem/AllocationAction::m_TriangleCount
+IL_00a5: ldloc.s V_4
+IL_00a7: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.AreaBatchSystem/AllocationAction>::Enqueue(!0)
+IL_00ac: ret
+IL_00ad: ldloc.0
+IL_00ae: ldc.i4.m1
+IL_00af: stfld System.Int32 Game.Areas.Batch::m_BatchIndex
+IL_00b4: ret
+System.Void Game.Rendering.AreaBatchSystem/CullingActionJob::FailedCulling(Game.Rendering.AreaBatchSystem/CullingAction)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Areas.Batch> Game.Rendering.AreaBatchSystem/CullingActionJob::m_BatchData
+IL_0006: ldarg.1
+IL_0007: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_000c: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_0011: call Unity.Entities.RefRW`1<!0> Unity.Entities.ComponentLookup`1<Game.Areas.Batch>::GetRefRW(Unity.Entities.Entity)
+IL_0016: stloc.1
+IL_0017: ldloca.s V_1
+IL_0019: call !0& Unity.Entities.RefRW`1<Game.Areas.Batch>::get_ValueRW()
+IL_001e: stloc.0
+IL_001f: ldloc.0
+IL_0020: ldfld System.Int32 Game.Areas.Batch::m_AllocatedSize
+IL_0025: brfalse IL_010f
+IL_002a: ldarg.1
+IL_002b: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_0030: ldfld System.Int32 Game.Areas.AreaSearchItem::m_Triangle
+IL_0035: ldc.i4.m1
+IL_0036: bne.un.s IL_00a1
+IL_0038: ldloc.0
+IL_0039: ldfld System.Int32 Game.Areas.Batch::m_VisibleCount
+IL_003e: ldc.i4.0
+IL_003f: ble IL_010f
+IL_0044: ldc.i4.0
+IL_0045: stloc.2
+IL_0046: br.s IL_006a
+IL_0048: ldarg.0
+IL_0049: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData> Game.Rendering.AreaBatchSystem/CullingActionJob::m_TriangleMetaData
+IL_004e: ldloc.0
+IL_004f: ldflda Colossal.Collections.NativeHeapBlock Game.Areas.Batch::m_BatchAllocation
+IL_0054: call System.UInt32 Colossal.Collections.NativeHeapBlock::get_Begin()
+IL_0059: ldloc.2
+IL_005a: add
+IL_005b: call !0& Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>::ElementAt(System.Int32)
+IL_0060: ldc.i4.0
+IL_0061: stfld System.Boolean Game.Rendering.AreaBatchSystem/TriangleMetaData::m_IsVisible
+IL_0066: ldloc.2
+IL_0067: ldc.i4.1
+IL_0068: add
+IL_0069: stloc.2
+IL_006a: ldloc.2
+IL_006b: ldloc.0
+IL_006c: ldfld System.Int32 Game.Areas.Batch::m_AllocatedSize
+IL_0071: blt.s IL_0048
+IL_0073: ldloc.0
+IL_0074: ldc.i4.0
+IL_0075: stfld System.Int32 Game.Areas.Batch::m_VisibleCount
+IL_007a: ldarg.0
+IL_007b: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.AreaBatchSystem/AllocationAction> Game.Rendering.AreaBatchSystem/CullingActionJob::m_AllocationActions
+IL_0080: ldloca.s V_3
+IL_0082: initobj Game.Rendering.AreaBatchSystem/AllocationAction
+IL_0088: ldloca.s V_3
+IL_008a: ldarg.1
+IL_008b: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_0090: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_0095: stfld Unity.Entities.Entity Game.Rendering.AreaBatchSystem/AllocationAction::m_Entity
+IL_009a: ldloc.3
+IL_009b: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.AreaBatchSystem/AllocationAction>::Enqueue(!0)
+IL_00a0: ret
+IL_00a1: ldarg.0
+IL_00a2: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData> Game.Rendering.AreaBatchSystem/CullingActionJob::m_TriangleMetaData
+IL_00a7: ldloc.0
+IL_00a8: ldflda Colossal.Collections.NativeHeapBlock Game.Areas.Batch::m_BatchAllocation
+IL_00ad: call System.UInt32 Colossal.Collections.NativeHeapBlock::get_Begin()
+IL_00b2: ldarg.1
+IL_00b3: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_00b8: ldfld System.Int32 Game.Areas.AreaSearchItem::m_Triangle
+IL_00bd: add
+IL_00be: call !0& Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>::ElementAt(System.Int32)
+IL_00c3: stloc.s V_4
+IL_00c5: ldloc.s V_4
+IL_00c7: ldfld System.Boolean Game.Rendering.AreaBatchSystem/TriangleMetaData::m_IsVisible
+IL_00cc: brfalse.s IL_010f
+IL_00ce: ldloc.s V_4
+IL_00d0: ldc.i4.0
+IL_00d1: stfld System.Boolean Game.Rendering.AreaBatchSystem/TriangleMetaData::m_IsVisible
+IL_00d6: ldloc.0
+IL_00d7: ldflda System.Int32 Game.Areas.Batch::m_VisibleCount
+IL_00dc: dup
+IL_00dd: ldind.i4
+IL_00de: ldc.i4.1
+IL_00df: sub
+IL_00e0: stloc.s V_5
+IL_00e2: ldloc.s V_5
+IL_00e4: stind.i4
+IL_00e5: ldloc.s V_5
+IL_00e7: brtrue.s IL_010f
+IL_00e9: ldarg.0
+IL_00ea: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.AreaBatchSystem/AllocationAction> Game.Rendering.AreaBatchSystem/CullingActionJob::m_AllocationActions
+IL_00ef: ldloca.s V_3
+IL_00f1: initobj Game.Rendering.AreaBatchSystem/AllocationAction
+IL_00f7: ldloca.s V_3
+IL_00f9: ldarg.1
+IL_00fa: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_00ff: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_0104: stfld Unity.Entities.Entity Game.Rendering.AreaBatchSystem/AllocationAction::m_Entity
+IL_0109: ldloc.3
+IL_010a: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.AreaBatchSystem/AllocationAction>::Enqueue(!0)
+IL_010f: ret
+System.Void Game.Rendering.AreaBatchSystem/TriangleUpdateJob::PassedCulling(Game.Rendering.AreaBatchSystem/CullingAction)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Areas.Batch> Game.Rendering.AreaBatchSystem/TriangleUpdateJob::m_BatchData
+IL_0006: ldarg.1
+IL_0007: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_000c: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_0011: call Unity.Entities.RefRW`1<!0> Unity.Entities.ComponentLookup`1<Game.Areas.Batch>::GetRefRW(Unity.Entities.Entity)
+IL_0016: stloc.1
+IL_0017: ldloca.s V_1
+IL_0019: call !0& Unity.Entities.RefRW`1<Game.Areas.Batch>::get_ValueRW()
+IL_001e: stloc.0
+IL_001f: ldloc.0
+IL_0020: ldfld System.Int32 Game.Areas.Batch::m_AllocatedSize
+IL_0025: brfalse IL_00db
+IL_002a: ldloc.0
+IL_002b: ldfld System.Int32 Game.Areas.Batch::m_VisibleCount
+IL_0030: ldc.i4.m1
+IL_0031: bne.un.s IL_004c
+IL_0033: ldarg.0
+IL_0034: ldarg.1
+IL_0035: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_003a: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_003f: ldloc.0
+IL_0040: call System.Void Game.Rendering.AreaBatchSystem/TriangleUpdateJob::GenerateTriangleData(Unity.Entities.Entity,Game.Areas.Batch&)
+IL_0045: ldloc.0
+IL_0046: ldc.i4.0
+IL_0047: stfld System.Int32 Game.Areas.Batch::m_VisibleCount
+IL_004c: ldarg.0
+IL_004d: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData> Game.Rendering.AreaBatchSystem/TriangleUpdateJob::m_TriangleMetaData
+IL_0052: ldloc.0
+IL_0053: ldflda Colossal.Collections.NativeHeapBlock Game.Areas.Batch::m_BatchAllocation
+IL_0058: call System.UInt32 Colossal.Collections.NativeHeapBlock::get_Begin()
+IL_005d: ldarg.1
+IL_005e: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_0063: ldfld System.Int32 Game.Areas.AreaSearchItem::m_Triangle
+IL_0068: add
+IL_0069: call !0& Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>::ElementAt(System.Int32)
+IL_006e: stloc.2
+IL_006f: ldloc.2
+IL_0070: ldfld System.Boolean Game.Rendering.AreaBatchSystem/TriangleMetaData::m_IsVisible
+IL_0075: brtrue.s IL_00db
+IL_0077: ldloc.2
+IL_0078: ldc.i4.1
+IL_0079: stfld System.Boolean Game.Rendering.AreaBatchSystem/TriangleMetaData::m_IsVisible
+IL_007e: ldloc.0
+IL_007f: ldflda System.Int32 Game.Areas.Batch::m_VisibleCount
+IL_0084: dup
+IL_0085: ldind.i4
+IL_0086: ldc.i4.1
+IL_0087: add
+IL_0088: stind.i4
+IL_0089: ldarg.0
+IL_008a: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/NativeBatchData> Game.Rendering.AreaBatchSystem/TriangleUpdateJob::m_NativeBatchData
+IL_008f: ldloc.0
+IL_0090: ldfld System.Int32 Game.Areas.Batch::m_BatchIndex
+IL_0095: call !0& Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/NativeBatchData>::ElementAt(System.Int32)
+IL_009a: stloc.3
+IL_009b: ldloc.3
+IL_009c: ldflda Unity.Collections.LowLevel.Unsafe.UnsafeList`1<Game.Rendering.AreaBatchSystem/AreaMetaData> Game.Rendering.AreaBatchSystem/NativeBatchData::m_AreaMetaData
+IL_00a1: ldloc.0
+IL_00a2: ldfld System.Int32 Game.Areas.Batch::m_MetaIndex
+IL_00a7: call !0& Unity.Collections.LowLevel.Unsafe.UnsafeList`1<Game.Rendering.AreaBatchSystem/AreaMetaData>::ElementAt(System.Int32)
+IL_00ac: stloc.s V_4
+IL_00ae: ldloc.2
+IL_00af: ldfld System.Int32 Game.Rendering.AreaBatchSystem/TriangleMetaData::m_Index
+IL_00b4: ldloc.s V_4
+IL_00b6: ldfld System.Int32 Game.Rendering.AreaBatchSystem/AreaMetaData::m_VisibleCount
+IL_00bb: blt.s IL_00db
+IL_00bd: ldloc.s V_4
+IL_00bf: ldloc.2
+IL_00c0: ldfld System.Int32 Game.Rendering.AreaBatchSystem/TriangleMetaData::m_Index
+IL_00c5: ldc.i4.1
+IL_00c6: add
+IL_00c7: stfld System.Int32 Game.Rendering.AreaBatchSystem/AreaMetaData::m_VisibleCount
+IL_00cc: ldloc.3
+IL_00cd: ldfld System.Boolean Game.Rendering.AreaBatchSystem/NativeBatchData::m_VisibleUpdated
+IL_00d2: brtrue.s IL_00db
+IL_00d4: ldloc.3
+IL_00d5: ldc.i4.1
+IL_00d6: stfld System.Boolean Game.Rendering.AreaBatchSystem/NativeBatchData::m_VisibleUpdated
+IL_00db: ret
+System.Void Game.Rendering.AreaBatchSystem/TriangleUpdateJob::FailedCulling(Game.Rendering.AreaBatchSystem/CullingAction)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Areas.Batch> Game.Rendering.AreaBatchSystem/TriangleUpdateJob::m_BatchData
+IL_0006: ldarg.1
+IL_0007: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_000c: ldfld Unity.Entities.Entity Game.Areas.AreaSearchItem::m_Area
+IL_0011: call Unity.Entities.RefRW`1<!0> Unity.Entities.ComponentLookup`1<Game.Areas.Batch>::GetRefRW(Unity.Entities.Entity)
+IL_0016: stloc.1
+IL_0017: ldloca.s V_1
+IL_0019: call !0& Unity.Entities.RefRW`1<Game.Areas.Batch>::get_ValueRW()
+IL_001e: stloc.0
+IL_001f: ldloc.0
+IL_0020: ldfld System.Int32 Game.Areas.Batch::m_AllocatedSize
+IL_0025: brfalse IL_0112
+IL_002a: ldarg.1
+IL_002b: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_0030: ldfld System.Int32 Game.Areas.AreaSearchItem::m_Triangle
+IL_0035: ldc.i4.m1
+IL_0036: beq IL_0112
+IL_003b: ldarg.0
+IL_003c: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/NativeBatchData> Game.Rendering.AreaBatchSystem/TriangleUpdateJob::m_NativeBatchData
+IL_0041: ldloc.0
+IL_0042: ldfld System.Int32 Game.Areas.Batch::m_BatchIndex
+IL_0047: call !0& Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/NativeBatchData>::ElementAt(System.Int32)
+IL_004c: stloc.2
+IL_004d: ldloc.2
+IL_004e: ldflda Unity.Collections.LowLevel.Unsafe.UnsafeList`1<Game.Rendering.AreaBatchSystem/AreaMetaData> Game.Rendering.AreaBatchSystem/NativeBatchData::m_AreaMetaData
+IL_0053: ldloc.0
+IL_0054: ldfld System.Int32 Game.Areas.Batch::m_MetaIndex
+IL_0059: call !0& Unity.Collections.LowLevel.Unsafe.UnsafeList`1<Game.Rendering.AreaBatchSystem/AreaMetaData>::ElementAt(System.Int32)
+IL_005e: stloc.3
+IL_005f: ldarg.0
+IL_0060: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData> Game.Rendering.AreaBatchSystem/TriangleUpdateJob::m_TriangleMetaData
+IL_0065: ldloc.0
+IL_0066: ldflda Colossal.Collections.NativeHeapBlock Game.Areas.Batch::m_BatchAllocation
+IL_006b: call System.UInt32 Colossal.Collections.NativeHeapBlock::get_Begin()
+IL_0070: ldarg.1
+IL_0071: ldfld Game.Areas.AreaSearchItem Game.Rendering.AreaBatchSystem/CullingAction::m_Item
+IL_0076: ldfld System.Int32 Game.Areas.AreaSearchItem::m_Triangle
+IL_007b: add
+IL_007c: call !0 Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>::get_Item(System.Int32)
+IL_0081: stloc.s V_4
+IL_0083: ldloc.s V_4
+IL_0085: ldfld System.Int32 Game.Rendering.AreaBatchSystem/TriangleMetaData::m_Index
+IL_008a: ldloc.3
+IL_008b: ldfld System.Int32 Game.Rendering.AreaBatchSystem/AreaMetaData::m_VisibleCount
+IL_0090: ldc.i4.1
+IL_0091: sub
+IL_0092: bne.un.s IL_0112
+IL_0094: ldloc.3
+IL_0095: ldc.i4.0
+IL_0096: stfld System.Int32 Game.Rendering.AreaBatchSystem/AreaMetaData::m_VisibleCount
+IL_009b: ldc.i4.0
+IL_009c: stloc.s V_5
+IL_009e: br.s IL_00f9
+IL_00a0: ldarg.0
+IL_00a1: ldflda Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData> Game.Rendering.AreaBatchSystem/TriangleUpdateJob::m_TriangleMetaData
+IL_00a6: ldloc.0
+IL_00a7: ldflda Colossal.Collections.NativeHeapBlock Game.Areas.Batch::m_BatchAllocation
+IL_00ac: call System.UInt32 Colossal.Collections.NativeHeapBlock::get_Begin()
+IL_00b1: ldloc.s V_5
+IL_00b3: add
+IL_00b4: call !0 Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>::get_Item(System.Int32)
+IL_00b9: stloc.s V_4
+IL_00bb: ldloc.3
+IL_00bc: ldloc.3
+IL_00bd: ldfld System.Int32 Game.Rendering.AreaBatchSystem/AreaMetaData::m_VisibleCount
+IL_00c2: ldloc.s V_4
+IL_00c4: ldfld System.Int32 Game.Rendering.AreaBatchSystem/TriangleMetaData::m_Index
+IL_00c9: ldc.i4.1
+IL_00ca: add
+IL_00cb: ldloc.s V_4
+IL_00cd: ldfld System.Boolean Game.Rendering.AreaBatchSystem/TriangleMetaData::m_IsVisible
+IL_00d2: brfalse.s IL_00e8
+IL_00d4: ldloc.s V_4
+IL_00d6: ldfld System.Int32 Game.Rendering.AreaBatchSystem/TriangleMetaData::m_Index
+IL_00db: ldloc.3
+IL_00dc: ldfld System.Int32 Game.Rendering.AreaBatchSystem/AreaMetaData::m_VisibleCount
+IL_00e1: clt
+IL_00e3: ldc.i4.0
+IL_00e4: ceq
+IL_00e6: br.s IL_00e9
+IL_00e8: ldc.i4.0
+IL_00e9: call System.Int32 Unity.Mathematics.math::select(System.Int32,System.Int32,System.Boolean)
+IL_00ee: stfld System.Int32 Game.Rendering.AreaBatchSystem/AreaMetaData::m_VisibleCount
+IL_00f3: ldloc.s V_5
+IL_00f5: ldc.i4.1
+IL_00f6: add
+IL_00f7: stloc.s V_5
+IL_00f9: ldloc.s V_5
+IL_00fb: ldloc.0
+IL_00fc: ldfld System.Int32 Game.Areas.Batch::m_AllocatedSize
+IL_0101: blt.s IL_00a0
+IL_0103: ldloc.2
+IL_0104: ldfld System.Boolean Game.Rendering.AreaBatchSystem/NativeBatchData::m_VisibleUpdated
+IL_0109: brtrue.s IL_0112
+IL_010b: ldloc.2
+IL_010c: ldc.i4.1
+IL_010d: stfld System.Boolean Game.Rendering.AreaBatchSystem/NativeBatchData::m_VisibleUpdated
+IL_0112: ret

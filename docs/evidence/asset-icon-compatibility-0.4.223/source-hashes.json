@@ -1,0 +1,14 @@
+[
+  {
+    "Path": "src/Modules/Compatibility/AssetIconCreatorCompatibility.cs",
+    "SHA256": "2205F1C640CDEAC79C1181702EAE13F947585A958E83C9C165DD0241C3C64756"
+  },
+  {
+    "Path": "src/Core/Mod.cs",
+    "SHA256": "825E5481D30DB3097B44C752F1E71A946752443C6788732639C84044BA0FBBE3"
+  },
+  {
+    "Path": "tests/AssetIconCompatibilitySafety/Program.cs",
+    "SHA256": "D6BA146CE9AC3C60C1FC157FA3F98983619220C1F05D5DCCB426FBD9931FE094"
+  }
+]

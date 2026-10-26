@@ -1,0 +1,17 @@
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
+const root=path.resolve(__dirname,'../UI'),React=require(path.join(root,'node_modules/react')),ts=require(path.join(root,'node_modules/typescript')),{renderToStaticMarkup}=require(path.join(root,'node_modules/react-dom/server'));
+let state={available:true,hasAsset:true,selectionToken:'s1',selectedIndices:[0],components:[{index:0,typeName:'Game.Prefabs.UIObject',fields:['m_Group','m_Priority','m_IsDebugObject'],valid:true}]},hooks=[],cursor=0,actions=[],sent=[],captured=[];
+const react={...React,useState:initial=>{const i=cursor++;if(!(i in hooks))hooks[i]=initial;return[hooks[i],value=>hooks[i]=typeof value==='function'?value(hooks[i]):value]}};
+const Button=({children,onSelect,theme,selected,...props})=>{actions.push({label:children,onSelect,selected,disabled:props.disabled});return React.createElement('button',props,children)};
+const out={};vm.runInNewContext(ts.transpileModule(fs.readFileSync(path.join(root,'src/components.tsx'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.React,esModuleInterop:true}}).outputText,{exports:out,require:n=>n==='react'?react:n==='./pack-editor'?{PackEditor:()=>null}:n==='cs2/api'?{bindValue:()=>0,useValue:()=>JSON.stringify(state),trigger:(g,k,v)=>{sent.push(v);captured.push(v)}}:n==='cs2/ui'?{Button,Tooltip:({children})=>children}:{getModule:()=>({})}});
+const render=()=>{cursor=0;actions=[];return renderToStaticMarkup(React.createElement(out.ComponentsContent))};
+render();actions.find(a=>a.label==='Choose fields to copy').onSelect();let html=render();assert(html.includes('Group and Priority'));assert(!html.includes('>Icon<'));
+actions.find(a=>a.label==='Group and Priority').onSelect();render();assert(actions.find(a=>a.label==='Group').selected);assert(!actions.find(a=>a.label==='Is Debug Object').selected);actions.find(a=>a.label==='Copy').onSelect();let parts=sent.pop().split('|');assert.deepEqual(JSON.parse(parts[3]),{choices:[{index:0,names:['m_Group','m_Priority']}]});
+actions.find(a=>a.label==='Priority').onSelect();render();actions.find(a=>a.label==='Copy').onSelect();parts=sent.pop().split('|');assert.deepEqual(JSON.parse(parts[3]).choices[0].names,['m_Group']);
+actions.find(a=>a.label==='Copy All').onSelect();parts=sent.pop().split('|');assert.deepEqual(JSON.parse(parts[3]).choices[0].names,['m_Group']);
+actions.find(a=>a.label==='Localisation').onSelect();render();assert(!actions.some(a=>a.label==='Copy'),'localisation hides component controls');
+actions.find(a=>a.label==='Pack priorities').onSelect();render();assert(!actions.some(a=>a.label==='Paste'),'priorities hide component controls');
+actions.find(a=>a.label==='Component copying').onSelect();render();assert(actions.find(a=>a.label==='Group').selected,'task switching preserves field choices');
+state={...state,selectionToken:'s2'};render();actions.find(a=>a.label==='Copy').onSelect();assert.equal(sent.pop(),'copy|s2|0','asset changes cannot reuse old field choices');
+if(process.env.MW_FIELD_FIXTURE_PATH)fs.writeFileSync(process.env.MW_FIELD_FIXTURE_PATH,JSON.stringify(captured));
+console.log('PASS: selective field UI, Group/Priority preset, field toggle payload, hidden thumbnail and asset-token isolation.');

@@ -1,0 +1,28 @@
+Total: 97.225800 ms (FindLiveObjects: 5.756700 ms CreateObjectMapping: 6.195100 ms MarkObjects: 84.897900 ms  DeleteObjects: 0.375800 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 417 unused Assets to reduce memory usage. Loaded Objects now: 235412.
+Total: 91.331300 ms (FindLiveObjects: 6.950100 ms CreateObjectMapping: 4.601600 ms MarkObjects: 79.259900 ms  DeleteObjects: 0.519200 ms)
+
+MW Colors 0.5.11: editor ready = True
+System.Exception: Item not found (NativeQuadTree.Update)!
+This Exception was thrown from a job compiled with Burst, which has limited exception support. Turn off burst (Jobs -> Burst -> Enable Compilation) to inspect full exceptions & stacktraces. In this standalone build configuration burst will now abort the Application.
+0x00007fff8f8ac90d (UnityPlayer) UnityMain
+0x00007fff8f8ac688 (UnityPlayer) UnityMain
+0x00007fff8f8930d9 (UnityPlayer) UnityMain
+0x00007fff8ff336c1 (UnityPlayer) UnityMain
+0x00007fff8f417a3d (UnityPlayer) 
+0x00007fff8f417985 (UnityPlayer) 
+0x00007fff83727ef3 (lib_burst_generated) burst.initialize.statics.1b89dbf0761226608a282da83ec0ecb0_avx2
+0x00007fff837287d0 (lib_burst_generated) burst.initialize.statics.1b89dbf0761226608a282da83ec0ecb0_avx2
+0x00007fff83726076 (lib_burst_generated) burst.initialize.statics.e273d918bf8a775db78c2371ac6a684c_avx2
+0x00007fff85630fb7 (lib_burst_generated) 1b89dbf0761226608a282da83ec0ecb0
+0x00007fff8f418116 (UnityPlayer) 
+0x00007fff8f4189ec (UnityPlayer) 
+0x00007fff8f413dc2 (UnityPlayer) 
+0x00007fff8f41471b (UnityPlayer) 
+0x00007fff8f4147a9 (UnityPlayer) 
+0x00007fff8f5535bc (UnityPlayer) 
+0x00007ff8bf54dda7 (KERNEL32) BaseThreadInitThunk
+0x00007ff8c135ee4c (ntdll) RtlUserThreadStart
+

@@ -5,7 +5,7 @@ using Unity.Mathematics;
 namespace MW.EditorTools.Modules.BulldozerRecovery {
     internal static class EffectEditPolicy {
         internal static bool GroundDetach(AreaCompanionEffect a,AreaCompanionEffect b)=>a!=null&&b!=null&&a.HasLocal&&b.HasLocal&&a.HasElevation&&b.HasElevation&&
-            a.Local.m_ParentMesh==0&&b.Local.m_ParentMesh==-1&&a.Elevation.m_Flags==0&&b.Elevation.m_Flags==Game.Objects.ElevationFlags.OnGround&&b.Elevation.m_Elevation==0;
+            (a.Local.m_ParentMesh==0||(a.Local.m_ParentMesh==-1&&math.isfinite(a.Elevation.m_Elevation)&&math.abs(a.Elevation.m_Elevation)<0.0001f&&math.isfinite(a.Local.m_Position.y)&&math.abs(a.Local.m_Position.y)<0.0001f&&a.Local.m_Position.y==a.Elevation.m_Elevation&&math.isfinite(b.Local.m_Position.y)&&math.abs(b.Local.m_Position.y)<0.0001f))&&b.Local.m_ParentMesh==-1&&a.Elevation.m_Flags==0&&b.Elevation.m_Flags==Game.Objects.ElevationFlags.OnGround&&b.Elevation.m_Elevation==0;
         internal static bool Move(AreaCompanionEffect a,AreaCompanionEffect b,bool bound=false)=>a!=null&&b!=null&&!ReferenceEquals(a.Prefab,null)&&!ReferenceEquals(a.Container,null)&&AreaCompanionEffect.Same(a,a)&&AreaCompanionEffect.Same(b,b)&&ReferenceEquals(a.Prefab,b.Prefab)&&ReferenceEquals(a.Container,b.Container)&&
             a.HasTransform&&b.HasTransform&&a.HasLocal==b.HasLocal&&a.HasElevation==b.HasElevation&&a.Scale.Equals(b.Scale)&&a.Intensity.Equals(b.Intensity)&&a.Group==b.Group&&
             (!a.HasLocal||((a.Local.m_ParentMesh==b.Local.m_ParentMesh||(bound&&GroundDetach(a,b)))&&a.Local.m_Probability==b.Local.m_Probability&&a.Local.m_GroupIndex==b.Local.m_GroupIndex))&&

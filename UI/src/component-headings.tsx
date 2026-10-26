@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useRef} from "react";
 import {bindValue, trigger, useValue} from "cs2/api";
 import {getModule, ModRegistrar} from "cs2/modding";
 import {Tooltip} from "cs2/ui";
@@ -6,6 +6,7 @@ import {Tooltip} from "cs2/ui";
 type Row = {index:number;valid:boolean;sectionId?:string};
 type State = {available?:boolean;hasAsset?:boolean;selectionToken?:string;selectedIndices?:number[];components?:Row[]};
 const binding = bindValue<string>("mwComponentTool","state","{}");
+const rowHighlightBinding=bindValue<string>("mwPropReplacer","state","{}");
 const command = (value:string) => trigger("mwComponentTool","command",value);
 const stop = (event:React.SyntheticEvent) => event.stopPropagation();
 
@@ -18,6 +19,17 @@ export function headingSelection(state:State, sectionId:string) {
 export const registerComponentHeadings:ModRegistrar = registry => {
     registry.extend("game-ui/editor/widgets/section/editor-section.tsx","EditorSectionBase",Original => function ComponentHeading(props:any) {
         const raw = useValue(binding);
+        const rowRaw=useValue(rowHighlightBinding);
+        let marked=false,highlightKey="";try{const data=JSON.parse(rowRaw||"{}");marked=data.highlightComponent===props.sectionId&&!!props.sectionId;highlightKey=data.highlightKey||"";}catch{}
+        const useToggleState=getModule("game-ui/common/hooks/use-toggle-state.tsx","useToggleState") as ()=>{setState:(id:string,expanded:boolean)=>void};
+        const toggles=useToggleState(),revealed=useRef("");
+        useEffect(()=>{
+            if(!marked||!highlightKey){revealed.current="";return;}
+            if(revealed.current===highlightKey)return;revealed.current=highlightKey;
+            toggles.setState(props.sectionId,true);
+            if(!props.expanded)props.onExpandedChange?.(true);
+        },[marked,highlightKey,props.sectionId]);
+        if(marked)props={...props,className:[props.className,"mw-viewport-selected-component"].filter(Boolean).join(" ")};
         let state:State = {};
         try { state = JSON.parse(raw || "{}"); } catch { /* Leave the native heading untouched. */ }
         if (props.sectionId === "editorPanel.mwRecovery")

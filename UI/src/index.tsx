@@ -3,22 +3,25 @@ import {bindValue, trigger, useValue} from "cs2/api";
 import {ModRegistrar, getModule} from "cs2/modding";
 import {Button, Tooltip} from "cs2/ui";
 import {NativePanel} from "./native-panel";
-import {MultiSaveContent} from "./multi-save";
+import {MultiSaveContent,registerWorkspaceSaveAll} from "./multi-save";
 import {ColourVariationsContent} from "./colours/window";
 import {ComponentsContent} from "./components";
+import {registerViewportRowHighlight} from "./viewport-row-highlight";
 import {registerComponentHeadings} from "./component-headings";
-import {PropReplacerContent} from "./prop-replacer";
+import {PropReplacerContent,Targeting} from "./prop-replacer";
 import launcherIcon from "./assets/mw-editor-tools.png";
 import {launcherLeft} from "./launcher-position";
 import "./style.scss";
+import {TabErrorBoundary} from "./tab-error-boundary";
+import {editorToolsState} from "./editor-tools-state";
 type Options = {confirmation:boolean; recovery:boolean; shortcuts:boolean; inspectorControls:boolean; historyDepth:number; undoKey:string; redoKey:string; undoModifiers:number; redoModifiers:number; windowX:number; windowY:number};
-type State = {available:boolean;visible:boolean;asset:string;status:string;bulldozerDiagnostic:string;undo:number;redo:number;undoTarget:string;redoTarget:string;canArmMainTest:boolean;canArmBulldozerTest:boolean;nestedHistoryEnabled:boolean;mainHistoryEnabled:boolean;canUndo:boolean;canRedo:boolean;recent:string[];positionRevision:number;settings:Options;protectedComponents:boolean;installedRecovery:boolean};
-const binding = bindValue<string>("mwEditorTools","state","{}");
+type State = {targeting?:Targeting;available:boolean;visible:boolean;asset:string;status:string;bulldozerDiagnostic:string;undo:number;redo:number;undoTarget:string;redoTarget:string;canArmMainTest:boolean;canArmBulldozerTest:boolean;nestedHistoryEnabled:boolean;mainHistoryEnabled:boolean;canUndo:boolean;canRedo:boolean;recent:string[];positionRevision:number;settings:Options;protectedComponents:boolean;installedRecovery:boolean};
+const binding = editorToolsState;
 const width = bindValue<number>("editorHierarchy","width",500);
 const command = (value:string) => trigger("mwEditorTools","command",value);
 const shortcutLabel = (mask:number,key:string) => [mask&1?"Ctrl":"",mask&2?"Shift":"",mask&4?"Alt":"",mask&8?"Windows":"",key].filter(Boolean).join("+");
 const tabs = ["Replacer","Components","Colours","Multi-Save"];
-const introductions = ["Replace individual or matching elements in the viewport or component lists.","Copy components and their settings between assets.","Create and randomise colour variations for your asset.","Save all unlocked assets in your workspace."];
+const introductions = ["Replace individual or matching elements in the viewport or component lists.","Copy component settings, transfer localisation, or number a pack.","Create and randomise colour variations for your asset.","Save all unlocked assets in your workspace."];
 function Launcher() {
     const raw = useValue(binding), workspaceWidth = useValue(width);
     const slot = useRef<HTMLDivElement>(null);
@@ -74,17 +77,6 @@ function Tools() {
 
     const state = JSON.parse(raw) as State;
     useEffect(() => {
-        const timer = setTimeout(() => {
-            const element = document.querySelector<HTMLElement>(".mw-tools-launcher");
-            const rect = element?.getBoundingClientRect();
-            const style = element ? window.getComputedStyle(element) : null;
-            trigger("mwEditorTools","frontendDiagnostic",JSON.stringify({available:state.available,settings:!!state.settings,
-                workspaceWidth,launcher:!!element,left:rect?.left,top:rect?.top,width:rect?.width,height:rect?.height,
-                position:style?.position,display:style?.display,visibility:style?.visibility}));
-        },250);
-        return () => clearTimeout(timer);
-    },[state.available,!!state.settings,workspaceWidth]);
-    useEffect(() => {
         const report = () => {
             const active = document.activeElement as HTMLElement|null;
             const typing = !!active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA" || active.tagName === "SELECT" ||
@@ -109,7 +101,7 @@ function Tools() {
         const copy=(event:KeyboardEvent)=>{
             if(!(event.ctrlKey&&!event.shiftKey&&!event.altKey&&!event.metaKey&&event.key.toLowerCase()==="c"))return;
             const active=document.activeElement as HTMLElement|null;
-            if(active&&(active.tagName==="INPUT"||active.tagName==="TEXTAREA"||active.isContentEditable))return;
+            if(active&&(active.tagName==="INPUT"||active.tagName==="TEXTAREA"||active.tagName==="SELECT"||active.isContentEditable))return;
             const samples:string[]=[];let element=document.elementFromPoint(x,y) as HTMLElement|null;
             for(let i=0;element&&i<8;i++,element=element.parentElement){const values=[element.getAttribute("aria-label"),element.getAttribute("title"),element.innerText];for(const value of values)if(value&&value.trim()&&value.length<=1000&&!samples.includes(value.trim()))samples.push(value.trim());}
             trigger("mwPropReplacer","hoverCopy",JSON.stringify({samples}));
@@ -125,21 +117,23 @@ function Tools() {
         {state.visible && <NativePanel key={state.positionRevision} className="mw-tools-panel"
             initialPosition={{x:state.settings.windowX,y:state.settings.windowY}}
             onPositionChange={position=>trigger("mwEditorTools","windowPosition",JSON.stringify({...position,revision:state.positionRevision}))}
-            header={<div className="mw-tools-heading"><span>MW Editor Tools</span><div className="mw-tools-header-actions"><Tooltip tooltip={`${shortcutLabel(state.settings.undoModifiers,state.settings.undoKey)} · Undo the last supported replacement, move, node edit or deletion. ${state.canUndo?"Ready to undo.":"No supported action to undo."}`}><div>{button("Undo",()=>command("undo"),!state.canUndo)}</div></Tooltip>{button("Close",()=>command("close"))}</div></div>}>
+            header={<div className="mw-tools-heading"><span>MW Editor Tools</span><div className="mw-tools-header-actions"><Tooltip tooltip={`${shortcutLabel(state.settings.undoModifiers,state.settings.undoKey)} · Undo the last supported replacement, move, node edit or deletion. ${state.canUndo?"Ready to undo.":state.status||state.bulldozerDiagnostic||"No supported action to undo."}`}><div>{button("Undo",()=>command("undo"),!state.canUndo)}</div></Tooltip>{button("Close",()=>command("close"))}</div></div>}>
             <div className="mw-tools-body">
                 <div className="mw-tools-tabs" role="tablist" aria-label="Editor tools">{tabs.map((name,index)=><Button key={name} id={`mw-tools-tab-${index}`} role="tab" aria-selected={tab===name} aria-controls="mw-tools-section" theme={theme} selected={tab===name} onSelect={()=>setTab(name)}>{name}</Button>)}</div>
                 <div className="mw-tools-section" id="mw-tools-section" role="tabpanel" aria-labelledby={`mw-tools-tab-${tabs.indexOf(tab)}`}>
                 <p className="mw-tools-introduction">{introductions[tabs.indexOf(tab)]}</p>
-                {tab===tabs[0] && <PropReplacerContent/>}
+                <TabErrorBoundary key={tab}>
+                {tab===tabs[0] && <PropReplacerContent targeting={state.targeting}/>}
                 {tab===tabs[1] && <ComponentsContent/>}
                 {tab===tabs[2] && <ColourVariationsContent/>}
                 {tab===tabs[3] && <MultiSaveContent/>}
+                </TabErrorBoundary>
                 </div>
             </div>
         </NativePanel>}
     </>;
 }
-const register:ModRegistrar = registry => {registerComponentHeadings(registry);registry.append("Editor",Launcher);registry.append("Editor",Tools);};
+const register:ModRegistrar = registry => {registerWorkspaceSaveAll(registry);registerComponentHeadings(registry);registerViewportRowHighlight(registry);registry.append("Editor",Launcher);registry.append("Editor",Tools);};
 export const hasCSS = true;
 export default register;
 

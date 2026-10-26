@@ -1,0 +1,182 @@
+System.Void Game.UpdateSystem::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.GameSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: dup
+IL_0008: ldvirtftn System.Void Game.UpdateSystem::OnBeginFrame(UnityEngine.Rendering.ScriptableRenderContext,UnityEngine.Camera[])
+IL_000e: newobj System.Void System.Action`2<UnityEngine.Rendering.ScriptableRenderContext,UnityEngine.Camera[]>::.ctor(System.Object,System.IntPtr)
+IL_0013: call System.Void UnityEngine.Rendering.RenderPipelineManager::add_beginFrameRendering(System.Action`2<UnityEngine.Rendering.ScriptableRenderContext,UnityEngine.Camera[]>)
+IL_0018: ldarg.0
+IL_0019: newobj System.Void System.Collections.Generic.List`1<Game.IGPUSystem>::.ctor()
+IL_001e: stfld System.Collections.Generic.List`1<Game.IGPUSystem> Game.UpdateSystem::m_GPUSystems
+IL_0023: ldarg.0
+IL_0024: ldc.i4 1000
+IL_0029: newobj System.Void System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>::.ctor(System.Int32)
+IL_002e: stfld System.Collections.Generic.List`1<Game.UpdateSystem/SystemData> Game.UpdateSystem::m_Systems
+IL_0033: ldarg.0
+IL_0034: ldc.i4 1000
+IL_0039: newobj System.Void System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>::.ctor(System.Int32)
+IL_003e: stfld System.Collections.Generic.List`1<Game.UpdateSystem/SystemData> Game.UpdateSystem::m_Updates
+IL_0043: ldarg.0
+IL_0044: ldc.i4.s 100
+IL_0046: newobj System.Void System.Collections.Generic.List`1<Unity.Mathematics.int2>::.ctor(System.Int32)
+IL_004b: stfld System.Collections.Generic.List`1<Unity.Mathematics.int2> Game.UpdateSystem::m_UpdateRanges
+IL_0050: ldarg.0
+IL_0051: ldc.i4.s 100
+IL_0053: newobj System.Void System.Collections.Generic.Dictionary`2<Unity.Entities.ComponentSystemBase,System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>>::.ctor(System.Int32)
+IL_0058: stfld System.Collections.Generic.Dictionary`2<Unity.Entities.ComponentSystemBase,System.Collections.Generic.List`1<Game.UpdateSystem/SystemData>> Game.UpdateSystem::m_RefMap
+IL_005d: ldarg.0
+IL_005e: ldc.i4.m1
+IL_005f: call System.Void Game.UpdateSystem::set_currentPhase(Game.SystemUpdatePhase)
+IL_0064: ret
+System.Void Game.UpdateSystem::UpdateAt(Game.SystemUpdatePhase)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0008: ldc.i4.1
+IL_0009: add
+IL_000a: stloc.0
+IL_000b: ldloc.0
+IL_000c: stfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0011: ldloc.0
+IL_0012: ldarg.0
+IL_0013: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_0018: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<SystemType>()
+IL_001d: box SystemType
+IL_0022: ldarg.1
+IL_0023: call System.Void Game.UpdateSystem::Register(System.Int32,Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase)
+IL_0028: ret
+System.Void Game.UpdateSystem::UpdateBefore(Game.SystemUpdatePhase)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0008: ldc.i4.1
+IL_0009: add
+IL_000a: stloc.0
+IL_000b: ldloc.0
+IL_000c: stfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0011: ldloc.0
+IL_0012: ldc.i4 1000000
+IL_0017: sub
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<SystemType>()
+IL_0023: box SystemType
+IL_0028: ldarg.1
+IL_0029: call System.Void Game.UpdateSystem::Register(System.Int32,Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase)
+IL_002e: ret
+System.Void Game.UpdateSystem::UpdateAfter(Game.SystemUpdatePhase)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0008: ldc.i4.1
+IL_0009: add
+IL_000a: stloc.0
+IL_000b: ldloc.0
+IL_000c: stfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0011: ldloc.0
+IL_0012: ldc.i4 1000000
+IL_0017: add
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<SystemType>()
+IL_0023: box SystemType
+IL_0028: ldarg.1
+IL_0029: call System.Void Game.UpdateSystem::Register(System.Int32,Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase)
+IL_002e: ret
+System.Void Game.UpdateSystem::UpdateBefore(Game.SystemUpdatePhase)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0008: ldc.i4.1
+IL_0009: add
+IL_000a: stloc.0
+IL_000b: ldloc.0
+IL_000c: stfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0011: ldloc.0
+IL_0012: ldc.i4 1000000
+IL_0017: sub
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<SystemType>()
+IL_0023: box SystemType
+IL_0028: ldarg.0
+IL_0029: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<OtherType>()
+IL_0033: box OtherType
+IL_0038: ldarg.1
+IL_0039: call System.Void Game.UpdateSystem::Register(System.Int32,Unity.Entities.ComponentSystemBase,Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase)
+IL_003e: ret
+System.Void Game.UpdateSystem::UpdateAfter(Game.SystemUpdatePhase)
+IL_0000: ldarg.0
+IL_0001: ldarg.0
+IL_0002: ldarg.0
+IL_0003: ldfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0008: ldc.i4.1
+IL_0009: add
+IL_000a: stloc.0
+IL_000b: ldloc.0
+IL_000c: stfld System.Int32 Game.UpdateSystem::m_AddIndex
+IL_0011: ldloc.0
+IL_0012: ldc.i4 1000000
+IL_0017: add
+IL_0018: ldarg.0
+IL_0019: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<SystemType>()
+IL_0023: box SystemType
+IL_0028: ldarg.0
+IL_0029: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_002e: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<OtherType>()
+IL_0033: box OtherType
+IL_0038: ldarg.1
+IL_0039: call System.Void Game.UpdateSystem::Register(System.Int32,Unity.Entities.ComponentSystemBase,Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase)
+IL_003e: ret
+System.Void Game.GameSystemBase::OnCreate()
+IL_0000: ldarg.0
+IL_0001: call System.Void Colossal.Entities.COSystemBase::OnCreate()
+IL_0006: ldarg.0
+IL_0007: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_000c: call Unity.Entities.World Unity.Entities.World::get_DefaultGameObjectInjectionWorld()
+IL_0011: bne.un.s IL_004b
+IL_0013: ldarg.0
+IL_0014: ldarg.0
+IL_0015: call Unity.Entities.World Unity.Entities.ComponentSystemBase::get_World()
+IL_001a: callvirt !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Serialization.LoadGameSystem>()
+IL_001f: stfld Game.Serialization.LoadGameSystem Game.GameSystemBase::m_LoadGameSystem
+IL_0024: ldarg.0
+IL_0025: ldfld Game.Serialization.LoadGameSystem Game.GameSystemBase::m_LoadGameSystem
+IL_002a: dup
+IL_002b: ldfld Game.Serialization.LoadGameSystem/EventGameLoaded Game.Serialization.LoadGameSystem::onOnSaveGameLoaded
+IL_0030: ldarg.0
+IL_0031: ldftn System.Void Game.GameSystemBase::GameLoaded(Colossal.Serialization.Entities.Context)
+IL_0037: newobj System.Void Game.Serialization.LoadGameSystem/EventGameLoaded::.ctor(System.Object,System.IntPtr)
+IL_003c: call System.Delegate System.Delegate::Combine(System.Delegate,System.Delegate)
+IL_0041: castclass Game.Serialization.LoadGameSystem/EventGameLoaded
+IL_0046: stfld Game.Serialization.LoadGameSystem/EventGameLoaded Game.Serialization.LoadGameSystem::onOnSaveGameLoaded
+IL_004b: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_0050: ldarg.0
+IL_0051: ldftn System.Void Game.GameSystemBase::WorldReady()
+IL_0057: newobj System.Void Game.SceneFlow.GameManager/EventCallback::.ctor(System.Object,System.IntPtr)
+IL_005c: callvirt System.Void Game.SceneFlow.GameManager::add_onWorldReady(Game.SceneFlow.GameManager/EventCallback)
+IL_0061: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_0066: ldarg.0
+IL_0067: ldftn System.Void Game.GameSystemBase::GamePreload(Colossal.Serialization.Entities.Purpose,Game.GameMode)
+IL_006d: newobj System.Void Game.SceneFlow.GameManager/EventGamePreload::.ctor(System.Object,System.IntPtr)
+IL_0072: callvirt System.Void Game.SceneFlow.GameManager::add_onGamePreload(Game.SceneFlow.GameManager/EventGamePreload)
+IL_0077: call Game.SceneFlow.GameManager Game.SceneFlow.GameManager::get_instance()
+IL_007c: ldarg.0
+IL_007d: ldftn System.Void Game.GameSystemBase::GameLoadingComplete(Colossal.Serialization.Entities.Purpose,Game.GameMode)
+IL_0083: newobj System.Void Game.SceneFlow.GameManager/EventGamePreload::.ctor(System.Object,System.IntPtr)
+IL_0088: callvirt System.Void Game.SceneFlow.GameManager::add_onGameLoadingComplete(Game.SceneFlow.GameManager/EventGamePreload)
+IL_008d: ldarg.0
+IL_008e: ldftn System.Void Game.GameSystemBase::FocusChanged(System.Boolean)
+IL_0094: newobj System.Void System.Action`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+IL_0099: call System.Void UnityEngine.Application::add_focusChanged(System.Action`1<System.Boolean>)
+IL_009e: ret
+System.Int32 Game.GameSystemBase::GetUpdateInterval(Game.SystemUpdatePhase)
+IL_0000: ldc.i4.1
+IL_0001: ret

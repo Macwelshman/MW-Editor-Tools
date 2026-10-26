@@ -1,0 +1,6 @@
+PASS: 88 actual-source area/surface/layout/Undo and filtered list-index checks with ECS/renderer doubles.
+PASS: 92 targeting; 22 outline; 45 replacement Undo; 1204 Phase 3 including native buffer boxing regression gate.
+PASS: 34 viewport retry; 76 geometry projection; 10 network adapter; 28 lifecycle checks.
+PASS: native row highlight/reveal, closed-list/search/focus preservation, component headings/copy selection, launcher lifecycle and header focus tests; 33 targeting UI assertions.
+PASS: Release/UI builds; exact native marker, full SubLane payload, list index and area renderer contracts.
+Native acceptance pending. No automatic component/list opening and no search clearing.

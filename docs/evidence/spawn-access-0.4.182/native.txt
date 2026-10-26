@@ -1,0 +1,247 @@
+VERIFIED-STATIC Game.dll MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A
+Game.Objects.SpawnLocation
+FIELD Unity.Entities.Entity m_AccessRestriction
+FIELD Unity.Entities.Entity m_ConnectedLane1
+FIELD Unity.Entities.Entity m_ConnectedLane2
+FIELD System.Single m_CurvePosition1
+FIELD System.Single m_CurvePosition2
+FIELD System.Int32 m_GroupIndex
+FIELD Game.Objects.SpawnLocationFlags m_Flags
+System.Void Game.Objects.SpawnLocation::Serialize(TWriter)
+IL_0000: ldarga.s writer
+IL_0002: ldarg.0
+IL_0003: ldfld Unity.Entities.Entity Game.Objects.SpawnLocation::m_AccessRestriction
+IL_0008: constrained. TWriter
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(Unity.Entities.Entity)
+IL_0013: ldarga.s writer
+IL_0015: ldarg.0
+IL_0016: ldfld Unity.Entities.Entity Game.Objects.SpawnLocation::m_ConnectedLane1
+IL_001b: constrained. TWriter
+IL_0021: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(Unity.Entities.Entity)
+IL_0026: ldarga.s writer
+IL_0028: ldarg.0
+IL_0029: ldfld Unity.Entities.Entity Game.Objects.SpawnLocation::m_ConnectedLane2
+IL_002e: constrained. TWriter
+IL_0034: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(Unity.Entities.Entity)
+IL_0039: ldarga.s writer
+IL_003b: ldarg.0
+IL_003c: ldfld System.Single Game.Objects.SpawnLocation::m_CurvePosition1
+IL_0041: constrained. TWriter
+IL_0047: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Single)
+IL_004c: ldarga.s writer
+IL_004e: ldarg.0
+IL_004f: ldfld System.Single Game.Objects.SpawnLocation::m_CurvePosition2
+IL_0054: constrained. TWriter
+IL_005a: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Single)
+IL_005f: ldarga.s writer
+IL_0061: ldarg.0
+IL_0062: ldfld System.Int32 Game.Objects.SpawnLocation::m_GroupIndex
+IL_0067: constrained. TWriter
+IL_006d: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Int32)
+IL_0072: ldarga.s writer
+IL_0074: ldarg.0
+IL_0075: ldfld Game.Objects.SpawnLocationFlags Game.Objects.SpawnLocation::m_Flags
+IL_007a: constrained. TWriter
+IL_0080: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.UInt32)
+IL_0085: ret
+System.Void Game.Objects.SpawnLocation::Deserialize(TReader)
+IL_0000: ldarga.s reader
+IL_0002: constrained. TReader
+IL_0008: callvirt Colossal.Serialization.Entities.Context Colossal.Serialization.Entities.IReader::get_context()
+IL_000d: stloc.0
+IL_000e: ldloca.s V_0
+IL_0010: call Colossal.Version Colossal.Serialization.Entities.Context::get_version()
+IL_0015: ldsfld Colossal.Version Game.Version::pathfindAccessRestriction
+IL_001a: call System.Boolean Colossal.Version::op_GreaterThanOrEqual(Colossal.Version,Colossal.Version)
+IL_001f: brfalse.s IL_0034
+IL_0021: ldarga.s reader
+IL_0023: ldarg.0
+IL_0024: ldflda Unity.Entities.Entity Game.Objects.SpawnLocation::m_AccessRestriction
+IL_0029: constrained. TReader
+IL_002f: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(Unity.Entities.Entity&)
+IL_0034: ldarga.s reader
+IL_0036: constrained. TReader
+IL_003c: callvirt Colossal.Serialization.Entities.Context Colossal.Serialization.Entities.IReader::get_context()
+IL_0041: stloc.0
+IL_0042: ldloca.s V_0
+IL_0044: call Colossal.Version Colossal.Serialization.Entities.Context::get_version()
+IL_0049: ldsfld Colossal.Version Game.Version::spawnLocationRefactor
+IL_004e: call System.Boolean Colossal.Version::op_GreaterThanOrEqual(Colossal.Version,Colossal.Version)
+IL_0053: brfalse.s IL_00a3
+IL_0055: ldarga.s reader
+IL_0057: ldarg.0
+IL_0058: ldflda Unity.Entities.Entity Game.Objects.SpawnLocation::m_ConnectedLane1
+IL_005d: constrained. TReader
+IL_0063: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(Unity.Entities.Entity&)
+IL_0068: ldarga.s reader
+IL_006a: ldarg.0
+IL_006b: ldflda Unity.Entities.Entity Game.Objects.SpawnLocation::m_ConnectedLane2
+IL_0070: constrained. TReader
+IL_0076: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(Unity.Entities.Entity&)
+IL_007b: ldarga.s reader
+IL_007d: ldarg.0
+IL_007e: ldflda System.Single Game.Objects.SpawnLocation::m_CurvePosition1
+IL_0083: constrained. TReader
+IL_0089: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Single&)
+IL_008e: ldarga.s reader
+IL_0090: ldarg.0
+IL_0091: ldflda System.Single Game.Objects.SpawnLocation::m_CurvePosition2
+IL_0096: constrained. TReader
+IL_009c: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Single&)
+IL_00a1: br.s IL_00c1
+IL_00a3: ldarga.s reader
+IL_00a5: ldloca.s V_1
+IL_00a7: constrained. TReader
+IL_00ad: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(Unity.Entities.Entity&)
+IL_00b2: ldarga.s reader
+IL_00b4: ldloca.s V_2
+IL_00b6: constrained. TReader
+IL_00bc: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Single&)
+IL_00c1: ldarga.s reader
+IL_00c3: constrained. TReader
+IL_00c9: callvirt Colossal.Serialization.Entities.Context Colossal.Serialization.Entities.IReader::get_context()
+IL_00ce: stloc.0
+IL_00cf: ldloca.s V_0
+IL_00d1: call Colossal.Version Colossal.Serialization.Entities.Context::get_version()
+IL_00d6: ldsfld Colossal.Version Game.Version::spawnLocationGroup
+IL_00db: call System.Boolean Colossal.Version::op_GreaterThanOrEqual(Colossal.Version,Colossal.Version)
+IL_00e0: brfalse.s IL_00f5
+IL_00e2: ldarga.s reader
+IL_00e4: ldarg.0
+IL_00e5: ldflda System.Int32 Game.Objects.SpawnLocation::m_GroupIndex
+IL_00ea: constrained. TReader
+IL_00f0: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Int32&)
+IL_00f5: ldarga.s reader
+IL_00f7: constrained. TReader
+IL_00fd: callvirt Colossal.Serialization.Entities.Context Colossal.Serialization.Entities.IReader::get_context()
+IL_0102: stloc.0
+IL_0103: ldloca.s V_0
+IL_0105: call Colossal.Version Colossal.Serialization.Entities.Context::get_version()
+IL_010a: ldsfld Colossal.Version Game.Version::pathfindRestrictions
+IL_010f: call System.Boolean Colossal.Version::op_GreaterThanOrEqual(Colossal.Version,Colossal.Version)
+IL_0114: brfalse.s IL_012c
+IL_0116: ldarga.s reader
+IL_0118: ldloca.s V_3
+IL_011a: constrained. TReader
+IL_0120: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.UInt32&)
+IL_0125: ldarg.0
+IL_0126: ldloc.3
+IL_0127: stfld Game.Objects.SpawnLocationFlags Game.Objects.SpawnLocation::m_Flags
+IL_012c: ret
+Game.Routes.TakeoffLocation
+FIELD Unity.Entities.Entity m_AccessRestriction
+FIELD Game.Routes.TakeoffLocationFlags m_Flags
+System.Void Game.Routes.TakeoffLocation::Serialize(TWriter)
+IL_0000: ldarga.s writer
+IL_0002: ldarg.0
+IL_0003: ldfld Unity.Entities.Entity Game.Routes.TakeoffLocation::m_AccessRestriction
+IL_0008: constrained. TWriter
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(Unity.Entities.Entity)
+IL_0013: ldarga.s writer
+IL_0015: ldarg.0
+IL_0016: ldfld Game.Routes.TakeoffLocationFlags Game.Routes.TakeoffLocation::m_Flags
+IL_001b: constrained. TWriter
+IL_0021: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.UInt32)
+IL_0026: ret
+System.Void Game.Routes.TakeoffLocation::Deserialize(TReader)
+IL_0000: ldarga.s reader
+IL_0002: ldarg.0
+IL_0003: ldflda Unity.Entities.Entity Game.Routes.TakeoffLocation::m_AccessRestriction
+IL_0008: constrained. TReader
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(Unity.Entities.Entity&)
+IL_0013: ldarga.s reader
+IL_0015: constrained. TReader
+IL_001b: callvirt Colossal.Serialization.Entities.Context Colossal.Serialization.Entities.IReader::get_context()
+IL_0020: stloc.0
+IL_0021: ldloca.s V_0
+IL_0023: call Colossal.Version Colossal.Serialization.Entities.Context::get_version()
+IL_0028: ldsfld Colossal.Version Game.Version::pathfindRestrictions
+IL_002d: call System.Boolean Colossal.Version::op_GreaterThanOrEqual(Colossal.Version,Colossal.Version)
+IL_0032: brfalse.s IL_004a
+IL_0034: ldarga.s reader
+IL_0036: ldloca.s V_1
+IL_0038: constrained. TReader
+IL_003e: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.UInt32&)
+IL_0043: ldarg.0
+IL_0044: ldloc.1
+IL_0045: stfld Game.Routes.TakeoffLocationFlags Game.Routes.TakeoffLocation::m_Flags
+IL_004a: ret
+Game.Routes.AccessLane
+FIELD Unity.Entities.Entity m_Lane
+FIELD System.Single m_CurvePos
+System.Void Game.Routes.AccessLane::Serialize(TWriter)
+IL_0000: ldarga.s writer
+IL_0002: ldarg.0
+IL_0003: ldfld Unity.Entities.Entity Game.Routes.AccessLane::m_Lane
+IL_0008: constrained. TWriter
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(Unity.Entities.Entity)
+IL_0013: ldarga.s writer
+IL_0015: ldarg.0
+IL_0016: ldfld System.Single Game.Routes.AccessLane::m_CurvePos
+IL_001b: constrained. TWriter
+IL_0021: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Single)
+IL_0026: ret
+System.Void Game.Routes.AccessLane::Deserialize(TReader)
+IL_0000: ldarga.s reader
+IL_0002: ldarg.0
+IL_0003: ldflda Unity.Entities.Entity Game.Routes.AccessLane::m_Lane
+IL_0008: constrained. TReader
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(Unity.Entities.Entity&)
+IL_0013: ldarga.s reader
+IL_0015: ldarg.0
+IL_0016: ldflda System.Single Game.Routes.AccessLane::m_CurvePos
+IL_001b: constrained. TReader
+IL_0021: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Single&)
+IL_0026: ret
+Game.Routes.RouteLane
+FIELD Unity.Entities.Entity m_StartLane
+FIELD Unity.Entities.Entity m_EndLane
+FIELD System.Single m_StartCurvePos
+FIELD System.Single m_EndCurvePos
+System.Void Game.Routes.RouteLane::Serialize(TWriter)
+IL_0000: ldarga.s writer
+IL_0002: ldarg.0
+IL_0003: ldfld Unity.Entities.Entity Game.Routes.RouteLane::m_StartLane
+IL_0008: constrained. TWriter
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(Unity.Entities.Entity)
+IL_0013: ldarga.s writer
+IL_0015: ldarg.0
+IL_0016: ldfld Unity.Entities.Entity Game.Routes.RouteLane::m_EndLane
+IL_001b: constrained. TWriter
+IL_0021: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(Unity.Entities.Entity)
+IL_0026: ldarga.s writer
+IL_0028: ldarg.0
+IL_0029: ldfld System.Single Game.Routes.RouteLane::m_StartCurvePos
+IL_002e: constrained. TWriter
+IL_0034: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Single)
+IL_0039: ldarga.s writer
+IL_003b: ldarg.0
+IL_003c: ldfld System.Single Game.Routes.RouteLane::m_EndCurvePos
+IL_0041: constrained. TWriter
+IL_0047: callvirt System.Void Colossal.Serialization.Entities.IWriter::Write(System.Single)
+IL_004c: ret
+System.Void Game.Routes.RouteLane::Deserialize(TReader)
+IL_0000: ldarga.s reader
+IL_0002: ldarg.0
+IL_0003: ldflda Unity.Entities.Entity Game.Routes.RouteLane::m_StartLane
+IL_0008: constrained. TReader
+IL_000e: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(Unity.Entities.Entity&)
+IL_0013: ldarga.s reader
+IL_0015: ldarg.0
+IL_0016: ldflda Unity.Entities.Entity Game.Routes.RouteLane::m_EndLane
+IL_001b: constrained. TReader
+IL_0021: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(Unity.Entities.Entity&)
+IL_0026: ldarga.s reader
+IL_0028: ldarg.0
+IL_0029: ldflda System.Single Game.Routes.RouteLane::m_StartCurvePos
+IL_002e: constrained. TReader
+IL_0034: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Single&)
+IL_0039: ldarga.s reader
+IL_003b: ldarg.0
+IL_003c: ldflda System.Single Game.Routes.RouteLane::m_EndCurvePos
+IL_0041: constrained. TReader
+IL_0047: callvirt System.Void Colossal.Serialization.Entities.IReader::Read(System.Single&)
+IL_004c: ret
+Game.Buildings.SpawnLocationElement
+FIELD Unity.Entities.Entity m_SpawnLocation
+FIELD Game.Buildings.SpawnLocationType m_Type

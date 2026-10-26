@@ -1,0 +1,1913 @@
+[
+  {
+    "Details": [
+      {
+        "Method": "System.Boolean Patch_EditorAssetCategorySystem_AddOverrides::Prefix(Game.UI.Editor.EditorAssetCategorySystem)",
+        "IL": [
+          "IL_0000: call Unity.Entities.World Unity.Entities.World::get_DefaultGameObjectInjectionWorld()",
+          "IL_0005: dup",
+          "IL_0006: brtrue.s IL_000c",
+          "IL_0008: pop",
+          "IL_0009: ldnull",
+          "IL_000a: br.s IL_0011",
+          "IL_000c: call !!0 Unity.Entities.World::GetOrCreateSystemManaged<Game.Prefabs.PrefabSystem>()",
+          "IL_0011: stloc.0",
+          "IL_0012: ldloc.0",
+          "IL_0013: brtrue.s IL_0022",
+          "IL_0015: ldstr \"WorkflowKit EditorAssetCategorySystem Patch failed: PrefabSystem not found.\"",
+          "IL_001a: ldc.i4.5",
+          "IL_001b: call System.Void StarQ.Shared.Extensions.LogHelper::SendLog(System.String,StarQ.Shared.Extensions.LogLevel)",
+          "IL_0020: ldc.i4.1",
+          "IL_0021: ret",
+          "IL_0022: ldarg.0",
+          "IL_0023: callvirt System.Type System.Object::GetType()",
+          "IL_0028: ldstr \"m_Overrides\"",
+          "IL_002d: call System.Reflection.FieldInfo HarmonyLib.AccessTools::Field(System.Type,System.String)",
+          "IL_0032: ldarg.0",
+          "IL_0033: callvirt System.Object System.Reflection.FieldInfo::GetValue(System.Object)",
+          "IL_0038: unbox.any Unity.Entities.EntityQuery",
+          "IL_003d: stloc.1",
+          "IL_003e: ldloca.s V_1",
+          "IL_0040: ldc.i4.2",
+          "IL_0041: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)",
+          "IL_0046: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)",
+          "IL_004b: stloc.2",
+          "IL_004c: newobj System.Void System.Collections.Generic.SortedDictionary`2<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>::.ctor()",
+          "IL_0051: stloc.3",
+          "IL_0052: newobj System.Void System.Collections.Generic.Dictionary`2<System.String,System.Collections.Generic.HashSet`1<Unity.Entities.Entity>>::.ctor()",
+          "IL_0057: stloc.s V_4",
+          "IL_0059: ldloca.s V_2",
+          "IL_005b: call Unity.Collections.NativeArray`1/Enumerator<!0> Unity.Collections.NativeArray`1<Unity.Entities.Entity>::GetEnumerator()",
+          "IL_0060: stloc.s V_7",
+          "IL_0062: br IL_012d",
+          "IL_0067: ldloca.s V_7",
+          "IL_0069: call !0 Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>::get_Current()",
+          "IL_006e: stloc.s V_8",
+          "IL_0070: ldloc.0",
+          "IL_0071: ldloc.s V_8",
+          "IL_0073: ldloca.s V_9",
+          "IL_0075: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Unity.Entities.Entity,!!0&)",
+          "IL_007a: brfalse IL_012d",
+          "IL_007f: ldloc.s V_9",
+          "IL_0081: callvirt !!0 Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.EditorAssetCategoryOverride>()",
+          "IL_0086: stloc.s V_10",
+          "IL_0088: ldloc.s V_10",
+          "IL_008a: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_IncludeCategories",
+          "IL_008f: brfalse.s IL_00d9",
+          "IL_0091: ldloc.s V_10",
+          "IL_0093: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_IncludeCategories",
+          "IL_0098: stloc.s V_11",
+          "IL_009a: ldc.i4.0",
+          "IL_009b: stloc.s V_12",
+          "IL_009d: br.s IL_00d1",
+          "IL_009f: ldloc.s V_11",
+          "IL_00a1: ldloc.s V_12",
+          "IL_00a3: ldelem.ref",
+          "IL_00a4: stloc.s V_13",
+          "IL_00a6: ldloc.3",
+          "IL_00a7: ldloc.s V_13",
+          "IL_00a9: ldloca.s V_14",
+          "IL_00ab: callvirt System.Boolean System.Collections.Generic.SortedDictionary`2<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>::TryGetValue(!0,!1&)",
+          "IL_00b0: brtrue.s IL_00c2",
+          "IL_00b2: ldloc.3",
+          "IL_00b3: ldloc.s V_13",
+          "IL_00b5: newobj System.Void System.Collections.Generic.List`1<Unity.Entities.Entity>::.ctor()",
+          "IL_00ba: dup",
+          "IL_00bb: stloc.s V_14",
+          "IL_00bd: callvirt System.Void System.Collections.Generic.SortedDictionary`2<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>::set_Item(!0,!1)",
+          "IL_00c2: ldloc.s V_14",
+          "IL_00c4: ldloc.s V_8",
+          "IL_00c6: callvirt System.Void System.Collections.Generic.List`1<Unity.Entities.Entity>::Add(!0)",
+          "IL_00cb: ldloc.s V_12",
+          "IL_00cd: ldc.i4.1",
+          "IL_00ce: add",
+          "IL_00cf: stloc.s V_12",
+          "IL_00d1: ldloc.s V_12",
+          "IL_00d3: ldloc.s V_11",
+          "IL_00d5: ldlen",
+          "IL_00d6: conv.i4",
+          "IL_00d7: blt.s IL_009f",
+          "IL_00d9: ldloc.s V_10",
+          "IL_00db: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_ExcludeCategories",
+          "IL_00e0: brfalse.s IL_012d",
+          "IL_00e2: ldloc.s V_10",
+          "IL_00e4: ldfld System.String[] Game.Prefabs.EditorAssetCategoryOverride::m_ExcludeCategories",
+          "IL_00e9: stloc.s V_11",
+          "IL_00eb: ldc.i4.0",
+          "IL_00ec: stloc.s V_12",
+          "IL_00ee: br.s IL_0125",
+          "IL_00f0: ldloc.s V_11",
+          "IL_00f2: ldloc.s V_12",
+          "IL_00f4: ldelem.ref",
+          "IL_00f5: stloc.s V_15",
+          "IL_00f7: ldloc.s V_4",
+          "IL_00f9: ldloc.s V_15",
+          "IL_00fb: ldloca.s V_16",
+          "IL_00fd: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.String,System.Collections.Generic.HashSet`1<Unity.Entities.Entity>>::TryGetValue(!0,!1&)",
+          "IL_0102: brtrue.s IL_0115",
+          "IL_0104: ldloc.s V_4",
+          "IL_0106: ldloc.s V_15",
+          "IL_0108: newobj System.Void System.Collections.Generic.HashSet`1<Unity.Entities.Entity>::.ctor()",
+          "IL_010d: dup",
+          "IL_010e: stloc.s V_16",
+          "IL_0110: callvirt System.Void System.Collections.Generic.Dictionary`2<System.String,System.Collections.Generic.HashSet`1<Unity.Entities.Entity>>::set_Item(!0,!1)",
+          "IL_0115: ldloc.s V_16",
+          "IL_0117: ldloc.s V_8",
+          "IL_0119: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.Entity>::Add(!0)",
+          "IL_011e: pop",
+          "IL_011f: ldloc.s V_12",
+          "IL_0121: ldc.i4.1",
+          "IL_0122: add",
+          "IL_0123: stloc.s V_12",
+          "IL_0125: ldloc.s V_12",
+          "IL_0127: ldloc.s V_11",
+          "IL_0129: ldlen",
+          "IL_012a: conv.i4",
+          "IL_012b: blt.s IL_00f0",
+          "IL_012d: ldloca.s V_7",
+          "IL_012f: call System.Boolean Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>::MoveNext()",
+          "IL_0134: brtrue IL_0067",
+          "IL_0139: leave.s IL_0149",
+          "IL_013b: ldloca.s V_7",
+          "IL_013d: constrained. Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>",
+          "IL_0143: callvirt System.Void System.IDisposable::Dispose()",
+          "IL_0148: endfinally",
+          "IL_0149: ldarg.0",
+          "IL_014a: callvirt System.Type System.Object::GetType()",
+          "IL_014f: ldstr \"m_PathMap\"",
+          "IL_0154: call System.Reflection.FieldInfo HarmonyLib.AccessTools::Field(System.Type,System.String)",
+          "IL_0159: ldarg.0",
+          "IL_015a: callvirt System.Object System.Reflection.FieldInfo::GetValue(System.Object)",
+          "IL_015f: castclass System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>",
+          "IL_0164: stloc.s V_5",
+          "IL_0166: ldarg.0",
+          "IL_0167: callvirt System.Type System.Object::GetType()",
+          "IL_016c: ldstr \"CreateCategory\"",
+          "IL_0171: ldc.i4.1",
+          "IL_0172: newarr System.Type",
+          "IL_0177: dup",
+          "IL_0178: ldc.i4.0",
+          "IL_0179: ldtoken System.String",
+          "IL_017e: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)",
+          "IL_0183: stelem.ref",
+          "IL_0184: ldnull",
+          "IL_0185: call System.Reflection.MethodInfo HarmonyLib.AccessTools::Method(System.Type,System.String,System.Type[],System.Type[])",
+          "IL_018a: stloc.s V_6",
+          "IL_018c: ldloc.3",
+          "IL_018d: callvirt System.Collections.Generic.SortedDictionary`2/Enumerator<!0,!1> System.Collections.Generic.SortedDictionary`2<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>::GetEnumerator()",
+          "IL_0192: stloc.s V_17",
+          "IL_0194: br IL_0229",
+          "IL_0199: ldloca.s V_17",
+          "IL_019b: call System.Collections.Generic.KeyValuePair`2<!0,!1> System.Collections.Generic.SortedDictionary`2/Enumerator<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>::get_Current()",
+          "IL_01a0: stloc.s V_18",
+          "IL_01a2: ldloca.s V_18",
+          "IL_01a4: call !0 System.Collections.Generic.KeyValuePair`2<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>::get_Key()",
+          "IL_01a9: stloc.s V_19",
+          "IL_01ab: ldloca.s V_18",
+          "IL_01ad: call !1 System.Collections.Generic.KeyValuePair`2<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>::get_Value()",
+          "IL_01b2: stloc.s V_20",
+          "IL_01b4: ldloc.s V_5",
+          "IL_01b6: ldloc.s V_19",
+          "IL_01b8: ldloca.s V_21",
+          "IL_01ba: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>::TryGetValue(!0,!1&)",
+          "IL_01bf: brtrue.s IL_01db",
+          "IL_01c1: ldloc.s V_6",
+          "IL_01c3: ldarg.0",
+          "IL_01c4: ldc.i4.1",
+          "IL_01c5: newarr System.Object",
+          "IL_01ca: dup",
+          "IL_01cb: ldc.i4.0",
+          "IL_01cc: ldloc.s V_19",
+          "IL_01ce: stelem.ref",
+          "IL_01cf: callvirt System.Object System.Reflection.MethodBase::Invoke(System.Object,System.Object[])",
+          "IL_01d4: castclass Game.UI.Editor.EditorAssetCategory",
+          "IL_01d9: stloc.s V_21",
+          "IL_01db: ldloc.s V_20",
+          "IL_01dd: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<Unity.Entities.Entity>::GetEnumerator()",
+          "IL_01e2: stloc.s V_22",
+          "IL_01e4: br.s IL_0210",
+          "IL_01e6: ldloca.s V_22",
+          "IL_01e8: call !0 System.Collections.Generic.List`1/Enumerator<Unity.Entities.Entity>::get_Current()",
+          "IL_01ed: stloc.s V_23",
+          "IL_01ef: ldloc.s V_4",
+          "IL_01f1: ldloc.s V_19",
+          "IL_01f3: ldloca.s V_24",
+          "IL_01f5: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.String,System.Collections.Generic.HashSet`1<Unity.Entities.Entity>>::TryGetValue(!0,!1&)",
+          "IL_01fa: brfalse.s IL_0207",
+          "IL_01fc: ldloc.s V_24",
+          "IL_01fe: ldloc.s V_23",
+          "IL_0200: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.Entity>::Contains(!0)",
+          "IL_0205: brtrue.s IL_0210",
+          "IL_0207: ldloc.s V_21",
+          "IL_0209: ldloc.s V_23",
+          "IL_020b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::AddEntity(Unity.Entities.Entity)",
+          "IL_0210: ldloca.s V_22",
+          "IL_0212: call System.Boolean System.Collections.Generic.List`1/Enumerator<Unity.Entities.Entity>::MoveNext()",
+          "IL_0217: brtrue.s IL_01e6",
+          "IL_0219: leave.s IL_0229",
+          "IL_021b: ldloca.s V_22",
+          "IL_021d: constrained. System.Collections.Generic.List`1/Enumerator<Unity.Entities.Entity>",
+          "IL_0223: callvirt System.Void System.IDisposable::Dispose()",
+          "IL_0228: endfinally",
+          "IL_0229: ldloca.s V_17",
+          "IL_022b: call System.Boolean System.Collections.Generic.SortedDictionary`2/Enumerator<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>::MoveNext()",
+          "IL_0230: brtrue IL_0199",
+          "IL_0235: leave.s IL_0245",
+          "IL_0237: ldloca.s V_17",
+          "IL_0239: constrained. System.Collections.Generic.SortedDictionary`2/Enumerator<System.String,System.Collections.Generic.List`1<Unity.Entities.Entity>>",
+          "IL_023f: callvirt System.Void System.IDisposable::Dispose()",
+          "IL_0244: endfinally",
+          "IL_0245: ldloca.s V_2",
+          "IL_0247: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.Entity>::Dispose()",
+          "IL_024c: ldc.i4.0",
+          "IL_024d: ret"
+        ]
+      },
+      {
+        "Method": "System.Boolean PrefabBase_MarkCurrentPrefabObsolete_Patch::Prefix(Game.Prefabs.PrefabBase)",
+        "IL": [
+          "IL_0000: newobj System.Void PrefabBase_MarkCurrentPrefabObsolete_Patch/<>c__DisplayClass0_0::.ctor()",
+          "IL_0005: stloc.0",
+          "IL_0006: ldarg.0",
+          "IL_0007: callvirt !!0 Game.Prefabs.PrefabBase::AddOrGetComponent<Game.Prefabs.ObsoleteIdentifiers>()",
+          "IL_000c: stloc.1",
+          "IL_000d: ldarg.0",
+          "IL_000e: ldfld System.UInt16 Game.Prefabs.PrefabBase::version",
+          "IL_0013: brtrue.s IL_003f",
+          "IL_0015: ldloc.0",
+          "IL_0016: newobj System.Void Game.Prefabs.PrefabIdentifierInfo::.ctor()",
+          "IL_001b: dup",
+          "IL_001c: ldarg.0",
+          "IL_001d: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0022: stfld System.String Game.Prefabs.PrefabIdentifierInfo::m_Name",
+          "IL_0027: dup",
+          "IL_0028: ldarg.0",
+          "IL_0029: callvirt System.Type System.Object::GetType()",
+          "IL_002e: callvirt System.String System.Reflection.MemberInfo::get_Name()",
+          "IL_0033: stfld System.String Game.Prefabs.PrefabIdentifierInfo::m_Type",
+          "IL_0038: stfld Game.Prefabs.PrefabIdentifierInfo PrefabBase_MarkCurrentPrefabObsolete_Patch/<>c__DisplayClass0_0::prefabIdentifierInfo",
+          "IL_003d: br.s IL_009d",
+          "IL_003f: ldarg.0",
+          "IL_0040: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()",
+          "IL_0045: stloc.3",
+          "IL_0046: ldloc.0",
+          "IL_0047: newobj System.Void Game.Prefabs.PrefabIdentifierInfo::.ctor()",
+          "IL_004c: dup",
+          "IL_004d: ldarg.0",
+          "IL_004e: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0053: stfld System.String Game.Prefabs.PrefabIdentifierInfo::m_Name",
+          "IL_0058: dup",
+          "IL_0059: ldarg.0",
+          "IL_005a: callvirt System.Type System.Object::GetType()",
+          "IL_005f: callvirt System.String System.Reflection.MemberInfo::get_Name()",
+          "IL_0064: stfld System.String Game.Prefabs.PrefabIdentifierInfo::m_Type",
+          "IL_0069: dup",
+          "IL_006a: ldloc.3",
+          "IL_006b: brtrue.s IL_0070",
+          "IL_006d: ldnull",
+          "IL_006e: br.s IL_008a",
+          "IL_0070: ldloc.3",
+          "IL_0071: call Colossal.IO.AssetDatabase.Identifier Colossal.IO.AssetDatabase.AssetData::get_id()",
+          "IL_0076: ldfld Colossal.Hash128 Colossal.IO.AssetDatabase.Identifier::guid",
+          "IL_007b: stloc.s V_4",
+          "IL_007d: ldloca.s V_4",
+          "IL_007f: constrained. Colossal.Hash128",
+          "IL_0085: callvirt System.String System.Object::ToString()",
+          "IL_008a: dup",
+          "IL_008b: brtrue.s IL_0093",
+          "IL_008d: pop",
+          "IL_008e: ldsfld System.String System.String::Empty",
+          "IL_0093: stfld System.String Game.Prefabs.PrefabIdentifierInfo::m_Hash",
+          "IL_0098: stfld Game.Prefabs.PrefabIdentifierInfo PrefabBase_MarkCurrentPrefabObsolete_Patch/<>c__DisplayClass0_0::prefabIdentifierInfo",
+          "IL_009d: ldloc.1",
+          "IL_009e: ldfld Game.Prefabs.PrefabIdentifierInfo[] Game.Prefabs.ObsoleteIdentifiers::m_PrefabIdentifiers",
+          "IL_00a3: brfalse.s IL_00c0",
+          "IL_00a5: ldloc.1",
+          "IL_00a6: ldfld Game.Prefabs.PrefabIdentifierInfo[] Game.Prefabs.ObsoleteIdentifiers::m_PrefabIdentifiers",
+          "IL_00ab: ldloc.0",
+          "IL_00ac: ldftn System.Boolean PrefabBase_MarkCurrentPrefabObsolete_Patch/<>c__DisplayClass0_0::<Prefix>b__0(Game.Prefabs.PrefabIdentifierInfo)",
+          "IL_00b2: newobj System.Void System.Func`2<Game.Prefabs.PrefabIdentifierInfo,System.Boolean>::.ctor(System.Object,System.IntPtr)",
+          "IL_00b7: call System.Boolean System.Linq.Enumerable::Any<Game.Prefabs.PrefabIdentifierInfo>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,System.Boolean>)",
+          "IL_00bc: brfalse.s IL_00c0",
+          "IL_00be: ldc.i4.0",
+          "IL_00bf: ret",
+          "IL_00c0: ldloc.1",
+          "IL_00c1: ldfld Game.Prefabs.PrefabIdentifierInfo[] Game.Prefabs.ObsoleteIdentifiers::m_PrefabIdentifiers",
+          "IL_00c6: brtrue.s IL_00df",
+          "IL_00c8: ldloc.1",
+          "IL_00c9: ldc.i4.1",
+          "IL_00ca: newarr Game.Prefabs.PrefabIdentifierInfo",
+          "IL_00cf: dup",
+          "IL_00d0: ldc.i4.0",
+          "IL_00d1: ldloc.0",
+          "IL_00d2: ldfld Game.Prefabs.PrefabIdentifierInfo PrefabBase_MarkCurrentPrefabObsolete_Patch/<>c__DisplayClass0_0::prefabIdentifierInfo",
+          "IL_00d7: stelem.ref",
+          "IL_00d8: stfld Game.Prefabs.PrefabIdentifierInfo[] Game.Prefabs.ObsoleteIdentifiers::m_PrefabIdentifiers",
+          "IL_00dd: ldc.i4.0",
+          "IL_00de: ret",
+          "IL_00df: ldloc.1",
+          "IL_00e0: ldfld Game.Prefabs.PrefabIdentifierInfo[] Game.Prefabs.ObsoleteIdentifiers::m_PrefabIdentifiers",
+          "IL_00e5: ldlen",
+          "IL_00e6: conv.i4",
+          "IL_00e7: ldc.i4.1",
+          "IL_00e8: add",
+          "IL_00e9: newarr Game.Prefabs.PrefabIdentifierInfo",
+          "IL_00ee: stloc.2",
+          "IL_00ef: ldloc.1",
+          "IL_00f0: ldfld Game.Prefabs.PrefabIdentifierInfo[] Game.Prefabs.ObsoleteIdentifiers::m_PrefabIdentifiers",
+          "IL_00f5: ldloc.2",
+          "IL_00f6: ldloc.1",
+          "IL_00f7: ldfld Game.Prefabs.PrefabIdentifierInfo[] Game.Prefabs.ObsoleteIdentifiers::m_PrefabIdentifiers",
+          "IL_00fc: ldlen",
+          "IL_00fd: conv.i4",
+          "IL_00fe: call System.Void System.Array::Copy(System.Array,System.Array,System.Int32)",
+          "IL_0103: ldloc.2",
+          "IL_0104: dup",
+          "IL_0105: ldlen",
+          "IL_0106: conv.i4",
+          "IL_0107: ldc.i4.1",
+          "IL_0108: sub",
+          "IL_0109: ldloc.0",
+          "IL_010a: ldfld Game.Prefabs.PrefabIdentifierInfo PrefabBase_MarkCurrentPrefabObsolete_Patch/<>c__DisplayClass0_0::prefabIdentifierInfo",
+          "IL_010f: stelem.ref",
+          "IL_0110: ldloc.1",
+          "IL_0111: ldloc.2",
+          "IL_0112: stfld Game.Prefabs.PrefabIdentifierInfo[] Game.Prefabs.ObsoleteIdentifiers::m_PrefabIdentifiers",
+          "IL_0117: ldc.i4.0",
+          "IL_0118: ret"
+        ]
+      },
+      {
+        "Method": "System.Void StarQWorkflowKit.Systems.PackageSystem::SaveAsset(System.String,System.Int32,System.Boolean)",
+        "IL": [
+          "IL_0000: ldarg.0",
+          "IL_0001: ldflda Unity.Entities.EntityQuery StarQWorkflowKit.Systems.PackageSystem::allAssets",
+          "IL_0006: ldc.i4.2",
+          "IL_0007: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)",
+          "IL_000c: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.EntityQuery::ToEntityArray(Unity.Collections.AllocatorManager/AllocatorHandle)",
+          "IL_0011: stloc.0",
+          "IL_0012: ldstr \"Checking {0} entities.\"",
+          "IL_0017: ldloc.0",
+          "IL_0018: box Unity.Collections.NativeArray`1<Unity.Entities.Entity>",
+          "IL_001d: call System.Int32 System.Linq.Enumerable::Count<Unity.Entities.Entity>(System.Collections.Generic.IEnumerable`1<!!0>)",
+          "IL_0022: box System.Int32",
+          "IL_0027: call System.String System.String::Format(System.String,System.Object)",
+          "IL_002c: ldc.i4.3",
+          "IL_002d: call System.Void StarQ.Shared.Extensions.LogHelper::SendLog(System.String,StarQ.Shared.Extensions.LogLevel)",
+          "IL_0032: ldarg.1",
+          "IL_0033: call System.Collections.Generic.List`1<System.String> StarQWorkflowKit.Helper.PrefabHelper::GetValidFolders(System.String)",
+          "IL_0038: newobj System.Void System.Collections.Generic.List`1<System.String>::.ctor()",
+          "IL_003d: stloc.1",
+          "IL_003e: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<System.String>::GetEnumerator()",
+          "IL_0043: stloc.2",
+          "IL_0044: br IL_0154",
+          "IL_0049: ldloca.s V_2",
+          "IL_004b: call !0 System.Collections.Generic.List`1/Enumerator<System.String>::get_Current()",
+          "IL_0050: stloc.3",
+          "IL_0051: ldc.i4.0",
+          "IL_0052: stloc.s V_4",
+          "IL_0054: ldloca.s V_0",
+          "IL_0056: call Unity.Collections.NativeArray`1/Enumerator<!0> Unity.Collections.NativeArray`1<Unity.Entities.Entity>::GetEnumerator()",
+          "IL_005b: stloc.s V_5",
+          "IL_005d: br IL_010b",
+          "IL_0062: ldloca.s V_5",
+          "IL_0064: call !0 Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>::get_Current()",
+          "IL_0069: stloc.s V_6",
+          "IL_006b: ldarg.0",
+          "IL_006c: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()",
+          "IL_0071: ldloc.s V_6",
+          "IL_0073: ldloca.s V_7",
+          "IL_0075: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.PrefabData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)",
+          "IL_007a: brfalse IL_010b",
+          "IL_007f: ldarg.0",
+          "IL_0080: ldfld Game.Prefabs.PrefabSystem StarQWorkflowKit.Systems.PackageSystem::prefabSystem",
+          "IL_0085: ldloc.s V_7",
+          "IL_0087: ldloca.s V_8",
+          "IL_0089: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabData,!!0&)",
+          "IL_008e: brfalse.s IL_010b",
+          "IL_0090: ldloc.s V_8",
+          "IL_0092: callvirt System.Boolean Game.Prefabs.PrefabBase::get_isReadOnly()",
+          "IL_0097: brtrue.s IL_010b",
+          "IL_0099: nop",
+          "IL_009a: ldloc.s V_8",
+          "IL_009c: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()",
+          "IL_00a1: ldnull",
+          "IL_00a2: call System.Boolean Colossal.IO.AssetDatabase.AssetData::op_Inequality(Colossal.IO.AssetDatabase.AssetData,Colossal.IO.AssetDatabase.IAssetData)",
+          "IL_00a7: brfalse.s IL_00f3",
+          "IL_00a9: ldloc.s V_8",
+          "IL_00ab: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()",
+          "IL_00b0: callvirt System.String Colossal.IO.AssetDatabase.AssetData::get_path()",
+          "IL_00b5: brfalse.s IL_00f3",
+          "IL_00b7: ldloc.s V_8",
+          "IL_00b9: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()",
+          "IL_00be: callvirt System.String Colossal.IO.AssetDatabase.AssetData::get_path()",
+          "IL_00c3: ldloc.3",
+          "IL_00c4: callvirt System.Boolean System.String::Contains(System.String)",
+          "IL_00c9: brfalse.s IL_00f3",
+          "IL_00cb: ldloc.s V_8",
+          "IL_00cd: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()",
+          "IL_00d2: callvirt System.String Colossal.IO.AssetDatabase.AssetData::get_path()",
+          "IL_00d7: ldstr \".Prefab\"",
+          "IL_00dc: callvirt System.Boolean System.String::EndsWith(System.String)",
+          "IL_00e1: brfalse.s IL_00f3",
+          "IL_00e3: ldarg.0",
+          "IL_00e4: ldloc.s V_8",
+          "IL_00e6: ldarg.2",
+          "IL_00e7: ldarg.3",
+          "IL_00e8: call System.Void StarQWorkflowKit.Systems.PackageSystem::DoAsset(Game.Prefabs.PrefabBase,System.Int32,System.Boolean)",
+          "IL_00ed: ldloc.s V_4",
+          "IL_00ef: ldc.i4.1",
+          "IL_00f0: add",
+          "IL_00f1: stloc.s V_4",
+          "IL_00f3: leave.s IL_010b",
+          "IL_00f5: stloc.s V_9",
+          "IL_00f7: ldstr \"{0}\"",
+          "IL_00fc: ldloc.s V_9",
+          "IL_00fe: call System.String System.String::Format(System.String,System.Object)",
+          "IL_0103: ldc.i4.3",
+          "IL_0104: call System.Void StarQ.Shared.Extensions.LogHelper::SendLog(System.String,StarQ.Shared.Extensions.LogLevel)",
+          "IL_0109: leave.s IL_010b",
+          "IL_010b: ldloca.s V_5",
+          "IL_010d: call System.Boolean Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>::MoveNext()",
+          "IL_0112: brtrue IL_0062",
+          "IL_0117: leave.s IL_0127",
+          "IL_0119: ldloca.s V_5",
+          "IL_011b: constrained. Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.Entity>",
+          "IL_0121: callvirt System.Void System.IDisposable::Dispose()",
+          "IL_0126: endfinally",
+          "IL_0127: ldloc.1",
+          "IL_0128: ldstr \"Resaved {0} prefabs\"",
+          "IL_012d: ldloc.s V_4",
+          "IL_012f: box System.Int32",
+          "IL_0134: call System.String System.String::Format(System.String,System.Object)",
+          "IL_0139: callvirt System.Void System.Collections.Generic.List`1<System.String>::Add(!0)",
+          "IL_013e: ldarg.2",
+          "IL_013f: ldc.i4.2",
+          "IL_0140: bne.un.s IL_0154",
+          "IL_0142: ldarg.0",
+          "IL_0143: ldloc.3",
+          "IL_0144: ldc.i4.1",
+          "IL_0145: ldc.i4.0",
+          "IL_0146: call System.Void StarQWorkflowKit.Systems.PackageSystem::CreatePackage(System.String,System.Boolean,System.Boolean)",
+          "IL_014b: ldarg.0",
+          "IL_014c: ldarg.1",
+          "IL_014d: ldc.i4.1",
+          "IL_014e: ldc.i4.1",
+          "IL_014f: call System.Void StarQWorkflowKit.Systems.PackageSystem::SaveAsset(System.String,System.Int32,System.Boolean)",
+          "IL_0154: ldloca.s V_2",
+          "IL_0156: call System.Boolean System.Collections.Generic.List`1/Enumerator<System.String>::MoveNext()",
+          "IL_015b: brtrue IL_0049",
+          "IL_0160: leave.s IL_0170",
+          "IL_0162: ldloca.s V_2",
+          "IL_0164: constrained. System.Collections.Generic.List`1/Enumerator<System.String>",
+          "IL_016a: callvirt System.Void System.IDisposable::Dispose()",
+          "IL_016f: endfinally",
+          "IL_0170: ldstr \"\n\"",
+          "IL_0175: ldstr \"\n\"",
+          "IL_017a: ldloc.1",
+          "IL_017b: call System.String System.String::Join(System.String,System.Collections.Generic.IEnumerable`1<System.String>)",
+          "IL_0180: ldstr \"\nDone!\"",
+          "IL_0185: call System.String System.String::Concat(System.String,System.String,System.String)",
+          "IL_018a: ldc.i4.3",
+          "IL_018b: call System.Void StarQ.Shared.Extensions.LogHelper::SendLog(System.String,StarQ.Shared.Extensions.LogLevel)",
+          "IL_0190: ret"
+        ]
+      },
+      {
+        "Method": "System.Void StarQWorkflowKit.Systems.WorkflowSystem::OnCreate()",
+        "IL": [
+          "IL_0000: ldarg.0",
+          "IL_0001: call System.Void Game.GameSystemBase::OnCreate()",
+          "IL_0006: ret"
+        ]
+      },
+      {
+        "Method": "System.Void StarQWorkflowKit.Systems.WorkflowSystem::AddSpawableObject()",
+        "IL": [
+          "IL_0000: ldsfld StarQWorkflowKit.Setting StarQWorkflowKit.Mod::m_Setting",
+          "IL_0005: callvirt System.String StarQWorkflowKit.Setting::get_PlaceholderName()",
+          "IL_000a: stloc.0",
+          "IL_000b: ldstr \"StaticObjectPrefab\"",
+          "IL_0010: ldloc.0",
+          "IL_0011: ldloca.s V_1",
+          "IL_0013: call System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetPrefab(System.String,System.String,Game.Prefabs.PrefabBase&)",
+          "IL_0018: brtrue.s IL_008e",
+          "IL_001a: call !!0 UnityEngine.ScriptableObject::CreateInstance<Game.Prefabs.StaticObjectPrefab>()",
+          "IL_001f: stloc.1",
+          "IL_0020: ldloc.1",
+          "IL_0021: ldloc.0",
+          "IL_0022: callvirt System.Void UnityEngine.Object::set_name(System.String)",
+          "IL_0027: ldloc.1",
+          "IL_0028: callvirt !!0 Game.Prefabs.PrefabBase::AddComponent<Game.Prefabs.PlaceholderObject>()",
+          "IL_002d: pop",
+          "IL_002e: ldstr \"ImportedData/\"",
+          "IL_0033: ldloc.1",
+          "IL_0034: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0039: call System.String System.String::Concat(System.String,System.String)",
+          "IL_003e: ldloc.1",
+          "IL_003f: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0044: ldstr \".Prefab\"",
+          "IL_0049: call System.String System.String::Concat(System.String,System.String)",
+          "IL_004e: ldc.i4.0",
+          "IL_004f: call Colossal.IO.AssetDatabase.AssetDataPath Colossal.IO.AssetDatabase.AssetDataPath::Create(System.String,System.String,Colossal.IO.AssetDatabase.EscapeStrategy)",
+          "IL_0054: stloc.2",
+          "IL_0055: call Colossal.IO.AssetDatabase.ILocalAssetDatabase Colossal.IO.AssetDatabase.AssetDatabase::get_user()",
+          "IL_005a: ldloc.2",
+          "IL_005b: ldloc.1",
+          "IL_005c: call Colossal.IO.AssetDatabase.PrefabAsset Colossal.IO.AssetDatabase.PrefabAssetExtensions::AddAsset(Colossal.IO.AssetDatabase.ILocalAssetDatabase,Colossal.IO.AssetDatabase.AssetDataPath,UnityEngine.ScriptableObject)",
+          "IL_0061: ldc.i4.1",
+          "IL_0062: ldc.i4.0",
+          "IL_0063: ldc.i4.1",
+          "IL_0064: callvirt System.Void Colossal.IO.AssetDatabase.PrefabAsset::Save(Colossal.IO.AssetDatabase.ContentType,System.Boolean,System.Boolean)",
+          "IL_0069: ldstr \"Saving \"",
+          "IL_006e: ldloc.0",
+          "IL_006f: call System.String System.String::Concat(System.String,System.String)",
+          "IL_0074: ldc.i4.3",
+          "IL_0075: call System.Void StarQ.Shared.Extensions.LogHelper::SendLog(System.String,StarQ.Shared.Extensions.LogLevel)",
+          "IL_007a: call Game.Prefabs.PrefabSystem StarQ.Shared.Extensions.WorldHelper::get_PrefabSystem()",
+          "IL_007f: ldloc.1",
+          "IL_0080: ldloca.s V_3",
+          "IL_0082: initobj Unity.Entities.Entity",
+          "IL_0088: ldloc.3",
+          "IL_0089: callvirt System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)",
+          "IL_008e: call System.Collections.Generic.List`1<Game.Prefabs.PrefabBase> StarQWorkflowKit.Helper.PrefabHelper::GetValidPrefabs()",
+          "IL_0093: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>::GetEnumerator()",
+          "IL_0098: stloc.s V_4",
+          "IL_009a: br IL_01d5",
+          "IL_009f: ldloca.s V_4",
+          "IL_00a1: call !0 System.Collections.Generic.List`1/Enumerator<Game.Prefabs.PrefabBase>::get_Current()",
+          "IL_00a6: stloc.s V_5",
+          "IL_00a8: ldloc.s V_5",
+          "IL_00aa: callvirt Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()",
+          "IL_00af: callvirt System.Type System.Object::GetType()",
+          "IL_00b4: ldtoken Game.Prefabs.StaticObjectPrefab",
+          "IL_00b9: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)",
+          "IL_00be: call System.Boolean System.Type::op_Inequality(System.Type,System.Type)",
+          "IL_00c3: brtrue IL_01d5",
+          "IL_00c8: ldloc.1",
+          "IL_00c9: castclass Game.Prefabs.StaticObjectPrefab",
+          "IL_00ce: stloc.s V_6",
+          "IL_00d0: ldloc.s V_5",
+          "IL_00d2: callvirt !!0 Game.Prefabs.PrefabBase::AddOrGetComponent<Game.Prefabs.SpawnableObject>()",
+          "IL_00d7: stloc.s V_7",
+          "IL_00d9: ldloc.s V_7",
+          "IL_00db: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_00e0: brfalse.s IL_0119",
+          "IL_00e2: ldloc.s V_7",
+          "IL_00e4: ldloc.s V_7",
+          "IL_00e6: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_00eb: ldsfld System.Func`2<Game.Prefabs.ObjectPrefab,System.Boolean> StarQWorkflowKit.Systems.WorkflowSystem/<>c::<>9__7_0",
+          "IL_00f0: dup",
+          "IL_00f1: brtrue.s IL_010a",
+          "IL_00f3: pop",
+          "IL_00f4: ldsfld StarQWorkflowKit.Systems.WorkflowSystem/<>c StarQWorkflowKit.Systems.WorkflowSystem/<>c::<>9",
+          "IL_00f9: ldftn System.Boolean StarQWorkflowKit.Systems.WorkflowSystem/<>c::<AddSpawableObject>b__7_0(Game.Prefabs.ObjectPrefab)",
+          "IL_00ff: newobj System.Void System.Func`2<Game.Prefabs.ObjectPrefab,System.Boolean>::.ctor(System.Object,System.IntPtr)",
+          "IL_0104: dup",
+          "IL_0105: stsfld System.Func`2<Game.Prefabs.ObjectPrefab,System.Boolean> StarQWorkflowKit.Systems.WorkflowSystem/<>c::<>9__7_0",
+          "IL_010a: call System.Collections.Generic.IEnumerable`1<!!0> System.Linq.Enumerable::Where<Game.Prefabs.ObjectPrefab>(System.Collections.Generic.IEnumerable`1<!!0>,System.Func`2<!!0,System.Boolean>)",
+          "IL_010f: call !!0[] System.Linq.Enumerable::ToArray<Game.Prefabs.ObjectPrefab>(System.Collections.Generic.IEnumerable`1<!!0>)",
+          "IL_0114: stfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_0119: ldloc.s V_7",
+          "IL_011b: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_0120: brfalse.s IL_012c",
+          "IL_0122: ldloc.s V_7",
+          "IL_0124: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_0129: ldlen",
+          "IL_012a: brtrue.s IL_0157",
+          "IL_012c: ldloc.s V_7",
+          "IL_012e: ldc.i4.1",
+          "IL_012f: newarr Game.Prefabs.StaticObjectPrefab",
+          "IL_0134: stloc.s V_8",
+          "IL_0136: ldloc.s V_8",
+          "IL_0138: stfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_013d: ldloc.s V_7",
+          "IL_013f: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_0144: ldc.i4.0",
+          "IL_0145: ldloc.1",
+          "IL_0146: castclass Game.Prefabs.StaticObjectPrefab",
+          "IL_014b: stelem.ref",
+          "IL_014c: ldloc.s V_7",
+          "IL_014e: ldc.i4.s 100",
+          "IL_0150: stfld System.Int32 Game.Prefabs.SpawnableObject::m_Probability",
+          "IL_0155: br.s IL_01c0",
+          "IL_0157: ldc.i4.0",
+          "IL_0158: stloc.s V_9",
+          "IL_015a: ldloc.s V_7",
+          "IL_015c: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_0161: stloc.s V_8",
+          "IL_0163: ldc.i4.0",
+          "IL_0164: stloc.s V_10",
+          "IL_0166: br.s IL_0185",
+          "IL_0168: ldloc.s V_8",
+          "IL_016a: ldloc.s V_10",
+          "IL_016c: ldelem.ref",
+          "IL_016d: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0172: ldloc.0",
+          "IL_0173: call System.Boolean System.String::op_Equality(System.String,System.String)",
+          "IL_0178: brfalse.s IL_017f",
+          "IL_017a: ldc.i4.1",
+          "IL_017b: stloc.s V_9",
+          "IL_017d: br.s IL_018d",
+          "IL_017f: ldloc.s V_10",
+          "IL_0181: ldc.i4.1",
+          "IL_0182: add",
+          "IL_0183: stloc.s V_10",
+          "IL_0185: ldloc.s V_10",
+          "IL_0187: ldloc.s V_8",
+          "IL_0189: ldlen",
+          "IL_018a: conv.i4",
+          "IL_018b: blt.s IL_0168",
+          "IL_018d: ldloc.s V_9",
+          "IL_018f: brtrue.s IL_01d5",
+          "IL_0191: ldloc.s V_7",
+          "IL_0193: ldflda Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_0198: ldloc.s V_7",
+          "IL_019a: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_019f: ldlen",
+          "IL_01a0: conv.i4",
+          "IL_01a1: ldc.i4.1",
+          "IL_01a2: add",
+          "IL_01a3: call System.Void System.Array::Resize<Game.Prefabs.ObjectPrefab>(!!0[]&,System.Int32)",
+          "IL_01a8: ldloc.s V_7",
+          "IL_01aa: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders",
+          "IL_01af: dup",
+          "IL_01b0: ldlen",
+          "IL_01b1: conv.i4",
+          "IL_01b2: ldc.i4.1",
+          "IL_01b3: sub",
+          "IL_01b4: ldloc.s V_6",
+          "IL_01b6: stelem.ref",
+          "IL_01b7: ldloc.s V_7",
+          "IL_01b9: ldc.i4.s 100",
+          "IL_01bb: stfld System.Int32 Game.Prefabs.SpawnableObject::m_Probability",
+          "IL_01c0: ldarg.0",
+          "IL_01c1: ldloc.s V_5",
+          "IL_01c3: ldc.i4.0",
+          "IL_01c4: ldstr \"SpawnableObject: \"",
+          "IL_01c9: ldloc.0",
+          "IL_01ca: call System.String System.String::Concat(System.String,System.String)",
+          "IL_01cf: ldnull",
+          "IL_01d0: call System.Void StarQWorkflowKit.Systems.WorkflowSystem::SaveAndContinue(Game.Prefabs.PrefabBase,StarQWorkflowKit.Systems.WorkflowSystem/ChangeType,System.String,System.String)",
+          "IL_01d5: ldloca.s V_4",
+          "IL_01d7: call System.Boolean System.Collections.Generic.List`1/Enumerator<Game.Prefabs.PrefabBase>::MoveNext()",
+          "IL_01dc: brtrue IL_009f",
+          "IL_01e1: leave.s IL_01f1",
+          "IL_01e3: ldloca.s V_4",
+          "IL_01e5: constrained. System.Collections.Generic.List`1/Enumerator<Game.Prefabs.PrefabBase>",
+          "IL_01eb: callvirt System.Void System.IDisposable::Dispose()",
+          "IL_01f0: endfinally",
+          "IL_01f1: ret"
+        ]
+      },
+      {
+        "Method": "System.Void StarQWorkflowKit.Systems.WorkflowSystem::AddAssetPack()",
+        "IL": [
+          "IL_0000: ldsfld StarQWorkflowKit.Setting StarQWorkflowKit.Mod::m_Setting",
+          "IL_0005: callvirt System.String StarQWorkflowKit.Setting::get_AssetPackToProcess()",
+          "IL_000a: stloc.0",
+          "IL_000b: ldstr \"AssetPackPrefab\"",
+          "IL_0010: ldloc.0",
+          "IL_0011: ldloca.s V_1",
+          "IL_0013: call System.Boolean StarQ.Shared.Extensions.PrefabHelper::TryGetPrefab(System.String,System.String,Game.Prefabs.PrefabBase&)",
+          "IL_0018: brtrue.s IL_0087",
+          "IL_001a: call !!0 UnityEngine.ScriptableObject::CreateInstance<Game.Prefabs.AssetPackPrefab>()",
+          "IL_001f: stloc.1",
+          "IL_0020: ldloc.1",
+          "IL_0021: ldloc.0",
+          "IL_0022: callvirt System.Void UnityEngine.Object::set_name(System.String)",
+          "IL_0027: ldstr \"ImportedData/\"",
+          "IL_002c: ldloc.1",
+          "IL_002d: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0032: call System.String System.String::Concat(System.String,System.String)",
+          "IL_0037: ldloc.1",
+          "IL_0038: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_003d: ldstr \".Prefab\"",
+          "IL_0042: call System.String System.String::Concat(System.String,System.String)",
+          "IL_0047: ldc.i4.0",
+          "IL_0048: call Colossal.IO.AssetDatabase.AssetDataPath Colossal.IO.AssetDatabase.AssetDataPath::Create(System.String,System.String,Colossal.IO.AssetDatabase.EscapeStrategy)",
+          "IL_004d: stloc.2",
+          "IL_004e: call Colossal.IO.AssetDatabase.ILocalAssetDatabase Colossal.IO.AssetDatabase.AssetDatabase::get_user()",
+          "IL_0053: ldloc.2",
+          "IL_0054: ldloc.1",
+          "IL_0055: call Colossal.IO.AssetDatabase.PrefabAsset Colossal.IO.AssetDatabase.PrefabAssetExtensions::AddAsset(Colossal.IO.AssetDatabase.ILocalAssetDatabase,Colossal.IO.AssetDatabase.AssetDataPath,UnityEngine.ScriptableObject)",
+          "IL_005a: ldc.i4.1",
+          "IL_005b: ldc.i4.0",
+          "IL_005c: ldc.i4.1",
+          "IL_005d: callvirt System.Void Colossal.IO.AssetDatabase.PrefabAsset::Save(Colossal.IO.AssetDatabase.ContentType,System.Boolean,System.Boolean)",
+          "IL_0062: ldstr \"Saving \"",
+          "IL_0067: ldloc.0",
+          "IL_0068: call System.String System.String::Concat(System.String,System.String)",
+          "IL_006d: ldc.i4.3",
+          "IL_006e: call System.Void StarQ.Shared.Extensions.LogHelper::SendLog(System.String,StarQ.Shared.Extensions.LogLevel)",
+          "IL_0073: call Game.Prefabs.PrefabSystem StarQ.Shared.Extensions.WorldHelper::get_PrefabSystem()",
+          "IL_0078: ldloc.1",
+          "IL_0079: ldloca.s V_3",
+          "IL_007b: initobj Unity.Entities.Entity",
+          "IL_0081: ldloc.3",
+          "IL_0082: callvirt System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)",
+          "IL_0087: call System.Collections.Generic.List`1<Game.Prefabs.PrefabBase> StarQWorkflowKit.Helper.PrefabHelper::GetValidPrefabs()",
+          "IL_008c: callvirt System.Collections.Generic.List`1/Enumerator<!0> System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>::GetEnumerator()",
+          "IL_0091: stloc.s V_4",
+          "IL_0093: br IL_0208",
+          "IL_0098: ldloca.s V_4",
+          "IL_009a: call !0 System.Collections.Generic.List`1/Enumerator<Game.Prefabs.PrefabBase>::get_Current()",
+          "IL_009f: stloc.s V_5",
+          "IL_00a1: ldloc.s V_5",
+          "IL_00a3: callvirt Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()",
+          "IL_00a8: callvirt System.Type System.Object::GetType()",
+          "IL_00ad: ldtoken Game.Prefabs.ObjectPrefab",
+          "IL_00b2: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)",
+          "IL_00b7: call System.Boolean System.Type::op_Inequality(System.Type,System.Type)",
+          "IL_00bc: brfalse IL_0155",
+          "IL_00c1: ldloc.s V_5",
+          "IL_00c3: callvirt Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()",
+          "IL_00c8: callvirt System.Type System.Object::GetType()",
+          "IL_00cd: ldtoken Game.Prefabs.ZonePrefab",
+          "IL_00d2: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)",
+          "IL_00d7: call System.Boolean System.Type::op_Inequality(System.Type,System.Type)",
+          "IL_00dc: brfalse.s IL_0155",
+          "IL_00de: ldloc.s V_5",
+          "IL_00e0: callvirt Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()",
+          "IL_00e5: callvirt System.Type System.Object::GetType()",
+          "IL_00ea: ldtoken Game.Prefabs.NetPrefab",
+          "IL_00ef: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)",
+          "IL_00f4: call System.Boolean System.Type::op_Inequality(System.Type,System.Type)",
+          "IL_00f9: brfalse.s IL_0155",
+          "IL_00fb: ldloc.s V_5",
+          "IL_00fd: callvirt Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()",
+          "IL_0102: callvirt System.Type System.Object::GetType()",
+          "IL_0107: ldtoken Game.Prefabs.AreaPrefab",
+          "IL_010c: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)",
+          "IL_0111: call System.Boolean System.Type::op_Inequality(System.Type,System.Type)",
+          "IL_0116: brfalse.s IL_0155",
+          "IL_0118: ldloc.s V_5",
+          "IL_011a: callvirt Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()",
+          "IL_011f: callvirt System.Type System.Object::GetType()",
+          "IL_0124: ldtoken Game.Prefabs.RoutePrefab",
+          "IL_0129: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)",
+          "IL_012e: call System.Boolean System.Type::op_Inequality(System.Type,System.Type)",
+          "IL_0133: brfalse.s IL_0155",
+          "IL_0135: ldloc.s V_5",
+          "IL_0137: callvirt Game.Prefabs.PrefabBase Game.Prefabs.ComponentBase::get_prefab()",
+          "IL_013c: callvirt System.Type System.Object::GetType()",
+          "IL_0141: ldtoken Game.Prefabs.NetLanePrefab",
+          "IL_0146: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)",
+          "IL_014b: call System.Boolean System.Type::op_Inequality(System.Type,System.Type)",
+          "IL_0150: brtrue IL_0208",
+          "IL_0155: ldloc.1",
+          "IL_0156: castclass Game.Prefabs.AssetPackPrefab",
+          "IL_015b: stloc.s V_6",
+          "IL_015d: ldloc.s V_5",
+          "IL_015f: callvirt !!0 Game.Prefabs.PrefabBase::AddOrGetComponent<Game.Prefabs.AssetPackItem>()",
+          "IL_0164: stloc.s V_7",
+          "IL_0166: ldloc.s V_7",
+          "IL_0168: ldfld Game.Prefabs.AssetPackPrefab[] Game.Prefabs.AssetPackItem::m_Packs",
+          "IL_016d: brfalse.s IL_0179",
+          "IL_016f: ldloc.s V_7",
+          "IL_0171: ldfld Game.Prefabs.AssetPackPrefab[] Game.Prefabs.AssetPackItem::m_Packs",
+          "IL_0176: ldlen",
+          "IL_0177: brtrue.s IL_0193",
+          "IL_0179: ldloc.s V_7",
+          "IL_017b: ldc.i4.1",
+          "IL_017c: newarr Game.Prefabs.AssetPackPrefab",
+          "IL_0181: stfld Game.Prefabs.AssetPackPrefab[] Game.Prefabs.AssetPackItem::m_Packs",
+          "IL_0186: ldloc.s V_7",
+          "IL_0188: ldfld Game.Prefabs.AssetPackPrefab[] Game.Prefabs.AssetPackItem::m_Packs",
+          "IL_018d: ldc.i4.0",
+          "IL_018e: ldloc.s V_6",
+          "IL_0190: stelem.ref",
+          "IL_0191: br.s IL_01f3",
+          "IL_0193: ldc.i4.0",
+          "IL_0194: stloc.s V_8",
+          "IL_0196: ldloc.s V_7",
+          "IL_0198: ldfld Game.Prefabs.AssetPackPrefab[] Game.Prefabs.AssetPackItem::m_Packs",
+          "IL_019d: stloc.s V_9",
+          "IL_019f: ldc.i4.0",
+          "IL_01a0: stloc.s V_10",
+          "IL_01a2: br.s IL_01c1",
+          "IL_01a4: ldloc.s V_9",
+          "IL_01a6: ldloc.s V_10",
+          "IL_01a8: ldelem.ref",
+          "IL_01a9: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_01ae: ldloc.0",
+          "IL_01af: call System.Boolean System.String::op_Equality(System.String,System.String)",
+          "IL_01b4: brfalse.s IL_01bb",
+          "IL_01b6: ldc.i4.1",
+          "IL_01b7: stloc.s V_8",
+          "IL_01b9: br.s IL_01c9",
+          "IL_01bb: ldloc.s V_10",
+          "IL_01bd: ldc.i4.1",
+          "IL_01be: add",
+          "IL_01bf: stloc.s V_10",
+          "IL_01c1: ldloc.s V_10",
+          "IL_01c3: ldloc.s V_9",
+          "IL_01c5: ldlen",
+          "IL_01c6: conv.i4",
+          "IL_01c7: blt.s IL_01a4",
+          "IL_01c9: ldloc.s V_8",
+          "IL_01cb: brtrue.s IL_0208",
+          "IL_01cd: ldloc.s V_7",
+          "IL_01cf: ldflda Game.Prefabs.AssetPackPrefab[] Game.Prefabs.AssetPackItem::m_Packs",
+          "IL_01d4: ldloc.s V_7",
+          "IL_01d6: ldfld Game.Prefabs.AssetPackPrefab[] Game.Prefabs.AssetPackItem::m_Packs",
+          "IL_01db: ldlen",
+          "IL_01dc: conv.i4",
+          "IL_01dd: ldc.i4.1",
+          "IL_01de: add",
+          "IL_01df: call System.Void System.Array::Resize<Game.Prefabs.AssetPackPrefab>(!!0[]&,System.Int32)",
+          "IL_01e4: ldloc.s V_7",
+          "IL_01e6: ldfld Game.Prefabs.AssetPackPrefab[] Game.Prefabs.AssetPackItem::m_Packs",
+          "IL_01eb: dup",
+          "IL_01ec: ldlen",
+          "IL_01ed: conv.i4",
+          "IL_01ee: ldc.i4.1",
+          "IL_01ef: sub",
+          "IL_01f0: ldloc.s V_6",
+          "IL_01f2: stelem.ref",
+          "IL_01f3: ldarg.0",
+          "IL_01f4: ldloc.s V_5",
+          "IL_01f6: ldc.i4.0",
+          "IL_01f7: ldstr \"AssetPackItem: \"",
+          "IL_01fc: ldloc.0",
+          "IL_01fd: call System.String System.String::Concat(System.String,System.String)",
+          "IL_0202: ldnull",
+          "IL_0203: call System.Void StarQWorkflowKit.Systems.WorkflowSystem::SaveAndContinue(Game.Prefabs.PrefabBase,StarQWorkflowKit.Systems.WorkflowSystem/ChangeType,System.String,System.String)",
+          "IL_0208: ldloca.s V_4",
+          "IL_020a: call System.Boolean System.Collections.Generic.List`1/Enumerator<Game.Prefabs.PrefabBase>::MoveNext()",
+          "IL_020f: brtrue IL_0098",
+          "IL_0214: leave.s IL_0224",
+          "IL_0216: ldloca.s V_4",
+          "IL_0218: constrained. System.Collections.Generic.List`1/Enumerator<Game.Prefabs.PrefabBase>",
+          "IL_021e: callvirt System.Void System.IDisposable::Dispose()",
+          "IL_0223: endfinally",
+          "IL_0224: ret"
+        ]
+      },
+      {
+        "Method": "System.Void StarQWorkflowKit.Systems.WorkflowSystem::SaveAndContinue(Game.Prefabs.PrefabBase,StarQWorkflowKit.Systems.WorkflowSystem/ChangeType,System.String,System.String)",
+        "IL": [
+          "IL_0000: ldarg.s text2",
+          "IL_0002: call System.Boolean System.String::IsNullOrEmpty(System.String)",
+          "IL_0007: brfalse.s IL_0040",
+          "IL_0009: ldarg.2",
+          "IL_000a: brtrue.s IL_0026",
+          "IL_000c: ldstr \"{0} {1} to {2}\"",
+          "IL_0011: ldarg.2",
+          "IL_0012: box StarQWorkflowKit.Systems.WorkflowSystem/ChangeType",
+          "IL_0017: ldarg.3",
+          "IL_0018: ldarg.1",
+          "IL_0019: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_001e: call System.String System.String::Format(System.String,System.Object,System.Object,System.Object)",
+          "IL_0023: stloc.0",
+          "IL_0024: br.s IL_006c",
+          "IL_0026: ldstr \"{0} {1} from {2}\"",
+          "IL_002b: ldarg.2",
+          "IL_002c: box StarQWorkflowKit.Systems.WorkflowSystem/ChangeType",
+          "IL_0031: ldarg.3",
+          "IL_0032: ldarg.1",
+          "IL_0033: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0038: call System.String System.String::Format(System.String,System.Object,System.Object,System.Object)",
+          "IL_003d: stloc.0",
+          "IL_003e: br.s IL_006c",
+          "IL_0040: ldstr \"{0} {1} from {2} to {3}\"",
+          "IL_0045: ldc.i4.4",
+          "IL_0046: newarr System.Object",
+          "IL_004b: dup",
+          "IL_004c: ldc.i4.0",
+          "IL_004d: ldarg.2",
+          "IL_004e: box StarQWorkflowKit.Systems.WorkflowSystem/ChangeType",
+          "IL_0053: stelem.ref",
+          "IL_0054: dup",
+          "IL_0055: ldc.i4.1",
+          "IL_0056: ldarg.3",
+          "IL_0057: stelem.ref",
+          "IL_0058: dup",
+          "IL_0059: ldc.i4.2",
+          "IL_005a: ldarg.s text2",
+          "IL_005c: stelem.ref",
+          "IL_005d: dup",
+          "IL_005e: ldc.i4.3",
+          "IL_005f: ldarg.1",
+          "IL_0060: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0065: stelem.ref",
+          "IL_0066: call System.String System.String::Format(System.String,System.Object[])",
+          "IL_006b: stloc.0",
+          "IL_006c: ldarg.1",
+          "IL_006d: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()",
+          "IL_0072: callvirt System.String Colossal.IO.AssetDatabase.PrefabAsset::get_subPath()",
+          "IL_0077: ldarg.1",
+          "IL_0078: callvirt Colossal.IO.AssetDatabase.PrefabAsset Game.Prefabs.PrefabBase::get_asset()",
+          "IL_007d: callvirt System.String Colossal.IO.AssetDatabase.AssetData::get_name()",
+          "IL_0082: ldc.i4.0",
+          "IL_0083: call Colossal.IO.AssetDatabase.AssetDataPath Colossal.IO.AssetDatabase.AssetDataPath::Create(System.String,System.String,Colossal.IO.AssetDatabase.EscapeStrategy)",
+          "IL_0088: stloc.1",
+          "IL_0089: call Colossal.IO.AssetDatabase.ILocalAssetDatabase Colossal.IO.AssetDatabase.AssetDatabase::get_user()",
+          "IL_008e: ldloc.1",
+          "IL_008f: ldarg.1",
+          "IL_0090: call Colossal.IO.AssetDatabase.PrefabAsset Colossal.IO.AssetDatabase.PrefabAssetExtensions::AddAsset(Colossal.IO.AssetDatabase.ILocalAssetDatabase,Colossal.IO.AssetDatabase.AssetDataPath,UnityEngine.ScriptableObject)",
+          "IL_0095: ldarg.1",
+          "IL_0096: call Colossal.IO.AssetDatabase.ContentType StarQWorkflowKit.Helper.PrefabHelper::GetPrefabContentType(Game.Prefabs.PrefabBase)",
+          "IL_009b: ldc.i4.0",
+          "IL_009c: ldc.i4.1",
+          "IL_009d: callvirt System.Void Colossal.IO.AssetDatabase.PrefabAsset::Save(Colossal.IO.AssetDatabase.ContentType,System.Boolean,System.Boolean)",
+          "IL_00a2: ldloc.0",
+          "IL_00a3: ldc.i4.3",
+          "IL_00a4: call System.Void StarQ.Shared.Extensions.LogHelper::SendLog(System.String,StarQ.Shared.Extensions.LogLevel)",
+          "IL_00a9: call Game.Prefabs.PrefabSystem StarQ.Shared.Extensions.WorldHelper::get_PrefabSystem()",
+          "IL_00ae: ldarg.1",
+          "IL_00af: ldloca.s V_2",
+          "IL_00b1: initobj Unity.Entities.Entity",
+          "IL_00b7: ldloc.2",
+          "IL_00b8: callvirt System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)",
+          "IL_00bd: ret"
+        ]
+      }
+    ],
+    "Contracts": [
+      {
+        "Method": "System.Boolean Patch_EditorAssetCategorySystem_AddOverrides::Prefix(Game.UI.Editor.EditorAssetCategorySystem)",
+        "Instruction": "IL_01ba: callvirt System.Boolean System.Collections.Generic.Dictionary`2<System.String,Game.UI.Editor.EditorAssetCategory>::TryGetValue(!0,!1&)"
+      },
+      {
+        "Method": "System.Boolean Patch_EditorAssetCategorySystem_AddOverrides::Prefix(Game.UI.Editor.EditorAssetCategorySystem)",
+        "Instruction": "IL_020b: callvirt System.Void Game.UI.Editor.EditorAssetCategory::AddEntity(Unity.Entities.Entity)"
+      },
+      {
+        "Method": "System.String StarQ.Shared.Markdown::get_LongDescription()",
+        "Instruction": "IL_0000: ldstr \"# StarQ Workflow Kit\nThis mod is primarily to be used by prefab asset creators.\n\nThis mod modify prefabs in an irreversible way. So, make sure to Backup your local prefabs in case anything goes wrong.\n\n## Features\n- Prefab Saver: Resave prefab to remove the pesky \"m_LargeIcon\" and/or \"m_FireHazard\" issue from any prefab files, create CID if missing or convert prefabs from Text format to Binary format and vice versa.\n- Prefab Packager: Create COK packages from folders, optionally bypass the mod/DLC check to make the process faster.\n- Enable Manual Upload: Activate a hidden Editor feature that allows adding anything else with the published assets.\n- Prefab Modifier: Bulk prefab modification to add UI Icons, PlaceableObject, UIGroup, EditorAssetCategoryOverride, AssetPack, SpawnableObject; remove ObsoleteIdentifiers, SpawnableObject, AssetPack.\n- Bulk Rename Prefab: Bulk rename prefabs safely by adding ObsoleteIdentifiers.\n- Locale Maker: Create vanilla localization files from JSON (I18N) locale.\n- Optional 'EditorAssetCategoryOverride' for all assets based on its prefab type.\n- ~~[REMOVED since 1.5.2f1] Auto (Harmony Patch): Sort custom asset's EditorAssetCategoryOverride alphabetically.~~\n- ~~[REMOVED since 1.5.2f1] Auto (Harmony Patch): View hidden configurations ([HideInEditor] attribute) on the Editor Inspector panel, now suffixed with '[*H]'.~~\n- ~~[REMOVED since 1.5.2f1] That's all... Oh, and the PDX upload script.~~\n\n## PDXM CS2 Uploader v2.0.4\n[REMOVED since 1.5.2f1]\n~~Make sure the Modding Toolchain is completely installed. .NET6.0 (which is part of the Modding Toolchain .NET SDK) is required for the Uploader to open up.~~\n~~Copy 'PDXM_CS2_Uploader_vX.X.X.exe' to an empty folder outside any CS2 folders. This will be your project folder, just for one mod. Launch the application once to set up folder structure following the on-screen instructions.~~\n~~VT Scan: https://www.virustotal.com/gui/file/278f418a39e7939fe98c2c335647c28513be2e8bd94837bdd5c36870da55641d~~\n\n## DISCLAIMER\nThis mod modifies your custom contents in an irreversible way. Always keep backup.\nThe mod author is not responsible for any change in content resulting from its use.\nThe mod author is not responsible for any content uploaded using the PDXM CS2 Uploader.\""
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.DialogHelper::ShowMessageDialog(Game.UI.Localization.LocalizedString,Game.UI.Localization.LocalizedString,Game.UI.Localization.LocalizedString,System.Action`1<System.Int32>)",
+        "Instruction": "IL_0022: callvirt System.Void Game.UI.AppBindings::ShowMessageDialog(Game.UI.MessageDialog,System.Action`1<System.Int32>)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.DialogHelper::ShowConfirmationDialog(Game.UI.Localization.LocalizedString,Game.UI.Localization.LocalizedString,Game.UI.Localization.LocalizedString,Game.UI.Localization.LocalizedString,Game.UI.Localization.LocalizedString[],System.Action`1<System.Int32>)",
+        "Instruction": "IL_0026: callvirt System.Void Game.UI.AppBindings::ShowConfirmationDialog(Game.UI.ConfirmationDialog,System.Action`1<System.Int32>)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.DialogHelper/<ShowConfirmationDialogAndWait>d__2::MoveNext()",
+        "Instruction": "IL_0046: callvirt System.Threading.Tasks.Task`1<System.Int32> Game.UI.AppBindings::ShowConfirmationDialogAndWait(Game.UI.ConfirmationDialog)"
+      },
+      {
+        "Method": "T StarQ.Shared.Extensions.ValueBindingHelper`1::get_Value()",
+        "Instruction": "IL_0009: call Colossal.UI.Binding.ValueBinding`1<T> StarQ.Shared.Extensions.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "T StarQ.Shared.Extensions.ValueBindingHelper`1::get_Value()",
+        "Instruction": "IL_000e: callvirt !0 Colossal.UI.Binding.ValueBinding`1<T>::get_value()"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.ValueBindingHelper`1::ForceUpdate()",
+        "Instruction": "IL_0009: call Colossal.UI.Binding.ValueBinding`1<T> StarQ.Shared.Extensions.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.ValueBindingHelper`1::ForceUpdate()",
+        "Instruction": "IL_0014: callvirt System.Void Colossal.UI.Binding.ValueBinding`1<T>::Update(!0)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.ValueBindingHelper`1::UpdateCallback(T)",
+        "Instruction": "IL_0002: call System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::set_Value(T)"
+      },
+      {
+        "Method": "T StarQ.Shared.Extensions.ValueBindingHelper`1::op_Implicit(StarQ.Shared.Extensions.ValueBindingHelper`1<T>)",
+        "Instruction": "IL_0001: callvirt T StarQ.Shared.Extensions.ValueBindingHelper`1<T>::get_Value()"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteObject(Colossal.UI.Binding.IJsonWriter,System.Type,System.Object)",
+        "Instruction": "IL_0018: callvirt System.Void Colossal.UI.Binding.IJsonWriter::TypeBegin(System.String)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteObject(Colossal.UI.Binding.IJsonWriter,System.Type,System.Object)",
+        "Instruction": "IL_0057: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteObject(Colossal.UI.Binding.IJsonWriter,System.Type,System.Object)",
+        "Instruction": "IL_00ba: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteObject(Colossal.UI.Binding.IJsonWriter,System.Type,System.Object)",
+        "Instruction": "IL_00e2: callvirt System.Void Colossal.UI.Binding.IJsonWriter::TypeEnd()"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0004: callvirt System.Void Colossal.UI.Binding.IJsonWriter::WriteNull()"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0016: callvirt System.Void Colossal.UI.Binding.IJsonWritable::Write(Colossal.UI.Binding.IJsonWriter)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_002d: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0044: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_005b: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.UInt32)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0074: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Single)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_008d: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Double)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_00a2: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.String)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_00bc: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_00d5: call System.Void Colossal.UI.Binding.UnityWriters::Write(Colossal.UI.Binding.IJsonWriter,Unity.Entities.Entity)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_00ee: call System.Void Colossal.UI.Binding.UnityWriters::Write(Colossal.UI.Binding.IJsonWriter,UnityEngine.Color)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteArray(Colossal.UI.Binding.IJsonWriter,System.Array)",
+        "Instruction": "IL_0007: call System.Void Colossal.UI.Binding.JsonWriterExtensions::ArrayBegin(Colossal.UI.Binding.IJsonWriter,System.Int32)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteArray(Colossal.UI.Binding.IJsonWriter,System.Array)",
+        "Instruction": "IL_002b: callvirt System.Void Colossal.UI.Binding.IJsonWriter::ArrayEnd()"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteEnumerable(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_000b: call System.Void Colossal.UI.Binding.JsonWriterExtensions::WriteEmptyArray(Colossal.UI.Binding.IJsonWriter)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteEnumerable(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0053: call System.Void Colossal.UI.Binding.JsonWriterExtensions::ArrayBegin(Colossal.UI.Binding.IJsonWriter,System.Int32)"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.GenericUIWriter`1::WriteEnumerable(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_008d: callvirt System.Void Colossal.UI.Binding.IJsonWriter::ArrayEnd()"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_001f: callvirt System.Void Colossal.UI.Binding.IJsonReadable::Read(Colossal.UI.Binding.IJsonReader)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_003a: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Int32&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_005b: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Boolean&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_007c: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.UInt32&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_009d: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Single&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_00be: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Double&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_00e0: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.String&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_00f3: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Int32&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0115: call System.Void Colossal.UI.Binding.UnityReaders::Read(Colossal.UI.Binding.IJsonReader,Unity.Entities.Entity&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0137: call System.Void Colossal.UI.Binding.UnityReaders::Read(Colossal.UI.Binding.IJsonReader,UnityEngine.Color&)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_014d: callvirt System.UInt64 Colossal.UI.Binding.IJsonReader::ReadArrayBegin()"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_017b: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadArrayElement(System.UInt64)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_01a2: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadArrayEnd()"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_01cd: callvirt System.UInt64 Colossal.UI.Binding.IJsonReader::ReadArrayBegin()"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0209: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadArrayElement(System.UInt64)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0232: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadArrayEnd()"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadObject(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0019: callvirt System.UInt64 Colossal.UI.Binding.IJsonReader::ReadMapBegin()"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadObject(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_003b: callvirt System.Boolean Colossal.UI.Binding.IJsonReader::ReadProperty(System.String)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadObject(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0080: callvirt System.Boolean Colossal.UI.Binding.IJsonReader::ReadProperty(System.String)"
+      },
+      {
+        "Method": "System.Object StarQ.Shared.Extensions.GenericUIReader`1::ReadObject(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_00a8: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadMapEnd()"
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.VariableHelper::.cctor()",
+        "Instruction": "IL_0000: ldstr \"StarQ / Qoushik\""
+      },
+      {
+        "Method": "System.Void StarQ.Shared.Extensions.VariableHelper/<>c::<.cctor>b__10_1()",
+        "Instruction": "IL_0005: ldstr \"https://buymeacoffee.com/starq\""
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.ValueBinding`1<T>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_0013: newobj System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::.ctor(Colossal.UI.Binding.ValueBinding`1<T>,System.Action`1<T>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_001b: callvirt Colossal.UI.Binding.ValueBinding`1<T> StarQ.Shared.Extensions.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_002c: ldftn System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::ForceUpdate()"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.ValueBinding`1<T>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0014: newobj System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::.ctor(Colossal.UI.Binding.ValueBinding`1<T>,System.Action`1<T>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0021: ldftn System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::UpdateCallback(T)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0031: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<T>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0039: callvirt Colossal.UI.Binding.ValueBinding`1<T> StarQ.Shared.Extensions.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0051: ldftn System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::ForceUpdate()"
+      },
+      {
+        "Method": "Colossal.UI.Binding.GetterValueBinding`1<T> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateBinding(System.String,System.Func`1<T>)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<T>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateTrigger(System.String,System.Action)",
+        "Instruction": "IL_0007: newobj System.Void Colossal.UI.Binding.TriggerBinding::.ctor(System.String,System.String,System.Action)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`1<T1> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateTrigger(System.String,System.Action`1<T1>)",
+        "Instruction": "IL_000c: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<T1>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`2<T1,T2> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateTrigger(System.String,System.Action`2<T1,T2>)",
+        "Instruction": "IL_0011: newobj System.Void Colossal.UI.Binding.TriggerBinding`2<T1,T2>::.ctor(System.String,System.String,System.Action`2<!0,!1>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`3<T1,T2,T3> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateTrigger(System.String,System.Action`3<T1,T2,T3>)",
+        "Instruction": "IL_0016: newobj System.Void Colossal.UI.Binding.TriggerBinding`3<T1,T2,T3>::.ctor(System.String,System.String,System.Action`3<!0,!1,!2>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>,Colossal.UI.Binding.IReader`1<!2>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`4<T1,T2,T3,T4> StarQ.Shared.Extensions.UI.ExtendedInfoSectionBase::CreateTrigger(System.String,System.Action`4<T1,T2,T3,T4>)",
+        "Instruction": "IL_001b: newobj System.Void Colossal.UI.Binding.TriggerBinding`4<T1,T2,T3,T4>::.ctor(System.String,System.String,System.Action`4<!0,!1,!2,!3>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>,Colossal.UI.Binding.IReader`1<!2>,Colossal.UI.Binding.IReader`1<!3>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.ValueBinding`1<T>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_0013: newobj System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::.ctor(Colossal.UI.Binding.ValueBinding`1<T>,System.Action`1<T>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_001b: callvirt Colossal.UI.Binding.ValueBinding`1<T> StarQ.Shared.Extensions.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_002c: ldftn System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::ForceUpdate()"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.ValueBinding`1<T>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0014: newobj System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::.ctor(Colossal.UI.Binding.ValueBinding`1<T>,System.Action`1<T>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0021: ldftn System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::UpdateCallback(T)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0031: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<T>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0039: callvirt Colossal.UI.Binding.ValueBinding`1<T> StarQ.Shared.Extensions.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "StarQ.Shared.Extensions.ValueBindingHelper`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0051: ldftn System.Void StarQ.Shared.Extensions.ValueBindingHelper`1<T>::ForceUpdate()"
+      },
+      {
+        "Method": "Colossal.UI.Binding.GetterValueBinding`1<T> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateBinding(System.String,System.Func`1<T>)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<T>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateTrigger(System.String,System.Action)",
+        "Instruction": "IL_0007: newobj System.Void Colossal.UI.Binding.TriggerBinding::.ctor(System.String,System.String,System.Action)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`1<T1> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateTrigger(System.String,System.Action`1<T1>)",
+        "Instruction": "IL_000c: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<T1>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`2<T1,T2> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateTrigger(System.String,System.Action`2<T1,T2>)",
+        "Instruction": "IL_0011: newobj System.Void Colossal.UI.Binding.TriggerBinding`2<T1,T2>::.ctor(System.String,System.String,System.Action`2<!0,!1>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`3<T1,T2,T3> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateTrigger(System.String,System.Action`3<T1,T2,T3>)",
+        "Instruction": "IL_0016: newobj System.Void Colossal.UI.Binding.TriggerBinding`3<T1,T2,T3>::.ctor(System.String,System.String,System.Action`3<!0,!1,!2>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>,Colossal.UI.Binding.IReader`1<!2>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`4<T1,T2,T3,T4> StarQ.Shared.Extensions.UI.ExtendedUISystemBase::CreateTrigger(System.String,System.Action`4<T1,T2,T3,T4>)",
+        "Instruction": "IL_001b: newobj System.Void Colossal.UI.Binding.TriggerBinding`4<T1,T2,T3,T4>::.ctor(System.String,System.String,System.Action`4<!0,!1,!2,!3>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>,Colossal.UI.Binding.IReader`1<!2>,Colossal.UI.Binding.IReader`1<!3>)"
+      },
+      {
+        "Method": "System.Void StarQWorkflowKit.Mod::OnLoad(Game.UpdateSystem)",
+        "Instruction": "IL_005b: ldstr \"StarQ.WorkflowKit\""
+      },
+      {
+        "Method": "System.Void StarQWorkflowKit.Mod::.cctor()",
+        "Instruction": "IL_0000: ldstr \"StarQWorkflowKit\""
+      },
+      {
+        "Method": "System.Void StarQWorkflowKit.Systems.PackageSystem::SaveAsset(System.String,System.Int32,System.Boolean)",
+        "Instruction": "IL_0128: ldstr \"Resaved {0} prefabs\""
+      },
+      {
+        "Method": "System.String StarQWorkflowKit.Systems.WorkflowSystem::OpenRenameFile(System.Boolean)",
+        "Instruction": "IL_000c: ldstr \"/ModsData/StarQWorkflowKit_PrefabRenamer.txt\""
+      },
+      {
+        "Method": "System.String StarQWorkflowKit.Systems.WorkflowSystem::OpenRenameFile(System.Boolean)",
+        "Instruction": "IL_0039: ldstr \"# Write the prefab type, old prefab name & new prefab name you want.\n\n# Format:              PrefabType   ; OldPrefabName ;  NewPrefabName\n# Example:           BuildingPrefab ;   School03    ; StarQ School03\n\n# If a line start with '#' or '\\' like this one, it will be ignored.\n# After saving this file, click on the 'Rename Prefab' option again.\n====================================================================\n\nBuildingPrefab;School03;StarQ School03\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_0007: ldstr \"StarQWorkflowKit\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_011e: ldstr \"StarQ.Shared.Extensions.PrefabHelper\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_0126: ldstr \"StarQWorkflowKit.Systems.LocaleBuilder\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_012e: ldstr \"StarQWorkflowKit.Systems.PackageSystem\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_0136: ldstr \"StarQWorkflowKit.Systems.ToggleManualFiles\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_013e: ldstr \"StarQWorkflowKit.Systems.WorkflowSystem\""
+      }
+    ],
+    "Assembly": "StarQWorkflowKit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null"
+  },
+  {
+    "Details": [
+      {
+        "Method": "System.Void AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::<ProcessScreenshot>b__0()",
+        "IL": [
+          "IL_0000: ldarg.0",
+          "IL_0001: ldfld UnityEngine.Texture2D AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::texture2D",
+          "IL_0006: call System.Void UnityEngine.Object::DestroyImmediate(UnityEngine.Object)",
+          "IL_000b: ldarg.0",
+          "IL_000c: ldfld Colossal.IO.AssetDatabase.ILocalAssetDatabase AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::localAssetDatabase",
+          "IL_0011: call System.String AssetIconCreator.Mod::get_ContentFolder()",
+          "IL_0016: ldsfld System.String Colossal.PSI.Environment.EnvPath::kUserDataPath",
+          "IL_001b: callvirt System.Int32 System.String::get_Length()",
+          "IL_0020: ldc.i4.1",
+          "IL_0021: add",
+          "IL_0022: callvirt System.String System.String::Substring(System.Int32)",
+          "IL_0027: ldarg.0",
+          "IL_0028: ldfld System.String AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::fileName",
+          "IL_002d: ldc.i4.1",
+          "IL_002e: ldc.i4.0",
+          "IL_002f: call Colossal.IO.AssetDatabase.AssetDataPath Colossal.IO.AssetDatabase.AssetDataPath::Create(System.String,System.String,System.Boolean,Colossal.IO.AssetDatabase.EscapeStrategy)",
+          "IL_0034: ldloca.s V_2",
+          "IL_0036: initobj Colossal.Hash128",
+          "IL_003c: ldloc.2",
+          "IL_003d: callvirt Colossal.IO.AssetDatabase.IAssetData Colossal.IO.AssetDatabase.ILocalAssetDatabase::AddAsset(Colossal.IO.AssetDatabase.AssetDataPath,Colossal.Hash128)",
+          "IL_0042: stloc.0",
+          "IL_0043: ldstr \"assetdb://global/{0}\"",
+          "IL_0048: ldloc.0",
+          "IL_0049: callvirt Colossal.IO.AssetDatabase.Identifier Colossal.IO.AssetDatabase.IAssetData::get_id()",
+          "IL_004e: ldfld Colossal.Hash128 Colossal.IO.AssetDatabase.Identifier::guid",
+          "IL_0053: box Colossal.Hash128",
+          "IL_0058: call System.String System.String::Format(System.String,System.Object)",
+          "IL_005d: stloc.1",
+          "IL_005e: call AssetIconCreator.Setting AssetIconCreator.Mod::get_Settings()",
+          "IL_0063: callvirt System.Boolean AssetIconCreator.Setting::get_AutoSetIcon()",
+          "IL_0068: brfalse IL_010d",
+          "IL_006d: ldarg.0",
+          "IL_006e: ldfld Game.Prefabs.PrefabBase AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::prefab",
+          "IL_0073: ldloca.s V_3",
+          "IL_0075: callvirt System.Boolean Game.Prefabs.PrefabBase::TryGet<Game.Prefabs.UIObject>(!!0&)",
+          "IL_007a: brfalse.s IL_0087",
+          "IL_007c: ldarg.0",
+          "IL_007d: ldfld Game.Prefabs.PrefabBase AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::prefab",
+          "IL_0082: callvirt System.Void Game.Prefabs.PrefabBase::Remove<Game.Prefabs.UIObject>()",
+          "IL_0087: ldarg.0",
+          "IL_0088: ldfld Game.Prefabs.PrefabBase AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::prefab",
+          "IL_008d: callvirt !!0 Game.Prefabs.PrefabBase::AddComponent<Game.Prefabs.UIObject>()",
+          "IL_0092: stloc.3",
+          "IL_0093: ldloc.3",
+          "IL_0094: ldloc.3",
+          "IL_0095: brtrue.s IL_009a",
+          "IL_0097: ldc.i4.1",
+          "IL_0098: br.s IL_00a0",
+          "IL_009a: ldloc.3",
+          "IL_009b: ldfld System.Int32 Game.Prefabs.UIObject::m_Priority",
+          "IL_00a0: stfld System.Int32 Game.Prefabs.UIObject::m_Priority",
+          "IL_00a5: ldloc.3",
+          "IL_00a6: ldloc.3",
+          "IL_00a7: brtrue.s IL_00ac",
+          "IL_00a9: ldnull",
+          "IL_00aa: br.s IL_00b2",
+          "IL_00ac: ldloc.3",
+          "IL_00ad: ldfld Game.Prefabs.UIGroupPrefab Game.Prefabs.UIObject::m_Group",
+          "IL_00b2: stfld Game.Prefabs.UIGroupPrefab Game.Prefabs.UIObject::m_Group",
+          "IL_00b7: ldloc.3",
+          "IL_00b8: ldloc.1",
+          "IL_00b9: stfld System.String Game.Prefabs.UIObject::m_Icon",
+          "IL_00be: ldarg.0",
+          "IL_00bf: ldfld AssetIconCreator.ScreenshotUtility AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::<>4__this",
+          "IL_00c4: ldfld Game.Prefabs.PrefabSystem AssetIconCreator.ScreenshotUtility::_prefabSystem",
+          "IL_00c9: ldarg.0",
+          "IL_00ca: ldfld Game.Prefabs.PrefabBase AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::prefab",
+          "IL_00cf: ldloca.s V_4",
+          "IL_00d1: initobj Unity.Entities.Entity",
+          "IL_00d7: ldloc.s V_4",
+          "IL_00d9: callvirt System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)",
+          "IL_00de: call Colossal.Logging.ILog AssetIconCreator.Mod::get_Log()",
+          "IL_00e3: ldstr \"Changed {0} icon to 'assetdb://global/{1}'\"",
+          "IL_00e8: ldarg.0",
+          "IL_00e9: ldfld Game.Prefabs.PrefabBase AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::prefab",
+          "IL_00ee: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_00f3: ldloc.0",
+          "IL_00f4: callvirt Colossal.IO.AssetDatabase.Identifier Colossal.IO.AssetDatabase.IAssetData::get_id()",
+          "IL_00f9: ldfld Colossal.Hash128 Colossal.IO.AssetDatabase.Identifier::guid",
+          "IL_00fe: box Colossal.Hash128",
+          "IL_0103: call System.String System.String::Format(System.String,System.Object,System.Object)",
+          "IL_0108: callvirt System.Void Colossal.Logging.ILog::Info(System.Object)",
+          "IL_010d: ldarg.0",
+          "IL_010e: ldfld AssetIconCreator.ScreenshotUtility AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::<>4__this",
+          "IL_0113: ldarg.0",
+          "IL_0114: ldfld AssetIconCreator.ScreenshotUtility AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::<>4__this",
+          "IL_0119: ldarg.0",
+          "IL_011a: ldfld Game.Prefabs.PrefabBase AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::prefab",
+          "IL_011f: call System.String AssetIconCreator.ScreenshotUtility::GetAssetName(Game.Prefabs.PrefabBase)",
+          "IL_0124: ldstr \" Thumbnail\"",
+          "IL_0129: call System.String System.String::Concat(System.String,System.String)",
+          "IL_012e: call System.Void AssetIconCreator.ScreenshotUtility::set_ProgressText(System.String)",
+          "IL_0133: ldarg.0",
+          "IL_0134: ldfld AssetIconCreator.ScreenshotUtility AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::<>4__this",
+          "IL_0139: ldarg.0",
+          "IL_013a: ldfld Game.Prefabs.PrefabBase AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::prefab",
+          "IL_013f: callvirt System.String UnityEngine.Object::get_name()",
+          "IL_0144: call System.Void AssetIconCreator.ScreenshotUtility::set_PrefabName(System.String)",
+          "IL_0149: ldarg.0",
+          "IL_014a: ldfld AssetIconCreator.ScreenshotUtility AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::<>4__this",
+          "IL_014f: ldstr \"coui://aic/\"",
+          "IL_0154: ldarg.0",
+          "IL_0155: ldfld System.String AssetIconCreator.ScreenshotUtility/<>c__DisplayClass33_0::fileName",
+          "IL_015a: call System.String System.String::Concat(System.String,System.String)",
+          "IL_015f: call System.Void AssetIconCreator.ScreenshotUtility::set_ResultThumbnail(System.String)",
+          "IL_0164: ret"
+        ]
+      }
+    ],
+    "Contracts": [
+      {
+        "Method": "System.Void AssetIconCreator.AssetCreatorUISystem::OnCreate()",
+        "Instruction": "IL_00bb: ldstr \"SaveThumbnails\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetCreatorUISystem::OnCreate()",
+        "Instruction": "IL_00fe: ldstr \"SaveIcon\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreate()",
+        "Instruction": "IL_01a2: ldstr \"ToolKeyBinding\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreate()",
+        "Instruction": "IL_01b7: ldstr \"FlippedApplyBinding\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreate()",
+        "Instruction": "IL_01cc: ldstr \"LiftedApplyBinding\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreate()",
+        "Instruction": "IL_01e1: ldstr \"FlippedLiftedApplyBinding\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreate()",
+        "Instruction": "IL_01f7: callvirt System.Void Game.Input.ProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreate()",
+        "Instruction": "IL_0209: newobj System.Void System.Action`2<Game.Input.ProxyAction,UnityEngine.InputSystem.InputActionPhase>::.ctor(System.Object,System.IntPtr)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnCreate()",
+        "Instruction": "IL_020e: callvirt System.Void Game.Input.ProxyAction::add_onInteraction(System.Action`2<Game.Input.ProxyAction,UnityEngine.InputSystem.InputActionPhase>)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStartRunning()",
+        "Instruction": "IL_0014: callvirt System.Void Game.Input.IProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStartRunning()",
+        "Instruction": "IL_0020: callvirt System.Void Game.Input.ProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStartRunning()",
+        "Instruction": "IL_002c: callvirt System.Void Game.Input.ProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStartRunning()",
+        "Instruction": "IL_0038: callvirt System.Void Game.Input.ProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStopRunning()",
+        "Instruction": "IL_0014: callvirt System.Void Game.Input.IProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStopRunning()",
+        "Instruction": "IL_0020: callvirt System.Void Game.Input.ProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStopRunning()",
+        "Instruction": "IL_002c: callvirt System.Void Game.Input.ProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupToolSystem::OnStopRunning()",
+        "Instruction": "IL_0038: callvirt System.Void Game.Input.ProxyAction::set_shouldBeEnabled(System.Boolean)"
+      },
+      {
+        "Method": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Instruction": "IL_005e: callvirt System.Boolean Game.Input.ProxyAction::WasPressedThisFrame()"
+      },
+      {
+        "Method": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Instruction": "IL_006b: callvirt System.Boolean Game.Input.ProxyAction::WasPressedThisFrame()"
+      },
+      {
+        "Method": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Instruction": "IL_0078: callvirt System.Boolean Game.Input.ProxyAction::WasPressedThisFrame()"
+      },
+      {
+        "Method": "Unity.Jobs.JobHandle AssetIconCreator.AssetSetupToolSystem::OnUpdate(Unity.Jobs.JobHandle)",
+        "Instruction": "IL_0085: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupTooltipSystem::OnCreate()",
+        "Instruction": "IL_003a: ldstr \"assetIconCreator\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupTooltipSystem::OnCreate()",
+        "Instruction": "IL_004a: ldstr \"AssetIconCreator.Tooltip\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupTooltipSystem::OnCreate()",
+        "Instruction": "IL_0065: ldstr \"assetIconCreatorFlip\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupTooltipSystem::OnCreate()",
+        "Instruction": "IL_0075: ldstr \"AssetIconCreator.Tooltip[Flip]\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupTooltipSystem::OnCreate()",
+        "Instruction": "IL_0090: ldstr \"assetIconCreatorLift\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.AssetSetupTooltipSystem::OnCreate()",
+        "Instruction": "IL_00a0: ldstr \"AssetIconCreator.Tooltip[Lift]\""
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.ValueBinding`1<T>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_0013: newobj System.Void AssetIconCreator.ValueBindingHelper`1<T>::.ctor(Colossal.UI.Binding.ValueBinding`1<T>,System.Action`1<T>)"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_001b: callvirt Colossal.UI.Binding.ValueBinding`1<T> AssetIconCreator.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,T)",
+        "Instruction": "IL_002c: ldftn System.Void AssetIconCreator.ValueBindingHelper`1<T>::ForceUpdate()"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.ValueBinding`1<T>::.ctor(System.String,System.String,!0,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0014: newobj System.Void AssetIconCreator.ValueBindingHelper`1<T>::.ctor(Colossal.UI.Binding.ValueBinding`1<T>,System.Action`1<T>)"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0021: ldftn System.Void AssetIconCreator.ValueBindingHelper`1<T>::UpdateCallback(T)"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0031: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<T>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0039: callvirt Colossal.UI.Binding.ValueBinding`1<T> AssetIconCreator.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "AssetIconCreator.ValueBindingHelper`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,System.String,T,System.Action`1<T>)",
+        "Instruction": "IL_0051: ldftn System.Void AssetIconCreator.ValueBindingHelper`1<T>::ForceUpdate()"
+      },
+      {
+        "Method": "Colossal.UI.Binding.GetterValueBinding`1<T> AssetIconCreator.ExtendedUISystemBase::CreateBinding(System.String,System.Func`1<T>)",
+        "Instruction": "IL_000d: newobj System.Void Colossal.UI.Binding.GetterValueBinding`1<T>::.ctor(System.String,System.String,System.Func`1<!0>,Colossal.UI.Binding.IWriter`1<!0>,System.Collections.Generic.EqualityComparer`1<!0>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding AssetIconCreator.ExtendedUISystemBase::CreateTrigger(System.String,System.Action)",
+        "Instruction": "IL_0007: newobj System.Void Colossal.UI.Binding.TriggerBinding::.ctor(System.String,System.String,System.Action)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`1<T1> AssetIconCreator.ExtendedUISystemBase::CreateTrigger(System.String,System.Action`1<T1>)",
+        "Instruction": "IL_000c: newobj System.Void Colossal.UI.Binding.TriggerBinding`1<T1>::.ctor(System.String,System.String,System.Action`1<!0>,Colossal.UI.Binding.IReader`1<!0>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`2<T1,T2> AssetIconCreator.ExtendedUISystemBase::CreateTrigger(System.String,System.Action`2<T1,T2>)",
+        "Instruction": "IL_0011: newobj System.Void Colossal.UI.Binding.TriggerBinding`2<T1,T2>::.ctor(System.String,System.String,System.Action`2<!0,!1>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`3<T1,T2,T3> AssetIconCreator.ExtendedUISystemBase::CreateTrigger(System.String,System.Action`3<T1,T2,T3>)",
+        "Instruction": "IL_0016: newobj System.Void Colossal.UI.Binding.TriggerBinding`3<T1,T2,T3>::.ctor(System.String,System.String,System.Action`3<!0,!1,!2>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>,Colossal.UI.Binding.IReader`1<!2>)"
+      },
+      {
+        "Method": "Colossal.UI.Binding.TriggerBinding`4<T1,T2,T3,T4> AssetIconCreator.ExtendedUISystemBase::CreateTrigger(System.String,System.Action`4<T1,T2,T3,T4>)",
+        "Instruction": "IL_001b: newobj System.Void Colossal.UI.Binding.TriggerBinding`4<T1,T2,T3,T4>::.ctor(System.String,System.String,System.Action`4<!0,!1,!2,!3>,Colossal.UI.Binding.IReader`1<!0>,Colossal.UI.Binding.IReader`1<!1>,Colossal.UI.Binding.IReader`1<!2>,Colossal.UI.Binding.IReader`1<!3>)"
+      },
+      {
+        "Method": "T AssetIconCreator.ValueBindingHelper`1::get_Value()",
+        "Instruction": "IL_0009: call Colossal.UI.Binding.ValueBinding`1<T> AssetIconCreator.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "T AssetIconCreator.ValueBindingHelper`1::get_Value()",
+        "Instruction": "IL_000e: callvirt !0 Colossal.UI.Binding.ValueBinding`1<T>::get_value()"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.ValueBindingHelper`1::ForceUpdate()",
+        "Instruction": "IL_0009: call Colossal.UI.Binding.ValueBinding`1<T> AssetIconCreator.ValueBindingHelper`1<T>::get_Binding()"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.ValueBindingHelper`1::ForceUpdate()",
+        "Instruction": "IL_0014: callvirt System.Void Colossal.UI.Binding.ValueBinding`1<T>::Update(!0)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.ValueBindingHelper`1::UpdateCallback(T)",
+        "Instruction": "IL_0002: call System.Void AssetIconCreator.ValueBindingHelper`1<T>::set_Value(T)"
+      },
+      {
+        "Method": "T AssetIconCreator.ValueBindingHelper`1::op_Implicit(AssetIconCreator.ValueBindingHelper`1<T>)",
+        "Instruction": "IL_0001: callvirt T AssetIconCreator.ValueBindingHelper`1<T>::get_Value()"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteObject(Colossal.UI.Binding.IJsonWriter,System.Type,System.Object)",
+        "Instruction": "IL_0018: callvirt System.Void Colossal.UI.Binding.IJsonWriter::TypeBegin(System.String)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteObject(Colossal.UI.Binding.IJsonWriter,System.Type,System.Object)",
+        "Instruction": "IL_0057: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteObject(Colossal.UI.Binding.IJsonWriter,System.Type,System.Object)",
+        "Instruction": "IL_00ba: callvirt System.Void Colossal.UI.Binding.IJsonWriter::PropertyName(System.String)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteObject(Colossal.UI.Binding.IJsonWriter,System.Type,System.Object)",
+        "Instruction": "IL_00e2: callvirt System.Void Colossal.UI.Binding.IJsonWriter::TypeEnd()"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0004: callvirt System.Void Colossal.UI.Binding.IJsonWriter::WriteNull()"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0016: callvirt System.Void Colossal.UI.Binding.IJsonWritable::Write(Colossal.UI.Binding.IJsonWriter)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_002d: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0044: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Boolean)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_005b: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.UInt32)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0074: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Single)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_008d: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Double)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_00a2: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.String)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_00bc: callvirt System.Void Colossal.UI.Binding.IJsonWriter::Write(System.Int32)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_00d5: call System.Void Colossal.UI.Binding.UnityWriters::Write(Colossal.UI.Binding.IJsonWriter,Unity.Entities.Entity)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteGeneric(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_00ee: call System.Void Colossal.UI.Binding.UnityWriters::Write(Colossal.UI.Binding.IJsonWriter,UnityEngine.Color)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteArray(Colossal.UI.Binding.IJsonWriter,System.Array)",
+        "Instruction": "IL_0007: call System.Void Colossal.UI.Binding.JsonWriterExtensions::ArrayBegin(Colossal.UI.Binding.IJsonWriter,System.Int32)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteArray(Colossal.UI.Binding.IJsonWriter,System.Array)",
+        "Instruction": "IL_002b: callvirt System.Void Colossal.UI.Binding.IJsonWriter::ArrayEnd()"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteEnumerable(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_000b: call System.Void Colossal.UI.Binding.JsonWriterExtensions::WriteEmptyArray(Colossal.UI.Binding.IJsonWriter)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteEnumerable(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_0053: call System.Void Colossal.UI.Binding.JsonWriterExtensions::ArrayBegin(Colossal.UI.Binding.IJsonWriter,System.Int32)"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.GenericUIWriter`1::WriteEnumerable(Colossal.UI.Binding.IJsonWriter,System.Object)",
+        "Instruction": "IL_008d: callvirt System.Void Colossal.UI.Binding.IJsonWriter::ArrayEnd()"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_001f: callvirt System.Void Colossal.UI.Binding.IJsonReadable::Read(Colossal.UI.Binding.IJsonReader)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_003a: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Int32&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_005b: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Boolean&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_007c: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.UInt32&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_009d: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Single&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_00be: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Double&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_00e0: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.String&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_00f3: callvirt System.Void Colossal.UI.Binding.IJsonReader::Read(System.Int32&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0115: call System.Void Colossal.UI.Binding.UnityReaders::Read(Colossal.UI.Binding.IJsonReader,Unity.Entities.Entity&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0137: call System.Void Colossal.UI.Binding.UnityReaders::Read(Colossal.UI.Binding.IJsonReader,UnityEngine.Color&)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_014d: callvirt System.UInt64 Colossal.UI.Binding.IJsonReader::ReadArrayBegin()"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_017b: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadArrayElement(System.UInt64)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_01a2: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadArrayEnd()"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_01cd: callvirt System.UInt64 Colossal.UI.Binding.IJsonReader::ReadArrayBegin()"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0209: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadArrayElement(System.UInt64)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadGeneric(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0232: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadArrayEnd()"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadObject(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0019: callvirt System.UInt64 Colossal.UI.Binding.IJsonReader::ReadMapBegin()"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadObject(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_003b: callvirt System.Boolean Colossal.UI.Binding.IJsonReader::ReadProperty(System.String)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadObject(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_0080: callvirt System.Boolean Colossal.UI.Binding.IJsonReader::ReadProperty(System.String)"
+      },
+      {
+        "Method": "System.Object AssetIconCreator.GenericUIReader`1::ReadObject(Colossal.UI.Binding.IJsonReader,System.Type)",
+        "Instruction": "IL_00a8: callvirt System.Void Colossal.UI.Binding.IJsonReader::ReadMapEnd()"
+      },
+      {
+        "Method": "System.Void AssetIconCreator.Mod::OnLoad(Game.UpdateSystem)",
+        "Instruction": "IL_00fd: ldstr \"AssetIconCreator\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.Mod::.cctor()",
+        "Instruction": "IL_0000: ldstr \"AssetIconCreator\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.Mod::.cctor()",
+        "Instruction": "IL_0015: ldstr \"AssetIconCreator\""
+      },
+      {
+        "Method": "System.Void AssetIconCreator.Mod::.cctor()",
+        "Instruction": "IL_0029: ldstr \"AssetIconCreator\""
+      },
+      {
+        "Method": "System.String AssetIconCreator.Setting::get_ThumbnailsFolder()",
+        "Instruction": "IL_0017: ldstr \"AssetIconCreator\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_01ac: ldstr \"SaveThumbnailsPermanently\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_01c7: ldstr \"SaveThumbnailsPermanently\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_01d1: ldstr \"Saves a copy of generated icons in the permanent folder for easy access.\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_023d: ldstr \"Open the folder where icons are saved in Explorer.\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_024e: ldstr \"ToolKeyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_0269: ldstr \"ToolKeyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_0273: ldstr \"Keyboard binding to toggle the tool\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_0284: ldstr \"ToolKeyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_029f: ldstr \"FlippedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_02ba: ldstr \"FlippedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_02d5: ldstr \"FlippedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_02f0: ldstr \"LiftedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_030b: ldstr \"LiftedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_0326: ldstr \"LiftedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_0341: ldstr \"FlippedLiftedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_035c: ldstr \"FlippedLiftedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_0377: ldstr \"FlippedLiftedApplyBinding\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_03a2: ldstr \"AssetIconCreator.Tooltip\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_03b2: ldstr \"AssetIconCreator.Tooltip[Flip]\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_03c2: ldstr \"AssetIconCreator.Tooltip[Lift]\""
+      },
+      {
+        "Method": "System.Collections.Generic.IEnumerable`1<System.Collections.Generic.KeyValuePair`2<System.String,System.String>> AssetIconCreator.LocaleEN::ReadEntries(System.Collections.Generic.IList`1<Colossal.IDictionaryEntryError>,System.Collections.Generic.Dictionary`2<System.String,System.Int32>)",
+        "Instruction": "IL_03c7: ldstr \"Hold Ctrl to lift the asset above ground\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_0007: ldstr \"AssetIconCreator\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_00f4: ldstr \"AssetIconCreator.AssetCreatorUISystem\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_00fc: ldstr \"AssetIconCreator.AssetSetupToolSystem\""
+      },
+      {
+        "Method": "System.Void Unity.Entities.CodeGeneratedRegistry.AssemblyTypeRegistry::.cctor()",
+        "Instruction": "IL_0104: ldstr \"AssetIconCreator.AssetSetupTooltipSystem\""
+      }
+    ],
+    "Assembly": "AssetIconCreator, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null"
+  }
+]

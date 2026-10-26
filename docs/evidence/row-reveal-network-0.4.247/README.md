@@ -1,0 +1,13 @@
+# 0.4.247 — row reveal timing and network list mapping
+
+User reports intermittent row reveal and missing network highlighting in Object Info only. Viewport outlines are accepted for this issue and unchanged.
+
+VERIFIED-RUNTIME: captured 0.4.246 logs map selected props, effects and surfaces to exact list paths and source indices. No network row result is present in this captured session; the exact native network failure is not established by the log. Preserve this distinction from the source defects addressed below.
+
+VERIFIED-STATIC: the old scroll effect tried once after two animation frames, then abandoned a still-hidden row. It also scrolled the whole expanded item rather than the small selected header/name box. The new bounded scheduler waits for nonzero target geometry and stable ancestor dimensions, positions the name box, then makes a final positioning pass after settling. It retries at most 60 frames, cancels on selection changes/unmount and does not take keyboard focus. Deterministic fixtures cover late mounting, animated/late-changing ancestors, header-only selection, hidden-timeout and cancellation.
+
+List row type now follows actual native source shape and effect/lane container identity, matching clipboard classification priority instead of a display category that can classify a network as a marker. Read-only network row correlation also accepts a unique reversed curve with swapped endpoint meshes, retaining exact prefab, owner/link, endpoint readiness, topology and ambiguity checks. This presentation-only option is never enabled by Copy/Replace dispatch; operation eligibility is unchanged. Existing network adapter fixtures verify reversed observation, ambiguous refusal and unchanged strict write dispatch. No name/nearest-neighbour fallback was added.
+
+Working Area replacement, companion data/references, deletion/move/replacement Undo, viewport outlines, rounded-box highlight and component-copy selection remain unchanged. Automatic component/list opening and page selection remain; searches stay unchanged.
+
+Checks: 91 managed area/source-type assertions, 13 actual-source network adapter checks, 76 geometry projections, 1204 Phase 3 checks, 45 replacement Undo checks, 33 targeting UI assertions, row renderer/reveal, headings, header-focus checks and Release/UI builds passed. Managed doubles do not establish native visual success. NU1900 is the existing unavailable advisory-feed warning. Native confirmation requires selecting networks in Object Info and switching between distant/closed component rows while confirming page/scroll/rounded highlighting and accepted Undo/outlines.

@@ -72,6 +72,7 @@ namespace MW.EditorTools.Modules.ComponentManager.GameIntegration
                     var component = prefab.components[i];
                     rows.Add(new ComponentRow {
                         index = i,
+                        fields = CopyFields(component,prefab),
                         valid = component != null,
                         sectionId = component != null && headings.TryGetValue(component, out var heading) ? heading : "",
                         typeName = component == null ? "Missing component reference" : component.GetType().FullName,
@@ -82,6 +83,11 @@ namespace MW.EditorTools.Modules.ComponentManager.GameIntegration
             result.components = rows.ToArray();
             result.status = "Copy from the source, select a destination, choose a mode and paste.";
             return result;
+        }
+        private static string[] CopyFields(ComponentBase component,PrefabBase prefab) {
+            if(component==null)return new string[0];
+            try { return MW.EditorTools.Modules.ComponentManager.Transfer.Adapters.For(component.GetType())?.CopyFieldNames??new string[0];
+            }catch(System.NotSupportedException){return new string[0];}
         }
     }
 }

@@ -1,0 +1,37 @@
+Game.Net.ParkingLane
+Unity.Entities.Entity Game.Net.ParkingLane::m_AccessRestriction
+Game.Pathfind.PathNode Game.Net.ParkingLane::m_AdditionalStartNode
+Game.Net.ParkingLaneFlags Game.Net.ParkingLane::m_Flags
+System.Single Game.Net.ParkingLane::m_FreeSpace
+System.UInt16 Game.Net.ParkingLane::m_ParkingFee
+System.UInt16 Game.Net.ParkingLane::m_ComfortFactor
+System.UInt16 Game.Net.ParkingLane::m_TaxiAvailability
+System.UInt16 Game.Net.ParkingLane::m_TaxiFee
+Game.Net.GarageLane
+System.UInt16 Game.Net.GarageLane::m_ParkingFee
+System.UInt16 Game.Net.GarageLane::m_ComfortFactor
+System.UInt16 Game.Net.GarageLane::m_VehicleCount
+System.UInt16 Game.Net.GarageLane::m_VehicleCapacity
+Game.Net.CarLane
+Unity.Entities.Entity Game.Net.CarLane::m_AccessRestriction
+Game.Net.CarLaneFlags Game.Net.CarLane::m_Flags
+System.Single Game.Net.CarLane::m_DefaultSpeedLimit
+System.Single Game.Net.CarLane::m_SpeedLimit
+System.Single Game.Net.CarLane::m_Curviness
+System.UInt16 Game.Net.CarLane::m_CarriagewayGroup
+System.Byte Game.Net.CarLane::m_BlockageStart
+System.Byte Game.Net.CarLane::m_BlockageEnd
+System.Byte Game.Net.CarLane::m_CautionStart
+System.Byte Game.Net.CarLane::m_CautionEnd
+System.Byte Game.Net.CarLane::m_FlowOffset
+System.Byte Game.Net.CarLane::m_LaneCrossCount
+Game.Net.PedestrianLane
+Unity.Entities.Entity Game.Net.PedestrianLane::m_AccessRestriction
+Game.Net.PedestrianLaneFlags Game.Net.PedestrianLane::m_Flags
+Game.Net.SlaveLane
+Game.Net.SlaveLaneFlags Game.Net.SlaveLane::m_Flags
+System.UInt32 Game.Net.SlaveLane::m_Group
+System.UInt16 Game.Net.SlaveLane::m_MinIndex
+System.UInt16 Game.Net.SlaveLane::m_MaxIndex
+System.UInt16 Game.Net.SlaveLane::m_SubIndex
+System.UInt16 Game.Net.SlaveLane::m_MasterIndex

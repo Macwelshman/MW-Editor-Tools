@@ -1,0 +1,1 @@
+PASS: 1167 Phase 3 snapshot/history assertions. No Unity native or ECS regeneration test performed.

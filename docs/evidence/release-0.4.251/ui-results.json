@@ -1,0 +1,92 @@
+[
+  {
+    "Suite": "ui-colours-render.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: ungenerated draft protection check."
+  },
+  {
+    "Suite": "ui-component-headings.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: exact unique heading mapping, selection/copy, stale/absent context, native controls, event isolation and keyboard selection."
+  },
+  {
+    "Suite": "ui-components-render.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: compact component panel, one-click paste, modes, restore, empty clipboard gating and persistent result information."
+  },
+  {
+    "Suite": "ui-header-focus.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: original header focus conflict reproduced; navigation group accepts Undo/Close and unregisters exact keys without mismatch."
+  },
+  {
+    "Suite": "ui-launcher-lifecycle.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: actual launcher hook lifecycle; developer-menu frozen/hidden layout, 80 transitions, coalescing, remount and cleanup without update recursion."
+  },
+  {
+    "Suite": "ui-launcher-position.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: 12 launcher placement checks."
+  },
+  {
+    "Suite": "ui-launcher-render.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: launcher visibility, transparent button, anchor and open/close dispatch."
+  },
+  {
+    "Suite": "ui-multisave-render.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: 28 actual Multi-Save presentation/command checks; native appearance pending."
+  },
+  {
+    "Suite": "ui-pack-editor.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: separate locale actions, eligible workspace choices, explicit numbering preview, token apply and changed-input invalidation."
+  },
+  {
+    "Suite": "ui-panel-position.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: content-sized shared height and internal overflow regression checks."
+  },
+  {
+    "Suite": "ui-panel-resize.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: native forwarded ref, delayed mount, visible fallback, cancellation, pixel position, tab resize, drag and persistence checks."
+  },
+  {
+    "Suite": "ui-recovery-render.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: four compact tabs, shared header Undo and no persistent recovery transcript."
+  },
+  {
+    "Suite": "ui-row-reveal.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: delayed mount, animated ancestor layout, header-only scrolling, final positioning, bounded hidden wait and selection cancellation."
+  },
+  {
+    "Suite": "ui-selective-fields.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: selective field UI, Group/Priority preset, field toggle payload, hidden thumbnail and asset-token isolation."
+  },
+  {
+    "Suite": "ui-settings-render.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: Settings tab and moved switches absent with active settings on or off."
+  },
+  {
+    "Suite": "ui-tab-error-boundary.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: healthy tab rendering, local failure fallback/diagnostics, accessible header/tab isolation and no browser-only select."
+  },
+  {
+    "Suite": "ui-targeting-render.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: 33 targeting UI and authoritative clipboard dispatch assertions."
+  },
+  {
+    "Suite": "ui-viewport-row-highlight.cjs",
+    "ExitCode": 0,
+    "Summary": "PASS: exact native row/path matching, duplicate names, open-only page reveal, automatic selected-list opening and search preservation, scroll without focus changes."
+  }
+]

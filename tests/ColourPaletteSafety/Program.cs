@@ -30,16 +30,16 @@ class Tests
         Reject(delegate { Palette.Generate("#FFFFFF #FFFFFF", string.Join("\n", new string[2049]).Replace("\n", "#000000\n") + "#000000", identity); }, "Size limit");
         int invalidations=0,blocks=0;
         Action invalidate=()=>invalidations++;
-        foreach(var action in new[]{"open","close","capture","target","copy","paste","cancel","load","group","preview","page"}){
+        foreach(var action in new[]{"open","close","capture","target","copy","cancel","load","group","preview","page"}){
             ColourWriteGate.Before(action,()=>{blocks++;return "busy";},invalidate);
             Check(blocks==0&&invalidations==0,"read-only palette commands preserve recovery history: "+action);
         }
-        foreach(var action in new[]{"apply","confirm","undo"}) {
+        foreach(var action in new[]{"apply","paste","confirm","undo","reset"}) {
             bool refused=false;try{ColourWriteGate.Before(action,()=>"Saving",invalidate);}catch(InvalidOperationException){refused=true;}
             Check(refused&&invalidations==0,"busy native mutation blocked before invalidation: "+action);
         }
-        foreach(var action in new[]{"apply","confirm","undo"})ColourWriteGate.Before(action,()=>null,invalidate);
-        Check(invalidations==3,"each successful colour mutation invalidates unrelated recovery history once");
+        foreach(var action in new[]{"apply","paste","confirm","undo","reset"})ColourWriteGate.Before(action,()=>null,invalidate);
+        Check(invalidations==5,"each successful colour mutation invalidates unrelated recovery history once");
         Console.WriteLine("PASS: " + count + " palette checks");
     }
 }

@@ -1,0 +1,575 @@
+System.Void Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::CreateSubNet(Unity.Entities.Entity,Unity.Entities.Entity,Colossal.Mathematics.Bezier4x3,Unity.Mathematics.int2,Unity.Mathematics.int2,Game.Prefabs.CompositionFlags,Unity.Collections.NativeList`1<Unity.Mathematics.float4>,Game.Objects.Transform,Game.Tools.OwnerDefinition,Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>,Game.Buildings.BuildingUtils/LotInfo,System.Boolean,System.Boolean,Unity.Mathematics.Random&)
+V_0
+V_1
+V_2
+V_3
+V_4
+V_5
+V_6
+V_7
+V_8
+V_9
+V_10
+V_11
+V_12
+V_13
+V_14
+V_15
+V_16
+V_17
+V_18
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_PrefabNetGeometryData
+IL_0006: ldarg.1
+IL_0007: ldloca.s V_0
+IL_0009: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_000e: pop
+IL_000f: ldloca.s V_1
+IL_0011: initobj Game.Tools.CreationDefinition
+IL_0017: ldloca.s V_1
+IL_0019: ldarg.1
+IL_001a: stfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Prefab
+IL_001f: ldloca.s V_1
+IL_0021: ldarg.2
+IL_0022: stfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_SubPrefab
+IL_0027: ldloca.s V_1
+IL_0029: ldarg.s random
+IL_002b: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0030: stfld System.Int32 Game.Tools.CreationDefinition::m_RandomSeed
+IL_0035: ldarg.s parentMesh
+IL_0037: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_003c: ldc.i4.0
+IL_003d: blt.s IL_004e
+IL_003f: ldarg.s parentMesh
+IL_0041: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_0046: ldc.i4.0
+IL_0047: clt
+IL_0049: ldc.i4.0
+IL_004a: ceq
+IL_004c: br.s IL_004f
+IL_004e: ldc.i4.0
+IL_004f: stloc.2
+IL_0050: ldloca.s V_3
+IL_0052: initobj Game.Tools.NetCourse
+IL_0058: ldloc.0
+IL_0059: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_005e: ldc.i4 33554432
+IL_0063: and
+IL_0064: brfalse.s IL_00c5
+IL_0066: ldarga.s curve
+IL_0068: ldloca.s V_7
+IL_006a: initobj Colossal.Mathematics.Bezier4x1
+IL_0070: ldloc.s V_7
+IL_0072: call System.Void Colossal.Mathematics.Bezier4x3::set_y(Colossal.Mathematics.Bezier4x1)
+IL_0077: ldloca.s V_8
+IL_0079: initobj Game.Net.Curve
+IL_007f: ldloca.s V_8
+IL_0081: ldarg.s parentTransform
+IL_0083: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0088: ldarg.s parentTransform
+IL_008a: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_008f: ldarg.3
+IL_0090: call Colossal.Mathematics.Bezier4x3 Game.Objects.ObjectUtils::LocalToWorld(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Colossal.Mathematics.Bezier4x3)
+IL_0095: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_009a: ldloc.s V_8
+IL_009c: stloc.s V_6
+IL_009e: ldloca.s V_3
+IL_00a0: ldloc.s V_6
+IL_00a2: ldc.i4.0
+IL_00a3: ldc.i4.0
+IL_00a4: ldc.i4.0
+IL_00a5: ldarg.0
+IL_00a6: ldflda Game.Simulation.TerrainHeightData Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_TerrainHeightData
+IL_00ab: ldarg.0
+IL_00ac: ldflda Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater> Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_WaterSurfaceData
+IL_00b1: call Game.Net.Curve Game.Net.NetUtils::AdjustPosition(Game.Net.Curve,System.Boolean,System.Boolean,System.Boolean,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&)
+IL_00b6: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00bb: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_00c0: br IL_02a5
+IL_00c5: ldloc.2
+IL_00c6: brtrue IL_028a
+IL_00cb: ldloca.s V_8
+IL_00cd: initobj Game.Net.Curve
+IL_00d3: ldloca.s V_8
+IL_00d5: ldarg.s parentTransform
+IL_00d7: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_00dc: ldarg.s parentTransform
+IL_00de: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_00e3: ldarg.3
+IL_00e4: call Colossal.Mathematics.Bezier4x3 Game.Objects.ObjectUtils::LocalToWorld(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Colossal.Mathematics.Bezier4x3)
+IL_00e9: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00ee: ldloc.s V_8
+IL_00f0: stloc.s V_9
+IL_00f2: ldarg.s parentMesh
+IL_00f4: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_00f9: ldc.i4.0
+IL_00fa: clt
+IL_00fc: ldc.i4.0
+IL_00fd: ceq
+IL_00ff: stloc.s V_10
+IL_0101: ldarg.s parentMesh
+IL_0103: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_0108: ldc.i4.0
+IL_0109: clt
+IL_010b: ldc.i4.0
+IL_010c: ceq
+IL_010e: stloc.s V_11
+IL_0110: ldloc.s V_10
+IL_0112: ldloc.s V_11
+IL_0114: or
+IL_0115: stloc.2
+IL_0116: ldloc.0
+IL_0117: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_011c: ldc.i4 131072
+IL_0121: and
+IL_0122: brfalse IL_01ea
+IL_0127: ldarg.s hasLot
+IL_0129: brfalse IL_01d7
+IL_012e: ldloca.s V_3
+IL_0130: ldloc.s V_9
+IL_0132: ldloc.s V_10
+IL_0134: call Unity.Mathematics.bool2 Unity.Mathematics.bool2::op_Implicit(System.Boolean)
+IL_0139: ldloc.2
+IL_013a: ldloc.s V_11
+IL_013c: call Unity.Mathematics.bool2 Unity.Mathematics.bool2::op_Implicit(System.Boolean)
+IL_0141: ldarga.s lotInfo
+IL_0143: call Game.Net.Curve Game.Net.NetUtils::AdjustPosition(Game.Net.Curve,Unity.Mathematics.bool2,System.Boolean,Unity.Mathematics.bool2,Game.Buildings.BuildingUtils/LotInfo&)
+IL_0148: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_014d: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0152: ldloca.s V_3
+IL_0154: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0159: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_015e: ldflda System.Single Unity.Mathematics.float3::y
+IL_0163: dup
+IL_0164: ldind.r4
+IL_0165: ldarg.3
+IL_0166: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_016b: ldfld System.Single Unity.Mathematics.float3::y
+IL_0170: add
+IL_0171: stind.r4
+IL_0172: ldloca.s V_3
+IL_0174: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0179: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_017e: ldflda System.Single Unity.Mathematics.float3::y
+IL_0183: dup
+IL_0184: ldind.r4
+IL_0185: ldarg.3
+IL_0186: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_018b: ldfld System.Single Unity.Mathematics.float3::y
+IL_0190: add
+IL_0191: stind.r4
+IL_0192: ldloca.s V_3
+IL_0194: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0199: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_019e: ldflda System.Single Unity.Mathematics.float3::y
+IL_01a3: dup
+IL_01a4: ldind.r4
+IL_01a5: ldarg.3
+IL_01a6: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_01ab: ldfld System.Single Unity.Mathematics.float3::y
+IL_01b0: add
+IL_01b1: stind.r4
+IL_01b2: ldloca.s V_3
+IL_01b4: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_01b9: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_01be: ldflda System.Single Unity.Mathematics.float3::y
+IL_01c3: dup
+IL_01c4: ldind.r4
+IL_01c5: ldarg.3
+IL_01c6: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_01cb: ldfld System.Single Unity.Mathematics.float3::y
+IL_01d0: add
+IL_01d1: stind.r4
+IL_01d2: br IL_02a5
+IL_01d7: ldloca.s V_3
+IL_01d9: ldloc.s V_9
+IL_01db: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_01e0: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_01e5: br IL_02a5
+IL_01ea: ldloca.s V_3
+IL_01ec: ldloc.s V_9
+IL_01ee: ldloc.s V_10
+IL_01f0: ldloc.2
+IL_01f1: ldloc.s V_11
+IL_01f3: ldarg.0
+IL_01f4: ldflda Game.Simulation.TerrainHeightData Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_TerrainHeightData
+IL_01f9: call Game.Net.Curve Game.Net.NetUtils::AdjustPosition(Game.Net.Curve,System.Boolean,System.Boolean,System.Boolean,Game.Simulation.TerrainHeightData&)
+IL_01fe: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0203: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0208: ldloca.s V_3
+IL_020a: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_020f: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0214: ldflda System.Single Unity.Mathematics.float3::y
+IL_0219: dup
+IL_021a: ldind.r4
+IL_021b: ldarg.3
+IL_021c: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0221: ldfld System.Single Unity.Mathematics.float3::y
+IL_0226: add
+IL_0227: stind.r4
+IL_0228: ldloca.s V_3
+IL_022a: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_022f: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0234: ldflda System.Single Unity.Mathematics.float3::y
+IL_0239: dup
+IL_023a: ldind.r4
+IL_023b: ldarg.3
+IL_023c: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0241: ldfld System.Single Unity.Mathematics.float3::y
+IL_0246: add
+IL_0247: stind.r4
+IL_0248: ldloca.s V_3
+IL_024a: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_024f: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0254: ldflda System.Single Unity.Mathematics.float3::y
+IL_0259: dup
+IL_025a: ldind.r4
+IL_025b: ldarg.3
+IL_025c: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0261: ldfld System.Single Unity.Mathematics.float3::y
+IL_0266: add
+IL_0267: stind.r4
+IL_0268: ldloca.s V_3
+IL_026a: ldflda Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_026f: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0274: ldflda System.Single Unity.Mathematics.float3::y
+IL_0279: dup
+IL_027a: ldind.r4
+IL_027b: ldarg.3
+IL_027c: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0281: ldfld System.Single Unity.Mathematics.float3::y
+IL_0286: add
+IL_0287: stind.r4
+IL_0288: br.s IL_02a5
+IL_028a: ldloca.s V_3
+IL_028c: ldarg.s parentTransform
+IL_028e: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0293: ldarg.s parentTransform
+IL_0295: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_029a: ldarg.3
+IL_029b: call Colossal.Mathematics.Bezier4x3 Game.Objects.ObjectUtils::LocalToWorld(Unity.Mathematics.float3,Unity.Mathematics.quaternion,Colossal.Mathematics.Bezier4x3)
+IL_02a0: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_02a5: ldloc.2
+IL_02a6: brfalse.s IL_02cb
+IL_02a8: ldarga.s curve
+IL_02aa: call Colossal.Mathematics.Bezier4x1 Colossal.Mathematics.Bezier4x3::get_y()
+IL_02af: stloc.s V_7
+IL_02b1: ldloca.s V_7
+IL_02b3: call Unity.Mathematics.float4 Colossal.Mathematics.Bezier4x1::get_abcd()
+IL_02b8: call Unity.Mathematics.float4 Unity.Mathematics.math::abs(Unity.Mathematics.float4)
+IL_02bd: call System.Single Unity.Mathematics.math::cmin(Unity.Mathematics.float4)
+IL_02c2: ldc.r4 2
+IL_02c7: clt
+IL_02c9: br.s IL_02cc
+IL_02cb: ldc.i4.1
+IL_02cc: stloc.s V_4
+IL_02ce: ldarg.s clearAreas
+IL_02d0: ldloc.3
+IL_02d1: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_02d6: ldloc.s V_4
+IL_02d8: call System.Boolean Game.Tools.ClearAreaHelpers::ShouldClear(Unity.Collections.NativeList`1<Game.Tools.ClearAreaData>,Colossal.Mathematics.Bezier4x3,System.Boolean)
+IL_02dd: brfalse.s IL_02e0
+IL_02df: ret
+IL_02e0: ldarg.s isStamping
+IL_02e2: brfalse.s IL_02f4
+IL_02e4: ldloca.s V_1
+IL_02e6: ldflda Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_02eb: dup
+IL_02ec: ldind.u4
+IL_02ed: ldc.i4 524288
+IL_02f2: or
+IL_02f3: stind.i4
+IL_02f4: ldarg.0
+IL_02f5: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_02fa: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer::CreateEntity()
+IL_02ff: stloc.s V_5
+IL_0301: ldarg.0
+IL_0302: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_0307: ldloc.s V_5
+IL_0309: ldloc.1
+IL_030a: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.CreationDefinition>(Unity.Entities.Entity,!!0)
+IL_030f: ldarg.0
+IL_0310: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_0315: ldloc.s V_5
+IL_0317: ldloca.s V_12
+IL_0319: initobj Game.Common.Updated
+IL_031f: ldloc.s V_12
+IL_0321: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.Updated>(Unity.Entities.Entity,!!0)
+IL_0326: ldarg.s ownerDefinition
+IL_0328: ldfld Unity.Entities.Entity Game.Tools.OwnerDefinition::m_Prefab
+IL_032d: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0332: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0337: brfalse.s IL_0348
+IL_0339: ldarg.0
+IL_033a: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_033f: ldloc.s V_5
+IL_0341: ldarg.s ownerDefinition
+IL_0343: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.OwnerDefinition>(Unity.Entities.Entity,!!0)
+IL_0348: ldloca.s V_3
+IL_034a: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_034f: ldloc.3
+IL_0350: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0355: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_035a: stfld Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_035f: ldloca.s V_3
+IL_0361: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_0366: ldloc.3
+IL_0367: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_036c: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::StartTangent(Colossal.Mathematics.Bezier4x3)
+IL_0371: ldarg.s parentTransform
+IL_0373: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0378: call Unity.Mathematics.quaternion Game.Net.NetUtils::GetNodeRotation(Unity.Mathematics.float3,Unity.Mathematics.quaternion)
+IL_037d: stfld Unity.Mathematics.quaternion Game.Tools.CoursePos::m_Rotation
+IL_0382: ldloca.s V_3
+IL_0384: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_0389: ldc.r4 0
+IL_038e: stfld System.Single Game.Tools.CoursePos::m_CourseDelta
+IL_0393: ldloca.s V_3
+IL_0395: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_039a: ldarg.3
+IL_039b: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_03a0: ldfld System.Single Unity.Mathematics.float3::y
+IL_03a5: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Implicit(System.Single)
+IL_03aa: stfld Unity.Mathematics.float2 Game.Tools.CoursePos::m_Elevation
+IL_03af: ldloca.s V_3
+IL_03b1: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_03b6: ldarg.s parentMesh
+IL_03b8: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_03bd: stfld System.Int32 Game.Tools.CoursePos::m_ParentMesh
+IL_03c2: ldarg.s nodeIndex
+IL_03c4: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_03c9: ldc.i4.0
+IL_03ca: blt IL_046e
+IL_03cf: ldloc.0
+IL_03d0: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_03d5: ldc.i4 33554432
+IL_03da: and
+IL_03db: brfalse.s IL_0444
+IL_03dd: ldloca.s V_3
+IL_03df: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_03e4: ldflda Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_03e9: ldarg.s parentTransform
+IL_03eb: ldarga.s nodePositions
+IL_03ed: ldarg.s nodeIndex
+IL_03ef: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_03f4: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_03f9: stloc.s V_13
+IL_03fb: ldloca.s V_13
+IL_03fd: call Unity.Mathematics.float3 Unity.Mathematics.float4::get_xyz()
+IL_0402: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0407: stloc.s V_14
+IL_0409: ldloca.s V_14
+IL_040b: call Unity.Mathematics.float2 Unity.Mathematics.float3::get_xz()
+IL_0410: call System.Void Unity.Mathematics.float3::set_xz(Unity.Mathematics.float2)
+IL_0415: ldloca.s V_3
+IL_0417: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_041c: ldflda Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_0421: ldarg.0
+IL_0422: ldflda Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater> Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_WaterSurfaceData
+IL_0427: ldarg.0
+IL_0428: ldflda Game.Simulation.TerrainHeightData Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_TerrainHeightData
+IL_042d: ldloc.3
+IL_042e: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_0433: ldfld Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_0438: call System.Single Game.Simulation.WaterUtils::SampleHeight(Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&,Game.Simulation.TerrainHeightData&,Unity.Mathematics.float3)
+IL_043d: stfld System.Single Unity.Mathematics.float3::y
+IL_0442: br.s IL_046e
+IL_0444: ldloca.s V_3
+IL_0446: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_044b: ldarg.s parentTransform
+IL_044d: ldarga.s nodePositions
+IL_044f: ldarg.s nodeIndex
+IL_0451: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0456: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_045b: stloc.s V_13
+IL_045d: ldloca.s V_13
+IL_045f: call Unity.Mathematics.float3 Unity.Mathematics.float4::get_xyz()
+IL_0464: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0469: stfld Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_046e: ldloca.s V_3
+IL_0470: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0475: ldloc.3
+IL_0476: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_047b: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0480: stfld Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_0485: ldloca.s V_3
+IL_0487: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_048c: ldloc.3
+IL_048d: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_0492: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::EndTangent(Colossal.Mathematics.Bezier4x3)
+IL_0497: ldarg.s parentTransform
+IL_0499: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_049e: call Unity.Mathematics.quaternion Game.Net.NetUtils::GetNodeRotation(Unity.Mathematics.float3,Unity.Mathematics.quaternion)
+IL_04a3: stfld Unity.Mathematics.quaternion Game.Tools.CoursePos::m_Rotation
+IL_04a8: ldloca.s V_3
+IL_04aa: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_04af: ldc.r4 1
+IL_04b4: stfld System.Single Game.Tools.CoursePos::m_CourseDelta
+IL_04b9: ldloca.s V_3
+IL_04bb: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_04c0: ldarg.3
+IL_04c1: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_04c6: ldfld System.Single Unity.Mathematics.float3::y
+IL_04cb: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Implicit(System.Single)
+IL_04d0: stfld Unity.Mathematics.float2 Game.Tools.CoursePos::m_Elevation
+IL_04d5: ldloca.s V_3
+IL_04d7: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_04dc: ldarg.s parentMesh
+IL_04de: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_04e3: stfld System.Int32 Game.Tools.CoursePos::m_ParentMesh
+IL_04e8: ldarg.s nodeIndex
+IL_04ea: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_04ef: ldc.i4.0
+IL_04f0: blt IL_0594
+IL_04f5: ldloc.0
+IL_04f6: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_04fb: ldc.i4 33554432
+IL_0500: and
+IL_0501: brfalse.s IL_056a
+IL_0503: ldloca.s V_3
+IL_0505: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_050a: ldflda Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_050f: ldarg.s parentTransform
+IL_0511: ldarga.s nodePositions
+IL_0513: ldarg.s nodeIndex
+IL_0515: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_051a: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_051f: stloc.s V_13
+IL_0521: ldloca.s V_13
+IL_0523: call Unity.Mathematics.float3 Unity.Mathematics.float4::get_xyz()
+IL_0528: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_052d: stloc.s V_14
+IL_052f: ldloca.s V_14
+IL_0531: call Unity.Mathematics.float2 Unity.Mathematics.float3::get_xz()
+IL_0536: call System.Void Unity.Mathematics.float3::set_xz(Unity.Mathematics.float2)
+IL_053b: ldloca.s V_3
+IL_053d: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0542: ldflda Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_0547: ldarg.0
+IL_0548: ldflda Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater> Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_WaterSurfaceData
+IL_054d: ldarg.0
+IL_054e: ldflda Game.Simulation.TerrainHeightData Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_TerrainHeightData
+IL_0553: ldloc.3
+IL_0554: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0559: ldfld Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_055e: call System.Single Game.Simulation.WaterUtils::SampleHeight(Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&,Game.Simulation.TerrainHeightData&,Unity.Mathematics.float3)
+IL_0563: stfld System.Single Unity.Mathematics.float3::y
+IL_0568: br.s IL_0594
+IL_056a: ldloca.s V_3
+IL_056c: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0571: ldarg.s parentTransform
+IL_0573: ldarga.s nodePositions
+IL_0575: ldarg.s nodeIndex
+IL_0577: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_057c: call !0 Unity.Collections.NativeList`1<Unity.Mathematics.float4>::get_Item(System.Int32)
+IL_0581: stloc.s V_13
+IL_0583: ldloca.s V_13
+IL_0585: call Unity.Mathematics.float3 Unity.Mathematics.float4::get_xyz()
+IL_058a: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_058f: stfld Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_0594: ldloca.s V_3
+IL_0596: ldloc.3
+IL_0597: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_059c: call System.Single Colossal.Mathematics.MathUtils::Length(Colossal.Mathematics.Bezier4x3)
+IL_05a1: stfld System.Single Game.Tools.NetCourse::m_Length
+IL_05a6: ldloca.s V_3
+IL_05a8: ldc.i4.m1
+IL_05a9: stfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_05ae: ldloca.s V_3
+IL_05b0: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_05b5: ldflda Game.Tools.CoursePosFlags Game.Tools.CoursePos::m_Flags
+IL_05ba: dup
+IL_05bb: ldind.u4
+IL_05bc: ldc.i4.1
+IL_05bd: or
+IL_05be: stind.i4
+IL_05bf: ldloca.s V_3
+IL_05c1: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_05c6: ldflda Game.Tools.CoursePosFlags Game.Tools.CoursePos::m_Flags
+IL_05cb: dup
+IL_05cc: ldind.u4
+IL_05cd: ldc.i4.2
+IL_05ce: or
+IL_05cf: stind.i4
+IL_05d0: ldloca.s V_3
+IL_05d2: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_05d7: ldflda Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_05dc: ldloc.3
+IL_05dd: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_05e2: ldfld Unity.Mathematics.float3 Game.Tools.CoursePos::m_Position
+IL_05e7: call System.Boolean Unity.Mathematics.float3::Equals(Unity.Mathematics.float3)
+IL_05ec: brfalse.s IL_0610
+IL_05ee: ldloca.s V_3
+IL_05f0: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_05f5: ldflda Game.Tools.CoursePosFlags Game.Tools.CoursePos::m_Flags
+IL_05fa: dup
+IL_05fb: ldind.u4
+IL_05fc: ldc.i4.2
+IL_05fd: or
+IL_05fe: stind.i4
+IL_05ff: ldloca.s V_3
+IL_0601: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0606: ldflda Game.Tools.CoursePosFlags Game.Tools.CoursePos::m_Flags
+IL_060b: dup
+IL_060c: ldind.u4
+IL_060d: ldc.i4.1
+IL_060e: or
+IL_060f: stind.i4
+IL_0610: ldarg.s ownerDefinition
+IL_0612: ldfld Unity.Entities.Entity Game.Tools.OwnerDefinition::m_Prefab
+IL_0617: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_061c: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0621: brfalse.s IL_064d
+IL_0623: ldloca.s V_3
+IL_0625: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_062a: ldflda Game.Tools.CoursePosFlags Game.Tools.CoursePos::m_Flags
+IL_062f: dup
+IL_0630: ldind.u4
+IL_0631: ldc.i4 128
+IL_0636: or
+IL_0637: stind.i4
+IL_0638: ldloca.s V_3
+IL_063a: ldflda Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_063f: ldflda Game.Tools.CoursePosFlags Game.Tools.CoursePos::m_Flags
+IL_0644: dup
+IL_0645: ldind.u4
+IL_0646: ldc.i4 128
+IL_064b: or
+IL_064c: stind.i4
+IL_064d: ldarg.0
+IL_064e: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_0653: ldloc.s V_5
+IL_0655: ldloc.3
+IL_0656: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.NetCourse>(Unity.Entities.Entity,!!0)
+IL_065b: ldarg.s upgrades
+IL_065d: ldloca.s V_15
+IL_065f: initobj Game.Prefabs.CompositionFlags
+IL_0665: ldloc.s V_15
+IL_0667: call System.Boolean Game.Prefabs.CompositionFlags::op_Inequality(Game.Prefabs.CompositionFlags,Game.Prefabs.CompositionFlags)
+IL_066c: brfalse.s IL_0692
+IL_066e: ldloca.s V_17
+IL_0670: initobj Game.Net.Upgraded
+IL_0676: ldloca.s V_17
+IL_0678: ldarg.s upgrades
+IL_067a: stfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_067f: ldloc.s V_17
+IL_0681: stloc.s V_16
+IL_0683: ldarg.0
+IL_0684: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_0689: ldloc.s V_5
+IL_068b: ldloc.s V_16
+IL_068d: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Net.Upgraded>(Unity.Entities.Entity,!!0)
+IL_0692: ldarg.0
+IL_0693: ldfld System.Boolean Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_EditorMode
+IL_0698: brfalse.s IL_06b9
+IL_069a: ldloca.s V_18
+IL_069c: initobj Game.Tools.LocalCurveCache
+IL_06a2: ldloca.s V_18
+IL_06a4: ldarg.3
+IL_06a5: stfld Colossal.Mathematics.Bezier4x3 Game.Tools.LocalCurveCache::m_Curve
+IL_06aa: ldarg.0
+IL_06ab: ldflda Unity.Entities.EntityCommandBuffer Game.Tools.ObjectToolBaseSystem/CreateDefinitionsJob::m_CommandBuffer
+IL_06b0: ldloc.s V_5
+IL_06b2: ldloc.s V_18
+IL_06b4: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Tools.LocalCurveCache>(Unity.Entities.Entity,!!0)
+IL_06b9: ret

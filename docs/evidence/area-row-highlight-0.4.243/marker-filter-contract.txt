@@ -1,0 +1,23 @@
+Game.Areas.Navigation : verified zero instance fields
+Game.Areas.HangaroundLocation : verified zero instance fields
+Unity.Entities.Entity Game.Net.SubLane::m_SubLane
+Game.Pathfind.PathMethod Game.Net.SubLane::m_PathMethods
+System.Int32 Game.UI.Widgets.ListAdapterBase`1::ResolveIndex(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.ListAdapterBase`1<T>::m_FilteredIndices
+IL_0006: brfalse.s IL_001a
+IL_0008: ldarg.1
+IL_0009: ldc.i4.0
+IL_000a: blt.s IL_001a
+IL_000c: ldarg.1
+IL_000d: ldarg.0
+IL_000e: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.ListAdapterBase`1<T>::m_FilteredIndices
+IL_0013: callvirt System.Int32 System.Collections.Generic.List`1<System.Int32>::get_Count()
+IL_0018: blt.s IL_001c
+IL_001a: ldarg.1
+IL_001b: ret
+IL_001c: ldarg.0
+IL_001d: ldfld System.Collections.Generic.List`1<System.Int32> Game.UI.Widgets.ListAdapterBase`1<T>::m_FilteredIndices
+IL_0022: ldarg.1
+IL_0023: callvirt !0 System.Collections.Generic.List`1<System.Int32>::get_Item(System.Int32)
+IL_0028: ret

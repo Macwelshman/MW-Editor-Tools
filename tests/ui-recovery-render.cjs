@@ -11,6 +11,9 @@ const button=({children,onSelect,theme,selected,focusKey,disableHint,...props})=
 const exported={};
 const code=ts.transpileModule(fs.readFileSync(path.join(ui,'src/index.tsx'),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.React,esModuleInterop:true}}).outputText;
 vm.runInNewContext(code,{exports:exported,require:name=>{
+  if(name==='./viewport-row-highlight')return {registerViewportRowHighlight:()=>{}};
+  if(name==='./editor-tools-state')return {editorToolsState:{group:'mwEditorTools',key:'state'}};
+  if(name==='./tab-error-boundary')return {TabErrorBoundary:({children})=>children};
   if(name==='./component-headings')return {registerComponentHeadings:()=>{}};
   if(name==='./assets/mw-editor-tools.png')return 'icon.png';
   if(name==='./launcher-position')return {};
@@ -22,7 +25,7 @@ vm.runInNewContext(code,{exports:exported,require:name=>{
   if(name==='./colours/window') return {ColourVariationsContent:()=>React.createElement('div',null,'Colours content')};
     if(name==='./components') return {ComponentsContent:()=>React.createElement('div',null,'Components content')};
     if(name==='./prop-replacer') return {PropReplacerContent:()=>React.createElement('div',null,'Prop Replacer content')};
-    if(name==='./multi-save') return {MultiSaveContent:()=>React.createElement('div',null,'Multi-Save content')};
+    if(name==='./multi-save') return {registerWorkspaceSaveAll:()=>{},MultiSaveContent:()=>React.createElement('div',null,'Multi-Save content')};
     if(name==='./style.scss')return {};
   throw new Error('Unexpected import '+name);
 },setTimeout,clearTimeout,setInterval,clearInterval});

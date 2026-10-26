@@ -1,0 +1,2 @@
+C:\Users\ian\Documents\Development\MW Editor Tools\tests\ComponentTransferSafety\ExtraStubs.cs(11,123): warning CS0414: The field 'PrivateSettings.setting' is assigned but its value is never used [C:\Users\ian\Documents\Development\MW Editor Tools\tests\ComponentTransferSafety\ComponentTransferSafety.csproj]
+PASS: 98 actual-source component transfer checks (managed doubles; native editor acceptance pending).

@@ -1,0 +1,7 @@
+0.4.209 managed validation:
+Phase3Safety755 PASS. Saved 0.4.208 binary refuses the complete repurposed connection regression; corrected mapper accepts it.
+BoundCompletionSafety77 PASS; SpawnAccessSafety55 PASS; EffectUndoSafety41 PASS; EffectRestoreSafety35 PASS; BoundFoliageSafety25 PASS; AreaMoveSafety97 PASS; MoveUndoSafety38 PASS.
+Total1123 PASS. Native ECS/rendering acceptance unproven.
+Release build PASS (zero errors, existing NU1900 vulnerability-feed availability warning).
+UI production build PASS.
+Game.dll hash rechecked and unchanged: AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A.

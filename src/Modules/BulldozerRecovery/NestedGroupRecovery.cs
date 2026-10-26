@@ -62,7 +62,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             return result.ToArray();
         }
         private void BeginNestedGroup(BulldozeToolSystem tool){
-            nestedBefore=null;nestedReferences=null;capturedRootTypes=null;
+            ClearBoundCapture();nestedBefore=null;nestedReferences=null;capturedRootTypes=null;
             if(tool.actualMode!=BulldozeToolSystem.Mode.Everything && tool.actualMode!=BulldozeToolSystem.Mode.SubElements)throw new NotSupportedException("Bound prop Undo requires Sub-elements or Everything mode.");
             var declared=TargetRoot?.GetComponent<ObjectSubObjects>()?.m_SubObjects;
             if(declared==null||declared.Any(value=>value?.m_Object is ObjectPrefab&&(value.m_Object.GetComponent<ObjectSubObjects>()?.m_SubObjects?.Length??0)>0&&!AdoptedNestedTypes.Any(prefab=>ReferenceEquals(prefab,value.m_Object))))throw new NotSupportedException("Nested prop types changed after enabling Undo. Clear history and enable again before testing this asset.");
@@ -81,6 +81,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             var references=(forestBefore??new[]{image}).SelectMany(GroupReferences).Distinct().ToDictionary(prefab=>prefab,Capture);foreach(var pair in references)Mod.Log.Info("Nested external reference captured: "+pair.Key.name+" readOnly="+pair.Key.isReadOnly+" matches="+NestedReferenceMatches(pair.Key,pair.Value));
             if(references.Values.Sum(value=>value.Weight)>250000)throw new NotSupportedException("Nested reference payload exceeds budget.");
             nestedBefore=image;nestedReferences=references;capturedRootTypes=NestedRootTypes.Copy(rootTypes);
+            if(forestBefore!=null)boundBefore=CaptureBoundCompanions(observedOwner,nestedBefore.Any(n=>n.SpawnAccess.Present));
         }
         // Referenced prefabs are never written; read-only originals are valid external identities.
         private static bool NestedReferenceMatches(PrefabBase asset,Payload image)=>asset!=null&&asset.components.Count==image.Components.Length&&asset.components.Zip(image.Components,(a,b)=>a!=null&&ReferenceEquals(a,b)).All(value=>value)&&image.Components.Select((component,i)=>component.active==image.Active[i]).All(value=>value)&&image.Fields.All(field=>field.Data.ReferencesValid&&field.Data.Matches(field.Field.GetValue(field.Owner)));
@@ -95,11 +96,11 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             var retained=forestBefore!=null?original.Where((value,index)=>index!=descriptor).ToArray():original.Where(value=>!ReferenceEquals(value.m_Object,nestedBefore[0].Prefab)).ToArray();
             var actual=after.Values.ContainsKey(key)?(ObjectSubObjectInfo[])after.Values[key].Materialize():Array.Empty<ObjectSubObjectInfo>();
             bool entries=DescriptorPermutation.Matches(retained,actual);
-            var changed=before.Values.Where(pair=>pair.Key!=key&&(!after.Values.ContainsKey(pair.Key)||!pair.Value.Matches(after.Values[pair.Key].Materialize()))).Select(pair=>pair.Key).ToArray();
+            var changed=before.Fields.Where(field=>field.Owner.GetType().Name+"."+field.Field.Name!=key&&!AreaAncillaryMatches(field)).Select(field=>field.Owner.GetType().Name+"."+field.Field.Name).ToArray();
             if(!entries||changed.Length!=0){
                 Mod.Log.Info("Nested removal refused: retained entries match="+entries+" expected="+retained.Length+" actual="+actual.Length+" other changed fields="+string.Join(",",changed));
                 int reported=0;
-                for(int i=0;i<Math.Min(retained.Length,actual.Length)&&reported<8;i++){
+                for(int i=0;!entries&&i<Math.Min(retained.Length,actual.Length)&&reported<8;i++){
                     if(MW.EditorTools.History.PrefabSnapshot.Take(retained[i]).Matches(actual[i]))continue;
                     reported++;
                     foreach(var field in typeof(ObjectSubObjectInfo).GetFields(System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Instance)){

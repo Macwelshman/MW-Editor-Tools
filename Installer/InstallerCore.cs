@@ -16,7 +16,7 @@ namespace MWEditorToolsInstaller {
         internal int Files;
     }
     internal static class InstallerCore {
-        internal const string Version="0.4.180";
+        internal const string Version="0.4.251";
         internal static string DefaultDestination {
             get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),@"AppData\LocalLow\Colossal Order\Cities Skylines II\Mods\MWEditorTools"); }
         }
@@ -46,7 +46,7 @@ namespace MWEditorToolsInstaller {
             ValidatePayload(result.ToArray());return result.ToArray();
         }
         private static void ValidatePayload(PayloadFile[] files) {
-            var expected=new[]{"MW.EditorTools.dll","MW.EditorTools.mjs","MW.EditorTools.css","0Harmony.dll","USER_MANUAL.md","USER_MANUAL.pdf","THIRD_PARTY_NOTICES.md","RELEASE_NOTES.md","INSTALL.txt"};
+            var expected=new[]{"MW.EditorTools.dll","MW.EditorTools.mjs","MW.EditorTools.css","0Harmony.dll","USER_MANUAL.md","USER_MANUAL.pdf","THIRD_PARTY_NOTICES.md","RELEASE_NOTES.md","INSTALL.txt","manual-replacer.png","manual-components.png","manual-fields.png","manual-priorities.png","manual-localisation.png","manual-colours.png","manual-multisave.png","manual-options.png"};
             if(files==null||files.Length!=expected.Length||files.Select(f=>f.Name).Distinct(StringComparer.OrdinalIgnoreCase).Count()!=expected.Length||expected.Except(files.Select(f=>f.Name),StringComparer.Ordinal).Any())throw new InvalidOperationException("Unexpected installer payload.");
             foreach(var file in files)if(file.Bytes==null||!String.Equals(Hash(file.Bytes),file.Hash,StringComparison.OrdinalIgnoreCase))throw new InvalidOperationException("Payload checksum failed: "+file.Name);
         }

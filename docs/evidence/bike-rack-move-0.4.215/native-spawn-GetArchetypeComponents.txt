@@ -1,0 +1,14 @@
+System.Void Game.Prefabs.SpawnLocation::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.1
+IL_0001: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Objects.SpawnLocation>()
+IL_0006: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_000b: pop
+IL_000c: ldarg.0
+IL_000d: ldfld Game.Prefabs.RouteConnectionType Game.Prefabs.SpawnLocation::m_ConnectionType
+IL_0012: ldc.i4.5
+IL_0013: bne.un.s IL_0021
+IL_0015: ldarg.1
+IL_0016: call Unity.Entities.ComponentType Unity.Entities.ComponentType::ReadWrite<Game.Routes.TakeoffLocation>()
+IL_001b: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Add(!0)
+IL_0020: pop
+IL_0021: ret

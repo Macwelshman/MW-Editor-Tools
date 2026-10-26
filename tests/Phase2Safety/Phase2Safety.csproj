@@ -6,6 +6,8 @@
   <ItemGroup>
     <Compile Include="../../src/Modules/DeletionProtection/ConfirmationGate.cs" Link="ConfirmationGate.cs" />
     <Compile Include="../../src/Core/DeletionPatchPolicy.cs" Link="DeletionPatchPolicy.cs" />
+    <Compile Include="../../src/Core/PatchConflictMonitor.cs" Link="PatchConflictMonitor.cs" />
+    <Compile Include="../../src/Modules/BulldozerRecovery/RecoveryPatchCompatibility.cs" Link="RecoveryPatchCompatibility.cs" />
     <PackageReference Include="Lib.Harmony" Version="2.4.2" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,472 @@
+TYPE Game.Tools.SelectionToolSystem
+System.Boolean Game.Tools.SelectionToolSystem::<requestSelectionUpdate>k__BackingField
+Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_SelectionEntity
+Unity.Entities.EntityArchetype Game.Tools.SelectionToolSystem::m_SelectionArchetype
+Game.Input.IProxyAction Game.Tools.SelectionToolSystem::m_SelectArea
+Game.Input.IProxyAction Game.Tools.SelectionToolSystem::m_DiscardSelect
+METHOD Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::OnUpdate(Unity.Jobs.JobHandle)
+IL_0000: ldarg.0
+IL_0001: call System.Boolean Game.Tools.SelectionToolSystem::get_requestSelectionUpdate()
+IL_0006: brtrue.s IL_003e
+IL_0008: ldarg.0
+IL_0009: ldfld Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_LastOwner
+IL_000e: ldarg.0
+IL_000f: call Unity.Entities.Entity Game.Tools.SelectionToolSystem::get_selectionOwner()
+IL_0014: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0019: brtrue.s IL_003e
+IL_001b: ldarg.0
+IL_001c: ldfld Game.Tools.SelectionType Game.Tools.SelectionToolSystem::m_LastType
+IL_0021: ldarg.0
+IL_0022: call Game.Tools.SelectionType Game.Tools.SelectionToolSystem::get_selectionType()
+IL_0027: bne.un.s IL_003e
+IL_0029: ldarg.0
+IL_002a: ldfld Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_SelectionEntity
+IL_002f: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0034: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0039: brfalse IL_011e
+IL_003e: ldarg.0
+IL_003f: ldfld Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_SelectionEntity
+IL_0044: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0049: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_004e: brfalse.s IL_0064
+IL_0050: ldarg.0
+IL_0051: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0056: stloc.1
+IL_0057: ldloca.s V_1
+IL_0059: ldarg.0
+IL_005a: ldfld Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_SelectionEntity
+IL_005f: call System.Void Unity.Entities.EntityManager::DestroyEntity(Unity.Entities.Entity)
+IL_0064: ldarg.0
+IL_0065: ldarg.0
+IL_0066: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_006b: stloc.1
+IL_006c: ldloca.s V_1
+IL_006e: ldarg.0
+IL_006f: ldfld Unity.Entities.EntityArchetype Game.Tools.SelectionToolSystem::m_SelectionArchetype
+IL_0074: call Unity.Entities.Entity Unity.Entities.EntityManager::CreateEntity(Unity.Entities.EntityArchetype)
+IL_0079: stfld Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_SelectionEntity
+IL_007e: ldloca.s V_0
+IL_0080: ldarg.0
+IL_0081: call Game.Tools.SelectionType Game.Tools.SelectionToolSystem::get_selectionType()
+IL_0086: stfld Game.Tools.SelectionType Game.Tools.SelectionInfo::m_SelectionType
+IL_008b: ldloca.s V_0
+IL_008d: ldarg.0
+IL_008e: ldarg.0
+IL_008f: call Game.Tools.SelectionType Game.Tools.SelectionToolSystem::get_selectionType()
+IL_0094: call Game.Areas.AreaType Game.Tools.SelectionToolSystem::GetAreaType(Game.Tools.SelectionType)
+IL_0099: stfld Game.Areas.AreaType Game.Tools.SelectionInfo::m_AreaType
+IL_009e: ldarg.0
+IL_009f: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00a4: stloc.1
+IL_00a5: ldloca.s V_1
+IL_00a7: ldarg.0
+IL_00a8: ldfld Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_SelectionEntity
+IL_00ad: ldloc.0
+IL_00ae: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Tools.SelectionInfo>(Unity.Entities.Entity,!!0)
+IL_00b3: ldarg.0
+IL_00b4: call Unity.Entities.Entity Game.Tools.SelectionToolSystem::get_selectionOwner()
+IL_00b9: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00be: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00c3: brfalse.s IL_00e5
+IL_00c5: ldarg.0
+IL_00c6: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00cb: stloc.1
+IL_00cc: ldloca.s V_1
+IL_00ce: ldarg.0
+IL_00cf: ldfld Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_SelectionEntity
+IL_00d4: ldarg.0
+IL_00d5: call Unity.Entities.Entity Game.Tools.SelectionToolSystem::get_selectionOwner()
+IL_00da: newobj System.Void Game.Common.Owner::.ctor(Unity.Entities.Entity)
+IL_00df: call System.Boolean Unity.Entities.EntityManager::AddComponentData<Game.Common.Owner>(Unity.Entities.Entity,!!0)
+IL_00e4: pop
+IL_00e5: ldarg.0
+IL_00e6: ldarg.0
+IL_00e7: call Unity.Entities.Entity Game.Tools.SelectionToolSystem::get_selectionOwner()
+IL_00ec: stfld Unity.Entities.Entity Game.Tools.SelectionToolSystem::m_LastOwner
+IL_00f1: ldarg.0
+IL_00f2: ldarg.0
+IL_00f3: call Game.Tools.SelectionType Game.Tools.SelectionToolSystem::get_selectionType()
+IL_00f8: stfld Game.Tools.SelectionType Game.Tools.SelectionToolSystem::m_LastType
+IL_00fd: ldarg.0
+IL_00fe: ldc.i4.0
+IL_00ff: call System.Void Game.Tools.SelectionToolSystem::set_requestSelectionUpdate(System.Boolean)
+IL_0104: ldarg.0
+IL_0105: ldarg.0
+IL_0106: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_010b: callvirt Game.Areas.AreaTypeMask Game.Tools.ToolRaycastSystem::get_areaTypeMask()
+IL_0110: call System.Void Game.Tools.ToolBaseSystem::set_requireAreas(Game.Areas.AreaTypeMask)
+IL_0115: ldarg.0
+IL_0116: ldarg.1
+IL_0117: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::CopySelection(Unity.Jobs.JobHandle)
+IL_011c: starg.s inputDeps
+IL_011e: ldarg.0
+IL_011f: callvirt System.Void Game.Tools.ToolBaseSystem::UpdateActions()
+IL_0124: ldarg.0
+IL_0125: ldfld Game.Tools.SelectionToolSystem/State Game.Tools.SelectionToolSystem::m_State
+IL_012a: brfalse.s IL_014d
+IL_012c: ldarg.0
+IL_012d: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_0132: callvirt System.Boolean Game.Input.IProxyAction::get_enabled()
+IL_0137: brtrue.s IL_014d
+IL_0139: ldarg.0
+IL_013a: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()
+IL_013f: callvirt System.Boolean Game.Input.IProxyAction::get_enabled()
+IL_0144: brtrue.s IL_014d
+IL_0146: ldarg.0
+IL_0147: ldc.i4.0
+IL_0148: stfld Game.Tools.SelectionToolSystem/State Game.Tools.SelectionToolSystem::m_State
+IL_014d: ldarg.0
+IL_014e: ldfld Game.Tools.ToolRaycastSystem Game.Tools.ToolBaseSystem::m_ToolRaycastSystem
+IL_0153: callvirt Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_0158: ldc.i4.3
+IL_0159: and
+IL_015a: brtrue IL_0279
+IL_015f: ldarg.0
+IL_0160: ldfld Game.Tools.SelectionToolSystem/State Game.Tools.SelectionToolSystem::m_State
+IL_0165: stloc.2
+IL_0166: ldloc.2
+IL_0167: switch IL_017d,IL_01f1,IL_0231
+IL_0178: br IL_0271
+IL_017d: ldarg.0
+IL_017e: ldfld System.Boolean Game.Tools.SelectionToolSystem::m_ApplyBlocked
+IL_0183: brfalse.s IL_01ae
+IL_0185: ldarg.0
+IL_0186: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_018b: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_0190: brtrue.s IL_019f
+IL_0192: ldarg.0
+IL_0193: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()
+IL_0198: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_019d: brfalse.s IL_01a6
+IL_019f: ldarg.0
+IL_01a0: ldc.i4.0
+IL_01a1: stfld System.Boolean Game.Tools.SelectionToolSystem::m_ApplyBlocked
+IL_01a6: ldarg.0
+IL_01a7: ldarg.1
+IL_01a8: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Update(Unity.Jobs.JobHandle)
+IL_01ad: ret
+IL_01ae: ldarg.0
+IL_01af: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()
+IL_01b4: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()
+IL_01b9: brfalse.s IL_01ce
+IL_01bb: ldarg.0
+IL_01bc: ldarg.1
+IL_01bd: ldarg.0
+IL_01be: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()
+IL_01c3: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_01c8: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Cancel(Unity.Jobs.JobHandle,System.Boolean)
+IL_01cd: ret
+IL_01ce: ldarg.0
+IL_01cf: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_01d4: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()
+IL_01d9: brfalse IL_0271
+IL_01de: ldarg.0
+IL_01df: ldarg.1
+IL_01e0: ldarg.0
+IL_01e1: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_01e6: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_01eb: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Apply(Unity.Jobs.JobHandle,System.Boolean)
+IL_01f0: ret
+IL_01f1: ldarg.0
+IL_01f2: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_cancelAction()
+IL_01f7: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()
+IL_01fc: brfalse.s IL_020e
+IL_01fe: ldarg.0
+IL_01ff: ldc.i4.1
+IL_0200: stfld System.Boolean Game.Tools.SelectionToolSystem::m_ApplyBlocked
+IL_0205: ldarg.0
+IL_0206: ldarg.1
+IL_0207: ldc.i4.0
+IL_0208: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Cancel(Unity.Jobs.JobHandle,System.Boolean)
+IL_020d: ret
+IL_020e: ldarg.0
+IL_020f: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_0214: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()
+IL_0219: brtrue.s IL_0228
+IL_021b: ldarg.0
+IL_021c: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_0221: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_0226: brfalse.s IL_0271
+IL_0228: ldarg.0
+IL_0229: ldarg.1
+IL_022a: ldc.i4.0
+IL_022b: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Apply(Unity.Jobs.JobHandle,System.Boolean)
+IL_0230: ret
+IL_0231: ldarg.0
+IL_0232: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_cancelAction()
+IL_0237: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()
+IL_023c: brfalse.s IL_024e
+IL_023e: ldarg.0
+IL_023f: ldc.i4.1
+IL_0240: stfld System.Boolean Game.Tools.SelectionToolSystem::m_ApplyBlocked
+IL_0245: ldarg.0
+IL_0246: ldarg.1
+IL_0247: ldc.i4.0
+IL_0248: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Apply(Unity.Jobs.JobHandle,System.Boolean)
+IL_024d: ret
+IL_024e: ldarg.0
+IL_024f: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()
+IL_0254: callvirt System.Boolean Game.Input.IProxyAction::WasPressedThisFrame()
+IL_0259: brtrue.s IL_0268
+IL_025b: ldarg.0
+IL_025c: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()
+IL_0261: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_0266: brfalse.s IL_0271
+IL_0268: ldarg.0
+IL_0269: ldarg.1
+IL_026a: ldc.i4.0
+IL_026b: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Cancel(Unity.Jobs.JobHandle,System.Boolean)
+IL_0270: ret
+IL_0271: ldarg.0
+IL_0272: ldarg.1
+IL_0273: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Update(Unity.Jobs.JobHandle)
+IL_0278: ret
+IL_0279: ldarg.0
+IL_027a: ldfld Game.Tools.SelectionToolSystem/State Game.Tools.SelectionToolSystem::m_State
+IL_027f: brfalse.s IL_02ae
+IL_0281: ldarg.0
+IL_0282: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_applyAction()
+IL_0287: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_028c: brtrue.s IL_029b
+IL_028e: ldarg.0
+IL_028f: call Game.Input.IProxyAction Game.Tools.ToolBaseSystem::get_secondaryApplyAction()
+IL_0294: callvirt System.Boolean Game.Input.IProxyAction::WasReleasedThisFrame()
+IL_0299: brfalse.s IL_02ae
+IL_029b: ldarg.0
+IL_029c: ldflda Game.Tools.ControlPoint Game.Tools.SelectionToolSystem::m_StartPoint
+IL_02a1: initobj Game.Tools.ControlPoint
+IL_02a7: ldarg.0
+IL_02a8: ldc.i4.0
+IL_02a9: stfld Game.Tools.SelectionToolSystem/State Game.Tools.SelectionToolSystem::m_State
+IL_02ae: ldarg.0
+IL_02af: ldarg.1
+IL_02b0: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::Clear(Unity.Jobs.JobHandle)
+IL_02b5: ret
+METHOD Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::UpdateSelection(Unity.Jobs.JobHandle)
+IL_0000: ldarg.0
+IL_0001: call Game.Tools.SelectionType Game.Tools.SelectionToolSystem::get_selectionType()
+IL_0006: stloc.0
+IL_0007: ldloc.0
+IL_0008: ldc.i4.1
+IL_0009: beq.s IL_0011
+IL_000b: ldloc.0
+IL_000c: ldc.i4.2
+IL_000d: beq.s IL_0019
+IL_000f: br.s IL_0035
+IL_0011: ldarg.0
+IL_0012: ldarg.1
+IL_0013: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::UpdateServiceDistricts(Unity.Jobs.JobHandle)
+IL_0018: ret
+IL_0019: ldarg.0
+IL_001a: ldfld Game.Tools.ToolSystem Game.Tools.ToolBaseSystem::m_ToolSystem
+IL_001f: callvirt Game.GameMode Game.Tools.ToolSystem::get_actionMode()
+IL_0024: call System.Boolean Game.GameModeExtensions::IsEditor(Game.GameMode)
+IL_0029: brfalse.s IL_0033
+IL_002b: ldarg.0
+IL_002c: ldarg.1
+IL_002d: call Unity.Jobs.JobHandle Game.Tools.SelectionToolSystem::UpdateStartTiles(Unity.Jobs.JobHandle)
+IL_0032: ret
+IL_0033: ldarg.1
+IL_0034: ret
+IL_0035: ldarg.1
+IL_0036: ret
+TYPE Game.Tools.SelectionToolSystem/State
+Game.Tools.SelectionToolSystem/State Game.Tools.SelectionToolSystem/State::Selecting
+TYPE Game.Tools.SelectionToolSystem/FindEntitiesJob
+Colossal.Mathematics.Quad2 Game.Tools.SelectionToolSystem/FindEntitiesJob::m_SelectionQuad
+TYPE Game.Tools.SelectionToolSystem/FindEntitiesJob/AreaIterator
+TYPE Game.Tools.SelectionToolSystem/FindEntitiesJob/EntityComparer
+TYPE Game.Tools.SelectionToolSystem/CreateDefinitionsJob
+TYPE Game.Tools.SelectionToolSystem/ToggleEntityJob
+Unity.Entities.Entity Game.Tools.SelectionToolSystem/ToggleEntityJob::m_SelectionEntity
+System.Boolean Game.Tools.SelectionToolSystem/ToggleEntityJob::m_Select
+Unity.Entities.BufferLookup`1<Game.Tools.SelectionElement> Game.Tools.SelectionToolSystem/ToggleEntityJob::m_SelectionElements
+TYPE Game.Tools.SelectionToolSystem/CopyStartTilesJob
+Unity.Entities.Entity Game.Tools.SelectionToolSystem/CopyStartTilesJob::m_SelectionEntity
+Unity.Entities.BufferLookup`1<Game.Tools.SelectionElement> Game.Tools.SelectionToolSystem/CopyStartTilesJob::m_SelectionElements
+TYPE Game.Tools.SelectionToolSystem/UpdateStartTilesJob
+Unity.Entities.Entity Game.Tools.SelectionToolSystem/UpdateStartTilesJob::m_SelectionEntity
+Unity.Entities.BufferLookup`1<Game.Tools.SelectionElement> Game.Tools.SelectionToolSystem/UpdateStartTilesJob::m_SelectionElements
+TYPE Game.Tools.SelectionToolSystem/CopyServiceDistrictsJob
+Unity.Entities.Entity Game.Tools.SelectionToolSystem/CopyServiceDistrictsJob::m_SelectionEntity
+Unity.Entities.BufferLookup`1<Game.Tools.SelectionElement> Game.Tools.SelectionToolSystem/CopyServiceDistrictsJob::m_SelectionElements
+TYPE Game.Tools.SelectionToolSystem/UpdateServiceDistrictsJob
+Unity.Entities.Entity Game.Tools.SelectionToolSystem/UpdateServiceDistrictsJob::m_SelectionEntity
+Unity.Entities.BufferLookup`1<Game.Tools.SelectionElement> Game.Tools.SelectionToolSystem/UpdateServiceDistrictsJob::m_SelectionElements
+TYPE Game.Tools.SelectionToolSystem/<get_toolActions>d__41
+TYPE Game.Areas.RaycastJobs/FindAreaJob
+METHOD System.Void Game.Areas.RaycastJobs/FindAreaJob::Execute(System.Int32)
+IL_0000: ldarg.1
+IL_0001: ldarg.0
+IL_0002: ldflda Unity.Collections.NativeArray`1<Game.Common.RaycastInput> Game.Areas.RaycastJobs/FindAreaJob::m_Input
+IL_0007: call System.Int32 Unity.Collections.NativeArray`1<Game.Common.RaycastInput>::get_Length()
+IL_000c: rem
+IL_000d: stloc.0
+IL_000e: ldarg.0
+IL_000f: ldflda Unity.Collections.NativeArray`1<Game.Common.RaycastInput> Game.Areas.RaycastJobs/FindAreaJob::m_Input
+IL_0014: ldloc.0
+IL_0015: call !0 Unity.Collections.NativeArray`1<Game.Common.RaycastInput>::get_Item(System.Int32)
+IL_001a: stloc.1
+IL_001b: ldloc.1
+IL_001c: ldfld Game.Common.TypeMask Game.Common.RaycastInput::m_TypeMask
+IL_0021: ldc.i4.s 32
+IL_0023: and
+IL_0024: brtrue.s IL_0027
+IL_0026: ret
+IL_0027: ldloca.s V_3
+IL_0029: initobj Game.Areas.RaycastJobs/FindAreaJob/ValidationData
+IL_002f: ldloca.s V_3
+IL_0031: ldarg.0
+IL_0032: ldfld System.Boolean Game.Areas.RaycastJobs/FindAreaJob::m_EditorMode
+IL_0037: stfld System.Boolean Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_EditorMode
+IL_003c: ldloca.s V_3
+IL_003e: ldloc.1
+IL_003f: stfld Game.Common.RaycastInput Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_Input
+IL_0044: ldloca.s V_3
+IL_0046: ldarg.0
+IL_0047: ldfld Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Areas.RaycastJobs/FindAreaJob::m_OwnerData
+IL_004c: stfld Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_OwnerData
+IL_0051: ldloca.s V_3
+IL_0053: ldarg.0
+IL_0054: ldfld Unity.Entities.ComponentLookup`1<Game.Objects.Placeholder> Game.Areas.RaycastJobs/FindAreaJob::m_PlaceholderData
+IL_0059: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Placeholder> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_PlaceholderData
+IL_005e: ldloca.s V_3
+IL_0060: ldarg.0
+IL_0061: ldfld Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Areas.RaycastJobs/FindAreaJob::m_AttachmentData
+IL_0066: stfld Unity.Entities.ComponentLookup`1<Game.Objects.Attachment> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_AttachmentData
+IL_006b: ldloca.s V_3
+IL_006d: ldarg.0
+IL_006e: ldfld Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Areas.RaycastJobs/FindAreaJob::m_BuildingData
+IL_0073: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.Building> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_BuildingData
+IL_0078: ldloca.s V_3
+IL_007a: ldarg.0
+IL_007b: ldfld Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Areas.RaycastJobs/FindAreaJob::m_ServiceUpgradeData
+IL_0080: stfld Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_ServiceUpgradeData
+IL_0085: ldloca.s V_3
+IL_0087: ldarg.0
+IL_0088: ldfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Areas.RaycastJobs/FindAreaJob::m_PrefabRefData
+IL_008d: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_PrefabRefData
+IL_0092: ldloca.s V_3
+IL_0094: ldarg.0
+IL_0095: ldfld Unity.Entities.ComponentLookup`1<Game.Prefabs.AreaGeometryData> Game.Areas.RaycastJobs/FindAreaJob::m_PrefabAreaData
+IL_009a: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.AreaGeometryData> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_PrefabAreaData
+IL_009f: ldloca.s V_3
+IL_00a1: ldarg.0
+IL_00a2: ldfld Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Areas.RaycastJobs/FindAreaJob::m_Nodes
+IL_00a7: stfld Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_Nodes
+IL_00ac: ldloca.s V_3
+IL_00ae: ldarg.0
+IL_00af: ldfld Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Areas.RaycastJobs/FindAreaJob::m_InstalledUpgrades
+IL_00b4: stfld Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade> Game.Areas.RaycastJobs/FindAreaJob/ValidationData::m_InstalledUpgrades
+IL_00b9: ldloc.3
+IL_00ba: stloc.2
+IL_00bb: ldarg.1
+IL_00bc: ldarg.0
+IL_00bd: ldflda Unity.Collections.NativeArray`1<Game.Common.RaycastResult> Game.Areas.RaycastJobs/FindAreaJob::m_TerrainResults
+IL_00c2: call System.Int32 Unity.Collections.NativeArray`1<Game.Common.RaycastResult>::get_Length()
+IL_00c7: bge IL_01a0
+IL_00cc: ldarg.0
+IL_00cd: ldflda Unity.Collections.NativeArray`1<Game.Common.RaycastResult> Game.Areas.RaycastJobs/FindAreaJob::m_TerrainResults
+IL_00d2: ldarg.1
+IL_00d3: call !0 Unity.Collections.NativeArray`1<Game.Common.RaycastResult>::get_Item(System.Int32)
+IL_00d8: stloc.s V_4
+IL_00da: ldloc.s V_4
+IL_00dc: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_00e1: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00e6: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00eb: brfalse.s IL_00ee
+IL_00ed: ret
+IL_00ee: ldloca.s V_4
+IL_00f0: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00f5: stfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_00fa: ldloca.s V_4
+IL_00fc: ldflda Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0101: ldc.i4.m1
+IL_0102: ldc.i4.m1
+IL_0103: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_0108: stfld Unity.Mathematics.int2 Game.Common.RaycastHit::m_CellIndex
+IL_010d: ldloca.s V_4
+IL_010f: ldflda Game.Common.RaycastHit Game.Common.RaycastResult::m_Hit
+IL_0114: ldflda System.Single Game.Common.RaycastHit::m_NormalizedDistance
+IL_0119: dup
+IL_011a: ldind.r4
+IL_011b: ldc.r4 0.25
+IL_0120: ldc.r4 1
+IL_0125: ldloc.1
+IL_0126: ldfld Colossal.Mathematics.Line3/Segment Game.Common.RaycastInput::m_Line
+IL_012b: call System.Single Colossal.Mathematics.MathUtils::Length(Colossal.Mathematics.Line3/Segment)
+IL_0130: call System.Single Unity.Mathematics.math::max(System.Single,System.Single)
+IL_0135: div
+IL_0136: sub
+IL_0137: stind.r4
+IL_0138: ldloca.s V_6
+IL_013a: initobj Game.Areas.RaycastJobs/FindAreaJob/GroundIterator
+IL_0140: ldloca.s V_6
+IL_0142: ldloc.0
+IL_0143: stfld System.Int32 Game.Areas.RaycastJobs/FindAreaJob/GroundIterator::m_Index
+IL_0148: ldloca.s V_6
+IL_014a: ldloc.s V_4
+IL_014c: stfld Game.Common.RaycastResult Game.Areas.RaycastJobs/FindAreaJob/GroundIterator::m_Result
+IL_0151: ldloca.s V_6
+IL_0153: ldarg.0
+IL_0154: ldfld Unity.Entities.ComponentLookup`1<Game.Areas.Space> Game.Areas.RaycastJobs/FindAreaJob::m_SpaceData
+IL_0159: stfld Unity.Entities.ComponentLookup`1<Game.Areas.Space> Game.Areas.RaycastJobs/FindAreaJob/GroundIterator::m_SpaceData
+IL_015e: ldloca.s V_6
+IL_0160: ldarg.0
+IL_0161: ldfld Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Areas.RaycastJobs/FindAreaJob::m_Nodes
+IL_0166: stfld Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Areas.RaycastJobs/FindAreaJob/GroundIterator::m_Nodes
+IL_016b: ldloca.s V_6
+IL_016d: ldarg.0
+IL_016e: ldfld Unity.Entities.BufferLookup`1<Game.Areas.Triangle> Game.Areas.RaycastJobs/FindAreaJob::m_Triangles
+IL_0173: stfld Unity.Entities.BufferLookup`1<Game.Areas.Triangle> Game.Areas.RaycastJobs/FindAreaJob/GroundIterator::m_Triangles
+IL_0178: ldloca.s V_6
+IL_017a: ldloc.2
+IL_017b: stfld Game.Areas.RaycastJobs/FindAreaJob/ValidationData Game.Areas.RaycastJobs/FindAreaJob/GroundIterator::m_ValidationData
+IL_0180: ldloca.s V_6
+IL_0182: ldarg.0
+IL_0183: ldfld Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Common.RaycastResult> Game.Areas.RaycastJobs/FindAreaJob::m_Results
+IL_0188: stfld Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Common.RaycastResult> Game.Areas.RaycastJobs/FindAreaJob/GroundIterator::m_Results
+IL_018d: ldloc.s V_6
+IL_018f: stloc.s V_5
+IL_0191: ldarg.0
+IL_0192: ldflda Colossal.Collections.NativeQuadTree`2<Game.Areas.AreaSearchItem,Game.Common.QuadTreeBoundsXZ> Game.Areas.RaycastJobs/FindAreaJob::m_SearchTree
+IL_0197: ldloca.s V_5
+IL_0199: ldc.i4.0
+IL_019a: call System.Void Colossal.Collections.NativeQuadTree`2<Game.Areas.AreaSearchItem,Game.Common.QuadTreeBoundsXZ>::Iterate<Game.Areas.RaycastJobs/FindAreaJob/GroundIterator>(!!0&,System.Int32)
+IL_019f: ret
+IL_01a0: ldloca.s V_8
+IL_01a2: initobj Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator
+IL_01a8: ldloca.s V_8
+IL_01aa: ldloc.0
+IL_01ab: stfld System.Int32 Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator::m_Index
+IL_01b0: ldloca.s V_8
+IL_01b2: ldloc.1
+IL_01b3: ldfld Colossal.Mathematics.Line3/Segment Game.Common.RaycastInput::m_Line
+IL_01b8: stfld Colossal.Mathematics.Line3/Segment Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator::m_Line
+IL_01bd: ldloca.s V_8
+IL_01bf: ldarg.0
+IL_01c0: ldfld Unity.Entities.ComponentLookup`1<Game.Areas.Space> Game.Areas.RaycastJobs/FindAreaJob::m_SpaceData
+IL_01c5: stfld Unity.Entities.ComponentLookup`1<Game.Areas.Space> Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator::m_SpaceData
+IL_01ca: ldloca.s V_8
+IL_01cc: ldarg.0
+IL_01cd: ldfld Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Areas.RaycastJobs/FindAreaJob::m_Nodes
+IL_01d2: stfld Unity.Entities.BufferLookup`1<Game.Areas.Node> Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator::m_Nodes
+IL_01d7: ldloca.s V_8
+IL_01d9: ldarg.0
+IL_01da: ldfld Unity.Entities.BufferLookup`1<Game.Areas.Triangle> Game.Areas.RaycastJobs/FindAreaJob::m_Triangles
+IL_01df: stfld Unity.Entities.BufferLookup`1<Game.Areas.Triangle> Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator::m_Triangles
+IL_01e4: ldloca.s V_8
+IL_01e6: ldloc.2
+IL_01e7: stfld Game.Areas.RaycastJobs/FindAreaJob/ValidationData Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator::m_ValidationData
+IL_01ec: ldloca.s V_8
+IL_01ee: ldarg.0
+IL_01ef: ldfld Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Common.RaycastResult> Game.Areas.RaycastJobs/FindAreaJob::m_Results
+IL_01f4: stfld Colossal.Collections.NativeAccumulator`1/ParallelWriter<Game.Common.RaycastResult> Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator::m_Results
+IL_01f9: ldloc.s V_8
+IL_01fb: stloc.s V_7
+IL_01fd: ldarg.0
+IL_01fe: ldflda Colossal.Collections.NativeQuadTree`2<Game.Areas.AreaSearchItem,Game.Common.QuadTreeBoundsXZ> Game.Areas.RaycastJobs/FindAreaJob::m_SearchTree
+IL_0203: ldloca.s V_7
+IL_0205: ldc.i4.0
+IL_0206: call System.Void Colossal.Collections.NativeQuadTree`2<Game.Areas.AreaSearchItem,Game.Common.QuadTreeBoundsXZ>::Iterate<Game.Areas.RaycastJobs/FindAreaJob/OvergroundIterator>(!!0&,System.Int32)
+IL_020b: ret

@@ -1,0 +1,47 @@
+[
+  {
+    "Path": "src/Core/PatchConflictMonitor.cs",
+    "SHA256": "EC185729741320435DDC6093A158FEEC2F862B286C74158D6963CDBB46031097",
+    "Unchanged": true
+  },
+  {
+    "Path": "src/Modules/BulldozerRecovery/RecoveryPatchCompatibility.cs",
+    "SHA256": "5F78CAAC1391D8C96F5013CF9B0FAF386F6E25280AA62A3B70FF4199EF68F34D",
+    "Unchanged": true
+  },
+  {
+    "Path": "src/Modules/BulldozerRecovery/BulldozerTrace.cs",
+    "SHA256": "802ACDA31BAA7CBC1332ED702C973A35A282E8AB1FC5B292617563FEB2553D5B",
+    "Unchanged": true
+  },
+  {
+    "Path": "src/Modules/BulldozerRecovery/BulldozerRecoveryCommands.cs",
+    "SHA256": "9AC98C5D6BC77ADE4C1826687D00BB1E5D21D4BB1D16ED33FA00B267073B8009",
+    "Unchanged": true
+  },
+  {
+    "Path": "src/Modules/BulldozerRecovery/RecoveryApplyGuard.cs",
+    "SHA256": "341A20A51D9A5ED6E49787E1DC344F41987B292A1AC770A716AF0589CA618ED8",
+    "Unchanged": true
+  },
+  {
+    "Path": "src/Modules/BulldozerRecovery/MoveToolHooks.cs",
+    "SHA256": "4B00B12495F90BA72F0017B22CEC224E181F0FAE5797D5EBEEDD95C1B6E9B3A2",
+    "Unchanged": true
+  },
+  {
+    "Path": "src/Modules/BulldozerRecovery/AreaMoveHooks.cs",
+    "SHA256": "E4B19C47FC0E34F5FF183337CF2F3A72C697737C6FFFDDBFD934C993D681AAEE",
+    "Unchanged": true
+  },
+  {
+    "Path": "src/Modules/BulldozerRecovery/PropMoveRecovery.cs",
+    "SHA256": "416A630710B355027692EF5C148C53AC6D3AE2944866443842FEE5C7F1A44BBC",
+    "Unchanged": true
+  },
+  {
+    "Path": "src/Modules/BulldozerRecovery/AreaMoveRecovery.cs",
+    "SHA256": "1D3A66C1957D40333A53D43C20C715D92D5EAE05E686298BB96D7D82E280592F",
+    "Unchanged": true
+  }
+]

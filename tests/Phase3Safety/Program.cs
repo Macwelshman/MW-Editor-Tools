@@ -15,8 +15,19 @@ internal static class Program
 
     private static void Main()
     {
+        checks+=RecoveryTimingChecks.Run();
+        checks+=MarkerMoveChecks.Run();
+        checks+=BikeRackMoveChecks.Run();
+        checks+=SpawnDeletionCaptureChecks.Run();
+        checks+=ConnectionRegenerationChecks.Run();
         checks+=NativeCollectionChecks.Run();
+        checks+=HeightProjectionChecks.Run();
+        checks+=RotationProjectionChecks.Run();
+        checks+=OwnedConnectionChecks.Run();
+        checks+=MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace.RunSpawnAnchorChecks();
+        checks+=MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace.RunAreaReferenceChecks();
         checks+=AreaCompanionChecks.Run();
+        checks+=BoundCompletionChecks.Run();
         checks+=NetworkDeletionChecks.Run();
         checks+=StandaloneAreaChecks.Run();
         var nativeEffects=new[]{new Game.Effects.EnabledEffect{m_EffectIndex=4,m_EnabledIndex=100},new Game.Effects.EnabledEffect{m_EffectIndex=2,m_EnabledIndex=200}};
@@ -274,3 +285,5 @@ internal static class Program
         Console.WriteLine($"PASS: {checks} Phase 3 snapshot/history assertions. No Unity native or ECS regeneration test performed.");
     }
 }
+
+

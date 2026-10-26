@@ -52,7 +52,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             }
             return result.ToArray();
         }
-        private AreaCompanionNetwork CaptureAreaNetwork(Entity owner,bool allowInvalidLocal=false,bool objectAnchors=false) {
+        private AreaCompanionNetwork CaptureAreaNetwork(Entity owner,bool allowInvalidLocal=false,bool objectAnchors=true) {
             var em=world.EntityManager;var result=new AreaCompanionNetwork{Owner=owner};var pending=new Queue<Entity>();var seen=new HashSet<Entity>();int linkCount=0,connectionCount=0;
             Action<Entity> links=id=> {
                 linkCount+=(em.HasBuffer<Game.Net.SubNet>(id)?em.GetBuffer<Game.Net.SubNet>(id,true).Length:0)+(em.HasBuffer<Game.Net.SubLane>(id)?em.GetBuffer<Game.Net.SubLane>(id,true).Length:0);
@@ -69,11 +69,17 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 if(!em.Exists(id)||em.HasComponent<Game.Common.Deleted>(id))throw new NotSupportedException("A network companion is missing or pending deletion.");
                 if(seen.Count>=1024||id==owner||!em.HasComponent<Game.Common.Owner>(id)||!em.HasComponent<PrefabRef>(id))throw new NotSupportedException("Unsupported network companion ownership or budget.");
                 seen.Add(id);var item=new AreaCompanionNetwork.Item{Id=id,Owner=em.GetComponentData<Game.Common.Owner>(id).m_Owner,Prefab=prefabs.GetPrefab<PrefabBase>(em.GetComponentData<PrefabRef>(id)),
-                    HasNode=em.HasComponent<Game.Net.Node>(id),HasEdge=em.HasComponent<Game.Net.Edge>(id),HasLane=em.HasComponent<Game.Net.Lane>(id),HasCurve=em.HasComponent<Game.Net.Curve>(id),
+                    HasParking=em.HasComponent<Game.Net.ParkingLane>(id),HasConnection=em.HasComponent<Game.Net.ConnectionLane>(id),HasSecondary=em.HasComponent<Game.Net.SecondaryLane>(id),HasNode=em.HasComponent<Game.Net.Node>(id),HasEdge=em.HasComponent<Game.Net.Edge>(id),HasLane=em.HasComponent<Game.Net.Lane>(id),HasCurve=em.HasComponent<Game.Net.Curve>(id),
                     HasLocal=em.HasComponent<LocalCurveCache>(id),HasContainer=em.HasComponent<EditorContainer>(id),HasSeed=em.HasComponent<Game.Common.PseudoRandomSeed>(id)};
                 if(item.Prefab==null||(!item.HasNode&&!item.HasEdge&&!item.HasLane))throw new NotSupportedException("Unsupported network companion schema.");
                 if(item.HasNode){item.Node=em.GetComponentData<Game.Net.Node>(id);if(!math.all(math.isfinite(item.Node.m_Position))||!math.all(math.isfinite(item.Node.m_Rotation.value)))throw new NotSupportedException("Nonfinite network node.");}
                 if(item.HasEdge){item.Edge=em.GetComponentData<Game.Net.Edge>(id);pending.Enqueue(item.Edge.m_Start);pending.Enqueue(item.Edge.m_End);}
+                if(item.HasConnection)item.Connection=em.GetComponentData<Game.Net.ConnectionLane>(id);
+                if(item.HasParking){item.Parking=em.GetComponentData<Game.Net.ParkingLane>(id);if(!math.isfinite(item.Parking.m_FreeSpace))throw new NotSupportedException("Nonfinite parking lane data.");}
+                item.HasGarage=em.HasComponent<Game.Net.GarageLane>(id);if(item.HasGarage)item.Garage=em.GetComponentData<Game.Net.GarageLane>(id);
+                item.HasCar=em.HasComponent<Game.Net.CarLane>(id);if(item.HasCar)item.Car=em.GetComponentData<Game.Net.CarLane>(id);
+                item.HasPedestrian=em.HasComponent<Game.Net.PedestrianLane>(id);if(item.HasPedestrian)item.Pedestrian=em.GetComponentData<Game.Net.PedestrianLane>(id);
+                item.HasSlave=em.HasComponent<Game.Net.SlaveLane>(id);if(item.HasSlave)item.Slave=em.GetComponentData<Game.Net.SlaveLane>(id);
                 if(item.HasLane)item.Lane=em.GetComponentData<Game.Net.Lane>(id);
                 if(item.HasCurve){item.Curve=em.GetComponentData<Game.Net.Curve>(id);if(!FiniteCurve(item.Curve.m_Bezier)||!math.isfinite(item.Curve.m_Length))throw new NotSupportedException("Nonfinite network curve.");}
                 if(item.HasLocal){item.Local=em.GetComponentData<LocalCurveCache>(id);if(!allowInvalidLocal&&!FiniteCurve(item.Local.m_Curve))throw new NotSupportedException("Nonfinite local network curve.");}

@@ -1,0 +1,17 @@
+# Bound deletion capture — local test 0.4.188
+
+2026-10-22 user reported that bound deletion Undo was unavailable across object types.
+
+VERIFIED-RUNTIME: the installed 0.4.187 log repeatedly refuses the complete owning asset because `BikeRack01` has an unhandled `Game.Net.SubLane` buffer. This affects ordinary prop capture and `CaptureAreaProps` for bound area/surface deletion. It occurs before any Undo entry is recorded. The same log records successful unbound area/surface recovery, so this evidence identifies a bound capture blocker rather than a shortcut-wide failure. See `evidence/bound-lanes-0.4.188/runtime-refusals.txt`.
+
+VERIFIED-STATIC fix: `NestedLaneImage` captures buffer presence plus the existing detached `AreaCompanionNetwork` image. Empty buffers are supported and distinguished from absent buffers. Nonempty attached lane graphs must pass the existing bounded graph capture and unique mapping checks: prefab references, ownership, geometry, path owner/index references, connectivity, link methods, local data and seeds. Native regeneration creates the lanes; the mod never clones raw lane/path entity pointers. Expected network references enter the existing prefab fingerprint checks, and source lane entities enter the existing surviving-source/orphan checks. Every nested retained/restored-state comparison includes the lane image. Changed native seeds remain refused rather than silently discarded.
+
+An object declaring attached lanes needs a populated captured lane graph. Other nested attached areas/networks and unsupported components remain refused. Direct move Undo of a prop containing attached lanes remains outside this extension. Existing isolated-area/network object-path anchor capture is enabled consistently for area companion graphs, resolving path owners only through actual SubObject membership and complete Owner chains within the captured root. External or ambiguous owners are still refused. Failures identify the offending prop and link count.
+
+Native evidence: unchanged Game.dll SHA256 `AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A`, MVID `e15551e9-3dea-4855-8dde-1da3cea7d7ef`. `evidence/bound-lanes-0.4.188/native.txt` verifies `SubLane.m_SubLane` and `m_PathMethods`, `Lane`'s three path nodes and `ObjectSubLanes.m_SubLanes`. Existing graph/anchor API evidence is reused; no game assemblies changed.
+
+Validation: builds pass with the existing NU1900 warning. Phase3Safety passes 436 checks, including new nested empty/absent buffers, populated fresh-ID mapping, source identities, declared-but-missing lanes, changed seeds and external owner/path refusal. Spawn/access, foliage, effect, area move, prop move, replacement Undo and lifecycle managed suites also pass. Native deletion/regeneration on the user's actual BikeRack asset is still UNPROVEN; this removes the recorded capture blocker, not a claim that all bound assets now recover.
+
+Grouped native acceptance on disposable copies: delete and Undo an ordinary prop, foliage and bound surface on the affected building, then a BikeRack itself if the native tool permits it. Check complete placement, lane connectivity/references and spawn/access companions, then save/reopen. Existing external/ambiguous network cases should still refuse. No computer use or publishing.
+
+Installed 0.4.188 with Cities2 closed; previous files backed up and verified, all three installed hashes verified. See evidence/bound-lanes-0.4.188/installation.txt.

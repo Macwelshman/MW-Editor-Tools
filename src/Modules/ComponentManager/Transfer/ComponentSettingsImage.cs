@@ -27,6 +27,23 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer {
             try{foreach(var value in values)if(!value.Matches(value.Materialize()))throw new NotSupportedException("Settings reconstruction changes values.");}
             catch(Exception error){throw new NotSupportedException("Settings cannot be reconstructed: "+error.Message,error);}
         }
+        private ComponentSettingsImage(Type type, FieldInfo[] selected, SettingsValue[] images) { Type=type;fields=selected;values=images; }
+        internal string[] Names=>fields.Select(f=>f.Name).ToArray();
+        internal ComponentSettingsImage Select(System.Collections.Generic.ICollection<string> names) {
+            if(names.Any(n=>!fields.Any(f=>f.Name==n)))throw new InvalidOperationException("Unknown component field.");
+            var indices=Enumerable.Range(0,fields.Length).Where(i=>names.Contains(fields[i].Name)).ToArray();
+            return new ComponentSettingsImage(Type,indices.Select(i=>fields[i]).ToArray(),indices.Select(i=>values[i]).ToArray());
+        }
+        internal ComponentSettingsImage Merge(ComponentSettingsImage source) {
+            if(Type!=source.Type)throw new InvalidOperationException("Component type changed.");
+            var merged=(SettingsValue[])values.Clone();
+            for(int i=0;i<source.fields.Length;i++){
+                int target=Array.FindIndex(fields,f=>f==source.fields[i]);
+                if(target<0)throw new InvalidOperationException("Component field schema changed.");
+                merged[target]=source.values[i];
+            }
+            return new ComponentSettingsImage(Type,fields,merged);
+        }
         internal static ComponentSettingsImage Capture(ComponentBase component)=>new ComponentSettingsImage(component);
         internal void Apply(ComponentBase component){
             if(component.GetType()!=Type||values.Any(v=>!v.ReferencesValid))throw new InvalidOperationException("Settings type or referenced prefab is unavailable.");

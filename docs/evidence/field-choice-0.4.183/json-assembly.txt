@@ -1,0 +1,1 @@
+VERIFIED-STATIC: Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed SHA256 A56146202232958F46BD6A28B5A7DA166AEA123EE0D646735A46E5C341DFBF1F Actual installed assembly used by parser tests; game-owned reference, not copied or modified.

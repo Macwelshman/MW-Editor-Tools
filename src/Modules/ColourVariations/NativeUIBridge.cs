@@ -96,7 +96,7 @@ namespace MW.EditorTools.Modules.ColourVariations
         [Serializable] public class CommandData { public string action, pairs, channel2; public bool append; public int index; public float x, y; }
         [Serializable] public class UIData
         {
-            public bool available, visible, changed, hasTarget, hasColors, canPaste, canUndo, canApply, confirmPaste, append, readOnly;
+            public bool available, visible, changed, hasTarget, hasColors, canPaste, canUndo, canApply, canReset, confirmPaste, append, readOnly;
             public string target, source, group, status, pairs, channel2, blockedReason;
             public string[] targets;
             public int selectionRevision, paletteRevision, targetIndex, groupIndex, groupCount, generated, total, page, pages;
@@ -110,7 +110,7 @@ namespace MW.EditorTools.Modules.ColourVariations
             ObserveSelection();
             var s = new UIData { available = true, visible = true, status = status, pairs = pairs, channel2 = channel2,
                 windowX = windowPosition.x, windowY = windowPosition.y,
-                selectionRevision = selectionRevision, paletteRevision = paletteRevision, append = append, source = copiedFrom, canPaste = copiedProperties != null, canUndo = undo != null,
+                selectionRevision = selectionRevision, paletteRevision = paletteRevision, append = append, source = copiedFrom, canPaste = copiedProperties != null, canUndo = undo != null, canReset = undo != null && undoPaste && target != null && undoTarget != null && target.Mesh == undoTarget.Mesh && CurrentWorld == undoWorld,
                 targets = targets.Select(t => t.Mesh == null ? "Unavailable mesh" : t.Mesh.name).ToArray(),
                 targetIndex = targets.IndexOf(target), groupIndex = groupIndex, pages = 1, previewRows = new string[0] };
             if (!s.visible) return JsonUtility.ToJson(s);
@@ -122,6 +122,7 @@ namespace MW.EditorTools.Modules.ColourVariations
             s.target = s.hasTarget ? target.Mesh.name : "No mesh selected";
             s.confirmPaste = s.hasTarget && ReferenceEquals(pendingPasteTarget, target);
             s.readOnly = s.hasTarget && (target.Mesh.isReadOnly || (target.Root != null && target.Root.isReadOnly));
+            if(s.changed||s.readOnly||s.blockedReason!=null)s.canReset=false;
             s.canApply = s.blockedReason==null && !s.changed && staged != null && s.hasColors && !s.readOnly && target.Colors.active;
             if (s.hasColors)
             {
@@ -161,7 +162,11 @@ namespace MW.EditorTools.Modules.ColourVariations
                         if (c.index < 0 || c.index >= targets.Count) throw new ArgumentException("Mesh no longer available.");
                         Choose(targets[c.index]); break;
                     case "copy": CopyProperties(); break;
-                    case "paste": PreparePaste(); break;
+                    case "paste": PreparePaste(); PasteProperties(); break;
+                    case "reset":
+                        CheckSelection(false);
+                        if(!undoPaste||undoTarget==null||target.Mesh!=undoTarget.Mesh)throw new InvalidOperationException("No pasted settings to reset on this mesh.");
+                        Undo(); break;
                     case "confirm": PasteProperties(); break;
                     case "cancel": pendingPasteTarget = null; break;
                     case "load": LoadPalette(); break;
@@ -176,7 +181,7 @@ namespace MW.EditorTools.Modules.ColourVariations
                     case "undo": Undo(); break;
                     default: throw new ArgumentException("Unknown MW command.");
                 }
-                if(c.action=="apply" || c.action=="confirm" || c.action=="undo")
+                if(c.action=="apply" || c.action=="paste" || c.action=="confirm" || c.action=="undo" || c.action=="reset")
                     MW.EditorTools.Mod.Log.Info("Integrated Colours completed command: "+c.action);
             });
         }

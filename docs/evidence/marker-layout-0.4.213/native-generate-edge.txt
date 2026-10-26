@@ -1,0 +1,1468 @@
+System.Void Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::GenerateEdge(System.Int32,System.Int32,Game.Tools.CreationDefinition,Game.Tools.OwnerDefinition,Game.Tools.NetCourse,Game.Net.Upgraded,Game.Tools.LocalCurveCache,System.Boolean,Unity.Entities.DynamicBuffer`1<Game.Net.SubReplacement>,System.Boolean,Game.Rendering.ColorSet)
+V_0
+V_1
+V_2
+V_3
+V_4
+V_5
+V_6
+V_7
+V_8
+V_9
+V_10
+V_11
+V_12
+V_13
+V_14
+V_15
+V_16
+V_17
+V_18
+V_19
+V_20
+V_21
+V_22
+V_23
+V_24
+V_25
+V_26
+V_27
+V_28
+V_29
+V_30
+V_31
+V_32
+V_33
+V_34
+V_35
+V_36
+V_37
+V_38
+V_39
+V_40
+V_41
+V_42
+V_43
+V_44
+V_45
+V_46
+V_47
+V_48
+V_49
+V_50
+V_51
+V_52
+V_53
+V_54
+V_55
+V_56
+V_57
+V_58
+IL_0000: ldarg.3
+IL_0001: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_0006: ldc.i4.1
+IL_0007: and
+IL_0008: ldc.i4.0
+IL_0009: cgt.un
+IL_000b: stloc.0
+IL_000c: ldarg.3
+IL_000d: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_SubPrefab
+IL_0012: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0017: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_001c: stloc.1
+IL_001d: ldloca.s V_2
+IL_001f: initobj Game.Net.Edge
+IL_0025: ldarg.s course
+IL_0027: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_002c: ldfld Game.Tools.CoursePosFlags Game.Tools.CoursePos::m_Flags
+IL_0031: ldarg.s course
+IL_0033: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0038: ldfld Game.Tools.CoursePosFlags Game.Tools.CoursePos::m_Flags
+IL_003d: or
+IL_003e: ldc.i4 16384
+IL_0043: and
+IL_0044: brfalse.s IL_0047
+IL_0046: ret
+IL_0047: ldarg.0
+IL_0048: ldarg.s course
+IL_004a: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_004f: ldloc.0
+IL_0050: ldloc.1
+IL_0051: ldloca.s V_2
+IL_0053: ldflda Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_0058: call System.Boolean Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::TryGetNode(Game.Tools.CoursePos,System.Boolean,System.Boolean,Unity.Entities.Entity&)
+IL_005d: brtrue.s IL_0060
+IL_005f: ret
+IL_0060: ldarg.0
+IL_0061: ldarg.s course
+IL_0063: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0068: ldloc.0
+IL_0069: ldloc.1
+IL_006a: ldloca.s V_2
+IL_006c: ldflda Unity.Entities.Entity Game.Net.Edge::m_End
+IL_0071: call System.Boolean Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::TryGetNode(Game.Tools.CoursePos,System.Boolean,System.Boolean,Unity.Entities.Entity&)
+IL_0076: brtrue.s IL_0079
+IL_0078: ret
+IL_0079: ldloc.2
+IL_007a: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_007f: ldloc.2
+IL_0080: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_0085: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_008a: brfalse.s IL_008d
+IL_008c: ret
+IL_008d: ldarg.3
+IL_008e: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0093: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0098: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_009d: brfalse.s IL_00e8
+IL_009f: ldarg.0
+IL_00a0: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Game.Tools.GenerateEdgesSystem/NodeMapKey,Unity.Entities.Entity> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NodeMap
+IL_00a5: ldarg.3
+IL_00a6: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_00ab: newobj System.Void Game.Tools.GenerateEdgesSystem/NodeMapKey::.ctor(Unity.Entities.Entity)
+IL_00b0: ldloca.s V_22
+IL_00b2: ldloca.s V_23
+IL_00b4: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Game.Tools.GenerateEdgesSystem/NodeMapKey,Unity.Entities.Entity>::TryGetFirstValue(!0,!1&,Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>&)
+IL_00b9: brfalse.s IL_00e8
+IL_00bb: ldloc.s V_22
+IL_00bd: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00c2: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00c7: brfalse.s IL_00d7
+IL_00c9: ldarga.s definitionData
+IL_00cb: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00d0: stfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_00d5: br.s IL_00e8
+IL_00d7: ldarg.0
+IL_00d8: ldflda Unity.Collections.NativeParallelMultiHashMap`2<Game.Tools.GenerateEdgesSystem/NodeMapKey,Unity.Entities.Entity> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NodeMap
+IL_00dd: ldloca.s V_22
+IL_00df: ldloca.s V_23
+IL_00e1: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Game.Tools.GenerateEdgesSystem/NodeMapKey,Unity.Entities.Entity>::TryGetNextValue(!1&,Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>&)
+IL_00e6: brtrue.s IL_00bb
+IL_00e8: ldarg.s course
+IL_00ea: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_00ef: ldfld Unity.Entities.Entity Game.Tools.CoursePos::m_Entity
+IL_00f4: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_00f9: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00fe: brfalse.s IL_014b
+IL_0100: ldarg.s course
+IL_0102: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0107: ldfld Unity.Entities.Entity Game.Tools.CoursePos::m_Entity
+IL_010c: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0111: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0116: brfalse.s IL_014b
+IL_0118: ldarg.3
+IL_0119: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_011e: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0123: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0128: brfalse.s IL_014b
+IL_012a: ldarg.0
+IL_012b: ldarg.s course
+IL_012d: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_0132: ldfld Unity.Entities.Entity Game.Tools.CoursePos::m_Entity
+IL_0137: ldarg.s course
+IL_0139: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_013e: ldfld Unity.Entities.Entity Game.Tools.CoursePos::m_Entity
+IL_0143: call System.Boolean Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::ConnectionExists(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0148: brfalse.s IL_014b
+IL_014a: ret
+IL_014b: ldloca.s V_3
+IL_014d: initobj Game.Prefabs.PrefabRef
+IL_0153: ldloca.s V_4
+IL_0155: initobj Game.Prefabs.PrefabRef
+IL_015b: ldarg.3
+IL_015c: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0161: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0166: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_016b: brfalse.s IL_0180
+IL_016d: ldarg.0
+IL_016e: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabRefData
+IL_0173: ldarg.3
+IL_0174: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0179: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_017e: stloc.s V_4
+IL_0180: ldarg.3
+IL_0181: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Prefab
+IL_0186: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_018b: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0190: brfalse.s IL_01aa
+IL_0192: ldarg.3
+IL_0193: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0198: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_019d: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01a2: brfalse.s IL_01a9
+IL_01a4: ldloc.s V_4
+IL_01a6: stloc.3
+IL_01a7: br.s IL_01b7
+IL_01a9: ret
+IL_01aa: ldloca.s V_3
+IL_01ac: ldarg.3
+IL_01ad: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Prefab
+IL_01b2: stfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_01b7: ldarg.0
+IL_01b8: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabData
+IL_01bd: ldloc.3
+IL_01be: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_01c3: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabData>::IsComponentEnabled(Unity.Entities.Entity)
+IL_01c8: stloc.s V_5
+IL_01ca: ldloca.s V_6
+IL_01cc: initobj Game.Net.Composition
+IL_01d2: ldloca.s V_6
+IL_01d4: ldloc.3
+IL_01d5: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_01da: stfld Unity.Entities.Entity Game.Net.Composition::m_Edge
+IL_01df: ldloca.s V_6
+IL_01e1: ldloc.3
+IL_01e2: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_01e7: stfld Unity.Entities.Entity Game.Net.Composition::m_StartNode
+IL_01ec: ldloca.s V_6
+IL_01ee: ldloc.3
+IL_01ef: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_01f4: stfld Unity.Entities.Entity Game.Net.Composition::m_EndNode
+IL_01f9: ldarg.0
+IL_01fa: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NetData
+IL_01ff: ldloc.3
+IL_0200: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0205: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData>::get_Item(Unity.Entities.Entity)
+IL_020a: stloc.s V_7
+IL_020c: ldloca.s V_8
+IL_020e: initobj Game.Prefabs.NetGeometryData
+IL_0214: ldc.i4.0
+IL_0215: stloc.s V_9
+IL_0217: ldarg.0
+IL_0218: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NetGeometryData
+IL_021d: ldloc.3
+IL_021e: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0223: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData>::HasComponent(Unity.Entities.Entity)
+IL_0228: brfalse.s IL_0240
+IL_022a: ldarg.0
+IL_022b: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NetGeometryData
+IL_0230: ldloc.3
+IL_0231: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0236: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetGeometryData>::get_Item(Unity.Entities.Entity)
+IL_023b: stloc.s V_8
+IL_023d: ldc.i4.1
+IL_023e: stloc.s V_9
+IL_0240: ldloc.s V_8
+IL_0242: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_0247: ldc.i4.2
+IL_0248: and
+IL_0249: brtrue.s IL_024f
+IL_024b: ldloc.s V_9
+IL_024d: brtrue.s IL_0284
+IL_024f: ldarg.0
+IL_0250: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NodeData
+IL_0255: ldloc.2
+IL_0256: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_025b: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Node>::get_Item(Unity.Entities.Entity)
+IL_0260: ldfld Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_0265: stloc.s V_10
+IL_0267: ldarg.0
+IL_0268: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NodeData
+IL_026d: ldloc.2
+IL_026e: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_0273: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Node>::get_Item(Unity.Entities.Entity)
+IL_0278: ldfld Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_027d: stloc.s V_11
+IL_027f: br IL_0378
+IL_0284: ldarg.s course
+IL_0286: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_028b: ldarg.s course
+IL_028d: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_0292: ldfld System.Single Game.Tools.CoursePos::m_CourseDelta
+IL_0297: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::Position(Colossal.Mathematics.Bezier4x3,System.Single)
+IL_029c: stloc.s V_10
+IL_029e: ldarg.s course
+IL_02a0: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_02a5: ldarg.s course
+IL_02a7: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_02ac: ldfld System.Single Game.Tools.CoursePos::m_CourseDelta
+IL_02b1: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::Position(Colossal.Mathematics.Bezier4x3,System.Single)
+IL_02b6: stloc.s V_11
+IL_02b8: ldarg.0
+IL_02b9: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabRefData
+IL_02be: ldloc.2
+IL_02bf: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_02c4: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_02c9: stloc.s V_24
+IL_02cb: ldarg.0
+IL_02cc: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabRefData
+IL_02d1: ldloc.2
+IL_02d2: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_02d7: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::get_Item(Unity.Entities.Entity)
+IL_02dc: stloc.s V_25
+IL_02de: ldarg.0
+IL_02df: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NetData
+IL_02e4: ldloc.s V_24
+IL_02e6: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_02eb: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData>::get_Item(Unity.Entities.Entity)
+IL_02f0: stloc.s V_26
+IL_02f2: ldarg.0
+IL_02f3: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NetData
+IL_02f8: ldloc.s V_25
+IL_02fa: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_02ff: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData>::get_Item(Unity.Entities.Entity)
+IL_0304: stloc.s V_27
+IL_0306: ldloc.s V_7
+IL_0308: ldfld Game.Net.Layer Game.Prefabs.NetData::m_RequiredLayers
+IL_030d: ldloc.s V_26
+IL_030f: ldfld Game.Net.Layer Game.Prefabs.NetData::m_RequiredLayers
+IL_0314: xor
+IL_0315: ldc.i4 256
+IL_031a: and
+IL_031b: brtrue.s IL_033f
+IL_031d: ldloca.s V_10
+IL_031f: ldarg.0
+IL_0320: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NodeData
+IL_0325: ldloc.2
+IL_0326: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_032b: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Node>::get_Item(Unity.Entities.Entity)
+IL_0330: ldfld Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_0335: ldfld System.Single Unity.Mathematics.float3::y
+IL_033a: stfld System.Single Unity.Mathematics.float3::y
+IL_033f: ldloc.s V_7
+IL_0341: ldfld Game.Net.Layer Game.Prefabs.NetData::m_RequiredLayers
+IL_0346: ldloc.s V_27
+IL_0348: ldfld Game.Net.Layer Game.Prefabs.NetData::m_RequiredLayers
+IL_034d: xor
+IL_034e: ldc.i4 256
+IL_0353: and
+IL_0354: brtrue.s IL_0378
+IL_0356: ldloca.s V_11
+IL_0358: ldarg.0
+IL_0359: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Node> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NodeData
+IL_035e: ldloc.2
+IL_035f: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_0364: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Node>::get_Item(Unity.Entities.Entity)
+IL_0369: ldfld Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_036e: ldfld System.Single Unity.Mathematics.float3::y
+IL_0373: stfld System.Single Unity.Mathematics.float3::y
+IL_0378: ldloca.s V_12
+IL_037a: initobj Game.Net.Curve
+IL_0380: ldloc.s V_8
+IL_0382: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_0387: ldc.i4.1
+IL_0388: and
+IL_0389: brfalse.s IL_03ae
+IL_038b: ldarg.s course
+IL_038d: ldfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_0392: ldc.i4.0
+IL_0393: bge.s IL_03ae
+IL_0395: ldloca.s V_12
+IL_0397: ldloc.s V_10
+IL_0399: ldloc.s V_11
+IL_039b: ldloc.s V_8
+IL_039d: ldfld System.Single Game.Prefabs.NetGeometryData::m_Hanging
+IL_03a2: call Colossal.Mathematics.Bezier4x3 Game.Net.NetUtils::StraightCurve(Unity.Mathematics.float3,Unity.Mathematics.float3,System.Single)
+IL_03a7: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_03ac: br.s IL_03fa
+IL_03ae: ldloca.s V_12
+IL_03b0: ldarg.s course
+IL_03b2: ldfld Colossal.Mathematics.Bezier4x3 Game.Tools.NetCourse::m_Curve
+IL_03b7: ldarg.s course
+IL_03b9: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_03be: ldfld System.Single Game.Tools.CoursePos::m_CourseDelta
+IL_03c3: ldarg.s course
+IL_03c5: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_03ca: ldfld System.Single Game.Tools.CoursePos::m_CourseDelta
+IL_03cf: newobj System.Void Unity.Mathematics.float2::.ctor(System.Single,System.Single)
+IL_03d4: call Colossal.Mathematics.Bezier4x3 Colossal.Mathematics.MathUtils::Cut(Colossal.Mathematics.Bezier4x3,Unity.Mathematics.float2)
+IL_03d9: stfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_03de: ldloca.s V_12
+IL_03e0: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_03e5: ldloc.s V_10
+IL_03e7: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_03ec: ldloca.s V_12
+IL_03ee: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_03f3: ldloc.s V_11
+IL_03f5: stfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_03fa: ldloca.s V_12
+IL_03fc: ldloc.s V_12
+IL_03fe: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0403: call System.Single Colossal.Mathematics.MathUtils::Length(Colossal.Mathematics.Bezier4x3)
+IL_0408: stfld System.Single Game.Net.Curve::m_Length
+IL_040d: ldloca.s V_13
+IL_040f: initobj Game.Tools.Temp
+IL_0415: ldc.i4.0
+IL_0416: stloc.s V_14
+IL_0418: ldarg.3
+IL_0419: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_041e: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0423: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0428: brfalse IL_053d
+IL_042d: ldloca.s V_13
+IL_042f: ldarg.3
+IL_0430: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0435: stfld Unity.Entities.Entity Game.Tools.Temp::m_Original
+IL_043a: ldarg.3
+IL_043b: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_0440: ldc.i4.4
+IL_0441: and
+IL_0442: brfalse.s IL_0452
+IL_0444: ldloca.s V_13
+IL_0446: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_044b: dup
+IL_044c: ldind.u4
+IL_044d: ldc.i4.2
+IL_044e: or
+IL_044f: stind.i4
+IL_0450: br.s IL_04b4
+IL_0452: ldarg.3
+IL_0453: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_0458: ldc.i4.2
+IL_0459: and
+IL_045a: brfalse.s IL_046b
+IL_045c: ldloca.s V_13
+IL_045e: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0463: dup
+IL_0464: ldind.u4
+IL_0465: ldc.i4.s 32
+IL_0467: or
+IL_0468: stind.i4
+IL_0469: br.s IL_04b4
+IL_046b: ldarg.3
+IL_046c: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_0471: ldc.i4.s 16
+IL_0473: and
+IL_0474: brfalse.s IL_0488
+IL_0476: ldloca.s V_13
+IL_0478: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_047d: dup
+IL_047e: ldind.u4
+IL_047f: ldc.i4 512
+IL_0484: or
+IL_0485: stind.i4
+IL_0486: br.s IL_04b4
+IL_0488: ldloc.3
+IL_0489: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_048e: ldloc.s V_4
+IL_0490: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0495: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_049a: brtrue.s IL_04a7
+IL_049c: ldarg.3
+IL_049d: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_04a2: ldc.i4.s 64
+IL_04a4: and
+IL_04a5: brfalse.s IL_04b4
+IL_04a7: ldloca.s V_13
+IL_04a9: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_04ae: dup
+IL_04af: ldind.u4
+IL_04b0: ldc.i4.s 64
+IL_04b2: or
+IL_04b3: stind.i4
+IL_04b4: ldarg.3
+IL_04b5: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_04ba: ldc.i4 512
+IL_04bf: and
+IL_04c0: brfalse.s IL_04d2
+IL_04c2: ldloca.s V_13
+IL_04c4: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_04c9: dup
+IL_04ca: ldind.u4
+IL_04cb: ldc.i4 2048
+IL_04d0: or
+IL_04d1: stind.i4
+IL_04d2: ldarg.3
+IL_04d3: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_04d8: ldc.i4.s 16
+IL_04da: and
+IL_04db: brtrue.s IL_0549
+IL_04dd: ldarg.0
+IL_04de: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Upgraded> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_UpgradedData
+IL_04e3: ldarg.3
+IL_04e4: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_04e9: ldloca.s V_28
+IL_04eb: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Upgraded>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_04f0: brfalse.s IL_0514
+IL_04f2: ldloc.s V_28
+IL_04f4: starg.s upgraded
+IL_04f6: ldarg.3
+IL_04f7: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_04fc: ldc.i4.s 64
+IL_04fe: and
+IL_04ff: brfalse.s IL_0514
+IL_0501: ldarga.s upgraded
+IL_0503: ldarg.s upgraded
+IL_0505: ldfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_050a: call Game.Prefabs.CompositionFlags Game.Prefabs.NetCompositionHelpers::InvertCompositionFlags(Game.Prefabs.CompositionFlags)
+IL_050f: stfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_0514: ldarg.0
+IL_0515: ldflda Unity.Entities.BufferLookup`1<Game.Net.SubReplacement> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_SubReplacements
+IL_051a: ldarg.3
+IL_051b: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0520: ldloca.s V_29
+IL_0522: call System.Boolean Unity.Entities.BufferLookup`1<Game.Net.SubReplacement>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0527: brfalse.s IL_0549
+IL_0529: ldloc.s V_29
+IL_052b: starg.s subReplacements
+IL_052d: ldarg.3
+IL_052e: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_0533: ldc.i4.s 64
+IL_0535: and
+IL_0536: ldc.i4.0
+IL_0537: cgt.un
+IL_0539: stloc.s V_14
+IL_053b: br.s IL_0549
+IL_053d: ldloca.s V_13
+IL_053f: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0544: dup
+IL_0545: ldind.u4
+IL_0546: ldc.i4.1
+IL_0547: or
+IL_0548: stind.i4
+IL_0549: ldarg.3
+IL_054a: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_054f: ldc.i4 256
+IL_0554: and
+IL_0555: brfalse.s IL_0567
+IL_0557: ldloca.s V_13
+IL_0559: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_055e: dup
+IL_055f: ldind.u4
+IL_0560: ldc.i4 1024
+IL_0565: or
+IL_0566: stind.i4
+IL_0567: ldarg.3
+IL_0568: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_056d: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0572: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0577: brfalse IL_0613
+IL_057c: ldarga.s course
+IL_057e: ldc.r4 0
+IL_0583: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Implicit(System.Single)
+IL_0588: stfld Unity.Mathematics.float2 Game.Tools.NetCourse::m_Elevation
+IL_058d: ldarga.s course
+IL_058f: ldc.i4.m1
+IL_0590: stfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_0595: ldarg.0
+IL_0596: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ElevationData
+IL_059b: ldarg.3
+IL_059c: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_05a1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Elevation>::HasComponent(Unity.Entities.Entity)
+IL_05a6: brfalse.s IL_05c5
+IL_05a8: ldarga.s course
+IL_05aa: ldarg.0
+IL_05ab: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ElevationData
+IL_05b0: ldarg.3
+IL_05b1: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_05b6: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Elevation>::get_Item(Unity.Entities.Entity)
+IL_05bb: ldfld Unity.Mathematics.float2 Game.Net.Elevation::m_Elevation
+IL_05c0: stfld Unity.Mathematics.float2 Game.Tools.NetCourse::m_Elevation
+IL_05c5: ldarg.0
+IL_05c6: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Fixed> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_FixedData
+IL_05cb: ldarg.3
+IL_05cc: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_05d1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Fixed>::HasComponent(Unity.Entities.Entity)
+IL_05d6: brfalse.s IL_05f5
+IL_05d8: ldarga.s course
+IL_05da: ldarg.0
+IL_05db: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Fixed> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_FixedData
+IL_05e0: ldarg.3
+IL_05e1: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_05e6: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Fixed>::get_Item(Unity.Entities.Entity)
+IL_05eb: ldfld System.Int32 Game.Net.Fixed::m_Index
+IL_05f0: stfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_05f5: ldarg.3
+IL_05f6: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_05fb: ldc.i4.s 64
+IL_05fd: and
+IL_05fe: brfalse.s IL_0613
+IL_0600: ldarga.s course
+IL_0602: ldarga.s course
+IL_0604: ldflda Unity.Mathematics.float2 Game.Tools.NetCourse::m_Elevation
+IL_0609: call Unity.Mathematics.float2 Unity.Mathematics.float2::get_yx()
+IL_060e: stfld Unity.Mathematics.float2 Game.Tools.NetCourse::m_Elevation
+IL_0613: ldarg.s course
+IL_0615: ldfld Unity.Mathematics.float2 Game.Tools.NetCourse::m_Elevation
+IL_061a: ldc.r4 0
+IL_061f: call Unity.Mathematics.bool2 Unity.Mathematics.float2::op_Inequality(Unity.Mathematics.float2,System.Single)
+IL_0624: call System.Boolean Unity.Mathematics.math::any(Unity.Mathematics.bool2)
+IL_0629: brtrue.s IL_0651
+IL_062b: ldarg.s course
+IL_062d: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_StartPosition
+IL_0632: ldfld System.Int32 Game.Tools.CoursePos::m_ParentMesh
+IL_0637: ldc.i4.0
+IL_0638: blt.s IL_064e
+IL_063a: ldarg.s course
+IL_063c: ldfld Game.Tools.CoursePos Game.Tools.NetCourse::m_EndPosition
+IL_0641: ldfld System.Int32 Game.Tools.CoursePos::m_ParentMesh
+IL_0646: ldc.i4.0
+IL_0647: clt
+IL_0649: ldc.i4.0
+IL_064a: ceq
+IL_064c: br.s IL_0652
+IL_064e: ldc.i4.0
+IL_064f: br.s IL_0652
+IL_0651: ldc.i4.1
+IL_0652: dup
+IL_0653: brtrue IL_0753
+IL_0658: ldloc.s V_8
+IL_065a: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_065f: ldc.i4 131072
+IL_0664: and
+IL_0665: brfalse.s IL_069d
+IL_0667: ldarg.s ownerData
+IL_0669: ldfld Unity.Entities.Entity Game.Tools.OwnerDefinition::m_Prefab
+IL_066e: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0673: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0678: brtrue.s IL_069d
+IL_067a: ldarg.3
+IL_067b: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Owner
+IL_0680: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0685: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_068a: brfalse IL_0753
+IL_068f: ldarg.0
+IL_0690: ldfld System.Boolean Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_EditorMode
+IL_0695: brfalse.s IL_069d
+IL_0697: ldloc.0
+IL_0698: brtrue IL_0753
+IL_069d: ldarg.0
+IL_069e: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ElevationData
+IL_06a3: ldloc.2
+IL_06a4: ldfld Unity.Entities.Entity Game.Net.Edge::m_Start
+IL_06a9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Elevation>::HasComponent(Unity.Entities.Entity)
+IL_06ae: stloc.s V_30
+IL_06b0: ldarg.0
+IL_06b1: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ElevationData
+IL_06b6: ldloc.2
+IL_06b7: ldfld Unity.Entities.Entity Game.Net.Edge::m_End
+IL_06bc: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Elevation>::HasComponent(Unity.Entities.Entity)
+IL_06c1: stloc.s V_31
+IL_06c3: ldloc.s V_8
+IL_06c5: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_06ca: ldc.i4 33554432
+IL_06cf: and
+IL_06d0: brfalse.s IL_06f2
+IL_06d2: ldloc.s V_12
+IL_06d4: ldloc.s V_30
+IL_06d6: ldloc.s V_30
+IL_06d8: ldloc.s V_31
+IL_06da: or
+IL_06db: ldloc.s V_31
+IL_06dd: ldarg.0
+IL_06de: ldflda Game.Simulation.TerrainHeightData Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_TerrainHeightData
+IL_06e3: ldarg.0
+IL_06e4: ldflda Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_WaterSurfaceData
+IL_06e9: call Game.Net.Curve Game.Net.NetUtils::AdjustPosition(Game.Net.Curve,System.Boolean,System.Boolean,System.Boolean,Game.Simulation.TerrainHeightData&,Game.Simulation.WaterSurfaceData`1<Game.Simulation.SurfaceWater>&)
+IL_06ee: stloc.s V_32
+IL_06f0: br.s IL_070a
+IL_06f2: ldloc.s V_12
+IL_06f4: ldloc.s V_30
+IL_06f6: ldloc.s V_30
+IL_06f8: ldloc.s V_31
+IL_06fa: or
+IL_06fb: ldloc.s V_31
+IL_06fd: ldarg.0
+IL_06fe: ldflda Game.Simulation.TerrainHeightData Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_TerrainHeightData
+IL_0703: call Game.Net.Curve Game.Net.NetUtils::AdjustPosition(Game.Net.Curve,System.Boolean,System.Boolean,System.Boolean,Game.Simulation.TerrainHeightData&)
+IL_0708: stloc.s V_32
+IL_070a: ldloca.s V_32
+IL_070c: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0711: call Colossal.Mathematics.Bezier4x1 Colossal.Mathematics.Bezier4x3::get_y()
+IL_0716: stloc.s V_33
+IL_0718: ldloca.s V_33
+IL_071a: call Unity.Mathematics.float4 Colossal.Mathematics.Bezier4x1::get_abcd()
+IL_071f: ldloca.s V_12
+IL_0721: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0726: call Colossal.Mathematics.Bezier4x1 Colossal.Mathematics.Bezier4x3::get_y()
+IL_072b: stloc.s V_33
+IL_072d: ldloca.s V_33
+IL_072f: call Unity.Mathematics.float4 Colossal.Mathematics.Bezier4x1::get_abcd()
+IL_0734: call Unity.Mathematics.float4 Unity.Mathematics.float4::op_Subtraction(Unity.Mathematics.float4,Unity.Mathematics.float4)
+IL_0739: call Unity.Mathematics.float4 Unity.Mathematics.math::abs(Unity.Mathematics.float4)
+IL_073e: ldc.r4 0.01
+IL_0743: call Unity.Mathematics.bool4 Unity.Mathematics.float4::op_GreaterThanOrEqual(Unity.Mathematics.float4,System.Single)
+IL_0748: call System.Boolean Unity.Mathematics.math::any(Unity.Mathematics.bool4)
+IL_074d: brfalse.s IL_0753
+IL_074f: ldloc.s V_32
+IL_0751: stloc.s V_12
+IL_0753: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0758: stloc.s V_15
+IL_075a: ldloc.0
+IL_075b: brtrue.s IL_0783
+IL_075d: ldarg.0
+IL_075e: ldloc.2
+IL_075f: ldloc.3
+IL_0760: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0765: ldarg.3
+IL_0766: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_SubPrefab
+IL_076b: ldarg.3
+IL_076c: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0771: ldarga.s ownerData
+IL_0773: ldarga.s definitionData
+IL_0775: ldflda Unity.Entities.Entity Game.Tools.CreationDefinition::m_Owner
+IL_077a: ldloca.s V_15
+IL_077c: call System.Boolean Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::TryGetOldEntity(Game.Net.Edge,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity,Game.Tools.OwnerDefinition&,Unity.Entities.Entity&,Unity.Entities.Entity&)
+IL_0781: br.s IL_0784
+IL_0783: ldc.i4.0
+IL_0784: stloc.s V_16
+IL_0786: ldloc.s V_16
+IL_0788: brfalse.s IL_07b5
+IL_078a: ldarg.0
+IL_078b: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0790: ldarg.1
+IL_0791: ldloc.s V_15
+IL_0793: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity)
+IL_0798: ldarg.0
+IL_0799: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_079e: ldarg.1
+IL_079f: ldloc.s V_15
+IL_07a1: ldloca.s V_34
+IL_07a3: initobj Game.Common.Updated
+IL_07a9: ldloc.s V_34
+IL_07ab: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_07b0: br IL_083a
+IL_07b5: ldarg.0
+IL_07b6: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_07bb: ldarg.1
+IL_07bc: ldloc.s V_7
+IL_07be: ldfld Unity.Entities.EntityArchetype Game.Prefabs.NetData::m_EdgeArchetype
+IL_07c3: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32,Unity.Entities.EntityArchetype)
+IL_07c8: stloc.s V_15
+IL_07ca: ldarg.0
+IL_07cb: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_07d0: ldarg.1
+IL_07d1: ldloc.s V_15
+IL_07d3: ldloc.3
+IL_07d4: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Prefabs.PrefabRef>(System.Int32,Unity.Entities.Entity,!!0)
+IL_07d9: ldarg.0
+IL_07da: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_07df: ldarg.1
+IL_07e0: ldloc.s V_15
+IL_07e2: ldloc.2
+IL_07e3: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Edge>(System.Int32,Unity.Entities.Entity,!!0)
+IL_07e8: ldarg.3
+IL_07e9: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_07ee: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_07f3: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_07f8: brtrue.s IL_0816
+IL_07fa: ldarg.0
+IL_07fb: ldfld System.Boolean Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_EditorMode
+IL_0800: brtrue.s IL_0813
+IL_0802: ldarg.3
+IL_0803: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_0808: ldc.i4 65536
+IL_080d: and
+IL_080e: ldc.i4.0
+IL_080f: ceq
+IL_0811: br.s IL_082a
+IL_0813: ldc.i4.1
+IL_0814: br.s IL_082a
+IL_0816: ldarg.0
+IL_0817: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ServiceUpgradeData
+IL_081c: ldarg.3
+IL_081d: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0822: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_0827: ldc.i4.0
+IL_0828: ceq
+IL_082a: brfalse.s IL_083a
+IL_082c: ldarg.0
+IL_082d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0832: ldarg.1
+IL_0833: ldloc.s V_15
+IL_0835: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Buildings.ServiceUpgrade>(System.Int32,Unity.Entities.Entity)
+IL_083a: ldarg.0
+IL_083b: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0840: ldarg.1
+IL_0841: ldloc.s V_15
+IL_0843: ldloc.s V_12
+IL_0845: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Curve>(System.Int32,Unity.Entities.Entity,!!0)
+IL_084a: ldloc.s V_9
+IL_084c: brfalse IL_092b
+IL_0851: ldarg.0
+IL_0852: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0857: ldarg.1
+IL_0858: ldloc.s V_15
+IL_085a: ldloc.s V_6
+IL_085c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Composition>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0861: ldarg.0
+IL_0862: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PseudoRandomSeedData
+IL_0867: ldarg.3
+IL_0868: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_086d: ldloca.s V_35
+IL_086f: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0874: brfalse.s IL_0888
+IL_0876: ldarg.0
+IL_0877: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_087c: ldarg.1
+IL_087d: ldloc.s V_15
+IL_087f: ldloc.s V_35
+IL_0881: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Common.PseudoRandomSeed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0886: br.s IL_08a2
+IL_0888: ldarg.0
+IL_0889: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_088e: ldarg.1
+IL_088f: ldloc.s V_15
+IL_0891: ldarg.3
+IL_0892: ldfld System.Int32 Game.Tools.CreationDefinition::m_RandomSeed
+IL_0897: conv.u2
+IL_0898: newobj System.Void Game.Common.PseudoRandomSeed::.ctor(System.UInt16)
+IL_089d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Common.PseudoRandomSeed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_08a2: ldarg.0
+IL_08a3: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCustomColorData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CustomColorData
+IL_08a8: ldloc.3
+IL_08a9: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_08ae: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.NetCustomColorData>::HasComponent(Unity.Entities.Entity)
+IL_08b3: stloc.s V_36
+IL_08b5: ldloc.s V_36
+IL_08b7: ldarg.s hasCustomColor
+IL_08b9: and
+IL_08ba: brfalse.s IL_08df
+IL_08bc: ldarg.0
+IL_08bd: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_08c2: ldarg.1
+IL_08c3: ldloc.s V_15
+IL_08c5: ldloca.s V_37
+IL_08c7: initobj Game.Net.NetCustomColorVariation
+IL_08cd: ldloca.s V_37
+IL_08cf: ldarg.s customColor
+IL_08d1: stfld Game.Rendering.ColorSet Game.Net.NetCustomColorVariation::m_ColorSet
+IL_08d6: ldloc.s V_37
+IL_08d8: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.NetCustomColorVariation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_08dd: br.s IL_092b
+IL_08df: ldloc.s V_36
+IL_08e1: brfalse.s IL_090a
+IL_08e3: ldarg.0
+IL_08e4: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NetCustomColorVariation> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CustomColorVariationData
+IL_08e9: ldarg.3
+IL_08ea: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_08ef: ldloca.s V_38
+IL_08f1: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NetCustomColorVariation>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_08f6: brfalse.s IL_090a
+IL_08f8: ldarg.0
+IL_08f9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_08fe: ldarg.1
+IL_08ff: ldloc.s V_15
+IL_0901: ldloc.s V_38
+IL_0903: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.NetCustomColorVariation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0908: br.s IL_092b
+IL_090a: ldloc.s V_16
+IL_090c: brfalse.s IL_092b
+IL_090e: ldarg.0
+IL_090f: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NetCustomColorVariation> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CustomColorVariationData
+IL_0914: ldloc.s V_15
+IL_0916: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NetCustomColorVariation>::HasComponent(Unity.Entities.Entity)
+IL_091b: brfalse.s IL_092b
+IL_091d: ldarg.0
+IL_091e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0923: ldarg.1
+IL_0924: ldloc.s V_15
+IL_0926: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Net.NetCustomColorVariation>(System.Int32,Unity.Entities.Entity)
+IL_092b: brfalse.s IL_0949
+IL_092d: ldarg.0
+IL_092e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0933: ldarg.1
+IL_0934: ldloc.s V_15
+IL_0936: ldarg.s course
+IL_0938: ldfld Unity.Mathematics.float2 Game.Tools.NetCourse::m_Elevation
+IL_093d: newobj System.Void Game.Net.Elevation::.ctor(Unity.Mathematics.float2)
+IL_0942: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.Elevation>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0947: br.s IL_096a
+IL_0949: ldloc.s V_16
+IL_094b: brfalse.s IL_096a
+IL_094d: ldarg.0
+IL_094e: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Elevation> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ElevationData
+IL_0953: ldloc.s V_15
+IL_0955: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Elevation>::HasComponent(Unity.Entities.Entity)
+IL_095a: brfalse.s IL_096a
+IL_095c: ldarg.0
+IL_095d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0962: ldarg.1
+IL_0963: ldloc.s V_15
+IL_0965: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Net.Elevation>(System.Int32,Unity.Entities.Entity)
+IL_096a: ldarg.s upgraded
+IL_096c: ldfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_0971: ldloca.s V_39
+IL_0973: initobj Game.Prefabs.CompositionFlags
+IL_0979: ldloc.s V_39
+IL_097b: call System.Boolean Game.Prefabs.CompositionFlags::op_Inequality(Game.Prefabs.CompositionFlags,Game.Prefabs.CompositionFlags)
+IL_0980: brfalse.s IL_09dd
+IL_0982: ldarg.0
+IL_0983: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0988: ldarg.1
+IL_0989: ldloc.s V_15
+IL_098b: ldarg.s upgraded
+IL_098d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.Upgraded>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0992: ldarg.s upgraded
+IL_0994: ldfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_0999: ldfld Game.Prefabs.CompositionFlags/Side Game.Prefabs.CompositionFlags::m_Left
+IL_099e: ldc.i4 1073741824
+IL_09a3: and
+IL_09a4: ldc.i4.0
+IL_09a5: cgt.un
+IL_09a7: ldarg.s upgraded
+IL_09a9: ldfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_09ae: ldfld Game.Prefabs.CompositionFlags/Side Game.Prefabs.CompositionFlags::m_Right
+IL_09b3: ldc.i4 1073741824
+IL_09b8: and
+IL_09b9: ldc.i4.0
+IL_09ba: cgt.un
+IL_09bc: stloc.s V_40
+IL_09be: ldloc.s V_40
+IL_09c0: or
+IL_09c1: brfalse.s IL_09fe
+IL_09c3: ldarg.0
+IL_09c4: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_09c9: ldarg.1
+IL_09ca: ldloc.s V_15
+IL_09cc: ldloca.s V_41
+IL_09ce: initobj Game.Tools.ZoneGridHighlighted
+IL_09d4: ldloc.s V_41
+IL_09d6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.ZoneGridHighlighted>(System.Int32,Unity.Entities.Entity,!!0)
+IL_09db: br.s IL_09fe
+IL_09dd: ldloc.s V_16
+IL_09df: brfalse.s IL_09fe
+IL_09e1: ldarg.0
+IL_09e2: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Upgraded> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_UpgradedData
+IL_09e7: ldloc.s V_15
+IL_09e9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Upgraded>::HasComponent(Unity.Entities.Entity)
+IL_09ee: brfalse.s IL_09fe
+IL_09f0: ldarg.0
+IL_09f1: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_09f6: ldarg.1
+IL_09f7: ldloc.s V_15
+IL_09f9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Net.Upgraded>(System.Int32,Unity.Entities.Entity)
+IL_09fe: ldarga.s subReplacements
+IL_0a00: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Net.SubReplacement>::get_IsCreated()
+IL_0a05: brfalse.s IL_0a61
+IL_0a07: ldarga.s subReplacements
+IL_0a09: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubReplacement>::get_Length()
+IL_0a0e: brfalse.s IL_0a61
+IL_0a10: ldarg.0
+IL_0a11: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0a16: ldarg.1
+IL_0a17: ldloc.s V_15
+IL_0a19: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Net.SubReplacement>(System.Int32,Unity.Entities.Entity)
+IL_0a1e: stloc.s V_42
+IL_0a20: ldc.i4.0
+IL_0a21: stloc.s V_43
+IL_0a23: br.s IL_0a54
+IL_0a25: ldarga.s subReplacements
+IL_0a27: ldloc.s V_43
+IL_0a29: call !0 Unity.Entities.DynamicBuffer`1<Game.Net.SubReplacement>::get_Item(System.Int32)
+IL_0a2e: stloc.s V_44
+IL_0a30: ldloc.s V_14
+IL_0a32: brfalse.s IL_0a44
+IL_0a34: ldloca.s V_44
+IL_0a36: ldloc.s V_44
+IL_0a38: ldfld Game.Net.SubReplacementSide Game.Net.SubReplacement::m_Side
+IL_0a3d: neg
+IL_0a3e: conv.i1
+IL_0a3f: stfld Game.Net.SubReplacementSide Game.Net.SubReplacement::m_Side
+IL_0a44: ldloca.s V_42
+IL_0a46: ldloc.s V_44
+IL_0a48: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubReplacement>::Add(!0)
+IL_0a4d: pop
+IL_0a4e: ldloc.s V_43
+IL_0a50: ldc.i4.1
+IL_0a51: add
+IL_0a52: stloc.s V_43
+IL_0a54: ldloc.s V_43
+IL_0a56: ldarga.s subReplacements
+IL_0a58: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Net.SubReplacement>::get_Length()
+IL_0a5d: blt.s IL_0a25
+IL_0a5f: br.s IL_0a82
+IL_0a61: ldloc.s V_16
+IL_0a63: brfalse.s IL_0a82
+IL_0a65: ldarg.0
+IL_0a66: ldflda Unity.Entities.BufferLookup`1<Game.Net.SubReplacement> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_SubReplacements
+IL_0a6b: ldloc.s V_15
+IL_0a6d: call System.Boolean Unity.Entities.BufferLookup`1<Game.Net.SubReplacement>::HasBuffer(Unity.Entities.Entity)
+IL_0a72: brfalse.s IL_0a82
+IL_0a74: ldarg.0
+IL_0a75: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0a7a: ldarg.1
+IL_0a7b: ldloc.s V_15
+IL_0a7d: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Net.SubReplacement>(System.Int32,Unity.Entities.Entity)
+IL_0a82: ldarg.0
+IL_0a83: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabRoadData
+IL_0a88: ldloc.3
+IL_0a89: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0a8e: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData>::HasComponent(Unity.Entities.Entity)
+IL_0a93: brfalse.s IL_0aee
+IL_0a95: ldarg.s upgraded
+IL_0a97: ldfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_0a9c: ldfld Game.Prefabs.CompositionFlags/Side Game.Prefabs.CompositionFlags::m_Left
+IL_0aa1: ldarg.s upgraded
+IL_0aa3: ldfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_0aa8: ldfld Game.Prefabs.CompositionFlags/Side Game.Prefabs.CompositionFlags::m_Right
+IL_0aad: or
+IL_0aae: ldc.i4.s 16
+IL_0ab0: and
+IL_0ab1: brfalse.s IL_0acd
+IL_0ab3: ldarg.0
+IL_0ab4: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0ab9: ldarg.1
+IL_0aba: ldloc.s V_15
+IL_0abc: ldloca.s V_45
+IL_0abe: initobj Game.Net.TramTrack
+IL_0ac4: ldloc.s V_45
+IL_0ac6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.TramTrack>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0acb: br.s IL_0aee
+IL_0acd: ldloc.s V_16
+IL_0acf: brfalse.s IL_0aee
+IL_0ad1: ldarg.0
+IL_0ad2: ldflda Unity.Entities.ComponentLookup`1<Game.Net.TramTrack> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_TramTrackData
+IL_0ad7: ldloc.s V_15
+IL_0ad9: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.TramTrack>::HasComponent(Unity.Entities.Entity)
+IL_0ade: brfalse.s IL_0aee
+IL_0ae0: ldarg.0
+IL_0ae1: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0ae6: ldarg.1
+IL_0ae7: ldloc.s V_15
+IL_0ae9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Net.TramTrack>(System.Int32,Unity.Entities.Entity)
+IL_0aee: ldarg.0
+IL_0aef: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Native> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NativeData
+IL_0af4: ldarg.3
+IL_0af5: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0afa: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Native>::HasComponent(Unity.Entities.Entity)
+IL_0aff: brfalse.s IL_0b2a
+IL_0b01: ldloc.s V_13
+IL_0b03: ldfld Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0b08: ldc.i4 576
+IL_0b0d: and
+IL_0b0e: brtrue.s IL_0b2a
+IL_0b10: ldarg.0
+IL_0b11: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0b16: ldarg.1
+IL_0b17: ldloc.s V_15
+IL_0b19: ldloca.s V_46
+IL_0b1b: initobj Game.Common.Native
+IL_0b21: ldloc.s V_46
+IL_0b23: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Native>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0b28: br.s IL_0b4b
+IL_0b2a: ldloc.s V_16
+IL_0b2c: brfalse.s IL_0b4b
+IL_0b2e: ldarg.0
+IL_0b2f: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Native> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_NativeData
+IL_0b34: ldloc.s V_15
+IL_0b36: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Native>::HasComponent(Unity.Entities.Entity)
+IL_0b3b: brfalse.s IL_0b4b
+IL_0b3d: ldarg.0
+IL_0b3e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0b43: ldarg.1
+IL_0b44: ldloc.s V_15
+IL_0b46: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Common.Native>(System.Int32,Unity.Entities.Entity)
+IL_0b4b: ldc.i4.1
+IL_0b4c: stloc.s V_17
+IL_0b4e: ldarg.s ownerData
+IL_0b50: ldfld Unity.Entities.Entity Game.Tools.OwnerDefinition::m_Prefab
+IL_0b55: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0b5a: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0b5f: brfalse.s IL_0b8e
+IL_0b61: ldarg.0
+IL_0b62: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0b67: ldarg.1
+IL_0b68: ldloc.s V_15
+IL_0b6a: ldloca.s V_47
+IL_0b6c: initobj Game.Common.Owner
+IL_0b72: ldloc.s V_47
+IL_0b74: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Owner>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0b79: ldarg.0
+IL_0b7a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0b7f: ldarg.1
+IL_0b80: ldloc.s V_15
+IL_0b82: ldarg.s ownerData
+IL_0b84: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.OwnerDefinition>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0b89: ldc.i4.0
+IL_0b8a: stloc.s V_17
+IL_0b8c: br.s IL_0bbc
+IL_0b8e: ldarg.3
+IL_0b8f: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Owner
+IL_0b94: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0b99: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0b9e: brfalse.s IL_0bbc
+IL_0ba0: ldarg.0
+IL_0ba1: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0ba6: ldarg.1
+IL_0ba7: ldloc.s V_15
+IL_0ba9: ldarg.3
+IL_0baa: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Owner
+IL_0baf: newobj System.Void Game.Common.Owner::.ctor(Unity.Entities.Entity)
+IL_0bb4: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Owner>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0bb9: ldc.i4.0
+IL_0bba: stloc.s V_17
+IL_0bbc: ldloc.s V_17
+IL_0bbe: ldloc.s V_8
+IL_0bc0: ldfld Game.Net.GeometryFlags Game.Prefabs.NetGeometryData::m_Flags
+IL_0bc5: ldc.i4 16777216
+IL_0bca: and
+IL_0bcb: ldc.i4.0
+IL_0bcc: cgt.un
+IL_0bce: or
+IL_0bcf: stloc.s V_17
+IL_0bd1: ldarg.3
+IL_0bd2: ldfld Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_0bd7: ldc.i4 589824
+IL_0bdc: and
+IL_0bdd: brfalse.s IL_0beb
+IL_0bdf: ldloca.s V_13
+IL_0be1: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0be6: dup
+IL_0be7: ldind.u4
+IL_0be8: ldc.i4.8
+IL_0be9: or
+IL_0bea: stind.i4
+IL_0beb: ldarg.s course
+IL_0bed: ldfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_0bf2: ldc.i4.0
+IL_0bf3: blt.s IL_0c1d
+IL_0bf5: ldarg.0
+IL_0bf6: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0bfb: ldarg.1
+IL_0bfc: ldloc.s V_15
+IL_0bfe: ldloca.s V_48
+IL_0c00: initobj Game.Net.Fixed
+IL_0c06: ldloca.s V_48
+IL_0c08: ldarg.s course
+IL_0c0a: ldfld System.Int32 Game.Tools.NetCourse::m_FixedIndex
+IL_0c0f: stfld System.Int32 Game.Net.Fixed::m_Index
+IL_0c14: ldloc.s V_48
+IL_0c16: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.Fixed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0c1b: br.s IL_0c3e
+IL_0c1d: ldloc.s V_16
+IL_0c1f: brfalse.s IL_0c3e
+IL_0c21: ldarg.0
+IL_0c22: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Fixed> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_FixedData
+IL_0c27: ldloc.s V_15
+IL_0c29: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Fixed>::HasComponent(Unity.Entities.Entity)
+IL_0c2e: brfalse.s IL_0c3e
+IL_0c30: ldarg.0
+IL_0c31: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0c36: ldarg.1
+IL_0c37: ldloc.s V_15
+IL_0c39: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Net.Fixed>(System.Int32,Unity.Entities.Entity)
+IL_0c3e: ldarg.3
+IL_0c3f: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0c44: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0c49: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0c4e: brfalse.s IL_0cad
+IL_0c50: ldarg.0
+IL_0c51: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0c56: ldarg.1
+IL_0c57: ldarg.3
+IL_0c58: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0c5d: ldloca.s V_49
+IL_0c5f: initobj Game.Tools.Hidden
+IL_0c65: ldloc.s V_49
+IL_0c67: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Hidden>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0c6c: ldarg.0
+IL_0c6d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0c72: ldarg.1
+IL_0c73: ldarg.3
+IL_0c74: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0c79: ldloca.s V_50
+IL_0c7b: initobj Game.Common.BatchesUpdated
+IL_0c81: ldloc.s V_50
+IL_0c83: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.BatchesUpdated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0c88: ldloc.s V_9
+IL_0c8a: brfalse.s IL_0cec
+IL_0c8c: ldarg.0
+IL_0c8d: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0c92: ldarg.1
+IL_0c93: ldloc.s V_15
+IL_0c95: ldarg.0
+IL_0c96: ldflda Unity.Entities.ComponentLookup`1<Game.Net.BuildOrder> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_BuildOrderData
+IL_0c9b: ldarg.3
+IL_0c9c: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0ca1: call !0 Unity.Entities.ComponentLookup`1<Game.Net.BuildOrder>::get_Item(Unity.Entities.Entity)
+IL_0ca6: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.BuildOrder>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0cab: br.s IL_0cec
+IL_0cad: ldloc.s V_9
+IL_0caf: brfalse.s IL_0cec
+IL_0cb1: ldloca.s V_51
+IL_0cb3: initobj Game.Net.BuildOrder
+IL_0cb9: ldloca.s V_51
+IL_0cbb: ldarg.0
+IL_0cbc: ldfld System.UInt32 Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_BuildOrder
+IL_0cc1: ldarg.2
+IL_0cc2: ldc.i4.s 16
+IL_0cc4: mul
+IL_0cc5: add
+IL_0cc6: stfld System.UInt32 Game.Net.BuildOrder::m_Start
+IL_0ccb: ldloca.s V_51
+IL_0ccd: ldloc.s V_51
+IL_0ccf: ldfld System.UInt32 Game.Net.BuildOrder::m_Start
+IL_0cd4: ldc.i4.s 15
+IL_0cd6: add
+IL_0cd7: stfld System.UInt32 Game.Net.BuildOrder::m_End
+IL_0cdc: ldarg.0
+IL_0cdd: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0ce2: ldarg.1
+IL_0ce3: ldloc.s V_15
+IL_0ce5: ldloc.s V_51
+IL_0ce7: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.BuildOrder>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0cec: ldc.i4.0
+IL_0ced: stloc.s V_18
+IL_0cef: ldarg.0
+IL_0cf0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabRoadData
+IL_0cf5: ldloc.3
+IL_0cf6: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0cfb: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData>::HasComponent(Unity.Entities.Entity)
+IL_0d00: brfalse.s IL_0d79
+IL_0d02: ldarg.0
+IL_0d03: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabRoadData
+IL_0d08: ldloc.3
+IL_0d09: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0d0e: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData>::get_Item(Unity.Entities.Entity)
+IL_0d13: ldfld Game.Prefabs.RoadFlags Game.Prefabs.RoadData::m_Flags
+IL_0d18: ldc.i4.1
+IL_0d19: and
+IL_0d1a: ldc.i4.0
+IL_0d1b: cgt.un
+IL_0d1d: stloc.s V_18
+IL_0d1f: ldloc.s V_5
+IL_0d21: brfalse.s IL_0d79
+IL_0d23: ldloca.s V_52
+IL_0d25: initobj Game.Net.Road
+IL_0d2b: ldarg.0
+IL_0d2c: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Road> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_RoadData
+IL_0d31: ldarg.3
+IL_0d32: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0d37: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Road>::HasComponent(Unity.Entities.Entity)
+IL_0d3c: brfalse.s IL_0d5f
+IL_0d3e: ldarg.0
+IL_0d3f: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Road> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_RoadData
+IL_0d44: ldarg.3
+IL_0d45: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0d4a: call !0 Unity.Entities.ComponentLookup`1<Game.Net.Road>::get_Item(Unity.Entities.Entity)
+IL_0d4f: stloc.s V_52
+IL_0d51: ldarg.0
+IL_0d52: ldarg.3
+IL_0d53: ldloc.3
+IL_0d54: ldloc.s V_4
+IL_0d56: ldloc.s V_8
+IL_0d58: ldloca.s V_52
+IL_0d5a: call System.Void Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::CheckRoadAlignment(Game.Tools.CreationDefinition,Game.Prefabs.PrefabRef,Game.Prefabs.PrefabRef,Game.Prefabs.NetGeometryData,Game.Net.Road&)
+IL_0d5f: ldarg.0
+IL_0d60: ldarg.s course
+IL_0d62: ldloca.s V_52
+IL_0d64: call System.Void Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::SetRoadAlignment(Game.Tools.NetCourse,Game.Net.Road&)
+IL_0d69: ldarg.0
+IL_0d6a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0d6f: ldarg.1
+IL_0d70: ldloc.s V_15
+IL_0d72: ldloc.s V_52
+IL_0d74: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Road>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0d79: ldarg.0
+IL_0d7a: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0d7f: ldarg.1
+IL_0d80: ldloc.s V_15
+IL_0d82: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::SetBuffer<Game.Net.ConnectedNode>(System.Int32,Unity.Entities.Entity)
+IL_0d87: stloc.s V_19
+IL_0d89: ldarg.0
+IL_0d8a: ldloc.s V_19
+IL_0d8c: ldloc.2
+IL_0d8d: ldloc.s V_12
+IL_0d8f: ldloc.s V_13
+IL_0d91: ldloc.s V_7
+IL_0d93: ldloc.s V_8
+IL_0d95: ldc.i4.0
+IL_0d96: ldloc.s V_17
+IL_0d98: ldloc.s V_18
+IL_0d9a: call System.Void Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::FindNodeConnections(Unity.Entities.DynamicBuffer`1<Game.Net.ConnectedNode>,Game.Net.Edge,Game.Net.Curve,Game.Tools.Temp,Game.Prefabs.NetData,Game.Prefabs.NetGeometryData,System.Boolean,System.Boolean,System.Boolean)
+IL_0d9f: ldarg.0
+IL_0da0: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ElectricityConnectionData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabElectricityConnectionData
+IL_0da5: ldloc.3
+IL_0da6: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0dab: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.ElectricityConnectionData>::HasComponent(Unity.Entities.Entity)
+IL_0db0: brfalse IL_0e5e
+IL_0db5: ldarg.0
+IL_0db6: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.ElectricityConnectionData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabElectricityConnectionData
+IL_0dbb: ldloc.3
+IL_0dbc: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0dc1: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.ElectricityConnectionData>::get_Item(Unity.Entities.Entity)
+IL_0dc6: ldarg.s upgraded
+IL_0dc8: ldfld Game.Prefabs.CompositionFlags Game.Net.Upgraded::m_Flags
+IL_0dcd: call System.Boolean Game.Prefabs.NetCompositionHelpers::TestEdgeFlags(Game.Prefabs.ElectricityConnectionData,Game.Prefabs.CompositionFlags)
+IL_0dd2: stloc.s V_53
+IL_0dd4: ldloc.s V_53
+IL_0dd6: brfalse.s IL_0df2
+IL_0dd8: ldarg.0
+IL_0dd9: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0dde: ldarg.1
+IL_0ddf: ldloc.s V_15
+IL_0de1: ldloca.s V_54
+IL_0de3: initobj Game.Net.ElectricityConnection
+IL_0de9: ldloc.s V_54
+IL_0deb: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Net.ElectricityConnection>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0df0: br.s IL_0e13
+IL_0df2: ldloc.s V_16
+IL_0df4: brfalse.s IL_0e13
+IL_0df6: ldarg.0
+IL_0df7: ldflda Unity.Entities.ComponentLookup`1<Game.Net.ElectricityConnection> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ElectricityConnectionData
+IL_0dfc: ldloc.s V_15
+IL_0dfe: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.ElectricityConnection>::HasComponent(Unity.Entities.Entity)
+IL_0e03: brfalse.s IL_0e13
+IL_0e05: ldarg.0
+IL_0e06: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0e0b: ldarg.1
+IL_0e0c: ldloc.s V_15
+IL_0e0e: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Net.ElectricityConnection>(System.Int32,Unity.Entities.Entity)
+IL_0e13: ldarg.3
+IL_0e14: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0e19: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0e1e: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0e23: brfalse.s IL_0e5e
+IL_0e25: ldarg.0
+IL_0e26: ldflda Unity.Entities.ComponentLookup`1<Game.Net.ElectricityConnection> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ElectricityConnectionData
+IL_0e2b: ldarg.3
+IL_0e2c: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0e31: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.ElectricityConnection>::HasComponent(Unity.Entities.Entity)
+IL_0e36: stloc.s V_55
+IL_0e38: ldloc.s V_53
+IL_0e3a: ldloc.s V_55
+IL_0e3c: beq.s IL_0e5e
+IL_0e3e: ldloca.s V_13
+IL_0e40: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0e45: dup
+IL_0e46: ldind.u4
+IL_0e47: ldc.i4 -513
+IL_0e4c: and
+IL_0e4d: stind.i4
+IL_0e4e: ldloca.s V_13
+IL_0e50: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0e55: dup
+IL_0e56: ldind.u4
+IL_0e57: ldc.i4 256
+IL_0e5c: or
+IL_0e5d: stind.i4
+IL_0e5e: ldarg.3
+IL_0e5f: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0e64: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0e69: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0e6e: brfalse.s IL_0edc
+IL_0e70: ldloc.s V_4
+IL_0e72: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0e77: ldloc.3
+IL_0e78: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0e7d: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0e82: brfalse.s IL_0edc
+IL_0e84: ldc.i4.0
+IL_0e85: stloc.s V_56
+IL_0e87: ldarg.0
+IL_0e88: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabRoadData
+IL_0e8d: ldloc.s V_4
+IL_0e8f: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0e94: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData>::HasComponent(Unity.Entities.Entity)
+IL_0e99: brfalse.s IL_0eb9
+IL_0e9b: ldarg.0
+IL_0e9c: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PrefabRoadData
+IL_0ea1: ldloc.s V_4
+IL_0ea3: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0ea8: call !0 Unity.Entities.ComponentLookup`1<Game.Prefabs.RoadData>::get_Item(Unity.Entities.Entity)
+IL_0ead: ldfld Game.Prefabs.RoadFlags Game.Prefabs.RoadData::m_Flags
+IL_0eb2: ldc.i4.1
+IL_0eb3: and
+IL_0eb4: ldc.i4.0
+IL_0eb5: cgt.un
+IL_0eb7: stloc.s V_56
+IL_0eb9: ldloc.s V_18
+IL_0ebb: ldloc.s V_56
+IL_0ebd: beq.s IL_0edc
+IL_0ebf: ldloca.s V_13
+IL_0ec1: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0ec6: dup
+IL_0ec7: ldind.u4
+IL_0ec8: ldc.i4.s -65
+IL_0eca: and
+IL_0ecb: stind.i4
+IL_0ecc: ldloca.s V_13
+IL_0ece: ldflda Game.Tools.TempFlags Game.Tools.Temp::m_Flags
+IL_0ed3: dup
+IL_0ed4: ldind.u4
+IL_0ed5: ldc.i4 256
+IL_0eda: or
+IL_0edb: stind.i4
+IL_0edc: ldloc.s V_8
+IL_0ede: ldfld Unity.Entities.Entity Game.Prefabs.NetGeometryData::m_AggregateType
+IL_0ee3: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0ee8: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0eed: brfalse.s IL_0f14
+IL_0eef: ldarg.0
+IL_0ef0: ldflda Unity.Entities.ComponentLookup`1<Game.Net.Aggregated> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_AggregatedData
+IL_0ef5: ldarg.3
+IL_0ef6: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0efb: ldloca.s V_20
+IL_0efd: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.Aggregated>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0f02: brfalse.s IL_0f14
+IL_0f04: ldarg.0
+IL_0f05: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0f0a: ldarg.1
+IL_0f0b: ldloc.s V_15
+IL_0f0d: ldloc.s V_20
+IL_0f0f: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.Aggregated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0f14: ldloc.s V_5
+IL_0f16: brfalse.s IL_0f3d
+IL_0f18: ldarg.0
+IL_0f19: ldflda Unity.Entities.ComponentLookup`1<Game.Net.NetCondition> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_ConditionData
+IL_0f1e: ldarg.3
+IL_0f1f: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0f24: ldloca.s V_21
+IL_0f26: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Net.NetCondition>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0f2b: brfalse.s IL_0f3d
+IL_0f2d: ldarg.0
+IL_0f2e: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0f33: ldarg.1
+IL_0f34: ldloc.s V_15
+IL_0f36: ldloc.s V_21
+IL_0f38: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Net.NetCondition>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0f3d: ldarg.s hasCachedCurve
+IL_0f3f: brfalse.s IL_0f51
+IL_0f41: ldarg.0
+IL_0f42: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0f47: ldarg.1
+IL_0f48: ldloc.s V_15
+IL_0f4a: ldarg.s cachedCurve
+IL_0f4c: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.LocalCurveCache>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0f51: ldarg.3
+IL_0f52: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_SubPrefab
+IL_0f57: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_0f5c: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0f61: brfalse.s IL_0fcd
+IL_0f63: ldarg.0
+IL_0f64: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0f69: ldarg.1
+IL_0f6a: ldloc.s V_15
+IL_0f6c: ldloca.s V_57
+IL_0f6e: initobj Game.Tools.EditorContainer
+IL_0f74: ldloca.s V_57
+IL_0f76: ldarg.3
+IL_0f77: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_SubPrefab
+IL_0f7c: stfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0f81: ldloc.s V_57
+IL_0f83: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Tools.EditorContainer>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0f88: ldloc.s V_9
+IL_0f8a: brtrue.s IL_0fcd
+IL_0f8c: ldarg.0
+IL_0f8d: ldflda Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed> Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_PseudoRandomSeedData
+IL_0f92: ldarg.3
+IL_0f93: ldfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Original
+IL_0f98: ldloca.s V_58
+IL_0f9a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.PseudoRandomSeed>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0f9f: brfalse.s IL_0fb3
+IL_0fa1: ldarg.0
+IL_0fa2: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0fa7: ldarg.1
+IL_0fa8: ldloc.s V_15
+IL_0faa: ldloc.s V_58
+IL_0fac: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Common.PseudoRandomSeed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0fb1: br.s IL_0fcd
+IL_0fb3: ldarg.0
+IL_0fb4: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0fb9: ldarg.1
+IL_0fba: ldloc.s V_15
+IL_0fbc: ldarg.3
+IL_0fbd: ldfld System.Int32 Game.Tools.CreationDefinition::m_RandomSeed
+IL_0fc2: conv.u2
+IL_0fc3: newobj System.Void Game.Common.PseudoRandomSeed::.ctor(System.UInt16)
+IL_0fc8: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::SetComponent<Game.Common.PseudoRandomSeed>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0fcd: ldloc.0
+IL_0fce: brtrue.s IL_0fe0
+IL_0fd0: ldarg.0
+IL_0fd1: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Tools.GenerateEdgesSystem/GenerateEdgesJob::m_CommandBuffer
+IL_0fd6: ldarg.1
+IL_0fd7: ldloc.s V_15
+IL_0fd9: ldloc.s V_13
+IL_0fdb: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.Temp>(System.Int32,Unity.Entities.Entity,!!0)
+IL_0fe0: ret

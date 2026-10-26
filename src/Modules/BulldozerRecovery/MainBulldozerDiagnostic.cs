@@ -24,7 +24,9 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                         if(points[i].m_OriginalEntity!=Entity.Null)targets.Add(points[i].m_OriginalEntity);
                         if(targets.Count>1)return false;
                     }
-                    return targets.Count==1 && CaptureMainProp(targets.Single()).DetachedValid;
+                    if(targets.Count!=1){Status="Prop Undo unavailable: select one supported prop for deletion.";return false;}
+                    try { return CaptureMainProp(targets.Single()).DetachedValid; }
+                    catch(Exception error){Status="Prop Undo unavailable: "+error.Message;Mod.Log.Info(Status);return false;}
                 }, ArmMain);
         }
         // Observe native deletion and record typed images; recovery always uses fresh entity IDs.

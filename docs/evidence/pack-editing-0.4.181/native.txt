@@ -1,0 +1,208 @@
+Game SHA256 AAEE15C4FA41C130ABAA1183840667E4FAAE531D67E8A9FA7536618EFFA2F86A MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Routes.TakeoffLocation
+FIELD Unity.Entities.Entity Game.Routes.TakeoffLocation::m_AccessRestriction
+FIELD Game.Routes.TakeoffLocationFlags Game.Routes.TakeoffLocation::m_Flags
+TYPE Game.UI.Editor.InspectorPanelSystem
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::BuildLocalizationFields(Game.Prefabs.PrefabBase,System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields> Game.UI.Editor.InspectorPanelSystem::m_WipLocalization
+IL_0006: ldarg.1
+IL_0007: ldloca.s V_0
+IL_0009: callvirt System.Boolean System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields>::TryGetValue(!0,!1&)
+IL_000e: brtrue IL_00af
+IL_0013: ldloca.s V_3
+IL_0015: initobj Game.UI.Editor.InspectorPanelSystem/LocalizationFields
+IL_001b: ldloca.s V_3
+IL_001d: ldstr "Editor.ASSET_NAME"
+IL_0022: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::op_Implicit(System.String)
+IL_0027: newobj System.Void Game.UI.Editor.LocalizationField::.ctor(Game.UI.Localization.LocalizedString)
+IL_002c: stfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_NameLocalization
+IL_0031: ldloca.s V_3
+IL_0033: ldstr "Editor.ASSET_DESCRIPTION"
+IL_0038: call Game.UI.Localization.LocalizedString Game.UI.Localization.LocalizedString::op_Implicit(System.String)
+IL_003d: newobj System.Void Game.UI.Editor.LocalizationField::.ctor(Game.UI.Localization.LocalizedString)
+IL_0042: dup
+IL_0043: ldc.i4.1
+IL_0044: callvirt System.Void Game.UI.Editor.LocalizationField::set_multiline(System.Boolean)
+IL_0049: stfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_DescriptionLocalization
+IL_004e: ldloc.3
+IL_004f: stloc.0
+IL_0050: ldarg.0
+IL_0051: ldarg.1
+IL_0052: ldstr "Assets.NAME["
+IL_0057: ldarg.1
+IL_0058: callvirt System.String UnityEngine.Object::get_name()
+IL_005d: ldstr "]"
+IL_0062: call System.String System.String::Concat(System.String,System.String,System.String)
+IL_0067: call System.Collections.Generic.List`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry> Game.UI.Editor.InspectorPanelSystem::InitializeLocalization(Game.Prefabs.PrefabBase,System.String)
+IL_006c: stloc.1
+IL_006d: ldloc.0
+IL_006e: ldfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_NameLocalization
+IL_0073: ldloc.1
+IL_0074: callvirt System.Void Game.UI.Editor.LocalizationField::Initialize(System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry>)
+IL_0079: ldarg.0
+IL_007a: ldarg.1
+IL_007b: ldstr "Assets.DESCRIPTION["
+IL_0080: ldarg.1
+IL_0081: callvirt System.String UnityEngine.Object::get_name()
+IL_0086: ldstr "]"
+IL_008b: call System.String System.String::Concat(System.String,System.String,System.String)
+IL_0090: call System.Collections.Generic.List`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry> Game.UI.Editor.InspectorPanelSystem::InitializeLocalization(Game.Prefabs.PrefabBase,System.String)
+IL_0095: stloc.2
+IL_0096: ldloc.0
+IL_0097: ldfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_DescriptionLocalization
+IL_009c: ldloc.2
+IL_009d: callvirt System.Void Game.UI.Editor.LocalizationField::Initialize(System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry>)
+IL_00a2: ldarg.0
+IL_00a3: ldfld System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields> Game.UI.Editor.InspectorPanelSystem::m_WipLocalization
+IL_00a8: ldarg.1
+IL_00a9: ldloc.0
+IL_00aa: callvirt System.Void System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields>::set_Item(!0,!1)
+IL_00af: ldarg.2
+IL_00b0: brfalse.s IL_00e3
+IL_00b2: ldarg.2
+IL_00b3: newobj System.Void Game.UI.Widgets.Group::.ctor()
+IL_00b8: stloc.s V_4
+IL_00ba: ldloc.s V_4
+IL_00bc: ldsfld Game.UI.Localization.NameTooltipPair Game.UI.Editor.InspectorPanelSystem/LocaleId::kLocalizedName
+IL_00c1: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_displayNameAndTooltip(Game.UI.Localization.NameTooltipPair)
+IL_00c6: ldloc.s V_4
+IL_00c8: ldc.i4.1
+IL_00c9: newarr Game.UI.Widgets.IWidget
+IL_00ce: dup
+IL_00cf: ldc.i4.0
+IL_00d0: ldloc.0
+IL_00d1: ldfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_NameLocalization
+IL_00d6: stelem.ref
+IL_00d7: callvirt System.Void Game.UI.Widgets.Group::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_00dc: ldloc.s V_4
+IL_00de: call System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_00e3: ldarg.2
+IL_00e4: brfalse.s IL_0117
+IL_00e6: ldarg.2
+IL_00e7: newobj System.Void Game.UI.Widgets.Group::.ctor()
+IL_00ec: stloc.s V_4
+IL_00ee: ldloc.s V_4
+IL_00f0: ldsfld Game.UI.Localization.NameTooltipPair Game.UI.Editor.InspectorPanelSystem/LocaleId::kLocalizedDescription
+IL_00f5: callvirt System.Void Game.UI.Widgets.NamedWidgetWithTooltip::set_displayNameAndTooltip(Game.UI.Localization.NameTooltipPair)
+IL_00fa: ldloc.s V_4
+IL_00fc: ldc.i4.1
+IL_00fd: newarr Game.UI.Widgets.IWidget
+IL_0102: dup
+IL_0103: ldc.i4.0
+IL_0104: ldloc.0
+IL_0105: ldfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_DescriptionLocalization
+IL_010a: stelem.ref
+IL_010b: callvirt System.Void Game.UI.Widgets.Group::set_children(System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>)
+IL_0110: ldloc.s V_4
+IL_0112: call System.Void System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>::Add(!0)
+IL_0117: ret
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::CopyLocalizationToClipboard(Game.UI.Editor.InspectorPanelSystem/LocalizationFields)
+IL_0000: ldloca.s V_0
+IL_0002: initobj Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard
+IL_0008: ldloca.s V_0
+IL_000a: ldstr "BeverlyHills.LocalizationCopyPaste.v1"
+IL_000f: stfld System.String Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard::tag
+IL_0014: ldloca.s V_0
+IL_0016: ldarg.1
+IL_0017: ldfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_NameLocalization
+IL_001c: call Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem::CaptureLocalizationEntries(Game.UI.Editor.LocalizationField)
+IL_0021: stfld Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard::name
+IL_0026: ldloca.s V_0
+IL_0028: ldarg.1
+IL_0029: ldfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_DescriptionLocalization
+IL_002e: call Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem::CaptureLocalizationEntries(Game.UI.Editor.LocalizationField)
+IL_0033: stfld Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard::description
+IL_0038: ldloc.0
+IL_0039: box Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard
+IL_003e: call System.String UnityEngine.JsonUtility::ToJson(System.Object)
+IL_0043: call System.Void UnityEngine.GUIUtility::set_systemCopyBuffer(System.String)
+IL_0048: ret
+METHOD System.Void Game.UI.Editor.InspectorPanelSystem::PasteLocalizationFromClipboard(Game.UI.Editor.InspectorPanelSystem/LocalizationFields)
+IL_0000: call System.String UnityEngine.GUIUtility::get_systemCopyBuffer()
+IL_0005: stloc.0
+IL_0006: ldloc.0
+IL_0007: call System.Boolean System.String::IsNullOrEmpty(System.String)
+IL_000c: brfalse.s IL_000f
+IL_000e: ret
+IL_000f: nop
+IL_0010: ldloc.0
+IL_0011: call !!0 UnityEngine.JsonUtility::FromJson<Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard>(System.String)
+IL_0016: stloc.1
+IL_0017: leave.s IL_001c
+IL_0019: pop
+IL_001a: leave.s IL_006b
+IL_001c: ldloc.1
+IL_001d: ldfld System.String Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard::tag
+IL_0022: ldstr "BeverlyHills.LocalizationCopyPaste.v1"
+IL_0027: call System.Boolean System.String::op_Inequality(System.String,System.String)
+IL_002c: brfalse.s IL_002f
+IL_002e: ret
+IL_002f: ldloc.1
+IL_0030: ldfld Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard::name
+IL_0035: brfalse.s IL_004d
+IL_0037: ldarg.1
+IL_0038: ldfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_NameLocalization
+IL_003d: ldloc.1
+IL_003e: ldfld Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard::name
+IL_0043: call System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry> Game.UI.Editor.InspectorPanelSystem::ToLocalizationEntries(Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[])
+IL_0048: callvirt System.Void Game.UI.Editor.LocalizationField::AddRange(System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry>)
+IL_004d: ldloc.1
+IL_004e: ldfld Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard::description
+IL_0053: brfalse.s IL_006b
+IL_0055: ldarg.1
+IL_0056: ldfld Game.UI.Editor.LocalizationField Game.UI.Editor.InspectorPanelSystem/LocalizationFields::m_DescriptionLocalization
+IL_005b: ldloc.1
+IL_005c: ldfld Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[] Game.UI.Editor.InspectorPanelSystem/LocalizationClipboard::description
+IL_0061: call System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry> Game.UI.Editor.InspectorPanelSystem::ToLocalizationEntries(Game.UI.Editor.InspectorPanelSystem/LocalizationClipboardEntry[])
+IL_0066: callvirt System.Void Game.UI.Editor.LocalizationField::AddRange(System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry>)
+IL_006b: ret
+METHOD System.Boolean Game.UI.Editor.InspectorPanelSystem::IsLocalizationReadOnly(Game.Prefabs.PrefabBase)
+IL_0000: ldarg.1
+IL_0001: ldnull
+IL_0002: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_0007: brfalse.s IL_0010
+IL_0009: ldarg.1
+IL_000a: callvirt System.Boolean Game.Prefabs.PrefabBase::get_isReadOnly()
+IL_000f: ret
+IL_0010: ldc.i4.0
+IL_0011: ret
+TYPE Game.UI.Editor.LocalizationField
+METHOD System.Void Game.UI.Editor.LocalizationField::Initialize(System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry>)
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.UI.Editor.LocalizationField::Clear()
+IL_0006: ldarg.0
+IL_0007: call System.Void Game.UI.Editor.LocalizationField::InitializeMandatory()
+IL_000c: ldarg.1
+IL_000d: callvirt System.Collections.Generic.IEnumerator`1<!0> System.Collections.Generic.IEnumerable`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry>::GetEnumerator()
+IL_0012: stloc.0
+IL_0013: br.s IL_0023
+IL_0015: ldloc.0
+IL_0016: callvirt !0 System.Collections.Generic.IEnumerator`1<Game.UI.Editor.LocalizationField/LocalizationFieldEntry>::get_Current()
+IL_001b: stloc.1
+IL_001c: ldarg.0
+IL_001d: ldloc.1
+IL_001e: call System.Void Game.UI.Editor.LocalizationField::Add(Game.UI.Editor.LocalizationField/LocalizationFieldEntry)
+IL_0023: ldloc.0
+IL_0024: callvirt System.Boolean System.Collections.IEnumerator::MoveNext()
+IL_0029: brtrue.s IL_0015
+IL_002b: leave.s IL_0037
+IL_002d: ldloc.0
+IL_002e: brfalse.s IL_0036
+IL_0030: ldloc.0
+IL_0031: callvirt System.Void System.IDisposable::Dispose()
+IL_0036: endfinally
+IL_0037: ret
+TYPE Game.Objects.SpawnLocation
+FIELD Unity.Entities.Entity Game.Objects.SpawnLocation::m_AccessRestriction
+FIELD Unity.Entities.Entity Game.Objects.SpawnLocation::m_ConnectedLane1
+FIELD Unity.Entities.Entity Game.Objects.SpawnLocation::m_ConnectedLane2
+FIELD System.Single Game.Objects.SpawnLocation::m_CurvePosition1
+FIELD System.Single Game.Objects.SpawnLocation::m_CurvePosition2
+FIELD System.Int32 Game.Objects.SpawnLocation::m_GroupIndex
+FIELD Game.Objects.SpawnLocationFlags Game.Objects.SpawnLocation::m_Flags
+TYPE Game.Prefabs.UIObject
+FIELD Game.Prefabs.UIGroupPrefab Game.Prefabs.UIObject::m_Group
+FIELD System.Int32 Game.Prefabs.UIObject::m_Priority
+FIELD System.String Game.Prefabs.UIObject::m_Icon
+FIELD System.Boolean Game.Prefabs.UIObject::m_IsDebugObject

@@ -21,6 +21,18 @@ internal static class NativeCollectionChecks {
         }
         if(checks!=4)throw new Exception("Expected both generic and non-generic native enumeration guards.");
         using var mod=AssemblyDefinition.ReadAssembly(Path.Combine(root,"bin/Release/net48/MW.EditorTools.dll"));
+        // Guard the native serialization contract used by exact companion projection,
+        // and verify the production move capture reaches the complete anchor context.
+        using var game=AssemblyDefinition.ReadAssembly(Path.Combine(managed,"Game.dll"));
+        var apply=game.MainModule.GetType("Game.Tools.ApplyPrefabsSystem");
+        var cached=apply.Methods.Single(m=>m.Name=="CheckCachedValue"&&m.Parameters[0].ParameterType.FullName=="Unity.Mathematics.float3&");
+        if(!cached.Body.Instructions.Any(i=>i.OpCode.Code==Code.Ldc_R4&&i.Operand is float threshold&&threshold==0.01f)||!cached.Body.Instructions.Any(i=>i.OpCode.Code==Code.Bge_Un_S))throw new Exception("Native cached-position threshold changed; re-inspect before using companion projection.");
+        checks++;
+        var trace=mod.MainModule.GetType("MW.EditorTools.Modules.BulldozerRecovery.BulldozerTrace");
+        var capture=trace.Methods.Single(m=>m.Name=="CaptureMoveOwner");
+        var calls=capture.Body.Instructions.Where(i=>i.Operand is MethodReference).Select(i=>(MethodReference)i.Operand).ToArray();
+        if(!calls.Any(m=>m.Name=="CaptureBoundCompanions")||calls.Any(m=>m.Name=="CaptureAreaNetwork"))throw new Exception("Move capture must use the full owned companion/anchor context rather than a separate anchorless network capture.");
+        checks++;
         int safeCopies=0;
         foreach(var method in mod.MainModule.Types.SelectMany(Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody))foreach(var instruction in method.Body.Instructions) {
             if(instruction.OpCode.Code==Code.Box&&instruction.Operand is TypeReference boxed&&

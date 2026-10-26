@@ -18,7 +18,12 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             var ancillary=new[]{"ObjectSubObjects.m_SubObjects","ObjectSubAreas.m_SubAreas","ObjectSubNets.m_SubNets","ObjectSubLanes.m_SubLanes"};
             if(before.Before.Fields.Where(f=>f.Owner.GetType().Name+"."+f.Field.Name!="EffectSource.m_Effects"&&!ancillary.Contains(f.Owner.GetType().Name+"."+f.Field.Name)).Any(f=>!f.Data.Matches(f.Field.GetValue(f.Owner))))return false;
             var props=MatchForest(before.Props,after.Props);
-            if(props==null||!before.Props.Select((g,i)=>NestedGroupAtIndex(g,props[i],BoundDescriptorIndex.Resolve(after.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects,g[0].Prefab,g[0].Local))).All(v=>v)||
+            var referenceMap=EntityReferenceMap.WithOwnerPrefab(new Dictionary<Entity,Entity>(),before.Owner,before.OwnerPrefab,after.OwnerPrefab);
+            if(props==null||!NetworkOwnerValid(after)||!before.Network.TryMap(after.Network,true,out var networkMap))return false;
+            foreach(var pair in networkMap)if(!EntityReferenceMap.Add(referenceMap,pair.Key,pair.Value))return false;
+            if(before.CompanionMap!=null&&(after.CompanionMap==null||!MapAreaLanes(before.CompanionMap,after.CompanionMap,referenceMap,true)))return false;
+            if(!AddForestMap(before.Props,props,referenceMap))return false;
+            if(props==null||!before.Props.Select((g,i)=>NestedGroupAtIndex(g,props[i],BoundDescriptorIndex.Resolve(after.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects,g[0].Prefab,g[0].Local),referenceMap)).All(v=>v)||
                 !AreasMatch(before.Areas,e.Before.Owner)||!before.Network.TryMap(after.Network,true,out _)||!NetworkRowsMatchGraph(after.Before,after.Network))return false;
             var retained=after.Effects.Where(f=>!e.Move||f.Original!=e.Live).ToArray();
             if(!EffectEditPolicy.Retained(before.Effects,retained,e.Before.Original)||!CompanionSourcesValid(before.Effects.Where(f=>f.Original!=e.Before.Original).Select(f=>f.Original),retained.Select(f=>f.Original)))return false;
@@ -42,7 +47,9 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             if(actual.HasSeed&&!actual.Seed.Equals(e.Before.Seed)){em.SetComponentData(actual.Original,e.Before.Seed);changed=true;}
             if(actual.HasSurface&&!actual.Surface.Equals(e.Before.Surface)){em.SetComponentData(actual.Original,e.Before.Surface);changed=true;}
             if(actual.HasDecoration&&actual.Decoration!=e.Before.Decoration){em.SetComponentEnabled<Game.Objects.Decoration>(actual.Original,e.Before.Decoration);changed=true;}
-            e.Live=actual.Original;return !changed&&SameEffect(e.Before,actual);
+            bool fresh=e.Live!=actual.Original;e.Live=actual.Original;
+            if(fresh){QueueEffectRenderRefresh(e.Live);InvalidateEffectHover(e.Live,e.Before.Owner);return false;}
+            return !changed&&EffectRenderReady(e.Live)&&SameEffect(e.Before,actual);
         }
     }
 }

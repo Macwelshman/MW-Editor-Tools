@@ -467,7 +467,7 @@ declare module "cs2/ui" {
   	selectSound?: UISound | string | null;
   	tooltipLabel?: ReactNode;
   }
-  export interface DropdownItem<T> {
+  export interface DropdownItemData<T> {
   	value: T;
   	displayName: LocElement;
   	tooltip?: LocElement;
@@ -475,7 +475,7 @@ declare module "cs2/ui" {
   	iconTint?: string;
   	disabled?: boolean;
   }
-  export interface DropdownItemProps<T> extends ClassProps, Partial<Omit<DropdownItem<T>, "displayName">> {
+  export interface DropdownItemProps<T> extends ClassProps, Partial<Omit<DropdownItemData<T>, "displayName">> {
   	value: T;
   	focusKey?: FocusKey;
   	selected?: boolean;

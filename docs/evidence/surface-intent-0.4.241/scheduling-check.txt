@@ -1,0 +1,1 @@
+PASS: exact native area batching phase and production refresh registration agree: PreCulling (27).

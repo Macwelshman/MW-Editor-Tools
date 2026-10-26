@@ -1,0 +1,5 @@
+84:[2026-10-22 00:25:11,460] [INFO]  Automatic bound prop Undo enabled after read-only validation; asset=MW Mixed Test Components
+104:[2026-10-22 00:25:11,526] [INFO]  Nested removal refused: retained entries match=True expected=59 actual=59 other changed fields=ObjectSubNets.m_SubNets,EffectSource.m_Effects
+116:[2026-10-22 00:25:11,528] [INFO]  Undo unavailable: CS2 also changed other asset data during this deletion. Restart without saving; the test did not pass.
+192:[2026-10-22 00:25:25,112] [INFO]  Automatic bound prop Undo enabled after read-only validation; asset=MW Mixed Test Components
+215:[2026-10-22 00:25:25,173] [WARN]  Bulldozer capture/restoration exception: System.InvalidOperationException: Retained nested groups changed during deletion.

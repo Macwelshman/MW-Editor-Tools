@@ -1,0 +1,29 @@
+Game MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef
+System.Void Game.Prefabs.ObjectSubLaneInfo::.ctor()
+IL_0000: ldarg.0
+IL_0001: ldc.i4.m1
+IL_0002: ldc.i4.m1
+IL_0003: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_0008: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_NodeIndex
+IL_000d: ldarg.0
+IL_000e: ldc.i4.m1
+IL_000f: ldc.i4.m1
+IL_0010: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_0015: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_ParentMesh
+IL_001a: ldarg.0
+IL_001b: call System.Void System.Object::.ctor()
+IL_0020: ret
+System.Void Game.Prefabs.ObjectSubNetInfo::.ctor()
+IL_0000: ldarg.0
+IL_0001: ldc.i4.m1
+IL_0002: ldc.i4.m1
+IL_0003: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_0008: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_NodeIndex
+IL_000d: ldarg.0
+IL_000e: ldc.i4.m1
+IL_000f: ldc.i4.m1
+IL_0010: newobj System.Void Unity.Mathematics.int2::.ctor(System.Int32,System.Int32)
+IL_0015: stfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_ParentMesh
+IL_001a: ldarg.0
+IL_001b: call System.Void System.Object::.ctor()
+IL_0020: ret

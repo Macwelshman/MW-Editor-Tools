@@ -1,0 +1,143 @@
+Game.Tools.ToolRaycastSystem
+Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::<raycastFlags>k__BackingField
+Game.Common.TypeMask Game.Tools.ToolRaycastSystem::<typeMask>k__BackingField
+Game.Common.CollisionMask Game.Tools.ToolRaycastSystem::<collisionMask>k__BackingField
+Game.Net.Layer Game.Tools.ToolRaycastSystem::<netLayerMask>k__BackingField
+Game.Areas.AreaTypeMask Game.Tools.ToolRaycastSystem::<areaTypeMask>k__BackingField
+Game.Routes.RouteType Game.Tools.ToolRaycastSystem::<routeType>k__BackingField
+Game.Prefabs.TransportType Game.Tools.ToolRaycastSystem::<transportType>k__BackingField
+Game.Notifications.IconLayerMask Game.Tools.ToolRaycastSystem::<iconLayerMask>k__BackingField
+Game.Net.UtilityTypes Game.Tools.ToolRaycastSystem::<utilityTypeMask>k__BackingField
+Unity.Mathematics.float3 Game.Tools.ToolRaycastSystem::<rayOffset>k__BackingField
+Unity.Entities.Entity Game.Tools.ToolRaycastSystem::<owner>k__BackingField
+Game.Tools.ToolSystem Game.Tools.ToolRaycastSystem::m_ToolSystem
+Game.Common.RaycastSystem Game.Tools.ToolRaycastSystem::m_RaycastSystem
+Game.Rendering.CameraUpdateSystem Game.Tools.ToolRaycastSystem::m_CameraUpdateSystem
+System.Boolean Game.Tools.ToolRaycastSystem::GetRaycastResult(Game.Common.RaycastResult&)
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Common.RaycastSystem Game.Tools.ToolRaycastSystem::m_RaycastSystem
+IL_0006: ldarg.0
+IL_0007: callvirt Unity.Collections.NativeArray`1<Game.Common.RaycastResult> Game.Common.RaycastSystem::GetResult(System.Object)
+IL_000c: stloc.0
+IL_000d: ldloca.s V_0
+IL_000f: call System.Int32 Unity.Collections.NativeArray`1<Game.Common.RaycastResult>::get_Length()
+IL_0014: brfalse.s IL_0035
+IL_0016: ldarg.1
+IL_0017: ldloca.s V_0
+IL_0019: ldc.i4.0
+IL_001a: call !0 Unity.Collections.NativeArray`1<Game.Common.RaycastResult>::get_Item(System.Int32)
+IL_001f: stobj Game.Common.RaycastResult
+IL_0024: ldarg.1
+IL_0025: ldfld Unity.Entities.Entity Game.Common.RaycastResult::m_Owner
+IL_002a: call Unity.Entities.Entity Unity.Entities.Entity::get_Null()
+IL_002f: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0034: ret
+IL_0035: ldarg.1
+IL_0036: initobj Game.Common.RaycastResult
+IL_003c: ldc.i4.0
+IL_003d: ret
+System.Void Game.Tools.ToolRaycastSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: ldfld Game.Tools.ToolSystem Game.Tools.ToolRaycastSystem::m_ToolSystem
+IL_0006: callvirt Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::get_activeTool()
+IL_000b: brfalse.s IL_001d
+IL_000d: ldarg.0
+IL_000e: ldfld Game.Tools.ToolSystem Game.Tools.ToolRaycastSystem::m_ToolSystem
+IL_0013: callvirt Game.Tools.ToolBaseSystem Game.Tools.ToolSystem::get_activeTool()
+IL_0018: callvirt System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()
+IL_001d: ldarg.0
+IL_001e: ldfld Game.Rendering.CameraUpdateSystem Game.Tools.ToolRaycastSystem::m_CameraUpdateSystem
+IL_0023: ldloca.s V_0
+IL_0025: callvirt System.Boolean Game.Rendering.CameraUpdateSystem::TryGetViewer(Game.Rendering.Viewer&)
+IL_002a: brtrue.s IL_002d
+IL_002c: ret
+IL_002d: ldarg.0
+IL_002e: ldfld Game.Tools.ToolSystem Game.Tools.ToolRaycastSystem::m_ToolSystem
+IL_0033: callvirt System.Boolean Game.Tools.ToolSystem::get_fullUpdateRequired()
+IL_0038: brfalse.s IL_004a
+IL_003a: ldarg.0
+IL_003b: ldarg.0
+IL_003c: call Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_0041: ldc.i4.4
+IL_0042: or
+IL_0043: call System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_0048: br.s IL_0059
+IL_004a: ldarg.0
+IL_004b: ldarg.0
+IL_004c: call Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_0051: ldc.i4.s -5
+IL_0053: and
+IL_0054: call System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_0059: call Game.Input.InputManager Game.Input.InputManager::get_instance()
+IL_005e: callvirt System.Boolean Game.Input.InputManager::get_controlOverWorld()
+IL_0063: brfalse.s IL_0076
+IL_0065: ldarg.0
+IL_0066: ldarg.0
+IL_0067: call Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_006c: ldc.i4.s -3
+IL_006e: and
+IL_006f: call System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_0074: br.s IL_0084
+IL_0076: ldarg.0
+IL_0077: ldarg.0
+IL_0078: call Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_007d: ldc.i4.2
+IL_007e: or
+IL_007f: call System.Void Game.Tools.ToolRaycastSystem::set_raycastFlags(Game.Common.RaycastFlags)
+IL_0084: ldloca.s V_1
+IL_0086: initobj Game.Common.RaycastInput
+IL_008c: ldloca.s V_1
+IL_008e: ldloc.0
+IL_008f: callvirt UnityEngine.Camera Game.Rendering.Viewer::get_camera()
+IL_0094: call Colossal.Mathematics.Line3/Segment Game.Tools.ToolRaycastSystem::CalculateRaycastLine(UnityEngine.Camera)
+IL_0099: stfld Colossal.Mathematics.Line3/Segment Game.Common.RaycastInput::m_Line
+IL_009e: ldloca.s V_1
+IL_00a0: ldarg.0
+IL_00a1: call Unity.Mathematics.float3 Game.Tools.ToolRaycastSystem::get_rayOffset()
+IL_00a6: stfld Unity.Mathematics.float3 Game.Common.RaycastInput::m_Offset
+IL_00ab: ldloca.s V_1
+IL_00ad: ldarg.0
+IL_00ae: call Unity.Entities.Entity Game.Tools.ToolRaycastSystem::get_owner()
+IL_00b3: stfld Unity.Entities.Entity Game.Common.RaycastInput::m_Owner
+IL_00b8: ldloca.s V_1
+IL_00ba: ldarg.0
+IL_00bb: call Game.Common.TypeMask Game.Tools.ToolRaycastSystem::get_typeMask()
+IL_00c0: stfld Game.Common.TypeMask Game.Common.RaycastInput::m_TypeMask
+IL_00c5: ldloca.s V_1
+IL_00c7: ldarg.0
+IL_00c8: call Game.Common.RaycastFlags Game.Tools.ToolRaycastSystem::get_raycastFlags()
+IL_00cd: stfld Game.Common.RaycastFlags Game.Common.RaycastInput::m_Flags
+IL_00d2: ldloca.s V_1
+IL_00d4: ldarg.0
+IL_00d5: call Game.Common.CollisionMask Game.Tools.ToolRaycastSystem::get_collisionMask()
+IL_00da: stfld Game.Common.CollisionMask Game.Common.RaycastInput::m_CollisionMask
+IL_00df: ldloca.s V_1
+IL_00e1: ldarg.0
+IL_00e2: call Game.Net.Layer Game.Tools.ToolRaycastSystem::get_netLayerMask()
+IL_00e7: stfld Game.Net.Layer Game.Common.RaycastInput::m_NetLayerMask
+IL_00ec: ldloca.s V_1
+IL_00ee: ldarg.0
+IL_00ef: call Game.Areas.AreaTypeMask Game.Tools.ToolRaycastSystem::get_areaTypeMask()
+IL_00f4: stfld Game.Areas.AreaTypeMask Game.Common.RaycastInput::m_AreaTypeMask
+IL_00f9: ldloca.s V_1
+IL_00fb: ldarg.0
+IL_00fc: call Game.Routes.RouteType Game.Tools.ToolRaycastSystem::get_routeType()
+IL_0101: stfld Game.Routes.RouteType Game.Common.RaycastInput::m_RouteType
+IL_0106: ldloca.s V_1
+IL_0108: ldarg.0
+IL_0109: call Game.Prefabs.TransportType Game.Tools.ToolRaycastSystem::get_transportType()
+IL_010e: stfld Game.Prefabs.TransportType Game.Common.RaycastInput::m_TransportType
+IL_0113: ldloca.s V_1
+IL_0115: ldarg.0
+IL_0116: call Game.Notifications.IconLayerMask Game.Tools.ToolRaycastSystem::get_iconLayerMask()
+IL_011b: stfld Game.Notifications.IconLayerMask Game.Common.RaycastInput::m_IconLayerMask
+IL_0120: ldloca.s V_1
+IL_0122: ldarg.0
+IL_0123: call Game.Net.UtilityTypes Game.Tools.ToolRaycastSystem::get_utilityTypeMask()
+IL_0128: stfld Game.Net.UtilityTypes Game.Common.RaycastInput::m_UtilityTypeMask
+IL_012d: ldarg.0
+IL_012e: ldfld Game.Common.RaycastSystem Game.Tools.ToolRaycastSystem::m_RaycastSystem
+IL_0133: ldarg.0
+IL_0134: ldloc.1
+IL_0135: callvirt System.Void Game.Common.RaycastSystem::AddInput(System.Object,Game.Common.RaycastInput)
+IL_013a: ret

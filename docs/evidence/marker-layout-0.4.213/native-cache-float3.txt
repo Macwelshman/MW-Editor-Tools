@@ -1,0 +1,11 @@
+System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_0000: ldarg.0
+IL_0001: ldobj Unity.Mathematics.float3
+IL_0006: ldarg.1
+IL_0007: call System.Single Unity.Mathematics.math::distance(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_000c: ldc.r4 0.01
+IL_0011: bge.un.s IL_001a
+IL_0013: ldarg.0
+IL_0014: ldarg.1
+IL_0015: stobj Unity.Mathematics.float3
+IL_001a: ret

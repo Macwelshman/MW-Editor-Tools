@@ -21,7 +21,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer
         public void ClearReport() { Preview = null; latestReport = ""; }
         public void Clear() { Preview = null; latestReport = ""; undoTarget = null; undoChanges = null; undoIdentities = null; undoFingerprint = null; }
         public string Plan(TransferTarget target, TransferClipboard clipboard, TransferMode mode)
-        { Preview = null; latestReport = ""; Preview = new TransferPlan(target, clipboard, mode); latestReport = string.Join("\n", Preview.Reports); return "Preview for " + target.Prefab.name + ": " + Preview.Changes.Count + " change(s)."; }
+        { Preview = null; latestReport = ""; Preview = new TransferPlan(target, clipboard, mode); latestReport = string.Join("\n", Preview.Reports); return "Preview for " + target.Prefab.name + ": " + Preview.Changes.Count + (Preview.Changes.Count == 1 ? " change." : " changes."); }
 
         public string Paste(TransferTarget target, TransferClipboard clipboard, TransferMode mode)
         {
@@ -30,6 +30,15 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer
             Plan(target, clipboard, mode);
             if (!CanApply) return "No transferable component changes. See the report below.";
             return Apply(clipboard, target);
+        }
+        public string ExecutePasteCommand(string action,TransferTarget target,TransferClipboard clipboard,TransferMode mode)
+        {
+            if(action=="restore"||action=="recover")return Restore(target);
+            // Compatibility with older frontends: their paste button sent
+            // preview, then exposed a separate apply button. All paste requests
+            // now validate and commit in this one command.
+            if(action=="paste"||action=="preview"||action=="apply")return Paste(target,clipboard,mode);
+            throw new ArgumentException("Unknown component paste action.");
         }
 
         public string Apply(TransferClipboard clipboard, TransferTarget current)
@@ -55,6 +64,12 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer
                         if (!ReferenceEquals(added.prefab, plan.Target.Prefab) || !ReferenceEquals(plan.Target.Exact(change.Type), added)) throw new InvalidOperationException("Native creation ownership/identity failed.");
                         if (addition.Adapter != null && addition.After != null)
                         {
+                            // Merge selected source fields into the actual native defaults,
+                            // preserving fields configured by AddComponent (including icons).
+                            if(change.Source!=null)
+                                addition.After=addition.Adapter.Capture(added,plan.Target.Prefab).Merge(change.Source,null).WithActive(change.Source.Active);
+                            var invalid=addition.Adapter.Validate(addition.After);
+                            if(invalid!=null)throw new InvalidOperationException(invalid);
                             addition.Adapter.Apply(addition.After, added);added.active=addition.After.Active;
                             var actual = addition.Adapter.Capture(added, plan.Target.Prefab);
                             if (actual.Fingerprint!=addition.After.Fingerprint) throw new InvalidOperationException("Added component values do not match preview.");
@@ -78,7 +93,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Transfer
                 throw new InvalidOperationException("Apply failed. " + (failures.Count == 0 ? "Prior settings/components restored; refresh requeued. Dirty state may remain." : "Rollback/refresh incomplete: " + string.Join("; ", failures)), error);
             }
             undoTarget = plan.Target; undoChanges = applied; undoIdentities = undoTarget.Identities(); undoFingerprint = undoTarget.Fingerprint(); Preview = null;
-            return "Applied " + applied.Count + " component change(s) to " + undoTarget.Prefab.name + ". Refresh queued. New components retain copied activation; existing component activation is preserved."
+            return "Applied " + applied.Count + (applied.Count == 1 ? " component change to " : " component changes to ") + undoTarget.Prefab.name + ". Refresh queued. New components retain copied activation; existing component activation is preserved."
                 + (CanRestore ? " Restore available." : " Automatic restore unavailable for unadapted additions; remove them through Object Info if needed.");
         }
         private static List<string> Rollback(TransferTarget target, IEnumerable<PlannedChange> changes)

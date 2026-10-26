@@ -1,0 +1,1 @@
+PASS: four compact tabs, shared header Undo and no persistent recovery transcript.

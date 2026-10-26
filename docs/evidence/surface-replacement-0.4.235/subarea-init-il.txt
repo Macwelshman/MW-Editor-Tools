@@ -1,0 +1,1836 @@
+System.Void Game.Prefabs.ObjectInitializeSystem::OnUpdate()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.EntityQuery Game.Prefabs.ObjectInitializeSystem::m_PrefabQuery
+IL_0006: ldc.i4.3
+IL_0007: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_000c: call Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk> Unity.Entities.EntityQuery::ToArchetypeChunkArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0011: stloc.0
+IL_0012: ldc.i4.0
+IL_0013: stloc.1
+IL_0014: ldarg.0
+IL_0015: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_001a: ldflda Unity.Entities.EntityTypeHandle Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Unity_Entities_Entity_TypeHandle
+IL_001f: ldarg.0
+IL_0020: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0025: call Unity.Entities.EntityTypeHandle Unity.Entities.Internal.InternalCompilerInterface::GetEntityTypeHandle(Unity.Entities.EntityTypeHandle&,Unity.Entities.SystemState&)
+IL_002a: stloc.2
+IL_002b: ldarg.0
+IL_002c: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0031: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentTypeHandle
+IL_0036: ldarg.0
+IL_0037: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_003c: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0041: stloc.3
+IL_0042: ldarg.0
+IL_0043: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0048: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PrefabData_RO_ComponentTypeHandle
+IL_004d: ldarg.0
+IL_004e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0053: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PrefabData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0058: stloc.s V_4
+IL_005a: ldarg.0
+IL_005b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0060: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.UtilityObjectData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_UtilityObjectData_RO_ComponentTypeHandle
+IL_0065: ldarg.0
+IL_0066: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_006b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.UtilityObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0070: stloc.s V_5
+IL_0072: ldarg.0
+IL_0073: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0078: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.AnimalData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_AnimalData_RW_ComponentTypeHandle
+IL_007d: ldarg.0
+IL_007e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0083: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.AnimalData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0088: stloc.s V_6
+IL_008a: ldarg.0
+IL_008b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0090: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PillarData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PillarData_RO_ComponentTypeHandle
+IL_0095: ldarg.0
+IL_0096: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_009b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PillarData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00a0: stloc.s V_7
+IL_00a2: ldarg.0
+IL_00a3: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_00a8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.MoveableBridgeData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_MoveableBridgeData_RO_ComponentTypeHandle
+IL_00ad: ldarg.0
+IL_00ae: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00b3: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.MoveableBridgeData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00b8: stloc.s V_8
+IL_00ba: ldarg.0
+IL_00bb: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_00c0: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.NetObjectData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_NetObjectData_RO_ComponentTypeHandle
+IL_00c5: ldarg.0
+IL_00c6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00cb: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.NetObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00d0: stloc.s V_9
+IL_00d2: ldarg.0
+IL_00d3: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_00d8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PlantData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PlantData_RO_ComponentTypeHandle
+IL_00dd: ldarg.0
+IL_00de: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00e3: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PlantData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_00e8: stloc.s V_10
+IL_00ea: ldarg.0
+IL_00eb: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_00f0: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.HumanData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_HumanData_RO_ComponentTypeHandle
+IL_00f5: ldarg.0
+IL_00f6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_00fb: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.HumanData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0100: stloc.s V_11
+IL_0102: ldarg.0
+IL_0103: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0108: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.BuildingData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_BuildingData_RO_ComponentTypeHandle
+IL_010d: ldarg.0
+IL_010e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0113: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.BuildingData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0118: stloc.s V_12
+IL_011a: ldarg.0
+IL_011b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0120: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.VehicleData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_VehicleData_RO_ComponentTypeHandle
+IL_0125: ldarg.0
+IL_0126: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_012b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.VehicleData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0130: stloc.s V_13
+IL_0132: ldarg.0
+IL_0133: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0138: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.ActivityPropData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_ActivityPropData_RO_ComponentTypeHandle
+IL_013d: ldarg.0
+IL_013e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0143: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.ActivityPropData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0148: stloc.s V_14
+IL_014a: ldarg.0
+IL_014b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0150: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.BuildingExtensionData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_BuildingExtensionData_RW_ComponentTypeHandle
+IL_0155: ldarg.0
+IL_0156: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_015b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.BuildingExtensionData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0160: stloc.s V_15
+IL_0162: ldarg.0
+IL_0163: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0168: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.ObjectGeometryData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_ObjectGeometryData_RW_ComponentTypeHandle
+IL_016d: ldarg.0
+IL_016e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0173: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.ObjectGeometryData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0178: stloc.s V_16
+IL_017a: ldarg.0
+IL_017b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0180: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PlaceableObjectData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PlaceableObjectData_RW_ComponentTypeHandle
+IL_0185: ldarg.0
+IL_0186: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_018b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PlaceableObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0190: stloc.s V_17
+IL_0192: ldarg.0
+IL_0193: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0198: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.SpawnableObjectData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SpawnableObjectData_RW_ComponentTypeHandle
+IL_019d: ldarg.0
+IL_019e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01a3: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.SpawnableObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_01a8: stloc.s V_18
+IL_01aa: ldarg.0
+IL_01ab: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_01b0: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.AssetStampData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_AssetStampData_RW_ComponentTypeHandle
+IL_01b5: ldarg.0
+IL_01b6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01bb: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.AssetStampData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_01c0: stloc.s V_19
+IL_01c2: ldarg.0
+IL_01c3: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_01c8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.GrowthScaleData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_GrowthScaleData_RW_ComponentTypeHandle
+IL_01cd: ldarg.0
+IL_01ce: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01d3: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.GrowthScaleData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_01d8: stloc.s V_20
+IL_01da: ldarg.0
+IL_01db: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_01e0: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.StackData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_StackData_RW_ComponentTypeHandle
+IL_01e5: ldarg.0
+IL_01e6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_01eb: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.StackData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_01f0: stloc.s V_21
+IL_01f2: ldarg.0
+IL_01f3: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_01f8: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.QuantityObjectData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_QuantityObjectData_RW_ComponentTypeHandle
+IL_01fd: ldarg.0
+IL_01fe: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0203: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.QuantityObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0208: stloc.s V_22
+IL_020a: ldarg.0
+IL_020b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0210: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.LocaleMeshData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_LocaleMeshData_RW_ComponentTypeHandle
+IL_0215: ldarg.0
+IL_0216: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_021b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.LocaleMeshData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0220: stloc.s V_23
+IL_0222: ldarg.0
+IL_0223: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0228: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.CreatureData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_CreatureData_RW_ComponentTypeHandle
+IL_022d: ldarg.0
+IL_022e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0233: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.CreatureData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0238: stloc.s V_24
+IL_023a: ldarg.0
+IL_023b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0240: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.BuildingTerraformData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_BuildingTerraformData_RW_ComponentTypeHandle
+IL_0245: ldarg.0
+IL_0246: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_024b: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.BuildingTerraformData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0250: stloc.s V_25
+IL_0252: ldarg.0
+IL_0253: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0258: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubMesh> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubMesh_RW_BufferTypeHandle
+IL_025d: ldarg.0
+IL_025e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0263: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubMesh>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0268: stloc.s V_26
+IL_026a: ldarg.0
+IL_026b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0270: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubMeshGroup> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubMeshGroup_RW_BufferTypeHandle
+IL_0275: ldarg.0
+IL_0276: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_027b: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubMeshGroup>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0280: stloc.s V_27
+IL_0282: ldarg.0
+IL_0283: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0288: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.CharacterElement> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_CharacterElement_RW_BufferTypeHandle
+IL_028d: ldarg.0
+IL_028e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0293: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.CharacterElement>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0298: stloc.s V_28
+IL_029a: ldarg.0
+IL_029b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_02a0: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubObject> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubObject_RW_BufferTypeHandle
+IL_02a5: ldarg.0
+IL_02a6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02ab: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubObject>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_02b0: stloc.s V_29
+IL_02b2: ldarg.0
+IL_02b3: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_02b8: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubNet> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubNet_RW_BufferTypeHandle
+IL_02bd: ldarg.0
+IL_02be: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02c3: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubNet>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_02c8: stloc.s V_30
+IL_02ca: ldarg.0
+IL_02cb: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_02d0: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubLane> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubLane_RW_BufferTypeHandle
+IL_02d5: ldarg.0
+IL_02d6: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02db: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubLane>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_02e0: stloc.s V_31
+IL_02e2: ldarg.0
+IL_02e3: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_02e8: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubArea> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubArea_RW_BufferTypeHandle
+IL_02ed: ldarg.0
+IL_02ee: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_02f3: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubArea>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_02f8: stloc.s V_32
+IL_02fa: ldarg.0
+IL_02fb: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0300: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubAreaNode> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubAreaNode_RW_BufferTypeHandle
+IL_0305: ldarg.0
+IL_0306: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_030b: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubAreaNode>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_0310: stloc.s V_33
+IL_0312: ldarg.0
+IL_0313: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0318: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationClip> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_AnimationClip_RO_BufferLookup
+IL_031d: ldarg.0
+IL_031e: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_0323: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.AnimationClip>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0328: stloc.s V_34
+IL_032a: ldarg.0
+IL_032b: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_0330: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationMotion> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_AnimationMotion_RO_BufferLookup
+IL_0335: ldarg.0
+IL_0336: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_033b: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.AnimationMotion>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_0340: stloc.s V_35
+IL_0342: ldarg.0
+IL_0343: call System.Void Unity.Entities.SystemBase::CompleteDependency()
+IL_0348: ldc.i4.0
+IL_0349: stloc.s V_42
+IL_034b: br IL_12b5
+IL_0350: ldloca.s V_0
+IL_0352: ldloc.s V_42
+IL_0354: call !0 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Item(System.Int32)
+IL_0359: stloc.s V_43
+IL_035b: ldloca.s V_43
+IL_035d: ldloca.s V_3
+IL_035f: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0364: brfalse.s IL_0377
+IL_0366: ldloc.1
+IL_0367: ldloca.s V_43
+IL_0369: ldloca.s V_18
+IL_036b: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.SpawnableObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0370: or
+IL_0371: stloc.1
+IL_0372: br IL_12af
+IL_0377: ldloca.s V_43
+IL_0379: ldloca.s V_4
+IL_037b: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.PrefabData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0380: stloc.s V_44
+IL_0382: ldloca.s V_43
+IL_0384: ldloca.s V_16
+IL_0386: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.ObjectGeometryData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_038b: stloc.s V_45
+IL_038d: ldloca.s V_43
+IL_038f: ldloca.s V_17
+IL_0391: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.PlaceableObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0396: stloc.s V_46
+IL_0398: ldloca.s V_43
+IL_039a: ldloca.s V_18
+IL_039c: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.SpawnableObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03a1: stloc.s V_47
+IL_03a3: ldloca.s V_43
+IL_03a5: ldloca.s V_19
+IL_03a7: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.AssetStampData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03ac: stloc.s V_48
+IL_03ae: ldloca.s V_43
+IL_03b0: ldloca.s V_20
+IL_03b2: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.GrowthScaleData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03b7: stloc.s V_49
+IL_03b9: ldloca.s V_43
+IL_03bb: ldloca.s V_21
+IL_03bd: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.StackData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03c2: stloc.s V_50
+IL_03c4: ldloca.s V_43
+IL_03c6: ldloca.s V_22
+IL_03c8: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.QuantityObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03cd: stloc.s V_51
+IL_03cf: ldloca.s V_43
+IL_03d1: ldloca.s V_23
+IL_03d3: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.LocaleMeshData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03d8: stloc.s V_52
+IL_03da: ldloca.s V_43
+IL_03dc: ldloca.s V_24
+IL_03de: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.CreatureData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03e3: stloc.s V_53
+IL_03e5: ldloca.s V_43
+IL_03e7: ldloca.s V_7
+IL_03e9: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.PillarData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03ee: stloc.s V_54
+IL_03f0: ldloca.s V_43
+IL_03f2: ldloca.s V_25
+IL_03f4: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.BuildingTerraformData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_03f9: stloc.s V_55
+IL_03fb: ldloca.s V_43
+IL_03fd: ldloca.s V_15
+IL_03ff: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.BuildingExtensionData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0404: stloc.s V_56
+IL_0406: ldloca.s V_43
+IL_0408: ldloca.s V_6
+IL_040a: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.AnimalData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_040f: stloc.s V_57
+IL_0411: ldloca.s V_43
+IL_0413: ldloca.s V_29
+IL_0415: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubObject>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_041a: stloc.s V_58
+IL_041c: ldloca.s V_43
+IL_041e: ldloca.s V_32
+IL_0420: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubArea>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0425: stloc.s V_59
+IL_0427: ldloca.s V_43
+IL_0429: ldloca.s V_26
+IL_042b: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubMesh>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0430: stloc.s V_60
+IL_0432: ldloca.s V_43
+IL_0434: ldloca.s V_27
+IL_0436: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubMeshGroup>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_043b: stloc.s V_61
+IL_043d: ldloca.s V_43
+IL_043f: ldloca.s V_28
+IL_0441: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.CharacterElement>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0446: stloc.s V_62
+IL_0448: ldloca.s V_43
+IL_044a: ldloca.s V_30
+IL_044c: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubNet>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0451: stloc.s V_63
+IL_0453: ldloca.s V_43
+IL_0455: ldloca.s V_31
+IL_0457: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubLane>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_045c: stloc.s V_64
+IL_045e: ldloca.s V_43
+IL_0460: ldloca.s V_5
+IL_0462: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.UtilityObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0467: stloc.s V_65
+IL_0469: ldloca.s V_43
+IL_046b: ldloca.s V_8
+IL_046d: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.MoveableBridgeData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0472: stloc.s V_66
+IL_0474: ldloca.s V_43
+IL_0476: ldloca.s V_9
+IL_0478: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.NetObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_047d: stloc.s V_67
+IL_047f: ldloca.s V_43
+IL_0481: ldloca.s V_10
+IL_0483: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.PlantData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0488: stloc.s V_68
+IL_048a: ldloca.s V_43
+IL_048c: ldloca.s V_11
+IL_048e: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.HumanData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0493: stloc.s V_69
+IL_0495: ldloca.s V_43
+IL_0497: ldloca.s V_12
+IL_0499: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.BuildingData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_049e: brtrue.s IL_04ac
+IL_04a0: ldloca.s V_56
+IL_04a2: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.BuildingExtensionData>::get_Length()
+IL_04a7: ldc.i4.0
+IL_04a8: cgt.un
+IL_04aa: br.s IL_04ad
+IL_04ac: ldc.i4.1
+IL_04ad: stloc.s V_70
+IL_04af: ldloca.s V_43
+IL_04b1: ldloca.s V_13
+IL_04b3: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.VehicleData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_04b8: stloc.s V_71
+IL_04ba: ldloca.s V_53
+IL_04bc: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.CreatureData>::get_Length()
+IL_04c1: ldc.i4.0
+IL_04c2: cgt.un
+IL_04c4: stloc.s V_72
+IL_04c6: ldloca.s V_43
+IL_04c8: ldloca.s V_14
+IL_04ca: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.ActivityPropData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_04cf: stloc.s V_73
+IL_04d1: ldc.i4.0
+IL_04d2: stloc.s V_74
+IL_04d4: br IL_0a7f
+IL_04d9: ldarg.0
+IL_04da: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_04df: ldloca.s V_44
+IL_04e1: ldloc.s V_74
+IL_04e3: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabData>::get_Item(System.Int32)
+IL_04e8: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.ObjectPrefab>(Game.Prefabs.PrefabData)
+IL_04ed: stloc.s V_75
+IL_04ef: ldloca.s V_45
+IL_04f1: ldloc.s V_74
+IL_04f3: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.ObjectGeometryData>::get_Item(System.Int32)
+IL_04f8: stloc.s V_76
+IL_04fa: ldloca.s V_76
+IL_04fc: ldc.i4 255
+IL_0501: stfld System.Int32 Game.Prefabs.ObjectGeometryData::m_MinLod
+IL_0506: ldloca.s V_76
+IL_0508: ldc.i4.0
+IL_0509: stfld Game.Prefabs.MeshLayer Game.Prefabs.ObjectGeometryData::m_Layers
+IL_050e: ldloca.s V_77
+IL_0510: initobj Game.Prefabs.PlaceableObjectData
+IL_0516: ldloca.s V_46
+IL_0518: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::get_Length()
+IL_051d: brfalse.s IL_052a
+IL_051f: ldloca.s V_46
+IL_0521: ldloc.s V_74
+IL_0523: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::get_Item(System.Int32)
+IL_0528: stloc.s V_77
+IL_052a: ldloca.s V_78
+IL_052c: initobj Game.Prefabs.GrowthScaleData
+IL_0532: ldloca.s V_49
+IL_0534: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.GrowthScaleData>::get_Length()
+IL_0539: brfalse.s IL_0546
+IL_053b: ldloca.s V_49
+IL_053d: ldloc.s V_74
+IL_053f: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.GrowthScaleData>::get_Item(System.Int32)
+IL_0544: stloc.s V_78
+IL_0546: ldloca.s V_79
+IL_0548: initobj Game.Prefabs.StackData
+IL_054e: ldloca.s V_50
+IL_0550: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.StackData>::get_Length()
+IL_0555: brfalse.s IL_05a4
+IL_0557: ldloca.s V_50
+IL_0559: ldloc.s V_74
+IL_055b: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.StackData>::get_Item(System.Int32)
+IL_0560: stloc.s V_79
+IL_0562: ldloca.s V_79
+IL_0564: ldc.r4 3.4028235E+38
+IL_0569: ldc.r4 -3.4028235E+38
+IL_056e: newobj System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_0573: stfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_0578: ldloca.s V_79
+IL_057a: ldc.r4 3.4028235E+38
+IL_057f: ldc.r4 -3.4028235E+38
+IL_0584: newobj System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_0589: stfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_MiddleBounds
+IL_058e: ldloca.s V_79
+IL_0590: ldc.r4 3.4028235E+38
+IL_0595: ldc.r4 -3.4028235E+38
+IL_059a: newobj System.Void Colossal.Mathematics.Bounds1::.ctor(System.Single,System.Single)
+IL_059f: stfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_LastBounds
+IL_05a4: ldloca.s V_80
+IL_05a6: initobj Game.Prefabs.QuantityObjectData
+IL_05ac: ldloca.s V_51
+IL_05ae: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.QuantityObjectData>::get_Length()
+IL_05b3: brfalse.s IL_05c0
+IL_05b5: ldloca.s V_51
+IL_05b7: ldloc.s V_74
+IL_05b9: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.QuantityObjectData>::get_Item(System.Int32)
+IL_05be: stloc.s V_80
+IL_05c0: ldloca.s V_81
+IL_05c2: initobj Game.Prefabs.LocaleMeshData
+IL_05c8: ldloca.s V_82
+IL_05ca: initobj Game.Prefabs.CreatureData
+IL_05d0: ldloca.s V_53
+IL_05d2: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.CreatureData>::get_Length()
+IL_05d7: brfalse.s IL_060f
+IL_05d9: ldloca.s V_53
+IL_05db: ldloc.s V_74
+IL_05dd: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.CreatureData>::get_Item(System.Int32)
+IL_05e2: stloc.s V_82
+IL_05e4: ldloc.s V_75
+IL_05e6: isinst Game.Prefabs.CreaturePrefab
+IL_05eb: stloc.s V_83
+IL_05ed: ldloca.s V_82
+IL_05ef: ldloc.s V_83
+IL_05f1: ldfld Game.Prefabs.GenderMask Game.Prefabs.CreaturePrefab::m_Gender
+IL_05f6: stfld Game.Prefabs.GenderMask Game.Prefabs.CreatureData::m_Gender
+IL_05fb: ldloc.s V_69
+IL_05fd: brtrue.s IL_060f
+IL_05ff: ldloca.s V_76
+IL_0601: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0606: dup
+IL_0607: ldind.i4
+IL_0608: ldc.i4 131072
+IL_060d: or
+IL_060e: stind.i4
+IL_060f: ldloc.s V_75
+IL_0611: isinst Game.Prefabs.AssetStampPrefab
+IL_0616: brfalse.s IL_0656
+IL_0618: ldloca.s V_48
+IL_061a: ldloc.s V_74
+IL_061c: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.AssetStampData>::get_Item(System.Int32)
+IL_0621: stloc.s V_84
+IL_0623: ldarg.0
+IL_0624: ldloc.s V_75
+IL_0626: isinst Game.Prefabs.AssetStampPrefab
+IL_062b: ldloca.s V_84
+IL_062d: ldloca.s V_77
+IL_062f: ldloca.s V_76
+IL_0631: call System.Void Game.Prefabs.ObjectInitializeSystem::InitializePrefab(Game.Prefabs.AssetStampPrefab,Game.Prefabs.AssetStampData&,Game.Prefabs.PlaceableObjectData&,Game.Prefabs.ObjectGeometryData&)
+IL_0636: ldloca.s V_48
+IL_0638: ldloc.s V_74
+IL_063a: ldloc.s V_84
+IL_063c: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.AssetStampData>::set_Item(System.Int32,!0)
+IL_0641: ldloca.s V_76
+IL_0643: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0648: dup
+IL_0649: ldind.i4
+IL_064a: ldc.i4 1115208
+IL_064f: or
+IL_0650: stind.i4
+IL_0651: br IL_08a7
+IL_0656: ldloc.s V_75
+IL_0658: isinst Game.Prefabs.ObjectGeometryPrefab
+IL_065d: brfalse IL_086b
+IL_0662: ldloc.s V_61
+IL_0664: ldloc.s V_74
+IL_0666: ldloca.s V_85
+IL_0668: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Prefabs.SubMeshGroup>(Unity.Entities.BufferAccessor`1<!!0>,System.Int32,Unity.Entities.DynamicBuffer`1<!!0>&)
+IL_066d: pop
+IL_066e: ldloc.s V_62
+IL_0670: ldloc.s V_74
+IL_0672: ldloca.s V_86
+IL_0674: call System.Boolean Colossal.Collections.CollectionUtils::TryGet<Game.Prefabs.CharacterElement>(Unity.Entities.BufferAccessor`1<!!0>,System.Int32,Unity.Entities.DynamicBuffer`1<!!0>&)
+IL_0679: pop
+IL_067a: ldarg.0
+IL_067b: ldloc.s V_75
+IL_067d: isinst Game.Prefabs.ObjectGeometryPrefab
+IL_0682: ldloc.s V_77
+IL_0684: ldloca.s V_76
+IL_0686: ldloca.s V_78
+IL_0688: ldloca.s V_79
+IL_068a: ldloca.s V_80
+IL_068c: ldloca.s V_82
+IL_068e: ldloca.s V_81
+IL_0690: ldloca.s V_60
+IL_0692: ldloc.s V_74
+IL_0694: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_0699: ldloc.s V_85
+IL_069b: ldloc.s V_86
+IL_069d: ldloc.s V_68
+IL_069f: ldloc.s V_69
+IL_06a1: ldloc.s V_70
+IL_06a3: ldloc.s V_71
+IL_06a5: ldloc.s V_72
+IL_06a7: ldloc.s V_73
+IL_06a9: call System.Void Game.Prefabs.ObjectInitializeSystem::InitializePrefab(Game.Prefabs.ObjectGeometryPrefab,Game.Prefabs.PlaceableObjectData,Game.Prefabs.ObjectGeometryData&,Game.Prefabs.GrowthScaleData&,Game.Prefabs.StackData&,Game.Prefabs.QuantityObjectData&,Game.Prefabs.CreatureData&,Game.Prefabs.LocaleMeshData&,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMeshGroup>,Unity.Entities.DynamicBuffer`1<Game.Prefabs.CharacterElement>,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)
+IL_06ae: ldloca.s V_54
+IL_06b0: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PillarData>::get_Length()
+IL_06b5: brfalse.s IL_070d
+IL_06b7: ldloca.s V_54
+IL_06b9: ldloc.s V_74
+IL_06bb: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PillarData>::get_Item(System.Int32)
+IL_06c0: ldfld Game.Prefabs.PillarType Game.Prefabs.PillarData::m_Type
+IL_06c5: ldc.i4.1
+IL_06c6: bne.un.s IL_06da
+IL_06c8: ldloca.s V_76
+IL_06ca: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_06cf: dup
+IL_06d0: ldind.i4
+IL_06d1: ldc.i4 262144
+IL_06d6: or
+IL_06d7: stind.i4
+IL_06d8: br.s IL_06ea
+IL_06da: ldloca.s V_76
+IL_06dc: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_06e1: dup
+IL_06e2: ldind.i4
+IL_06e3: ldc.i4 4096
+IL_06e8: or
+IL_06e9: stind.i4
+IL_06ea: ldloc.s V_66
+IL_06ec: brfalse.s IL_06fb
+IL_06ee: ldloca.s V_76
+IL_06f0: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_06f5: dup
+IL_06f6: ldind.i4
+IL_06f7: ldc.i4.s 64
+IL_06f9: or
+IL_06fa: stind.i4
+IL_06fb: ldloca.s V_76
+IL_06fd: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0702: dup
+IL_0703: ldind.i4
+IL_0704: ldc.i4 19456
+IL_0709: or
+IL_070a: stind.i4
+IL_070b: br.s IL_0749
+IL_070d: ldloc.s V_65
+IL_070f: brfalse.s IL_0723
+IL_0711: ldloca.s V_76
+IL_0713: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0718: dup
+IL_0719: ldind.i4
+IL_071a: ldc.i4 8192
+IL_071f: or
+IL_0720: stind.i4
+IL_0721: br.s IL_0749
+IL_0723: ldloc.s V_67
+IL_0725: brfalse.s IL_0739
+IL_0727: ldloca.s V_76
+IL_0729: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_072e: dup
+IL_072f: ldind.i4
+IL_0730: ldc.i4 1024
+IL_0735: or
+IL_0736: stind.i4
+IL_0737: br.s IL_0749
+IL_0739: ldloca.s V_76
+IL_073b: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0740: dup
+IL_0741: ldind.i4
+IL_0742: ldc.i4 32770
+IL_0747: or
+IL_0748: stind.i4
+IL_0749: ldloca.s V_43
+IL_074b: ldloca.s V_6
+IL_074d: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Prefabs.AnimalData>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0752: brfalse IL_08a7
+IL_0757: ldloca.s V_57
+IL_0759: ldloc.s V_74
+IL_075b: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.AnimalData>::get_Item(System.Int32)
+IL_0760: stloc.s V_87
+IL_0762: ldloc.s V_87
+IL_0764: ldfld System.Single Game.Prefabs.AnimalData::m_FlySpeed
+IL_0769: ldc.r4 0
+IL_076e: ble.un IL_08a7
+IL_0773: ldloca.s V_86
+IL_0775: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.CharacterElement>::get_IsEmpty()
+IL_077a: brtrue IL_08a7
+IL_077f: ldloca.s V_86
+IL_0781: ldc.i4.0
+IL_0782: call !0& Unity.Entities.DynamicBuffer`1<Game.Prefabs.CharacterElement>::ElementAt(System.Int32)
+IL_0787: ldobj Game.Prefabs.CharacterElement
+IL_078c: stloc.s V_88
+IL_078e: ldloca.s V_35
+IL_0790: ldloc.s V_88
+IL_0792: ldfld Unity.Entities.Entity Game.Prefabs.CharacterElement::m_Style
+IL_0797: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationMotion>::get_Item(Unity.Entities.Entity)
+IL_079c: stloc.s V_89
+IL_079e: ldloca.s V_34
+IL_07a0: ldloc.s V_88
+IL_07a2: ldfld Unity.Entities.Entity Game.Prefabs.CharacterElement::m_Style
+IL_07a7: ldloca.s V_90
+IL_07a9: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.AnimationClip>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_07ae: pop
+IL_07af: ldc.i4.0
+IL_07b0: stloc.s V_91
+IL_07b2: br IL_085b
+IL_07b7: ldloca.s V_90
+IL_07b9: ldloc.s V_91
+IL_07bb: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.AnimationClip>::get_Item(System.Int32)
+IL_07c0: stloc.s V_92
+IL_07c2: ldloc.s V_92
+IL_07c4: ldfld Game.Prefabs.ActivityType Game.Prefabs.AnimationClip::m_Activity
+IL_07c9: ldc.i4.s 9
+IL_07cb: bne.un IL_0855
+IL_07d0: ldloc.s V_92
+IL_07d2: ldfld Game.Prefabs.AnimationType Game.Prefabs.AnimationClip::m_Type
+IL_07d7: ldc.i4.4
+IL_07d8: bne.un.s IL_0855
+IL_07da: ldloc.s V_92
+IL_07dc: ldfld Unity.Mathematics.int2 Game.Prefabs.AnimationClip::m_MotionRange
+IL_07e1: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_07e6: ldloc.s V_92
+IL_07e8: ldfld Unity.Mathematics.int2 Game.Prefabs.AnimationClip::m_MotionRange
+IL_07ed: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_07f2: beq.s IL_0855
+IL_07f4: ldloc.s V_89
+IL_07f6: ldloc.s V_92
+IL_07f8: ldfld Unity.Mathematics.int2 Game.Prefabs.AnimationClip::m_MotionRange
+IL_07fd: ldloca.s V_97
+IL_07ff: initobj Game.Rendering.BlendWeights
+IL_0805: ldloc.s V_97
+IL_0807: ldc.r4 0
+IL_080c: ldloca.s V_93
+IL_080e: ldloca.s V_95
+IL_0810: ldloca.s V_96
+IL_0812: call System.Void Game.Objects.ObjectUtils::GetRootMotion(Unity.Entities.DynamicBuffer`1<Game.Prefabs.AnimationMotion>,Unity.Mathematics.int2,Game.Rendering.BlendWeights,System.Single,Unity.Mathematics.float3&,Unity.Mathematics.float3&,Unity.Mathematics.quaternion&)
+IL_0817: ldloc.s V_89
+IL_0819: ldloc.s V_92
+IL_081b: ldfld Unity.Mathematics.int2 Game.Prefabs.AnimationClip::m_MotionRange
+IL_0820: ldloca.s V_97
+IL_0822: initobj Game.Rendering.BlendWeights
+IL_0828: ldloc.s V_97
+IL_082a: ldc.r4 1
+IL_082f: ldloca.s V_94
+IL_0831: ldloca.s V_95
+IL_0833: ldloca.s V_96
+IL_0835: call System.Void Game.Objects.ObjectUtils::GetRootMotion(Unity.Entities.DynamicBuffer`1<Game.Prefabs.AnimationMotion>,Unity.Mathematics.int2,Game.Rendering.BlendWeights,System.Single,Unity.Mathematics.float3&,Unity.Mathematics.float3&,Unity.Mathematics.quaternion&)
+IL_083a: ldloca.s V_87
+IL_083c: ldloc.s V_93
+IL_083e: ldloc.s V_94
+IL_0840: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Subtraction(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_0845: stfld Unity.Mathematics.float3 Game.Prefabs.AnimalData::m_LandingOffset
+IL_084a: ldloca.s V_57
+IL_084c: ldloc.s V_74
+IL_084e: ldloc.s V_87
+IL_0850: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.AnimalData>::set_Item(System.Int32,!0)
+IL_0855: ldloc.s V_91
+IL_0857: ldc.i4.1
+IL_0858: add
+IL_0859: stloc.s V_91
+IL_085b: ldloc.s V_91
+IL_085d: ldloca.s V_90
+IL_085f: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.AnimationClip>::get_Length()
+IL_0864: blt IL_07b7
+IL_0869: br.s IL_08a7
+IL_086b: ldloc.s V_75
+IL_086d: isinst Game.Prefabs.MarkerObjectPrefab
+IL_0872: brfalse.s IL_08a7
+IL_0874: ldarg.0
+IL_0875: ldloc.s V_75
+IL_0877: isinst Game.Prefabs.MarkerObjectPrefab
+IL_087c: ldloc.s V_77
+IL_087e: ldloca.s V_76
+IL_0880: ldloca.s V_60
+IL_0882: ldloc.s V_74
+IL_0884: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_0889: call System.Void Game.Prefabs.ObjectInitializeSystem::InitializePrefab(Game.Prefabs.MarkerObjectPrefab,Game.Prefabs.PlaceableObjectData,Game.Prefabs.ObjectGeometryData&,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>)
+IL_088e: ldloca.s V_77
+IL_0890: ldflda Game.Objects.PlacementFlags Game.Prefabs.PlaceableObjectData::m_Flags
+IL_0895: dup
+IL_0896: ldind.i4
+IL_0897: ldc.i4.8
+IL_0898: or
+IL_0899: stind.i4
+IL_089a: ldloca.s V_76
+IL_089c: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_08a1: dup
+IL_08a2: ldind.i4
+IL_08a3: ldc.i4.s 64
+IL_08a5: or
+IL_08a6: stind.i4
+IL_08a7: ldloc.s V_70
+IL_08a9: brtrue IL_094c
+IL_08ae: ldloca.s V_55
+IL_08b0: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.BuildingTerraformData>::get_Length()
+IL_08b5: brfalse IL_094c
+IL_08ba: ldloc.s V_75
+IL_08bc: callvirt T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.BuildingTerraformOverride>()
+IL_08c1: ldloc.s V_76
+IL_08c3: ldfld Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_08c8: ldc.i4 128
+IL_08cd: and
+IL_08ce: brfalse.s IL_091d
+IL_08d0: ldloca.s V_76
+IL_08d2: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_Pivot
+IL_08d7: call Unity.Mathematics.float2 Unity.Mathematics.float3::get_xz()
+IL_08dc: stloc.s V_100
+IL_08de: ldloca.s V_76
+IL_08e0: ldflda Unity.Mathematics.float3 Game.Prefabs.ObjectGeometryData::m_LegSize
+IL_08e5: call Unity.Mathematics.float2 Unity.Mathematics.float3::get_xz()
+IL_08ea: ldc.r4 0.5
+IL_08ef: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Multiply(Unity.Mathematics.float2,System.Single)
+IL_08f4: ldloc.s V_76
+IL_08f6: ldfld Unity.Mathematics.float2 Game.Prefabs.ObjectGeometryData::m_LegOffset
+IL_08fb: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Addition(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_0900: stloc.s V_101
+IL_0902: ldloca.s V_98
+IL_0904: ldloc.s V_100
+IL_0906: ldloc.s V_101
+IL_0908: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Subtraction(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_090d: ldloc.s V_100
+IL_090f: ldloc.s V_101
+IL_0911: call Unity.Mathematics.float2 Unity.Mathematics.float2::op_Addition(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_0916: call System.Void Colossal.Mathematics.Bounds2::.ctor(Unity.Mathematics.float2,Unity.Mathematics.float2)
+IL_091b: br.s IL_092b
+IL_091d: ldloca.s V_76
+IL_091f: ldflda Colossal.Mathematics.Bounds3 Game.Prefabs.ObjectGeometryData::m_Bounds
+IL_0924: call Colossal.Mathematics.Bounds2 Colossal.Mathematics.Bounds3::get_xz()
+IL_0929: stloc.s V_98
+IL_092b: ldloca.s V_55
+IL_092d: ldloc.s V_74
+IL_092f: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.BuildingTerraformData>::get_Item(System.Int32)
+IL_0934: stloc.s V_99
+IL_0936: ldloca.s V_99
+IL_0938: ldloc.s V_98
+IL_093a: ldloc.s V_98
+IL_093c: call System.Void Game.Prefabs.BuildingInitializeSystem::InitializeTerraformData(Game.Prefabs.BuildingTerraformOverride,Game.Prefabs.BuildingTerraformData&,Colossal.Mathematics.Bounds2,Colossal.Mathematics.Bounds2)
+IL_0941: ldloca.s V_55
+IL_0943: ldloc.s V_74
+IL_0945: ldloc.s V_99
+IL_0947: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.BuildingTerraformData>::set_Item(System.Int32,!0)
+IL_094c: ldloc.s V_75
+IL_094e: callvirt System.Boolean Game.Prefabs.PrefabBase::get_isBuiltin()
+IL_0953: brfalse.s IL_0965
+IL_0955: ldloca.s V_76
+IL_0957: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_095c: dup
+IL_095d: ldind.i4
+IL_095e: ldc.i4 4194304
+IL_0963: or
+IL_0964: stind.i4
+IL_0965: ldloc.s V_75
+IL_0967: callvirt System.Boolean Game.Prefabs.PrefabBase::get_isReadOnly()
+IL_096c: brfalse.s IL_097e
+IL_096e: ldloca.s V_76
+IL_0970: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0975: dup
+IL_0976: ldind.i4
+IL_0977: ldc.i4 8388608
+IL_097c: or
+IL_097d: stind.i4
+IL_097e: ldloca.s V_45
+IL_0980: ldloc.s V_74
+IL_0982: ldloc.s V_76
+IL_0984: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.ObjectGeometryData>::set_Item(System.Int32,!0)
+IL_0989: ldloca.s V_46
+IL_098b: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::get_Length()
+IL_0990: brfalse.s IL_099d
+IL_0992: ldloca.s V_46
+IL_0994: ldloc.s V_74
+IL_0996: ldloc.s V_77
+IL_0998: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::set_Item(System.Int32,!0)
+IL_099d: ldloca.s V_49
+IL_099f: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.GrowthScaleData>::get_Length()
+IL_09a4: brfalse.s IL_09b1
+IL_09a6: ldloca.s V_49
+IL_09a8: ldloc.s V_74
+IL_09aa: ldloc.s V_78
+IL_09ac: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.GrowthScaleData>::set_Item(System.Int32,!0)
+IL_09b1: ldloca.s V_50
+IL_09b3: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.StackData>::get_Length()
+IL_09b8: brfalse IL_0a3d
+IL_09bd: ldloc.s V_79
+IL_09bf: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_09c4: ldfld System.Single Colossal.Mathematics.Bounds1::min
+IL_09c9: ldloc.s V_79
+IL_09cb: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_09d0: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_09d5: ble.un.s IL_09e4
+IL_09d7: ldloca.s V_79
+IL_09d9: ldflda Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_FirstBounds
+IL_09de: initobj Colossal.Mathematics.Bounds1
+IL_09e4: ldloc.s V_79
+IL_09e6: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_MiddleBounds
+IL_09eb: ldfld System.Single Colossal.Mathematics.Bounds1::min
+IL_09f0: ldloc.s V_79
+IL_09f2: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_MiddleBounds
+IL_09f7: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_09fc: ble.un.s IL_0a0b
+IL_09fe: ldloca.s V_79
+IL_0a00: ldflda Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_MiddleBounds
+IL_0a05: initobj Colossal.Mathematics.Bounds1
+IL_0a0b: ldloc.s V_79
+IL_0a0d: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_LastBounds
+IL_0a12: ldfld System.Single Colossal.Mathematics.Bounds1::min
+IL_0a17: ldloc.s V_79
+IL_0a19: ldfld Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_LastBounds
+IL_0a1e: ldfld System.Single Colossal.Mathematics.Bounds1::max
+IL_0a23: ble.un.s IL_0a32
+IL_0a25: ldloca.s V_79
+IL_0a27: ldflda Colossal.Mathematics.Bounds1 Game.Prefabs.StackData::m_LastBounds
+IL_0a2c: initobj Colossal.Mathematics.Bounds1
+IL_0a32: ldloca.s V_50
+IL_0a34: ldloc.s V_74
+IL_0a36: ldloc.s V_79
+IL_0a38: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.StackData>::set_Item(System.Int32,!0)
+IL_0a3d: ldloca.s V_51
+IL_0a3f: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.QuantityObjectData>::get_Length()
+IL_0a44: brfalse.s IL_0a51
+IL_0a46: ldloca.s V_51
+IL_0a48: ldloc.s V_74
+IL_0a4a: ldloc.s V_80
+IL_0a4c: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.QuantityObjectData>::set_Item(System.Int32,!0)
+IL_0a51: ldloca.s V_52
+IL_0a53: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.LocaleMeshData>::get_Length()
+IL_0a58: brfalse.s IL_0a65
+IL_0a5a: ldloca.s V_52
+IL_0a5c: ldloc.s V_74
+IL_0a5e: ldloc.s V_81
+IL_0a60: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.LocaleMeshData>::set_Item(System.Int32,!0)
+IL_0a65: ldloca.s V_53
+IL_0a67: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.CreatureData>::get_Length()
+IL_0a6c: brfalse.s IL_0a79
+IL_0a6e: ldloca.s V_53
+IL_0a70: ldloc.s V_74
+IL_0a72: ldloc.s V_82
+IL_0a74: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.CreatureData>::set_Item(System.Int32,!0)
+IL_0a79: ldloc.s V_74
+IL_0a7b: ldc.i4.1
+IL_0a7c: add
+IL_0a7d: stloc.s V_74
+IL_0a7f: ldloc.s V_74
+IL_0a81: ldloca.s V_45
+IL_0a83: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.ObjectGeometryData>::get_Length()
+IL_0a88: blt IL_04d9
+IL_0a8d: ldc.i4.0
+IL_0a8e: stloc.s V_102
+IL_0a90: br IL_0bf2
+IL_0a95: ldarg.0
+IL_0a96: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_0a9b: ldloca.s V_44
+IL_0a9d: ldloc.s V_102
+IL_0a9f: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabData>::get_Item(System.Int32)
+IL_0aa4: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.ObjectPrefab>(Game.Prefabs.PrefabData)
+IL_0aa9: callvirt T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ObjectSubObjects>()
+IL_0aae: stloc.s V_103
+IL_0ab0: ldloc.s V_103
+IL_0ab2: ldfld Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+IL_0ab7: brfalse IL_0bec
+IL_0abc: ldloc.s V_70
+IL_0abe: ldc.i4.0
+IL_0abf: ceq
+IL_0ac1: ldloc.s V_67
+IL_0ac3: and
+IL_0ac4: brfalse.s IL_0ae8
+IL_0ac6: ldloca.s V_46
+IL_0ac8: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::get_Length()
+IL_0acd: brfalse.s IL_0ae8
+IL_0acf: ldloca.s V_46
+IL_0ad1: ldloc.s V_102
+IL_0ad3: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::get_Item(System.Int32)
+IL_0ad8: ldfld Game.Objects.PlacementFlags Game.Prefabs.PlaceableObjectData::m_Flags
+IL_0add: ldc.i4 8192
+IL_0ae2: and
+IL_0ae3: ldc.i4.0
+IL_0ae4: cgt.un
+IL_0ae6: br.s IL_0ae9
+IL_0ae8: ldc.i4.0
+IL_0ae9: stloc.s V_104
+IL_0aeb: ldloca.s V_58
+IL_0aed: ldloc.s V_102
+IL_0aef: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubObject>::get_Item(System.Int32)
+IL_0af4: stloc.s V_105
+IL_0af6: ldc.i4.0
+IL_0af7: stloc.s V_106
+IL_0af9: br IL_0bdc
+IL_0afe: ldloc.s V_103
+IL_0b00: ldfld Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+IL_0b05: ldloc.s V_106
+IL_0b07: ldelem.ref
+IL_0b08: stloc.s V_107
+IL_0b0a: ldloc.s V_107
+IL_0b0c: ldfld Game.Prefabs.ObjectPrefab Game.Prefabs.ObjectSubObjectInfo::m_Object
+IL_0b11: stloc.s V_108
+IL_0b13: ldloc.s V_108
+IL_0b15: ldnull
+IL_0b16: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0b1b: brtrue IL_0bd6
+IL_0b20: ldarg.0
+IL_0b21: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_0b26: ldloc.s V_108
+IL_0b28: ldloca.s V_109
+IL_0b2a: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)
+IL_0b2f: brfalse IL_0bd6
+IL_0b34: ldloca.s V_110
+IL_0b36: initobj Game.Prefabs.SubObject
+IL_0b3c: ldloca.s V_110
+IL_0b3e: ldloc.s V_109
+IL_0b40: stfld Unity.Entities.Entity Game.Prefabs.SubObject::m_Prefab
+IL_0b45: ldloca.s V_110
+IL_0b47: ldloc.s V_107
+IL_0b49: ldfld Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_0b4e: stfld Unity.Mathematics.float3 Game.Prefabs.SubObject::m_Position
+IL_0b53: ldloca.s V_110
+IL_0b55: ldloc.s V_107
+IL_0b57: ldfld Unity.Mathematics.quaternion Game.Prefabs.ObjectSubObjectInfo::m_Rotation
+IL_0b5c: stfld Unity.Mathematics.quaternion Game.Prefabs.SubObject::m_Rotation
+IL_0b61: ldloca.s V_110
+IL_0b63: ldloc.s V_107
+IL_0b65: ldfld System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_ParentMesh
+IL_0b6a: stfld System.Int32 Game.Prefabs.SubObject::m_ParentIndex
+IL_0b6f: ldloca.s V_110
+IL_0b71: ldloc.s V_107
+IL_0b73: ldfld System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_GroupIndex
+IL_0b78: stfld System.Int32 Game.Prefabs.SubObject::m_GroupIndex
+IL_0b7d: ldloca.s V_110
+IL_0b7f: ldloc.s V_107
+IL_0b81: ldfld System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_Probability
+IL_0b86: ldc.i4.s 100
+IL_0b88: ldloc.s V_107
+IL_0b8a: ldfld System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_Probability
+IL_0b8f: ldc.i4.0
+IL_0b90: ceq
+IL_0b92: call System.Int32 Unity.Mathematics.math::select(System.Int32,System.Int32,System.Boolean)
+IL_0b97: stfld System.Int32 Game.Prefabs.SubObject::m_Probability
+IL_0b9c: ldloc.s V_107
+IL_0b9e: ldfld System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_ParentMesh
+IL_0ba3: ldc.i4.m1
+IL_0ba4: bne.un.s IL_0bcc
+IL_0ba6: ldloc.s V_104
+IL_0ba8: brfalse.s IL_0bbc
+IL_0baa: ldloca.s V_110
+IL_0bac: ldflda Game.Prefabs.SubObjectFlags Game.Prefabs.SubObject::m_Flags
+IL_0bb1: dup
+IL_0bb2: ldind.i4
+IL_0bb3: ldc.i4 67108864
+IL_0bb8: or
+IL_0bb9: stind.i4
+IL_0bba: br.s IL_0bcc
+IL_0bbc: ldloca.s V_110
+IL_0bbe: ldflda Game.Prefabs.SubObjectFlags Game.Prefabs.SubObject::m_Flags
+IL_0bc3: dup
+IL_0bc4: ldind.i4
+IL_0bc5: ldc.i4 256
+IL_0bca: or
+IL_0bcb: stind.i4
+IL_0bcc: ldloca.s V_105
+IL_0bce: ldloc.s V_110
+IL_0bd0: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubObject>::Add(!0)
+IL_0bd5: pop
+IL_0bd6: ldloc.s V_106
+IL_0bd8: ldc.i4.1
+IL_0bd9: add
+IL_0bda: stloc.s V_106
+IL_0bdc: ldloc.s V_106
+IL_0bde: ldloc.s V_103
+IL_0be0: ldfld Game.Prefabs.ObjectSubObjectInfo[] Game.Prefabs.ObjectSubObjects::m_SubObjects
+IL_0be5: ldlen
+IL_0be6: conv.i4
+IL_0be7: blt IL_0afe
+IL_0bec: ldloc.s V_102
+IL_0bee: ldc.i4.1
+IL_0bef: add
+IL_0bf0: stloc.s V_102
+IL_0bf2: ldloc.s V_102
+IL_0bf4: ldloca.s V_58
+IL_0bf6: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubObject>::get_Length()
+IL_0bfb: blt IL_0a95
+IL_0c00: ldc.i4.0
+IL_0c01: stloc.s V_111
+IL_0c03: br IL_0e3a
+IL_0c08: ldarg.0
+IL_0c09: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_0c0e: ldloca.s V_44
+IL_0c10: ldloc.s V_111
+IL_0c12: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabData>::get_Item(System.Int32)
+IL_0c17: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.ObjectPrefab>(Game.Prefabs.PrefabData)
+IL_0c1c: stloc.s V_112
+IL_0c1e: ldloc.s V_112
+IL_0c20: callvirt T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ObjectSubNets>()
+IL_0c25: stloc.s V_113
+IL_0c27: ldloc.s V_113
+IL_0c29: ldfld Game.Prefabs.ObjectSubNetInfo[] Game.Prefabs.ObjectSubNets::m_SubNets
+IL_0c2e: brfalse IL_0e34
+IL_0c33: ldc.i4.0
+IL_0c34: stloc.s V_114
+IL_0c36: ldloca.s V_63
+IL_0c38: ldloc.s V_111
+IL_0c3a: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubNet>::get_Item(System.Int32)
+IL_0c3f: stloc.s V_115
+IL_0c41: ldc.i4.0
+IL_0c42: stloc.s V_116
+IL_0c44: br IL_0dca
+IL_0c49: ldloc.s V_113
+IL_0c4b: ldfld Game.Prefabs.ObjectSubNetInfo[] Game.Prefabs.ObjectSubNets::m_SubNets
+IL_0c50: ldloc.s V_116
+IL_0c52: ldelem.ref
+IL_0c53: stloc.s V_117
+IL_0c55: ldloc.s V_117
+IL_0c57: ldfld Game.Prefabs.NetPrefab Game.Prefabs.ObjectSubNetInfo::m_NetPrefab
+IL_0c5c: stloc.s V_118
+IL_0c5e: ldloc.s V_118
+IL_0c60: ldnull
+IL_0c61: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0c66: brtrue IL_0dc4
+IL_0c6b: ldarg.0
+IL_0c6c: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_0c71: ldloc.s V_118
+IL_0c73: ldloca.s V_119
+IL_0c75: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)
+IL_0c7a: brfalse IL_0dc4
+IL_0c7f: ldloca.s V_120
+IL_0c81: initobj Game.Prefabs.SubNet
+IL_0c87: ldloca.s V_120
+IL_0c89: ldloc.s V_119
+IL_0c8b: stfld Unity.Entities.Entity Game.Prefabs.SubNet::m_Prefab
+IL_0c90: ldloca.s V_120
+IL_0c92: ldloc.s V_117
+IL_0c94: ldfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.ObjectSubNetInfo::m_BezierCurve
+IL_0c99: stfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.SubNet::m_Curve
+IL_0c9e: ldloca.s V_120
+IL_0ca0: ldloc.s V_117
+IL_0ca2: ldfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_NodeIndex
+IL_0ca7: stfld Unity.Mathematics.int2 Game.Prefabs.SubNet::m_NodeIndex
+IL_0cac: ldloca.s V_120
+IL_0cae: ldloc.s V_113
+IL_0cb0: ldfld Game.Prefabs.NetInvertMode Game.Prefabs.ObjectSubNets::m_InvertWhen
+IL_0cb5: stfld Game.Prefabs.NetInvertMode Game.Prefabs.SubNet::m_InvertMode
+IL_0cba: ldloca.s V_120
+IL_0cbc: ldloc.s V_117
+IL_0cbe: ldfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubNetInfo::m_ParentMesh
+IL_0cc3: stfld Unity.Mathematics.int2 Game.Prefabs.SubNet::m_ParentMesh
+IL_0cc8: ldloc.s V_117
+IL_0cca: ldfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.ObjectSubNetInfo::m_BezierCurve
+IL_0ccf: call Unity.Mathematics.float3 Colossal.Mathematics.MathUtils::Min(Colossal.Mathematics.Bezier4x3)
+IL_0cd4: ldfld System.Single Unity.Mathematics.float3::y
+IL_0cd9: ldc.r4 -2
+IL_0cde: bgt.un.s IL_0ce3
+IL_0ce0: ldc.i4.1
+IL_0ce1: stloc.s V_114
+IL_0ce3: ldloc.s V_117
+IL_0ce5: ldfld Game.Prefabs.NetPieceRequirements[] Game.Prefabs.ObjectSubNetInfo::m_Upgrades
+IL_0cea: brfalse IL_0dba
+IL_0cef: ldloca.s V_121
+IL_0cf1: ldc.i4 826276914
+IL_0cf6: ldc.i4 1073739763
+IL_0cfb: ldc.i4 1073739763
+IL_0d00: call System.Void Game.Prefabs.CompositionFlags::.ctor(Game.Prefabs.CompositionFlags/General,Game.Prefabs.CompositionFlags/Side,Game.Prefabs.CompositionFlags/Side)
+IL_0d05: ldc.i4.0
+IL_0d06: stloc.s V_122
+IL_0d08: ldc.i4.0
+IL_0d09: stloc.s V_123
+IL_0d0b: br IL_0daa
+IL_0d10: ldloc.s V_117
+IL_0d12: ldfld Game.Prefabs.NetPieceRequirements[] Game.Prefabs.ObjectSubNetInfo::m_Upgrades
+IL_0d17: ldloc.s V_123
+IL_0d19: ldelem.i4
+IL_0d1a: ldloca.s V_120
+IL_0d1c: ldflda Game.Prefabs.CompositionFlags Game.Prefabs.SubNet::m_Upgrades
+IL_0d21: ldloca.s V_122
+IL_0d23: call System.Void Game.Prefabs.NetCompositionHelpers::GetRequirementFlags(Game.Prefabs.NetPieceRequirements,Game.Prefabs.CompositionFlags&,Game.Prefabs.NetSectionFlags&)
+IL_0d28: ldloc.s V_120
+IL_0d2a: ldfld Game.Prefabs.CompositionFlags Game.Prefabs.SubNet::m_Upgrades
+IL_0d2f: ldloc.s V_121
+IL_0d31: call Game.Prefabs.CompositionFlags Game.Prefabs.CompositionFlags::op_OnesComplement(Game.Prefabs.CompositionFlags)
+IL_0d36: call Game.Prefabs.CompositionFlags Game.Prefabs.CompositionFlags::op_BitwiseAnd(Game.Prefabs.CompositionFlags,Game.Prefabs.CompositionFlags)
+IL_0d3b: ldloca.s V_124
+IL_0d3d: initobj Game.Prefabs.CompositionFlags
+IL_0d43: ldloc.s V_124
+IL_0d45: call System.Boolean Game.Prefabs.CompositionFlags::op_Inequality(Game.Prefabs.CompositionFlags,Game.Prefabs.CompositionFlags)
+IL_0d4a: brtrue.s IL_0d50
+IL_0d4c: ldloc.s V_122
+IL_0d4e: brfalse.s IL_0da4
+IL_0d50: ldloca.s V_120
+IL_0d52: ldflda Game.Prefabs.CompositionFlags Game.Prefabs.SubNet::m_Upgrades
+IL_0d57: dup
+IL_0d58: ldobj Game.Prefabs.CompositionFlags
+IL_0d5d: ldloc.s V_121
+IL_0d5f: call Game.Prefabs.CompositionFlags Game.Prefabs.CompositionFlags::op_BitwiseAnd(Game.Prefabs.CompositionFlags,Game.Prefabs.CompositionFlags)
+IL_0d64: stobj Game.Prefabs.CompositionFlags
+IL_0d69: ldc.i4.0
+IL_0d6a: stloc.s V_122
+IL_0d6c: ldsfld Colossal.Logging.ILog Colossal.Entities.COSystemBase::baseLog
+IL_0d71: ldloc.s V_112
+IL_0d73: ldstr "ObjectSubNets ({0}[{1}]) upgrade state not supported: {2}"
+IL_0d78: ldloc.s V_112
+IL_0d7a: callvirt System.String UnityEngine.Object::get_name()
+IL_0d7f: ldloc.s V_116
+IL_0d81: box System.Int32
+IL_0d86: ldloc.s V_117
+IL_0d88: ldfld Game.Prefabs.NetPieceRequirements[] Game.Prefabs.ObjectSubNetInfo::m_Upgrades
+IL_0d8d: ldloc.s V_123
+IL_0d8f: ldelema Game.Prefabs.NetPieceRequirements
+IL_0d94: constrained. Game.Prefabs.NetPieceRequirements
+IL_0d9a: callvirt System.String System.Object::ToString()
+IL_0d9f: callvirt System.Void Colossal.Logging.ILog::ErrorFormat(UnityEngine.Object,System.String,System.Object,System.Object,System.Object)
+IL_0da4: ldloc.s V_123
+IL_0da6: ldc.i4.1
+IL_0da7: add
+IL_0da8: stloc.s V_123
+IL_0daa: ldloc.s V_123
+IL_0dac: ldloc.s V_117
+IL_0dae: ldfld Game.Prefabs.NetPieceRequirements[] Game.Prefabs.ObjectSubNetInfo::m_Upgrades
+IL_0db3: ldlen
+IL_0db4: conv.i4
+IL_0db5: blt IL_0d10
+IL_0dba: ldloca.s V_115
+IL_0dbc: ldloc.s V_120
+IL_0dbe: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::Add(!0)
+IL_0dc3: pop
+IL_0dc4: ldloc.s V_116
+IL_0dc6: ldc.i4.1
+IL_0dc7: add
+IL_0dc8: stloc.s V_116
+IL_0dca: ldloc.s V_116
+IL_0dcc: ldloc.s V_113
+IL_0dce: ldfld Game.Prefabs.ObjectSubNetInfo[] Game.Prefabs.ObjectSubNets::m_SubNets
+IL_0dd3: ldlen
+IL_0dd4: conv.i4
+IL_0dd5: blt IL_0c49
+IL_0dda: ldloc.s V_114
+IL_0ddc: brfalse.s IL_0e34
+IL_0dde: ldloca.s V_46
+IL_0de0: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::get_Length()
+IL_0de5: brfalse.s IL_0e0d
+IL_0de7: ldloca.s V_46
+IL_0de9: ldloc.s V_111
+IL_0deb: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::get_Item(System.Int32)
+IL_0df0: stloc.s V_125
+IL_0df2: ldloca.s V_125
+IL_0df4: ldflda Game.Objects.PlacementFlags Game.Prefabs.PlaceableObjectData::m_Flags
+IL_0df9: dup
+IL_0dfa: ldind.i4
+IL_0dfb: ldc.i4 128
+IL_0e00: or
+IL_0e01: stind.i4
+IL_0e02: ldloca.s V_46
+IL_0e04: ldloc.s V_111
+IL_0e06: ldloc.s V_125
+IL_0e08: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.PlaceableObjectData>::set_Item(System.Int32,!0)
+IL_0e0d: ldloca.s V_56
+IL_0e0f: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.BuildingExtensionData>::get_Length()
+IL_0e14: brfalse.s IL_0e34
+IL_0e16: ldloca.s V_56
+IL_0e18: ldloc.s V_111
+IL_0e1a: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.BuildingExtensionData>::get_Item(System.Int32)
+IL_0e1f: stloc.s V_126
+IL_0e21: ldloca.s V_126
+IL_0e23: ldc.i4.1
+IL_0e24: stfld System.Boolean Game.Prefabs.BuildingExtensionData::m_HasUndergroundElements
+IL_0e29: ldloca.s V_56
+IL_0e2b: ldloc.s V_111
+IL_0e2d: ldloc.s V_126
+IL_0e2f: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.BuildingExtensionData>::set_Item(System.Int32,!0)
+IL_0e34: ldloc.s V_111
+IL_0e36: ldc.i4.1
+IL_0e37: add
+IL_0e38: stloc.s V_111
+IL_0e3a: ldloc.s V_111
+IL_0e3c: ldloca.s V_63
+IL_0e3e: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubNet>::get_Length()
+IL_0e43: blt IL_0c08
+IL_0e48: ldc.i4.0
+IL_0e49: stloc.s V_127
+IL_0e4b: br IL_0f86
+IL_0e50: ldarg.0
+IL_0e51: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_0e56: ldloca.s V_44
+IL_0e58: ldloc.s V_127
+IL_0e5a: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabData>::get_Item(System.Int32)
+IL_0e5f: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.ObjectPrefab>(Game.Prefabs.PrefabData)
+IL_0e64: callvirt T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ObjectSubLanes>()
+IL_0e69: stloc.s V_128
+IL_0e6b: ldloc.s V_128
+IL_0e6d: ldfld Game.Prefabs.ObjectSubLaneInfo[] Game.Prefabs.ObjectSubLanes::m_SubLanes
+IL_0e72: brfalse IL_0f80
+IL_0e77: ldloca.s V_64
+IL_0e79: ldloc.s V_127
+IL_0e7b: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubLane>::get_Item(System.Int32)
+IL_0e80: stloc.s V_129
+IL_0e82: ldc.i4.0
+IL_0e83: stloc.s V_130
+IL_0e85: br IL_0f70
+IL_0e8a: ldloc.s V_128
+IL_0e8c: ldfld Game.Prefabs.ObjectSubLaneInfo[] Game.Prefabs.ObjectSubLanes::m_SubLanes
+IL_0e91: ldloc.s V_130
+IL_0e93: ldelem.ref
+IL_0e94: stloc.s V_131
+IL_0e96: ldloc.s V_131
+IL_0e98: ldfld Game.Prefabs.NetLanePrefab Game.Prefabs.ObjectSubLaneInfo::m_LanePrefab
+IL_0e9d: stloc.s V_132
+IL_0e9f: ldloc.s V_132
+IL_0ea1: ldnull
+IL_0ea2: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0ea7: brtrue IL_0f6a
+IL_0eac: ldarg.0
+IL_0ead: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_0eb2: ldloc.s V_132
+IL_0eb4: ldloca.s V_133
+IL_0eb6: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)
+IL_0ebb: brfalse IL_0f6a
+IL_0ec0: ldloca.s V_134
+IL_0ec2: initobj Game.Prefabs.SubLane
+IL_0ec8: ldloca.s V_134
+IL_0eca: ldloc.s V_133
+IL_0ecc: stfld Unity.Entities.Entity Game.Prefabs.SubLane::m_Prefab
+IL_0ed1: ldloca.s V_134
+IL_0ed3: ldloc.s V_131
+IL_0ed5: ldfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.ObjectSubLaneInfo::m_BezierCurve
+IL_0eda: stfld Colossal.Mathematics.Bezier4x3 Game.Prefabs.SubLane::m_Curve
+IL_0edf: ldloca.s V_134
+IL_0ee1: ldloc.s V_131
+IL_0ee3: ldfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_NodeIndex
+IL_0ee8: stfld Unity.Mathematics.int2 Game.Prefabs.SubLane::m_NodeIndex
+IL_0eed: ldloca.s V_134
+IL_0eef: ldloc.s V_131
+IL_0ef1: ldfld Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_ParentMesh
+IL_0ef6: stfld Unity.Mathematics.int2 Game.Prefabs.SubLane::m_ParentMesh
+IL_0efb: ldloca.s V_129
+IL_0efd: ldloc.s V_134
+IL_0eff: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubLane>::Add(!0)
+IL_0f04: pop
+IL_0f05: ldloc.s V_70
+IL_0f07: brtrue.s IL_0f6a
+IL_0f09: ldloca.s V_45
+IL_0f0b: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.ObjectGeometryData>::get_Length()
+IL_0f10: brfalse.s IL_0f6a
+IL_0f12: ldloc.s V_131
+IL_0f14: ldflda Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_NodeIndex
+IL_0f19: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0f1e: ldloc.s V_131
+IL_0f20: ldflda Unity.Mathematics.int2 Game.Prefabs.ObjectSubLaneInfo::m_NodeIndex
+IL_0f25: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_0f2a: beq.s IL_0f6a
+IL_0f2c: ldloca.s V_45
+IL_0f2e: ldloc.s V_127
+IL_0f30: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.ObjectGeometryData>::get_Item(System.Int32)
+IL_0f35: stloc.s V_135
+IL_0f37: ldloc.s V_135
+IL_0f39: ldfld Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0f3e: ldc.i4.2
+IL_0f3f: and
+IL_0f40: brfalse.s IL_0f6a
+IL_0f42: ldloca.s V_135
+IL_0f44: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0f49: dup
+IL_0f4a: ldind.i4
+IL_0f4b: ldc.i4.s -3
+IL_0f4d: and
+IL_0f4e: stind.i4
+IL_0f4f: ldloca.s V_135
+IL_0f51: ldflda Game.Objects.GeometryFlags Game.Prefabs.ObjectGeometryData::m_Flags
+IL_0f56: dup
+IL_0f57: ldind.i4
+IL_0f58: ldc.i4 1024
+IL_0f5d: or
+IL_0f5e: stind.i4
+IL_0f5f: ldloca.s V_45
+IL_0f61: ldloc.s V_127
+IL_0f63: ldloc.s V_135
+IL_0f65: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.ObjectGeometryData>::set_Item(System.Int32,!0)
+IL_0f6a: ldloc.s V_130
+IL_0f6c: ldc.i4.1
+IL_0f6d: add
+IL_0f6e: stloc.s V_130
+IL_0f70: ldloc.s V_130
+IL_0f72: ldloc.s V_128
+IL_0f74: ldfld Game.Prefabs.ObjectSubLaneInfo[] Game.Prefabs.ObjectSubLanes::m_SubLanes
+IL_0f79: ldlen
+IL_0f7a: conv.i4
+IL_0f7b: blt IL_0e8a
+IL_0f80: ldloc.s V_127
+IL_0f82: ldc.i4.1
+IL_0f83: add
+IL_0f84: stloc.s V_127
+IL_0f86: ldloc.s V_127
+IL_0f88: ldloca.s V_64
+IL_0f8a: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubLane>::get_Length()
+IL_0f8f: blt IL_0e50
+IL_0f94: ldloca.s V_59
+IL_0f96: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubArea>::get_Length()
+IL_0f9b: brfalse IL_11a0
+IL_0fa0: ldloca.s V_43
+IL_0fa2: ldloca.s V_33
+IL_0fa4: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubAreaNode>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0fa9: stloc.s V_136
+IL_0fab: ldc.i4.0
+IL_0fac: stloc.s V_137
+IL_0fae: br IL_1192
+IL_0fb3: ldarg.0
+IL_0fb4: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_0fb9: ldloca.s V_44
+IL_0fbb: ldloc.s V_137
+IL_0fbd: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabData>::get_Item(System.Int32)
+IL_0fc2: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.ObjectPrefab>(Game.Prefabs.PrefabData)
+IL_0fc7: callvirt T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.ObjectSubAreas>()
+IL_0fcc: stloc.s V_138
+IL_0fce: ldloc.s V_138
+IL_0fd0: ldfld Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+IL_0fd5: brfalse IL_118c
+IL_0fda: ldc.i4.0
+IL_0fdb: stloc.s V_139
+IL_0fdd: ldc.i4.0
+IL_0fde: stloc.s V_142
+IL_0fe0: br.s IL_1027
+IL_0fe2: ldloc.s V_138
+IL_0fe4: ldfld Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+IL_0fe9: ldloc.s V_142
+IL_0feb: ldelem.ref
+IL_0fec: stloc.s V_143
+IL_0fee: ldloc.s V_143
+IL_0ff0: ldfld Game.Prefabs.AreaPrefab Game.Prefabs.ObjectSubAreaInfo::m_AreaPrefab
+IL_0ff5: ldnull
+IL_0ff6: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_0ffb: brtrue.s IL_1021
+IL_0ffd: ldarg.0
+IL_0ffe: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_1003: ldloc.s V_143
+IL_1005: ldfld Game.Prefabs.AreaPrefab Game.Prefabs.ObjectSubAreaInfo::m_AreaPrefab
+IL_100a: ldloca.s V_144
+IL_100c: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)
+IL_1011: brfalse.s IL_1021
+IL_1013: ldloc.s V_139
+IL_1015: ldloc.s V_143
+IL_1017: ldfld Unity.Mathematics.float3[] Game.Prefabs.ObjectSubAreaInfo::m_NodePositions
+IL_101c: ldlen
+IL_101d: conv.i4
+IL_101e: add
+IL_101f: stloc.s V_139
+IL_1021: ldloc.s V_142
+IL_1023: ldc.i4.1
+IL_1024: add
+IL_1025: stloc.s V_142
+IL_1027: ldloc.s V_142
+IL_1029: ldloc.s V_138
+IL_102b: ldfld Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+IL_1030: ldlen
+IL_1031: conv.i4
+IL_1032: blt.s IL_0fe2
+IL_1034: ldloca.s V_59
+IL_1036: ldloc.s V_137
+IL_1038: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubArea>::get_Item(System.Int32)
+IL_103d: stloc.s V_140
+IL_103f: ldloca.s V_136
+IL_1041: ldloc.s V_137
+IL_1043: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_1048: stloc.s V_141
+IL_104a: ldloca.s V_140
+IL_104c: ldloc.s V_138
+IL_104e: ldfld Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+IL_1053: ldlen
+IL_1054: conv.i4
+IL_1055: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::EnsureCapacity(System.Int32)
+IL_105a: ldloca.s V_141
+IL_105c: ldloc.s V_139
+IL_105e: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::ResizeUninitialized(System.Int32)
+IL_1063: ldc.i4.0
+IL_1064: stloc.s V_139
+IL_1066: ldc.i4.0
+IL_1067: stloc.s V_145
+IL_1069: br IL_117c
+IL_106e: ldloc.s V_138
+IL_1070: ldfld Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+IL_1075: ldloc.s V_145
+IL_1077: ldelem.ref
+IL_1078: stloc.s V_146
+IL_107a: ldloc.s V_146
+IL_107c: ldfld Game.Prefabs.AreaPrefab Game.Prefabs.ObjectSubAreaInfo::m_AreaPrefab
+IL_1081: ldnull
+IL_1082: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_1087: brtrue IL_1176
+IL_108c: ldarg.0
+IL_108d: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_1092: ldloc.s V_146
+IL_1094: ldfld Game.Prefabs.AreaPrefab Game.Prefabs.ObjectSubAreaInfo::m_AreaPrefab
+IL_1099: ldloca.s V_147
+IL_109b: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)
+IL_10a0: brfalse IL_1176
+IL_10a5: ldloca.s V_148
+IL_10a7: ldloc.s V_147
+IL_10a9: stfld Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+IL_10ae: ldloca.s V_148
+IL_10b0: ldflda Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_10b5: ldloc.s V_139
+IL_10b7: stfld System.Int32 Unity.Mathematics.int2::x
+IL_10bc: ldloc.s V_146
+IL_10be: ldfld System.Int32[] Game.Prefabs.ObjectSubAreaInfo::m_ParentMeshes
+IL_10c3: brfalse.s IL_111c
+IL_10c5: ldloc.s V_146
+IL_10c7: ldfld System.Int32[] Game.Prefabs.ObjectSubAreaInfo::m_ParentMeshes
+IL_10cc: ldlen
+IL_10cd: brfalse.s IL_111c
+IL_10cf: ldc.i4.0
+IL_10d0: stloc.s V_149
+IL_10d2: br.s IL_110d
+IL_10d4: ldloc.s V_146
+IL_10d6: ldfld Unity.Mathematics.float3[] Game.Prefabs.ObjectSubAreaInfo::m_NodePositions
+IL_10db: ldloc.s V_149
+IL_10dd: ldelem.any Unity.Mathematics.float3
+IL_10e2: stloc.s V_150
+IL_10e4: ldloc.s V_146
+IL_10e6: ldfld System.Int32[] Game.Prefabs.ObjectSubAreaInfo::m_ParentMeshes
+IL_10eb: ldloc.s V_149
+IL_10ed: ldelem.i4
+IL_10ee: stloc.s V_151
+IL_10f0: ldloca.s V_141
+IL_10f2: ldloc.s V_139
+IL_10f4: dup
+IL_10f5: ldc.i4.1
+IL_10f6: add
+IL_10f7: stloc.s V_139
+IL_10f9: ldloc.s V_150
+IL_10fb: ldloc.s V_151
+IL_10fd: newobj System.Void Game.Prefabs.SubAreaNode::.ctor(Unity.Mathematics.float3,System.Int32)
+IL_1102: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::set_Item(System.Int32,!0)
+IL_1107: ldloc.s V_149
+IL_1109: ldc.i4.1
+IL_110a: add
+IL_110b: stloc.s V_149
+IL_110d: ldloc.s V_149
+IL_110f: ldloc.s V_146
+IL_1111: ldfld Unity.Mathematics.float3[] Game.Prefabs.ObjectSubAreaInfo::m_NodePositions
+IL_1116: ldlen
+IL_1117: conv.i4
+IL_1118: blt.s IL_10d4
+IL_111a: br.s IL_115e
+IL_111c: ldc.i4.0
+IL_111d: stloc.s V_152
+IL_111f: br.s IL_1151
+IL_1121: ldloc.s V_146
+IL_1123: ldfld Unity.Mathematics.float3[] Game.Prefabs.ObjectSubAreaInfo::m_NodePositions
+IL_1128: ldloc.s V_152
+IL_112a: ldelem.any Unity.Mathematics.float3
+IL_112f: stloc.s V_153
+IL_1131: ldc.i4.m1
+IL_1132: stloc.s V_154
+IL_1134: ldloca.s V_141
+IL_1136: ldloc.s V_139
+IL_1138: dup
+IL_1139: ldc.i4.1
+IL_113a: add
+IL_113b: stloc.s V_139
+IL_113d: ldloc.s V_153
+IL_113f: ldloc.s V_154
+IL_1141: newobj System.Void Game.Prefabs.SubAreaNode::.ctor(Unity.Mathematics.float3,System.Int32)
+IL_1146: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::set_Item(System.Int32,!0)
+IL_114b: ldloc.s V_152
+IL_114d: ldc.i4.1
+IL_114e: add
+IL_114f: stloc.s V_152
+IL_1151: ldloc.s V_152
+IL_1153: ldloc.s V_146
+IL_1155: ldfld Unity.Mathematics.float3[] Game.Prefabs.ObjectSubAreaInfo::m_NodePositions
+IL_115a: ldlen
+IL_115b: conv.i4
+IL_115c: blt.s IL_1121
+IL_115e: ldloca.s V_148
+IL_1160: ldflda Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_1165: ldloc.s V_139
+IL_1167: stfld System.Int32 Unity.Mathematics.int2::y
+IL_116c: ldloca.s V_140
+IL_116e: ldloc.s V_148
+IL_1170: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::Add(!0)
+IL_1175: pop
+IL_1176: ldloc.s V_145
+IL_1178: ldc.i4.1
+IL_1179: add
+IL_117a: stloc.s V_145
+IL_117c: ldloc.s V_145
+IL_117e: ldloc.s V_138
+IL_1180: ldfld Game.Prefabs.ObjectSubAreaInfo[] Game.Prefabs.ObjectSubAreas::m_SubAreas
+IL_1185: ldlen
+IL_1186: conv.i4
+IL_1187: blt IL_106e
+IL_118c: ldloc.s V_137
+IL_118e: ldc.i4.1
+IL_118f: add
+IL_1190: stloc.s V_137
+IL_1192: ldloc.s V_137
+IL_1194: ldloca.s V_59
+IL_1196: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubArea>::get_Length()
+IL_119b: blt IL_0fb3
+IL_11a0: ldloca.s V_47
+IL_11a2: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.SpawnableObjectData>::get_Length()
+IL_11a7: brfalse IL_12af
+IL_11ac: ldloca.s V_43
+IL_11ae: ldloc.2
+IL_11af: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.ArchetypeChunk::GetNativeArray(Unity.Entities.EntityTypeHandle)
+IL_11b4: stloc.s V_155
+IL_11b6: ldc.i4.0
+IL_11b7: stloc.s V_156
+IL_11b9: br IL_12a1
+IL_11be: ldloca.s V_155
+IL_11c0: ldloc.s V_156
+IL_11c2: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_11c7: stloc.s V_157
+IL_11c9: ldloca.s V_47
+IL_11cb: ldloc.s V_156
+IL_11cd: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.SpawnableObjectData>::get_Item(System.Int32)
+IL_11d2: stloc.s V_158
+IL_11d4: ldarg.0
+IL_11d5: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_11da: ldloca.s V_44
+IL_11dc: ldloc.s V_156
+IL_11de: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabData>::get_Item(System.Int32)
+IL_11e3: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.ObjectPrefab>(Game.Prefabs.PrefabData)
+IL_11e8: callvirt T Game.Prefabs.ComponentBase::GetComponent<Game.Prefabs.SpawnableObject>()
+IL_11ed: stloc.s V_159
+IL_11ef: ldloc.s V_159
+IL_11f1: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders
+IL_11f6: brfalse.s IL_125a
+IL_11f8: ldc.i4.0
+IL_11f9: stloc.s V_160
+IL_11fb: br.s IL_124d
+IL_11fd: ldloc.s V_159
+IL_11ff: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders
+IL_1204: ldloc.s V_160
+IL_1206: ldelem.ref
+IL_1207: stloc.s V_161
+IL_1209: ldloc.s V_161
+IL_120b: ldnull
+IL_120c: call System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
+IL_1211: brtrue.s IL_1247
+IL_1213: ldarg.0
+IL_1214: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_1219: ldloc.s V_161
+IL_121b: ldloca.s V_162
+IL_121d: callvirt System.Boolean Game.Prefabs.PrefabSystem::TryGetEntity(Game.Prefabs.PrefabBase,Unity.Entities.Entity&)
+IL_1222: brfalse.s IL_1247
+IL_1224: ldarg.0
+IL_1225: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_122a: stloc.s V_164
+IL_122c: ldloca.s V_164
+IL_122e: ldloc.s V_162
+IL_1230: ldc.i4.0
+IL_1231: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityManager::GetBuffer<Game.Prefabs.PlaceholderObjectElement>(Unity.Entities.Entity,System.Boolean)
+IL_1236: stloc.s V_163
+IL_1238: ldloca.s V_163
+IL_123a: ldloc.s V_157
+IL_123c: newobj System.Void Game.Prefabs.PlaceholderObjectElement::.ctor(Unity.Entities.Entity)
+IL_1241: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.PlaceholderObjectElement>::Add(!0)
+IL_1246: pop
+IL_1247: ldloc.s V_160
+IL_1249: ldc.i4.1
+IL_124a: add
+IL_124b: stloc.s V_160
+IL_124d: ldloc.s V_160
+IL_124f: ldloc.s V_159
+IL_1251: ldfld Game.Prefabs.ObjectPrefab[] Game.Prefabs.SpawnableObject::m_Placeholders
+IL_1256: ldlen
+IL_1257: conv.i4
+IL_1258: blt.s IL_11fd
+IL_125a: ldloc.s V_159
+IL_125c: ldfld Game.Prefabs.GroupPrefab Game.Prefabs.SpawnableObject::m_RandomizationGroup
+IL_1261: ldnull
+IL_1262: call System.Boolean UnityEngine.Object::op_Inequality(UnityEngine.Object,UnityEngine.Object)
+IL_1267: brfalse.s IL_1282
+IL_1269: ldloca.s V_158
+IL_126b: ldarg.0
+IL_126c: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ObjectInitializeSystem::m_PrefabSystem
+IL_1271: ldloc.s V_159
+IL_1273: ldfld Game.Prefabs.GroupPrefab Game.Prefabs.SpawnableObject::m_RandomizationGroup
+IL_1278: callvirt Unity.Entities.Entity Game.Prefabs.PrefabSystem::GetEntity(Game.Prefabs.PrefabBase)
+IL_127d: stfld Unity.Entities.Entity Game.Prefabs.SpawnableObjectData::m_RandomizationGroup
+IL_1282: ldloca.s V_158
+IL_1284: ldloc.s V_159
+IL_1286: ldfld System.Int32 Game.Prefabs.SpawnableObject::m_Probability
+IL_128b: stfld System.Int32 Game.Prefabs.SpawnableObjectData::m_Probability
+IL_1290: ldloca.s V_47
+IL_1292: ldloc.s V_156
+IL_1294: ldloc.s V_158
+IL_1296: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.SpawnableObjectData>::set_Item(System.Int32,!0)
+IL_129b: ldloc.s V_156
+IL_129d: ldc.i4.1
+IL_129e: add
+IL_129f: stloc.s V_156
+IL_12a1: ldloc.s V_156
+IL_12a3: ldloca.s V_47
+IL_12a5: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.SpawnableObjectData>::get_Length()
+IL_12aa: blt IL_11be
+IL_12af: ldloc.s V_42
+IL_12b1: ldc.i4.1
+IL_12b2: add
+IL_12b3: stloc.s V_42
+IL_12b5: ldloc.s V_42
+IL_12b7: ldloca.s V_0
+IL_12b9: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Length()
+IL_12be: blt IL_0350
+IL_12c3: ldloca.s V_36
+IL_12c5: initobj Unity.Jobs.JobHandle
+IL_12cb: ldloc.1
+IL_12cc: brfalse.s IL_1325
+IL_12ce: ldloca.s V_165
+IL_12d0: initobj Game.Prefabs.ObjectInitializeSystem/FixPlaceholdersJob
+IL_12d6: ldloca.s V_165
+IL_12d8: ldarg.0
+IL_12d9: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_12de: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentLookup
+IL_12e3: ldarg.0
+IL_12e4: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_12e9: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Common.Deleted>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_12ee: stfld Unity.Entities.ComponentLookup`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/FixPlaceholdersJob::m_DeletedData
+IL_12f3: ldloca.s V_165
+IL_12f5: ldarg.0
+IL_12f6: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_12fb: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.PlaceholderObjectElement> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PlaceholderObjectElement_RW_BufferTypeHandle
+IL_1300: ldarg.0
+IL_1301: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1306: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.PlaceholderObjectElement>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_130b: stfld Unity.Entities.BufferTypeHandle`1<Game.Prefabs.PlaceholderObjectElement> Game.Prefabs.ObjectInitializeSystem/FixPlaceholdersJob::m_PlaceholderObjectElementType
+IL_1310: ldloc.s V_165
+IL_1312: ldarg.0
+IL_1313: ldfld Unity.Entities.EntityQuery Game.Prefabs.ObjectInitializeSystem::m_PlaceholderQuery
+IL_1318: ldarg.0
+IL_1319: call Unity.Jobs.JobHandle Unity.Entities.SystemBase::get_Dependency()
+IL_131e: call Unity.Jobs.JobHandle Unity.Entities.JobChunkExtensions::ScheduleParallel<Game.Prefabs.ObjectInitializeSystem/FixPlaceholdersJob>(!!0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)
+IL_1323: stloc.s V_36
+IL_1325: ldloca.s V_166
+IL_1327: initobj Game.Prefabs.ObjectInitializeSystem/FindPlaceholderRequirementsJob
+IL_132d: ldloca.s V_166
+IL_132f: ldloc.0
+IL_1330: stfld Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk> Game.Prefabs.ObjectInitializeSystem/FindPlaceholderRequirementsJob::m_Chunks
+IL_1335: ldloca.s V_166
+IL_1337: ldarg.0
+IL_1338: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_133d: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentTypeHandle
+IL_1342: ldarg.0
+IL_1343: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1348: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_134d: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/FindPlaceholderRequirementsJob::m_DeletedType
+IL_1352: ldloca.s V_166
+IL_1354: ldarg.0
+IL_1355: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_135a: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.PlaceholderObjectElement> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PlaceholderObjectElement_RO_BufferTypeHandle
+IL_135f: ldarg.0
+IL_1360: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1365: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.PlaceholderObjectElement>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_136a: stfld Unity.Entities.BufferTypeHandle`1<Game.Prefabs.PlaceholderObjectElement> Game.Prefabs.ObjectInitializeSystem/FindPlaceholderRequirementsJob::m_PlaceholderObjectElementType
+IL_136f: ldloca.s V_166
+IL_1371: ldarg.0
+IL_1372: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_1377: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PlaceholderObjectData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PlaceholderObjectData_RW_ComponentTypeHandle
+IL_137c: ldarg.0
+IL_137d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1382: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PlaceholderObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_1387: stfld Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PlaceholderObjectData> Game.Prefabs.ObjectInitializeSystem/FindPlaceholderRequirementsJob::m_PlaceholderObjectDataType
+IL_138c: ldloca.s V_166
+IL_138e: ldarg.0
+IL_138f: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_1394: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.ObjectRequirementElement> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_ObjectRequirementElement_RO_BufferLookup
+IL_1399: ldarg.0
+IL_139a: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_139f: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.ObjectRequirementElement>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_13a4: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.ObjectRequirementElement> Game.Prefabs.ObjectInitializeSystem/FindPlaceholderRequirementsJob::m_ObjectRequirementElements
+IL_13a9: ldloc.s V_166
+IL_13ab: stloc.s V_37
+IL_13ad: ldloca.s V_167
+IL_13af: initobj Game.Prefabs.ObjectInitializeSystem/FindSubObjectRequirementsJob
+IL_13b5: ldloca.s V_167
+IL_13b7: ldloc.0
+IL_13b8: stfld Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk> Game.Prefabs.ObjectInitializeSystem/FindSubObjectRequirementsJob::m_Chunks
+IL_13bd: ldloca.s V_167
+IL_13bf: ldarg.0
+IL_13c0: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_13c5: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentTypeHandle
+IL_13ca: ldarg.0
+IL_13cb: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_13d0: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_13d5: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/FindSubObjectRequirementsJob::m_DeletedType
+IL_13da: ldloca.s V_167
+IL_13dc: ldarg.0
+IL_13dd: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_13e2: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubObject> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubObject_RO_BufferTypeHandle
+IL_13e7: ldarg.0
+IL_13e8: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_13ed: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubObject>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_13f2: stfld Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubObject> Game.Prefabs.ObjectInitializeSystem/FindSubObjectRequirementsJob::m_SubObjectType
+IL_13f7: ldloca.s V_167
+IL_13f9: ldarg.0
+IL_13fa: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_13ff: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.ObjectGeometryData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_ObjectGeometryData_RW_ComponentTypeHandle
+IL_1404: ldarg.0
+IL_1405: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_140a: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.ObjectGeometryData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_140f: stfld Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.ObjectGeometryData> Game.Prefabs.ObjectInitializeSystem/FindSubObjectRequirementsJob::m_ObjectGeometryDataType
+IL_1414: ldloca.s V_167
+IL_1416: ldarg.0
+IL_1417: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_141c: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceholderObjectData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PlaceholderObjectData_RO_ComponentLookup
+IL_1421: ldarg.0
+IL_1422: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1427: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.PlaceholderObjectData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_142c: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.PlaceholderObjectData> Game.Prefabs.ObjectInitializeSystem/FindSubObjectRequirementsJob::m_PlaceholderObjectData
+IL_1431: ldloca.s V_167
+IL_1433: ldarg.0
+IL_1434: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_1439: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubObject> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubObject_RO_BufferLookup
+IL_143e: ldarg.0
+IL_143f: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1444: call Unity.Entities.BufferLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferLookup<Game.Prefabs.SubObject>(Unity.Entities.BufferLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_1449: stfld Unity.Entities.BufferLookup`1<Game.Prefabs.SubObject> Game.Prefabs.ObjectInitializeSystem/FindSubObjectRequirementsJob::m_SubObjects
+IL_144e: ldloc.s V_167
+IL_1450: stloc.s V_38
+IL_1452: ldloca.s V_168
+IL_1454: initobj Game.Prefabs.ObjectInitializeSystem/InitializeSubNetsJob
+IL_145a: ldloca.s V_168
+IL_145c: ldloc.0
+IL_145d: stfld Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk> Game.Prefabs.ObjectInitializeSystem/InitializeSubNetsJob::m_Chunks
+IL_1462: ldloca.s V_168
+IL_1464: ldarg.0
+IL_1465: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_146a: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Common_Deleted_RO_ComponentTypeHandle
+IL_146f: ldarg.0
+IL_1470: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1475: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Common.Deleted>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_147a: stfld Unity.Entities.ComponentTypeHandle`1<Game.Common.Deleted> Game.Prefabs.ObjectInitializeSystem/InitializeSubNetsJob::m_DeletedType
+IL_147f: ldloca.s V_168
+IL_1481: ldarg.0
+IL_1482: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_1487: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PlaceableObjectData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_PlaceableObjectData_RW_ComponentTypeHandle
+IL_148c: ldarg.0
+IL_148d: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_1492: call Unity.Entities.ComponentTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentTypeHandle<Game.Prefabs.PlaceableObjectData>(Unity.Entities.ComponentTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_1497: stfld Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PlaceableObjectData> Game.Prefabs.ObjectInitializeSystem/InitializeSubNetsJob::m_PlaceableObjectDataType
+IL_149c: ldloca.s V_168
+IL_149e: ldarg.0
+IL_149f: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_14a4: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubNet> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_SubNet_RW_BufferTypeHandle
+IL_14a9: ldarg.0
+IL_14aa: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_14af: call Unity.Entities.BufferTypeHandle`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetBufferTypeHandle<Game.Prefabs.SubNet>(Unity.Entities.BufferTypeHandle`1<!!0>&,Unity.Entities.SystemState&)
+IL_14b4: stfld Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubNet> Game.Prefabs.ObjectInitializeSystem/InitializeSubNetsJob::m_SubNetType
+IL_14b9: ldloca.s V_168
+IL_14bb: ldarg.0
+IL_14bc: ldflda Game.Prefabs.ObjectInitializeSystem/TypeHandle Game.Prefabs.ObjectInitializeSystem::__TypeHandle
+IL_14c1: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Prefabs.ObjectInitializeSystem/TypeHandle::__Game_Prefabs_NetData_RO_ComponentLookup
+IL_14c6: ldarg.0
+IL_14c7: call Unity.Entities.SystemState& Unity.Entities.SystemBase::get_CheckedStateRef()
+IL_14cc: call Unity.Entities.ComponentLookup`1<!!0> Unity.Entities.Internal.InternalCompilerInterface::GetComponentLookup<Game.Prefabs.NetData>(Unity.Entities.ComponentLookup`1<!!0>&,Unity.Entities.SystemState&)
+IL_14d1: stfld Unity.Entities.ComponentLookup`1<Game.Prefabs.NetData> Game.Prefabs.ObjectInitializeSystem/InitializeSubNetsJob::m_NetData
+IL_14d6: ldloc.s V_168
+IL_14d8: ldloc.s V_37
+IL_14da: ldloca.s V_0
+IL_14dc: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Length()
+IL_14e1: ldc.i4.1
+IL_14e2: ldloc.s V_36
+IL_14e4: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Prefabs.ObjectInitializeSystem/FindPlaceholderRequirementsJob>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_14e9: stloc.s V_39
+IL_14eb: ldloc.s V_38
+IL_14ed: ldloca.s V_0
+IL_14ef: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Length()
+IL_14f4: ldc.i4.1
+IL_14f5: ldloc.s V_39
+IL_14f7: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Prefabs.ObjectInitializeSystem/FindSubObjectRequirementsJob>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_14fc: stloc.s V_40
+IL_14fe: ldloca.s V_0
+IL_1500: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::get_Length()
+IL_1505: ldc.i4.1
+IL_1506: ldloca.s V_169
+IL_1508: initobj Unity.Jobs.JobHandle
+IL_150e: ldloc.s V_169
+IL_1510: call Unity.Jobs.JobHandle Unity.Jobs.IJobParallelForExtensions::Schedule<Game.Prefabs.ObjectInitializeSystem/InitializeSubNetsJob>(!!0,System.Int32,System.Int32,Unity.Jobs.JobHandle)
+IL_1515: stloc.s V_41
+IL_1517: ldarg.0
+IL_1518: ldloc.s V_40
+IL_151a: ldloc.s V_41
+IL_151c: call Unity.Jobs.JobHandle Unity.Jobs.JobHandle::CombineDependencies(Unity.Jobs.JobHandle,Unity.Jobs.JobHandle)
+IL_1521: call System.Void Unity.Entities.SystemBase::set_Dependency(Unity.Jobs.JobHandle)
+IL_1526: leave.s IL_1537
+IL_1528: ldloca.s V_0
+IL_152a: ldarg.0
+IL_152b: call Unity.Jobs.JobHandle Unity.Entities.SystemBase::get_Dependency()
+IL_1530: call Unity.Jobs.JobHandle Unity.Collections.NativeArray`1<Unity.Entities.ArchetypeChunk>::Dispose(Unity.Jobs.JobHandle)
+IL_1535: pop
+IL_1536: endfinally
+IL_1537: ret

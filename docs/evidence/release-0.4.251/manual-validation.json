@@ -1,0 +1,49 @@
+{
+  "pdfPages": 19,
+  "embeddedImages": 9,
+  "manualScreenshots": 8,
+  "screenshots": [
+    {
+      "file": "manual-replacer.png",
+      "sha256": "917f3759a34421299e7598d93eecc13f01c71d6648fb0e9d25a269cd8b0981e3",
+      "matchesUserOriginal": true
+    },
+    {
+      "file": "manual-components.png",
+      "sha256": "15424f6debfff5a7562d5bf07e7732d0159ce5d2ec7726511ace959e2d96262b",
+      "matchesUserOriginal": true
+    },
+    {
+      "file": "manual-fields.png",
+      "sha256": "e943666624428dfc56faed85da8cd8dadd7aba8392add57a454cd3210d1dad97",
+      "matchesUserOriginal": true
+    },
+    {
+      "file": "manual-priorities.png",
+      "sha256": "c3421ecd45dd39d696da7b6fbc6bd9d33b11d5e04e01c5355f4728c233b552b5",
+      "matchesUserOriginal": true
+    },
+    {
+      "file": "manual-localisation.png",
+      "sha256": "ece3e2a6092633e28a985bb28595d7c31f1332125ae9eeda7a1f8672f03be5d1",
+      "matchesUserOriginal": true
+    },
+    {
+      "file": "manual-colours.png",
+      "sha256": "0d39a753b78959c2639dcd25dba3778170690f072a6263d6fce62a81b5f2392c",
+      "matchesUserOriginal": true
+    },
+    {
+      "file": "manual-multisave.png",
+      "sha256": "683b4b629dcfc21e4624abc1d8087b234edd71a617cfc83058064f6dfd4f8341",
+      "matchesUserOriginal": true
+    },
+    {
+      "file": "manual-options.png",
+      "sha256": "17bcd1c004f4022424f25d8b991a19a50290aabe27f5e8eaa23977c69a68ab7a",
+      "matchesUserOriginal": true
+    }
+  ],
+  "headingsAndVersionVerified": true,
+  "allPagesVisuallyReviewed": true
+}

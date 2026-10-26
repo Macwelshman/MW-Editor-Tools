@@ -3,13 +3,14 @@
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>MW.EditorTools</AssemblyName>
     <RootNamespace>MW.EditorTools</RootNamespace>
-    <Version>0.4.180</Version>
+    <Version>0.4.251</Version>
     <LangVersion>latest</LangVersion>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GamePath Condition="'$(GamePath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Cities Skylines II</GamePath>
     <ManagedPath>$(GamePath)\Cities2_Data\Managed</ManagedPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json"><HintPath>$(ManagedPath)\Newtonsoft.Json.dll</HintPath><Private>false</Private></Reference>
     <Compile Include="src/**/*.cs" />
     <PackageReference Include="Lib.Harmony" Version="2.4.2" />
     <Reference Include="Game;Colossal.Collections;Colossal.Core;Colossal.Logging;Colossal.UI;Colossal.UI.Binding;Colossal.Localization;Colossal.IO.AssetDatabase;Colossal.AssetPipeline;Colossal.Mathematics;Unity.Entities;Unity.Collections;Unity.Mathematics;Unity.InputSystem;UnityEngine.JSONSerializeModule;UnityEngine.CoreModule;UnityEngine.AnimationModule;netstandard">

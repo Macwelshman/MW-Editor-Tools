@@ -1,0 +1,6 @@
+VERIFIED-STATIC source overlap:
+Standalone: C:/Users/ian/Documents/Development/MW Component Tool/Systems/ComponentToolSystem.cs lines37-38 registers mwComponentTool/state and mwComponentTool/command.
+Combined: src/Modules/ComponentManager/ComponentToolSystem.cs OnCreate registers the same group/key pairs.
+Standalone Multi-Save: C:/Users/ian/Documents/Development/MW Multi-Save/MultiSaveSystem.cs lines65-67 uses mwMultiSave; combined uses mwEditorToolsMultiSave.
+Standalone Colour Variation native bridge uses mwColors; combined src/Modules/ColourVariations/NativeUIBridge.cs lines21-22 uses mwEditorToolsColors.
+Thus only Component Tool duplicate binding is established; no Multi-Save/Colours binding collision claimed. Parallel writes/recovery coordination remains unverified.

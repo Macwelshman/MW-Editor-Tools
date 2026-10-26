@@ -1,0 +1,17 @@
+# Surface identity and confirmed click selection — 0.4.240
+
+The user reported both incorrect surface hover/name and Copy/Replace retaining a previous surface in 0.4.239. The latest retained log shows material refresh completing (batch 25 to 24), but has no per-hover trace proving which surface was under the pointer. Native identity failure remains to be confirmed against the revised trace.
+
+VERIFIED-STATIC: the old click condition required an already-stable hover on the exact frame of button press. A one-frame press on a newly encountered hit was discarded. A later clipboard action could therefore still use the old selection. A fresh click now clears a different pinned selection immediately and retains the clicked entity until the same stable hit is confirmed. Clipboard dispatch refuses during confirmation. Moving away, UI blocking, cancellation, filter/context changes or invalid ownership cancel confirmation. No different entity is substituted for a pending click. Existing explicit-selection priority and invalid-selection refusal remain intact once confirmed.
+
+VERIFIED-STATIC: actual supported ray hits now take precedence over the area-owner fallback. The fallback remains for native ground-area hits retaining a terrain entity. Conflicting specific surface/owner identities must pass existing exact ownership checks and otherwise refuse, rather than silently choosing the owner surface. Surface/area display names use the live PrefabRef; editor-container references are used only for effects/lanes. Whether stale container metadata contributed to the user's case is UNPROVEN. Surface hover transitions now log entity, displayed name, raw ray owner/hit and selected identity for native diagnosis.
+
+VERIFIED-RUNTIME (managed): 76 actual-source targeting assertions pass, including conflicting surface identities, stale container names, one-frame click confirmation, clipboard refusal during confirmation, cancellation on pointer change and preventing old selection use after moving into UI. Surface checks 59, outline 22, replacement Undo 45, UI 32 and exact native surface scheduling checks pass. Release/UI builds and focused whitespace checks pass. NU1900 advisory-feed warning remains; no dependency audit claimed. Managed ray/input doubles do not establish native acceptance.
+
+Native outline renderer/highlight geometry and the surface reference/material replacement transaction are unchanged. The fixed hover-feedback layout and anchored toolbar remain included.
+
+VERIFIED-RUNTIME (deployment check): Cities2 is running. 0.4.240 is staged at `../outputs/test-package-0.4.240/MWEditorTools`; conditional rollback/hash-verifying installer: `../outputs/install-surface-target-0.4.240.ps1`. Installed version remains 0.4.239.
+
+UNPROVEN: native distinct-surface hover/click/Copy/Replace acceptance. Test two differently named surfaces: hover each, click each with a single click, then Copy/Replace, checking gold hover and cyan selection correspond to the displayed names. Include surface Replace/Undo and the accepted prop/marker operations in the grouped run. No publishing or computer use performed.
+
+VERIFIED-RUNTIME (installation follow-up): user confirmed game closed and requested installation. Cities2 absence verified; 0.4.240 installed with nine-file rollback backup and matching DLL/UI/CSS hashes. See outputs/installation-0.4.240.txt and evidence installed-hashes.csv. Native identification and Undo acceptance remain pending.

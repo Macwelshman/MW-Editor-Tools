@@ -1,0 +1,272 @@
+TYPE Game.Rendering.InstanceData
+FIELD Unity.Entities.Entity Game.Rendering.InstanceData::m_Entity
+FIELD System.Byte Game.Rendering.InstanceData::m_MeshGroup
+FIELD System.Byte Game.Rendering.InstanceData::m_MeshIndex
+FIELD System.Byte Game.Rendering.InstanceData::m_TileIndex
+TYPE Game.Rendering.CullingData
+FIELD Colossal.Mathematics.Bounds3 Game.Rendering.CullingData::m_Bounds
+FIELD System.UInt32 Game.Rendering.CullingData::m_LodData1
+FIELD System.UInt32 Game.Rendering.CullingData::m_LodData2
+TYPE Game.Rendering.PreCullingData
+FIELD Unity.Entities.Entity Game.Rendering.PreCullingData::m_Entity
+FIELD Game.Rendering.PreCullingFlags Game.Rendering.PreCullingData::m_Flags
+FIELD System.SByte Game.Rendering.PreCullingData::m_UpdateFrame
+FIELD System.Byte Game.Rendering.PreCullingData::m_Timer
+TYPE Game.Rendering.MeshBatch
+FIELD System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+FIELD System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+FIELD System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+FIELD System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+FIELD System.Byte Game.Rendering.MeshBatch::m_TileIndex
+TYPE Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob
+METHOD System.Void Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::Execute()
+IL_0048: ldarg.0
+IL_0049: ldfld Unity.Entities.Entity Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_Selected
+IL_004e: call System.Void Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::DrawGizmo(Game.Objects.Transform,Unity.Entities.Entity)
+IL_0053: ldc.i4.0
+IL_0054: stloc.2
+IL_00b0: ldloc.s V_5
+IL_00b2: ldloc.3
+IL_00b3: call System.Void Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::DrawGizmo(Game.Objects.Transform,Unity.Entities.Entity)
+IL_00b8: ldloc.2
+IL_00b9: ldc.i4.1
+METHOD System.Boolean Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::IsNearCamera(Game.Rendering.CullingInfo)
+METHOD System.Void Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::DrawGizmo(Game.Objects.Transform,Unity.Entities.Entity)
+IL_000c: brfalse.s IL_0025
+IL_000e: ldarg.0
+IL_000f: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_ErrorColor
+IL_0014: stloc.0
+IL_0015: ldarg.0
+IL_0014: stloc.0
+IL_0015: ldarg.0
+IL_0016: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_ErrorColor
+IL_001b: stloc.1
+IL_001c: ldarg.0
+IL_001b: stloc.1
+IL_001c: ldarg.0
+IL_001d: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_ErrorColor
+IL_0022: stloc.2
+IL_0023: br.s IL_0081
+IL_0031: brfalse.s IL_004a
+IL_0033: ldarg.0
+IL_0034: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_WarningColor
+IL_0039: stloc.0
+IL_003a: ldarg.0
+IL_0039: stloc.0
+IL_003a: ldarg.0
+IL_003b: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_WarningColor
+IL_0040: stloc.1
+IL_0041: ldarg.0
+IL_0040: stloc.1
+IL_0041: ldarg.0
+IL_0042: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_WarningColor
+IL_0047: stloc.2
+IL_0048: br.s IL_0081
+IL_0048: br.s IL_0081
+IL_004a: ldarg.0
+IL_004b: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted> Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_HighlightData
+IL_0050: ldarg.2
+IL_0051: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted>::HasComponent(Unity.Entities.Entity)
+IL_004b: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted> Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_HighlightData
+IL_0050: ldarg.2
+IL_0051: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Highlighted>::HasComponent(Unity.Entities.Entity)
+IL_0056: brfalse.s IL_006f
+IL_0058: ldarg.0
+IL_0056: brfalse.s IL_006f
+IL_0058: ldarg.0
+IL_0059: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_HoveredColor
+IL_005e: stloc.0
+IL_005f: ldarg.0
+IL_005e: stloc.0
+IL_005f: ldarg.0
+IL_0060: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_HoveredColor
+IL_0065: stloc.1
+IL_0066: ldarg.0
+IL_0065: stloc.1
+IL_0066: ldarg.0
+IL_0067: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_HoveredColor
+IL_006c: stloc.2
+IL_006d: br.s IL_0081
+IL_006c: stloc.2
+IL_006d: br.s IL_0081
+IL_006f: call UnityEngine.Color UnityEngine.Color::get_red()
+IL_0074: stloc.0
+IL_0075: call UnityEngine.Color UnityEngine.Color::get_green()
+IL_006f: call UnityEngine.Color UnityEngine.Color::get_red()
+IL_0074: stloc.0
+IL_0075: call UnityEngine.Color UnityEngine.Color::get_green()
+IL_007a: stloc.1
+IL_007b: call UnityEngine.Color UnityEngine.Color::get_blue()
+IL_0075: call UnityEngine.Color UnityEngine.Color::get_green()
+IL_007a: stloc.1
+IL_007b: call UnityEngine.Color UnityEngine.Color::get_blue()
+IL_0080: stloc.2
+IL_0081: ldarg.1
+IL_00da: ldc.r4 25
+IL_00df: ldc.i4.s 16
+IL_00e1: call System.Void Colossal.GizmoBatcher::DrawArrow(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color,System.Single,System.Single,System.Int32)
+IL_00e6: ldarg.0
+IL_00e7: ldflda Colossal.GizmoBatcher Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_GizmoBatcher
+IL_010c: ldc.r4 25
+IL_0111: ldc.i4.s 16
+IL_0113: call System.Void Colossal.GizmoBatcher::DrawArrow(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color,System.Single,System.Single,System.Int32)
+IL_0118: ldarg.0
+IL_0119: ldflda Colossal.GizmoBatcher Game.Rendering.EditorGizmoSystem/EditorSelectedGizmoJob::m_GizmoBatcher
+IL_013e: ldc.r4 25
+IL_0143: ldc.i4.s 16
+IL_0145: call System.Void Colossal.GizmoBatcher::DrawArrow(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color,System.Single,System.Single,System.Int32)
+IL_014a: ret
+TYPE Game.Rendering.EditorGizmoSystem/EditorGizmoJob
+METHOD System.Void Game.Rendering.EditorGizmoSystem/EditorGizmoJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0051: stloc.s V_5
+IL_0053: ldarg.0
+IL_0054: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_ErrorColor
+IL_0059: stloc.s V_6
+IL_005b: ldarg.0
+IL_0059: stloc.s V_6
+IL_005b: ldarg.0
+IL_005c: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_ErrorColor
+IL_0061: stloc.s V_7
+IL_0063: ldarg.0
+IL_0061: stloc.s V_7
+IL_0063: ldarg.0
+IL_0064: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_ErrorColor
+IL_0069: stloc.s V_8
+IL_006b: ldarg.0
+IL_0069: stloc.s V_8
+IL_006b: ldarg.0
+IL_006c: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_ErrorColor
+IL_0071: stloc.s V_9
+IL_0073: br IL_0106
+IL_0087: stloc.s V_5
+IL_0089: ldarg.0
+IL_008a: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_WarningColor
+IL_008f: stloc.s V_6
+IL_0091: ldarg.0
+IL_008f: stloc.s V_6
+IL_0091: ldarg.0
+IL_0092: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_WarningColor
+IL_0097: stloc.s V_7
+IL_0099: ldarg.0
+IL_0097: stloc.s V_7
+IL_0099: ldarg.0
+IL_009a: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_WarningColor
+IL_009f: stloc.s V_8
+IL_00a1: ldarg.0
+IL_009f: stloc.s V_8
+IL_00a1: ldarg.0
+IL_00a2: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_WarningColor
+IL_00a7: stloc.s V_9
+IL_00a9: br.s IL_0106
+IL_00ab: ldarg.1
+IL_00ac: ldarg.0
+IL_00ad: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Highlighted> Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HighlightedType
+IL_00b2: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Tools.Highlighted>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_00b7: brfalse.s IL_00de
+IL_00ac: ldarg.0
+IL_00ad: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.Highlighted> Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HighlightedType
+IL_00b2: call System.Boolean Unity.Entities.ArchetypeChunk::Has<Game.Tools.Highlighted>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_00b7: brfalse.s IL_00de
+IL_00b9: ldc.i4.0
+IL_00ba: stloc.s V_5
+IL_00bc: ldarg.0
+IL_00bd: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_00c2: stloc.s V_6
+IL_00c4: ldarg.0
+IL_00c2: stloc.s V_6
+IL_00c4: ldarg.0
+IL_00c5: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_00ca: stloc.s V_7
+IL_00cc: ldarg.0
+IL_00ca: stloc.s V_7
+IL_00cc: ldarg.0
+IL_00cd: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_00d2: stloc.s V_8
+IL_00d4: ldarg.0
+IL_00d2: stloc.s V_8
+IL_00d4: ldarg.0
+IL_00d5: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_00da: stloc.s V_9
+IL_00dc: br.s IL_0106
+IL_00e6: cgt.un
+IL_00e8: stloc.s V_5
+IL_00ea: call UnityEngine.Color UnityEngine.Color::get_white()
+IL_00ef: stloc.s V_6
+IL_00f1: call UnityEngine.Color UnityEngine.Color::get_red()
+IL_00ea: call UnityEngine.Color UnityEngine.Color::get_white()
+IL_00ef: stloc.s V_6
+IL_00f1: call UnityEngine.Color UnityEngine.Color::get_red()
+IL_00f6: stloc.s V_7
+IL_00f8: call UnityEngine.Color UnityEngine.Color::get_green()
+IL_00f1: call UnityEngine.Color UnityEngine.Color::get_red()
+IL_00f6: stloc.s V_7
+IL_00f8: call UnityEngine.Color UnityEngine.Color::get_green()
+IL_00fd: stloc.s V_8
+IL_00ff: call UnityEngine.Color UnityEngine.Color::get_blue()
+IL_00f8: call UnityEngine.Color UnityEngine.Color::get_green()
+IL_00fd: stloc.s V_8
+IL_00ff: call UnityEngine.Color UnityEngine.Color::get_blue()
+IL_0104: stloc.s V_9
+IL_0106: ldc.i4.0
+IL_0154: brfalse.s IL_015e
+IL_0156: ldarg.0
+IL_0157: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_015c: stloc.s V_11
+IL_015e: ldloca.s V_0
+IL_01bf: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_01c4: ldloc.s V_11
+IL_01c6: call System.Void Colossal.GizmoBatcher::DrawLine(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color)
+IL_01cb: ldarg.0
+IL_01cc: ldflda Colossal.GizmoBatcher Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_GizmoBatcher
+IL_01e8: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_01ed: ldloc.s V_11
+IL_01ef: call System.Void Colossal.GizmoBatcher::DrawLine(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color)
+IL_01f4: ldarg.0
+IL_01f5: ldflda Colossal.GizmoBatcher Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_GizmoBatcher
+IL_0211: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_0216: ldloc.s V_11
+IL_0218: call System.Void Colossal.GizmoBatcher::DrawLine(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color)
+IL_021d: ldloc.s V_10
+IL_021f: ldc.i4.1
+IL_0276: brfalse.s IL_0280
+IL_0278: ldarg.0
+IL_0279: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_027e: stloc.s V_18
+IL_0280: ldloca.s V_1
+IL_0293: ldloc.s V_18
+IL_0295: ldc.i4.m1
+IL_0296: call System.Void Game.GizmosExt::DrawCurve(Colossal.GizmoBatcher,Game.Net.Curve,UnityEngine.Color,System.Int32)
+IL_029b: ldloc.s V_17
+IL_029d: ldc.i4.1
+IL_0302: brfalse.s IL_031c
+IL_0304: ldarg.0
+IL_0305: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_030a: stloc.s V_22
+IL_030c: ldarg.0
+IL_030a: stloc.s V_22
+IL_030c: ldarg.0
+IL_030d: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_0312: stloc.s V_23
+IL_0314: ldarg.0
+IL_0312: stloc.s V_23
+IL_0314: ldarg.0
+IL_0315: ldfld UnityEngine.Color Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_HoveredColor
+IL_031a: stloc.s V_24
+IL_031c: ldloca.s V_2
+IL_0389: ldc.r4 25
+IL_038e: ldc.i4.s 16
+IL_0390: call System.Void Colossal.GizmoBatcher::DrawArrow(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color,System.Single,System.Single,System.Int32)
+IL_0395: ldarg.0
+IL_0396: ldflda Colossal.GizmoBatcher Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_GizmoBatcher
+IL_03be: ldc.r4 25
+IL_03c3: ldc.i4.s 16
+IL_03c5: call System.Void Colossal.GizmoBatcher::DrawArrow(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color,System.Single,System.Single,System.Int32)
+IL_03ca: ldarg.0
+IL_03cb: ldflda Colossal.GizmoBatcher Game.Rendering.EditorGizmoSystem/EditorGizmoJob::m_GizmoBatcher
+IL_03f3: ldc.r4 25
+IL_03f8: ldc.i4.s 16
+IL_03fa: call System.Void Colossal.GizmoBatcher::DrawArrow(Unity.Mathematics.float3,Unity.Mathematics.float3,UnityEngine.Color,System.Single,System.Single,System.Int32)
+IL_03ff: ldloc.s V_21
+IL_0401: ldc.i4.1
+METHOD System.Boolean Game.Rendering.EditorGizmoSystem/EditorGizmoJob::IsNearCamera(Game.Rendering.CullingInfo)
+METHOD System.Void Game.Rendering.EditorGizmoSystem/EditorGizmoJob::Unity.Entities.IJobChunk.Execute(Unity.Entities.ArchetypeChunk& modreq(System.Runtime.InteropServices.InAttribute),System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128& modreq(System.Runtime.InteropServices.InAttribute))

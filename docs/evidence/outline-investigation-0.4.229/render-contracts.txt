@@ -1,0 +1,203 @@
+Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e15551e9-3dea-4855-8dde-1da3cea7d7ef
+TYPE Game.Rendering.AreaBatchSystem
+FIELD UnityEngine.ComputeBuffer Game.Rendering.AreaBatchSystem::m_AreaColorBuffer=
+FIELD Unity.Collections.NativeList`1<Game.Rendering.AreaColorData> Game.Rendering.AreaBatchSystem::m_AreaColorData=
+FIELD System.Boolean Game.Rendering.AreaBatchSystem::m_ColorsUpdated=
+FIELD System.Int32 Game.Rendering.AreaBatchSystem::m_BaseColor=
+FIELD System.Int32 Game.Rendering.AreaBatchSystem::m_BaseColorMap=
+API Unity.Collections.NativeList`1<Game.Rendering.AreaColorData> Game.Rendering.AreaBatchSystem::GetColorData(Unity.Jobs.JobHandle&)
+API System.Void Game.Rendering.AreaBatchSystem::AddColorWriter(Unity.Jobs.JobHandle)
+TYPE Game.Rendering.AreaColorSystem
+TYPE Game.Rendering.BatchDataHelpers
+TYPE Game.Rendering.BatchDataSystem
+FIELD Game.Rendering.MeshColorSystem Game.Rendering.BatchDataSystem::m_MeshColorSystem=
+API System.Void Game.Rendering.BatchDataSystem::InstancePropertiesUpdated()
+TYPE Game.Rendering.BatchFlags
+FIELD System.Int32 Game.Rendering.BatchFlags::value__=
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::MotionVectors=1
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Animated=2
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Bones=4
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Emissive=8
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::ColorMask=16
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Outline=32
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::InfoviewColor=64
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Lod=128
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Node=256
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Roundabout=512
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Extended1=1024
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Extended2=2048
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Extended3=4096
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::LodFade=8192
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::InfoviewFlow=16384
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Hanging=32768
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::BlendWeights=65536
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::SurfaceState=131072
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Base=262144
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::CullVertices=524288
+FIELD Game.Rendering.BatchFlags Game.Rendering.BatchFlags::Overlay=1048576
+TYPE Game.Rendering.BatchRenderFlags
+FIELD System.Byte Game.Rendering.BatchRenderFlags::value__=
+FIELD Game.Rendering.BatchRenderFlags Game.Rendering.BatchRenderFlags::MotionVectors=1
+FIELD Game.Rendering.BatchRenderFlags Game.Rendering.BatchRenderFlags::ReceiveShadows=2
+FIELD Game.Rendering.BatchRenderFlags Game.Rendering.BatchRenderFlags::CastShadows=4
+FIELD Game.Rendering.BatchRenderFlags Game.Rendering.BatchRenderFlags::IsEnabled=8
+FIELD Game.Rendering.BatchRenderFlags Game.Rendering.BatchRenderFlags::All=255
+TYPE Game.Rendering.MaterialProperty
+FIELD System.Int32 Game.Rendering.MaterialProperty::value__=
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::DefaultPVTStack_Transform=0
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::ExtendedPVTStack_Transform=1
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::DefaultPVTStack_TextureInfo=2
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::ExtendedPVTStack_TextureInfo=3
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::AlbedoAffectEmissive=4
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::Snow=5
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::SingleLightsOffset=6
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::TextureArea=7
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::MeshSize=8
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::LodDistanceFactor=9
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::BaseColor=10
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::DilationParams=11
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::ImpostorFrames=12
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::ImpostorSize=13
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::ImpostorOffset=14
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::TextureScaleFactor=15
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::SmoothingDistance=16
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::WindRangeLvlB=17
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::WindElasticityLvlB=18
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::ShapeParameters1=19
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::ShapeParameters2=20
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::CullParameters=21
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::OverlayParameters=22
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::AlphaMaskIndexRange=23
+FIELD Game.Rendering.MaterialProperty Game.Rendering.MaterialProperty::Count=24
+TYPE Game.Rendering.ObjectProperty
+FIELD System.Int32 Game.Rendering.ObjectProperty::value__=
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::BoneParameters=0
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::LightParameters=1
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::ColorMask1=2
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::ColorMask2=3
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::ColorMask3=4
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::InfoviewColor=5
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::BuildingState=6
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::OutlineColors=7
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::LodFade0=8
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::LodFade1=9
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::MetaParameters=10
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::SurfaceWetness=11
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::SurfaceDamage=12
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::BaseState=13
+FIELD Game.Rendering.ObjectProperty Game.Rendering.ObjectProperty::Count=14
+TYPE Game.Rendering.NetProperty
+FIELD System.Int32 Game.Rendering.NetProperty::value__=
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionMatrix0=0
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionMatrix1=1
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionMatrix2=2
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionMatrix3=3
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionMatrix4=4
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionMatrix5=5
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionMatrix6=6
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionMatrix7=7
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionSync0=8
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionSync1=9
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionSync2=10
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::CompositionSync3=11
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::InfoviewColor=12
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::OutlineColors=13
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::LodFade0=14
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::LodFade1=15
+FIELD Game.Rendering.NetProperty Game.Rendering.NetProperty::Count=16
+TYPE Game.Rendering.LaneProperty
+FIELD System.Int32 Game.Rendering.LaneProperty::value__=
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::CurveMatrix=0
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::CurveParams=1
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::CurveScale=2
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::InfoviewColor=3
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::CurveDeterioration=4
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::OutlineColors=5
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::LodFade0=6
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::LodFade1=7
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::FlowMatrix=8
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::FlowOffset=9
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::HangingDistances=10
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::ColorMask1=11
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::ColorMask2=12
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::ColorMask3=13
+FIELD Game.Rendering.LaneProperty Game.Rendering.LaneProperty::Count=14
+TYPE Game.Rendering.ZoneProperty
+FIELD System.Int32 Game.Rendering.ZoneProperty::value__=
+FIELD Game.Rendering.ZoneProperty Game.Rendering.ZoneProperty::CellType0=0
+FIELD Game.Rendering.ZoneProperty Game.Rendering.ZoneProperty::CellType1=1
+FIELD Game.Rendering.ZoneProperty Game.Rendering.ZoneProperty::CellType2=2
+FIELD Game.Rendering.ZoneProperty Game.Rendering.ZoneProperty::CellType3=3
+FIELD Game.Rendering.ZoneProperty Game.Rendering.ZoneProperty::Count=4
+TYPE Game.Rendering.BatchData
+TYPE Game.Rendering.PropertyData
+TYPE Game.Rendering.MaterialPropertyAttribute
+API System.String Game.Rendering.MaterialPropertyAttribute::get_ShaderPropertyName()
+TYPE Game.Rendering.InstancePropertyAttribute
+API System.String Game.Rendering.InstancePropertyAttribute::get_ShaderPropertyName()
+TYPE Game.Rendering.CustomBatch
+API UnityEngine.Material Game.Rendering.CustomBatch::get_sourceMaterial()
+API UnityEngine.Material Game.Rendering.CustomBatch::get_defaultMaterial()
+API UnityEngine.Material Game.Rendering.CustomBatch::get_loadedMaterial()
+TYPE Game.Rendering.BatchInstanceSystem
+TYPE Game.Rendering.BatchManagerSystem
+API System.Boolean Game.Rendering.BatchManagerSystem::CheckPropertyUpdates()
+API Colossal.Rendering.NativeBatchInstances`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::GetNativeBatchInstances(System.Boolean,Unity.Jobs.JobHandle&)
+API System.Void Game.Rendering.BatchManagerSystem::AddNativeBatchInstancesReader(Unity.Jobs.JobHandle)
+API System.Void Game.Rendering.BatchManagerSystem::AddNativeBatchInstancesWriter(Unity.Jobs.JobHandle)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.MaterialProperty)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.ObjectProperty)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.NetProperty)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.LaneProperty)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.ZoneProperty)
+TYPE Game.Rendering.BatchMeshHelpers
+TYPE Game.Rendering.BatchMeshSystem
+TYPE Game.Rendering.BatchRendererSystem
+TYPE Game.Rendering.BatchUploadSystem
+TYPE Game.Rendering.ManagedBatchSystem
+FIELD System.Int32 Game.Rendering.ManagedBatchSystem::m_OutlineLayer=
+TYPE Game.Rendering.ManagedBatchSystemDebugger
+TYPE Game.Rendering.RequiredBatchesSystem
+TYPE Game.Rendering.MeshColorPaletteSystem
+API System.Int32 Game.Rendering.MeshColorPaletteSystem::GetColorCount()
+TYPE Game.Rendering.MeshColorSystem
+FIELD System.Boolean Game.Rendering.MeshColorSystem::<smoothColorsUpdated>k__BackingField=
+API System.Boolean Game.Rendering.MeshColorSystem::get_smoothColorsUpdated()
+API Game.Rendering.ColorGroupID Game.Rendering.MeshColorSystem::GetColorGroupID(System.String)
+TYPE Game.Rendering.NetColorSystem
+TYPE Game.Rendering.ObjectColorSystem
+TYPE Game.Rendering.ColorSet
+TYPE Game.Rendering.ColorGroupID
+TYPE Game.Rendering.ColorSyncFlags
+FIELD System.Byte Game.Rendering.ColorSyncFlags::value__=
+FIELD Game.Rendering.ColorSyncFlags Game.Rendering.ColorSyncFlags::None=0
+FIELD Game.Rendering.ColorSyncFlags Game.Rendering.ColorSyncFlags::SameGroup=1
+FIELD Game.Rendering.ColorSyncFlags Game.Rendering.ColorSyncFlags::SameIndex=2
+FIELD Game.Rendering.ColorSyncFlags Game.Rendering.ColorSyncFlags::DifferentGroup=4
+FIELD Game.Rendering.ColorSyncFlags Game.Rendering.ColorSyncFlags::DifferentIndex=8
+FIELD Game.Rendering.ColorSyncFlags Game.Rendering.ColorSyncFlags::SyncRangeVariation=16
+TYPE Game.Rendering.ColorSourceType
+FIELD System.Byte Game.Rendering.ColorSourceType::value__=
+FIELD Game.Rendering.ColorSourceType Game.Rendering.ColorSourceType::Brand=0
+FIELD Game.Rendering.ColorSourceType Game.Rendering.ColorSourceType::Parent=1
+TYPE Game.Rendering.MeshColor
+FIELD Game.Rendering.ColorSet Game.Rendering.MeshColor::m_ColorSet=
+TYPE Game.Rendering.CustomMeshColor
+FIELD Game.Rendering.ColorSet Game.Rendering.CustomMeshColor::m_ColorSet=
+TYPE Game.Rendering.MeshColorPalette
+FIELD Game.Rendering.ColorSet Game.Rendering.MeshColorPalette::m_ColorSet=
+TYPE Game.Rendering.MeshBatch
+TYPE Game.Rendering.FadeBatch
+TYPE Game.Rendering.BlendColors
+FIELD UnityEngine.Color Game.Rendering.BlendColors::m_Color0=
+FIELD UnityEngine.Color Game.Rendering.BlendColors::m_Color1=
+FIELD UnityEngine.Color Game.Rendering.BlendColors::m_Color2=
+FIELD UnityEngine.Color Game.Rendering.BlendColors::m_Color3=
+FIELD UnityEngine.Color Game.Rendering.BlendColors::m_Color4=
+FIELD UnityEngine.Color Game.Rendering.BlendColors::m_Color5=
+FIELD UnityEngine.Color Game.Rendering.BlendColors::m_Color6=
+FIELD UnityEngine.Color Game.Rendering.BlendColors::m_Color7=
+TYPE Game.Rendering.AreaColorData
+FIELD Unity.Mathematics.float3 Game.Rendering.AreaColorData::m_Color=
+TYPE Game.Objects.Color
+FIELD System.Boolean Game.Objects.Color::m_SubColor=

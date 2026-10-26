@@ -9,6 +9,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             __state=false;
             var a=active;
             if(a==null||!a.context.EditorAvailable||!ReferenceEquals(__instance.World,a.world))return true;
+            if(!a.PatchesCompatible(true)){__result=__0;return !a.Busy;}
             if(a.Busy) {
                 __result=__0;
                 a.Status="Recovery is finishing; wait before another deletion.";

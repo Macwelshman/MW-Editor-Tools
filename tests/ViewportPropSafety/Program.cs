@@ -6,6 +6,9 @@ using Unity.Mathematics;
 using MW.EditorTools.Modules.PropReplacer;
 
 namespace Game.Prefabs {
+    struct PrefabRef {public Unity.Entities.Entity m_Prefab;}
+    struct SubLane {public Unity.Entities.Entity m_Prefab;public Colossal.Mathematics.Bezier4x3 m_Curve;public int2 m_NodeIndex,m_ParentMesh;}
+    struct SubNet {public Unity.Entities.Entity m_Prefab;public Colossal.Mathematics.Bezier4x3 m_Curve;public int2 m_NodeIndex,m_ParentMesh;}
     class PrefabBase {}
     class ObjectSubObjectInfo {
         public PrefabBase m_Object;

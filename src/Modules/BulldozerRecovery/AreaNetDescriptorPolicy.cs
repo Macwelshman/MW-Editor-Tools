@@ -5,7 +5,7 @@ using Unity.Mathematics;
 
 namespace MW.EditorTools.Modules.BulldozerRecovery {
     internal static class AreaNetDescriptorPolicy {
-        // Only area capture uses this. Complete live graph equivalence is
+        // Bound deletion capture uses this. Complete live graph equivalence is
         // mandatory before recording: descriptor curves/indices are serialized
         // representations, not the authority for current network topology.
         internal static bool Matches(ObjectSubNetInfo expected,ObjectSubNetInfo actual) {

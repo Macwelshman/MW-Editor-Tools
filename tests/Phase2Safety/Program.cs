@@ -20,6 +20,7 @@ internal static class Program
 
     private static void Main()
     {
+        CompatibilityChecks.Run(Check);
         var gate = new ConfirmationGate();
         Check(MW.EditorTools.DeletionPatchPolicy.IsKnownOwner(MW.EditorTools.DeletionPatchPolicy.ConfirmationOwner), "confirmation owner allowed");
         Check(MW.EditorTools.DeletionPatchPolicy.IsKnownOwner(MW.EditorTools.DeletionPatchPolicy.RecoveryOwner), "own recovery invalidation prefix compatible");

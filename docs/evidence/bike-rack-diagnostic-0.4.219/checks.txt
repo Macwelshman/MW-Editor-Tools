@@ -1,0 +1,5 @@
+PASS: Phase3Safety 1154 actual-source snapshot/history assertions (10 added diagnostic/reproduction checks).
+PASS: MoveUndoSafety 41 actual-source move hook/commit/pose assertions.
+PASS: LifecycleSafety 20 actual Mod constructor-bypass/fault-injection assertions.
+PASS: Release/UI builds. Cached NU1900 advisory-feed warning remains.
+No new native acceptance; the bike-rack failure remains under investigation.

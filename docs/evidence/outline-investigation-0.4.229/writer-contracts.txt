@@ -1,0 +1,139 @@
+TYPE Game.Rendering.BatchManagerSystem
+FIELD System.UInt32 Game.Rendering.BatchManagerSystem::GPU_INSTANCE_MEMORY_DEFAULT
+FIELD System.UInt32 Game.Rendering.BatchManagerSystem::GPU_INSTANCE_MEMORY_INCREMENT
+FIELD System.UInt32 Game.Rendering.BatchManagerSystem::GPU_UPLOADER_CHUNK_SIZE
+FIELD System.UInt32 Game.Rendering.BatchManagerSystem::GPU_UPLOADER_OPERATION_SIZE
+FIELD System.Int32 Game.Rendering.BatchManagerSystem::MAX_GROUP_BATCH_COUNT
+FIELD Game.Rendering.RenderingSystem Game.Rendering.BatchManagerSystem::m_RenderingSystem
+FIELD Game.Rendering.ManagedBatchSystem Game.Rendering.BatchManagerSystem::m_ManagedBatchSystem
+FIELD Game.Rendering.BatchDataSystem Game.Rendering.BatchManagerSystem::m_BatchDataSystem
+FIELD Colossal.IO.AssetDatabase.VirtualTexturing.TextureStreamingSystem Game.Rendering.BatchManagerSystem::m_TextureStreamingSystem
+FIELD Game.Prefabs.PrefabSystem Game.Rendering.BatchManagerSystem::m_PrefabSystem
+FIELD Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::m_NativeBatchGroups
+FIELD Colossal.Rendering.NativeBatchInstances`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::m_NativeBatchInstances
+FIELD Colossal.Rendering.NativeSubBatches`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::m_NativeSubBatches
+FIELD Colossal.Rendering.ManagedBatches`1<Game.Rendering.OptionalProperties> Game.Rendering.BatchManagerSystem::m_ManagedBatches
+FIELD Unity.Collections.NativeList`1<Game.Rendering.PropertyData> Game.Rendering.BatchManagerSystem::m_MaterialProperties
+FIELD Unity.Collections.NativeList`1<Game.Rendering.PropertyData> Game.Rendering.BatchManagerSystem::m_ObjectProperties
+FIELD Unity.Collections.NativeList`1<Game.Rendering.PropertyData> Game.Rendering.BatchManagerSystem::m_NetProperties
+FIELD Unity.Collections.NativeList`1<Game.Rendering.PropertyData> Game.Rendering.BatchManagerSystem::m_LaneProperties
+FIELD Unity.Collections.NativeList`1<Game.Rendering.PropertyData> Game.Rendering.BatchManagerSystem::m_ZoneProperties
+FIELD Unity.Collections.NativeList`1<Unity.Entities.Entity> Game.Rendering.BatchManagerSystem::m_MergeMeshes
+FIELD Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,System.Int32> Game.Rendering.BatchManagerSystem::m_MergeGroups
+FIELD Unity.Entities.EntityQuery Game.Rendering.BatchManagerSystem::m_MeshSettingsQuery
+FIELD System.Boolean Game.Rendering.BatchManagerSystem::m_LastMotionVectorsEnabled
+FIELD System.Boolean Game.Rendering.BatchManagerSystem::m_LastLodFadeEnabled
+FIELD System.Boolean Game.Rendering.BatchManagerSystem::m_PropertiesChanged
+FIELD System.Boolean Game.Rendering.BatchManagerSystem::m_MotionVectorsChanged
+FIELD System.Boolean Game.Rendering.BatchManagerSystem::m_LodFadeChanged
+FIELD System.Boolean Game.Rendering.BatchManagerSystem::m_VirtualTexturingChanged
+FIELD Unity.Jobs.JobHandle Game.Rendering.BatchManagerSystem::m_NativeBatchGroupsReadDependencies
+FIELD Unity.Jobs.JobHandle Game.Rendering.BatchManagerSystem::m_NativeBatchGroupsWriteDependencies
+FIELD Unity.Jobs.JobHandle Game.Rendering.BatchManagerSystem::m_NativeBatchInstancesReadDependencies
+FIELD Unity.Jobs.JobHandle Game.Rendering.BatchManagerSystem::m_NativeBatchInstancesWriteDependencies
+FIELD Unity.Jobs.JobHandle Game.Rendering.BatchManagerSystem::m_NativeSubBatchesReadDependencies
+FIELD Unity.Jobs.JobHandle Game.Rendering.BatchManagerSystem::m_NativeSubBatchesWriteDependencies
+FIELD Unity.Jobs.JobHandle Game.Rendering.BatchManagerSystem::m_MergeDependencies
+FIELD Game.Rendering.BatchManagerSystem/TypeHandle Game.Rendering.BatchManagerSystem::__TypeHandle
+API System.Void Game.Rendering.BatchManagerSystem::PreDeserialize(Colossal.Serialization.Entities.Context)
+API System.Boolean Game.Rendering.BatchManagerSystem::CheckPropertyUpdates()
+API System.Void Game.Rendering.BatchManagerSystem::VirtualTexturingUpdated()
+API Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::GetNativeBatchGroups(System.Boolean,Unity.Jobs.JobHandle&)
+API Colossal.Rendering.NativeBatchInstances`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::GetNativeBatchInstances(System.Boolean,Unity.Jobs.JobHandle&)
+NATIVE Colossal.Rendering.NativeBatchInstances`4 assembly=Colossal.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::.ctor(Colossal.Rendering.NativeBatchGroups`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::Dispose()
+NATIVE API System.Boolean Colossal.Rendering.NativeBatchInstances`4::get_IsCreated()
+NATIVE API System.UInt32 Colossal.Rendering.NativeBatchInstances`4::get_GpuMemorySize()
+NATIVE API System.Int32 Colossal.Rendering.NativeBatchInstances`4::GetActiveGroupCount()
+NATIVE API System.Int32 Colossal.Rendering.NativeBatchInstances`4::GetGroupIndex(System.Int32)
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::GetMemoryStats(System.UInt32&,System.UInt32&)
+NATIVE API System.Int32 Colossal.Rendering.NativeBatchInstances`4::AddInstance(TInstanceData,TCullingData,System.Int32,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+NATIVE API System.Int32 Colossal.Rendering.NativeBatchInstances`4::AddInstance(TInstanceData,TCullingData,System.Int32,System.Int32,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+NATIVE API TInstanceData Colossal.Rendering.NativeBatchInstances`4::RemoveInstance(System.Int32,System.Int32,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::RemoveInstances(System.Int32,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+NATIVE API Colossal.Rendering.NativeCullingAccessor`1<TCullingData> Colossal.Rendering.NativeBatchInstances`4::GetCullingAccessor(System.Int32)
+NATIVE API System.Int32 Colossal.Rendering.NativeBatchInstances`4::GetInstanceCount(System.Int32)
+NATIVE API TInstanceData Colossal.Rendering.NativeBatchInstances`4::GetInstanceData(System.Int32,System.Int32)
+NATIVE API System.Int32 Colossal.Rendering.NativeBatchInstances`4::GetMergeIndex(System.Int32,System.Int32)
+NATIVE API TInstanceData& Colossal.Rendering.NativeBatchInstances`4::AccessInstanceData(System.Int32,System.Int32)
+NATIVE API TCullingData Colossal.Rendering.NativeBatchInstances`4::GetCullingData(System.Int32,System.Int32)
+NATIVE API TCullingData& Colossal.Rendering.NativeBatchInstances`4::AccessCullingData(System.Int32,System.Int32)
+NATIVE API System.Int32 Colossal.Rendering.NativeBatchInstances`4::GetMergedInstanceGroupIndex(System.Int32,System.Int32)
+NATIVE API Colossal.Rendering.UpdatedInstanceEnumerator Colossal.Rendering.NativeBatchInstances`4::GetUpdatedInstances()
+NATIVE API Colossal.Rendering.AddedInstanceEnumerator Colossal.Rendering.NativeBatchInstances`4::GetAddedInstances()
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::ClearUpdatedInstances()
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::ClearAddedInstances()
+NATIVE API System.Int32 Colossal.Rendering.NativeBatchInstances`4::GetActiveIndex(System.Int32)
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::AllocateInstanceBuffers(System.Int32,System.UInt32,Colossal.Rendering.NativeBatchGroups`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::SetGlobalValue(T,System.Int32)
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::GetBounds(System.Int32,Unity.Mathematics.float3&,Unity.Mathematics.float3&)
+NATIVE API System.Void Colossal.Rendering.NativeBatchInstances`4::GetShadowBounds(System.Int32,Unity.Mathematics.float3&,Unity.Mathematics.float3&)
+NATIVE API Colossal.Mathematics.Bounds3 Colossal.Rendering.NativeBatchInstances`4::GetTotalBounds()
+NATIVE API Colossal.Rendering.NativeBatchInstances`4/InstanceUpdater<TCullingData,TGroupData,TBatchData,TInstanceData> Colossal.Rendering.NativeBatchInstances`4::BeginInstanceUpdate(Unity.Collections.Allocator)
+NATIVE API Unity.Jobs.JobHandle Colossal.Rendering.NativeBatchInstances`4::EndInstanceUpdate(Colossal.Rendering.NativeBatchInstances`4/InstanceUpdater<TCullingData,TGroupData,TBatchData,TInstanceData>,Unity.Jobs.JobHandle,Colossal.Rendering.NativeSubBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>)
+NATIVE API Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<TCullingData,TGroupData,TBatchData,TInstanceData> Colossal.Rendering.NativeBatchInstances`4::AsParallelInstanceWriter()
+NATIVE API Colossal.Rendering.NativeBatchInstances`4/CullingWriter<TCullingData,TGroupData,TBatchData,TInstanceData> Colossal.Rendering.NativeBatchInstances`4::BeginCulling(Unity.Collections.Allocator)
+NATIVE API Unity.Jobs.JobHandle Colossal.Rendering.NativeBatchInstances`4::EndCulling(Colossal.Rendering.NativeBatchInstances`4/CullingWriter<TCullingData,TGroupData,TBatchData,TInstanceData>,Unity.Jobs.JobHandle)
+NATIVE API Colossal.Rendering.NativeBatchInstances`4/ParallelUploadWriter<TCullingData,TGroupData,TBatchData,TInstanceData> Colossal.Rendering.NativeBatchInstances`4::BeginParallelUpload()
+NATIVE API Unity.Jobs.JobHandle Colossal.Rendering.NativeBatchInstances`4::EndParallelUpload(Colossal.Rendering.NativeBatchInstances`4/ParallelUploadWriter<TCullingData,TGroupData,TBatchData,TInstanceData>,Unity.Jobs.JobHandle)
+WRITER API System.Boolean Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::InitializeTransform(System.Int32,System.Int32,System.Int32,System.Int32)
+WRITER API TCullingData& Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::AccessCullingData(System.Int32,System.Int32)
+WRITER API System.Boolean Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::GetTransformValue(System.Int32,System.Int32,Unity.Mathematics.float3x4&,Unity.Mathematics.float3x4&)
+WRITER API TCullingData& Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::SetTransformValue(Unity.Mathematics.float3x4,System.Int32,System.Int32)
+WRITER API TCullingData& Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::SetTransformValue(Unity.Mathematics.float3x4,Unity.Mathematics.float3x4,System.Int32,System.Int32)
+WRITER API System.Boolean Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::GetPropertyValue(T&,System.Int32,System.Int32,System.Int32)
+WRITER API System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::SetPropertyValue(T,System.Int32,System.Int32,System.Int32)
+WRITER API Colossal.Rendering.WriteableCullingAccessor`1<TCullingData> Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::GetCullingAccessor(System.Int32)
+API Colossal.Rendering.NativeSubBatches`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::GetNativeSubBatches(System.Boolean,Unity.Jobs.JobHandle&)
+API Colossal.Rendering.ManagedBatches`1<Game.Rendering.OptionalProperties> Game.Rendering.BatchManagerSystem::GetManagedBatches()
+API System.Boolean Game.Rendering.BatchManagerSystem::IsMotionVectorsEnabled()
+API System.Boolean Game.Rendering.BatchManagerSystem::IsLodFadeEnabled()
+API System.Void Game.Rendering.BatchManagerSystem::AddNativeBatchGroupsReader(Unity.Jobs.JobHandle)
+API System.Void Game.Rendering.BatchManagerSystem::AddNativeBatchGroupsWriter(Unity.Jobs.JobHandle)
+API System.Void Game.Rendering.BatchManagerSystem::AddNativeBatchInstancesReader(Unity.Jobs.JobHandle)
+API System.Void Game.Rendering.BatchManagerSystem::AddNativeBatchInstancesWriter(Unity.Jobs.JobHandle)
+API System.Void Game.Rendering.BatchManagerSystem::AddNativeSubBatchesReader(Unity.Jobs.JobHandle)
+API System.Void Game.Rendering.BatchManagerSystem::AddNativeSubBatchesWriter(Unity.Jobs.JobHandle)
+API System.Void Game.Rendering.BatchManagerSystem::MergeGroups(Unity.Entities.Entity,System.Int32)
+API System.ValueTuple`2<System.Int32,System.Int32> Game.Rendering.BatchManagerSystem::GetVTTextureParamBlockID(System.Int32)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.MaterialProperty)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.ObjectProperty)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.NetProperty)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.LaneProperty)
+API Game.Rendering.PropertyData Game.Rendering.BatchManagerSystem::GetPropertyData(Game.Rendering.ZoneProperty)
+API System.Void Game.Rendering.BatchManagerSystem::.ctor()
+TYPE Game.Rendering.GroupData
+FIELD Unity.Entities.Entity Game.Rendering.GroupData::m_Mesh
+FIELD Unity.Mathematics.float3 Game.Rendering.GroupData::m_SecondaryCenter
+FIELD Unity.Mathematics.float3 Game.Rendering.GroupData::m_SecondarySize
+FIELD Game.Prefabs.MeshLayer Game.Rendering.GroupData::m_Layer
+FIELD Game.Prefabs.MeshType Game.Rendering.GroupData::m_MeshType
+FIELD System.UInt16 Game.Rendering.GroupData::m_Partition
+FIELD Game.Rendering.BatchRenderFlags Game.Rendering.GroupData::m_RenderFlags
+FIELD System.Byte Game.Rendering.GroupData::m_LodCount
+FIELD System.Int32 Game.Rendering.GroupData::MAX_PROPERTY_COUNT1
+FIELD System.Int32 Game.Rendering.GroupData::MAX_PROPERTY_COUNT2
+FIELD System.Int32 Game.Rendering.GroupData::MAX_PROPERTY_COUNT
+FIELD Game.Rendering.GroupData/<m_Properties>e__FixedBuffer Game.Rendering.GroupData::m_Properties
+API System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)
+API System.Void Game.Rendering.GroupData::SetPropertyIndex(System.Int32,System.Int32)
+TYPE Game.Rendering.MeshBatch
+FIELD System.Int32 Game.Rendering.MeshBatch::m_GroupIndex
+FIELD System.Int32 Game.Rendering.MeshBatch::m_InstanceIndex
+FIELD System.Byte Game.Rendering.MeshBatch::m_MeshGroup
+FIELD System.Byte Game.Rendering.MeshBatch::m_MeshIndex
+FIELD System.Byte Game.Rendering.MeshBatch::m_TileIndex
+TYPE Game.UpdateSystem
+API Game.SystemUpdatePhase Game.UpdateSystem::get_currentPhase()
+API System.Void Game.UpdateSystem::RegisterGPUSystem()
+API System.Void Game.UpdateSystem::RegisterGPUSystem(Game.IGPUSystem)
+API System.Void Game.UpdateSystem::UpdateAt(Game.SystemUpdatePhase)
+API System.Void Game.UpdateSystem::UpdateBefore(Game.SystemUpdatePhase)
+API System.Void Game.UpdateSystem::UpdateAfter(Game.SystemUpdatePhase)
+API System.Void Game.UpdateSystem::UpdateBefore(Game.SystemUpdatePhase)
+API System.Void Game.UpdateSystem::UpdateAfter(Game.SystemUpdatePhase)
+API System.Void Game.UpdateSystem::Update(Game.SystemUpdatePhase)
+API System.Void Game.UpdateSystem::Update(Game.SystemUpdatePhase,System.UInt32,System.Int32)
+API System.Void Game.UpdateSystem::GetInterval(Unity.Entities.ComponentSystemBase,Game.SystemUpdatePhase,System.Int32&,System.Int32&)
+API System.Void Game.UpdateSystem::.ctor()

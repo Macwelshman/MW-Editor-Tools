@@ -71,13 +71,15 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 ClearMain();armed=nestedArmed=nestedForestArmed=lastArmed=false;forestBefore=null;nestedBefore=null;nestedReferences=null;capturedRootTypes=null;areaOwnerTransform=em.GetComponentData<Game.Objects.Transform>(owner);
                 areaCaptureStable=0;areaCaptureStableFrame=-1;before=image;after=null;beforeAreas=areas;afterAreas=null;areaCapture=true;deletedArea=id;
                 observedOwner=owner;beforeGraph=Array.Empty<GraphValue>();afterGraph=null;
+                ClearBoundCapture();boundBefore=CaptureBoundCompanions(owner);
                 dispatched=sourceMatched=false;session.Begin(asset,Time.frameCount);
                 Status="Capturing area/surface deletion…";
                 Mod.Log.Info("Area recovery capture: asset="+asset.name+" areas="+areas.Length+" target="+id);
-            }catch(Exception error){ClearAreaCompanions();ClearRecord();areaCapture=false;session.Reset();Status="Area Undo unavailable: "+error.Message;Mod.Log.Info(Status);if(!(error is NotSupportedException))Mod.Log.Warn("Area capture exception: "+error);}
+            }catch(Exception error){ClearBoundCapture();ClearAreaCompanions();ClearRecord();areaCapture=false;session.Reset();Status="Area Undo unavailable: "+error.Message;Mod.Log.Info(Status);if(!(error is NotSupportedException))Mod.Log.Warn("Area capture exception: "+error);}
             return true;
         }
         private bool AreaCaptureReady(){
+            if(boundBefore!=null)return BoundCaptureReady();
             bool ready=false;
             try{ready=after!=null&&session.Matches(TargetRoot)&&after.Matches(session.Asset)&&OwnerMatches(new Record{Area=true,AreaOwnerTransform=areaOwnerTransform,Asset=session.Asset,Owner=observedOwner})&&AreasMatch(afterAreas,observedOwner)&&AreaLiveCompanionsMatch();}
             catch(NotSupportedException){ready=false;}
@@ -130,6 +132,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         }
         private static bool AreaAncillaryMatches(FieldValue field) {
             var current=field.Field.GetValue(field.Owner);
+            if(field.Data.Matches(current))return true;
             if(field.Owner is ObjectSubObjects&&field.Field.Name=="m_SubObjects")return DescriptorPermutation.Matches((ObjectSubObjectInfo[])field.Data.Materialize(),(ObjectSubObjectInfo[])current);
             if(field.Owner is ObjectSubNets&&field.Field.Name=="m_SubNets")return AreaNetDescriptorPolicy.MatchesSet((ObjectSubNetInfo[])field.Data.Materialize(),(ObjectSubNetInfo[])current);
             if(field.Owner is EffectSource&&field.Field.Name=="m_Effects")return DescriptorPermutation.Matches(((List<EffectSource.EffectSettings>)field.Data.Materialize())?.ToArray(),((List<EffectSource.EffectSettings>)current)?.ToArray(),(a,b)=>PrefabSnapshot.Take(a).MatchesNativeGeometry(b));

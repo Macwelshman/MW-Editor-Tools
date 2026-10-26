@@ -1,0 +1,9 @@
+# Restricted Spawn Location acceptance — 0.4.209
+
+VERIFIED-RUNTIME 2026-10-23: MW Mixed Test Components. First deletion target Entity(53037:1); recorded 12:31:53.656; Undo starts12:31:54.717, retained typed values restore3 changed/new groups and57 unchanged groups, completion12:31:54.788 explicitly verifies source, graph and companions. First full Undo is accepted for this test.
+
+Second deletion target Entity(53035:1) at12:31:56.430 applies natively and removes one object (60->59). At12:31:56.488 the deletion capture waits on "deleted spawn/access object's generated connection closure differs"; timeout12:31:59.265. No second history entry or second Undo dispatch was recorded. Third deletion Entity(53036:1) likewise applies (59->58) and fails that same capture guard, timeout12:32:02.989. This is a post-deletion capture failure after successful recovery, not another restoration timeout or permanently pending first Undo.
+
+VERIFIED-STATIC: BoundCaptureReady calls OwnedConnectionPolicy.AfterObjectDeletion and emits this reason only when the projection returns null. Policy currently requires removed generated-lane closure and identity-preserving retained graph; added lane IDs and remapped survivors are refused. The precise null branch is UNPROVEN because the policy returns no branch-specific diagnostic. HYPOTHESIS: native connection identities/directions after a prior restoration differ from the capture policy's assumptions. Do not reuse restoration allowances without separately proving the deleted closure, retained object ownership, all companion references and unchanged remaining geometry/settings.
+
+No code or installed files changed in this diagnostic turn. Repeated deletion/Undo acceptance remains incomplete. Reload disposable test state before further testing to recover unrecorded deletions.

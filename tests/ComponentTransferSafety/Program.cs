@@ -63,6 +63,13 @@ class Program {
  var failureDest=new PrefabBase();var failureTarget=new TransferTarget(world,failureDest,failureDest);var directFailure=new TransferSession();registry.FailUpdates=1;
  Refuses(()=>directFailure.Paste(failureTarget,directClipboard,TransferMode.ComponentsAndSettings),"one-click refresh failure accepted");Check(failureDest.components.Count==0,"one-click rollback leaked components");
  failureDest.isReadOnly=true;Refuses(()=>directFailure.Paste(failureTarget,directClipboard,TransferMode.ComponentsAndSettings),"one-click read-only accepted");
+ PackChecks.Run(world,registry,Check,Refuses);
+ foreach(var action in new[]{"paste","preview","apply"}){
+  var immediateDest=new PrefabBase{name="Immediate"};var immediateTarget=new TransferTarget(world,immediateDest,immediateDest);var immediate=new TransferSession();int commits=0;immediate.BeforeWrite=()=>commits++;
+  immediate.ExecutePasteCommand(action,immediateTarget,directClipboard,TransferMode.ComponentsAndSettings);
+  Check(immediateDest.components.Count==2&&commits==1&&immediate.CanRestore&&!immediate.CanApply,"paste compatibility action commits immediately without a second apply: "+action);
+  immediate.ExecutePasteCommand("recover",immediateTarget,directClipboard,TransferMode.ComponentsAndSettings);Check(immediateDest.components.Count==0&&!immediate.CanRestore,"Recover restores the latest paste: "+action);
+ }
  Console.WriteLine("PASS: "+count+" actual-source component transfer checks (managed doubles; native editor acceptance pending).");
  }
 }

@@ -1,0 +1,6 @@
+Installed 0.4.221 diagnostic bookkeeping correction after Cities2 absence checks.
+Backup: C:\Users\ian\Documents\Development\MW Editor Tools\outputs\rollback\MWEditorTools-before-0.4.221-20261023-164838\MWEditorTools
+Verified backup files: 9
+MW.EditorTools.dll 45380F63A57D93432F3F2E220FB70010539E31BFAA4FF9364F331367ED9F88FD
+MW.EditorTools.mjs F41A630666FAD114F6D9B84CA771B7C06CD3E689729C935D2C3D4DDFE42C10C8
+MW.EditorTools.css FF4FA9F180CC80AE752F907B6DD8A3AEF27231CB3F9077089E8CC9974AE1F109

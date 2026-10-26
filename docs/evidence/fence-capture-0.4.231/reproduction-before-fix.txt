@@ -1,0 +1,4 @@
+Unhandled exception. System.Exception: FAILED network deletion: retained typed lane survives fence deletion kind=0
+   at NetworkDeletionChecks.Check(Boolean v, String label) in C:\Users\ian\Documents\Development\MW Editor Tools\tests\Phase3Safety\NetworkDeletionChecks.cs:line 12
+   at NetworkDeletionChecks.Run() in C:\Users\ian\Documents\Development\MW Editor Tools\tests\Phase3Safety\NetworkDeletionChecks.cs:line 43
+   at Program.Main() in C:\Users\ian\Documents\Development\MW Editor Tools\tests\Phase3Safety\Program.cs:line 31

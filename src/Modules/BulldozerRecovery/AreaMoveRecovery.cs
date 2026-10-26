@@ -36,7 +36,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 Patch(typeof(AreaToolSystem),"Cancel",new[]{typeof(JobHandle),typeof(bool)},nameof(BeforeAreaMoveCancel),nameof(AfterAreaMoveCancel));
                 Patch(typeof(ToolBaseSystem),"GetAllowApply",Type.EmptyTypes,null,nameof(AreaMoveAllowed));
                 Mod.Log.Info("Built-in area/surface move Undo attached; native completion checks required.");
-            }catch(Exception error){foreach(var m in methods)if(m!=null)harmony.Unpatch(m,HarmonyLib.HarmonyPatchType.All,Id);areaMoveDisabled=true;Mod.Log.Warn("Area move Undo unavailable; prop/deletion recovery preserved: "+error.Message);}
+            }catch(Exception error){foreach(var m in methods)if(m!=null){patchMonitor.Forget(m);harmony.Unpatch(m,HarmonyLib.HarmonyPatchType.All,Id);}areaMoveDisabled=true;Mod.Log.Warn("Area move Undo unavailable; prop/deletion recovery preserved: "+error.Message);}
         }
         private void CancelAreaMovePreview(){if(areaMoveCommitted||areaMoveRestoring)return;areaMoveCandidate=null;areaMovePreview=false;areaMoveInApply=false;}
         private bool AreaMovePreviewTargets(AreaToolSystem tool,Entity target) {
@@ -124,13 +124,26 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                         if(!NetworkRowsMatchGraph(owner.Before,owner.Network))throw new NotSupportedException("Area owner network source descriptors differ from native graph.");
                         var saved=owner.Areas.Select(a=>AreaMovePolicy.SavedPositions(a.Nodes,a.Local,owner.Transform.m_Position,owner.Transform.m_Rotation)).ToArray();
                         if(!AreaMovePolicy.Sources(owner.Asset.GetComponent<ObjectSubAreas>()?.m_SubAreas,owner.Areas.Select(a=>a.Prefab as AreaPrefab).ToArray(),owner.Areas.Select(a=>a.Local).ToArray(),saved))throw new NotSupportedException("Area polygon source descriptors differ from native saved node positions or parent meshes.");
-                        var props=MatchForest(prior.Props,owner.Props);
-                        if(props==null||!prior.Props.Select((g,i)=>NestedGroupAtIndex(g,props[i],BoundDescriptorIndex.Resolve(owner.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects,g[0].Prefab,g[0].Local))).All(v=>v)||!AreaCompanionEffect.Matches(prior.Effects,owner.Effects)||!prior.Network.TryMap(owner.Network,true,out _))throw new NotSupportedException("Area move changed retained props/effects/networks.");
+
                     }
                     var id=FindMovedArea(e,owner);
                     if(!AreaMoveSettled(id))throw new NotSupportedException("Area native update pending.");
                     var actual=CaptureStandaloneArea(id,e.Bound);
                     if(!AreaMoveMetadata(e.Before,actual,e.Bound))throw new NotSupportedException("Area move changed vertex topology, attachments or metadata: "+AreaMovePolicy.ShapeDifference(e.Before.Data,actual.Data,!e.Bound)+"; prefab="+ReferenceEquals(e.Before.Prefab,actual.Prefab)+" kind="+(e.Before.Surface==actual.Surface&&e.Before.Space==actual.Space)+" navigation="+(e.Before.Navigation==actual.Navigation)+" hangaround="+(e.Before.Hangaround==actual.Hangaround)+" container="+(e.Before.HasContainer==actual.HasContainer&&ReferenceEquals(e.Before.Container,actual.Container)&&e.Before.ContainerData.Equals(actual.ContainerData))+" seedPresence="+(e.Before.HasSeed==actual.HasSeed)+" expansion="+(e.Before.HasExpand==actual.HasExpand&&(!e.Before.HasExpand||AreaMovePolicy.ExpansionShape(e.Before.Expand,actual.Expand))));
+                    if(e.Bound){
+                        var prior=e.BoundBefore;var props=MatchForest(prior.Props,owner.Props);
+                        if(!BoundLiveSettled(owner.CompanionMap,e.Owner,owner.Props.SelectMany(GroupSources)))throw new NotSupportedException("Area edit retained companion initialization is pending.");
+                        if(props==null||!AreaCompanionEffect.Matches(prior.Effects,owner.Effects)||!prior.Network.TryMap(owner.Network,true,out var rootMap))
+                            throw new NotSupportedException("Area edit retained prop membership, effect values or root network changed: "+prior.Network.ExplainMismatch(owner.Network,true));
+                        var referenceMap=EntityReferenceMap.WithOwnerPrefab(rootMap,prior.Owner,prior.OwnerPrefab,owner.OwnerPrefab);
+                        if(!MapAreaLanes(prior.CompanionMap.WithoutArea(e.Target),owner.CompanionMap.WithoutArea(id),referenceMap,true))
+                            throw new NotSupportedException("Area edit changed a retained area or its generated lane graph.");
+                        if(!OwnedConnectionPolicy.MapEditedArea(e.Before.Network,actual.Network,out var editedMap)||!CompanionSourcesValid(e.Before.Network.Items.Select(i=>i.Id),actual.Network.Items.Select(i=>i.Id)))
+                            throw new NotSupportedException("Edited area generated lane paths, metadata or surviving source identities differ.");
+                        foreach(var link in editedMap)if(!EntityReferenceMap.Add(referenceMap,link.Key,link.Value))throw new NotSupportedException("Edited area reference map is ambiguous.");
+                        if(!AddForestMap(prior.Props,props,referenceMap)||!prior.Props.Select((g,i)=>NestedGroupAtIndex(g,props[i],BoundDescriptorIndex.ResolveNative(owner.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects,g[0].Prefab,g[0].Local,prior.Transform,g[0].Data.Transform),referenceMap)).All(v=>v))
+                            throw new NotSupportedException("Area edit changed retained prop data, placement or mapped spawn/access references.");
+                    }
                     if(e.Before.Data.Matches(actual.Data)&&StandaloneAreaMatches(e.Before,actual)&&e.Before.Network.TryMap(actual.Network,true,out _)&&(!e.Bound||e.BoundBefore.Before.Matches(owner.Asset))){CancelCommittedAreaMove();Status="Area move unchanged; previous Undo retained.";return;}
                     if(e.After==null||!StandaloneAreaMatches(e.After,actual)||!e.After.Network.TryMap(actual.Network,true,out _)||(e.Bound&&(e.BoundAfter==null||!e.BoundAfter.Before.Matches(owner.Asset)))){e.After=actual;e.Live=id;e.BoundAfter=owner;areaMoveStable=0;}
                     valid=true;
@@ -143,10 +156,10 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
                 else {e=CombineAddedNodeMove(e);ClearMovePrevious();ClearMove();
                     if(e.Bound){foreach(var key in new[]{"ObjectSubObjects.m_SubObjects","ObjectSubNets.m_SubNets","ObjectSubLanes.m_SubLanes","EffectSource.m_Effects"})if(e.BoundBefore.Before.Values.ContainsKey(key)&&e.BoundAfter.Before.Values.TryGetValue(key,out var value)){e.BoundBefore.Before.Values[key]=value;foreach(var f in e.BoundBefore.Before.Fields.Where(f=>f.Owner.GetType().Name+"."+f.Field.Name==key))f.Data=value;}
                         // The retained prop rows have adopted the proved native
-                        // representation. Align only detached root indices to it;
+                        // representation. Align detached root cache expectations to it;
                         // restoration must still check every other captured value.
                         var rows=e.BoundAfter.Asset.GetComponent<ObjectSubObjects>()?.m_SubObjects;
-                        var roots=e.BoundBefore.Props.Select(g=>BoundDescriptorIndex.ForSource(rows,g[0].Prefab,g[0].Local)).ToArray();
+                        var roots=e.BoundBefore.Props.Select(g=>BoundDescriptorIndex.ForNativeSource(rows,g[0].Prefab,g[0].Local,e.BoundBefore.Transform,g[0].Data.Transform)).ToArray();
                         for(int g=0;g<roots.Length;g++)e.BoundBefore.Props[g][0].Local=roots[g];
                         e.BoundBefore.After=e.BoundAfter.Before;e.BoundBefore.Target=e.Target;e.BoundBefore.TargetPrefab=e.Before.Prefab;}
                     e.AddedNode=e.AddedNode>=0?e.AddedNode:AreaNodeEditPolicy.AddedIndex(e.Before.Data,e.After.Data,e.Bound);

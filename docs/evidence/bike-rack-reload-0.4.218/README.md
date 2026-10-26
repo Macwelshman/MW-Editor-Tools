@@ -1,0 +1,9 @@
+# Bike-rack move Undo failure — 0.4.218
+
+VERIFIED-RUNTIME: after the user's earlier 0.4.217 acceptance, the 0.4.218 test reports first rack move timeout at 15:53:54.449 on a retained FenceResidentialHigh01 lane typed survivor reservation; no Undo entry recorded. Second rack move reaches ready at 15:53:58.264, then a transient Updated component on FenceIndustrialPieceLow02 blocks readiness and a persistent rack source association mismatch follows. At 15:54:03.292 the retained rack mismatch also refuses a Grill01 move capture. No successful Undo completion in this session. Full original log preserved locally alongside this note.
+
+The rack live/cache world-derived local rotation is (0,1,0,0) and local Y0, while saved source row53 has Y-0.01330566 and quaternion(-0.008925325,0.9999602,0,0), same horizontal placement/settings. This discrepancy has no proved current-world serialization witness; preserving the refusal is necessary until its transition is established.
+
+VERIFIED-STATIC/MANAGED: a fixture using the log's printed fence curve values passes the existing native rounding rules, including the bike-rack proof. Therefore those rounded heights alone do not establish the cause. Current text omits garage/car/pedestrian/slave data and prints only short float values. Full live mismatch cause remains UNPROVEN; no broad rounding or source association relaxation is justified. The 0.4.218 cleanup changed no Undo validation rule, so a causal regression from that cleanup is also UNPROVEN.
+
+Release gate: unresolved bike-rack first/repeated move Undo and subsequent supported action availability. Previous colour/priority/component save/reopen acceptance remains valid. Next smallest experiment is a fresh-load rack move/Undo, repeat, then pedestrian marker and ordinary prop with exact mismatch diagnostics in0.4.219.

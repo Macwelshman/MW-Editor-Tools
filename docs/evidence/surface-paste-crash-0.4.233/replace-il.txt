@@ -1,0 +1,1699 @@
+System.Void Game.Prefabs.ReplacePrefabSystem::ReplacePrefab(Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem::m_OldPrefab
+IL_0007: ldarg.0
+IL_0008: ldarg.2
+IL_0009: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem::m_NewPrefab
+IL_000e: ldarg.0
+IL_000f: ldarg.3
+IL_0010: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem::m_SourceInstance
+IL_0015: ldarg.0
+IL_0016: ldc.i4.1
+IL_0017: call System.Void Unity.Entities.ComponentSystemBase::set_Enabled(System.Boolean)
+IL_001c: ldarg.0
+IL_001d: callvirt System.Void Unity.Entities.ComponentSystemBase::Update()
+IL_0022: leave.s IL_002c
+IL_0024: ldarg.0
+IL_0025: ldc.i4.0
+IL_0026: call System.Void Unity.Entities.ComponentSystemBase::set_Enabled(System.Boolean)
+IL_002b: endfinally
+IL_002c: ret
+System.Void Game.Prefabs.ReplacePrefabSystem::CheckInstanceComponents(Unity.Entities.Entity,System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>,System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0000: ldarg.0
+IL_0001: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0006: ldarg.1
+IL_0007: ldloca.s V_0
+IL_0009: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.PrefabRef>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_000e: brtrue.s IL_0011
+IL_0010: ret
+IL_0011: ldarg.0
+IL_0012: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0017: stloc.2
+IL_0018: ldloca.s V_2
+IL_001a: ldarg.1
+IL_001b: call Unity.Entities.ArchetypeChunk Unity.Entities.EntityManager::GetChunk(Unity.Entities.Entity)
+IL_0020: stloc.3
+IL_0021: ldloca.s V_3
+IL_0023: call Unity.Entities.EntityArchetype Unity.Entities.ArchetypeChunk::get_Archetype()
+IL_0028: stloc.s V_4
+IL_002a: ldloca.s V_4
+IL_002c: ldc.i4.2
+IL_002d: call Unity.Collections.NativeArray`1<Unity.Entities.ComponentType> Unity.Entities.EntityArchetype::GetComponentTypes(Unity.Collections.Allocator)
+IL_0032: stloc.1
+IL_0033: ldarg.0
+IL_0034: ldfld Game.Prefabs.PrefabSystem Game.Prefabs.ReplacePrefabSystem::m_PrefabSystem
+IL_0039: ldloc.0
+IL_003a: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.PrefabBase>(Game.Prefabs.PrefabRef)
+IL_003f: ldarg.3
+IL_0040: callvirt System.Void Game.Prefabs.ComponentBase::GetArchetypeComponents(System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>)
+IL_0045: ldloca.s V_1
+IL_0047: call Unity.Collections.NativeArray`1/Enumerator<!0> Unity.Collections.NativeArray`1<Unity.Entities.ComponentType>::GetEnumerator()
+IL_004c: stloc.s V_5
+IL_004e: br.s IL_008a
+IL_0050: ldloca.s V_5
+IL_0052: call !0 Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.ComponentType>::get_Current()
+IL_0057: stloc.s V_6
+IL_0059: ldarg.2
+IL_005a: ldloc.s V_6
+IL_005c: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Contains(!0)
+IL_0061: brfalse.s IL_008a
+IL_0063: ldarg.3
+IL_0064: ldloc.s V_6
+IL_0066: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Contains(!0)
+IL_006b: brfalse.s IL_0078
+IL_006d: ldarg.3
+IL_006e: ldloc.s V_6
+IL_0070: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Remove(!0)
+IL_0075: pop
+IL_0076: br.s IL_008a
+IL_0078: ldarg.0
+IL_0079: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_007e: stloc.2
+IL_007f: ldloca.s V_2
+IL_0081: ldarg.1
+IL_0082: ldloc.s V_6
+IL_0084: call System.Boolean Unity.Entities.EntityManager::RemoveComponent(Unity.Entities.Entity,Unity.Entities.ComponentType)
+IL_0089: pop
+IL_008a: ldloca.s V_5
+IL_008c: call System.Boolean Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.ComponentType>::MoveNext()
+IL_0091: brtrue.s IL_0050
+IL_0093: leave.s IL_00a3
+IL_0095: ldloca.s V_5
+IL_0097: constrained. Unity.Collections.NativeArray`1/Enumerator<Unity.Entities.ComponentType>
+IL_009d: callvirt System.Void System.IDisposable::Dispose()
+IL_00a2: endfinally
+IL_00a3: ldarg.3
+IL_00a4: callvirt System.Collections.Generic.HashSet`1/Enumerator<!0> System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::GetEnumerator()
+IL_00a9: stloc.s V_7
+IL_00ab: br.s IL_00d2
+IL_00ad: ldloca.s V_7
+IL_00af: call !0 System.Collections.Generic.HashSet`1/Enumerator<Unity.Entities.ComponentType>::get_Current()
+IL_00b4: stloc.s V_8
+IL_00b6: ldarg.2
+IL_00b7: ldloc.s V_8
+IL_00b9: callvirt System.Boolean System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Contains(!0)
+IL_00be: brfalse.s IL_00d2
+IL_00c0: ldarg.0
+IL_00c1: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00c6: stloc.2
+IL_00c7: ldloca.s V_2
+IL_00c9: ldarg.1
+IL_00ca: ldloc.s V_8
+IL_00cc: call System.Boolean Unity.Entities.EntityManager::AddComponent(Unity.Entities.Entity,Unity.Entities.ComponentType)
+IL_00d1: pop
+IL_00d2: ldloca.s V_7
+IL_00d4: call System.Boolean System.Collections.Generic.HashSet`1/Enumerator<Unity.Entities.ComponentType>::MoveNext()
+IL_00d9: brtrue.s IL_00ad
+IL_00db: leave.s IL_00eb
+IL_00dd: ldloca.s V_7
+IL_00df: constrained. System.Collections.Generic.HashSet`1/Enumerator<Unity.Entities.ComponentType>
+IL_00e5: callvirt System.Void System.IDisposable::Dispose()
+IL_00ea: endfinally
+IL_00eb: ldarg.3
+IL_00ec: callvirt System.Void System.Collections.Generic.HashSet`1<Unity.Entities.ComponentType>::Clear()
+IL_00f1: ldloca.s V_1
+IL_00f3: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.ComponentType>::Dispose()
+IL_00f8: ret
+System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::Execute(System.Int32)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeArray`1<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_Instances
+IL_0006: ldarg.1
+IL_0007: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_000c: stloc.0
+IL_000d: ldarg.0
+IL_000e: ldflda Game.Common.RandomSeed Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_RandomSeed
+IL_0013: ldarg.1
+IL_0014: call Unity.Mathematics.Random Game.Common.RandomSeed::GetRandom(System.Int32)
+IL_0019: stloc.1
+IL_001a: ldloca.s V_2
+IL_001c: initobj Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>
+IL_0022: ldarg.0
+IL_0023: ldflda Unity.Entities.ComponentLookup`1<Game.Tools.Temp> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_TempData
+IL_0028: ldloc.0
+IL_0029: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Tools.Temp>::HasComponent(Unity.Entities.Entity)
+IL_002e: brtrue IL_010d
+IL_0033: ldarg.0
+IL_0034: ldflda Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_PrefabRefData
+IL_0039: ldloc.0
+IL_003a: ldloca.s V_3
+IL_003c: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_0041: brfalse IL_010d
+IL_0046: ldarg.0
+IL_0047: ldflda Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_ReplacePrefabData
+IL_004c: ldloc.3
+IL_004d: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0052: ldloca.s V_4
+IL_0054: call System.Boolean Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData>::TryGetValue(!0,!1&)
+IL_0059: brfalse IL_010d
+IL_005e: ldloc.s V_4
+IL_0060: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_SourceInstance
+IL_0065: ldloc.0
+IL_0066: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_006b: brfalse IL_010d
+IL_0070: ldarg.0
+IL_0071: ldflda Unity.Entities.ComponentLookup`1<Game.Objects.Transform> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_TransformData
+IL_0076: ldloc.0
+IL_0077: ldloca.s V_5
+IL_0079: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Objects.Transform>::TryGetComponent(Unity.Entities.Entity,!0&)
+IL_007e: brfalse IL_010d
+IL_0083: ldarg.0
+IL_0084: ldflda Unity.Entities.ComponentLookup`1<Game.Common.Owner> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_OwnerData
+IL_0089: ldloc.0
+IL_008a: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Common.Owner>::HasComponent(Unity.Entities.Entity)
+IL_008f: brfalse.s IL_00aa
+IL_0091: ldarg.0
+IL_0092: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_0097: brfalse.s IL_00a7
+IL_0099: ldarg.0
+IL_009a: ldflda Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_ServiceUpgradeData
+IL_009f: ldloc.0
+IL_00a0: call System.Boolean Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>::HasComponent(Unity.Entities.Entity)
+IL_00a5: br.s IL_00ab
+IL_00a7: ldc.i4.0
+IL_00a8: br.s IL_00ab
+IL_00aa: ldc.i4.1
+IL_00ab: stloc.s V_6
+IL_00ad: ldloc.s V_6
+IL_00af: brfalse.s IL_00c2
+IL_00b1: ldarg.0
+IL_00b2: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_00b7: brfalse.s IL_00c2
+IL_00b9: ldloc.s V_4
+IL_00bb: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_LanesUpdated
+IL_00c0: br.s IL_00c3
+IL_00c2: ldc.i4.0
+IL_00c3: stloc.s V_7
+IL_00c5: ldloc.s V_4
+IL_00c7: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_AreasUpdated
+IL_00cc: brfalse.s IL_00e4
+IL_00ce: ldarg.0
+IL_00cf: ldarg.1
+IL_00d0: ldloc.0
+IL_00d1: ldloc.3
+IL_00d2: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_00d7: ldloc.s V_5
+IL_00d9: ldloc.s V_6
+IL_00db: ldloca.s V_1
+IL_00dd: ldloca.s V_2
+IL_00df: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::UpdateAreas(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Boolean,Unity.Mathematics.Random&,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>&)
+IL_00e4: ldloc.s V_4
+IL_00e6: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_NetsUpdated
+IL_00eb: ldloc.s V_7
+IL_00ed: or
+IL_00ee: brfalse.s IL_010d
+IL_00f0: ldarg.0
+IL_00f1: ldarg.1
+IL_00f2: ldloc.0
+IL_00f3: ldloc.3
+IL_00f4: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_00f9: ldloc.s V_5
+IL_00fb: ldloc.s V_6
+IL_00fd: ldloc.s V_4
+IL_00ff: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_NetsUpdated
+IL_0104: ldloc.s V_7
+IL_0106: ldloca.s V_1
+IL_0108: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::UpdateNets(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Boolean,System.Boolean,System.Boolean,Unity.Mathematics.Random&)
+IL_010d: ldloca.s V_2
+IL_010f: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::get_IsCreated()
+IL_0114: brfalse.s IL_011d
+IL_0116: ldloca.s V_2
+IL_0118: call System.Void Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::Dispose()
+IL_011d: ret
+System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::UpdateAreas(System.Int32,Unity.Entities.Entity,Unity.Entities.Entity,Game.Objects.Transform,System.Boolean,Unity.Mathematics.Random&,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>&)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.BufferLookup`1<Game.Objects.SubObject> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_SubObjects
+IL_0006: ldarg.2
+IL_0007: ldloca.s V_0
+IL_0009: call System.Boolean Unity.Entities.BufferLookup`1<Game.Objects.SubObject>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_000e: brfalse.s IL_0049
+IL_0010: ldc.i4.0
+IL_0011: stloc.3
+IL_0012: br.s IL_003f
+IL_0014: ldloca.s V_0
+IL_0016: ldloc.3
+IL_0017: call !0 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Item(System.Int32)
+IL_001c: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_0021: stloc.s V_4
+IL_0023: ldarg.0
+IL_0024: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_0029: ldarg.1
+IL_002a: ldloc.s V_4
+IL_002c: ldloca.s V_5
+IL_002e: initobj Game.Common.Updated
+IL_0034: ldloc.s V_5
+IL_0036: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_003b: ldloc.3
+IL_003c: ldc.i4.1
+IL_003d: add
+IL_003e: stloc.3
+IL_003f: ldloc.3
+IL_0040: ldloca.s V_0
+IL_0042: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0047: blt.s IL_0014
+IL_0049: ldarg.0
+IL_004a: ldflda Unity.Entities.BufferLookup`1<Game.Areas.SubArea> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_SubAreas
+IL_004f: ldarg.2
+IL_0050: ldloca.s V_1
+IL_0052: call System.Boolean Unity.Entities.BufferLookup`1<Game.Areas.SubArea>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0057: brfalse.s IL_0089
+IL_0059: ldc.i4.0
+IL_005a: stloc.s V_6
+IL_005c: br.s IL_007e
+IL_005e: ldarg.0
+IL_005f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_0064: ldarg.1
+IL_0065: ldloca.s V_1
+IL_0067: ldloc.s V_6
+IL_0069: call !0 Unity.Entities.DynamicBuffer`1<Game.Areas.SubArea>::get_Item(System.Int32)
+IL_006e: ldfld Unity.Entities.Entity Game.Areas.SubArea::m_Area
+IL_0073: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Deleted>(System.Int32,Unity.Entities.Entity)
+IL_0078: ldloc.s V_6
+IL_007a: ldc.i4.1
+IL_007b: add
+IL_007c: stloc.s V_6
+IL_007e: ldloc.s V_6
+IL_0080: ldloca.s V_1
+IL_0082: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Areas.SubArea>::get_Length()
+IL_0087: blt.s IL_005e
+IL_0089: ldarg.0
+IL_008a: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubArea> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_PrefabSubAreas
+IL_008f: ldarg.3
+IL_0090: ldloca.s V_2
+IL_0092: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubArea>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_0097: brfalse.s IL_00dc
+IL_0099: ldloca.s V_1
+IL_009b: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Areas.SubArea>::get_IsCreated()
+IL_00a0: brtrue.s IL_00b0
+IL_00a2: ldarg.0
+IL_00a3: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_00a8: ldarg.1
+IL_00a9: ldarg.2
+IL_00aa: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Areas.SubArea>(System.Int32,Unity.Entities.Entity)
+IL_00af: pop
+IL_00b0: ldarg.s selectedSpawnables
+IL_00b2: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::get_IsCreated()
+IL_00b7: brfalse.s IL_00c0
+IL_00b9: ldarg.s selectedSpawnables
+IL_00bb: call System.Void Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::Clear()
+IL_00c0: ldarg.0
+IL_00c1: ldarg.1
+IL_00c2: ldarg.2
+IL_00c3: ldarg.s transform
+IL_00c5: ldloc.2
+IL_00c6: ldarg.0
+IL_00c7: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubAreaNode> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_PrefabSubAreaNodes
+IL_00cc: ldarg.3
+IL_00cd: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Prefabs.SubAreaNode>::get_Item(Unity.Entities.Entity)
+IL_00d2: ldarg.s random
+IL_00d4: ldarg.s selectedSpawnables
+IL_00d6: call System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateAreas(System.Int32,Unity.Entities.Entity,Game.Objects.Transform,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>,Unity.Mathematics.Random&,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>&)
+IL_00db: ret
+IL_00dc: ldarg.0
+IL_00dd: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_00e2: brfalse.s IL_00e8
+IL_00e4: ldarg.s isTopLevel
+IL_00e6: brtrue.s IL_00fe
+IL_00e8: ldloca.s V_1
+IL_00ea: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Areas.SubArea>::get_IsCreated()
+IL_00ef: brfalse.s IL_00fe
+IL_00f1: ldarg.0
+IL_00f2: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_00f7: ldarg.1
+IL_00f8: ldarg.2
+IL_00f9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::RemoveComponent<Game.Areas.SubArea>(System.Int32,Unity.Entities.Entity)
+IL_00fe: ret
+System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::CreateAreas(System.Int32,Unity.Entities.Entity,Game.Objects.Transform,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>,Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>,Unity.Mathematics.Random&,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>&)
+IL_0000: ldc.i4.0
+IL_0001: stloc.0
+IL_0002: br IL_0227
+IL_0007: ldarga.s subAreas
+IL_0009: ldloc.0
+IL_000a: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Item(System.Int32)
+IL_000f: stloc.1
+IL_0010: ldarg.0
+IL_0011: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_0016: brtrue.s IL_006f
+IL_0018: ldarg.0
+IL_0019: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.PlaceholderObjectElement> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_PrefabPlaceholderElements
+IL_001e: ldloc.1
+IL_001f: ldfld Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+IL_0024: ldloca.s V_3
+IL_0026: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.PlaceholderObjectElement>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_002b: brfalse.s IL_006f
+IL_002d: ldarg.s selectedSpawnables
+IL_002f: call System.Boolean Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::get_IsCreated()
+IL_0034: brtrue.s IL_004a
+IL_0036: ldarg.s selectedSpawnables
+IL_0038: ldc.i4.s 10
+IL_003a: ldc.i4.2
+IL_003b: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_0040: newobj System.Void Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0045: stobj Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>
+IL_004a: ldloc.3
+IL_004b: ldarg.0
+IL_004c: ldfld Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData> Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_PrefabSpawnableObjectData
+IL_0051: ldarg.s selectedSpawnables
+IL_0053: ldobj Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>
+IL_0058: ldarg.s random
+IL_005a: ldloca.s V_1
+IL_005c: ldflda Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+IL_0061: ldloca.s V_2
+IL_0063: call System.Boolean Game.Areas.AreaUtils::SelectAreaPrefab(Unity.Entities.DynamicBuffer`1<Game.Prefabs.PlaceholderObjectElement>,Unity.Entities.ComponentLookup`1<Game.Prefabs.SpawnableObjectData>,Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>,Unity.Mathematics.Random&,Unity.Entities.Entity&,System.Int32&)
+IL_0068: brtrue.s IL_0077
+IL_006a: br IL_0223
+IL_006f: ldarg.s random
+IL_0071: call System.Int32 Unity.Mathematics.Random::NextInt()
+IL_0076: stloc.2
+IL_0077: ldarg.0
+IL_0078: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_007d: ldarg.1
+IL_007e: call Unity.Entities.Entity Unity.Entities.EntityCommandBuffer/ParallelWriter::CreateEntity(System.Int32)
+IL_0083: stloc.s V_4
+IL_0085: ldloca.s V_5
+IL_0087: initobj Game.Tools.CreationDefinition
+IL_008d: ldloca.s V_5
+IL_008f: ldloc.1
+IL_0090: ldfld Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+IL_0095: stfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Prefab
+IL_009a: ldloca.s V_5
+IL_009c: ldarg.2
+IL_009d: stfld Unity.Entities.Entity Game.Tools.CreationDefinition::m_Owner
+IL_00a2: ldloca.s V_5
+IL_00a4: ldloc.2
+IL_00a5: stfld System.Int32 Game.Tools.CreationDefinition::m_RandomSeed
+IL_00aa: ldloca.s V_5
+IL_00ac: ldflda Game.Tools.CreationFlags Game.Tools.CreationDefinition::m_Flags
+IL_00b1: dup
+IL_00b2: ldind.u4
+IL_00b3: ldc.i4.1
+IL_00b4: or
+IL_00b5: stind.i4
+IL_00b6: ldarg.0
+IL_00b7: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_00bc: ldarg.1
+IL_00bd: ldloc.s V_4
+IL_00bf: ldloc.s V_5
+IL_00c1: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Tools.CreationDefinition>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00c6: ldarg.0
+IL_00c7: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_00cc: ldarg.1
+IL_00cd: ldloc.s V_4
+IL_00cf: ldloca.s V_10
+IL_00d1: initobj Game.Common.Updated
+IL_00d7: ldloc.s V_10
+IL_00d9: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_00de: ldarg.0
+IL_00df: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_00e4: ldarg.1
+IL_00e5: ldloc.s V_4
+IL_00e7: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Areas.Node>(System.Int32,Unity.Entities.Entity)
+IL_00ec: stloc.s V_6
+IL_00ee: ldloca.s V_6
+IL_00f0: ldloc.1
+IL_00f1: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_00f6: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_00fb: ldloc.1
+IL_00fc: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_0101: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0106: sub
+IL_0107: ldc.i4.1
+IL_0108: add
+IL_0109: call System.Void Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::ResizeUninitialized(System.Int32)
+IL_010e: ldloca.s V_7
+IL_0110: initobj Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>
+IL_0116: ldarg.0
+IL_0117: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_011c: brfalse.s IL_013c
+IL_011e: ldarg.0
+IL_011f: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_CommandBuffer
+IL_0124: ldarg.1
+IL_0125: ldloc.s V_4
+IL_0127: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityCommandBuffer/ParallelWriter::AddBuffer<Game.Tools.LocalNodeCache>(System.Int32,Unity.Entities.Entity)
+IL_012c: stloc.s V_7
+IL_012e: ldloca.s V_7
+IL_0130: ldloca.s V_6
+IL_0132: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::get_Length()
+IL_0137: call System.Void Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::ResizeUninitialized(System.Int32)
+IL_013c: ldarg.s subAreaNodes
+IL_013e: ldloc.1
+IL_013f: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_0144: call System.Int32 Game.Tools.ObjectToolBaseSystem::GetFirstNodeIndex(Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>,Unity.Mathematics.int2)
+IL_0149: stloc.s V_8
+IL_014b: ldc.i4.0
+IL_014c: stloc.s V_9
+IL_014e: ldloc.1
+IL_014f: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_0154: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0159: stloc.s V_11
+IL_015b: br IL_0211
+IL_0160: ldarga.s subAreaNodes
+IL_0162: ldloc.s V_8
+IL_0164: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_0169: ldfld Unity.Mathematics.float3 Game.Prefabs.SubAreaNode::m_Position
+IL_016e: stloc.s V_12
+IL_0170: ldarg.3
+IL_0171: ldloc.s V_12
+IL_0173: call Unity.Mathematics.float3 Game.Objects.ObjectUtils::LocalToWorld(Game.Objects.Transform,Unity.Mathematics.float3)
+IL_0178: stloc.s V_13
+IL_017a: ldarga.s subAreaNodes
+IL_017c: ldloc.s V_8
+IL_017e: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_0183: ldfld System.Int32 Game.Prefabs.SubAreaNode::m_ParentMesh
+IL_0188: stloc.s V_14
+IL_018a: ldc.r4 -3.4028235E+38
+IL_018f: ldloc.s V_12
+IL_0191: ldfld System.Single Unity.Mathematics.float3::y
+IL_0196: ldloc.s V_14
+IL_0198: ldc.i4.0
+IL_0199: clt
+IL_019b: ldc.i4.0
+IL_019c: ceq
+IL_019e: call System.Single Unity.Mathematics.math::select(System.Single,System.Single,System.Boolean)
+IL_01a3: stloc.s V_15
+IL_01a5: ldloca.s V_6
+IL_01a7: ldloc.s V_9
+IL_01a9: ldloc.s V_13
+IL_01ab: ldloc.s V_15
+IL_01ad: newobj System.Void Game.Areas.Node::.ctor(Unity.Mathematics.float3,System.Single)
+IL_01b2: call System.Void Unity.Entities.DynamicBuffer`1<Game.Areas.Node>::set_Item(System.Int32,!0)
+IL_01b7: ldarg.0
+IL_01b8: ldfld System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/UpdateInstanceElementsJob::m_EditorMode
+IL_01bd: brfalse.s IL_01e4
+IL_01bf: ldloca.s V_7
+IL_01c1: ldloc.s V_9
+IL_01c3: ldloca.s V_16
+IL_01c5: initobj Game.Tools.LocalNodeCache
+IL_01cb: ldloca.s V_16
+IL_01cd: ldloc.s V_12
+IL_01cf: stfld Unity.Mathematics.float3 Game.Tools.LocalNodeCache::m_Position
+IL_01d4: ldloca.s V_16
+IL_01d6: ldloc.s V_14
+IL_01d8: stfld System.Int32 Game.Tools.LocalNodeCache::m_ParentMesh
+IL_01dd: ldloc.s V_16
+IL_01df: call System.Void Unity.Entities.DynamicBuffer`1<Game.Tools.LocalNodeCache>::set_Item(System.Int32,!0)
+IL_01e4: ldloc.s V_9
+IL_01e6: ldc.i4.1
+IL_01e7: add
+IL_01e8: stloc.s V_9
+IL_01ea: ldloc.s V_8
+IL_01ec: ldc.i4.1
+IL_01ed: add
+IL_01ee: dup
+IL_01ef: stloc.s V_8
+IL_01f1: ldloc.1
+IL_01f2: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_01f7: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_01fc: bne.un.s IL_020b
+IL_01fe: ldloc.1
+IL_01ff: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_0204: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0209: stloc.s V_8
+IL_020b: ldloc.s V_11
+IL_020d: ldc.i4.1
+IL_020e: add
+IL_020f: stloc.s V_11
+IL_0211: ldloc.s V_11
+IL_0213: ldloc.1
+IL_0214: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_0219: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_021e: ble IL_0160
+IL_0223: ldloc.0
+IL_0224: ldc.i4.1
+IL_0225: add
+IL_0226: stloc.0
+IL_0227: ldloc.0
+IL_0228: ldarga.s subAreas
+IL_022a: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+IL_022f: blt IL_0007
+IL_0234: ret
+System.Void Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::Execute()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData> Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::m_ReplacePrefabData
+IL_0006: ldc.i4.2
+IL_0007: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_000c: call Unity.Collections.NativeArray`1<!0> Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData>::GetKeyArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0011: stloc.0
+IL_0012: ldc.i4.0
+IL_0013: stloc.1
+IL_0014: br.s IL_0079
+IL_0016: ldloca.s V_0
+IL_0018: ldloc.1
+IL_0019: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_001e: stloc.2
+IL_001f: ldarg.0
+IL_0020: ldflda Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData> Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::m_ReplacePrefabData
+IL_0025: ldloc.2
+IL_0026: call !1 Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData>::get_Item(!0)
+IL_002b: stloc.3
+IL_002c: ldloca.s V_3
+IL_002e: ldarg.0
+IL_002f: ldloc.2
+IL_0030: ldloc.3
+IL_0031: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_OldPrefab
+IL_0036: call System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::CompareAreas(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_003b: stfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_AreasUpdated
+IL_0040: ldloca.s V_3
+IL_0042: ldarg.0
+IL_0043: ldloc.2
+IL_0044: ldloc.3
+IL_0045: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_OldPrefab
+IL_004a: call System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::CompareNets(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_004f: stfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_NetsUpdated
+IL_0054: ldloca.s V_3
+IL_0056: ldarg.0
+IL_0057: ldloc.2
+IL_0058: ldloc.3
+IL_0059: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_OldPrefab
+IL_005e: call System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::CompareLanes(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0063: stfld System.Boolean Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData::m_LanesUpdated
+IL_0068: ldarg.0
+IL_0069: ldflda Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData> Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::m_ReplacePrefabData
+IL_006e: ldloc.2
+IL_006f: ldloc.3
+IL_0070: call System.Void Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData>::set_Item(!0,!1)
+IL_0075: ldloc.1
+IL_0076: ldc.i4.1
+IL_0077: add
+IL_0078: stloc.1
+IL_0079: ldloc.1
+IL_007a: ldloca.s V_0
+IL_007c: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_0081: blt.s IL_0016
+IL_0083: ldloca.s V_0
+IL_0085: call System.Void Unity.Collections.NativeArray`1<Unity.Entities.Entity>::Dispose()
+IL_008a: ret
+System.Boolean Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::CompareAreas(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubArea> Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::m_PrefabSubAreas
+IL_0006: ldarg.1
+IL_0007: ldloca.s V_0
+IL_0009: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubArea>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_000e: pop
+IL_000f: ldarg.0
+IL_0010: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubArea> Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::m_PrefabSubAreas
+IL_0015: ldarg.2
+IL_0016: ldloca.s V_1
+IL_0018: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubArea>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_001d: pop
+IL_001e: ldloca.s V_0
+IL_0020: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_IsCreated()
+IL_0025: brfalse.s IL_0030
+IL_0027: ldloca.s V_1
+IL_0029: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_IsCreated()
+IL_002e: brtrue.s IL_0043
+IL_0030: ldloca.s V_0
+IL_0032: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_IsCreated()
+IL_0037: brtrue.s IL_0041
+IL_0039: ldloca.s V_1
+IL_003b: call System.Boolean Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_IsCreated()
+IL_0040: ret
+IL_0041: ldc.i4.1
+IL_0042: ret
+IL_0043: ldloca.s V_0
+IL_0045: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+IL_004a: ldloca.s V_1
+IL_004c: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+IL_0051: beq.s IL_0055
+IL_0053: ldc.i4.1
+IL_0054: ret
+IL_0055: ldloca.s V_0
+IL_0057: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+IL_005c: brtrue.s IL_0060
+IL_005e: ldc.i4.0
+IL_005f: ret
+IL_0060: ldarg.0
+IL_0061: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubAreaNode> Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::m_PrefabSubAreaNodes
+IL_0066: ldarg.1
+IL_0067: ldloca.s V_2
+IL_0069: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubAreaNode>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_006e: pop
+IL_006f: ldarg.0
+IL_0070: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.SubAreaNode> Game.Prefabs.ReplacePrefabSystem/Finalize/CheckPrefabReplacesJob::m_PrefabSubAreaNodes
+IL_0075: ldarg.2
+IL_0076: ldloca.s V_3
+IL_0078: call System.Boolean Unity.Entities.BufferLookup`1<Game.Prefabs.SubAreaNode>::TryGetBuffer(Unity.Entities.Entity,Unity.Entities.DynamicBuffer`1<!0>&)
+IL_007d: pop
+IL_007e: ldloca.s V_2
+IL_0080: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Length()
+IL_0085: ldloca.s V_3
+IL_0087: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Length()
+IL_008c: beq.s IL_0090
+IL_008e: ldc.i4.1
+IL_008f: ret
+IL_0090: ldloca.s V_4
+IL_0092: ldloca.s V_1
+IL_0094: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+IL_0099: ldc.i4.2
+IL_009a: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_009f: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey,System.Int32>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_00a4: ldc.i4.0
+IL_00a5: stloc.s V_5
+IL_00a7: ldc.i4.0
+IL_00a8: stloc.s V_6
+IL_00aa: br.s IL_0129
+IL_00ac: ldloca.s V_1
+IL_00ae: ldloc.s V_6
+IL_00b0: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Item(System.Int32)
+IL_00b5: stloc.s V_7
+IL_00b7: ldloc.s V_7
+IL_00b9: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_00be: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_00c3: ldloc.s V_7
+IL_00c5: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_00ca: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_00cf: sub
+IL_00d0: stloc.s V_8
+IL_00d2: ldloca.s V_10
+IL_00d4: initobj Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey
+IL_00da: ldloca.s V_10
+IL_00dc: ldloc.s V_7
+IL_00de: ldfld Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+IL_00e3: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey::m_Prefab
+IL_00e8: ldloca.s V_10
+IL_00ea: ldloc.s V_8
+IL_00ec: stfld System.Int32 Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey::m_NodeCount
+IL_00f1: ldloc.s V_10
+IL_00f3: stloc.s V_9
+IL_00f5: ldloc.s V_8
+IL_00f7: brfalse.s IL_0118
+IL_00f9: ldloca.s V_9
+IL_00fb: ldloca.s V_3
+IL_00fd: ldloc.s V_7
+IL_00ff: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_0104: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0109: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_010e: ldfld Unity.Mathematics.float3 Game.Prefabs.SubAreaNode::m_Position
+IL_0113: stfld Unity.Mathematics.float3 Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey::m_StartLocation
+IL_0118: ldloca.s V_4
+IL_011a: ldloc.s V_9
+IL_011c: ldloc.s V_6
+IL_011e: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey,System.Int32>::Add(!0,!1)
+IL_0123: ldloc.s V_6
+IL_0125: ldc.i4.1
+IL_0126: add
+IL_0127: stloc.s V_6
+IL_0129: ldloc.s V_6
+IL_012b: ldloca.s V_1
+IL_012d: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+IL_0132: blt IL_00ac
+IL_0137: ldc.i4.0
+IL_0138: stloc.s V_11
+IL_013a: br IL_026a
+IL_013f: ldloca.s V_0
+IL_0141: ldloc.s V_11
+IL_0143: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Item(System.Int32)
+IL_0148: stloc.s V_12
+IL_014a: ldloc.s V_12
+IL_014c: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_0151: ldfld System.Int32 Unity.Mathematics.int2::y
+IL_0156: ldloc.s V_12
+IL_0158: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_015d: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_0162: sub
+IL_0163: stloc.s V_13
+IL_0165: ldloca.s V_10
+IL_0167: initobj Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey
+IL_016d: ldloca.s V_10
+IL_016f: ldloc.s V_12
+IL_0171: ldfld Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+IL_0176: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey::m_Prefab
+IL_017b: ldloca.s V_10
+IL_017d: ldloc.s V_13
+IL_017f: stfld System.Int32 Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey::m_NodeCount
+IL_0184: ldloc.s V_10
+IL_0186: stloc.s V_14
+IL_0188: ldloc.s V_13
+IL_018a: brfalse.s IL_01ab
+IL_018c: ldloca.s V_14
+IL_018e: ldloca.s V_2
+IL_0190: ldloc.s V_12
+IL_0192: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_0197: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_019c: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_01a1: ldfld Unity.Mathematics.float3 Game.Prefabs.SubAreaNode::m_Position
+IL_01a6: stfld Unity.Mathematics.float3 Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey::m_StartLocation
+IL_01ab: ldc.i4.0
+IL_01ac: stloc.s V_15
+IL_01ae: ldloca.s V_4
+IL_01b0: ldloc.s V_14
+IL_01b2: ldloca.s V_16
+IL_01b4: ldloca.s V_17
+IL_01b6: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey,System.Int32>::TryGetFirstValue(!0,!1&,Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>&)
+IL_01bb: brfalse IL_025b
+IL_01c0: ldc.i4.1
+IL_01c1: stloc.s V_15
+IL_01c3: ldloca.s V_1
+IL_01c5: ldloc.s V_16
+IL_01c7: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Item(System.Int32)
+IL_01cc: stloc.s V_18
+IL_01ce: ldc.i4.0
+IL_01cf: stloc.s V_19
+IL_01d1: br.s IL_0236
+IL_01d3: ldloca.s V_2
+IL_01d5: ldloc.s V_12
+IL_01d7: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_01dc: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_01e1: ldloc.s V_19
+IL_01e3: add
+IL_01e4: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_01e9: stloc.s V_20
+IL_01eb: ldloca.s V_3
+IL_01ed: ldloc.s V_18
+IL_01ef: ldfld Unity.Mathematics.int2 Game.Prefabs.SubArea::m_NodeRange
+IL_01f4: ldfld System.Int32 Unity.Mathematics.int2::x
+IL_01f9: ldloc.s V_19
+IL_01fb: add
+IL_01fc: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubAreaNode>::get_Item(System.Int32)
+IL_0201: stloc.s V_21
+IL_0203: ldloc.s V_15
+IL_0205: ldloca.s V_20
+IL_0207: ldflda Unity.Mathematics.float3 Game.Prefabs.SubAreaNode::m_Position
+IL_020c: ldloc.s V_21
+IL_020e: ldfld Unity.Mathematics.float3 Game.Prefabs.SubAreaNode::m_Position
+IL_0213: call System.Boolean Unity.Mathematics.float3::Equals(Unity.Mathematics.float3)
+IL_0218: and
+IL_0219: stloc.s V_15
+IL_021b: ldloc.s V_15
+IL_021d: ldloc.s V_20
+IL_021f: ldfld System.Int32 Game.Prefabs.SubAreaNode::m_ParentMesh
+IL_0224: ldloc.s V_21
+IL_0226: ldfld System.Int32 Game.Prefabs.SubAreaNode::m_ParentMesh
+IL_022b: ceq
+IL_022d: and
+IL_022e: stloc.s V_15
+IL_0230: ldloc.s V_19
+IL_0232: ldc.i4.1
+IL_0233: add
+IL_0234: stloc.s V_19
+IL_0236: ldloc.s V_19
+IL_0238: ldloc.s V_13
+IL_023a: blt.s IL_01d3
+IL_023c: ldloc.s V_15
+IL_023e: brfalse.s IL_024b
+IL_0240: ldloca.s V_4
+IL_0242: ldloc.s V_17
+IL_0244: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey,System.Int32>::Remove(Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>)
+IL_0249: br.s IL_025b
+IL_024b: ldloca.s V_4
+IL_024d: ldloca.s V_16
+IL_024f: ldloca.s V_17
+IL_0251: call System.Boolean Unity.Collections.NativeParallelMultiHashMap`2<Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey,System.Int32>::TryGetNextValue(!1&,Unity.Collections.NativeParallelMultiHashMapIterator`1<!0>&)
+IL_0256: brtrue IL_01c0
+IL_025b: ldloc.s V_15
+IL_025d: brtrue.s IL_0264
+IL_025f: ldc.i4.1
+IL_0260: stloc.s V_5
+IL_0262: br.s IL_0278
+IL_0264: ldloc.s V_11
+IL_0266: ldc.i4.1
+IL_0267: add
+IL_0268: stloc.s V_11
+IL_026a: ldloc.s V_11
+IL_026c: ldloca.s V_0
+IL_026e: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+IL_0273: blt IL_013f
+IL_0278: ldloca.s V_4
+IL_027a: call System.Void Unity.Collections.NativeParallelMultiHashMap`2<Game.Prefabs.ReplacePrefabSystem/Finalize/AreaKey,System.Int32>::Dispose()
+IL_027f: ldloc.s V_5
+IL_0281: ret
+System.Void Game.Prefabs.ReplacePrefabSystem/RemoveBatchGroupsJob::Execute()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Entities.BufferLookup`1<Game.Prefabs.BatchGroup> Game.Prefabs.ReplacePrefabSystem/RemoveBatchGroupsJob::m_BatchGroups
+IL_0006: ldarg.0
+IL_0007: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/RemoveBatchGroupsJob::m_OldMeshEntity
+IL_000c: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferLookup`1<Game.Prefabs.BatchGroup>::get_Item(Unity.Entities.Entity)
+IL_0011: stloc.0
+IL_0012: ldloca.s V_1
+IL_0014: ldc.i4.s 10
+IL_0016: ldc.i4.2
+IL_0017: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_001c: call System.Void Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::.ctor(System.Int32,Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0021: ldc.i4.0
+IL_0022: stloc.3
+IL_0023: br.s IL_004a
+IL_0025: ldarg.0
+IL_0026: ldloca.s V_0
+IL_0028: ldloc.3
+IL_0029: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.BatchGroup>::get_Item(System.Int32)
+IL_002e: ldfld System.Int32 Game.Prefabs.BatchGroup::m_GroupIndex
+IL_0033: ldloca.s V_0
+IL_0035: ldloc.3
+IL_0036: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.BatchGroup>::get_Item(System.Int32)
+IL_003b: ldfld System.Int32 Game.Prefabs.BatchGroup::m_MergeIndex
+IL_0040: ldloc.1
+IL_0041: call System.Void Game.Prefabs.ReplacePrefabSystem/RemoveBatchGroupsJob::RemoveBatchGroup(System.Int32,System.Int32,Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>)
+IL_0046: ldloc.3
+IL_0047: ldc.i4.1
+IL_0048: add
+IL_0049: stloc.3
+IL_004a: ldloc.3
+IL_004b: ldloca.s V_0
+IL_004d: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.BatchGroup>::get_Length()
+IL_0052: blt.s IL_0025
+IL_0054: ldloca.s V_0
+IL_0056: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.BatchGroup>::Clear()
+IL_005b: ldarg.0
+IL_005c: ldflda Unity.Collections.NativeList`1<Game.Prefabs.ReplacePrefabSystem/ReplaceMesh> Game.Prefabs.ReplacePrefabSystem/RemoveBatchGroupsJob::m_ReplaceMeshes
+IL_0061: ldloca.s V_4
+IL_0063: initobj Game.Prefabs.ReplacePrefabSystem/ReplaceMesh
+IL_0069: ldloca.s V_4
+IL_006b: ldarg.0
+IL_006c: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/RemoveBatchGroupsJob::m_OldMeshEntity
+IL_0071: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplaceMesh::m_OldMesh
+IL_0076: ldloca.s V_4
+IL_0078: ldarg.0
+IL_0079: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/RemoveBatchGroupsJob::m_NewMeshEntity
+IL_007e: stfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplaceMesh::m_NewMesh
+IL_0083: ldloca.s V_4
+IL_0085: call System.Void Unity.Collections.NativeList`1<Game.Prefabs.ReplacePrefabSystem/ReplaceMesh>::Add(!0&)
+IL_008a: ldloca.s V_1
+IL_008c: call Unity.Collections.NativeHashSet`1/Enumerator<!0> Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::GetEnumerator()
+IL_0091: stloc.2
+IL_0092: br.s IL_00b0
+IL_0094: ldarg.0
+IL_0095: ldflda Unity.Entities.EntityCommandBuffer Game.Prefabs.ReplacePrefabSystem/RemoveBatchGroupsJob::m_EntityCommandBuffer
+IL_009a: ldloca.s V_2
+IL_009c: call !0 Unity.Collections.NativeHashSet`1/Enumerator<Unity.Entities.Entity>::get_Current()
+IL_00a1: ldloca.s V_5
+IL_00a3: initobj Game.Common.BatchesUpdated
+IL_00a9: ldloc.s V_5
+IL_00ab: call System.Void Unity.Entities.EntityCommandBuffer::AddComponent<Game.Common.BatchesUpdated>(Unity.Entities.Entity,!!0)
+IL_00b0: ldloca.s V_2
+IL_00b2: call System.Boolean Unity.Collections.NativeHashSet`1/Enumerator<Unity.Entities.Entity>::MoveNext()
+IL_00b7: brtrue.s IL_0094
+IL_00b9: ldloca.s V_2
+IL_00bb: call System.Void Unity.Collections.NativeHashSet`1/Enumerator<Unity.Entities.Entity>::Dispose()
+IL_00c0: ldloca.s V_1
+IL_00c2: call System.Void Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Dispose()
+IL_00c7: ret
+System.Void Game.Prefabs.ReplacePrefabSystem/CreateUpdateSetJob::Execute()
+IL_0000: ldarg.0
+IL_0001: ldflda Unity.Collections.NativeQueue`1<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/CreateUpdateSetJob::m_Queue
+IL_0006: ldc.i4.2
+IL_0007: call Unity.Collections.AllocatorManager/AllocatorHandle Unity.Collections.AllocatorManager/AllocatorHandle::op_Implicit(Unity.Collections.Allocator)
+IL_000c: call Unity.Collections.NativeArray`1<!0> Unity.Collections.NativeQueue`1<Unity.Entities.Entity>::ToArray(Unity.Collections.AllocatorManager/AllocatorHandle)
+IL_0011: stloc.0
+IL_0012: ldc.i4.0
+IL_0013: stloc.1
+IL_0014: br.s IL_002e
+IL_0016: ldarg.0
+IL_0017: ldflda Unity.Collections.NativeHashSet`1<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/CreateUpdateSetJob::m_HashSet
+IL_001c: ldloca.s V_0
+IL_001e: ldloc.1
+IL_001f: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0024: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Add(!0)
+IL_0029: pop
+IL_002a: ldloc.1
+IL_002b: ldc.i4.1
+IL_002c: add
+IL_002d: stloc.1
+IL_002e: ldloc.1
+IL_002f: ldloca.s V_0
+IL_0031: call System.Int32 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Length()
+IL_0036: blt.s IL_0016
+IL_0038: ret
+System.Void Game.Prefabs.ReplacePrefabSystem/IterateInstancesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0000: ldarg.1
+IL_0001: ldarg.0
+IL_0002: ldfld Unity.Entities.EntityTypeHandle Game.Prefabs.ReplacePrefabSystem/IterateInstancesJob::m_EntityType
+IL_0007: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.ArchetypeChunk::GetNativeArray(Unity.Entities.EntityTypeHandle)
+IL_000c: stloc.0
+IL_000d: ldarg.1
+IL_000e: ldarg.0
+IL_000f: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Prefabs.ReplacePrefabSystem/IterateInstancesJob::m_PrefabRefType
+IL_0014: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0019: stloc.1
+IL_001a: ldc.i4.0
+IL_001b: stloc.2
+IL_001c: br.s IL_006e
+IL_001e: ldloca.s V_0
+IL_0020: ldloc.2
+IL_0021: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0026: stloc.3
+IL_0027: ldloca.s V_1
+IL_0029: ldloc.2
+IL_002a: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>::get_Item(System.Int32)
+IL_002f: stloc.s V_4
+IL_0031: ldarg.0
+IL_0032: ldflda Unity.Collections.NativeHashSet`1<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/IterateInstancesJob::m_InstanceSet
+IL_0037: ldloc.s V_4
+IL_0039: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_003e: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_0043: brfalse.s IL_006a
+IL_0045: ldarg.0
+IL_0046: ldflda Unity.Collections.NativeHashSet`1<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/IterateInstancesJob::m_InstanceSet
+IL_004b: ldloc.3
+IL_004c: call System.Boolean Unity.Collections.NativeHashSet`1<Unity.Entities.Entity>::Contains(!0)
+IL_0051: brtrue.s IL_006a
+IL_0053: ldarg.0
+IL_0054: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/IterateInstancesJob::m_CommandBuffer
+IL_0059: ldarg.2
+IL_005a: ldloc.3
+IL_005b: ldloca.s V_5
+IL_005d: initobj Game.Common.Updated
+IL_0063: ldloc.s V_5
+IL_0065: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_006a: ldloc.2
+IL_006b: ldc.i4.1
+IL_006c: add
+IL_006d: stloc.2
+IL_006e: ldloc.2
+IL_006f: ldloca.s V_1
+IL_0071: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>::get_Length()
+IL_0076: blt.s IL_001e
+IL_0078: ret
+System.Void Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)
+IL_0000: ldarg.1
+IL_0001: ldarg.0
+IL_0002: ldfld Unity.Entities.EntityTypeHandle Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_EntityType
+IL_0007: call Unity.Collections.NativeArray`1<Unity.Entities.Entity> Unity.Entities.ArchetypeChunk::GetNativeArray(Unity.Entities.EntityTypeHandle)
+IL_000c: stloc.0
+IL_000d: ldarg.1
+IL_000e: ldarg.0
+IL_000f: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Prefabs.PrefabRef> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_PrefabRefType
+IL_0014: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Prefabs.PrefabRef>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0019: stloc.1
+IL_001a: ldloca.s V_1
+IL_001c: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>::get_Length()
+IL_0021: brfalse IL_0109
+IL_0026: ldarg.1
+IL_0027: ldarg.0
+IL_0028: ldflda Unity.Entities.ComponentTypeHandle`1<Game.Tools.EditorContainer> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_EditorContainerType
+IL_002d: call Unity.Collections.NativeArray`1<!!0> Unity.Entities.ArchetypeChunk::GetNativeArray<Game.Tools.EditorContainer>(Unity.Entities.ComponentTypeHandle`1<!!0>&)
+IL_0032: stloc.2
+IL_0033: ldc.i4.0
+IL_0034: stloc.3
+IL_0035: br.s IL_00ae
+IL_0037: ldloca.s V_1
+IL_0039: ldloc.3
+IL_003a: call !0 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>::get_Item(System.Int32)
+IL_003f: stloc.s V_4
+IL_0041: ldloc.s V_4
+IL_0043: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0048: ldarg.0
+IL_0049: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_004e: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0053: brfalse.s IL_00aa
+IL_0055: ldloca.s V_4
+IL_0057: ldarg.0
+IL_0058: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_005d: stfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0062: ldloca.s V_1
+IL_0064: ldloc.3
+IL_0065: ldloc.s V_4
+IL_0067: call System.Void Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>::set_Item(System.Int32,!0)
+IL_006c: ldloca.s V_0
+IL_006e: ldloc.3
+IL_006f: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_0074: stloc.s V_5
+IL_0076: ldarg.0
+IL_0077: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_SourceInstance
+IL_007c: ldloc.s V_5
+IL_007e: call System.Boolean Unity.Entities.Entity::op_Inequality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0083: brfalse.s IL_00aa
+IL_0085: ldarg.0
+IL_0086: ldflda Unity.Entities.EntityCommandBuffer/ParallelWriter Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_CommandBuffer
+IL_008b: ldarg.2
+IL_008c: ldloc.s V_5
+IL_008e: ldloca.s V_6
+IL_0090: initobj Game.Common.Updated
+IL_0096: ldloc.s V_6
+IL_0098: call System.Void Unity.Entities.EntityCommandBuffer/ParallelWriter::AddComponent<Game.Common.Updated>(System.Int32,Unity.Entities.Entity,!!0)
+IL_009d: ldarg.0
+IL_009e: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_UpdateInstances
+IL_00a3: ldloc.s V_5
+IL_00a5: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity>::Enqueue(!0)
+IL_00aa: ldloc.3
+IL_00ab: ldc.i4.1
+IL_00ac: add
+IL_00ad: stloc.3
+IL_00ae: ldloc.3
+IL_00af: ldloca.s V_1
+IL_00b1: call System.Int32 Unity.Collections.NativeArray`1<Game.Prefabs.PrefabRef>::get_Length()
+IL_00b6: blt IL_0037
+IL_00bb: ldc.i4.0
+IL_00bc: stloc.s V_7
+IL_00be: br.s IL_00fd
+IL_00c0: ldloca.s V_2
+IL_00c2: ldloc.s V_7
+IL_00c4: call !0 Unity.Collections.NativeArray`1<Game.Tools.EditorContainer>::get_Item(System.Int32)
+IL_00c9: stloc.s V_8
+IL_00cb: ldloc.s V_8
+IL_00cd: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_00d2: ldarg.0
+IL_00d3: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_00d8: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_00dd: brfalse.s IL_00f7
+IL_00df: ldloca.s V_8
+IL_00e1: ldarg.0
+IL_00e2: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_00e7: stfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_00ec: ldloca.s V_2
+IL_00ee: ldloc.s V_7
+IL_00f0: ldloc.s V_8
+IL_00f2: call System.Void Unity.Collections.NativeArray`1<Game.Tools.EditorContainer>::set_Item(System.Int32,!0)
+IL_00f7: ldloc.s V_7
+IL_00f9: ldc.i4.1
+IL_00fa: add
+IL_00fb: stloc.s V_7
+IL_00fd: ldloc.s V_7
+IL_00ff: ldloca.s V_2
+IL_0101: call System.Int32 Unity.Collections.NativeArray`1<Game.Tools.EditorContainer>::get_Length()
+IL_0106: blt.s IL_00c0
+IL_0108: ret
+IL_0109: ldarg.1
+IL_010a: ldarg.0
+IL_010b: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubObject> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_SubObjectType
+IL_0110: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubObject>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0115: stloc.s V_9
+IL_0117: ldarg.1
+IL_0118: ldarg.0
+IL_0119: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubNet> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_SubNetType
+IL_011e: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubNet>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0123: stloc.s V_10
+IL_0125: ldarg.1
+IL_0126: ldarg.0
+IL_0127: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubArea> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_SubAreaType
+IL_012c: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubArea>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0131: stloc.s V_11
+IL_0133: ldarg.1
+IL_0134: ldarg.0
+IL_0135: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.PlaceholderObjectElement> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_PlaceholderObjectElementType
+IL_013a: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.PlaceholderObjectElement>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_013f: stloc.s V_12
+IL_0141: ldarg.1
+IL_0142: ldarg.0
+IL_0143: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.ServiceUpgradeBuilding> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_ServiceUpgradeBuildingType
+IL_0148: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.ServiceUpgradeBuilding>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_014d: stloc.s V_13
+IL_014f: ldarg.1
+IL_0150: ldarg.0
+IL_0151: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.BuildingUpgradeElement> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_BuildingUpgradeElementType
+IL_0156: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.BuildingUpgradeElement>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_015b: stloc.s V_14
+IL_015d: ldarg.1
+IL_015e: ldarg.0
+IL_015f: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.Effect> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_EffectType
+IL_0164: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.Effect>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0169: stloc.s V_15
+IL_016b: ldarg.1
+IL_016c: ldarg.0
+IL_016d: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.ActivityLocationElement> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_ActivityLocationElementType
+IL_0172: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.ActivityLocationElement>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0177: stloc.s V_16
+IL_0179: ldarg.1
+IL_017a: ldarg.0
+IL_017b: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.CharacterElement> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_CharacterElementType
+IL_0180: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.CharacterElement>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0185: stloc.s V_17
+IL_0187: ldarg.1
+IL_0188: ldarg.0
+IL_0189: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.SubMesh> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_SubMeshType
+IL_018e: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.SubMesh>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_0193: stloc.s V_18
+IL_0195: ldarg.1
+IL_0196: ldarg.0
+IL_0197: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.LodMesh> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_LodMeshType
+IL_019c: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.LodMesh>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_01a1: stloc.s V_19
+IL_01a3: ldarg.1
+IL_01a4: ldarg.0
+IL_01a5: ldflda Unity.Entities.BufferTypeHandle`1<Game.Prefabs.UIGroupElement> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_UIGroupElementType
+IL_01aa: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Prefabs.UIGroupElement>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_01af: stloc.s V_20
+IL_01b1: ldarg.1
+IL_01b2: ldarg.0
+IL_01b3: ldflda Unity.Entities.BufferTypeHandle`1<Game.Tutorials.TutorialPhaseRef> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_TutorialPhaseType
+IL_01b8: call Unity.Entities.BufferAccessor`1<!!0> Unity.Entities.ArchetypeChunk::GetBufferAccessor<Game.Tutorials.TutorialPhaseRef>(Unity.Entities.BufferTypeHandle`1<!!0>&)
+IL_01bd: stloc.s V_21
+IL_01bf: ldc.i4.0
+IL_01c0: stloc.s V_22
+IL_01c2: br.s IL_0222
+IL_01c4: ldloca.s V_9
+IL_01c6: ldloc.s V_22
+IL_01c8: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubObject>::get_Item(System.Int32)
+IL_01cd: stloc.s V_23
+IL_01cf: ldc.i4.0
+IL_01d0: stloc.s V_24
+IL_01d2: br.s IL_0211
+IL_01d4: ldloca.s V_23
+IL_01d6: ldloc.s V_24
+IL_01d8: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubObject>::get_Item(System.Int32)
+IL_01dd: stloc.s V_25
+IL_01df: ldloc.s V_25
+IL_01e1: ldfld Unity.Entities.Entity Game.Prefabs.SubObject::m_Prefab
+IL_01e6: ldarg.0
+IL_01e7: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_01ec: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_01f1: brfalse.s IL_020b
+IL_01f3: ldloca.s V_25
+IL_01f5: ldarg.0
+IL_01f6: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_01fb: stfld Unity.Entities.Entity Game.Prefabs.SubObject::m_Prefab
+IL_0200: ldloca.s V_23
+IL_0202: ldloc.s V_24
+IL_0204: ldloc.s V_25
+IL_0206: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubObject>::set_Item(System.Int32,!0)
+IL_020b: ldloc.s V_24
+IL_020d: ldc.i4.1
+IL_020e: add
+IL_020f: stloc.s V_24
+IL_0211: ldloc.s V_24
+IL_0213: ldloca.s V_23
+IL_0215: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubObject>::get_Length()
+IL_021a: blt.s IL_01d4
+IL_021c: ldloc.s V_22
+IL_021e: ldc.i4.1
+IL_021f: add
+IL_0220: stloc.s V_22
+IL_0222: ldloc.s V_22
+IL_0224: ldloca.s V_9
+IL_0226: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubObject>::get_Length()
+IL_022b: blt.s IL_01c4
+IL_022d: ldc.i4.0
+IL_022e: stloc.s V_26
+IL_0230: br.s IL_0290
+IL_0232: ldloca.s V_10
+IL_0234: ldloc.s V_26
+IL_0236: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubNet>::get_Item(System.Int32)
+IL_023b: stloc.s V_27
+IL_023d: ldc.i4.0
+IL_023e: stloc.s V_28
+IL_0240: br.s IL_027f
+IL_0242: ldloca.s V_27
+IL_0244: ldloc.s V_28
+IL_0246: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::get_Item(System.Int32)
+IL_024b: stloc.s V_29
+IL_024d: ldloc.s V_29
+IL_024f: ldfld Unity.Entities.Entity Game.Prefabs.SubNet::m_Prefab
+IL_0254: ldarg.0
+IL_0255: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_025a: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_025f: brfalse.s IL_0279
+IL_0261: ldloca.s V_29
+IL_0263: ldarg.0
+IL_0264: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_0269: stfld Unity.Entities.Entity Game.Prefabs.SubNet::m_Prefab
+IL_026e: ldloca.s V_27
+IL_0270: ldloc.s V_28
+IL_0272: ldloc.s V_29
+IL_0274: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::set_Item(System.Int32,!0)
+IL_0279: ldloc.s V_28
+IL_027b: ldc.i4.1
+IL_027c: add
+IL_027d: stloc.s V_28
+IL_027f: ldloc.s V_28
+IL_0281: ldloca.s V_27
+IL_0283: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubNet>::get_Length()
+IL_0288: blt.s IL_0242
+IL_028a: ldloc.s V_26
+IL_028c: ldc.i4.1
+IL_028d: add
+IL_028e: stloc.s V_26
+IL_0290: ldloc.s V_26
+IL_0292: ldloca.s V_10
+IL_0294: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubNet>::get_Length()
+IL_0299: blt.s IL_0232
+IL_029b: ldc.i4.0
+IL_029c: stloc.s V_30
+IL_029e: br.s IL_02fe
+IL_02a0: ldloca.s V_11
+IL_02a2: ldloc.s V_30
+IL_02a4: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubArea>::get_Item(System.Int32)
+IL_02a9: stloc.s V_31
+IL_02ab: ldc.i4.0
+IL_02ac: stloc.s V_32
+IL_02ae: br.s IL_02ed
+IL_02b0: ldloca.s V_31
+IL_02b2: ldloc.s V_32
+IL_02b4: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Item(System.Int32)
+IL_02b9: stloc.s V_33
+IL_02bb: ldloc.s V_33
+IL_02bd: ldfld Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+IL_02c2: ldarg.0
+IL_02c3: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_02c8: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_02cd: brfalse.s IL_02e7
+IL_02cf: ldloca.s V_33
+IL_02d1: ldarg.0
+IL_02d2: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_02d7: stfld Unity.Entities.Entity Game.Prefabs.SubArea::m_Prefab
+IL_02dc: ldloca.s V_31
+IL_02de: ldloc.s V_32
+IL_02e0: ldloc.s V_33
+IL_02e2: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::set_Item(System.Int32,!0)
+IL_02e7: ldloc.s V_32
+IL_02e9: ldc.i4.1
+IL_02ea: add
+IL_02eb: stloc.s V_32
+IL_02ed: ldloc.s V_32
+IL_02ef: ldloca.s V_31
+IL_02f1: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubArea>::get_Length()
+IL_02f6: blt.s IL_02b0
+IL_02f8: ldloc.s V_30
+IL_02fa: ldc.i4.1
+IL_02fb: add
+IL_02fc: stloc.s V_30
+IL_02fe: ldloc.s V_30
+IL_0300: ldloca.s V_11
+IL_0302: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubArea>::get_Length()
+IL_0307: blt.s IL_02a0
+IL_0309: ldc.i4.0
+IL_030a: stloc.s V_34
+IL_030c: br.s IL_035f
+IL_030e: ldloca.s V_12
+IL_0310: ldloc.s V_34
+IL_0312: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.PlaceholderObjectElement>::get_Item(System.Int32)
+IL_0317: stloc.s V_35
+IL_0319: ldc.i4.0
+IL_031a: stloc.s V_36
+IL_031c: br.s IL_034e
+IL_031e: ldloca.s V_35
+IL_0320: ldloc.s V_36
+IL_0322: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.PlaceholderObjectElement>::get_Item(System.Int32)
+IL_0327: ldfld Unity.Entities.Entity Game.Prefabs.PlaceholderObjectElement::m_Object
+IL_032c: ldarg.0
+IL_032d: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_0332: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0337: brfalse.s IL_0348
+IL_0339: ldloca.s V_35
+IL_033b: ldloc.s V_36
+IL_033d: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.PlaceholderObjectElement>::RemoveAtSwapBack(System.Int32)
+IL_0342: ldloc.s V_36
+IL_0344: ldc.i4.1
+IL_0345: sub
+IL_0346: stloc.s V_36
+IL_0348: ldloc.s V_36
+IL_034a: ldc.i4.1
+IL_034b: add
+IL_034c: stloc.s V_36
+IL_034e: ldloc.s V_36
+IL_0350: ldloca.s V_35
+IL_0352: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.PlaceholderObjectElement>::get_Length()
+IL_0357: blt.s IL_031e
+IL_0359: ldloc.s V_34
+IL_035b: ldc.i4.1
+IL_035c: add
+IL_035d: stloc.s V_34
+IL_035f: ldloc.s V_34
+IL_0361: ldloca.s V_12
+IL_0363: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.PlaceholderObjectElement>::get_Length()
+IL_0368: blt.s IL_030e
+IL_036a: ldc.i4.0
+IL_036b: stloc.s V_37
+IL_036d: br.s IL_03cd
+IL_036f: ldloca.s V_13
+IL_0371: ldloc.s V_37
+IL_0373: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.ServiceUpgradeBuilding>::get_Item(System.Int32)
+IL_0378: stloc.s V_38
+IL_037a: ldc.i4.0
+IL_037b: stloc.s V_39
+IL_037d: br.s IL_03bc
+IL_037f: ldloca.s V_38
+IL_0381: ldloc.s V_39
+IL_0383: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.ServiceUpgradeBuilding>::get_Item(System.Int32)
+IL_0388: stloc.s V_40
+IL_038a: ldloc.s V_40
+IL_038c: ldfld Unity.Entities.Entity Game.Prefabs.ServiceUpgradeBuilding::m_Building
+IL_0391: ldarg.0
+IL_0392: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_0397: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_039c: brfalse.s IL_03b6
+IL_039e: ldloca.s V_40
+IL_03a0: ldarg.0
+IL_03a1: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_03a6: stfld Unity.Entities.Entity Game.Prefabs.ServiceUpgradeBuilding::m_Building
+IL_03ab: ldloca.s V_38
+IL_03ad: ldloc.s V_39
+IL_03af: ldloc.s V_40
+IL_03b1: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.ServiceUpgradeBuilding>::set_Item(System.Int32,!0)
+IL_03b6: ldloc.s V_39
+IL_03b8: ldc.i4.1
+IL_03b9: add
+IL_03ba: stloc.s V_39
+IL_03bc: ldloc.s V_39
+IL_03be: ldloca.s V_38
+IL_03c0: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.ServiceUpgradeBuilding>::get_Length()
+IL_03c5: blt.s IL_037f
+IL_03c7: ldloc.s V_37
+IL_03c9: ldc.i4.1
+IL_03ca: add
+IL_03cb: stloc.s V_37
+IL_03cd: ldloc.s V_37
+IL_03cf: ldloca.s V_13
+IL_03d1: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.ServiceUpgradeBuilding>::get_Length()
+IL_03d6: blt.s IL_036f
+IL_03d8: ldc.i4.0
+IL_03d9: stloc.s V_41
+IL_03db: br.s IL_042e
+IL_03dd: ldloca.s V_14
+IL_03df: ldloc.s V_41
+IL_03e1: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.BuildingUpgradeElement>::get_Item(System.Int32)
+IL_03e6: stloc.s V_42
+IL_03e8: ldc.i4.0
+IL_03e9: stloc.s V_43
+IL_03eb: br.s IL_041d
+IL_03ed: ldloca.s V_42
+IL_03ef: ldloc.s V_43
+IL_03f1: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.BuildingUpgradeElement>::get_Item(System.Int32)
+IL_03f6: ldfld Unity.Entities.Entity Game.Prefabs.BuildingUpgradeElement::m_Upgrade
+IL_03fb: ldarg.0
+IL_03fc: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_0401: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0406: brfalse.s IL_0417
+IL_0408: ldloca.s V_42
+IL_040a: ldloc.s V_43
+IL_040c: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.BuildingUpgradeElement>::RemoveAtSwapBack(System.Int32)
+IL_0411: ldloc.s V_43
+IL_0413: ldc.i4.1
+IL_0414: sub
+IL_0415: stloc.s V_43
+IL_0417: ldloc.s V_43
+IL_0419: ldc.i4.1
+IL_041a: add
+IL_041b: stloc.s V_43
+IL_041d: ldloc.s V_43
+IL_041f: ldloca.s V_42
+IL_0421: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.BuildingUpgradeElement>::get_Length()
+IL_0426: blt.s IL_03ed
+IL_0428: ldloc.s V_41
+IL_042a: ldc.i4.1
+IL_042b: add
+IL_042c: stloc.s V_41
+IL_042e: ldloc.s V_41
+IL_0430: ldloca.s V_14
+IL_0432: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.BuildingUpgradeElement>::get_Length()
+IL_0437: blt.s IL_03dd
+IL_0439: ldc.i4.0
+IL_043a: stloc.s V_44
+IL_043c: br.s IL_049c
+IL_043e: ldloca.s V_15
+IL_0440: ldloc.s V_44
+IL_0442: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.Effect>::get_Item(System.Int32)
+IL_0447: stloc.s V_45
+IL_0449: ldc.i4.0
+IL_044a: stloc.s V_46
+IL_044c: br.s IL_048b
+IL_044e: ldloca.s V_45
+IL_0450: ldloc.s V_46
+IL_0452: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Item(System.Int32)
+IL_0457: stloc.s V_47
+IL_0459: ldloc.s V_47
+IL_045b: ldfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_0460: ldarg.0
+IL_0461: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_0466: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_046b: brfalse.s IL_0485
+IL_046d: ldloca.s V_47
+IL_046f: ldarg.0
+IL_0470: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_0475: stfld Unity.Entities.Entity Game.Prefabs.Effect::m_Effect
+IL_047a: ldloca.s V_45
+IL_047c: ldloc.s V_46
+IL_047e: ldloc.s V_47
+IL_0480: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::set_Item(System.Int32,!0)
+IL_0485: ldloc.s V_46
+IL_0487: ldc.i4.1
+IL_0488: add
+IL_0489: stloc.s V_46
+IL_048b: ldloc.s V_46
+IL_048d: ldloca.s V_45
+IL_048f: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.Effect>::get_Length()
+IL_0494: blt.s IL_044e
+IL_0496: ldloc.s V_44
+IL_0498: ldc.i4.1
+IL_0499: add
+IL_049a: stloc.s V_44
+IL_049c: ldloc.s V_44
+IL_049e: ldloca.s V_15
+IL_04a0: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.Effect>::get_Length()
+IL_04a5: blt.s IL_043e
+IL_04a7: ldc.i4.0
+IL_04a8: stloc.s V_48
+IL_04aa: br.s IL_050a
+IL_04ac: ldloca.s V_16
+IL_04ae: ldloc.s V_48
+IL_04b0: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.ActivityLocationElement>::get_Item(System.Int32)
+IL_04b5: stloc.s V_49
+IL_04b7: ldc.i4.0
+IL_04b8: stloc.s V_50
+IL_04ba: br.s IL_04f9
+IL_04bc: ldloca.s V_49
+IL_04be: ldloc.s V_50
+IL_04c0: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.ActivityLocationElement>::get_Item(System.Int32)
+IL_04c5: stloc.s V_51
+IL_04c7: ldloc.s V_51
+IL_04c9: ldfld Unity.Entities.Entity Game.Prefabs.ActivityLocationElement::m_Prefab
+IL_04ce: ldarg.0
+IL_04cf: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_04d4: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_04d9: brfalse.s IL_04f3
+IL_04db: ldloca.s V_51
+IL_04dd: ldarg.0
+IL_04de: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_04e3: stfld Unity.Entities.Entity Game.Prefabs.ActivityLocationElement::m_Prefab
+IL_04e8: ldloca.s V_49
+IL_04ea: ldloc.s V_50
+IL_04ec: ldloc.s V_51
+IL_04ee: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.ActivityLocationElement>::set_Item(System.Int32,!0)
+IL_04f3: ldloc.s V_50
+IL_04f5: ldc.i4.1
+IL_04f6: add
+IL_04f7: stloc.s V_50
+IL_04f9: ldloc.s V_50
+IL_04fb: ldloca.s V_49
+IL_04fd: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.ActivityLocationElement>::get_Length()
+IL_0502: blt.s IL_04bc
+IL_0504: ldloc.s V_48
+IL_0506: ldc.i4.1
+IL_0507: add
+IL_0508: stloc.s V_48
+IL_050a: ldloc.s V_48
+IL_050c: ldloca.s V_16
+IL_050e: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.ActivityLocationElement>::get_Length()
+IL_0513: blt.s IL_04ac
+IL_0515: ldc.i4.0
+IL_0516: stloc.s V_52
+IL_0518: br.s IL_0578
+IL_051a: ldloca.s V_17
+IL_051c: ldloc.s V_52
+IL_051e: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.CharacterElement>::get_Item(System.Int32)
+IL_0523: stloc.s V_53
+IL_0525: ldc.i4.0
+IL_0526: stloc.s V_54
+IL_0528: br.s IL_0567
+IL_052a: ldloca.s V_53
+IL_052c: ldloc.s V_54
+IL_052e: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.CharacterElement>::get_Item(System.Int32)
+IL_0533: stloc.s V_55
+IL_0535: ldloc.s V_55
+IL_0537: ldfld Unity.Entities.Entity Game.Prefabs.CharacterElement::m_Style
+IL_053c: ldarg.0
+IL_053d: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_0542: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0547: brfalse.s IL_0561
+IL_0549: ldloca.s V_55
+IL_054b: ldarg.0
+IL_054c: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_0551: stfld Unity.Entities.Entity Game.Prefabs.CharacterElement::m_Style
+IL_0556: ldloca.s V_53
+IL_0558: ldloc.s V_54
+IL_055a: ldloc.s V_55
+IL_055c: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.CharacterElement>::set_Item(System.Int32,!0)
+IL_0561: ldloc.s V_54
+IL_0563: ldc.i4.1
+IL_0564: add
+IL_0565: stloc.s V_54
+IL_0567: ldloc.s V_54
+IL_0569: ldloca.s V_53
+IL_056b: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.CharacterElement>::get_Length()
+IL_0570: blt.s IL_052a
+IL_0572: ldloc.s V_52
+IL_0574: ldc.i4.1
+IL_0575: add
+IL_0576: stloc.s V_52
+IL_0578: ldloc.s V_52
+IL_057a: ldloca.s V_17
+IL_057c: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.CharacterElement>::get_Length()
+IL_0581: blt.s IL_051a
+IL_0583: ldc.i4.0
+IL_0584: stloc.s V_56
+IL_0586: br.s IL_05fa
+IL_0588: ldloca.s V_18
+IL_058a: ldloc.s V_56
+IL_058c: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_0591: stloc.s V_57
+IL_0593: ldc.i4.0
+IL_0594: stloc.s V_58
+IL_0596: br.s IL_05e9
+IL_0598: ldloca.s V_57
+IL_059a: ldloc.s V_58
+IL_059c: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Item(System.Int32)
+IL_05a1: stloc.s V_59
+IL_05a3: ldloc.s V_59
+IL_05a5: ldfld Unity.Entities.Entity Game.Prefabs.SubMesh::m_SubMesh
+IL_05aa: ldarg.0
+IL_05ab: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_05b0: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_05b5: brfalse.s IL_05e3
+IL_05b7: ldloca.s V_59
+IL_05b9: ldarg.0
+IL_05ba: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_05bf: stfld Unity.Entities.Entity Game.Prefabs.SubMesh::m_SubMesh
+IL_05c4: ldloca.s V_57
+IL_05c6: ldloc.s V_58
+IL_05c8: ldloc.s V_59
+IL_05ca: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::set_Item(System.Int32,!0)
+IL_05cf: ldarg.0
+IL_05d0: ldflda Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity> Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_UpdateInstances
+IL_05d5: ldloca.s V_0
+IL_05d7: ldloc.s V_56
+IL_05d9: call !0 Unity.Collections.NativeArray`1<Unity.Entities.Entity>::get_Item(System.Int32)
+IL_05de: call System.Void Unity.Collections.NativeQueue`1/ParallelWriter<Unity.Entities.Entity>::Enqueue(!0)
+IL_05e3: ldloc.s V_58
+IL_05e5: ldc.i4.1
+IL_05e6: add
+IL_05e7: stloc.s V_58
+IL_05e9: ldloc.s V_58
+IL_05eb: ldloca.s V_57
+IL_05ed: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.SubMesh>::get_Length()
+IL_05f2: blt.s IL_0598
+IL_05f4: ldloc.s V_56
+IL_05f6: ldc.i4.1
+IL_05f7: add
+IL_05f8: stloc.s V_56
+IL_05fa: ldloc.s V_56
+IL_05fc: ldloca.s V_18
+IL_05fe: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.SubMesh>::get_Length()
+IL_0603: blt.s IL_0588
+IL_0605: ldc.i4.0
+IL_0606: stloc.s V_60
+IL_0608: br.s IL_0668
+IL_060a: ldloca.s V_19
+IL_060c: ldloc.s V_60
+IL_060e: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.LodMesh>::get_Item(System.Int32)
+IL_0613: stloc.s V_61
+IL_0615: ldc.i4.0
+IL_0616: stloc.s V_62
+IL_0618: br.s IL_0657
+IL_061a: ldloca.s V_61
+IL_061c: ldloc.s V_62
+IL_061e: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.LodMesh>::get_Item(System.Int32)
+IL_0623: stloc.s V_63
+IL_0625: ldloc.s V_63
+IL_0627: ldfld Unity.Entities.Entity Game.Prefabs.LodMesh::m_LodMesh
+IL_062c: ldarg.0
+IL_062d: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_0632: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0637: brfalse.s IL_0651
+IL_0639: ldloca.s V_63
+IL_063b: ldarg.0
+IL_063c: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_0641: stfld Unity.Entities.Entity Game.Prefabs.LodMesh::m_LodMesh
+IL_0646: ldloca.s V_61
+IL_0648: ldloc.s V_62
+IL_064a: ldloc.s V_63
+IL_064c: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.LodMesh>::set_Item(System.Int32,!0)
+IL_0651: ldloc.s V_62
+IL_0653: ldc.i4.1
+IL_0654: add
+IL_0655: stloc.s V_62
+IL_0657: ldloc.s V_62
+IL_0659: ldloca.s V_61
+IL_065b: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.LodMesh>::get_Length()
+IL_0660: blt.s IL_061a
+IL_0662: ldloc.s V_60
+IL_0664: ldc.i4.1
+IL_0665: add
+IL_0666: stloc.s V_60
+IL_0668: ldloc.s V_60
+IL_066a: ldloca.s V_19
+IL_066c: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.LodMesh>::get_Length()
+IL_0671: blt.s IL_060a
+IL_0673: ldc.i4.0
+IL_0674: stloc.s V_64
+IL_0676: br.s IL_06c9
+IL_0678: ldloca.s V_20
+IL_067a: ldloc.s V_64
+IL_067c: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Prefabs.UIGroupElement>::get_Item(System.Int32)
+IL_0681: stloc.s V_65
+IL_0683: ldc.i4.0
+IL_0684: stloc.s V_66
+IL_0686: br.s IL_06b8
+IL_0688: ldloca.s V_65
+IL_068a: ldloc.s V_66
+IL_068c: call !0 Unity.Entities.DynamicBuffer`1<Game.Prefabs.UIGroupElement>::get_Item(System.Int32)
+IL_0691: ldfld Unity.Entities.Entity Game.Prefabs.UIGroupElement::m_Prefab
+IL_0696: ldarg.0
+IL_0697: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_069c: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_06a1: brfalse.s IL_06b2
+IL_06a3: ldloca.s V_65
+IL_06a5: ldloc.s V_66
+IL_06a7: call System.Void Unity.Entities.DynamicBuffer`1<Game.Prefabs.UIGroupElement>::RemoveAtSwapBack(System.Int32)
+IL_06ac: ldloc.s V_66
+IL_06ae: ldc.i4.1
+IL_06af: sub
+IL_06b0: stloc.s V_66
+IL_06b2: ldloc.s V_66
+IL_06b4: ldc.i4.1
+IL_06b5: add
+IL_06b6: stloc.s V_66
+IL_06b8: ldloc.s V_66
+IL_06ba: ldloca.s V_65
+IL_06bc: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Prefabs.UIGroupElement>::get_Length()
+IL_06c1: blt.s IL_0688
+IL_06c3: ldloc.s V_64
+IL_06c5: ldc.i4.1
+IL_06c6: add
+IL_06c7: stloc.s V_64
+IL_06c9: ldloc.s V_64
+IL_06cb: ldloca.s V_20
+IL_06cd: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Prefabs.UIGroupElement>::get_Length()
+IL_06d2: blt.s IL_0678
+IL_06d4: ldc.i4.0
+IL_06d5: stloc.s V_67
+IL_06d7: br.s IL_0737
+IL_06d9: ldloca.s V_21
+IL_06db: ldloc.s V_67
+IL_06dd: call Unity.Entities.DynamicBuffer`1<!0> Unity.Entities.BufferAccessor`1<Game.Tutorials.TutorialPhaseRef>::get_Item(System.Int32)
+IL_06e2: stloc.s V_68
+IL_06e4: ldc.i4.0
+IL_06e5: stloc.s V_69
+IL_06e7: br.s IL_0726
+IL_06e9: ldloca.s V_68
+IL_06eb: ldloc.s V_69
+IL_06ed: call !0 Unity.Entities.DynamicBuffer`1<Game.Tutorials.TutorialPhaseRef>::get_Item(System.Int32)
+IL_06f2: stloc.s V_70
+IL_06f4: ldloc.s V_70
+IL_06f6: ldfld Unity.Entities.Entity Game.Tutorials.TutorialPhaseRef::m_Phase
+IL_06fb: ldarg.0
+IL_06fc: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_OldPrefab
+IL_0701: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0706: brfalse.s IL_0720
+IL_0708: ldloca.s V_70
+IL_070a: ldarg.0
+IL_070b: ldfld Unity.Entities.Entity Game.Prefabs.ReplacePrefabSystem/ReplacePrefabJob::m_NewPrefab
+IL_0710: stfld Unity.Entities.Entity Game.Tutorials.TutorialPhaseRef::m_Phase
+IL_0715: ldloca.s V_68
+IL_0717: ldloc.s V_69
+IL_0719: ldloc.s V_70
+IL_071b: call System.Void Unity.Entities.DynamicBuffer`1<Game.Tutorials.TutorialPhaseRef>::set_Item(System.Int32,!0)
+IL_0720: ldloc.s V_69
+IL_0722: ldc.i4.1
+IL_0723: add
+IL_0724: stloc.s V_69
+IL_0726: ldloc.s V_69
+IL_0728: ldloca.s V_68
+IL_072a: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Tutorials.TutorialPhaseRef>::get_Length()
+IL_072f: blt.s IL_06e9
+IL_0731: ldloc.s V_67
+IL_0733: ldc.i4.1
+IL_0734: add
+IL_0735: stloc.s V_67
+IL_0737: ldloc.s V_67
+IL_0739: ldloca.s V_21
+IL_073b: call System.Int32 Unity.Entities.BufferAccessor`1<Game.Tutorials.TutorialPhaseRef>::get_Length()
+IL_0740: blt.s IL_06d9
+IL_0742: ret

@@ -20,7 +20,7 @@ namespace MW.EditorTools.Modules.PropReplacer
     {
         [Serializable] public sealed class RowState { public int index; public string type, value; }
         [Serializable] public sealed class HoverText { public string[] samples; }
-        [Serializable] public sealed class State { public bool available, hasRow, canPaste; public int selected; public RowState[] rows; public string asset, rowType, current, clipboard, status; }
+        [Serializable] public sealed class State { public string highlightKey="",highlightList="",highlightComponent="",highlightStatus="";public int highlightPage=-1,highlightIndex=-1,highlightSourceIndex=-1;public bool available, hasRow, canPaste; public int selected; public RowState[] rows; public string asset, rowType, current, clipboard, pasteBlocked, undoStatus, status; }
         private sealed class Row { internal PrefabBase Root; internal PrefabBase[] Ancestors; internal ComponentBase Owner; internal FieldInfo ListField, ReferenceField; internal IList List; internal object Value; internal int Index; internal string Label; }
         private sealed class Clip { internal Type RowType; internal PrefabBase Replacement; internal string SourceAsset, Label; }
         private static readonly string[] References={nameof(ObjectSubObjectInfo.m_Object),nameof(ObjectSubAreaInfo.m_AreaPrefab),nameof(ObjectSubNetInfo.m_NetPrefab),nameof(EffectSource.EffectSettings.m_Effect),nameof(ObjectSubLaneInfo.m_LanePrefab)};
@@ -39,6 +39,14 @@ namespace MW.EditorTools.Modules.PropReplacer
             try
             {
                 if(context==null||!context.Available||context.DialogBusy)throw new InvalidOperationException("Select an editable element row and close open dialogs.");
+                bool targetMode=World.GetExistingSystemManaged<ToolSystem>()?.activeTool is IViewportTargetSource<Entity>;
+                if(command=="copyTarget"||command=="pasteTarget"||command=="batchTarget"||
+                    (targetMode&&(command=="copy"||command=="paste"||command=="batch")))
+                {
+                    if(!targetMode)throw new InvalidOperationException("MW targeting is no longer active. Select the target again.");
+                    if(command=="copyTarget"||command=="copy")CopyViewport();else PasteViewport(command=="batchTarget"||command=="batch");
+                    Publish();return;
+                }
                 var rows=ResolveRows();
                 if(command!=null&&command.StartsWith("select|",StringComparison.Ordinal))
                 {
@@ -65,6 +73,7 @@ namespace MW.EditorTools.Modules.PropReplacer
         private void CopyHover()
         {
             TrackReportAsset();
+            if(World.GetExistingSystemManaged<ToolSystem>()?.activeTool is IViewportTargetSource<Entity>){CopyViewport();return;}
             MW.EditorTools.Mod.Log.Info("Prop Replacer browser candidate at Ctrl+C: age="+(UnityEngine.Time.realtimeSinceStartup-browserCandidateTime)+" data="+(browserCandidate??"none"));
             if(browserCandidate!=null&&UnityEngine.Time.realtimeSinceStartup-browserCandidateTime<.75f){var previous=clipboard;HoverCopy(browserCandidate);if(!ReferenceEquals(previous,clipboard))return;}
             CopyViewport();
@@ -72,7 +81,7 @@ namespace MW.EditorTools.Modules.PropReplacer
         private void CopyViewport()
         {
             var tool=World.GetExistingSystemManaged<ToolSystem>()?.activeTool as DefaultToolSystem;
-            if(tool==null)throw new InvalidOperationException("Use the default selection tool and hover an element before pressing Ctrl+C.");
+            if(tool==null&&!(World.GetExistingSystemManaged<ToolSystem>()?.activeTool is IViewportTargetSource<Entity>))throw new InvalidOperationException("Use native Select or MW targeting before pressing Ctrl+C.");
             var id=ViewportHit();var em=World.EntityManager;
             if(id==Entity.Null||!em.Exists(id)||em.HasComponent<Game.Common.Deleted>(id))throw new InvalidOperationException("No live element is highlighted under the cursor.");
             var prefabs=World.GetExistingSystemManaged<PrefabSystem>();PrefabBase replacement=null;Type rowType=null;string label=null;
@@ -108,8 +117,11 @@ namespace MW.EditorTools.Modules.PropReplacer
             catch(Exception error){MW.EditorTools.Mod.Log.Warn("Prop Replacer browser Ctrl+C failed: "+error.Message);}
             Publish();
         }
+        private string PasteBlockReason => surfaceFailed ? "Surface replacement did not complete. Reload without saving before further replacements." : surfaceRenderPending!=null ? "Wait for the surface material refresh to finish before replacing again." : "";
         private void Replace(Row row,bool batch)
         {
+            if(surfaceRenderPending!=null)throw new InvalidOperationException("Wait for the surface material refresh to finish before replacing again.");
+            if(surfaceFailed)throw new InvalidOperationException("Surface replacement did not complete. Reload without saving before further replacements.");
             if(foliageFailed||foliageWitnesses.Length>0)throw new InvalidOperationException(foliageFailed?"Reload the disposable session before further replacements.":"Wait for foliage regeneration to finish before replacing again.");
             if(clipboard==null||clipboard.Replacement==null)throw new InvalidOperationException("Copy an element row first.");
             if(row==null)throw new InvalidOperationException("Select the destination element row first.");
@@ -119,14 +131,16 @@ namespace MW.EditorTools.Modules.PropReplacer
             var oldReference=row.ReferenceField.GetValue(row.Value) as PrefabBase;
             if(oldReference==null)throw new InvalidOperationException("The destination row has no replaceable prefab reference.");
             if(ReferenceEquals(oldReference,clipboard.Replacement)){status="Destination already uses "+clipboard.Replacement.name+".";return;}
+            if(PasteBlockReason.Length>0)throw new NotSupportedException(PasteBlockReason);
             if(CanRecordUndo?.Invoke()!=true||RecordUndo==null)throw new InvalidOperationException("Enable Undo recovery and finish pending editor operations before replacing.");
+            if(row.Value is ObjectSubAreaInfo){ReplaceSurface(row,batch,oldReference);return;}
             var before=PrefabSnapshot.Take(row.ListField.GetValue(row.Owner));int changed=0;bool dirty=row.Root.isDirty;
             var indices=Enumerable.Range(0,row.List.Count).Where(i=>row.List[i]!=null&&row.List[i].GetType()==clipboard.RowType&&(batch?ReferenceEquals(row.ReferenceField.GetValue(row.List[i]),oldReference):ReferenceEquals(row.List[i],row.Value))).ToArray();
             var selectedAsset=context.Asset;var replacement=clipboard.Replacement;
             var foliage=PlanFoliageReplacement(row,batch,oldReference);
             try
             {
-                BeforeWrite?.Invoke();
+                BeforeWrite?.Invoke();surfaceUndoReason="";
                 foreach(var value in row.List)
                 {
                     if(value==null||value.GetType()!=clipboard.RowType)continue;
@@ -140,7 +154,7 @@ namespace MW.EditorTools.Modules.PropReplacer
                 WatchFoliageCandidates(foliage,row,before);
                 var after=PrefabSnapshot.Take(row.ListField.GetValue(row.Owner));
                 RecordUndo(MakeReplacementUndo(row,before,after,oldReference,replacement,indices,selectedAsset,ReplacementGuards(row)));
-                status=(batch?"Replaced "+changed+" matching "+row.Label.ToLowerInvariant()+" element(s)":"Replaced selected "+row.Label.ToLowerInvariant())+" with "+clipboard.Replacement.name+". Destination placement and row settings were preserved.";
+                status=(batch?"Replaced "+changed+" matching "+row.Label.ToLowerInvariant()+(changed==1?" element":" elements"):"Replaced selected "+row.Label.ToLowerInvariant())+" with "+clipboard.Replacement.name+". Destination placement and row settings were preserved.";
             }
             catch(Exception error)
             {
@@ -153,6 +167,7 @@ namespace MW.EditorTools.Modules.PropReplacer
         private void PasteHover(bool batch)
         {
             if(clipboard?.Replacement==null)throw new InvalidOperationException("Copy an element with Ctrl+C first.");
+            if(World.GetExistingSystemManaged<ToolSystem>()?.activeTool is IViewportTargetSource<Entity>){PasteViewport(batch);return;}
             var fresh=browserCandidate!=null&&UnityEngine.Time.realtimeSinceStartup-browserCandidateTime<.75f;
             var samples=fresh?UnityEngine.JsonUtility.FromJson<HoverText>(browserCandidate)?.samples??new string[0]:new string[0];
             if(samples.Length==0){PasteViewport(batch);return;}
@@ -203,14 +218,15 @@ namespace MW.EditorTools.Modules.PropReplacer
         private void TrackReportAsset()
         {
             var asset = context?.Asset;
-            if (!ReferenceEquals(reportAsset, asset)) { reportAsset = asset; status = ""; }
+            if (!ReferenceEquals(reportAsset, asset)) { reportAsset = asset; status = "";surfaceUndoReason=""; }
         }
-        protected override void OnUpdate(){base.OnUpdate();TrackReportAsset();CheckFoliageWitnesses();PollClipboardShortcuts();Publish();}
+        protected override void OnUpdate(){base.OnUpdate();TrackReportAsset();CheckFoliageWitnesses();CheckSurfaceRenderDeadline();PollClipboardShortcuts();Publish();}
         private void Publish()
         {
             Row[] rows=new Row[0];Row row=null;try{if(context?.Available==true){rows=ResolveRows();row=Chosen(rows);}}catch{}
             var current=row?.ReferenceField.GetValue(row.Value) as PrefabBase;
-            var state=new State{available=context?.EditorAvailable==true,hasRow=row!=null,canPaste=row!=null&&clipboard!=null&&row.Value.GetType()==clipboard.RowType,selected=Array.FindIndex(rows,r=>ReferenceEquals(r.Value,row?.Value)),rows=rows.Select((r,i)=>new RowState{index=i,type=r.Label+" "+(r.Index+1),value=(r.ReferenceField.GetValue(r.Value) as PrefabBase)?.name??"Missing reference"}).ToArray(),asset=context?.Asset?.name??"No asset selected",rowType=row?.Label??"No element row chosen",current=current?.name??"",clipboard=clipboard==null?"Clipboard empty":clipboard.Replacement.name+" ("+clipboard.Label+" from "+clipboard.SourceAsset+")",status=status};
+            var state=new State{available=context?.EditorAvailable==true,hasRow=row!=null,canPaste=row!=null&&clipboard!=null&&PasteBlockReason.Length==0&&row.Value.GetType()==clipboard.RowType,pasteBlocked=PasteBlockReason,undoStatus=surfaceUndoReason,selected=Array.FindIndex(rows,r=>ReferenceEquals(r.Value,row?.Value)),rows=rows.Select((r,i)=>new RowState{index=i,type=r.Label+" "+(r.Index+1),value=(r.ReferenceField.GetValue(r.Value) as PrefabBase)?.name??"Missing reference"}).ToArray(),asset=context?.Asset?.name??"No asset selected",rowType=row?.Label??"No element row chosen",current=current?.name??"",clipboard=clipboard==null?"Clipboard empty":clipboard.Replacement.name+" ("+clipboard.Label+" from "+clipboard.SourceAsset+")",status=status};
+            PublishViewportRowHighlight(state);
             var json=UnityEngine.JsonUtility.ToJson(state);if(json!=published){published=json;binding.Update(json);}
         }
     }

@@ -1,0 +1,12 @@
+0.4.208 validation (managed; native ECS/render acceptance remains unproven)
+Release build: PASS, 0 errors. Existing NU1900 package vulnerability-feed availability warning.
+UI production build: PASS.
+Phase3Safety: 602 PASS (includes actual Game structs and full graph to companion reversal integration).
+BoundCompletionSafety: 77 PASS (existing unused fake Status warning).
+SpawnAccessSafety: 55 PASS.
+EffectUndoSafety: 41 PASS.
+EffectRestoreSafety: 35 PASS.
+BoundFoliageSafety: 25 PASS.
+AreaMoveSafety: 97 PASS.
+MoveUndoSafety: 38 PASS.
+Total: 970 PASS.

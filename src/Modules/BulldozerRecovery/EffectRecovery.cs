@@ -29,7 +29,8 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
         private EffectEntry NewEffectEntry(Entity id,bool move) {
             if(effectDisabled||AutomaticCaptureAllowed?.Invoke()!=true||context.DialogBusy)throw new NotSupportedException("Enable recovery and close dialogs; reload after a recovery error.");
             var e=new EffectEntry{Move=move,Live=id,Before=CaptureEffect(id)};Mod.Log.Info("Effect capture "+(move?"move":"deletion")+": "+EffectDetails(e.Before));
-            if(e.Before.Owner!=Entity.Null){e.IsolatedBefore=CaptureIsolatedEffectOwner(e.Before.Owner);
+            if(e.Before.Owner!=Entity.Null&&!move){e.BoundBefore=CaptureMoveOwner(e.Before.Owner,true);e.BoundBefore.Move=false;}
+            else if(e.Before.Owner!=Entity.Null){e.IsolatedBefore=CaptureIsolatedEffectOwner(e.Before.Owner);
                 if(!IsolatedSources(e.IsolatedBefore))throw new NotSupportedException("Isolated effect source does not uniquely match native local placements.");}
             return e;
         }
@@ -101,7 +102,7 @@ namespace MW.EditorTools.Modules.BulldozerRecovery {
             // Native edit application can update unrelated child poses after
             // the target and source first settle. Keep observing the complete
             // after-image; once ready, the exact witness guard remains strict.
-            if(effectStable>=(e.IsolatedBefore!=null?30:3)){
+            if(effectStable>=(e.Bound?30:3)){
                 if(effectRestoring){if(!effectHistory.Undo(v=>ReferenceEquals(v,e))){FailEffect("Effect recovery slot changed; reload without saving.");return;}Status="Undid "+(e.IsolatedBefore!=null?"isolated bound ":"")+"effect "+(e.Move?"move":"deletion")+"; placement and values verified.";}
                 else {ClearMovePrevious();ClearMove();if(e.BoundBefore!=null)PrepareEffectBoundEntry(e);effectHistory.Record(e);effectUndoBlockReason=null;Status="Effect "+(e.Move?"move":"deletion")+" ready to Undo.";}
                 Mod.Log.Info(Status);effectPending=null;effectCommitted=effectRestoring=false;effectStable=0;

@@ -28,6 +28,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Diagnostics
         public int index;
         public string typeName;
         public string sectionId = "";
+        public string[] fields = new string[0];
         public bool active;
         public bool valid;
     }

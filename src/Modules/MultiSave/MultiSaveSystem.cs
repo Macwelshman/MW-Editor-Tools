@@ -124,7 +124,7 @@ namespace MW.EditorTools.Modules.MultiSave
                 if (prefab.isReadOnly) locked++;
                 else result.Add(prefab);
             }
-            ScanStatus("Workspace scan: " + rows.Length + " rows, " + seen.Count + " resolved assets, " + result.Count + " unlocked, " + locked + " locked.");
+            ScanStatus("Workspace scan: " + rows.Length + (rows.Length == 1 ? " row, " : " rows, ") + seen.Count + (seen.Count == 1 ? " resolved asset, " : " resolved assets, ") + result.Count + " unlocked, " + locked + " locked.");
             return result;
         }
 
@@ -314,7 +314,7 @@ namespace MW.EditorTools.Modules.MultiSave
         private void Finish()
         {
             state.status = (stopRequested ? "Stopped. " : "Finished. ") + state.saved + " saved, " + state.failed + " failed, " + state.skipped + " skipped.";
-            if (state.locked > 0) state.status += " " + state.locked + " locked assets excluded.";
+            if (state.locked > 0) state.status += " " + state.locked + (state.locked == 1 ? " locked asset excluded." : " locked assets excluded.");
             if (stopRequested) state.status += " " + (state.total - state.processed) + " not attempted.";
             Mod.Log.Info(state.status);
             ResetQueue();

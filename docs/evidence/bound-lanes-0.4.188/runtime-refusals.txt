@@ -1,0 +1,20 @@
+[2026-10-22 00:15:32,286] [INFO]  Area Undo unavailable: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:15:38,965] [INFO]  Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:15:38,968] [INFO]  Bound prop capture not armed; mode=SubElements; status=Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:15:42,465] [INFO]  Area Undo unavailable: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:15:50,185] [INFO]  Area Undo unavailable: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:15:54,812] [INFO]  Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:15:54,812] [INFO]  Bound prop capture not armed; mode=SubElements; status=Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:15:57,609] [INFO]  Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:15:57,610] [INFO]  Bound prop capture not armed; mode=SubElements; status=Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:16:00,805] [INFO]  Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:16:00,805] [INFO]  Bound prop capture not armed; mode=SubElements; status=Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:16:04,508] [INFO]  Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:16:04,508] [INFO]  Bound prop capture not armed; mode=SubElements; status=Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:16:07,605] [INFO]  Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:16:07,607] [INFO]  Bound prop capture not armed; mode=SubElements; status=Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:16:27,792] [INFO]  Bound prop capture not armed; mode=MainElements; status=Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:16:47,165] [INFO]  Bound prop capture not armed; mode=MainElements; status=Standalone prop Undo enabled (experimental). Main- or Everything-delete a supported standalone prop, then use Undo or Redo. Use a disposable editor session; do not save.
+[2026-10-22 00:17:28,041] [INFO]  Bound prop capture not armed; mode=MainElements; status=Standalone prop Undo enabled (experimental). Main- or Everything-delete a supported standalone prop, then use Undo or Redo. Use a disposable editor session; do not save.
+[2026-10-22 00:18:14,516] [INFO]  Cannot enable prop Undo: Unhandled nested component: Game.Net.SubLane; prefab=BikeRack01; effectContainer=False
+[2026-10-22 00:18:14,519] [INFO]  Bound prop capture not armed; mode=Everything; status=Prop Undo unavailable: Not a simple standalone static prop.

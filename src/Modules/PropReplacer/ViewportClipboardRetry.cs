@@ -16,6 +16,7 @@ namespace MW.EditorTools.Modules.PropReplacer {
             internal float DeadlineTime;
         }
         private ViewportClipboardRequest pendingViewportClipboard;
+        private bool viewportShortcutIntent;
         private void PollClipboardShortcuts() {
             var keyboard=Keyboard.current;
             if(keyboard!=null&&keyboard.ctrlKey.isPressed&&!keyboard.altKey.isPressed&&!keyboard.leftMetaKey.isPressed&&!keyboard.rightMetaKey.isPressed&&shortcutAllowed?.Invoke()==true) {
@@ -23,13 +24,14 @@ namespace MW.EditorTools.Modules.PropReplacer {
                 bool paste=keyboard.vKey.wasPressedThisFrame;
                 if(copy||paste) {
                     pendingViewportClipboard=null;
-                    try{if(copy)CopyHover();else PasteHover(keyboard.shiftKey.isPressed);}
+                    try{viewportShortcutIntent=true;if(copy)CopyHover();else PasteHover(keyboard.shiftKey.isPressed);}
                     catch(ViewportHitNotReady error) {
                         pendingViewportClipboard=new ViewportClipboardRequest{Copy=copy,Batch=!copy&&keyboard.shiftKey.isPressed,Expected=error.Expected,Tool=error.Tool,Asset=context?.Asset,Clipboard=clipboard,
                             Frame=UnityEngine.Time.frameCount,DeadlineFrame=UnityEngine.Time.frameCount+12,DeadlineTime=UnityEngine.Time.realtimeSinceStartup+.35f};
                         status=error.Message;
                     }
                     catch(Exception error){status=error.Message;MW.EditorTools.Mod.Log.Info("Prop Replacer clipboard shortcut refused: "+error.Message);}
+                    finally{viewportShortcutIntent=false;}
                     return;
                 }
             }
@@ -47,6 +49,7 @@ namespace MW.EditorTools.Modules.PropReplacer {
             }
             if(UnityEngine.Time.frameCount<=request.Frame)return;
             requiredViewportHit=request.Expected;
+            viewportShortcutIntent=true;
             try {
                 // Retry only the pinned viewport operation, never a later browser
                 // hover sample or a different element under a moved cursor.
@@ -57,7 +60,7 @@ namespace MW.EditorTools.Modules.PropReplacer {
                 if(error.Expected!=request.Expected||!ReferenceEquals(error.Tool,request.Tool)){pendingViewportClipboard=null;status="The viewport target changed; pending clipboard action cancelled.";}
             } catch(Exception error) {
                 pendingViewportClipboard=null;status=error.Message;MW.EditorTools.Mod.Log.Info("Prop Replacer pending clipboard action refused: "+error.Message);
-            } finally {requiredViewportHit=null;}
+            } finally {requiredViewportHit=null;viewportShortcutIntent=false;}
         }
     }
 }

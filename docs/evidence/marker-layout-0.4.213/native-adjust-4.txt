@@ -1,0 +1,151 @@
+Game.Net.Curve Game.Net.NetUtils::AdjustPosition(Game.Net.Curve,Unity.Mathematics.bool2,System.Boolean,Unity.Mathematics.bool2,Game.Buildings.BuildingUtils/LotInfo&)
+V_0
+V_1
+V_2
+IL_0000: ldarg.0
+IL_0001: stloc.0
+IL_0002: ldarg.1
+IL_0003: ldfld System.Boolean Unity.Mathematics.bool2::x
+IL_0008: brtrue.s IL_002d
+IL_000a: ldloca.s V_0
+IL_000c: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0011: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0016: ldarg.s lotInfo
+IL_0018: ldarg.0
+IL_0019: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_001e: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_0023: call System.Single Game.Buildings.BuildingUtils::SampleHeight(Game.Buildings.BuildingUtils/LotInfo&,Unity.Mathematics.float3)
+IL_0028: stfld System.Single Unity.Mathematics.float3::y
+IL_002d: ldarg.3
+IL_002e: ldfld System.Boolean Unity.Mathematics.bool2::x
+IL_0033: brtrue.s IL_0058
+IL_0035: ldloca.s V_0
+IL_0037: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_003c: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_0041: ldarg.s lotInfo
+IL_0043: ldarg.0
+IL_0044: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0049: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_004e: call System.Single Game.Buildings.BuildingUtils::SampleHeight(Game.Buildings.BuildingUtils/LotInfo&,Unity.Mathematics.float3)
+IL_0053: stfld System.Single Unity.Mathematics.float3::y
+IL_0058: ldarg.2
+IL_0059: brfalse IL_00ec
+IL_005e: ldarg.1
+IL_005f: ldfld System.Boolean Unity.Mathematics.bool2::y
+IL_0064: brtrue.s IL_00a1
+IL_0066: ldloca.s V_0
+IL_0068: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_006d: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0072: ldloc.0
+IL_0073: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0078: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_007d: ldfld System.Single Unity.Mathematics.float3::y
+IL_0082: ldloc.0
+IL_0083: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0088: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_008d: ldfld System.Single Unity.Mathematics.float3::y
+IL_0092: ldc.r4 0.33333334
+IL_0097: call System.Single Unity.Mathematics.math::lerp(System.Single,System.Single,System.Single)
+IL_009c: stfld System.Single Unity.Mathematics.float3::y
+IL_00a1: ldarg.3
+IL_00a2: ldfld System.Boolean Unity.Mathematics.bool2::y
+IL_00a7: brtrue IL_01ea
+IL_00ac: ldloca.s V_0
+IL_00ae: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00b3: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_00b8: ldloc.0
+IL_00b9: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00be: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::a
+IL_00c3: ldfld System.Single Unity.Mathematics.float3::y
+IL_00c8: ldloc.0
+IL_00c9: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00ce: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::d
+IL_00d3: ldfld System.Single Unity.Mathematics.float3::y
+IL_00d8: ldc.r4 0.6666667
+IL_00dd: call System.Single Unity.Mathematics.math::lerp(System.Single,System.Single,System.Single)
+IL_00e2: stfld System.Single Unity.Mathematics.float3::y
+IL_00e7: br IL_01ea
+IL_00ec: ldarg.1
+IL_00ed: ldfld System.Boolean Unity.Mathematics.bool2::y
+IL_00f2: brtrue.s IL_0117
+IL_00f4: ldloca.s V_0
+IL_00f6: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_00fb: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_0100: ldarg.s lotInfo
+IL_0102: ldarg.0
+IL_0103: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0108: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_010d: call System.Single Game.Buildings.BuildingUtils::SampleHeight(Game.Buildings.BuildingUtils/LotInfo&,Unity.Mathematics.float3)
+IL_0112: stfld System.Single Unity.Mathematics.float3::y
+IL_0117: ldarg.3
+IL_0118: ldfld System.Boolean Unity.Mathematics.bool2::y
+IL_011d: brtrue.s IL_0142
+IL_011f: ldloca.s V_0
+IL_0121: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0126: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_012b: ldarg.s lotInfo
+IL_012d: ldarg.0
+IL_012e: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0133: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0138: call System.Single Game.Buildings.BuildingUtils::SampleHeight(Game.Buildings.BuildingUtils/LotInfo&,Unity.Mathematics.float3)
+IL_013d: stfld System.Single Unity.Mathematics.float3::y
+IL_0142: ldloc.0
+IL_0143: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0148: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_014d: ldfld System.Single Unity.Mathematics.float3::y
+IL_0152: ldloca.s V_0
+IL_0154: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0159: call Colossal.Mathematics.Bezier4x1 Colossal.Mathematics.Bezier4x3::get_y()
+IL_015e: ldc.r4 0.33333334
+IL_0163: call System.Single Colossal.Mathematics.MathUtils::Position(Colossal.Mathematics.Bezier4x1,System.Single)
+IL_0168: sub
+IL_0169: stloc.1
+IL_016a: ldloc.0
+IL_016b: ldfld Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0170: ldfld Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_0175: ldfld System.Single Unity.Mathematics.float3::y
+IL_017a: ldloca.s V_0
+IL_017c: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_0181: call Colossal.Mathematics.Bezier4x1 Colossal.Mathematics.Bezier4x3::get_y()
+IL_0186: ldc.r4 0.6666667
+IL_018b: call System.Single Colossal.Mathematics.MathUtils::Position(Colossal.Mathematics.Bezier4x1,System.Single)
+IL_0190: sub
+IL_0191: stloc.2
+IL_0192: ldarg.1
+IL_0193: ldfld System.Boolean Unity.Mathematics.bool2::y
+IL_0198: brtrue.s IL_01be
+IL_019a: ldloca.s V_0
+IL_019c: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_01a1: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::b
+IL_01a6: ldflda System.Single Unity.Mathematics.float3::y
+IL_01ab: dup
+IL_01ac: ldind.r4
+IL_01ad: ldloc.1
+IL_01ae: ldc.r4 3
+IL_01b3: mul
+IL_01b4: ldloc.2
+IL_01b5: ldc.r4 1.5
+IL_01ba: mul
+IL_01bb: sub
+IL_01bc: add
+IL_01bd: stind.r4
+IL_01be: ldarg.3
+IL_01bf: ldfld System.Boolean Unity.Mathematics.bool2::y
+IL_01c4: brtrue.s IL_01ea
+IL_01c6: ldloca.s V_0
+IL_01c8: ldflda Colossal.Mathematics.Bezier4x3 Game.Net.Curve::m_Bezier
+IL_01cd: ldflda Unity.Mathematics.float3 Colossal.Mathematics.Bezier4x3::c
+IL_01d2: ldflda System.Single Unity.Mathematics.float3::y
+IL_01d7: dup
+IL_01d8: ldind.r4
+IL_01d9: ldloc.2
+IL_01da: ldc.r4 3
+IL_01df: mul
+IL_01e0: ldloc.1
+IL_01e1: ldc.r4 1.5
+IL_01e6: mul
+IL_01e7: sub
+IL_01e8: add
+IL_01e9: stind.r4
+IL_01ea: ldloc.0
+IL_01eb: ret

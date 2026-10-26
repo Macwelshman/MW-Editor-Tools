@@ -1,0 +1,20 @@
+Game.Objects.Transform Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Game.Objects.Transform)
+IL_0000: ldloca.s V_0
+IL_0002: ldarg.0
+IL_0003: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0008: ldarg.1
+IL_0009: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_000e: ldarg.0
+IL_000f: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0014: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_Addition(Unity.Mathematics.float3,Unity.Mathematics.float3)
+IL_0019: call Unity.Mathematics.float3 Unity.Mathematics.math::mul(Unity.Mathematics.quaternion,Unity.Mathematics.float3)
+IL_001e: stfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0023: ldloca.s V_0
+IL_0025: ldarg.0
+IL_0026: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_002b: ldarg.1
+IL_002c: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0031: call Unity.Mathematics.quaternion Unity.Mathematics.math::mul(Unity.Mathematics.quaternion,Unity.Mathematics.quaternion)
+IL_0036: stfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_003b: ldloc.0
+IL_003c: ret

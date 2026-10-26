@@ -1,0 +1,8 @@
+Game.Net.Node Game.Net.NetUtils::AdjustPosition(Game.Net.Node,Game.Buildings.BuildingUtils/LotInfo&)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.0
+IL_0003: ldfld Unity.Mathematics.float3 Game.Net.Node::m_Position
+IL_0008: call System.Single Game.Buildings.BuildingUtils::SampleHeight(Game.Buildings.BuildingUtils/LotInfo&,Unity.Mathematics.float3)
+IL_000d: pop
+IL_000e: ret

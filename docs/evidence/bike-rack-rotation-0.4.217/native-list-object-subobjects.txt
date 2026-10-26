@@ -1,0 +1,362 @@
+System.Void Game.Tools.ApplyPrefabsSystem::ListObjectSubObjects(Unity.Entities.Entity,System.Collections.Generic.List`1<Game.Prefabs.ObjectSubObjectInfo>&,System.Collections.Generic.List`1<Game.Prefabs.EffectSource/EffectSettings>&,System.Collections.Generic.List`1<Game.Prefabs.ActivityLocation/LocationInfo>&,System.UInt32&,System.UInt32&)
+IL_0000: ldarg.0
+IL_0001: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0006: stloc.0
+IL_0007: ldloca.s V_0
+IL_0009: ldarg.1
+IL_000a: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.SubObject>(Unity.Entities.Entity)
+IL_000f: brfalse IL_03fc
+IL_0014: ldarg.0
+IL_0015: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_001a: stloc.0
+IL_001b: ldloca.s V_0
+IL_001d: ldarg.1
+IL_001e: ldc.i4.1
+IL_001f: call Unity.Entities.DynamicBuffer`1<!!0> Unity.Entities.EntityManager::GetBuffer<Game.Objects.SubObject>(Unity.Entities.Entity,System.Boolean)
+IL_0024: stloc.1
+IL_0025: ldloca.s V_1
+IL_0027: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_002c: brfalse IL_03fc
+IL_0031: ldloca.s V_2
+IL_0033: initobj Game.Objects.Transform
+IL_0039: ldc.i4.0
+IL_003a: stloc.3
+IL_003b: ldarg.0
+IL_003c: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0041: ldarg.1
+IL_0042: ldloca.s V_4
+IL_0044: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Objects.Transform>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0049: brfalse.s IL_0073
+IL_004b: ldloca.s V_2
+IL_004d: ldloc.s V_4
+IL_004f: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0054: call Unity.Mathematics.float3 Unity.Mathematics.float3::op_UnaryNegation(Unity.Mathematics.float3)
+IL_0059: stfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_005e: ldloca.s V_2
+IL_0060: ldloc.s V_4
+IL_0062: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0067: call Unity.Mathematics.quaternion Unity.Mathematics.math::inverse(Unity.Mathematics.quaternion)
+IL_006c: stfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_0071: ldc.i4.1
+IL_0072: stloc.3
+IL_0073: ldarg.2
+IL_0074: ldloca.s V_1
+IL_0076: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_007b: newobj System.Void System.Collections.Generic.List`1<Game.Prefabs.ObjectSubObjectInfo>::.ctor(System.Int32)
+IL_0080: stind.ref
+IL_0081: ldarg.3
+IL_0082: ldloca.s V_1
+IL_0084: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0089: newobj System.Void System.Collections.Generic.List`1<Game.Prefabs.EffectSource/EffectSettings>::.ctor(System.Int32)
+IL_008e: stind.ref
+IL_008f: ldarg.s subActivityList
+IL_0091: ldloca.s V_1
+IL_0093: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_0098: newobj System.Void System.Collections.Generic.List`1<Game.Prefabs.ActivityLocation/LocationInfo>::.ctor(System.Int32)
+IL_009d: stind.ref
+IL_009e: ldc.i4.0
+IL_009f: stloc.s V_5
+IL_00a1: br IL_03ed
+IL_00a6: ldloca.s V_1
+IL_00a8: ldloc.s V_5
+IL_00aa: call !0 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Item(System.Int32)
+IL_00af: ldfld Unity.Entities.Entity Game.Objects.SubObject::m_SubObject
+IL_00b4: stloc.s V_6
+IL_00b6: ldarg.0
+IL_00b7: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00bc: ldloc.s V_6
+IL_00be: ldloca.s V_7
+IL_00c0: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Common.Owner>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_00c5: brfalse IL_03e7
+IL_00ca: ldarg.0
+IL_00cb: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00d0: stloc.0
+IL_00d1: ldloca.s V_0
+IL_00d3: ldloc.s V_6
+IL_00d5: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Objects.Secondary>(Unity.Entities.Entity)
+IL_00da: brtrue IL_03e7
+IL_00df: ldarg.0
+IL_00e0: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_00e5: stloc.0
+IL_00e6: ldloca.s V_0
+IL_00e8: ldloc.s V_6
+IL_00ea: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Buildings.ServiceUpgrade>(Unity.Entities.Entity)
+IL_00ef: brtrue IL_03e7
+IL_00f4: ldloc.s V_7
+IL_00f6: ldfld Unity.Entities.Entity Game.Common.Owner::m_Owner
+IL_00fb: ldarg.1
+IL_00fc: call System.Boolean Unity.Entities.Entity::op_Equality(Unity.Entities.Entity,Unity.Entities.Entity)
+IL_0101: brfalse IL_03e7
+IL_0106: ldc.i4.0
+IL_0107: stloc.s V_10
+IL_0109: ldc.i4.0
+IL_010a: stloc.s V_11
+IL_010c: ldc.i4.0
+IL_010d: stloc.s V_12
+IL_010f: ldarg.0
+IL_0110: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0115: ldloc.s V_6
+IL_0117: ldloca.s V_13
+IL_0119: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Objects.Transform>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_011e: brfalse IL_0244
+IL_0123: ldloc.3
+IL_0124: brfalse.s IL_013f
+IL_0126: ldloc.2
+IL_0127: ldloc.s V_13
+IL_0129: call Game.Objects.Transform Game.Objects.ObjectUtils::WorldToLocal(Game.Objects.Transform,Game.Objects.Transform)
+IL_012e: dup
+IL_012f: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0134: stloc.s V_8
+IL_0136: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_013b: stloc.s V_9
+IL_013d: br.s IL_0151
+IL_013f: ldloc.s V_13
+IL_0141: ldfld Unity.Mathematics.float3 Game.Objects.Transform::m_Position
+IL_0146: stloc.s V_8
+IL_0148: ldloc.s V_13
+IL_014a: ldfld Unity.Mathematics.quaternion Game.Objects.Transform::m_Rotation
+IL_014f: stloc.s V_9
+IL_0151: ldarg.0
+IL_0152: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0157: ldloc.s V_6
+IL_0159: ldloca.s V_15
+IL_015b: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Tools.LocalTransformCache>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0160: brfalse IL_021e
+IL_0165: ldloca.s V_8
+IL_0167: ldloc.s V_15
+IL_0169: ldfld Unity.Mathematics.float3 Game.Tools.LocalTransformCache::m_Position
+IL_016e: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.float3&,Unity.Mathematics.float3)
+IL_0173: ldloca.s V_9
+IL_0175: ldloc.s V_15
+IL_0177: ldfld Unity.Mathematics.quaternion Game.Tools.LocalTransformCache::m_Rotation
+IL_017c: call System.Void Game.Tools.ApplyPrefabsSystem::CheckCachedValue(Unity.Mathematics.quaternion&,Unity.Mathematics.quaternion)
+IL_0181: ldloc.s V_15
+IL_0183: ldfld System.Int32 Game.Tools.LocalTransformCache::m_ParentMesh
+IL_0188: stloc.s V_10
+IL_018a: ldloc.s V_15
+IL_018c: ldfld System.Int32 Game.Tools.LocalTransformCache::m_GroupIndex
+IL_0191: stloc.s V_11
+IL_0193: ldloc.s V_15
+IL_0195: ldfld System.Int32 Game.Tools.LocalTransformCache::m_Probability
+IL_019a: stloc.s V_12
+IL_019c: ldarg.0
+IL_019d: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_01a2: ldloc.s V_6
+IL_01a4: ldloca.s V_16
+IL_01a6: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Tools.EditorContainer>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_01ab: brfalse.s IL_01fc
+IL_01ad: ldarg.0
+IL_01ae: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_01b3: stloc.0
+IL_01b4: ldloca.s V_0
+IL_01b6: ldloc.s V_16
+IL_01b8: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_01bd: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Prefabs.EffectData>(Unity.Entities.Entity)
+IL_01c2: brfalse.s IL_01d4
+IL_01c4: ldloca.s V_15
+IL_01c6: ldarg.3
+IL_01c7: ldind.ref
+IL_01c8: callvirt System.Int32 System.Collections.Generic.List`1<Game.Prefabs.EffectSource/EffectSettings>::get_Count()
+IL_01cd: stfld System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+IL_01d2: br.s IL_020a
+IL_01d4: ldarg.0
+IL_01d5: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_01da: stloc.0
+IL_01db: ldloca.s V_0
+IL_01dd: ldloc.s V_16
+IL_01df: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_01e4: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Prefabs.ActivityLocationData>(Unity.Entities.Entity)
+IL_01e9: brfalse.s IL_020a
+IL_01eb: ldloca.s V_15
+IL_01ed: ldarg.s subActivityList
+IL_01ef: ldind.ref
+IL_01f0: callvirt System.Int32 System.Collections.Generic.List`1<Game.Prefabs.ActivityLocation/LocationInfo>::get_Count()
+IL_01f5: stfld System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+IL_01fa: br.s IL_020a
+IL_01fc: ldloca.s V_15
+IL_01fe: ldarg.2
+IL_01ff: ldind.ref
+IL_0200: callvirt System.Int32 System.Collections.Generic.List`1<Game.Prefabs.ObjectSubObjectInfo>::get_Count()
+IL_0205: stfld System.Int32 Game.Tools.LocalTransformCache::m_PrefabSubIndex
+IL_020a: ldarg.0
+IL_020b: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0210: stloc.0
+IL_0211: ldloca.s V_0
+IL_0213: ldloc.s V_6
+IL_0215: ldloc.s V_15
+IL_0217: call System.Void Unity.Entities.EntityManager::SetComponentData<Game.Tools.LocalTransformCache>(Unity.Entities.Entity,!!0)
+IL_021c: br.s IL_0255
+IL_021e: ldarg.0
+IL_021f: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0224: ldloc.s V_6
+IL_0226: ldloca.s V_17
+IL_0228: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Objects.Elevation>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_022d: brfalse.s IL_023f
+IL_022f: ldloc.s V_17
+IL_0231: ldfld Game.Objects.ElevationFlags Game.Objects.Elevation::m_Flags
+IL_0236: call System.Int32 Game.Objects.ObjectUtils::GetSubParentMesh(Game.Objects.ElevationFlags)
+IL_023b: stloc.s V_10
+IL_023d: br.s IL_0255
+IL_023f: ldc.i4.m1
+IL_0240: stloc.s V_10
+IL_0242: br.s IL_0255
+IL_0244: ldsfld Unity.Mathematics.float3 Unity.Mathematics.float3::zero
+IL_0249: stloc.s V_8
+IL_024b: ldsfld Unity.Mathematics.quaternion Unity.Mathematics.quaternion::identity
+IL_0250: stloc.s V_9
+IL_0252: ldc.i4.m1
+IL_0253: stloc.s V_10
+IL_0255: ldarg.0
+IL_0256: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_025b: ldloc.s V_6
+IL_025d: ldloca.s V_14
+IL_025f: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Tools.EditorContainer>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_0264: brfalse IL_033c
+IL_0269: ldarg.0
+IL_026a: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_026f: stloc.0
+IL_0270: ldloca.s V_0
+IL_0272: ldloc.s V_14
+IL_0274: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0279: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Prefabs.EffectData>(Unity.Entities.Entity)
+IL_027e: brfalse.s IL_02e8
+IL_0280: ldarg.3
+IL_0281: ldind.ref
+IL_0282: newobj System.Void Game.Prefabs.EffectSource/EffectSettings::.ctor()
+IL_0287: dup
+IL_0288: ldarg.0
+IL_0289: ldfld Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem
+IL_028e: ldloc.s V_14
+IL_0290: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0295: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.EffectPrefab>(Unity.Entities.Entity)
+IL_029a: stfld Game.Prefabs.EffectPrefab Game.Prefabs.EffectSource/EffectSettings::m_Effect
+IL_029f: dup
+IL_02a0: ldloc.s V_8
+IL_02a2: stfld Unity.Mathematics.float3 Game.Prefabs.EffectSource/EffectSettings::m_PositionOffset
+IL_02a7: dup
+IL_02a8: ldloc.s V_9
+IL_02aa: stfld Unity.Mathematics.quaternion Game.Prefabs.EffectSource/EffectSettings::m_Rotation
+IL_02af: dup
+IL_02b0: ldloc.s V_14
+IL_02b2: ldfld Unity.Mathematics.float3 Game.Tools.EditorContainer::m_Scale
+IL_02b7: stfld Unity.Mathematics.float3 Game.Prefabs.EffectSource/EffectSettings::m_Scale
+IL_02bc: dup
+IL_02bd: ldloc.s V_14
+IL_02bf: ldfld System.Single Game.Tools.EditorContainer::m_Intensity
+IL_02c4: stfld System.Single Game.Prefabs.EffectSource/EffectSettings::m_Intensity
+IL_02c9: dup
+IL_02ca: ldloc.s V_10
+IL_02cc: stfld System.Int32 Game.Prefabs.EffectSource/EffectSettings::m_ParentMesh
+IL_02d1: dup
+IL_02d2: ldloc.s V_14
+IL_02d4: ldfld System.Int32 Game.Tools.EditorContainer::m_GroupIndex
+IL_02d9: stfld System.Int32 Game.Prefabs.EffectSource/EffectSettings::m_AnimationIndex
+IL_02de: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.EffectSource/EffectSettings>::Add(!0)
+IL_02e3: br IL_03e7
+IL_02e8: ldarg.0
+IL_02e9: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_02ee: stloc.0
+IL_02ef: ldloca.s V_0
+IL_02f1: ldloc.s V_14
+IL_02f3: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_02f8: call System.Boolean Unity.Entities.EntityManager::HasComponent<Game.Prefabs.ActivityLocationData>(Unity.Entities.Entity)
+IL_02fd: brfalse IL_03e7
+IL_0302: ldarg.s subActivityList
+IL_0304: ldind.ref
+IL_0305: newobj System.Void Game.Prefabs.ActivityLocation/LocationInfo::.ctor()
+IL_030a: dup
+IL_030b: ldarg.0
+IL_030c: ldfld Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem
+IL_0311: ldloc.s V_14
+IL_0313: ldfld Unity.Entities.Entity Game.Tools.EditorContainer::m_Prefab
+IL_0318: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.ActivityLocationPrefab>(Unity.Entities.Entity)
+IL_031d: stfld Game.Prefabs.ActivityLocationPrefab Game.Prefabs.ActivityLocation/LocationInfo::m_Activity
+IL_0322: dup
+IL_0323: ldloc.s V_8
+IL_0325: stfld Unity.Mathematics.float3 Game.Prefabs.ActivityLocation/LocationInfo::m_Position
+IL_032a: dup
+IL_032b: ldloc.s V_9
+IL_032d: stfld Unity.Mathematics.quaternion Game.Prefabs.ActivityLocation/LocationInfo::m_Rotation
+IL_0332: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.ActivityLocation/LocationInfo>::Add(!0)
+IL_0337: br IL_03e7
+IL_033c: newobj System.Void Game.Prefabs.ObjectSubObjectInfo::.ctor()
+IL_0341: stloc.s V_18
+IL_0343: ldarg.0
+IL_0344: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0349: stloc.0
+IL_034a: ldloca.s V_0
+IL_034c: ldloc.s V_6
+IL_034e: call !!0 Unity.Entities.EntityManager::GetComponentData<Game.Prefabs.PrefabRef>(Unity.Entities.Entity)
+IL_0353: stloc.s V_19
+IL_0355: ldloc.s V_18
+IL_0357: ldarg.0
+IL_0358: ldfld Game.Prefabs.PrefabSystem Game.Tools.ApplyPrefabsSystem::m_PrefabSystem
+IL_035d: ldloc.s V_19
+IL_035f: callvirt T Game.Prefabs.PrefabSystem::GetPrefab<Game.Prefabs.ObjectPrefab>(Game.Prefabs.PrefabRef)
+IL_0364: stfld Game.Prefabs.ObjectPrefab Game.Prefabs.ObjectSubObjectInfo::m_Object
+IL_0369: ldarg.0
+IL_036a: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_036f: ldloc.s V_19
+IL_0371: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_0376: ldloca.s V_20
+IL_0378: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.PlaceableObjectData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_037d: brfalse.s IL_038d
+IL_037f: ldarg.s constructionCost
+IL_0381: ldarg.s constructionCost
+IL_0383: ldind.u4
+IL_0384: ldloc.s V_20
+IL_0386: ldfld System.UInt32 Game.Prefabs.PlaceableObjectData::m_ConstructionCost
+IL_038b: add
+IL_038c: stind.i4
+IL_038d: ldarg.0
+IL_038e: call Unity.Entities.EntityManager Unity.Entities.ComponentSystemBase::get_EntityManager()
+IL_0393: ldloc.s V_19
+IL_0395: ldfld Unity.Entities.Entity Game.Prefabs.PrefabRef::m_Prefab
+IL_039a: ldloca.s V_21
+IL_039c: call System.Boolean Colossal.Entities.EntitiesExtensions::TryGetComponent<Game.Prefabs.ConsumptionData>(Unity.Entities.EntityManager,Unity.Entities.Entity,!!0&)
+IL_03a1: brfalse.s IL_03b1
+IL_03a3: ldarg.s upKeepCost
+IL_03a5: ldarg.s upKeepCost
+IL_03a7: ldind.u4
+IL_03a8: ldloc.s V_21
+IL_03aa: ldfld System.Int32 Game.Prefabs.ConsumptionData::m_Upkeep
+IL_03af: add
+IL_03b0: stind.i4
+IL_03b1: ldloc.s V_18
+IL_03b3: ldloc.s V_8
+IL_03b5: stfld Unity.Mathematics.float3 Game.Prefabs.ObjectSubObjectInfo::m_Position
+IL_03ba: ldloc.s V_18
+IL_03bc: ldloc.s V_9
+IL_03be: stfld Unity.Mathematics.quaternion Game.Prefabs.ObjectSubObjectInfo::m_Rotation
+IL_03c3: ldloc.s V_18
+IL_03c5: ldloc.s V_10
+IL_03c7: stfld System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_ParentMesh
+IL_03cc: ldloc.s V_18
+IL_03ce: ldloc.s V_11
+IL_03d0: stfld System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_GroupIndex
+IL_03d5: ldloc.s V_18
+IL_03d7: ldloc.s V_12
+IL_03d9: stfld System.Int32 Game.Prefabs.ObjectSubObjectInfo::m_Probability
+IL_03de: ldarg.2
+IL_03df: ldind.ref
+IL_03e0: ldloc.s V_18
+IL_03e2: callvirt System.Void System.Collections.Generic.List`1<Game.Prefabs.ObjectSubObjectInfo>::Add(!0)
+IL_03e7: ldloc.s V_5
+IL_03e9: ldc.i4.1
+IL_03ea: add
+IL_03eb: stloc.s V_5
+IL_03ed: ldloc.s V_5
+IL_03ef: ldloca.s V_1
+IL_03f1: call System.Int32 Unity.Entities.DynamicBuffer`1<Game.Objects.SubObject>::get_Length()
+IL_03f6: blt IL_00a6
+IL_03fb: ret
+IL_03fc: ldarg.2
+IL_03fd: ldnull
+IL_03fe: stind.ref
+IL_03ff: ldarg.3
+IL_0400: ldnull
+IL_0401: stind.ref
+IL_0402: ldarg.s subActivityList
+IL_0404: ldnull
+IL_0405: stind.ref
+IL_0406: ret

@@ -1,0 +1,15 @@
+# Native row highlight dispatch — 0.4.244
+
+User acceptance: Areas now pass in 0.4.243. Native component-list highlighting did not appear. Area replacement and its companion/layout handling are unchanged in this version.
+
+VERIFIED-STATIC: installed game UI index.js initializes the editor widget component map with a captured BoundPagedList function. Replacing the BoundPagedList export later does not replace that saved map entry. The old wrapper therefore cannot reliably provide its ListPath context to native EditorListItem rows. Native WidgetRenderer and WidgetListRenderer are live exported entry points in game-ui/widgets/components/widget-renderer.tsx; they resolve each widget from props.components by its __Type. Exact snippets are recorded in evidence/row-renderer-0.4.244/native-renderer-contract.txt. This establishes a dispatch defect; native confirmation of the repaired visual result is pending.
+
+The fix decorates scoped copies of the component map at those live renderer boundaries, wrapping its captured PagedList entry. Native/foreign maps are not mutated, unrelated entries are retained, unchanged maps keep stable renderer identities, repeated nested decoration is suppressed, and later changes to source renderer entries are detected. Existing exact backend row/path correlation and filtered index checks remain. Selection tracing now logs only when the entity/path/index/result changes, including an exception reason when mapping is unavailable.
+
+No list or component is opened automatically. Only an already-open list can change to the matching page and scroll a visible row into view. Search values and keyboard focus remain unchanged. Component-copy checkboxes and the gold/cyan viewport outlines are unchanged.
+
+Checks: a frozen native-map fixture now verifies dispatch through the captured renderer, exact list context, map isolation, stable identities, nested wrapping suppression and later foreign renderer changes. Row/path matching, duplicate names, closed-list/search preservation, hidden-panel scroll refusal, component-heading copy selection, header focus, launcher rendering/lifecycle and targeting UI checks pass. Release/UI builds, 45 replacement Undo checks and 1204 Phase 3/native-collection assertions pass. The existing NU1900 warning concerns an unavailable advisory feed, not a completed security audit.
+
+Native test: with Object Info's component list already open, click distinct elements in Start replacing mode. Confirm cyan row/Selected label, correct page and scroll reveal. Check duplicate prefab names, filters and repeated selection. Closed lists must stay closed; search must remain unchanged. Native highlighting acceptance remains pending. See preserved 0.4.243 logs under evidence/row-renderer-0.4.244/native-test-0.4.243.
+
+0.4.244 installed with Cities2 absent. Previous installation backed up; 9 rollback files and all 3 installed hashes verified. See outputs/installation-0.4.244.txt and evidence/row-renderer-0.4.244/installed-hashes.csv. Native row-highlight result pending.

@@ -1,0 +1,17 @@
+# Surface material refresh and Replacer controls — 0.4.236
+
+VERIFIED-RUNTIME (logs): 0.4.235 recorded surface replacements on source rows 7 and 4 at 00:23:05 and 00:25:27 on 2026-10-24. The user reported that surface replacement was not working. No refusal or crash appears in the retained mod log. Source/reference replacement is logged, but visible material replacement was not accepted. Evidence: `evidence/surface-render-0.4.236/native-0.4.235.log`.
+
+HYPOTHESIS: the UI-phase Updated tag was not reaching the native area batching consumer at the required time. This remains a timing diagnosis pending native confirmation.
+
+VERIFIED-STATIC: Game.dll MVID e15551e9-3dea-4855-8dde-1da3cea7d7ef. AreaBatchSystem.QueryCullingJob.Execute reads the updated surface PrefabRef at IL_00ff, queues removal of old visible triangles at IL_00e8 and visible triangles again at IL_01ae. CullingActionJob.PassedCulling reads the replacement RenderedAreaData at IL_004c and assigns Batch.m_BatchIndex at IL_005a when visibility transitions from zero. Narrow job IL is retained alongside the evidence. Existing native rendering allocations must be managed by these jobs, not overwritten by the mod.
+
+VERIFIED-STATIC: a separate, isolated SurfaceRenderSystem now runs immediately before AreaBatchSystem in Rendering. It submits Updated once at that consumer, then checks that each visible surface uses the replacement material batch. Invisible surfaces can complete and acquire their new batch when native culling makes them visible. Pending material refresh disables further replacement and blocks replacement Undo readiness. Undo queues the same material refresh in reverse. Invalid/missing material data or failed completion fails closed with diagnostic logging; no render heap/batch allocation fields are written, no search trees are edited and no entities are recreated. Renderer registration failure affects surface replacement only. Release disables the callback and clears pending state.
+
+VERIFIED-STATIC: Replacer start/stop, element-type dropdown and selection controls have bottom alignment. These controls and the Copy/Replace/Replace all/Clear Clipboard buttons use 180rem width and 36rem height, scoped to Replacer. The native focus structure is unchanged.
+
+VERIFIED-RUNTIME (managed): 58 actual-source surface checks pass, including a UI update tag being consumed before rendering, resubmission at the consumer, refusal of old visible batches, completion with the expected batch, reverse material refresh and timeout containment. Native rendering is modeled by managed doubles. UI checks 32, replacement Undo 45, area move 100, Phase3 1,204 and outline 22 pass. Release/UI builds pass. Build retains NU1900 advisory-feed warning; no fresh dependency audit claimed. Targeting/outline source hashes are unchanged. The 0.4.235 retained-entity source/geometry/reference transaction remains intact.
+
+VERIFIED-RUNTIME (installation): Cities2 absence confirmed, nine existing files backed up/hash-verified, and final 0.4.236 files installed with matching hashes. See `../outputs/installation-0.4.236.txt` and evidence `installed-hashes.csv`.
+
+UNPROVEN: native visible material change, material restoration through Undo, and toolbar appearance. Retest surface Replace/Undo and Replace all/Undo on a disposable duplicate; confirm the texture changes while its boundary stays fixed, and check the accepted outlines. No publishing performed.
