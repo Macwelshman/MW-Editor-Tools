@@ -12,7 +12,7 @@ from reportlab.lib.pagesizes import A4
 from pypdf import PdfReader
 
 ROOT=Path(__file__).resolve().parents[1]
-VERSION='0.4.251'
+VERSION='0.4.254'
 OUT=ROOT/f'output/pdf/MW-Editor-Tools-User-Manual-{VERSION}.pdf'
 OUT.parent.mkdir(parents=True,exist_ok=True)
 for name,file in [('Body','calibri.ttf'),('BodyBold','calibrib.ttf'),('BodyItalic','calibrii.ttf')]:

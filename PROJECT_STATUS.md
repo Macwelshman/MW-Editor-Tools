@@ -1,3 +1,5 @@
+RELEASE 2026-10-26: 0.4.254 packages the user-accepted Backquote hide/show UI shortcut, configurable standalone bindings, previous-default migration, updated 19-page illustrated manual and versioned installer/ZIP. All 35 managed suites, 18 UI scripts and 43 installer checks pass; packaged runtime matches the installed accepted version. Existing private GitHub repository retained. See docs/RELEASE_READINESS_0.4.254.md.
+
 RELEASE 2026-10-26: 0.4.251 distribution prepared with eight user-supplied screenshots, updated 19-page PDF/Markdown manual, installer and ZIP. Runtime hashes match the accepted installed build. All 35 managed suites, 18 UI scripts and 43 final installer checks pass. Existing private GitHub repository retained. See docs/RELEASE_READINESS_0.4.251.md.
 
 RELEASE 2026-10-20: user accepted TAB developer-menu UI recovery on 0.4.173 and authorised the latest private GitHub release with installer, ZIP and updated PDF manual. 26 managed suites, ten UI scripts and 35 installer checks pass. Package runtime matches installed accepted build; 11-page PDF visually checked. See docs/RELEASE_READINESS_0.4.173.md.

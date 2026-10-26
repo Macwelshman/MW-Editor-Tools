@@ -9,12 +9,22 @@ class Program {
         var options=new EditorToolsOptions(null,settings,recovery,()=>resets++);
         foreach(var text in new[]{"3","","4","40"}) {options.HistoryLimit=text;options.ApplyAndSave();Check(options.HistoryLimit==text && settings.historyDepth==20 && settings.Saves==0,"per-keystroke limit preserved, active value unchanged");}
         var template=options.UndoShortcut;
+        Check(options.EnableHideUIShortcut,"hide UI enabled by default");
+        options.HideUIShortcut=NativeShortcutCodec.Restore(template,"J",4);
+        options.ApplyAndSave();Check(settings.hideUIKey=="BACKQUOTE","hide UI draft stays inactive");
         options.UndoShortcut=NativeShortcutCodec.Restore(template,"T",5);
         options.RedoShortcut=NativeShortcutCodec.Restore(template,"R",3);
         options.Apply();Check(settings.undoKey=="Z","recorded draft does not activate before commit");
         options.ApplyChanges=true;
         Check(settings.historyDepth==40 && settings.undoKey=="T" && settings.undoModifiers==5 && settings.redoModifiers==3 && settings.Saves==1,"recorded combinations commit once");
+        Check(settings.hideUIKey=="J"&&settings.hideUIModifiers==4,"hide UI binding commits");
         string key;int mask;
+        foreach(var named in new[]{"Home","F1","F12","Backquote","Digit1","Space"}) {
+            var single=NativeShortcutCodec.Restore(template,named,0);
+            Check(NativeShortcutCodec.TryRead(single,out key,out mask,true)&&key==named.ToUpperInvariant()&&mask==0,"single named key round trip");
+            Check(!NativeShortcutCodec.TryRead(single,out key,out mask),"other shortcut scopes stay letter-only");
+        }
+        Check(!NativeShortcutCodec.TryRead(template.WithPath("<Keyboard>/leftCtrl"),out key,out mask,true),"modifier-only binding rejected");
         for(int expected=0;expected<16;expected++) {var binding=NativeShortcutCodec.Restore(template,"T",expected);Check(NativeShortcutCodec.TryRead(binding,out key,out mask)&&key=="T"&&mask==expected,"modifier recording round trip");}
         Check(!NativeShortcutCodec.TryRead(template.WithPath("<Mouse>/leftButton"),out key,out mask),"nonkeyboard rejected");
         Check(!NativeShortcutCodec.TryRead(template.WithPath(""),out key,out mask),"empty capture retains previous shortcut");
@@ -28,7 +38,9 @@ class Program {
         options.ConfirmDeletion=true;options.InspectorControls=true;options.ApplyChanges=true;
         Check(settings.confirmation&&settings.inspectorControls&&recovery.Changes==2,"display and confirmation change preserve history");
         options.EnableBrowserShortcuts=true; options.PropsShortcut=NativeShortcutCodec.Restore(template,"Q",7); options.Apply(); Check(!settings.browserShortcuts&&settings.BrowserKey(1)=="P","browser drafts remain inactive"); options.ApplyChanges=true; Check(settings.browserShortcuts&&settings.BrowserKey(1)=="Q"&&settings.BrowserModifiers(1)==7,"browser combination committed"); options.PropsShortcut=template.WithPath(""); options.ApplyChanges=true; Check(settings.BrowserKey(1)=="Q","empty browser binding retains previous value");
-        options.SetDefaults();Check(!options.EnableBrowserShortcuts&&NativeShortcutCodec.TryRead(options.PropsShortcut,out key,out mask)&&key=="D"&&mask==4,"browser defaults restored without activating");Check(options.ConfirmDeletion&&options.EnableRecovery&&options.InspectorControls,"defaults include all moved settings");
+        options.HideUIShortcut=NativeShortcutCodec.Restore(template,"Home",0);options.ApplyChanges=true;
+        Check(settings.hideUIKey=="HOME"&&settings.hideUIModifiers==0,"standalone Home commits");
+        options.SetDefaults();Check(options.EnableHideUIShortcut&&NativeShortcutCodec.TryRead(options.HideUIShortcut,out key,out mask,true)&&key=="BACKQUOTE"&&mask==0,"hide UI reset restores Backquote");Check(!options.EnableBrowserShortcuts&&NativeShortcutCodec.TryRead(options.PropsShortcut,out key,out mask)&&key=="D"&&mask==4,"browser defaults restored without activating");Check(options.ConfirmDeletion&&options.EnableRecovery&&options.InspectorControls,"defaults include all moved settings");
         var defaults=new[]{options.BuildingsShortcut,options.PropsShortcut,options.FoliageShortcut,options.AreasShortcut,options.EffectsShortcut,options.SurfacesShortcut};
         var letters=new[]{"B","D","F","A","E","S"};
         for(int i=0;i<defaults.Length;i++)Check(NativeShortcutCodec.TryRead(defaults[i],out key,out mask)&&key==letters[i]&&mask==4,"six Alt-only browser defaults");
@@ -39,7 +51,7 @@ class Program {
 namespace Colossal {public interface IDictionaryEntryError{}public interface IDictionarySource {IEnumerable<KeyValuePair<string,string>> ReadEntries(IList<IDictionaryEntryError> errors,Dictionary<string,int> counts);void Unload();}}
 namespace Game.Modding {
     public interface IMod{}
-    public class ModSetting {public ModSetting(IMod mod){foreach(var name in new[]{"UndoShortcut","RedoShortcut","BuildingsShortcut","PropsShortcut","FoliageShortcut","AreasShortcut","EffectsShortcut","SurfacesShortcut"}) GetType().GetProperty(name).SetValue(this,new Game.Input.ProxyBinding {path="<Keyboard>/z",modifiers=new[]{new Game.Input.ProxyModifier{m_Path="<Keyboard>/ctrl",m_Name="modifier"}}});}public virtual void Apply(){}public virtual void ApplyAndSave(){}public virtual void SetDefaults(){}public string GetBindingKeyLocaleID(string n)=>"binding."+n; public string GetBindingMapLocaleID()=>"map";public string GetSettingsLocaleID()=>"settings";public string GetOptionGroupLocaleID(string n)=>"group."+n;public string GetOptionLabelLocaleID(string n)=>"label."+n;public string GetOptionDescLocaleID(string n)=>"desc."+n;}
+    public class ModSetting {public ModSetting(IMod mod){foreach(var name in new[]{"HideUIShortcut","UndoShortcut","RedoShortcut","BuildingsShortcut","PropsShortcut","FoliageShortcut","AreasShortcut","EffectsShortcut","SurfacesShortcut"}) GetType().GetProperty(name).SetValue(this,new Game.Input.ProxyBinding {path="<Keyboard>/z",modifiers=new[]{new Game.Input.ProxyModifier{m_Path="<Keyboard>/ctrl",m_Name="modifier"}}});GetType().GetProperty("HideUIShortcut").SetValue(this,new Game.Input.ProxyBinding {path="<Keyboard>/backquote",modifiers=Array.Empty<Game.Input.ProxyModifier>()});}public virtual void Apply(){}public virtual void ApplyAndSave(){}public virtual void SetDefaults(){}public string GetBindingKeyLocaleID(string n)=>"binding."+n; public string GetBindingMapLocaleID()=>"map";public string GetSettingsLocaleID()=>"settings";public string GetOptionGroupLocaleID(string n)=>"group."+n;public string GetOptionLabelLocaleID(string n)=>"label."+n;public string GetOptionDescLocaleID(string n)=>"desc."+n;}
 }
 namespace Game.Settings {
     public class SettingsUIGroupOrderAttribute:Attribute{public SettingsUIGroupOrderAttribute(params string[] groups){}}
@@ -54,11 +66,11 @@ namespace Game.Settings {
 }
 namespace MW.EditorTools.Settings {
     // Native persistence is mocked; real validation is covered in Phase4Safety.
-    public class EditorToolsSettings {public bool browserShortcuts;public string[] keys={"B","P","F","A","E","S"};public int[] masks={5,5,5,5,5,5};public string BrowserKey(int i)=>keys[i];public int BrowserModifiers(int i)=>masks[i];public void SetBrowserShortcut(int i,string k,int m){keys[i]=k;masks[i]=m;}public bool shortcuts=true,confirmation=true,recovery=true,inspectorControls=true;public int historyDepth=20,undoModifiers=1,redoModifiers=3,Saves;public string undoKey="Z",redoKey="Z";public void Save(){Saves++;}public bool ApplyOptions(bool enabled,string limit,string undo,string redo){var old=historyDepth;historyDepth=int.Parse(limit);shortcuts=enabled;undoKey=undo.Trim().ToUpperInvariant();redoKey=redo.Trim().ToUpperInvariant();return old!=historyDepth;}}
+    public class EditorToolsSettings {public bool hideUIShortcut=true;public string hideUIKey="BACKQUOTE";public int hideUIModifiers=0;public bool browserShortcuts;public string[] keys={"B","P","F","A","E","S"};public int[] masks={5,5,5,5,5,5};public string BrowserKey(int i)=>keys[i];public int BrowserModifiers(int i)=>masks[i];public void SetBrowserShortcut(int i,string k,int m){keys[i]=k;masks[i]=m;}public bool shortcuts=true,confirmation=true,recovery=true,inspectorControls=true;public int historyDepth=20,undoModifiers=1,redoModifiers=3,Saves;public string undoKey="Z",redoKey="Z";public void Save(){Saves++;}public bool ApplyOptions(bool enabled,string limit,string undo,string redo){var old=historyDepth;historyDepth=int.Parse(limit);shortcuts=enabled;undoKey=undo.Trim().ToUpperInvariant();redoKey=redo.Trim().ToUpperInvariant();return old!=historyDepth;}}
 }
 namespace MW.EditorTools.Modules.DeletionProtection {public class ListRecovery {public int Changes;public void ApplySettings(){Changes++;}}}
 namespace Game.Input {
-public enum BindingKeyboard{Z,B,D,P,F,A,E,S} public enum ActionType{Button}
+public enum BindingKeyboard{Backquote,H,Z,B,D,P,F,A,E,S} public enum ActionType{Button}
 public struct ProxyModifier{public string m_Path,m_Name;}
 public struct ProxyBinding {public string path;public System.Collections.Generic.IReadOnlyList<ProxyModifier> modifiers;public bool isKeyboard=>path!=null&&path.StartsWith("<Keyboard>/");public ProxyBinding WithPath(string value){var copy=this;copy.path=value;return copy;}public ProxyBinding WithModifiers(System.Collections.Generic.IReadOnlyList<ProxyModifier> value){var copy=this;copy.modifiers=value;return copy;}}
 }

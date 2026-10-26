@@ -1,0 +1,3 @@
+PASS: 30 migrated Colours content/command checks; native interaction pending.
+PASS: automatic selection and draft confirmation checks.
+PASS: ungenerated draft protection check.

@@ -122,6 +122,18 @@ namespace MW.EditorTools.UI
                     keyboard.altKey.isPressed, keyboard.leftMetaKey.isPressed || keyboard.rightMetaKey.isPressed,
                     undo.wasPressedThisFrame, false, options.undoModifiers, options.redoModifiers);
                 int modifiers=(keyboard.ctrlKey.isPressed?1:0)|(keyboard.shiftKey.isPressed?2:0)|(keyboard.altKey.isPressed?4:0)|((keyboard.leftMetaKey.isPressed||keyboard.rightMetaKey.isPressed)?8:0);
+                var screen=World.GetExistingSystemManaged<Game.UI.Editor.EditorScreenUISystem>();
+                if(options.hideUIShortcut && modifiers==options.hideUIModifiers &&
+                    keyboard[(Key)Enum.Parse(typeof(Key),options.hideUIKey,true)].wasPressedThisFrame && !options.HideUIConflict() &&
+                    context.EditorAvailable && Application.isFocused && recovery?.OperationBusy!=true &&
+                    World.GetExistingSystemManaged<MW.EditorTools.Modules.MultiSave.MultiSaveSystem>()?.IsBusy!=true && screen!=null) {
+                    // Native free-camera UI can stop browser heartbeats. Restore must not depend on them.
+                    if(screen.activeScreen==Game.UI.Editor.EditorScreenUISystem.EditorScreen.FreeCamera)
+                        screen.SetScreen(Game.UI.Editor.EditorScreenUISystem.EditorScreen.Main);
+                    else if(screen.activeScreen==Game.UI.Editor.EditorScreenUISystem.EditorScreen.Main &&
+                        !context.DialogBusy && !typing && UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f)
+                        screen.SetScreen(Game.UI.Editor.EditorScreenUISystem.EditorScreen.FreeCamera);
+                }
                 if(undo.wasPressedThisFrame&&modifiers==options.undoModifiers&&recovery?.UndoCount>0) {
                     bool ready=recovery.CanUndo;
                     if(action<0||!ready||options.BrowserConflict(options.undoKey,modifiers))Mod.Log.Info("Undo shortcut blocked: ready="+ready+" typing="+typing+" heartbeatFresh="+(UnityEngine.Time.realtimeSinceStartup-heartbeat<=.75f)+" applicationFocused="+Application.isFocused+" dialog="+context.DialogBusy+" shortcuts="+options.shortcuts+" browserConflict="+options.BrowserConflict(options.undoKey,modifiers));

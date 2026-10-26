@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-Version **0.4.251** · Cities: Skylines II Asset Editor
+Version **0.4.254** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -21,11 +21,11 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 
 ## Install or update
 
-Download the installer or manual ZIP from the [0.4.251 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.251). The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.254 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.254). The repository contains development source; cloning it does not install the mod.
 
 ### Windows installer
 
-Close Cities: Skylines II, run **MWEditorTools-0.4.251-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+Close Cities: Skylines II, run **MWEditorTools-0.4.254-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
 
 The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
 
@@ -296,6 +296,8 @@ Open **Options → MW Editor Tools**. Edit the options, then choose **Apply chan
 | Confirm deletions | Confirm component removal and clearing lists. This is not a confirmation for every bulldozer action. |
 | Enable Undo | Capture supported recoverable actions. Changing this clears the current Undo action. |
 | Show inspector Undo | Show the Undo control in Object Info. |
+| Enable hide UI shortcut | Enable the native hide/show UI toggle in the Asset Editor. |
+| Hide / show UI shortcut | Default Backquote (`). Press a single key (for example Home or F8) or a key combination, then Apply changes. Press again or Escape to restore the UI. |
 | Enable Undo shortcut | Enable the configured Undo key combination. |
 | Undo shortcut | Default Ctrl+Z. Click the binding field and press the desired combination. |
 | Reset window position | Return the shared tools window to its default location. |
@@ -325,7 +327,7 @@ With **Start replacing** active, viewport shortcuts use the current gold hover. 
 
 The category shortcut opens the browser at that category and retains its search text. A retained search can still filter the displayed items.
 
-Previous default Ctrl+Alt bindings migrate to these defaults. Other customised bindings are preserved. Duplicate combinations with other enabled MW shortcuts are suppressed; choose distinct bindings and Apply changes. Bindings use a letter A–Z with the recorded modifiers.
+Previous default Ctrl+Alt bindings migrate to these defaults. Other customised bindings are preserved. Duplicate combinations with other enabled MW shortcuts are suppressed; choose distinct bindings and Apply changes. Undo and browser bindings use a letter A–Z with the recorded modifiers. Hide / show UI also accepts standalone named keys such as Backquote, Home and F1–F12.
 
 Shortcuts pause while typing, recording a binding, using dialogs, saving or recovering. Modifier combinations must match exactly: holding an extra modifier can prevent a shortcut from firing.
 
@@ -380,7 +382,7 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For release scope and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.251.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+For release scope and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.254.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
 
 ## Screenshot guide
 
@@ -416,4 +418,4 @@ These in-game screenshots show the interface described in this manual. Example a
 
 ### Options and shortcuts
 
-![Undo and confirmation settings appear above the optional browser shortcuts. Apply changes saves edited settings. The screenshot shows browser shortcuts enabled; their default is off.](manual-options.png)
+![Undo and confirmation settings appear above the optional browser shortcuts. Apply changes saves edited settings. The screenshot shows browser shortcuts enabled; their default is off. This earlier Options screenshot predates the hide/show UI controls; the current default is Backquote (`), configurable in Options.](manual-options.png)

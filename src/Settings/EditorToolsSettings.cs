@@ -13,6 +13,9 @@ namespace MW.EditorTools.Settings
         public int historyDepth = 20;
         public string undoKey = "Z", redoKey = "Z";
         public int undoModifiers = 1, redoModifiers = 3;
+        public bool hideUIShortcut = true;
+        public string hideUIKey = "BACKQUOTE";
+        public int hideUIModifiers = 0;
         public bool browserShortcuts;
         public string buildingsKey="B", propsKey="D", foliageKey="F", areasKey="A", effectsKey="E", surfacesKey="S";
         public int buildingsModifiers=4, propsModifiers=4, foliageModifiers=4, areasModifiers=4, effectsModifiers=4, surfacesModifiers=4;
@@ -21,6 +24,7 @@ namespace MW.EditorTools.Settings
         internal string BrowserKey(int i)=>i switch {0=>buildingsKey,1=>propsKey,2=>foliageKey,3=>areasKey,4=>effectsKey,5=>surfacesKey,_=>throw new ArgumentOutOfRangeException(nameof(i))};
         internal int BrowserModifiers(int i)=>i switch {0=>buildingsModifiers,1=>propsModifiers,2=>foliageModifiers,3=>areasModifiers,4=>effectsModifiers,5=>surfacesModifiers,_=>throw new ArgumentOutOfRangeException(nameof(i))};
         internal bool BrowserConflict(string key,int modifiers,int self=-1) {
+            if(hideUIShortcut && hideUIKey==key && hideUIModifiers==modifiers)return true;
             if(self>=0 && shortcuts && ((undoKey==key&&undoModifiers==modifiers)||(redoKey==key&&redoModifiers==modifiers)))return true;
             if(browserShortcuts)for(int i=0;i<BrowserCategories.Length;i++)
                 if(i!=self&&BrowserKey(i)==key&&BrowserModifiers(i)==modifiers)return true;
@@ -50,8 +54,16 @@ namespace MW.EditorTools.Settings
             }
             catch (Exception error) { Mod.Log.Warn("Settings could not be loaded: " + error.Message); return new EditorToolsSettings(); }
         }
+        internal bool HideUIConflict() {
+            if(shortcuts && undoKey==hideUIKey && undoModifiers==hideUIModifiers)return true;
+            if(browserShortcuts)for(int i=0;i<BrowserCategories.Length;i++)
+                if(BrowserKey(i)==hideUIKey&&BrowserModifiers(i)==hideUIModifiers)return true;
+            return (hideUIModifiers==1 && (hideUIKey=="C"||hideUIKey=="V")) || (hideUIModifiers==3 && hideUIKey=="V");
+        }
         public void Normalize()
         {
+            string hideKey; hideUIKey=ShortcutKey.TryNormalize(hideUIKey,out hideKey)?hideKey:"BACKQUOTE";
+            if(hideUIModifiers<0||hideUIModifiers>15)hideUIModifiers=0;
             historyDepth = Math.Max(20, Math.Min(50, historyDepth));
             undoKey = NormalizeKey(undoKey); redoKey = NormalizeKey(redoKey);
             for(int i=0;i<BrowserCategories.Length;i++) {
@@ -86,6 +98,8 @@ namespace MW.EditorTools.Settings
                 ",\"recovery\":" + BooleanJson(recovery) +
                 ",\"shortcuts\":" + BooleanJson(shortcuts) +
                 BrowserJson() +
+                ",\"hideUIShortcut\":" + BooleanJson(hideUIShortcut) +
+                ",\"hideUIKey\":\"" + hideUIKey + "\",\"hideUIModifiers\":" + hideUIModifiers.ToString(CultureInfo.InvariantCulture) +
                 ",\"inspectorControls\":" + BooleanJson(inspectorControls) +
                 ",\"historyDepth\":" + historyDepth.ToString(CultureInfo.InvariantCulture) +
                 ",\"undoKey\":\"" + undoKey + "\",\"redoKey\":\"" + redoKey +
@@ -105,6 +119,10 @@ namespace MW.EditorTools.Settings
         }
         internal void MigrateModifiers(string json)
         {
+            if(json.IndexOf("\"hideUIShortcut\"",StringComparison.Ordinal)<0)hideUIShortcut=true;
+            if(json.IndexOf("\"hideUIKey\"",StringComparison.Ordinal)<0)hideUIKey="BACKQUOTE";
+            if(json.IndexOf("\"hideUIModifiers\"",StringComparison.Ordinal)<0)hideUIModifiers=0;
+            if(hideUIKey=="H"&&hideUIModifiers==1){hideUIKey="BACKQUOTE";hideUIModifiers=0;}
             if (json.IndexOf("\"undoModifiers\"", StringComparison.Ordinal) < 0) undoModifiers = 1;
             if (json.IndexOf("\"redoModifiers\"", StringComparison.Ordinal) < 0) redoModifiers = 3;
             for(int i=0;i<BrowserCategories.Length;i++) {

@@ -1,0 +1,1 @@
+PASS: healthy tab rendering, local failure fallback/diagnostics, accessible header/tab isolation and no browser-only select.

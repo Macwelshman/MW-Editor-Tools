@@ -10,6 +10,21 @@ internal static class Program {
     private static int Shortcut(bool enabled=true,bool available=true,bool typing=false,bool dialog=false,bool repeat=false,bool ctrl=true,bool shift=false,bool alt=false,bool meta=false,bool undo=true,bool redo=true) =>
         ShortcutPolicy.Resolve(enabled,available,typing,dialog,repeat,ctrl,shift,alt,meta,undo,redo);
     public static void Main() {
+        var namedHide=new EditorToolsSettings {hideUIKey="Home",hideUIModifiers=0};namedHide.Normalize();
+        Check(namedHide.hideUIKey=="HOME"&&namedHide.hideUIModifiers==0,"standalone named key survives normalization");
+        using(var namedJson=System.Text.Json.JsonDocument.Parse(namedHide.ToJson()))Check(namedJson.RootElement.GetProperty("hideUIKey").GetString()=="HOME"&&namedJson.RootElement.GetProperty("hideUIModifiers").GetInt32()==0,"standalone key persists");
+        var migrated=new EditorToolsSettings {hideUIKey="H",hideUIModifiers=1};
+        migrated.MigrateModifiers("{\"hideUIKey\":\"H\",\"hideUIModifiers\":1}");Check(migrated.hideUIKey=="BACKQUOTE"&&migrated.hideUIModifiers==0,"previous default migrates");
+        migrated.hideUIKey="HOME";migrated.MigrateModifiers("{\"hideUIKey\":\"HOME\",\"hideUIModifiers\":0}");Check(migrated.hideUIKey=="HOME","custom binding retained");
+        var hide=new EditorToolsSettings();
+        Check(hide.hideUIShortcut&&hide.hideUIKey=="BACKQUOTE"&&hide.hideUIModifiers==0&&!hide.HideUIConflict(),"hide UI defaults");
+        hide.hideUIKey="Z";hide.hideUIModifiers=1;Check(hide.HideUIConflict()&&hide.BrowserConflict("Z",1),"Undo collision suppresses both");
+        hide.hideUIKey="B";hide.hideUIModifiers=4;hide.browserShortcuts=true;Check(hide.HideUIConflict()&&hide.BrowserConflict("B",4,0),"browser collision suppresses both");
+        hide.hideUIKey="V";hide.hideUIModifiers=3;Check(hide.HideUIConflict(),"clipboard collision refused");
+        hide.hideUIKey="invalid";hide.hideUIModifiers=99;hide.Normalize();Check(hide.hideUIKey=="BACKQUOTE"&&hide.hideUIModifiers==0,"invalid hide binding normalizes");
+        hide.hideUIShortcut=false;hide.MigrateModifiers("{}");Check(hide.hideUIShortcut,"legacy settings receive default");
+        hide.hideUIShortcut=false;hide.MigrateModifiers("{\"hideUIShortcut\":false,\"hideUIKey\":\"J\",\"hideUIModifiers\":4}");Check(!hide.hideUIShortcut,"saved disabled preference retained");
+        using(var saved=System.Text.Json.JsonDocument.Parse(hide.ToJson()))Check(!saved.RootElement.GetProperty("hideUIShortcut").GetBoolean()&&saved.RootElement.GetProperty("hideUIKey").GetString()=="BACKQUOTE","hide settings serialize");
         Check(Shortcut()==0,"Undo"); Check(Shortcut(shift:true)==1,"Redo");
         Check(Shortcut(enabled:false)==-1,"disabled"); Check(Shortcut(available:false)==-1,"outside editor");
         Check(Shortcut(typing:true)==-1,"typing"); Check(Shortcut(dialog:true)==-1,"dialog");
@@ -27,7 +42,7 @@ internal static class Program {
             settings.windowX=.4f; settings.undoKey="\""; settings.confirmation=false;
             using var json = System.Text.Json.JsonDocument.Parse(settings.ToJson());
             var root = json.RootElement;
-            Check(root.EnumerateObject().Count()==24,"all frontend settings included");
+            Check(root.EnumerateObject().Count()==27,"all frontend settings included");
             Check(root.GetProperty("windowX").GetSingle()==.4f,"JSON decimal invariant");
             Check(root.GetProperty("undoKey").GetString()=="Z","unsafe key normalized before JSON");
             Check(!root.GetProperty("confirmation").GetBoolean() && root.GetProperty("recovery").GetBoolean(),"JSON boolean values");

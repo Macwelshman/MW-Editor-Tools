@@ -1,12 +1,14 @@
 # MW Editor Tools
 
-Tools for the **Cities: Skylines II Asset Editor**. Current release: **0.4.251**. The repository and releases remain private.
+Tools for the **Cities: Skylines II Asset Editor**. Current release: **0.4.254**. The repository and releases remain private.
 
-**[Download the installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.251)** · **[User manual](docs/USER_MANUAL.md)** · **[PDF manual](output/pdf/MW-Editor-Tools-User-Manual-0.4.251.pdf)**
+**[Download the installer or manual ZIP](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.254)** · **[User manual](docs/USER_MANUAL.md)** · **[PDF manual](output/pdf/MW-Editor-Tools-User-Manual-0.4.254.pdf)**
 
 Close Cities: Skylines II before installing. The unsigned .NET Framework 4.8 installer backs up the existing mod folder and verifies installed files. It installs into the current user's Mods folder and does not change game files.
 
 ## What's new since 0.4.180
+
+- **Hide / show UI:** Backquote (`) toggles the native editor free-camera screen. Choose a single key or combination in Options; Escape also restores the UI.
 
 - **Viewport selection:** Start replacing, element-type filters, gold hover/cyan selection, and exact Object Info row reveal with a rounded cyan highlight. Component/list opening, pagination and scrolling follow the selected element.
 - **Clear copy/paste targets:** viewport shortcuts follow current hover; panel buttons follow clicked selection. Native inspector edits stop replacing before rebuilding the asset.
@@ -14,7 +16,7 @@ Close Cities: Skylines II before installing. The unsigned .NET Framework 4.8 ins
 - **Recovery:** guarded bound-network, spawn/access marker and supported native bike-rack improvements, retaining companion/reference checks and the shared last-action Undo.
 - **Compatibility and diagnostics:** optional Asset Icon Creator integration, patch conflict isolation, tab error recovery and quieter successful-operation logging.
 
-See [release notes](docs/RELEASE_NOTES_0.4.251.md) for scope and validation. Proposed precision transforms, group selection, duplication and filtered deletion tools are not included.
+See [release notes](docs/RELEASE_NOTES_0.4.254.md) for scope and validation. Proposed precision transforms, group selection, duplication and filtered deletion tools are not included.
 
 The shared window contains **Replacer**, **Components**, **Colours** and **Multi-Save**, with **Undo** in its header. Click the coloured diamond icon to open or close it. Drag its header to move it; the position is remembered. Workspace **Save All** starts Multi-Save; its tab shows results and details.
 
@@ -48,7 +50,7 @@ Undo does not cover network moves, standalone network/junction recovery, whole-p
 
 VERIFIED-RUNTIME: user accepted 0.4.251 selection, highlighting and replacement/Undo. The recorded session includes single and seven-element batch replacement/Undo. This does not establish a fresh dedicated surface material/rebuild/save-reopen pass or exhaustive mod compatibility. See [native acceptance](docs/evidence/release-review-0.4.251/native-acceptance/README.md).
 
-Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.251.md), [release notes](docs/RELEASE_NOTES_0.4.251.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
+Use disposable asset copies for validation. Review [release readiness](docs/RELEASE_READINESS_0.4.254.md), [release notes](docs/RELEASE_NOTES_0.4.254.md), [component transfer scope](docs/PHASE5_0.4.160_COMPONENT_SETTINGS.md) and [current project status](PROJECT_STATUS.md).
 
 ## Build and checks
 

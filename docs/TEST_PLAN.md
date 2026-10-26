@@ -1,6 +1,6 @@
 # Current release gate
 
-Current distribution preparation: [0.4.251 release readiness](RELEASE_READINESS_0.4.251.md). The accepted installed runtime is unchanged; all eight screenshots and the 19-page PDF are complete, and final installer/package checks pass. The entries below preserve earlier feature-specific gates and evidence.
+Current distribution: [0.4.254 release readiness](RELEASE_READINESS_0.4.254.md). The user accepted Backquote hide/show. Installer, ZIP and illustrated manual package that accepted build. Earlier acceptance and remaining limits are retained. The entries below preserve earlier feature-specific gates and evidence.
 
 Current authorised feature: [0.4.224 filtered targeting and Undo feedback](TARGETING_0.4.224.md). Native targeting masks, render overlays, input/toolbar transitions and target Copy/Replace require grouped acceptance alongside existing Undo. Managed checks do not certify native input/render behaviour.
 

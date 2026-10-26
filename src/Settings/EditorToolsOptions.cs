@@ -9,6 +9,7 @@ using MW.EditorTools.Modules.DeletionProtection;
 
 namespace MW.EditorTools.Settings
 {
+    [SettingsUIKeyboardAction("HideUI", ActionType.Button)]
     [SettingsUIKeyboardAction("Undo", ActionType.Button)]
     [SettingsUIKeyboardAction("Redo", ActionType.Button)]
     [SettingsUIKeyboardAction("BrowserBuildings", ActionType.Button)]
@@ -24,11 +25,14 @@ namespace MW.EditorTools.Settings
         private readonly EditorToolsSettings current;
         private readonly ListRecovery recovery;
         private readonly Action resetPosition;
-        private readonly ProxyBinding undoTemplate, redoTemplate;
+        private readonly ProxyBinding undoTemplate, redoTemplate, hideUITemplate;
         private readonly ProxyBinding[] browserTemplates;
         internal const string Help = "Undo the last supported action with Ctrl+Z. Apply saves edited options.";
         internal EditorToolsOptions(IMod mod, EditorToolsSettings settings, ListRecovery history, Action reset) : base(mod)
-        { current = settings; recovery = history; resetPosition = reset; undoTemplate = UndoShortcut; redoTemplate = RedoShortcut; browserTemplates=new[]{BuildingsShortcut,PropsShortcut,FoliageShortcut,AreasShortcut,EffectsShortcut,SurfacesShortcut}; ReadCurrent(); }
+        { current = settings; recovery = history; resetPosition = reset; hideUITemplate = HideUIShortcut.WithModifiers(UndoShortcut.modifiers); undoTemplate = UndoShortcut; redoTemplate = RedoShortcut; browserTemplates=new[]{BuildingsShortcut,PropsShortcut,FoliageShortcut,AreasShortcut,EffectsShortcut,SurfacesShortcut}; ReadCurrent(); }
+        [SettingsUISection("Recovery")] public bool EnableHideUIShortcut { get; set; }
+        [SettingsUISection("Recovery"), SettingsUIKeyboardBinding(BindingKeyboard.Backquote, "HideUI")]
+        public ProxyBinding HideUIShortcut { get; set; }
         [SettingsUISection("Recovery")]
         public bool EnableShortcuts { get; set; }
         [SettingsUISection("Recovery")]
@@ -65,6 +69,8 @@ namespace MW.EditorTools.Settings
         [SettingsUIHidden] public string BrowserGuidance => "Alt+B Buildings · Alt+D Props · Alt+F Foliage · Alt+A Areas · Alt+E Effects · Alt+S Surfaces.";
         private void ReadCurrent()
         {
+            EnableHideUIShortcut=current.hideUIShortcut;
+            HideUIShortcut=NativeShortcutCodec.Restore(hideUITemplate,current.hideUIKey,current.hideUIModifiers);
             EnableBrowserShortcuts=current.browserShortcuts;
             BuildingsShortcut=NativeShortcutCodec.Restore(browserTemplates[0],current.BrowserKey(0),current.BrowserModifiers(0));
             PropsShortcut=NativeShortcutCodec.Restore(browserTemplates[1],current.BrowserKey(1),current.BrowserModifiers(1));
@@ -89,6 +95,8 @@ namespace MW.EditorTools.Settings
             string key; int mask;
             if (NativeShortcutCodec.TryRead(UndoShortcut,out key,out mask)) { current.undoKey=key; current.undoModifiers=mask; }
             if (NativeShortcutCodec.TryRead(RedoShortcut,out key,out mask)) { current.redoKey=key; current.redoModifiers=mask; }
+            current.hideUIShortcut=EnableHideUIShortcut;
+            if(NativeShortcutCodec.TryRead(HideUIShortcut,out key,out mask,true)){current.hideUIKey=key;current.hideUIModifiers=mask;}
             current.browserShortcuts=EnableBrowserShortcuts;
             var browserBindings=new[]{BuildingsShortcut,PropsShortcut,FoliageShortcut,AreasShortcut,EffectsShortcut,SurfacesShortcut};
             for(int i=0;i<browserBindings.Length;i++) if(NativeShortcutCodec.TryRead(browserBindings[i],out key,out mask)) current.SetBrowserShortcut(i,key,mask);
@@ -98,7 +106,8 @@ namespace MW.EditorTools.Settings
             base.Apply();
         }
         public override void SetDefaults()
-        { EnableBrowserShortcuts=false;
+        { EnableBrowserShortcuts=false;EnableHideUIShortcut=true;
+            if(current!=null)HideUIShortcut=NativeShortcutCodec.Restore(hideUITemplate,"BACKQUOTE",0);
             if(browserTemplates!=null) {BuildingsShortcut=NativeShortcutCodec.Restore(browserTemplates[0],"B",4);PropsShortcut=NativeShortcutCodec.Restore(browserTemplates[1],"D",4);FoliageShortcut=NativeShortcutCodec.Restore(browserTemplates[2],"F",4);AreasShortcut=NativeShortcutCodec.Restore(browserTemplates[3],"A",4);EffectsShortcut=NativeShortcutCodec.Restore(browserTemplates[4],"E",4);SurfacesShortcut=NativeShortcutCodec.Restore(browserTemplates[5],"S",4);}
             EnableShortcuts = true; ConfirmDeletion=true;EnableRecovery=true;InspectorControls=true;HistoryLimit = "20";
             if (current != null) { UndoShortcut=NativeShortcutCodec.Restore(undoTemplate,"Z",1); RedoShortcut=NativeShortcutCodec.Restore(redoTemplate,"Z",3); } }
@@ -131,6 +140,11 @@ namespace MW.EditorTools.Settings
                 {options.GetOptionLabelLocaleID(nameof(options.ResetWindowPosition)), "Reset window position"},
                 {options.GetOptionDescLocaleID(nameof(options.ResetWindowPosition)), "Move the MW Editor Tools window back to its default position."}
             };
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnableHideUIShortcut))]="Enable hide UI shortcut";
+            entries[options.GetOptionDescLocaleID(nameof(options.EnableHideUIShortcut))]="Toggle the native free-camera screen in the Asset Editor.";
+            entries[options.GetOptionLabelLocaleID(nameof(options.HideUIShortcut))]="Hide / show UI shortcut";
+            entries[options.GetOptionDescLocaleID(nameof(options.HideUIShortcut))]="Default Backquote (`). Press again or Escape to restore the UI. Press a single key or a key combination, then Apply. Conflicting MW shortcuts are suppressed.";
+            entries[options.GetBindingKeyLocaleID("HideUI")]="Hide / show UI";
             entries[options.GetBindingKeyLocaleID("Undo")]="Undo shortcut";
             entries[options.GetBindingKeyLocaleID("Redo")]="Redo shortcut";
             entries[options.GetBindingMapLocaleID()]="MW Editor Tools";

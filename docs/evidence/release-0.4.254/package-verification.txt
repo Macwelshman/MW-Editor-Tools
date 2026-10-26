@@ -1,0 +1,2 @@
+PASS: actual EXE resources, all ZIP contents and release checksum manifest verified.
+PASS: release runtime files match the installed mod.

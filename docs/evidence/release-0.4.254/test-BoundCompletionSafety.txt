@@ -1,0 +1,2 @@
+C:\Users\ian\Documents\Development\MW Editor Tools\tests\BoundCompletionSafety\Program.cs(66,201): warning CS0414: The field 'BulldozerTrace.Status' is assigned but its value is never used [C:\Users\ian\Documents\Development\MW Editor Tools\tests\BoundCompletionSafety\BoundCompletionSafety.csproj]
+PASS: 77 actual-source bound completion checks; native scheduling remains unproven.

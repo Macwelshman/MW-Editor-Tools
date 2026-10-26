@@ -1,0 +1,1 @@
+PASS: 100 actual-source area move hook/geometry assertions; native timing remains unproven.

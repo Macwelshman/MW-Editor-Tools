@@ -16,12 +16,13 @@ namespace MW.EditorTools.Settings
             }
             return template.WithPath("<Keyboard>/"+key.ToLowerInvariant()).WithModifiers(modifiers);
         }
-        internal static bool TryRead(ProxyBinding binding, out string key, out int mask)
+        internal static bool TryRead(ProxyBinding binding, out string key, out int mask, bool allowNamedKeys = false)
         {
             key=null; mask=0;
             if (!binding.isKeyboard || string.IsNullOrEmpty(binding.path) || !binding.path.StartsWith("<Keyboard>/",StringComparison.OrdinalIgnoreCase)) return false;
             key=binding.path.Substring(11).ToUpperInvariant();
-            if (key.Length!=1 || key[0]<'A' || key[0]>'Z') return false;
+            if (allowNamedKeys) { if(!ShortcutKey.TryNormalize(key,out key))return false; }
+            else if (key.Length!=1 || key[0]<'A' || key[0]>'Z') return false;
             foreach(var modifier in binding.modifiers) {
                 var path=(modifier.m_Path ?? "").ToLowerInvariant();
                 if (!path.StartsWith("<keyboard>/")) return false;

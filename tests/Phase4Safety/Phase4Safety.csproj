@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType><ManagedPath>C:\Program Files (x86)\Steam\steamapps\common\Cities Skylines II\Cities2_Data\Managed</ManagedPath></PropertyGroup>
-  <ItemGroup><Compile Include="../../src/Services/DeferredShortcut.cs" Link="DeferredShortcut.cs" />
+  <ItemGroup><Compile Include="../../src/Settings/ShortcutKey.cs" Link="ShortcutKey.cs" /><Compile Include="../../src/Services/DeferredShortcut.cs" Link="DeferredShortcut.cs" />
     <Compile Include="../../src/Services/ShortcutPolicy.cs" Link="ShortcutPolicy.cs" />
     <Compile Include="../../src/History/TransactionHistory.cs" Link="TransactionHistory.cs" />
     <Compile Include="../../src/Settings/EditorToolsSettings.cs" Link="EditorToolsSettings.cs" />

@@ -1,0 +1,1 @@
+PASS: exact Game MVID, private allocation job fields, native release/allocator contract, inspector refresh signature. VERIFIED-STATIC; native acceptance pending.

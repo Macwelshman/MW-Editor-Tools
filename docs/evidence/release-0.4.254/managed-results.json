@@ -1,0 +1,177 @@
+[
+  {
+    "Suite": "AreaMoveSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 100 actual-source area move hook/geometry assertions; native timing remains unproven."
+  },
+  {
+    "Suite": "AssetIconCompatibilitySafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 35 actual-adapter/Harmony thumbnail preservation assertions. Native screenshot/save/Undo acceptance remains pending."
+  },
+  {
+    "Suite": "BikeRackTimingSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 20 actual-source bike-rack timing lifecycle/isolation checks. No native performance claim."
+  },
+  {
+    "Suite": "BoundCompletionSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 77 actual-source bound completion checks; native scheduling remains unproven."
+  },
+  {
+    "Suite": "BoundFoliageSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 25 bound foliage safety assertions (managed doubles; native scheduling unproven)."
+  },
+  {
+    "Suite": "BrowserShortcutSafety",
+    "ExitCode": 0,
+    "Summary": "Browser shortcuts: 15 assertions passed; native runtime acceptance pending."
+  },
+  {
+    "Suite": "BulldozerSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 49 bulldozer lifecycle/history assertions. Native game event timing remains unproven."
+  },
+  {
+    "Suite": "ColourCopySafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 17 Color Properties copy and preview transport checks"
+  },
+  {
+    "Suite": "ColourPaletteSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 30 palette checks"
+  },
+  {
+    "Suite": "ComponentHeadingSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: callback instance identity, inspector ownership, full path, ambiguous mapping refusal and stale component revisions."
+  },
+  {
+    "Suite": "ComponentTransferSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 130 actual-source component transfer checks (managed doubles; native editor acceptance pending)."
+  },
+  {
+    "Suite": "EffectRestoreSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 35 actual-source effect restore assertions; native rendering remains unproven."
+  },
+  {
+    "Suite": "EffectUndoSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 41 actual-source effect lifecycle assertions; native timing remains unproven."
+  },
+  {
+    "Suite": "FieldChoiceSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 26 actual-source field-choice parser checks."
+  },
+  {
+    "Suite": "LastPropHistory",
+    "ExitCode": 0,
+    "Summary": "PASS: 12 actual-source last-component history rebinding assertions; native timing requires runtime validation."
+  },
+  {
+    "Suite": "LifecycleSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 28 lifecycle assertions against actual Mod source with constructor bypass and fault injection. Native Options runtime test pending."
+  },
+  {
+    "Suite": "ListClearSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 37 actual-source component removal and Clear confirmation checks with managed UI stubs; native dialog and snapshot integration pending."
+  },
+  {
+    "Suite": "MoveUndoSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 44 actual-source move hook/commit/pose assertions. Managed doubles; native regeneration acceptance pending."
+  },
+  {
+    "Suite": "MultiSaveSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 17 actual-source Multi-Save queue/interlock checks with managed native-save stubs; no files saved."
+  },
+  {
+    "Suite": "NestedRecoveryRunner",
+    "ExitCode": 0,
+    "Summary": "PASS: 133 automatic runner assertions against actual source; native timing remains unproven."
+  },
+  {
+    "Suite": "OptionsSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 61 Options editing assertions against actual Options source; native typing test pending."
+  },
+  {
+    "Suite": "OutlineColourSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 22 actual-source per-instance outline, identity, cleanup, dependency, priority and failure-isolation assertions. Native renderer acceptance pending."
+  },
+  {
+    "Suite": "Phase2Safety",
+    "ExitCode": 0,
+    "Summary": "PASS: 37 safety assertions. Unity/native dialog tests remain pending."
+  },
+  {
+    "Suite": "Phase3Safety",
+    "ExitCode": 0,
+    "Summary": "PASS: 1204 Phase 3 snapshot/history assertions. No Unity native or ECS regeneration test performed."
+  },
+  {
+    "Suite": "Phase4Safety",
+    "ExitCode": 0,
+    "Summary": "Phase 4 safety: 355 assertions passed."
+  },
+  {
+    "Suite": "PreparationSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 35 actual-source preparation completion assertions. Native fault rollback is not simulated."
+  },
+  {
+    "Suite": "PropReplacerSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 26 actual-source hover target, normalized identity and ownership checks"
+  },
+  {
+    "Suite": "ReplacementFoliageSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 18 actual-source foliage replacement creation/cleanup checks"
+  },
+  {
+    "Suite": "ReplacementUndoSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 45 actual-source replacement Undo snapshot, single/batch, foliage plan, shared slot and rollback checks."
+  },
+  {
+    "Suite": "SpawnAccessSafety",
+    "ExitCode": 0,
+    "Summary": "Spawn/access safety: 60 passed."
+  },
+  {
+    "Suite": "StandaloneNestedSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 25 actual-source standalone nested recovery assertions using managed ECS doubles; native regeneration unproven."
+  },
+  {
+    "Suite": "SurfaceReplacementSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 91 actual-source surface transaction, native-comparison, rollback, ownership, compatibility and Undo checks. Managed ECS doubles; native acceptance pending."
+  },
+  {
+    "Suite": "TargetingSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 92 actual-source targeting, overlay, selection and read-only Undo feedback assertions. Native tool acceptance pending."
+  },
+  {
+    "Suite": "ViewportPropSafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 76 viewport prop/area/network projection checks; actual installed mathematics libraries, managed game data doubles."
+  },
+  {
+    "Suite": "ViewportRetrySafety",
+    "ExitCode": 0,
+    "Summary": "PASS: 34 actual-source bounded viewport retry, context cancellation and single-dispatch checks."
+  }
+]

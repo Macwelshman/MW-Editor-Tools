@@ -1,6 +1,6 @@
 {
   "name": "mw-editor-tools-ui",
-  "version": "0.4.251",
+  "version": "0.4.254",
   "private": true,
   "scripts": {
     "build": "webpack"
