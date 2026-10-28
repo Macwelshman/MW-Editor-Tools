@@ -1,0 +1,1 @@
+PASS: 37 actual-source environment lifecycle/settings/snow ownership checks; native GPU/menu acceptance pending.

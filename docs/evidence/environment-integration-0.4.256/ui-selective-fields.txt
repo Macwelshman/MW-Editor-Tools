@@ -1,0 +1,1 @@
+PASS: selective field UI, Group/Priority preset, field toggle payload, hidden thumbnail and asset-token isolation.

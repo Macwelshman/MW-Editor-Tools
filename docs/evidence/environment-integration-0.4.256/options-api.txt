@@ -1,0 +1,525 @@
+ASSEMBLY Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=e8325128-556a-460d-a950-497d90b3627c
+TYPE Game.Settings.SettingsUISliderAttribute
+METHOD System.Void Game.Settings.SettingsUISliderAttribute::.ctor()
+IL_0000: ldarg.0
+IL_0001: ldc.r4 100
+IL_0006: stfld System.Single Game.Settings.SettingsUISliderAttribute::max
+IL_000b: ldarg.0
+IL_000c: ldc.r4 1
+IL_0011: stfld System.Single Game.Settings.SettingsUISliderAttribute::step
+IL_0016: ldarg.0
+IL_0017: ldstr "integer"
+IL_001c: stfld System.String Game.Settings.SettingsUISliderAttribute::unit
+IL_0021: ldarg.0
+IL_0022: ldc.r4 1
+IL_0027: stfld System.Single Game.Settings.SettingsUISliderAttribute::scalarMultiplier
+IL_002c: ldarg.0
+IL_002d: call System.Void System.Attribute::.ctor()
+IL_0032: ret
+TYPE Game.Settings.SettingsUISectionAttribute
+METHOD System.Void Game.Settings.SettingsUISectionAttribute::.ctor(System.String,System.String,System.String)
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Attribute::.ctor()
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: dup
+IL_0009: brtrue.s IL_0011
+IL_000b: pop
+IL_000c: ldstr "General"
+IL_0011: stfld System.String Game.Settings.SettingsUISectionAttribute::tab
+IL_0016: ldarg.0
+IL_0017: ldarg.2
+IL_0018: dup
+IL_0019: brtrue.s IL_0021
+IL_001b: pop
+IL_001c: ldsfld System.String System.String::Empty
+IL_0021: stfld System.String Game.Settings.SettingsUISectionAttribute::simpleGroup
+IL_0026: ldarg.0
+IL_0027: ldarg.3
+IL_0028: dup
+IL_0029: brtrue.s IL_0031
+IL_002b: pop
+IL_002c: ldsfld System.String System.String::Empty
+IL_0031: stfld System.String Game.Settings.SettingsUISectionAttribute::advancedGroup
+IL_0036: ret
+METHOD System.Void Game.Settings.SettingsUISectionAttribute::.ctor(System.String,System.String)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldarg.2
+IL_0003: ldarg.2
+IL_0004: call System.Void Game.Settings.SettingsUISectionAttribute::.ctor(System.String,System.String,System.String)
+IL_0009: ret
+METHOD System.Void Game.Settings.SettingsUISectionAttribute::.ctor(System.String)
+IL_0000: ldarg.0
+IL_0001: ldnull
+IL_0002: ldarg.1
+IL_0003: ldarg.1
+IL_0004: call System.Void Game.Settings.SettingsUISectionAttribute::.ctor(System.String,System.String,System.String)
+IL_0009: ret
+TYPE Game.Settings.SettingsUITabOrderAttribute
+METHOD System.Void Game.Settings.SettingsUITabOrderAttribute::.ctor(System.String[])
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Attribute::.ctor()
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: newobj System.Void System.Collections.ObjectModel.ReadOnlyCollection`1<System.String>::.ctor(System.Collections.Generic.IList`1<!0>)
+IL_000d: stfld System.Collections.ObjectModel.ReadOnlyCollection`1<System.String> Game.Settings.SettingsUITabOrderAttribute::tabs
+IL_0012: ret
+METHOD System.Void Game.Settings.SettingsUITabOrderAttribute::.ctor(System.Type,System.String)
+IL_0000: ldarg.0
+IL_0001: call System.Void System.Attribute::.ctor()
+IL_0006: ldarg.0
+IL_0007: ldarg.1
+IL_0008: stfld System.Type Game.Settings.SettingsUITabOrderAttribute::checkType
+IL_000d: ldarg.0
+IL_000e: ldarg.2
+IL_000f: stfld System.String Game.Settings.SettingsUITabOrderAttribute::checkMethod
+IL_0014: ret
+TYPE Game.Modding.ModSetting
+METHOD System.Void Game.Modding.ModSetting::.ctor(Game.Modding.IMod)
+IL_0000: ldarg.0
+IL_0001: call System.Void Game.Settings.Setting::.ctor()
+IL_0006: ldarg.1
+IL_0007: callvirt System.Type System.Object::GetType()
+IL_000c: stloc.0
+IL_000d: ldarg.0
+IL_000e: ldc.i4.5
+IL_000f: newarr System.String
+IL_0014: dup
+IL_0015: ldc.i4.0
+IL_0016: ldloc.0
+IL_0017: callvirt System.Reflection.Assembly System.Type::get_Assembly()
+IL_001c: callvirt System.Reflection.AssemblyName System.Reflection.Assembly::GetName()
+IL_0021: callvirt System.String System.Reflection.AssemblyName::get_Name()
+IL_0026: stelem.ref
+IL_0027: dup
+IL_0028: ldc.i4.1
+IL_0029: ldstr "."
+IL_002e: stelem.ref
+IL_002f: dup
+IL_0030: ldc.i4.2
+IL_0031: ldloc.0
+IL_0032: callvirt System.String System.Type::get_Namespace()
+IL_0037: stelem.ref
+IL_0038: dup
+IL_0039: ldc.i4.3
+IL_003a: ldstr "."
+IL_003f: stelem.ref
+IL_0040: dup
+IL_0041: ldc.i4.4
+IL_0042: ldloc.0
+IL_0043: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_0048: stelem.ref
+IL_0049: call System.String System.String::Concat(System.String[])
+IL_004e: stfld System.String Game.Modding.ModSetting::<id>k__BackingField
+IL_0053: ldarg.0
+IL_0054: ldarg.0
+IL_0055: call System.Type System.Object::GetType()
+IL_005a: callvirt System.String System.Reflection.MemberInfo::get_Name()
+IL_005f: stfld System.String Game.Modding.ModSetting::<name>k__BackingField
+IL_0064: ldarg.0
+IL_0065: ldarg.1
+IL_0066: stfld Game.Modding.IMod Game.Modding.ModSetting::<mod>k__BackingField
+IL_006b: call System.Collections.Generic.Dictionary`2<System.String,Game.Modding.ModSetting> Game.Modding.ModSetting::get_instances()
+IL_0070: ldarg.0
+IL_0071: call System.String Game.Modding.ModSetting::get_id()
+IL_0076: ldarg.0
+IL_0077: callvirt System.Void System.Collections.Generic.Dictionary`2<System.String,Game.Modding.ModSetting>::set_Item(!0,!1)
+IL_007c: ldarg.0
+IL_007d: call System.Void Game.Modding.ModSetting::InitializeKeyBindings()
+IL_0082: ret
+METHOD System.String Game.Modding.ModSetting::GetOptionTabLocaleID(System.String)
+IL_0000: ldc.i4.5
+IL_0001: newarr System.String
+IL_0006: dup
+IL_0007: ldc.i4.0
+IL_0008: ldstr "Options.TAB["
+IL_000d: stelem.ref
+IL_000e: dup
+IL_000f: ldc.i4.1
+IL_0010: ldarg.0
+IL_0011: call System.String Game.Modding.ModSetting::get_id()
+IL_0016: stelem.ref
+IL_0017: dup
+IL_0018: ldc.i4.2
+IL_0019: ldstr "."
+IL_001e: stelem.ref
+IL_001f: dup
+IL_0020: ldc.i4.3
+IL_0021: ldarg.1
+IL_0022: stelem.ref
+IL_0023: dup
+IL_0024: ldc.i4.4
+IL_0025: ldstr "]"
+IL_002a: stelem.ref
+IL_002b: call System.String System.String::Concat(System.String[])
+IL_0030: ret
+ASSEMBLY Colossal.IO.AssetDatabase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null MVID=92b0c1f5-5e48-4756-a01b-999ef0c122bf
+TYPE Colossal.IO.AssetDatabase.AssetDatabase
+METHOD System.Void Colossal.IO.AssetDatabase.AssetDatabase::.ctor()
+IL_0000: ldarg.0
+IL_0001: newobj System.Void Colossal.IO.AssetDatabase.AssetDatabase/SettingsConfiguration::.ctor()
+IL_0006: stfld Colossal.IO.AssetDatabase.AssetDatabase/SettingsConfiguration Colossal.IO.AssetDatabase.AssetDatabase::m_SettingsConfiguration
+IL_000b: ldarg.0
+IL_000c: newobj System.Void Colossal.EventBroadcaster`1<Colossal.IO.AssetDatabase.AssetChangedEventArgs>::.ctor()
+IL_0011: stfld Colossal.EventBroadcaster`1<Colossal.IO.AssetDatabase.AssetChangedEventArgs> Colossal.IO.AssetDatabase.AssetDatabase::<onAssetDatabaseChanged>k__BackingField
+IL_0016: ldarg.0
+IL_0017: newobj System.Void System.Collections.Generic.Dictionary`2<System.Type,Colossal.IO.AssetDatabase.IAssetData>::.ctor()
+IL_001c: stfld System.Collections.Generic.Dictionary`2<System.Type,Colossal.IO.AssetDatabase.IAssetData> Colossal.IO.AssetDatabase.AssetDatabase::m_PendingChangeTypes
+IL_0021: ldarg.0
+IL_0022: ldc.i4.1
+IL_0023: stfld System.Boolean Colossal.IO.AssetDatabase.AssetDatabase::m_NotificationsEnabled
+IL_0028: ldarg.0
+IL_0029: ldc.i4.1
+IL_002a: ldc.i4.1
+IL_002b: newobj System.Void System.Threading.SemaphoreSlim::.ctor(System.Int32,System.Int32)
+IL_0030: stfld System.Threading.SemaphoreSlim Colossal.IO.AssetDatabase.AssetDatabase::m_DatabasesLock
+IL_0035: ldarg.0
+IL_0036: newobj System.Void System.Collections.Generic.HashSet`1<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>::.ctor()
+IL_003b: stfld System.Collections.Generic.HashSet`1<Colossal.IO.AssetDatabase.IAssetDatabaseInternal> Colossal.IO.AssetDatabase.AssetDatabase::m_Databases
+IL_0040: ldarg.0
+IL_0041: call System.Void System.Object::.ctor()
+IL_0046: ldarg.0
+IL_0047: stsfld Colossal.IO.AssetDatabase.AssetDatabase Colossal.IO.AssetDatabase.AssetDatabase::s_Instance
+IL_004c: ldarg.0
+IL_004d: newobj System.Void Colossal.IO.AssetDatabase.AssetDatabase/Settings::.ctor()
+IL_0052: stfld Colossal.IO.AssetDatabase.AssetDatabase/Settings Colossal.IO.AssetDatabase.AssetDatabase::m_Settings
+IL_0057: call System.Void Colossal.IO.AssetDatabase.AssetDatabase::CreateAsyncReadManagerCacheHack()
+IL_005c: ldsfld System.Action`1<System.TimeSpan> Colossal.IO.AssetDatabase.AssetDatabase/<>c::<>9__66_0
+IL_0061: dup
+IL_0062: brtrue.s IL_007b
+IL_0064: pop
+IL_0065: ldsfld Colossal.IO.AssetDatabase.AssetDatabase/<>c Colossal.IO.AssetDatabase.AssetDatabase/<>c::<>9
+IL_006a: ldftn System.Void Colossal.IO.AssetDatabase.AssetDatabase/<>c::<.ctor>b__66_0(System.TimeSpan)
+IL_0070: newobj System.Void System.Action`1<System.TimeSpan>::.ctor(System.Object,System.IntPtr)
+IL_0075: dup
+IL_0076: stsfld System.Action`1<System.TimeSpan> Colossal.IO.AssetDatabase.AssetDatabase/<>c::<>9__66_0
+IL_007b: call Colossal.PerformanceCounter Colossal.PerformanceCounter::Start(System.Action`1<System.TimeSpan>)
+IL_0080: stloc.0
+IL_0081: ldarg.0
+IL_0082: ldstr "AssetDatabase/AssetDatabaseResources"
+IL_0087: call !!0 UnityEngine.Resources::Load<Colossal.IO.AssetDatabase.AssetDatabaseResources>(System.String)
+IL_008c: stfld Colossal.IO.AssetDatabase.AssetDatabaseResources Colossal.IO.AssetDatabase.AssetDatabase::m_Resources
+IL_0091: ldarg.0
+IL_0092: ldfld Colossal.IO.AssetDatabase.AssetDatabaseResources Colossal.IO.AssetDatabase.AssetDatabase::m_Resources
+IL_0097: ldc.i4.s 32
+IL_0099: callvirt System.Void UnityEngine.Object::set_hideFlags(UnityEngine.HideFlags)
+IL_009e: leave.s IL_00aa
+IL_00a0: ldloc.0
+IL_00a1: brfalse.s IL_00a9
+IL_00a3: ldloc.0
+IL_00a4: callvirt System.Void System.IDisposable::Dispose()
+IL_00a9: endfinally
+IL_00aa: ret
+METHOD System.Void Colossal.IO.AssetDatabase.AssetDatabase::LoadSettings(System.String,System.Object,System.Object,System.Boolean)
+IL_0000: ldarg.2
+IL_0001: brtrue.s IL_000e
+IL_0003: ldstr "Load() needs a non-null object to deserialize into"
+IL_0008: newobj System.Void System.NullReferenceException::.ctor(System.String)
+IL_000d: throw
+IL_000e: ldc.i4.0
+IL_000f: stloc.0
+IL_0010: ldarg.0
+IL_0011: ldfld System.Collections.Generic.HashSet`1<Colossal.IO.AssetDatabase.IAssetDatabaseInternal> Colossal.IO.AssetDatabase.AssetDatabase::m_Databases
+IL_0016: callvirt System.Collections.Generic.HashSet`1/Enumerator<!0> System.Collections.Generic.HashSet`1<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>::GetEnumerator()
+IL_001b: stloc.1
+IL_001c: br.s IL_0093
+IL_001e: ldloca.s V_1
+IL_0020: call !0 System.Collections.Generic.HashSet`1/Enumerator<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>::get_Current()
+IL_0025: ldarg.1
+IL_0026: ldloca.s V_2
+IL_0028: callvirt System.Boolean Colossal.IO.AssetDatabase.IAssetDatabaseInternal::TryGetNamedAsset<Colossal.IO.AssetDatabase.SettingAsset>(System.String,TAssetData&)
+IL_002d: brfalse.s IL_0093
+IL_002f: ldc.i4.1
+IL_0030: stloc.0
+IL_0031: ldloc.2
+IL_0032: callvirt System.Collections.Generic.IEnumerator`1<Colossal.IO.AssetDatabase.SettingAsset/Fragment> Colossal.IO.AssetDatabase.SettingAsset::GetEnumerator()
+IL_0037: stloc.3
+IL_0038: br.s IL_007f
+IL_003a: ldloc.3
+IL_003b: callvirt !0 System.Collections.Generic.IEnumerator`1<Colossal.IO.AssetDatabase.SettingAsset/Fragment>::get_Current()
+IL_0040: stloc.s V_4
+IL_0042: ldloc.s V_4
+IL_0044: ldarg.2
+IL_0045: stfld System.Object Colossal.IO.AssetDatabase.SettingAsset/Fragment::source
+IL_004a: ldloc.s V_4
+IL_004c: ldarg.3
+IL_004d: stfld System.Object Colossal.IO.AssetDatabase.SettingAsset/Fragment::default
+IL_0052: ldloc.s V_4
+IL_0054: ldfld Colossal.Json.Variant Colossal.IO.AssetDatabase.SettingAsset/Fragment::variant
+IL_0059: ldarga.s obj
+IL_005b: call System.Void Colossal.Json.JSON::WriteInto<System.Object>(Colossal.Json.Variant,!!0&)
+IL_0060: leave.s IL_007f
+IL_0062: stloc.s V_5
+IL_0064: ldsfld Colossal.Logging.ILog Colossal.IO.AssetDatabase.AssetDatabase::log
+IL_0069: ldloc.s V_5
+IL_006b: ldstr "Error with setting '{0}' at {1}"
+IL_0070: ldarg.1
+IL_0071: ldloc.s V_4
+IL_0073: callvirt System.String Colossal.IO.AssetDatabase.SettingAsset/Fragment::get_name()
+IL_0078: callvirt System.Void Colossal.Logging.ILog::WarnFormat(System.Exception,System.String,System.Object,System.Object)
+IL_007d: leave.s IL_007f
+IL_007f: ldloc.3
+IL_0080: callvirt System.Boolean System.Collections.IEnumerator::MoveNext()
+IL_0085: brtrue.s IL_003a
+IL_0087: leave.s IL_0093
+IL_0089: ldloc.3
+IL_008a: brfalse.s IL_0092
+IL_008c: ldloc.3
+IL_008d: callvirt System.Void System.IDisposable::Dispose()
+IL_0092: endfinally
+IL_0093: ldloca.s V_1
+IL_0095: call System.Boolean System.Collections.Generic.HashSet`1/Enumerator<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>::MoveNext()
+IL_009a: brtrue.s IL_001e
+IL_009c: leave.s IL_00ac
+IL_009e: ldloca.s V_1
+IL_00a0: constrained. System.Collections.Generic.HashSet`1/Enumerator<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>
+IL_00a6: callvirt System.Void System.IDisposable::Dispose()
+IL_00ab: endfinally
+IL_00ac: ldloc.0
+IL_00ad: brtrue IL_0186
+IL_00b2: ldarg.2
+IL_00b3: callvirt System.Type System.Object::GetType()
+IL_00b8: ldc.i4.0
+IL_00b9: callvirt System.Object[] System.Reflection.MemberInfo::GetCustomAttributes(System.Boolean)
+IL_00be: call !!0 Colossal.Reflection.ReflectionUtils::GetAttribute<Colossal.IO.AssetDatabase.FileLocationAttribute>(System.Object[])
+IL_00c3: stloc.s V_6
+IL_00c5: ldstr "FallbackSettings.coc"
+IL_00ca: stloc.s V_7
+IL_00cc: ldloc.s V_6
+IL_00ce: brfalse.s IL_00e7
+IL_00d0: ldloc.s V_6
+IL_00d2: callvirt System.String Colossal.IO.AssetDatabase.FileLocationAttribute::get_fileName()
+IL_00d7: call System.Boolean System.String::IsNullOrEmpty(System.String)
+IL_00dc: brtrue.s IL_00e7
+IL_00de: ldloc.s V_6
+IL_00e0: callvirt System.String Colossal.IO.AssetDatabase.FileLocationAttribute::get_fileName()
+IL_00e5: stloc.s V_7
+IL_00e7: call Colossal.IO.AssetDatabase.ILocalAssetDatabase Colossal.IO.AssetDatabase.AssetDatabase::get_user()
+IL_00ec: callvirt Colossal.IO.AssetDatabase.IDataSourceProvider Colossal.IO.AssetDatabase.IDataSourceAccessor::get_dataSource()
+IL_00f1: ldloc.s V_7
+IL_00f3: ldc.i4.0
+IL_00f4: call Colossal.IO.AssetDatabase.AssetDataPath Colossal.IO.AssetDatabase.AssetDataPath::Create(System.String,Colossal.IO.AssetDatabase.EscapeStrategy)
+IL_00f9: ldtoken Colossal.IO.AssetDatabase.SettingAsset
+IL_00fe: call System.Type System.Type::GetTypeFromHandle(System.RuntimeTypeHandle)
+IL_0103: ldloca.s V_11
+IL_0105: initobj Colossal.Hash128
+IL_010b: ldloc.s V_11
+IL_010d: callvirt Colossal.IO.AssetDatabase.Identifier Colossal.IO.AssetDatabase.IDataSourceProvider::AddEntryFromDatabase(Colossal.IO.AssetDatabase.AssetDataPath,System.Type,Colossal.Hash128)
+IL_0112: stloc.s V_8
+IL_0114: call Colossal.IO.AssetDatabase.ILocalAssetDatabase Colossal.IO.AssetDatabase.AssetDatabase::get_user()
+IL_0119: castclass Colossal.IO.AssetDatabase.IAssetDatabaseInternal
+IL_011e: stloc.s V_9
+IL_0120: ldloc.s V_9
+IL_0122: ldarg.1
+IL_0123: ldloca.s V_10
+IL_0125: callvirt System.Boolean Colossal.IO.AssetDatabase.IAssetDatabaseInternal::TryGetNamedAsset<Colossal.IO.AssetDatabase.SettingAsset>(System.String,TAssetData&)
+IL_012a: brtrue.s IL_0157
+IL_012c: ldarg.1
+IL_012d: newobj System.Void Colossal.IO.AssetDatabase.SettingAsset::.ctor(System.String)
+IL_0132: stloc.s V_10
+IL_0134: ldloc.s V_10
+IL_0136: ldsfld Colossal.Hash128 Colossal.Hash128::Empty
+IL_013b: ldarg.1
+IL_013c: newobj System.Void Colossal.IO.AssetDatabase.Identifier::.ctor(Colossal.Hash128,System.String)
+IL_0141: callvirt System.Void Colossal.IO.AssetDatabase.AssetData::set_id(Colossal.IO.AssetDatabase.Identifier)
+IL_0146: ldloc.s V_9
+IL_0148: ldarg.1
+IL_0149: ldloc.s V_10
+IL_014b: callvirt System.Void Colossal.IO.AssetDatabase.IAssetDatabaseInternal::AddAsset<Colossal.IO.AssetDatabase.SettingAsset>(System.String,TAssetData)
+IL_0150: ldloc.s V_10
+IL_0152: callvirt System.Void Colossal.IO.AssetDatabase.AssetData::PostCreate()
+IL_0157: ldloc.s V_10
+IL_0159: newobj System.Void Colossal.IO.AssetDatabase.SettingAsset/Fragment::.ctor()
+IL_015e: dup
+IL_015f: ldloc.s V_10
+IL_0161: stfld Colossal.IO.AssetDatabase.SettingAsset Colossal.IO.AssetDatabase.SettingAsset/Fragment::asset
+IL_0166: dup
+IL_0167: ldloc.s V_8
+IL_0169: call Colossal.Hash128 Colossal.IO.AssetDatabase.Identifier::op_Implicit(Colossal.IO.AssetDatabase.Identifier)
+IL_016e: stfld Colossal.Hash128 Colossal.IO.AssetDatabase.SettingAsset/Fragment::guid
+IL_0173: dup
+IL_0174: ldarg.2
+IL_0175: stfld System.Object Colossal.IO.AssetDatabase.SettingAsset/Fragment::source
+IL_017a: dup
+IL_017b: ldarg.3
+IL_017c: stfld System.Object Colossal.IO.AssetDatabase.SettingAsset/Fragment::default
+IL_0181: callvirt System.Void Colossal.IO.AssetDatabase.SettingAsset::AddFragment(Colossal.IO.AssetDatabase.SettingAsset/Fragment)
+IL_0186: ret
+METHOD System.Void Colossal.IO.AssetDatabase.AssetDatabase::LoadSettings(System.String,System.Action`2<T,Colossal.IO.AssetDatabase.SourceMeta>)
+IL_0000: ldarg.0
+IL_0001: ldfld System.Collections.Generic.HashSet`1<Colossal.IO.AssetDatabase.IAssetDatabaseInternal> Colossal.IO.AssetDatabase.AssetDatabase::m_Databases
+IL_0006: callvirt System.Collections.Generic.HashSet`1/Enumerator<!0> System.Collections.Generic.HashSet`1<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>::GetEnumerator()
+IL_000b: stloc.0
+IL_000c: br.s IL_0083
+IL_000e: ldloca.s V_0
+IL_0010: call !0 System.Collections.Generic.HashSet`1/Enumerator<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>::get_Current()
+IL_0015: ldarg.1
+IL_0016: ldloca.s V_1
+IL_0018: callvirt System.Boolean Colossal.IO.AssetDatabase.IAssetDatabaseInternal::TryGetNamedAsset<Colossal.IO.AssetDatabase.SettingAsset>(System.String,TAssetData&)
+IL_001d: brfalse.s IL_0083
+IL_001f: ldloc.1
+IL_0020: callvirt System.Collections.Generic.IEnumerator`1<Colossal.IO.AssetDatabase.SettingAsset/Fragment> Colossal.IO.AssetDatabase.SettingAsset::GetEnumerator()
+IL_0025: stloc.2
+IL_0026: br.s IL_006f
+IL_0028: ldloc.2
+IL_0029: callvirt !0 System.Collections.Generic.IEnumerator`1<Colossal.IO.AssetDatabase.SettingAsset/Fragment>::get_Current()
+IL_002e: stloc.3
+IL_002f: call !!0 System.Activator::CreateInstance<T>()
+IL_0034: stloc.s V_4
+IL_0036: ldloc.3
+IL_0037: ldfld Colossal.Json.Variant Colossal.IO.AssetDatabase.SettingAsset/Fragment::variant
+IL_003c: ldloca.s V_4
+IL_003e: call System.Void Colossal.Json.JSON::WriteInto<T>(Colossal.Json.Variant,!!0&)
+IL_0043: ldarg.2
+IL_0044: ldloc.s V_4
+IL_0046: ldloc.3
+IL_0047: callvirt Colossal.IO.AssetDatabase.SourceMeta Colossal.IO.AssetDatabase.SettingAsset/Fragment::get_meta()
+IL_004c: callvirt System.Void System.Action`2<T,Colossal.IO.AssetDatabase.SourceMeta>::Invoke(!0,!1)
+IL_0051: leave.s IL_006f
+IL_0053: stloc.s V_5
+IL_0055: ldsfld Colossal.Logging.ILog Colossal.IO.AssetDatabase.AssetDatabase::log
+IL_005a: ldloc.s V_5
+IL_005c: ldstr "Error with setting '{0}' at {1}"
+IL_0061: ldarg.1
+IL_0062: ldloc.3
+IL_0063: callvirt System.String Colossal.IO.AssetDatabase.SettingAsset/Fragment::get_name()
+IL_0068: callvirt System.Void Colossal.Logging.ILog::WarnFormat(System.Exception,System.String,System.Object,System.Object)
+IL_006d: leave.s IL_006f
+IL_006f: ldloc.2
+IL_0070: callvirt System.Boolean System.Collections.IEnumerator::MoveNext()
+IL_0075: brtrue.s IL_0028
+IL_0077: leave.s IL_0083
+IL_0079: ldloc.2
+IL_007a: brfalse.s IL_0082
+IL_007c: ldloc.2
+IL_007d: callvirt System.Void System.IDisposable::Dispose()
+IL_0082: endfinally
+IL_0083: ldloca.s V_0
+IL_0085: call System.Boolean System.Collections.Generic.HashSet`1/Enumerator<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>::MoveNext()
+IL_008a: brtrue.s IL_000e
+IL_008c: leave.s IL_009c
+IL_008e: ldloca.s V_0
+IL_0090: constrained. System.Collections.Generic.HashSet`1/Enumerator<Colossal.IO.AssetDatabase.IAssetDatabaseInternal>
+IL_0096: callvirt System.Void System.IDisposable::Dispose()
+IL_009b: endfinally
+IL_009c: ret
+METHOD System.Threading.Tasks.Task Colossal.IO.AssetDatabase.AssetDatabase::SaveSettings()
+IL_0000: ldloca.s V_0
+IL_0002: call System.Runtime.CompilerServices.AsyncTaskMethodBuilder System.Runtime.CompilerServices.AsyncTaskMethodBuilder::Create()
+IL_0007: stfld System.Runtime.CompilerServices.AsyncTaskMethodBuilder Colossal.IO.AssetDatabase.AssetDatabase/<SaveSettings>d__98::<>t__builder
+IL_000c: ldloca.s V_0
+IL_000e: ldarg.0
+IL_000f: stfld Colossal.IO.AssetDatabase.AssetDatabase Colossal.IO.AssetDatabase.AssetDatabase/<SaveSettings>d__98::<>4__this
+IL_0014: ldloca.s V_0
+IL_0016: ldc.i4.m1
+IL_0017: stfld System.Int32 Colossal.IO.AssetDatabase.AssetDatabase/<SaveSettings>d__98::<>1__state
+IL_001c: ldloca.s V_0
+IL_001e: ldflda System.Runtime.CompilerServices.AsyncTaskMethodBuilder Colossal.IO.AssetDatabase.AssetDatabase/<SaveSettings>d__98::<>t__builder
+IL_0023: ldloca.s V_0
+IL_0025: call System.Void System.Runtime.CompilerServices.AsyncTaskMethodBuilder::Start<Colossal.IO.AssetDatabase.AssetDatabase/<SaveSettings>d__98>(!!0&)
+IL_002a: ldloca.s V_0
+IL_002c: ldflda System.Runtime.CompilerServices.AsyncTaskMethodBuilder Colossal.IO.AssetDatabase.AssetDatabase/<SaveSettings>d__98::<>t__builder
+IL_0031: call System.Threading.Tasks.Task System.Runtime.CompilerServices.AsyncTaskMethodBuilder::get_Task()
+IL_0036: ret
+TYPE Colossal.IO.AssetDatabase.IAssetDatabase
+METHOD System.Void Colossal.IO.AssetDatabase.IAssetDatabase::LoadSettings(System.String,System.Action`2<T,Colossal.IO.AssetDatabase.SourceMeta>)
+TYPE Colossal.IO.AssetDatabase.AssetDatabase`1
+METHOD System.Void Colossal.IO.AssetDatabase.AssetDatabase`1::.ctor(T)
+IL_0000: ldarg.0
+IL_0001: newobj System.Void Colossal.EventBroadcaster`1<Colossal.IO.AssetDatabase.AssetChangedEventArgs>::.ctor()
+IL_0006: stfld Colossal.EventBroadcaster`1<Colossal.IO.AssetDatabase.AssetChangedEventArgs> Colossal.IO.AssetDatabase.AssetDatabase`1<T>::<onAssetDatabaseChanged>k__BackingField
+IL_000b: ldarg.0
+IL_000c: ldc.i4.1
+IL_000d: stfld System.Boolean Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_NotificationsEnabled
+IL_0012: ldarg.0
+IL_0013: ldc.i4.2
+IL_0014: ldc.i4 65535
+IL_0019: newobj System.Void System.Collections.Concurrent.ConcurrentDictionary`2<Colossal.Hash128,Colossal.IO.AssetDatabase.IAssetData>::.ctor(System.Int32,System.Int32)
+IL_001e: stfld System.Collections.Concurrent.ConcurrentDictionary`2<Colossal.Hash128,Colossal.IO.AssetDatabase.IAssetData> Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_Assets
+IL_0023: ldarg.0
+IL_0024: ldc.i4.2
+IL_0025: ldc.i4 65535
+IL_002a: newobj System.Void System.Collections.Concurrent.ConcurrentDictionary`2<System.String,Colossal.IO.AssetDatabase.IAssetData>::.ctor(System.Int32,System.Int32)
+IL_002f: stfld System.Collections.Concurrent.ConcurrentDictionary`2<System.String,Colossal.IO.AssetDatabase.IAssetData> Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_Uris
+IL_0034: ldarg.0
+IL_0035: ldc.i4.2
+IL_0036: ldc.i4 65535
+IL_003b: newobj System.Void System.Collections.Concurrent.ConcurrentDictionary`2<System.String,Colossal.IO.AssetDatabase.IAssetData>::.ctor(System.Int32,System.Int32)
+IL_0040: stfld System.Collections.Concurrent.ConcurrentDictionary`2<System.String,Colossal.IO.AssetDatabase.IAssetData> Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_NamedAssets
+IL_0045: ldarg.0
+IL_0046: ldc.i4.2
+IL_0047: ldc.i4.s 64
+IL_0049: newobj System.Void System.Collections.Concurrent.ConcurrentDictionary`2<System.Type,Colossal.IO.AssetDatabase.ConcurrentHashSet`1<Colossal.IO.AssetDatabase.IAssetData>>::.ctor(System.Int32,System.Int32)
+IL_004e: stfld System.Collections.Concurrent.ConcurrentDictionary`2<System.Type,Colossal.IO.AssetDatabase.ConcurrentHashSet`1<Colossal.IO.AssetDatabase.IAssetData>> Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_TypeBasedDictionary
+IL_0053: ldarg.0
+IL_0054: call System.Void System.Object::.ctor()
+IL_0059: ldsfld System.Collections.Generic.Dictionary`2<T,Colossal.IO.AssetDatabase.AssetDatabase`1<T>> Colossal.IO.AssetDatabase.AssetDatabase`1<T>::s_Instances
+IL_005e: ldarg.1
+IL_005f: ldarg.0
+IL_0060: callvirt System.Void System.Collections.Generic.Dictionary`2<T,Colossal.IO.AssetDatabase.AssetDatabase`1<T>>::set_Item(!0,!1)
+IL_0065: ldarg.0
+IL_0066: ldarg.1
+IL_0067: stfld T Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_Descriptor
+IL_006c: ldarg.0
+IL_006d: ldarg.0
+IL_006e: ldflda T Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_Descriptor
+IL_0073: constrained. T
+IL_0079: callvirt Colossal.IO.AssetDatabase.IDataSourceProvider Colossal.IO.AssetDatabase.IAssetDatabaseDescriptor`1<T>::get_dataSourceProvider()
+IL_007e: stfld Colossal.IO.AssetDatabase.IDataSourceProvider Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_DataSource
+IL_0083: ldarg.0
+IL_0084: ldfld Colossal.IO.AssetDatabase.IDataSourceProvider Colossal.IO.AssetDatabase.AssetDatabase`1<T>::m_DataSource
+IL_0089: ldarg.0
+IL_008a: ldftn System.Void Colossal.IO.AssetDatabase.AssetDatabase`1<T>::UpdateEntry(System.Type,Colossal.IO.AssetDatabase.Identifier,Colossal.IO.AssetDatabase.DataSourceModification)
+IL_0090: newobj System.Void Colossal.IO.AssetDatabase.DataSourceModifiedEventHandler::.ctor(System.Object,System.IntPtr)
+IL_0095: callvirt System.Void Colossal.IO.AssetDatabase.IDataSourceProvider::add_onModified(Colossal.IO.AssetDatabase.DataSourceModifiedEventHandler)
+IL_009a: ret
+METHOD System.Void Colossal.IO.AssetDatabase.AssetDatabase`1::.ctor()
+IL_0000: ldarg.0
+IL_0001: call !!0 System.Activator::CreateInstance<T>()
+IL_0006: call System.Void Colossal.IO.AssetDatabase.AssetDatabase`1<T>::.ctor(T)
+IL_000b: ret
+METHOD System.Void Colossal.IO.AssetDatabase.AssetDatabase`1::LoadSettings(System.String,System.Action`2<TTarget,Colossal.IO.AssetDatabase.SourceMeta>)
+IL_0000: ldarg.0
+IL_0001: ldarg.1
+IL_0002: ldloca.s V_0
+IL_0004: callvirt System.Boolean Colossal.IO.AssetDatabase.IAssetDatabaseInternal::TryGetNamedAsset<Colossal.IO.AssetDatabase.SettingAsset>(System.String,TAssetData&)
+IL_0009: brfalse.s IL_006d
+IL_000b: ldloc.0
+IL_000c: callvirt System.Collections.Generic.IEnumerator`1<Colossal.IO.AssetDatabase.SettingAsset/Fragment> Colossal.IO.AssetDatabase.SettingAsset::GetEnumerator()
+IL_0011: stloc.1
+IL_0012: br.s IL_0059
+IL_0014: ldloc.1
+IL_0015: callvirt !0 System.Collections.Generic.IEnumerator`1<Colossal.IO.AssetDatabase.SettingAsset/Fragment>::get_Current()
+IL_001a: stloc.2
+IL_001b: call !!0 System.Activator::CreateInstance<TTarget>()
+IL_0020: stloc.3
+IL_0021: ldloc.2
+IL_0022: ldfld Colossal.Json.Variant Colossal.IO.AssetDatabase.SettingAsset/Fragment::variant
+IL_0027: ldloca.s V_3
+IL_0029: call System.Void Colossal.Json.JSON::WriteInto<TTarget>(Colossal.Json.Variant,!!0&)
+IL_002e: ldarg.2
+IL_002f: ldloc.3
+IL_0030: ldloc.2
+IL_0031: callvirt Colossal.IO.AssetDatabase.SourceMeta Colossal.IO.AssetDatabase.SettingAsset/Fragment::get_meta()
+IL_0036: callvirt System.Void System.Action`2<TTarget,Colossal.IO.AssetDatabase.SourceMeta>::Invoke(!0,!1)
+IL_003b: leave.s IL_0059
+IL_003d: stloc.s V_4
+IL_003f: ldsfld Colossal.Logging.ILog Colossal.IO.AssetDatabase.AssetDatabase`1<T>::log
+IL_0044: ldloc.s V_4
+IL_0046: ldstr "Error with setting '{0}' at {1}"
+IL_004b: ldarg.1
+IL_004c: ldloc.2
+IL_004d: callvirt System.String Colossal.IO.AssetDatabase.SettingAsset/Fragment::get_name()
+IL_0052: callvirt System.Void Colossal.Logging.ILog::WarnFormat(System.Exception,System.String,System.Object,System.Object)
+IL_0057: leave.s IL_0059
+IL_0059: ldloc.1
+IL_005a: callvirt System.Boolean System.Collections.IEnumerator::MoveNext()
+IL_005f: brtrue.s IL_0014
+IL_0061: leave.s IL_006d
+IL_0063: ldloc.1
+IL_0064: brfalse.s IL_006c
+IL_0066: ldloc.1
+IL_0067: callvirt System.Void System.IDisposable::Dispose()
+IL_006c: endfinally
+IL_006d: ret

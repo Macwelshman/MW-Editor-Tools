@@ -1,0 +1,27 @@
+[
+  {
+    "MVID": "e8325128-556a-460d-a950-497d90b3627c",
+    "Assembly": "Game, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "SHA256": "5885642745A77D39E6E34A3B61A78239F5267E1C8BDA8FD7819809630E14CBB5"
+  },
+  {
+    "MVID": "f90c5161-26b4-48fb-85ee-6833d6a86540",
+    "Assembly": "Colossal.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "SHA256": "4D6B4A4CC5EFF328BEC65CFB59BFBB35372DD52847D75EF82A9BF656B2A2ED2F"
+  },
+  {
+    "MVID": "f4863c05-b364-48ed-a003-9c869d32c740",
+    "Assembly": "Colossal.Collections, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "SHA256": "071D02D3613E97E9B0C30693A8851CFB43E4B96270FE7E7BB4AA6F637E57303E"
+  },
+  {
+    "MVID": "249ce684-a5c2-4e09-bd3b-cb6d8d7a862e",
+    "Assembly": "Unity.Collections, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "SHA256": "F59637E1594F40B9DCE999488E2AA8042D6FAC927144EA6BB97A16A5019382C0"
+  },
+  {
+    "MVID": "17879230-8daa-4d82-a555-54adcb15b372",
+    "Assembly": "Unity.Entities, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "SHA256": "523D5207AF3946B5E18E94ED05F7D9C18056A796E15960A00A4A2686C0BBEE60"
+  }
+]

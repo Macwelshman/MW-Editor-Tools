@@ -1,0 +1,38 @@
+[
+  {
+    "Test": "AssetIconCompatibilitySafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BrowserShortcutSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ComponentHeadingSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "EnvironmentSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ListClearSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "OptionsSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase4Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ReplacementUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "TargetingSafety",
+    "ExitCode": 0
+  }
+]

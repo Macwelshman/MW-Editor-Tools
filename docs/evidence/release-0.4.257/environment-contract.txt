@@ -1,0 +1,1 @@
+PASS: installed environment APIs, private paired snow buffers, climate override types, PreCulling order and named JSON settings population. VERIFIED-STATIC; native appearance/persistence pending.

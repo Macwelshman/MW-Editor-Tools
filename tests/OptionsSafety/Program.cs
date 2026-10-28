@@ -45,18 +45,49 @@ class Program {
         var letters=new[]{"B","D","F","A","E","S"};
         for(int i=0;i<defaults.Length;i++)Check(NativeShortcutCodec.TryRead(defaults[i],out key,out mask)&&key==letters[i]&&mask==4,"six Alt-only browser defaults");
         foreach(var name in new[]{"Guidance","BrowserGuidance"})Check(Attribute.IsDefined(typeof(EditorToolsOptions).GetProperty(name),typeof(Game.Settings.SettingsUIHiddenAttribute)),"long options guidance hidden");
-        Console.WriteLine("PASS: "+checks+" Options editing assertions against actual Options source; native typing test pending.");
+        var order=(Game.Settings.SettingsUITabOrderAttribute)Attribute.GetCustomAttribute(typeof(EditorToolsOptions),typeof(Game.Settings.SettingsUITabOrderAttribute));
+        Check(string.Join("|",order.Tabs)=="KeyboardShortcuts|Tools|Environment","three native tabs in requested order");
+        foreach(var name in new[]{"EnableHideUIShortcut","HideUIShortcut","EnableShortcuts","UndoShortcut","EnableBrowserShortcuts","BuildingsShortcut","PropsShortcut","FoliageShortcut","AreasShortcut","EffectsShortcut","SurfacesShortcut","ApplyBrowserChanges"})Tab(name,"KeyboardShortcuts");
+        foreach(var name in new[]{"ConfirmDeletion","EnableRecovery","InspectorControls","ApplyChanges","ResetWindowPosition"})Tab(name,"Tools");
+        foreach(var name in new[]{"EnvironmentGuidance","EnvironmentHour","EnvironmentDayOfYear","EnvironmentPrecipitation","EnvironmentCloudCoverage","EnvironmentSnow","ApplyEnvironmentChanges"})Tab(name,"Environment");
+        var preset=new EnvironmentSettings(null){Hour=8.5f,DayOfYear=274,Precipitation=25,CloudCoverage=40,Snow=true};
+        var integrated=new EditorToolsOptions(null,settings,recovery,()=>{},preset);
+        Check(!integrated.EnvironmentUnavailable&&integrated.EnvironmentHour==8.5f&&integrated.EnvironmentDayOfYear==274&&integrated.EnvironmentSnow,"saved standalone-compatible preset loads into Environment draft");
+        integrated.EnvironmentHour=18.75f;integrated.EnvironmentDayOfYear=20;integrated.EnvironmentPrecipitation=60;integrated.EnvironmentCloudCoverage=75;integrated.EnvironmentSnow=false;
+        integrated.ApplyAndSave();Check(preset.Hour==8.5f&&preset.Snow&&preset.SaveCalls==0,"native draft edits neither persist nor alter the live preset");
+        integrated.ApplyEnvironmentChanges=true;Check(preset.Hour==18.75f&&preset.DayOfYear==20&&preset.Precipitation==60&&preset.CloudCoverage==75&&!preset.Snow&&preset.SaveCalls==1,"explicit Apply saves all environment values once");
+        int beforeHistory=recovery.Changes;integrated.EnvironmentHour=float.NaN;integrated.EnvironmentDayOfYear=900;integrated.EnvironmentPrecipitation=-5;integrated.EnvironmentCloudCoverage=101;integrated.ApplyBrowserChanges=true;
+        Check(preset.Hour==12&&preset.DayOfYear==365&&preset.Precipitation==0&&preset.CloudCoverage==100,"persisted environment inputs normalized");
+        Check(recovery.Changes==beforeHistory,"environment-only change preserves Undo history");
+        integrated.SetDefaults();Check(preset.DayOfYear==365&&preset.SaveCalls==2,"reset remains a draft");integrated.ApplyChanges=true;
+        Check(preset.Hour==12&&preset.DayOfYear==91&&preset.Precipitation==0&&preset.CloudCoverage==15&&!preset.Snow,"defaults preserve standalone environment defaults");
+        Check(options.EnvironmentUnavailable,"unavailable module reported separately");
+        Tab("EnableEnvironment","Environment");
+        Check(integrated.EnableEnvironment&&!integrated.EnvironmentControlsDisabled,"environment enabled by default with active controls");
+        integrated.EnableEnvironment=false;integrated.Apply();Check(preset.EnableEnvironment&&integrated.EnvironmentControlsDisabled,"toggle draft disables controls without saving preset");
+        float retainedHour=preset.Hour;integrated.ApplyEnvironmentChanges=true;
+        Check(!preset.EnableEnvironment&&preset.Hour==retainedHour,"Apply persists disabled flag without discarding preset values");
+        var reloaded=new EditorToolsOptions(null,settings,recovery,()=>{},preset);
+        Check(!reloaded.EnableEnvironment&&reloaded.EnvironmentControlsDisabled,"disabled setting restored into Options");
+        reloaded.EnableEnvironment=true;reloaded.ApplyChanges=true;Check(preset.EnableEnvironment&&!reloaded.EnvironmentControlsDisabled,"re-enable persists through ordinary Apply");
+        var properties=typeof(EditorToolsOptions).GetProperties();
+        Check(Array.FindIndex(properties,p=>p.Name=="EnableEnvironment")<Array.FindIndex(properties,p=>p.Name=="EnvironmentGuidance"),"enable checkbox precedes environment guidance and sliders");
+        var entries=new Dictionary<string,string>();foreach(var entry in new OptionsLocale(integrated).ReadEntries(null,null))entries.Add(entry.Key,entry.Value);
+        Check(entries["tab.KeyboardShortcuts"]=="Keyboard Shortcuts"&&entries["tab.Tools"]=="Tools"&&entries["tab.Environment"]=="Environment","exact requested tab labels localized");
+        foreach(var name in new[]{"EnableEnvironment","EnvironmentHour","EnvironmentDayOfYear","EnvironmentPrecipitation","EnvironmentCloudCoverage","EnvironmentSnow"})Check(entries.ContainsKey("label."+name)&&entries.ContainsKey("desc."+name),"environment control labels and help available");
+        Console.WriteLine("PASS: "+checks+" Options editing/tab/preset assertions against actual Options source; native menu acceptance pending.");
     }
+    static void Tab(string name,string tab){var attr=(Game.Settings.SettingsUISectionAttribute)Attribute.GetCustomAttribute(typeof(EditorToolsOptions).GetProperty(name),typeof(Game.Settings.SettingsUISectionAttribute));Check(attr!=null&&attr.Tab==tab,"explicit tab placement: "+name);}
 }
 namespace Colossal {public interface IDictionaryEntryError{}public interface IDictionarySource {IEnumerable<KeyValuePair<string,string>> ReadEntries(IList<IDictionaryEntryError> errors,Dictionary<string,int> counts);void Unload();}}
 namespace Game.Modding {
     public interface IMod{}
-    public class ModSetting {public ModSetting(IMod mod){foreach(var name in new[]{"HideUIShortcut","UndoShortcut","RedoShortcut","BuildingsShortcut","PropsShortcut","FoliageShortcut","AreasShortcut","EffectsShortcut","SurfacesShortcut"}) GetType().GetProperty(name).SetValue(this,new Game.Input.ProxyBinding {path="<Keyboard>/z",modifiers=new[]{new Game.Input.ProxyModifier{m_Path="<Keyboard>/ctrl",m_Name="modifier"}}});GetType().GetProperty("HideUIShortcut").SetValue(this,new Game.Input.ProxyBinding {path="<Keyboard>/backquote",modifiers=Array.Empty<Game.Input.ProxyModifier>()});}public virtual void Apply(){}public virtual void ApplyAndSave(){}public virtual void SetDefaults(){}public string GetBindingKeyLocaleID(string n)=>"binding."+n; public string GetBindingMapLocaleID()=>"map";public string GetSettingsLocaleID()=>"settings";public string GetOptionGroupLocaleID(string n)=>"group."+n;public string GetOptionLabelLocaleID(string n)=>"label."+n;public string GetOptionDescLocaleID(string n)=>"desc."+n;}
+    public class ModSetting {public ModSetting(IMod mod){foreach(var name in new[]{"HideUIShortcut","UndoShortcut","RedoShortcut","BuildingsShortcut","PropsShortcut","FoliageShortcut","AreasShortcut","EffectsShortcut","SurfacesShortcut"}) GetType().GetProperty(name)?.SetValue(this,new Game.Input.ProxyBinding {path="<Keyboard>/z",modifiers=new[]{new Game.Input.ProxyModifier{m_Path="<Keyboard>/ctrl",m_Name="modifier"}}});GetType().GetProperty("HideUIShortcut")?.SetValue(this,new Game.Input.ProxyBinding {path="<Keyboard>/backquote",modifiers=Array.Empty<Game.Input.ProxyModifier>()});}public virtual void Apply(){}public int SaveCalls;public virtual void ApplyAndSave(){SaveCalls++;}public virtual void SetDefaults(){}public string GetOptionTabLocaleID(string n)=>"tab."+n;public string GetBindingKeyLocaleID(string n)=>"binding."+n; public string GetBindingMapLocaleID()=>"map";public string GetSettingsLocaleID()=>"settings";public string GetOptionGroupLocaleID(string n)=>"group."+n;public string GetOptionLabelLocaleID(string n)=>"label."+n;public string GetOptionDescLocaleID(string n)=>"desc."+n;}
 }
-namespace Game.Settings {
+namespace Game.Settings { public class SettingsUITabOrderAttribute:Attribute{public string[] Tabs;public SettingsUITabOrderAttribute(params string[] tabs){Tabs=tabs;}} public class SettingsUISliderAttribute:Attribute{public float min,max,step;public string unit;} public class SettingsUIDisableByConditionAttribute:Attribute{public SettingsUIDisableByConditionAttribute(Type type,string member){}}
     public class SettingsUIGroupOrderAttribute:Attribute{public SettingsUIGroupOrderAttribute(params string[] groups){}}
     public class SettingsUIShowGroupNameAttribute:Attribute{public SettingsUIShowGroupNameAttribute(params string[] groups){}}
-    public class SettingsUISectionAttribute:Attribute{public SettingsUISectionAttribute(string section){}}
+    public class SettingsUISectionAttribute:Attribute{public string Tab,Group;public SettingsUISectionAttribute(string section){Group=section;}public SettingsUISectionAttribute(string tab,string group){Tab=tab;Group=group;}}
     [AttributeUsage(AttributeTargets.Class, AllowMultiple=true)] public class SettingsUIKeyboardActionAttribute:Attribute{public SettingsUIKeyboardActionAttribute(string name,Game.Input.ActionType type){}}
     public class SettingsUIKeyboardBindingAttribute:Attribute{public SettingsUIKeyboardBindingAttribute(Game.Input.BindingKeyboard key,string action,bool ctrl=false,bool shift=false,bool alt=false){}}
     public class SettingsUITextInputAttribute:Attribute{}
@@ -77,3 +108,5 @@ public struct ProxyBinding {public string path;public System.Collections.Generic
 
 
 
+
+namespace Colossal.IO.AssetDatabase { public class FileLocationAttribute:Attribute { public string Path;public FileLocationAttribute(string path){Path=path;} }public class AssetDatabase {public static AssetDatabase global=new AssetDatabase();public void LoadSettings(string key,object value,object defaults){} } }

@@ -1,0 +1,2 @@
+C:\Users\ian\Documents\Development\MW Editor Tools\tests\EffectRestoreSafety\Program.cs(38,114): warning CS0169: The field 'DefaultToolSystem.m_LastRaycastEntity' is never used [C:\Users\ian\Documents\Development\MW Editor Tools\tests\EffectRestoreSafety\EffectRestoreSafety.csproj]
+PASS: 35 actual-source effect restore assertions; native rendering remains unproven.

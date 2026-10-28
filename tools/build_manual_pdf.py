@@ -1,7 +1,7 @@
 import re, html
 from pathlib import Path
 from reportlab.pdfgen import canvas
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, Image, KeepTogether
 from reportlab.platypus.tableofcontents import TableOfContents
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
@@ -12,7 +12,7 @@ from reportlab.lib.pagesizes import A4
 from pypdf import PdfReader
 
 ROOT=Path(__file__).resolve().parents[1]
-VERSION='0.4.254'
+VERSION='0.4.257'
 OUT=ROOT/f'output/pdf/MW-Editor-Tools-User-Manual-{VERSION}.pdf'
 OUT.parent.mkdir(parents=True,exist_ok=True)
 for name,file in [('Body','calibri.ttf'),('BodyBold','calibrib.ttf'),('BodyItalic','calibrii.ttf')]:
@@ -108,7 +108,11 @@ while i<len(lines):
         data=[[Paragraph(inline(c),styles['th'] if ri==0 else styles['table']) for c in row] for ri,row in enumerate(rows)]
         t=Table(data,colWidths=[width*f for f in fractions],repeatRows=1,hAlign='LEFT')
         t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),navy),('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.HexColor('#eef4f7'),colors.white]),('VALIGN',(0,0),(-1,-1),'TOP'),('LEFTPADDING',(0,0),(-1,-1),9),('RIGHTPADDING',(0,0),(-1,-1),9),('TOPPADDING',(0,0),(-1,-1),5),('BOTTOMPADDING',(0,0),(-1,-1),5),('LINEBELOW',(0,0),(-1,0),.5,navy),('LINEBELOW',(0,1),(-1,-1),.3,colors.HexColor('#d7e3e9'))]))
-        story += [t,Spacer(1,10)];continue
+        if len(rows)<=7:
+            if story and isinstance(story[-1],Paragraph):story[-1].keepWithNext=True
+            story += [KeepTogether([t]),Spacer(1,10)]
+        else:story += [t,Spacer(1,10)]
+        continue
     m=re.match(r'^(\d+\.|-)\s+(.*)',s)
     if m:
         story.append(Paragraph(inline(m[2]),styles['list'],bulletText=m[1] if m[1]!='-' else '\u2022'));i+=1;continue

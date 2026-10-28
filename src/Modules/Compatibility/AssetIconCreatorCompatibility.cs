@@ -61,7 +61,7 @@ namespace MW.EditorTools.Modules.Compatibility
             if (assembly == null) return; // It may load after MW; absence is normal.
             if (assembly.GetName().Version != new Version(1, 4, 1, 0) ||
                 assembly.ManifestModule.ModuleVersionId.ToString() != SupportedMvid ||
-                typeof(PrefabBase).Module.ModuleVersionId.ToString() != "e15551e9-3dea-4855-8dde-1da3cea7d7ef" ||
+                !VerifiedGameBuild.Game(typeof(PrefabBase).Module.ModuleVersionId) ||
                 typeof(Harmony).Assembly.GetName().Version != new Version(2, 4, 2, 0))
                 throw new NotSupportedException("Unverified Asset Icon Creator/game/Harmony build");
 

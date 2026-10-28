@@ -1,0 +1,2 @@
+Built C:\Users\ian\Documents\Development\MW Editor Tools\outputs\release-0.4.257\MWEditorTools-0.4.257-Setup.exe
+Built C:\Users\ian\Documents\Development\MW Editor Tools\outputs\release-0.4.257\MWEditorTools-0.4.257.zip

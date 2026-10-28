@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-Version **0.4.254** · Cities: Skylines II Asset Editor
+Version **0.4.257** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -21,13 +21,17 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 
 ## Install or update
 
-Download the installer or manual ZIP from the [0.4.254 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.254). The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.257 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.257). The repository contains development source; cloning it does not install the mod.
+
+This version supports the previously verified stable game build and the audited **performance-test** beta, Steam build **26269843**. Check mod compatibility again after a game update.
 
 ### Windows installer
 
-Close Cities: Skylines II, run **MWEditorTools-0.4.254-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+Close Cities: Skylines II, run **MWEditorTools-0.4.257-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
 
 The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
+
+If the separate **MW Editor Environment** mod is installed alongside MW Editor Tools, the installer backs it up and archives it outside Mods. Its saved preset settings are reused by the integrated Environment tab. The completion message includes the archive path. This prevents two environment controllers from applying presets.
 
 If a write fails while the game stays closed, changed files are rolled back. If the game starts during installation, all further writes, including rollback, stop: close the game before restoring the displayed backup or running the installer again.
 
@@ -40,11 +44,14 @@ If a write fails while the game stays closed, changed files are rolled back. If 
    - `MW.EditorTools.mjs`
    - `MW.EditorTools.css`
    - `0Harmony.dll`
-4. Start the game and open the Asset Editor.
+4. If installed, move the separate `MWEditorEnvironment` mod folder outside Mods. Keep its saved settings; the integrated Environment tab reuses them.
+5. Start the game and open the Asset Editor.
 
 Keep the supplied third-party notices with the package. Do not place these files in the game installation or replace game assemblies. If the package has a SHA256 manifest, use it to verify the files.
 
 To roll back, fully close the game and restore the previous mod folder. This restores the mod version; it does not reverse changes already saved to an asset.
+
+When rolling back to a version before Environment integration, also restore the archived standalone Environment folder if you used it. Do not run the standalone and integrated environment controllers together.
 
 ## Open the window
 
@@ -289,7 +296,20 @@ Existing files are updated. New assets use their current names. This is workspac
 
 ## Options and shortcuts
 
-Open **Options → MW Editor Tools**. Edit the options, then choose **Apply changes** to activate and save them.
+Open **Options → MW Editor Tools**. The menu has three tabs: **Keyboard Shortcuts**, **Tools** and **Environment**. Edit the options, then choose **Apply changes** on any tab to save all drafts. Environment presets take effect on the next editor load.
+
+**Keyboard Shortcuts** contains hide/show UI, Undo and browser bindings. **Tools** contains deletion confirmation, Undo capture, inspector Undo and window reset. **Environment** contains the editor preset previously supplied by MW Editor Environment; saved preset values are retained.
+
+| Environment option | Purpose |
+|---|---|
+| Enable environment | Enable the saved preset on the next editor load. Defaults to on. Switching it off disables the controls and retains their values. Click Apply changes to save. |
+| Time of day | Hours in 15-minute steps; 12 = noon, 12.5 = 12:30. |
+| Time of year | Day 1–365; 91 = April 1. Seasonal appearance depends on climate and hemisphere. |
+| Precipitation | Rain/snow intensity from 0 to 100%. |
+| Cloud coverage | Cloud coverage from 0 to 100%. |
+| Snow | Seeds ground snow while the editor is paused and holds temperature below freezing. Enable snow visuals in the game's gameplay settings. Coverage can be saved with the map. |
+
+The preset applies once on editor load and is restored once after leaving photo mode. Editing options does not change the current session. The integrated installation backs up and disables the separate MW Editor Environment installation to prevent competing presets.
 
 | Option | Purpose |
 |---|---|
@@ -382,7 +402,7 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For release scope and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.254.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+For release scope and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.257.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
 
 ## Screenshot guide
 
@@ -418,4 +438,4 @@ These in-game screenshots show the interface described in this manual. Example a
 
 ### Options and shortcuts
 
-![Undo and confirmation settings appear above the optional browser shortcuts. Apply changes saves edited settings. The screenshot shows browser shortcuts enabled; their default is off. This earlier Options screenshot predates the hide/show UI controls; the current default is Backquote (`), configurable in Options.](manual-options.png)
+![Earlier Options layout. This screenshot predates the Keyboard Shortcuts, Tools and Environment tabs and the hide/show UI controls. Browser shortcuts default to off; hide/show UI defaults to Backquote (`).](manual-options.png)

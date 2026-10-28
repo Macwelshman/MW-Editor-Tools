@@ -1,0 +1,1 @@
+PASS: delayed mount, animated ancestor layout, header-only scrolling, final positioning, bounded hidden wait and selection cancellation.

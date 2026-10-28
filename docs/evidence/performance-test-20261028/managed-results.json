@@ -1,0 +1,147 @@
+[
+  {
+    "Test": "AreaMoveSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BoundFoliageSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ColourPaletteSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "EffectUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ListClearSafety",
+    "ExitCode": 0,
+    "Rerun": "test-ListClearSafety-rerun.txt"
+  },
+  {
+    "Test": "OptionsSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase4Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ReplacementUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "TargetingSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "AssetIconCompatibilitySafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BrowserShortcutSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ComponentHeadingSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "FieldChoiceSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "MoveUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "OutlineColourSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "PreparationSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "SpawnAccessSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ViewportPropSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BikeRackTimingSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BulldozerSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ComponentTransferSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "LastPropHistory",
+    "ExitCode": 0
+  },
+  {
+    "Test": "MultiSaveSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase2Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "PropReplacerSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "StandaloneNestedSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ViewportRetrySafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BoundCompletionSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ColourCopySafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "EffectRestoreSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "LifecycleSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "NestedRecoveryRunner",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase3Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ReplacementFoliageSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "SurfaceReplacementSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "VerifiedBuildSafety",
+    "ExitCode": 0
+  }
+]

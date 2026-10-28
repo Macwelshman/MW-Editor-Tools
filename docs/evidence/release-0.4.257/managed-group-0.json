@@ -1,0 +1,42 @@
+[
+  {
+    "Test": "AreaMoveSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BoundFoliageSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ColourPaletteSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "EffectUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "LifecycleSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "NestedRecoveryRunner",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase3Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ReplacementFoliageSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "SurfaceReplacementSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ViewportRetrySafety",
+    "ExitCode": 0
+  }
+]

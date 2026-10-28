@@ -1,0 +1,3 @@
+C:\Users\ian\Documents\Development\MW Editor Tools\src\Modules\DeletionProtection\ComponentConfirmation.cs(66,18): error CS0103: The name 'VerifiedGameBuild' does not exist in the current context [C:\Users\ian\Documents\Development\MW Editor Tools\tests\ListClearSafety\ListClearSafety.csproj]
+
+The build failed. Fix the build errors and run again.

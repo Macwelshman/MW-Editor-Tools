@@ -1,6 +1,12 @@
 # Current release gate
 
-Current distribution: [0.4.254 release readiness](RELEASE_READINESS_0.4.254.md). The user accepted Backquote hide/show. Installer, ZIP and illustrated manual package that accepted build. Earlier acceptance and remaining limits are retained. The entries below preserve earlier feature-specific gates and evidence.
+Current distribution: [0.4.257 release readiness](RELEASE_READINESS_0.4.257.md). User-authorized installer/ZIP/manual publication includes audited beta support, integrated Environment and Options tabs. All 37 managed suites, 18 UI scripts and 56 installer checks pass. Native startup/enabled preset cleanup is logged; broader action, checkbox persistence and visual acceptance limits remain recorded there.
+
+Integration evidence: [0.4.256 Editor Environment and Options tabs](ENVIRONMENT_INTEGRATION_0.4.256.md). Source review, installed API contracts, Release/UI builds, 37 managed suites and 18 UI scripts pass; grouped native menu/persistence/appearance acceptance is pending.
+
+Compatibility evidence: [0.4.255 performance-test support](PERFORMANCE_TEST_0.4.255.md). Exact beta API/assembly checks and subsequent 0.4.257 startup logs apply; grouped action acceptance remains separate.
+
+Previous distribution: [0.4.254 release readiness](RELEASE_READINESS_0.4.254.md). Its user-accepted Backquote hide/show behavior and earlier acceptance/limits are preserved. The entries below retain feature-specific gates and evidence.
 
 Current authorised feature: [0.4.224 filtered targeting and Undo feedback](TARGETING_0.4.224.md). Native targeting masks, render overlays, input/toolbar transitions and target Copy/Replace require grouped acceptance alongside existing Undo. Managed checks do not certify native input/render behaviour.
 

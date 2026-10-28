@@ -1,0 +1,38 @@
+[
+  {
+    "Test": "BikeRackTimingSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BulldozerSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ComponentTransferSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "FieldChoiceSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "MoveUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "OutlineColourSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "PreparationSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "SpawnAccessSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "VerifiedBuildSafety",
+    "ExitCode": 0
+  }
+]

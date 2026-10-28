@@ -25,8 +25,7 @@ namespace MW.EditorTools.Modules.Targeting
         }
         internal void Initialize(EditorTargetingTool tool)
         {
-            if (typeof(BatchManagerSystem).Module.ModuleVersionId.ToString() != "e15551e9-3dea-4855-8dde-1da3cea7d7ef" ||
-                typeof(Instances).Module.ModuleVersionId.ToString() != "b5ff7e4e-51b0-4c1f-a177-2afdfc22906b")
+            if (!VerifiedGameBuild.Outlines(typeof(BatchManagerSystem).Module.ModuleVersionId, typeof(Instances).Module.ModuleVersionId))
                 throw new NotSupportedException("Unverified per-instance outline API.");
             targeting = tool; Enabled = true;
             Mod.Log.Info("Per-instance outline prototype initialized; native rendering acceptance pending.");

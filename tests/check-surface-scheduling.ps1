@@ -3,7 +3,7 @@ $ErrorActionPreference='Stop'
 Add-Type -LiteralPath (Join-Path $ManagedPath 'Colossal.Mono.Cecil.dll')
 $assembly=[Colossal.Mono.Cecil.AssemblyDefinition]::ReadAssembly((Join-Path $ManagedPath 'Game.dll'))
 try {
-    if ($assembly.MainModule.Mvid.ToString() -ne 'e15551e9-3dea-4855-8dde-1da3cea7d7ef') { throw 'Unverified native scheduling build.' }
+    if ($assembly.MainModule.Mvid.ToString() -notin @('e15551e9-3dea-4855-8dde-1da3cea7d7ef','e8325128-556a-460d-a950-497d90b3627c')) { throw 'Unverified native scheduling build.' }
     $order=$assembly.MainModule.Types | Where-Object FullName -eq 'Game.Common.SystemOrder'
     $initialize=$order.Methods | Where-Object Name -eq 'Initialize'
     $calls=@($initialize.Body.Instructions | Where-Object { $_.Operand -is [Colossal.Mono.Cecil.GenericInstanceMethod] -and $_.Operand.FullName -match 'UpdateAt<Game.Rendering.AreaBatchSystem>' })

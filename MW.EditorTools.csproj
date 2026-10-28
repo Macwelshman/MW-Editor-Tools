@@ -3,7 +3,7 @@
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>MW.EditorTools</AssemblyName>
     <RootNamespace>MW.EditorTools</RootNamespace>
-    <Version>0.4.254</Version>
+    <Version>0.4.257</Version>
     <LangVersion>latest</LangVersion>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GamePath Condition="'$(GamePath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Cities Skylines II</GamePath>

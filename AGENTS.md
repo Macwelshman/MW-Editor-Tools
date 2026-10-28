@@ -1,5 +1,9 @@
 # Working rules
 
+2026-10-28: user explicitly authorised updating the 0.4.257 installer and user manual and publishing that version through the existing private GitHub repository. Preserve repository visibility, original source projects and installed runtime behavior; validate the installer/manual/release assets before publication.
+
+2026-10-28: user explicitly authorised integrating MW Editor Environment into this mod's Options menu, organised into Keyboard Shortcuts, Tools and Environment tabs. Preserve its saved preset values and editor/photo-mode lifecycle, preserve original source projects, and avoid competing standalone/integrated environment systems. Existing automatic backup/install and no-computer-use rules apply; this request does not publish a release.
+
 2026-10-19: user explicitly authorised viewport paste and replace-all. Extend the accepted browser Ctrl+C/Ctrl+V/Ctrl+Shift+V workflow using exact highlighted entity ownership and unique native placement-to-source-row mapping. Preserve destination placement/settings and accepted Undo; no computer use or publishing.
 
 2026-10-18: user explicitly started Prop Replacer Phase 5. Authorised scope is browser-list element copy/paste replacement, batch replacement of the chosen element in the current asset, single-component copy with settings, and all-component copy with add-missing / replace-present / replace-and-add modes. Viewport element replacement is a later option and remains deferred. Preserve accepted Undo 0.4.143 behavior; no computer use; group native acceptance.

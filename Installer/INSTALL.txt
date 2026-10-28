@@ -1,6 +1,6 @@
-MW Editor Tools 0.4.254
+MW Editor Tools 0.4.257
 
-Recommended: close Cities: Skylines II, then run MWEditorTools-0.4.254-Setup.exe.
+Recommended: close Cities: Skylines II, then run MWEditorTools-0.4.257-Setup.exe.
 The installer needs .NET Framework 4.8 and installs for the current Windows user.
 No administrator rights are needed for the default user Mods folder.
 
@@ -16,17 +16,26 @@ Cities Skylines II user data folder's MWEditorTools-backups directory.
 The completion message gives the exact backup path. Settings outside the mod
 folder are not changed. The installer verifies all embedded and installed files.
 
+If the sibling Mods\MWEditorEnvironment folder contains the standalone mod DLL,
+the installer backs it up and archives the folder outside Mods. The completion
+message gives that path. Saved environment settings are retained and reused by
+Options > MW Editor Tools > Environment. Do not enable both controllers.
+
 If installation fails with the game still closed, changed files are rolled back.
 If Cities: Skylines II starts during installation, further writes and rollback are stopped:
 close the game, then use the displayed backup or rerun the installer.
 
 Manual alternative: fully close the game, back up the existing mod folder and
 copy the contents of the ZIP's MWEditorTools folder to the destination above.
+Move any separate MWEditorEnvironment mod folder outside Mods first; keep its
+saved settings. The integrated Environment tab reuses them.
 Never copy mod files into the game's installation folder.
 
 Rollback: fully close the game. Move the failed/current mod folder somewhere
 outside Mods, then copy the backed-up MWEditorTools folder into Mods. Rolling
 back the mod does not undo saved asset edits. There is no automatic uninstaller.
+For a rollback to a version before Environment integration, restore the archived
+standalone Environment mod too if needed; never run both environment controllers.
 
 Open the Asset Editor and click the MW Editor Tools coloured diamond icon. Read
 USER_MANUAL.pdf or USER_MANUAL.md for workflows and shortcuts. Keep THIRD_PARTY_NOTICES.md with

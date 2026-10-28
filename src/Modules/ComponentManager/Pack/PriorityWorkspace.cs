@@ -9,7 +9,7 @@ using Unity.Entities;
 namespace MW.EditorTools.Modules.ComponentManager.Pack {
  internal sealed partial class PriorityBatch {
   internal static PrefabBase[] Workspace(World world){
-   if(typeof(EditorHierarchyUISystem).Module.ModuleVersionId.ToString()!="e15551e9-3dea-4855-8dde-1da3cea7d7ef")throw new NotSupportedException("Workspace API build is unsupported.");
+   if(!VerifiedGameBuild.Game(typeof(EditorHierarchyUISystem).Module.ModuleVersionId))throw new NotSupportedException("Workspace API build is unsupported.");
    var hierarchy=world.GetExistingSystemManaged<EditorHierarchyUISystem>();var registry=world.GetExistingSystemManaged<PrefabSystem>();
    if(hierarchy==null||!hierarchy.Enabled||registry==null)throw new InvalidOperationException("Open an editor workspace first.");
    var flags=BindingFlags.Instance|BindingFlags.NonPublic;

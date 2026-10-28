@@ -1,0 +1,38 @@
+[
+  {
+    "Test": "BoundCompletionSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ColourCopySafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "EffectRestoreSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "LastPropHistory",
+    "ExitCode": 0
+  },
+  {
+    "Test": "MultiSaveSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase2Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "PropReplacerSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "StandaloneNestedSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ViewportPropSafety",
+    "ExitCode": 0
+  }
+]

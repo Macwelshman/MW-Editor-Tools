@@ -1,0 +1,38 @@
+[
+  {
+    "Test": "BikeRackTimingSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BulldozerSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ComponentTransferSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "LastPropHistory",
+    "ExitCode": 0
+  },
+  {
+    "Test": "MultiSaveSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase2Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "PropReplacerSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "StandaloneNestedSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ViewportRetrySafety",
+    "ExitCode": 0
+  }
+]

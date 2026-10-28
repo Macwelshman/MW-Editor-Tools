@@ -1,0 +1,74 @@
+[
+  {
+    "Test": "ui-colours-render.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-component-headings.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-components-render.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-header-focus.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-launcher-lifecycle.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-launcher-position.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-launcher-render.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-multisave-render.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-pack-editor.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-panel-position.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-panel-resize.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-recovery-render.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-row-reveal.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-selective-fields.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-settings-render.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-tab-error-boundary.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-targeting-render.cjs",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ui-viewport-row-highlight.cjs",
+    "ExitCode": 0
+  }
+]

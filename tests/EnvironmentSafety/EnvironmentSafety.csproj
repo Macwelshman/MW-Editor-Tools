@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/Modules/Environment/*.cs" Link="Environment/%(Filename).cs" />
+    <Compile Include="../../src/Settings/EnvironmentSettings.cs" Link="EnvironmentSettings.cs" />
+    <Compile Include="../../src/Core/VerifiedGameBuild.cs" Link="VerifiedGameBuild.cs" />
+  </ItemGroup>
+</Project>

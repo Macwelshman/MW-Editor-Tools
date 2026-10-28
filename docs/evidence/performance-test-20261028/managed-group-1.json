@@ -1,0 +1,38 @@
+[
+  {
+    "Test": "AssetIconCompatibilitySafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BrowserShortcutSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ComponentHeadingSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "FieldChoiceSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "MoveUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "OutlineColourSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "PreparationSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "SpawnAccessSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ViewportPropSafety",
+    "ExitCode": 0
+  }
+]

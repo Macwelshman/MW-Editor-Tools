@@ -1,0 +1,38 @@
+[
+  {
+    "Test": "AreaMoveSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "BoundFoliageSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ColourPaletteSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "EffectUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ListClearSafety",
+    "ExitCode": 1
+  },
+  {
+    "Test": "OptionsSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase4Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ReplacementUndoSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "TargetingSafety",
+    "ExitCode": 0
+  }
+]

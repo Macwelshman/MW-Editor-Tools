@@ -1,0 +1,34 @@
+[
+  {
+    "Test": "BoundCompletionSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ColourCopySafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "EffectRestoreSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "LifecycleSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "NestedRecoveryRunner",
+    "ExitCode": 0
+  },
+  {
+    "Test": "Phase3Safety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "ReplacementFoliageSafety",
+    "ExitCode": 0
+  },
+  {
+    "Test": "SurfaceReplacementSafety",
+    "ExitCode": 0
+  }
+]

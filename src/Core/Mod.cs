@@ -25,6 +25,7 @@ namespace MW.EditorTools
         // The game's ModInfo.Load uses GetUninitializedObject: field initializers
         // and constructors do not run. Initialize lifecycle state in OnLoad.
         private System.Collections.Generic.List<string> optionsLocales;
+        private MW.EditorTools.Modules.EditorEnvironment.EditorEnvironmentSystem environment;
 
         public void OnLoad(UpdateSystem updateSystem)
         {
@@ -35,6 +36,18 @@ namespace MW.EditorTools
                 host = new GameObject("MW Editor Tools — component confirmation");
                 UnityEngine.Object.DontDestroyOnLoad(host);
                 var settings = MW.EditorTools.Settings.EditorToolsSettings.Load();
+                MW.EditorTools.Settings.EnvironmentSettings environmentSettings = null;
+                try {
+                    environmentSettings = MW.EditorTools.Settings.EnvironmentSettings.Load(this);
+                    environment = updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.EditorEnvironment.EditorEnvironmentSystem>();
+                    environment.Initialize(environmentSettings);
+                    updateSystem.UpdateBefore<MW.EditorTools.Modules.EditorEnvironment.EditorEnvironmentSystem,Game.Simulation.PlanetarySystem>(SystemUpdatePhase.PreCulling);
+                    Log.Info("MW Editor Tools: Environment preset integrated; saved settings apply on the next editor load.");
+                } catch (Exception error) {
+                    if(environment!=null)Cleanup(()=>environment.Stop(),"partial Environment");
+                    environment=null;environmentSettings=null;
+                    Log.Error(error,"Environment preset unavailable; other editor tools remain active.");
+                }
                 var context = new MW.EditorTools.Services.EditorContextService(updateSystem.World);
                 try { host.AddComponent<MW.EditorTools.Modules.Compatibility.AssetIconCreatorCompatibility>().Initialize(); }
                 catch (Exception error)
@@ -66,7 +79,7 @@ namespace MW.EditorTools
                 } catch(Exception error) {
                     Cleanup(()=>targetingEditGuard?.Dispose(),"partial targeting edit guard");targetingEditGuard=null;
                     Cleanup(()=>targeting?.Release(),"partial targeting");targeting=null;
-                    Log.Error(error,"Filtered targeting unavailable; existing editor tools and Undo remain active.");
+                    Log.Error(error,"Filtered targeting unavailable; other editor modules retain their own availability checks.");
                 }
                 if(targeting!=null) try {
                     outlineColours=updateSystem.World.GetOrCreateSystemManaged<MW.EditorTools.Modules.Targeting.OutlineColourSystem>();
@@ -132,7 +145,7 @@ namespace MW.EditorTools
                     Log.Error(error,"Colours unavailable; other editor tools remain active.");
                 }
                 try {
-                    options = new MW.EditorTools.Settings.EditorToolsOptions(this, settings, host.GetComponent<ListRecovery>(), ui.ResetWindowPosition);
+                    options = new MW.EditorTools.Settings.EditorToolsOptions(this, settings, host.GetComponent<ListRecovery>(), ui.ResetWindowPosition, environmentSettings);
                     options.RegisterKeyBindings();
                     // Registration supplies native recording widgets only. Recovery
                     // still dispatches through the existing guarded polling policy.
@@ -157,6 +170,8 @@ namespace MW.EditorTools
         public void OnDispose()
         {
             ReleaseOptions();
+            var oldEnvironment=environment;environment=null;
+            Cleanup(()=>oldEnvironment?.Stop(),"Environment");
             var oldSurfaceRenderer=surfaceRenderer;surfaceRenderer=null;
             Cleanup(()=>oldSurfaceRenderer?.Release(),"surface renderer");
             var oldOutlines=outlineColours;outlineColours=null;

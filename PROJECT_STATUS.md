@@ -1,3 +1,11 @@
+RELEASE 2026-10-28: 0.4.257 installer, ZIP and updated 20-page illustrated manual prepared for the user-authorized private GitHub release. Runtime matches installed 0.4.257; 37 managed suites, 18 UI scripts and 56 installer checks pass. Beta startup and enabled environment cleanup are verified in logs; remaining native acceptance limits are documented in docs/RELEASE_READINESS_0.4.257.md.
+
+IMPLEMENT/REVIEW 2026-10-28: 0.4.257 adds the requested top-of-tab Enable environment checkbox. Default-on preserves existing settings; Apply saves it for next editor load; disabled controls retain preset values. Release/UI and focused Options/environment/lifecycle checks pass. Native acceptance pending. See docs/RELEASE_NOTES_0.4.257.md.
+
+IMPLEMENT/REVIEW 2026-10-28: 0.4.256 integrates Editor Environment in native Keyboard Shortcuts, Tools and Environment Options tabs; keeps the legacy preset store and avoids duplicate controllers. Release/UI, 37 managed suites, 18 UI scripts and API checks pass; grouped native acceptance pending. See docs/ENVIRONMENT_INTEGRATION_0.4.256.md. No publication.
+
+IMPLEMENT/REVIEW 2026-10-28: 0.4.255 adds audited performance-test beta build 26269843 support alongside stable. Exact API contracts and 36 managed/18 UI suites pass; grouped native acceptance is pending. See docs/PERFORMANCE_TEST_0.4.255.md. No new release publication.
+
 RELEASE 2026-10-26: 0.4.254 packages the user-accepted Backquote hide/show UI shortcut, configurable standalone bindings, previous-default migration, updated 19-page illustrated manual and versioned installer/ZIP. All 35 managed suites, 18 UI scripts and 43 installer checks pass; packaged runtime matches the installed accepted version. Existing private GitHub repository retained. See docs/RELEASE_READINESS_0.4.254.md.
 
 RELEASE 2026-10-26: 0.4.251 distribution prepared with eight user-supplied screenshots, updated 19-page PDF/Markdown manual, installer and ZIP. Runtime hashes match the accepted installed build. All 35 managed suites, 18 UI scripts and 43 final installer checks pass. Existing private GitHub repository retained. See docs/RELEASE_READINESS_0.4.251.md.

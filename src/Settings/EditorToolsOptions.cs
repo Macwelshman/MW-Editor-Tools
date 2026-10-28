@@ -18,55 +18,76 @@ namespace MW.EditorTools.Settings
     [SettingsUIKeyboardAction("BrowserAreas", ActionType.Button)]
     [SettingsUIKeyboardAction("BrowserEffects", ActionType.Button)]
     [SettingsUIKeyboardAction("BrowserSurfaces", ActionType.Button)]
-    [SettingsUIGroupOrder("Recovery", "Browser")]
-    [SettingsUIShowGroupName("Recovery", "Browser")]
+    [SettingsUITabOrder("KeyboardShortcuts", "Tools", "Environment")]
+    [SettingsUIGroupOrder("Interface", "RecoveryShortcuts", "Browser", "Recovery", "Window", "EnvironmentToggle", "Preset")]
+    [SettingsUIShowGroupName("Interface", "RecoveryShortcuts", "Browser", "Recovery", "Window", "Preset")]
     public sealed class EditorToolsOptions : ModSetting
     {
         private readonly EditorToolsSettings current;
         private readonly ListRecovery recovery;
         private readonly Action resetPosition;
+        private readonly EnvironmentSettings environment;
         private readonly ProxyBinding undoTemplate, redoTemplate, hideUITemplate;
         private readonly ProxyBinding[] browserTemplates;
         internal const string Help = "Undo the last supported action with Ctrl+Z. Apply saves edited options.";
-        internal EditorToolsOptions(IMod mod, EditorToolsSettings settings, ListRecovery history, Action reset) : base(mod)
-        { current = settings; recovery = history; resetPosition = reset; hideUITemplate = HideUIShortcut.WithModifiers(UndoShortcut.modifiers); undoTemplate = UndoShortcut; redoTemplate = RedoShortcut; browserTemplates=new[]{BuildingsShortcut,PropsShortcut,FoliageShortcut,AreasShortcut,EffectsShortcut,SurfacesShortcut}; ReadCurrent(); }
-        [SettingsUISection("Recovery")] public bool EnableHideUIShortcut { get; set; }
-        [SettingsUISection("Recovery"), SettingsUIKeyboardBinding(BindingKeyboard.Backquote, "HideUI")]
+        internal EditorToolsOptions(IMod mod, EditorToolsSettings settings, ListRecovery history, Action reset, EnvironmentSettings preset = null) : base(mod)
+        { current = settings; recovery = history; resetPosition = reset; environment = preset; hideUITemplate = HideUIShortcut.WithModifiers(UndoShortcut.modifiers); undoTemplate = UndoShortcut; redoTemplate = RedoShortcut; browserTemplates=new[]{BuildingsShortcut,PropsShortcut,FoliageShortcut,AreasShortcut,EffectsShortcut,SurfacesShortcut}; ReadCurrent(); }
+        [SettingsUISection("KeyboardShortcuts", "Interface")] public bool EnableHideUIShortcut { get; set; }
+        [SettingsUISection("KeyboardShortcuts", "Interface"), SettingsUIKeyboardBinding(BindingKeyboard.Backquote, "HideUI")]
         public ProxyBinding HideUIShortcut { get; set; }
-        [SettingsUISection("Recovery")]
+        [SettingsUISection("KeyboardShortcuts", "RecoveryShortcuts")]
         public bool EnableShortcuts { get; set; }
-        [SettingsUISection("Recovery")]
+        [SettingsUISection("Tools", "Recovery")]
         public bool ConfirmDeletion { get; set; }
-        [SettingsUISection("Recovery")]
+        [SettingsUISection("Tools", "Recovery")]
         public bool EnableRecovery { get; set; }
-        [SettingsUISection("Recovery")]
+        [SettingsUISection("Tools", "Recovery")]
         public bool InspectorControls { get; set; }
         [SettingsUIHidden]
         public string HistoryLimit { get; set; }
-        [SettingsUISection("Recovery"), SettingsUIKeyboardBinding(BindingKeyboard.Z, "Undo", ctrl: true)]
+        [SettingsUISection("KeyboardShortcuts", "RecoveryShortcuts"), SettingsUIKeyboardBinding(BindingKeyboard.Z, "Undo", ctrl: true)]
         public ProxyBinding UndoShortcut { get; set; }
         [SettingsUIHidden, SettingsUIKeyboardBinding(BindingKeyboard.Z, "Redo", ctrl: true, shift: true)]
         public ProxyBinding RedoShortcut { get; set; }
-        [SettingsUISection("Recovery"), SettingsUIButton] public bool ApplyChanges { set { Commit(); } }
+        [SettingsUISection("Tools", "Window"), SettingsUIButton] public bool ApplyChanges { set { Commit(); } }
         [SettingsUIHidden]
         public string Guidance => Help;
-        [SettingsUISection("Recovery"), SettingsUIButton]
+        [SettingsUISection("Tools", "Window"), SettingsUIButton]
         public bool ResetWindowPosition { set { resetPosition(); } }
-        [SettingsUISection("Browser")] public bool EnableBrowserShortcuts { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.B, "BrowserBuildings", alt: true)]
+        [SettingsUISection("KeyboardShortcuts", "Browser")] public bool EnableBrowserShortcuts { get; set; }
+        [SettingsUISection("KeyboardShortcuts", "Browser"), SettingsUIKeyboardBinding(BindingKeyboard.B, "BrowserBuildings", alt: true)]
         public ProxyBinding BuildingsShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.D, "BrowserProps", alt: true)]
+        [SettingsUISection("KeyboardShortcuts", "Browser"), SettingsUIKeyboardBinding(BindingKeyboard.D, "BrowserProps", alt: true)]
         public ProxyBinding PropsShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.F, "BrowserFoliage", alt: true)]
+        [SettingsUISection("KeyboardShortcuts", "Browser"), SettingsUIKeyboardBinding(BindingKeyboard.F, "BrowserFoliage", alt: true)]
         public ProxyBinding FoliageShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.A, "BrowserAreas", alt: true)]
+        [SettingsUISection("KeyboardShortcuts", "Browser"), SettingsUIKeyboardBinding(BindingKeyboard.A, "BrowserAreas", alt: true)]
         public ProxyBinding AreasShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.E, "BrowserEffects", alt: true)]
+        [SettingsUISection("KeyboardShortcuts", "Browser"), SettingsUIKeyboardBinding(BindingKeyboard.E, "BrowserEffects", alt: true)]
         public ProxyBinding EffectsShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIKeyboardBinding(BindingKeyboard.S, "BrowserSurfaces", alt: true)]
+        [SettingsUISection("KeyboardShortcuts", "Browser"), SettingsUIKeyboardBinding(BindingKeyboard.S, "BrowserSurfaces", alt: true)]
         public ProxyBinding SurfacesShortcut { get; set; }
-        [SettingsUISection("Browser"), SettingsUIButton] public bool ApplyBrowserChanges { set { Commit(); } }
+        [SettingsUISection("KeyboardShortcuts", "Browser"), SettingsUIButton] public bool ApplyBrowserChanges { set { Commit(); } }
         [SettingsUIHidden] public string BrowserGuidance => "Alt+B Buildings · Alt+D Props · Alt+F Foliage · Alt+A Areas · Alt+E Effects · Alt+S Surfaces.";
+        [SettingsUIHidden] public bool EnvironmentUnavailable => environment == null;
+        [SettingsUIHidden] public bool EnvironmentControlsDisabled => EnvironmentUnavailable || !EnableEnvironment;
+        [SettingsUISection("Environment", "EnvironmentToggle"), SettingsUIDisableByCondition(typeof(EditorToolsOptions), nameof(EnvironmentUnavailable))]
+        public bool EnableEnvironment { get; set; }
+        [SettingsUISection("Environment", "Preset"), SettingsUIMultilineText]
+        public string EnvironmentGuidance => environment == null ? "Environment is unavailable. Check the mod log and disable standalone MW Editor Environment before reloading." :
+            "Apply changes saves settings from all tabs. Environment changes take effect on the next editor load.";
+        [SettingsUISection("Environment", "Preset"), SettingsUISlider(min = 0f, max = 23.75f, step = 0.25f, unit = "floatSingleFraction"), SettingsUIDisableByCondition(typeof(EditorToolsOptions), nameof(EnvironmentControlsDisabled))]
+        public float EnvironmentHour { get; set; }
+        [SettingsUISection("Environment", "Preset"), SettingsUISlider(min = 1, max = 365, step = 1), SettingsUIDisableByCondition(typeof(EditorToolsOptions), nameof(EnvironmentControlsDisabled))]
+        public int EnvironmentDayOfYear { get; set; }
+        [SettingsUISection("Environment", "Preset"), SettingsUISlider(min = 0, max = 100, step = 1), SettingsUIDisableByCondition(typeof(EditorToolsOptions), nameof(EnvironmentControlsDisabled))]
+        public int EnvironmentPrecipitation { get; set; }
+        [SettingsUISection("Environment", "Preset"), SettingsUISlider(min = 0, max = 100, step = 1), SettingsUIDisableByCondition(typeof(EditorToolsOptions), nameof(EnvironmentControlsDisabled))]
+        public int EnvironmentCloudCoverage { get; set; }
+        [SettingsUISection("Environment", "Preset"), SettingsUIDisableByCondition(typeof(EditorToolsOptions), nameof(EnvironmentControlsDisabled))]
+        public bool EnvironmentSnow { get; set; }
+        [SettingsUISection("Environment", "Preset"), SettingsUIButton]
+        public bool ApplyEnvironmentChanges { set { Commit(); } }
         private void ReadCurrent()
         {
             EnableHideUIShortcut=current.hideUIShortcut;
@@ -83,6 +104,12 @@ namespace MW.EditorTools.Settings
             HistoryLimit = current.historyDepth.ToString(CultureInfo.InvariantCulture);
             UndoShortcut = NativeShortcutCodec.Restore(undoTemplate,current.undoKey,current.undoModifiers);
             RedoShortcut = NativeShortcutCodec.Restore(redoTemplate,current.redoKey,current.redoModifiers);
+            EnableEnvironment=environment?.EnableEnvironment ?? true;
+            EnvironmentHour=environment?.Hour ?? EnvironmentSettings.DefaultHour;
+            EnvironmentDayOfYear=environment?.DayOfYear ?? EnvironmentSettings.DefaultDayOfYear;
+            EnvironmentPrecipitation=environment?.Precipitation ?? EnvironmentSettings.DefaultPrecipitation;
+            EnvironmentCloudCoverage=environment?.CloudCoverage ?? EnvironmentSettings.DefaultCloudCoverage;
+            EnvironmentSnow=environment?.Snow ?? false;
         }
         public override void Apply()
         { base.Apply(); } // Native text widgets apply on each keystroke: preserve draft values.
@@ -101,6 +128,12 @@ namespace MW.EditorTools.Settings
             var browserBindings=new[]{BuildingsShortcut,PropsShortcut,FoliageShortcut,AreasShortcut,EffectsShortcut,SurfacesShortcut};
             for(int i=0;i<browserBindings.Length;i++) if(NativeShortcutCodec.TryRead(browserBindings[i],out key,out mask)) current.SetBrowserShortcut(i,key,mask);
             current.Save();
+            if(environment!=null) {
+                environment.EnableEnvironment=EnableEnvironment;
+                environment.Hour=EnvironmentHour;environment.DayOfYear=EnvironmentDayOfYear;
+                environment.Precipitation=EnvironmentPrecipitation;environment.CloudCoverage=EnvironmentCloudCoverage;environment.Snow=EnvironmentSnow;
+                environment.Normalize();environment.ApplyAndSave();
+            }
             if (clear) recovery?.ApplySettings();
             ReadCurrent();
             base.Apply();
@@ -110,6 +143,8 @@ namespace MW.EditorTools.Settings
             if(current!=null)HideUIShortcut=NativeShortcutCodec.Restore(hideUITemplate,"BACKQUOTE",0);
             if(browserTemplates!=null) {BuildingsShortcut=NativeShortcutCodec.Restore(browserTemplates[0],"B",4);PropsShortcut=NativeShortcutCodec.Restore(browserTemplates[1],"D",4);FoliageShortcut=NativeShortcutCodec.Restore(browserTemplates[2],"F",4);AreasShortcut=NativeShortcutCodec.Restore(browserTemplates[3],"A",4);EffectsShortcut=NativeShortcutCodec.Restore(browserTemplates[4],"E",4);SurfacesShortcut=NativeShortcutCodec.Restore(browserTemplates[5],"S",4);}
             EnableShortcuts = true; ConfirmDeletion=true;EnableRecovery=true;InspectorControls=true;HistoryLimit = "20";
+            EnableEnvironment=true;EnvironmentHour=EnvironmentSettings.DefaultHour;EnvironmentDayOfYear=EnvironmentSettings.DefaultDayOfYear;
+            EnvironmentPrecipitation=EnvironmentSettings.DefaultPrecipitation;EnvironmentCloudCoverage=EnvironmentSettings.DefaultCloudCoverage;EnvironmentSnow=false;
             if (current != null) { UndoShortcut=NativeShortcutCodec.Restore(undoTemplate,"Z",1); RedoShortcut=NativeShortcutCodec.Restore(redoTemplate,"Z",3); } }
     }
     internal sealed class OptionsLocale : IDictionarySource
@@ -120,6 +155,13 @@ namespace MW.EditorTools.Settings
         {
             var entries = new Dictionary<string,string> {
                 {options.GetSettingsLocaleID(), "MW Editor Tools"},
+                {options.GetOptionTabLocaleID("KeyboardShortcuts"), "Keyboard Shortcuts"},
+                {options.GetOptionTabLocaleID("Tools"), "Tools"},
+                {options.GetOptionTabLocaleID("Environment"), "Environment"},
+                {options.GetOptionGroupLocaleID("Interface"), "Interface"},
+                {options.GetOptionGroupLocaleID("RecoveryShortcuts"), "Undo shortcut"},
+                {options.GetOptionGroupLocaleID("Window"), "Window and settings"},
+                {options.GetOptionGroupLocaleID("Preset"), "Editor environment preset"},
                 {options.GetOptionGroupLocaleID("Recovery"), "Editor tools"},
                 {options.GetOptionLabelLocaleID(nameof(options.ConfirmDeletion)), "Confirm deletions"},
                 {options.GetOptionDescLocaleID(nameof(options.ConfirmDeletion)), "Confirm component removal and clearing lists."},
@@ -150,6 +192,22 @@ namespace MW.EditorTools.Settings
             entries[options.GetBindingMapLocaleID()]="MW Editor Tools";
             entries[options.GetOptionLabelLocaleID(nameof(options.ApplyChanges))] = "Apply changes";
             entries[options.GetOptionDescLocaleID(nameof(options.ApplyChanges))] = "Save edited options.";
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnvironmentGuidance))]=options.EnvironmentGuidance;
+            entries[options.GetOptionDescLocaleID(nameof(options.EnvironmentGuidance))]=options.EnvironmentGuidance;
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnableEnvironment))]="Enable environment";
+            entries[options.GetOptionDescLocaleID(nameof(options.EnableEnvironment))]="Apply the saved environment preset on the next editor load. When disabled, use the native editor environment. Click Apply changes to save.";
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnvironmentHour))]="Time of day (hours)";
+            entries[options.GetOptionDescLocaleID(nameof(options.EnvironmentHour))]="Editor lighting time in 15-minute steps (12 = noon; 12.5 = 12:30). Applies on the next editor load.";
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnvironmentDayOfYear))]="Time of year (day 1–365)";
+            entries[options.GetOptionDescLocaleID(nameof(options.EnvironmentDayOfYear))]="1 = Jan 1; 91 = Apr 1; 172 = Jun 21; 274 = Oct 1. Seasons depend on the map climate and hemisphere. Applies on the next editor load.";
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnvironmentPrecipitation))]="Precipitation (%)";
+            entries[options.GetOptionDescLocaleID(nameof(options.EnvironmentPrecipitation))]="Rain or snow intensity from 0 to 100%. Applies on the next editor load.";
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnvironmentCloudCoverage))]="Cloud coverage (%)";
+            entries[options.GetOptionDescLocaleID(nameof(options.EnvironmentCloudCoverage))]="Cloud coverage from 0 to 100%. Applies on the next editor load.";
+            entries[options.GetOptionLabelLocaleID(nameof(options.EnvironmentSnow))]="Snow";
+            entries[options.GetOptionDescLocaleID(nameof(options.EnvironmentSnow))]="Creates ground snow on the next editor load, including while paused, and holds temperature below freezing. Precipitation controls falling snow. Enable snow visuals in the game's gameplay settings. Coverage can be saved with the map.";
+            entries[options.GetOptionLabelLocaleID(nameof(options.ApplyEnvironmentChanges))]="Apply changes";
+            entries[options.GetOptionDescLocaleID(nameof(options.ApplyEnvironmentChanges))]="Save edited options from all tabs; environment settings apply on the next editor load.";
             entries[options.GetOptionGroupLocaleID("Browser")]="Browser shortcuts";
             entries[options.GetOptionLabelLocaleID(nameof(options.EnableBrowserShortcuts))]="Enable browser shortcuts";
             entries[options.GetOptionDescLocaleID(nameof(options.EnableBrowserShortcuts))]="Open browser categories using the shortcuts below.";

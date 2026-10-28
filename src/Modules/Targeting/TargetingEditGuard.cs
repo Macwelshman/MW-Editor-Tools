@@ -14,7 +14,7 @@ namespace MW.EditorTools.Modules.Targeting {
   private readonly Harmony harmony=new Harmony(Id);
   internal TargetingEditGuard(EditorTargetingTool value) {
    tool=value;
-   if(typeof(InspectorPanelSystem).Module.ModuleVersionId.ToString()!="e15551e9-3dea-4855-8dde-1da3cea7d7ef")throw new NotSupportedException("Unverified inspector refresh API.");
+   if(!VerifiedGameBuild.Game(typeof(InspectorPanelSystem).Module.ModuleVersionId))throw new NotSupportedException("Unverified inspector refresh API.");
    var method=typeof(InspectorPanelSystem).GetMethod("UpdateParent",BindingFlags.Instance|BindingFlags.NonPublic,null,new[]{typeof(bool)},null)??throw new MissingMethodException("InspectorPanelSystem.UpdateParent");
    current=this;
    try {harmony.Patch(method,prefix:new HarmonyMethod(typeof(TargetingEditGuard).GetMethod(nameof(BeforeEdit),BindingFlags.Static|BindingFlags.NonPublic)){priority=Priority.First});}

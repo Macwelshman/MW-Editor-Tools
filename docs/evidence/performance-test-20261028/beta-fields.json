@@ -1,0 +1,3590 @@
+[
+  {
+    "FieldType": "Game.City.CityConfigurationSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ApplyPrefabsSystem",
+    "Name": "m_CityConfigurationSystem"
+  },
+  {
+    "FieldType": "Game.Prefabs.PrefabSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ApplyPrefabsSystem",
+    "Name": "m_PrefabSystem"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ApplyPrefabsSystem",
+    "Name": "m_SaveInstanceQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityTypeHandle",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_EntityType"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_TempType"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferTypeHandle`1<Game.Areas.Node>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_AreaNodeType"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferTypeHandle`1<Game.Tools.LocalNodeCache>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_LocalNodeCacheType"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Tools.Hidden>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_HiddenData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Tools.Temp>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_TempData"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Tools.LocalNodeCache>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_LocalNodeCache"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentTypeSet",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_AppliedTypes"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityCommandBuffer/ParallelWriter",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob",
+    "Name": "m_CommandBuffer"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityTypeHandle",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_EntityType"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentTypeHandle`1<Game.Tools.Temp>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TempType"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentTypeHandle`1<Game.Objects.Transform>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TransformType"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentTypeHandle`1<Game.Objects.Attached>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_AttachedType"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Vehicles.CarCurrentLane>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_CarCurrentLaneData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Vehicles.TrainCurrentLane>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TrainCurrentLaneData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Vehicles.WatercraftCurrentLane>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_WatercraftCurrentLaneData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Vehicles.AircraftCurrentLane>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_AircraftCurrentLaneData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Vehicles.ParkedCar>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_ParkedCarData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Vehicles.ParkedTrain>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_ParkedTrainData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Vehicles.Controller>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_ControllerData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Creatures.HumanCurrentLane>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_HumanCurrentLaneData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Creatures.AnimalCurrentLane>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_AnimalCurrentLaneData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Buildings.Building>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_BuildingData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Buildings.ServiceUpgrade>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_ServiceUpgradeData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Buildings.RescueTarget>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_RescueTargetData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Buildings.Abandoned>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_AbandonedData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Routes.TransportStop>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TransportStopData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Tools.Hidden>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_HiddenData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Tools.Temp>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TempData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Tools.Recent>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_RecentData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Objects.Elevation>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_ElevationData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Objects.Transform>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TransformData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Common.Owner>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_OwnerData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Common.Destroyed>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_DestroyedData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Objects.Damaged>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_DamagedData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Objects.Static>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_StaticData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Objects.Stopped>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_StoppedData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Tools.LocalTransformCache>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_LocalTransformCacheData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Rendering.Swaying>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_SwayingData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_PrefabRefData"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Net.SubNet>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_SubNets"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Net.SubLane>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_SubLanes"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Areas.SubArea>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_SubAreas"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Buildings.InstalledUpgrade>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_InstalledUpgrades"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Rendering.MeshColor>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_MeshColors"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Objects.SubObject>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_SubObjects"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Objects.TransformFrame>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TransformFrames"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Buildings.Signature>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_Signatures"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Buildings.PropertyOnMarket>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_PropertiesOnMarket"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Buildings.PropertyToBeOnMarket>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_PropertiesToBeOnMarket"
+  },
+  {
+    "FieldType": "System.UInt32",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_SimulationFrame"
+  },
+  {
+    "FieldType": "Game.Prefabs.EconomyParameterData",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_EconomyParameterData"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_EditorMode"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityArchetype",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_PathTargetEventArchetype"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentTypeSet",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_AppliedTypes"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentTypeSet",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TempAnimationTypes"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeParallelHashMap`2<Unity.Entities.Entity,System.Int32>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_InstanceCounts"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityCommandBuffer/ParallelWriter",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_CommandBuffer"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeQueue`1/ParallelWriter<Game.Triggers.TriggerAction>",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob",
+    "Name": "m_TriggerBuffer"
+  },
+  {
+    "FieldType": "Game.Tools.Snap",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "kSnapAllIgnoredMask"
+  },
+  {
+    "FieldType": "System.Action`1<Game.Input.ProxyAction>",
+    "Attributes": "Private, Static",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "EventToolActionPerformed"
+  },
+  {
+    "FieldType": "UnityEngine.Color32",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<color>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Prefabs.BrushPrefab",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<brushType>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Prefabs.BrushPrefab",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<defaultBrushType>k__BackingField"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<brushSize>k__BackingField"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<brushAngle>k__BackingField"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<brushStrength>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requireZones>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requireUnderground>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requirePipelines>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requireNetArrows>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requireStopIcons>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Areas.AreaTypeMask",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requireAreas>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Routes.RouteType",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requireRoutes>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Prefabs.TransportType",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requireStops>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Net.Layer",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<requireNet>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Prefabs.InfoviewPrefab",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<infoview>k__BackingField"
+  },
+  {
+    "FieldType": "System.Collections.Generic.List`1<Game.Prefabs.InfomodePrefab>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<infomodes>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.Snap",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<selectedSnap>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.ApplyMode",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<applyMode>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "<allowUnderground>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.ToolSystem",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_ToolSystem"
+  },
+  {
+    "FieldType": "Game.Prefabs.PrefabSystem",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_PrefabSystem"
+  },
+  {
+    "FieldType": "Game.Tools.DefaultToolSystem",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_DefaultToolSystem"
+  },
+  {
+    "FieldType": "Game.Tools.ToolRaycastSystem",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_ToolRaycastSystem"
+  },
+  {
+    "FieldType": "Game.Tools.OriginalDeletedSystem",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_OriginalDeletedSystem"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_ErrorQuery"
+  },
+  {
+    "FieldType": "Game.Tools.Snap",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_SnapOnMask"
+  },
+  {
+    "FieldType": "Game.Tools.Snap",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_SnapOffMask"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_HasFocus"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_FocusChanged"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Family",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_ForceUpdate"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_ActionsEnabled"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_ApplyAction"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_SecondaryApplyAction"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_CancelAction"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "FamANDAssem",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_DefaultApply"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "FamANDAssem",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_DefaultSecondaryApply"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "FamANDAssem",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_DefaultCancel"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "FamANDAssem",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_MouseApply"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "FamANDAssem",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "m_MouseCancel"
+  },
+  {
+    "FieldType": "Game.Tools.ToolBaseSystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolBaseSystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Public",
+    "Type": "Game.Tools.Temp",
+    "Name": "m_Original"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Public",
+    "Type": "Game.Tools.Temp",
+    "Name": "m_CurvePosition"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Public",
+    "Type": "Game.Tools.Temp",
+    "Name": "m_Value"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Public",
+    "Type": "Game.Tools.Temp",
+    "Name": "m_Cost"
+  },
+  {
+    "FieldType": "Game.Tools.TempFlags",
+    "Attributes": "Public",
+    "Type": "Game.Tools.Temp",
+    "Name": "m_Flags"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_Position"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_HitPosition"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float2",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_Direction"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_HitDirection"
+  },
+  {
+    "FieldType": "Unity.Mathematics.quaternion",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_Rotation"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_OriginalEntity"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float2",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_SnapPriority"
+  },
+  {
+    "FieldType": "Unity.Mathematics.int2",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_ElementIndex"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_CurvePosition"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Public",
+    "Type": "Game.Tools.ControlPoint",
+    "Name": "m_Elevation"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Public",
+    "Type": "Game.Tools.EditorContainer",
+    "Name": "m_Prefab"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Public",
+    "Type": "Game.Tools.EditorContainer",
+    "Name": "m_Scale"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Public",
+    "Type": "Game.Tools.EditorContainer",
+    "Name": "m_Intensity"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Public",
+    "Type": "Game.Tools.EditorContainer",
+    "Name": "m_GroupIndex"
+  },
+  {
+    "FieldType": "Game.Common.RaycastFlags",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<raycastFlags>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Common.TypeMask",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<typeMask>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Common.CollisionMask",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<collisionMask>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Net.Layer",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<netLayerMask>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Areas.AreaTypeMask",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<areaTypeMask>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Routes.RouteType",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<routeType>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Prefabs.TransportType",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<transportType>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Notifications.IconLayerMask",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<iconLayerMask>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Net.UtilityTypes",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<utilityTypeMask>k__BackingField"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<rayOffset>k__BackingField"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "<owner>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.ToolSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "m_ToolSystem"
+  },
+  {
+    "FieldType": "Game.Common.RaycastSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "m_RaycastSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.CameraUpdateSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ToolRaycastSystem",
+    "Name": "m_CameraUpdateSystem"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "kToolID"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "<parentMeshOverrideEnabled>k__BackingField"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "<parentMeshStagedValue>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.AreaToolSystem/Mode",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "<mode>k__BackingField"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "<recreate>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "<underground>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "<allowGenerate>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.ObjectToolSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_ObjectToolSystem"
+  },
+  {
+    "FieldType": "Game.Areas.SearchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_AreaSearchSystem"
+  },
+  {
+    "FieldType": "Game.Net.SearchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_NetSearchSystem"
+  },
+  {
+    "FieldType": "Game.Objects.SearchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_ObjectSearchSystem"
+  },
+  {
+    "FieldType": "Game.Tools.ToolOutputBarrier",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_ToolOutputBarrier"
+  },
+  {
+    "FieldType": "Game.Audio.AudioManager",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_AudioManager"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_AddAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_InsertAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_MergeAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_MoveAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_DeleteAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_UndoAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_CompleteArea"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_CreateArea"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_DeleteArea"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_DiscardInsertAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_DiscardMoveAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_DiscardMergeAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_CreateAreaOrMoveAreaNode"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_CreateAreaOrInsertAreaNode"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_ApplyBlocked"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_DefinitionQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_TempAreaQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_TempBuildingQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_MapTileQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_SoundQuery"
+  },
+  {
+    "FieldType": "Game.Tools.ControlPoint",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_LastRaycastPoint"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Tools.ControlPoint>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_ControlPoints"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Tools.ControlPoint>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_MoveStartPositions"
+  },
+  {
+    "FieldType": "Colossal.Collections.NativeValue`1<Game.Tools.AreaToolSystem/Tooltip>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_Tooltip"
+  },
+  {
+    "FieldType": "Game.Tools.AreaToolSystem/Mode",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_LastMode"
+  },
+  {
+    "FieldType": "Game.Tools.AreaToolSystem/State",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_State"
+  },
+  {
+    "FieldType": "Game.Prefabs.AreaPrefab",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_Prefab"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_ControlPointsMoved"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_AllowCreateArea"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "m_ForceCancel"
+  },
+  {
+    "FieldType": "Game.Tools.AreaToolSystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Tools.AreaToolSystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "kToolID"
+  },
+  {
+    "FieldType": "Game.Tools.BulldozeToolSystem/Mode",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "<mode>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "<underground>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "<allowManipulation>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "<debugBypassBulldozeConfirmation>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Prefabs.BulldozePrefab",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "<prefab>k__BackingField"
+  },
+  {
+    "FieldType": "System.Action",
+    "Attributes": "Public",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "EventConfirmationRequested"
+  },
+  {
+    "FieldType": "Game.Tools.ToolOutputBarrier",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_ToolOutputBarrier"
+  },
+  {
+    "FieldType": "Game.Audio.AudioManager",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_AudioManager"
+  },
+  {
+    "FieldType": "Game.Achievements.AchievementTriggerSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_AchievementTriggerSystem"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_DefinitionQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_BuildingQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_RoadQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_PlantQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_SoundQuery"
+  },
+  {
+    "FieldType": "Game.Tools.ControlPoint",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_LastRaycastPoint"
+  },
+  {
+    "FieldType": "Game.Tools.BulldozeToolSystem/State",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_State"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Tools.ControlPoint>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_ControlPoints"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_Bulldoze"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_BulldozeDiscard"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_ApplyBlocked"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "m_BuildingsDemolishedCount"
+  },
+  {
+    "FieldType": "Game.Tools.BulldozeToolSystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Tools.BulldozeToolSystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "kToolID"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "<underground>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "<ignoreErrors>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "<allowManipulation>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "<debugSelect>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "<debugLandValue>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.ToolOutputBarrier",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_ToolOutputBarrier"
+  },
+  {
+    "FieldType": "Game.Audio.AudioManager",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_AudioManager"
+  },
+  {
+    "FieldType": "Game.Rendering.RenderingSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_RenderingSystem"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_DefinitionQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_DragQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_TempQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_InfomodeQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_SoundQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_UpdateQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_LastRaycastEntity"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_MouseDownPosition"
+  },
+  {
+    "FieldType": "Game.Tools.DefaultToolSystem/State",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_State"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_DefaultToolApply"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "m_LastSelectedIndex"
+  },
+  {
+    "FieldType": "Game.Tools.DefaultToolSystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Tools.DefaultToolSystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "kToolID"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Private, Static, Literal, HasDefault",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "kTree"
+  },
+  {
+    "FieldType": "Game.Tools.ObjectToolSystem/Mode",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<mode>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.AgeMask",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<ageMask>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<decorationMode>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.Snap",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_SelectedSnap"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_Distance"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<distanceScale>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<parentMeshOverrideEnabled>k__BackingField"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<parentMeshStagedValue>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<groupIndexOverrideEnabled>k__BackingField"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<groupIndexStagedValue>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<probabilityOverrideEnabled>k__BackingField"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<probabilityStagedValue>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<underground>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<allowCreate>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<allowLine>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<allowCurve>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<allowBrush>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<allowStamp>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<allowAge>k__BackingField"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "<allowRotation>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Tools.AreaToolSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_AreaToolSystem"
+  },
+  {
+    "FieldType": "Game.Net.SearchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_NetSearchSystem"
+  },
+  {
+    "FieldType": "Game.Zones.SearchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_ZoneSearchSystem"
+  },
+  {
+    "FieldType": "Game.City.CityConfigurationSystem",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_CityConfigurationSystem"
+  },
+  {
+    "FieldType": "Game.Audio.AudioManager",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_AudioManager"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_DefinitionQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_TempQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_ContainerQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_BrushQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_LotQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_BuildingQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_VisibleQuery"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_EraseObject"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_MoveObject"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_PaintObject"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_PlaceObject"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_PlaceUpgrade"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_PreciseRotation"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_RotateObject"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_PlaceNetEdge"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_PlaceNetControlPoint"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_UndoNetControlPoint"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_DowngradeNetEdge"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_UpgradeNetEdge"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_DiscardUpgrade"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_DiscardDowngrade"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_ReplaceNetEdge"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_IncorrectApply"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_ApplyBlocked"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Tools.ControlPoint>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_ControlPoints"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Tools.SubSnapPoint>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_SubSnapPoints"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Tools.NetToolSystem/UpgradeState>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_UpgradeStates"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeReference`1<Game.Tools.ObjectToolSystem/Rotation>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_Rotation"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeReference`1<Game.Tools.NetToolSystem/AppliedUpgrade>",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_AppliedUpgrade"
+  },
+  {
+    "FieldType": "Game.Tools.ControlPoint",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_LastRaycastPoint"
+  },
+  {
+    "FieldType": "Game.Tools.ControlPoint",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_StartPoint"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_UpgradingObject"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_MovingObject"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_MovingInitialized"
+  },
+  {
+    "FieldType": "Game.Tools.ObjectToolSystem/State",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_State"
+  },
+  {
+    "FieldType": "Game.Tools.ObjectToolSystem/Mode",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_LastActualMode"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_RotationModified"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_ForceCancel"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_RotationStartPosition"
+  },
+  {
+    "FieldType": "Unity.Mathematics.quaternion",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_StartRotation"
+  },
+  {
+    "FieldType": "System.Single",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_StartCameraAngle"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_SoundQuery"
+  },
+  {
+    "FieldType": "Game.Common.RandomSeed",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_RandomSeed"
+  },
+  {
+    "FieldType": "Game.Prefabs.ObjectPrefab",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_Prefab"
+  },
+  {
+    "FieldType": "Game.Prefabs.ObjectPrefab",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_SelectedPrefab"
+  },
+  {
+    "FieldType": "Game.Prefabs.TransformPrefab",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_TransformPrefab"
+  },
+  {
+    "FieldType": "Game.CameraController",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "m_CameraController"
+  },
+  {
+    "FieldType": "Game.Tools.ObjectToolSystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Tools.ObjectToolSystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.UI.AppBindings",
+    "Name": "kGroup"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.UI.AppBindings",
+    "Name": "kBodyClassNames"
+  },
+  {
+    "FieldType": "Colossal.UI.Binding.ValueBinding`1<System.String>",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_BackgroundProcessMessageBinding"
+  },
+  {
+    "FieldType": "Colossal.UI.Binding.EventBinding`1<Game.UI.ConfirmationDialogBase>",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_ConfirmationDialogBinding"
+  },
+  {
+    "FieldType": "Colossal.UI.Binding.ValueBinding`1<System.Collections.Generic.HashSet`1<System.String>>",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_ActiveUIModsLocation"
+  },
+  {
+    "FieldType": "Colossal.UI.Binding.GetterValueBinding`1<Game.Assets.SaveInfo>",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_CanContinueBinding"
+  },
+  {
+    "FieldType": "Colossal.UI.Binding.ValueBinding`1<System.String[]>",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_OwnedPrerequisites"
+  },
+  {
+    "FieldType": "Colossal.UI.Binding.EventBinding",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_CheckContinueGamePrerequisites"
+  },
+  {
+    "FieldType": "System.Action`1<System.Int32>",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_ConfirmationDialogCallback"
+  },
+  {
+    "FieldType": "System.Action`2<System.Int32,System.Boolean>",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_DismissibleConfirmationDialogCallback"
+  },
+  {
+    "FieldType": "Game.UI.Debug.DebugUISystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_DebugUISystem"
+  },
+  {
+    "FieldType": "Game.UI.AppBindings/FrameTiming",
+    "Attributes": "Private, Static",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_FrameTiming"
+  },
+  {
+    "FieldType": "Game.UI.ErrorDialogManager",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "m_ErrorDialogManager"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "<ready>k__BackingField"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Private",
+    "Type": "Game.UI.AppBindings",
+    "Name": "<activeUI>k__BackingField"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "m_Length"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "m_CurrentPageIndex"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "m_ChildStartIndex"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "m_ChildEndIndex"
+  },
+  {
+    "FieldType": "System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "m_Children"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "m_Expanded"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "<locked>k__BackingField"
+  },
+  {
+    "FieldType": "Game.UI.Widgets.IListAdapter",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "<adapter>k__BackingField"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "<level>k__BackingField"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.PagedList",
+    "Name": "<pageSize>k__BackingField"
+  },
+  {
+    "FieldType": "System.Type",
+    "Attributes": "Private",
+    "Type": "Game.UI.Widgets.ListAdapter",
+    "Name": "<listType>k__BackingField"
+  },
+  {
+    "FieldType": "Game.UI.Editor.ClimatePanelSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_ClimatePanelSystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EnvironmentPanelSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_EnvironmentPanelSystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorAssetUploadPanel",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_AssetUploadPanel"
+  },
+  {
+    "FieldType": "Colossal.PSI.PdxSdk.PdxSdkPlatform",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_Platform"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_MapPlayable"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Private, Static, Literal, HasDefault",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "kGroup"
+  },
+  {
+    "FieldType": "Game.Prefabs.PrefabSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_PrefabSystem"
+  },
+  {
+    "FieldType": "Game.Tools.ToolSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_ToolSystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorToolUISystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_EditorToolUISystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorPanelUISystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_EditorPanelUISystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.InspectorPanelSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_InspectorPanelSystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.WaterPanelSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_WaterPanelSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.CameraUpdateSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_CameraUpdateSystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.MapPanelSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_MapPanelSystem"
+  },
+  {
+    "FieldType": "Game.Simulation.TerrainSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_TerrainSystem"
+  },
+  {
+    "FieldType": "Game.UI.NameSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_NameSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.OverlayRenderSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_OverlayRenderSystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.PackagePanelSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_PackagePanelSystem"
+  },
+  {
+    "FieldType": "Game.EndFrameBarrier",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_EndFrameBarrier"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_ObjectQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_ModifiedQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_WaterSourceQuery"
+  },
+  {
+    "FieldType": "Colossal.UI.Binding.GetterValueBinding`1<Game.UI.Editor.EditorHierarchyUISystem/Viewport>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_ViewportBinding"
+  },
+  {
+    "FieldType": "Colossal.UI.Binding.GetterValueBinding`1<System.String>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_SearchQueryBinding"
+  },
+  {
+    "FieldType": "System.Collections.Generic.List`1<Game.UI.Editor.EditorHierarchyUISystem/PanelItem>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "<panelItems>k__BackingField"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_Hierarchy"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeHashMap`2<Game.UI.Editor.EditorHierarchyUISystem/ItemId,System.Int32>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_IdToIndex"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/PathKey>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_PathKeys"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_FilteredHierarchy"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeParallelHashSet`1<Game.UI.Editor.EditorHierarchyUISystem/ItemId>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_ExpandedIds"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeParallelHashSet`1<Game.Prefabs.PrefabData>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_PrefabsCache"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabData,System.String>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_NamesCache"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabData,System.Boolean>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_LockedCache"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_TotalCount"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorHierarchyUISystem/ItemId",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_SelectedId"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorHierarchyUISystem/Viewport",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_Viewport"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_NextViewportStartIndex"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_NextViewportEndIndex"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_ViewportDirty"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_HierarchyDirty"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_FilteringDirty"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_ScrollDirty"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_SearchQuery"
+  },
+  {
+    "FieldType": "System.Threading.Tasks.Task`1<Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_HierarchyFilterTask"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.UI.Editor.EditorHierarchyUISystem/HierarchyItem>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_HierarchyFilterBuffer"
+  },
+  {
+    "FieldType": "System.Threading.CancellationTokenSource",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_Cts"
+  },
+  {
+    "FieldType": "System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "m_Prefabs"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorHierarchyUISystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "Game.UI.Editor.IEditorPanel",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorPanelSystemBase",
+    "Name": "m_ActiveSubPanel"
+  },
+  {
+    "FieldType": "Game.Input.ProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorPanelSystemBase",
+    "Name": "m_ToggleInspectorGroupsAction"
+  },
+  {
+    "FieldType": "Game.UI.Localization.LocalizedString",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorPanelSystemBase",
+    "Name": "<title>k__BackingField"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorPanelSystemBase",
+    "Name": "<uiTag>k__BackingField"
+  },
+  {
+    "FieldType": "System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorPanelSystemBase",
+    "Name": "<children>k__BackingField"
+  },
+  {
+    "FieldType": "Colossal.Logging.ILog",
+    "Attributes": "Private, InitOnly",
+    "Type": "Game.UI.Editor.EditorPanelSystemBase",
+    "Name": "<log>k__BackingField"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorPanelSystemBase",
+    "Name": "m_BulkSectionCommandGeneration"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.EditorPanelSystemBase",
+    "Name": "<bulkSectionCommand>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Prefabs.PrefabSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_PrefabSystem"
+  },
+  {
+    "FieldType": "Game.Tools.ToolSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_ToolSystem"
+  },
+  {
+    "FieldType": "Game.Tools.ObjectToolSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_ObjectTool"
+  },
+  {
+    "FieldType": "Game.Rendering.CameraUpdateSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_CameraUpdateSystem"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorAssetUploadPanel",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_AssetUploadPanel"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorHierarchyUISystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_Workspace"
+  },
+  {
+    "FieldType": "Game.UI.Editor.AnimationControlsPanel",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_AnimationControlsPanel"
+  },
+  {
+    "FieldType": "Game.UI.Editor.EditorErrorPanelSystem",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_EditorErrorPanelSystem"
+  },
+  {
+    "FieldType": "Game.Input.IProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_MoveAction"
+  },
+  {
+    "FieldType": "Game.Input.ProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_CloneAction"
+  },
+  {
+    "FieldType": "Game.Input.ProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_AutoAlignAction"
+  },
+  {
+    "FieldType": "Game.Input.ProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_AutoConnectAction"
+  },
+  {
+    "FieldType": "Game.Input.ProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_AlignXAction"
+  },
+  {
+    "FieldType": "Game.Input.ProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_AlignYAction"
+  },
+  {
+    "FieldType": "Game.Input.ProxyAction",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_AlignZAction"
+  },
+  {
+    "FieldType": "Game.UI.Widgets.EditorGenerator",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_EditorGenerator"
+  },
+  {
+    "FieldType": "Game.UI.Widgets.Button[]",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_Footer"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_CurrentSelectedEntity"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_LastSelectedMeshIndex"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_CurrentSelectedMeshIndex"
+  },
+  {
+    "FieldType": "System.Object",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_SelectedObject"
+  },
+  {
+    "FieldType": "System.Object",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_ParentObject"
+  },
+  {
+    "FieldType": "Game.Prefabs.ObjectSubObjectInfo",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_LastSubObject"
+  },
+  {
+    "FieldType": "Game.Prefabs.ObjectSubObjectInfo",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_CurrentSubObject"
+  },
+  {
+    "FieldType": "Game.UI.Localization.LocalizedString",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_SelectedName"
+  },
+  {
+    "FieldType": "Game.UI.Localization.LocalizedString",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_ParentName"
+  },
+  {
+    "FieldType": "System.Collections.Generic.List`1<System.Object>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_SectionObjects"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Game.UI.Editor.InspectorPanelSystem/LocalizationFields>",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_WipLocalization"
+  },
+  {
+    "FieldType": "Colossal.PSI.PdxSdk.PdxSdkPlatform",
+    "Attributes": "Private",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "m_Platform"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Private, Static, Literal, HasDefault",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "kLocalizationSectionPath"
+  },
+  {
+    "FieldType": "System.String",
+    "Attributes": "Private, Static, Literal, HasDefault",
+    "Type": "Game.UI.Editor.InspectorPanelSystem",
+    "Name": "kLocalizationClipboardTag"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/AllocationAction",
+    "Name": "m_Entity"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/AllocationAction",
+    "Name": "m_TriangleCount"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Prefabs.PrefabRef>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/CullingActionJob",
+    "Name": "m_PrefabRefData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Prefabs.RenderedAreaData>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/CullingActionJob",
+    "Name": "m_PrefabRenderedAreaData"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferLookup`1<Game.Areas.Triangle>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/CullingActionJob",
+    "Name": "m_Triangles"
+  },
+  {
+    "FieldType": "Colossal.Collections.NativeParallelQueue`1/Reader<Game.Rendering.AreaBatchSystem/CullingAction>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/CullingActionJob",
+    "Name": "m_CullingActions"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/CullingActionJob",
+    "Name": "m_MissingAreaPrefab"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeQueue`1/ParallelWriter<Game.Rendering.AreaBatchSystem/AllocationAction>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/CullingActionJob",
+    "Name": "m_AllocationActions"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Areas.Batch>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/CullingActionJob",
+    "Name": "m_BatchData"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/CullingActionJob",
+    "Name": "m_TriangleMetaData"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentLookup`1<Game.Areas.Batch>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_BatchData"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/NativeBatchData>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_NativeBatchData"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.AreaBatchSystem/TriangleMetaData>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_TriangleMetaData"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.AreaTriangleData>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_AreaTriangleData"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.AreaColorData>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_AreaColorData"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Colossal.Collections.NativeHeapBlock>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_UpdatedTriangles"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeQueue`1<Game.Rendering.AreaBatchSystem/AllocationAction>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_AllocationActions"
+  },
+  {
+    "FieldType": "Colossal.Collections.NativeHeapAllocator",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_AreaBufferAllocator"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeReference`1<System.Int32>",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.AreaBatchSystem/BatchAllocationJob",
+    "Name": "m_AllocationCount"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_Mesh"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_SecondaryCenter"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_SecondarySize"
+  },
+  {
+    "FieldType": "Game.Prefabs.MeshLayer",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_Layer"
+  },
+  {
+    "FieldType": "Game.Prefabs.MeshType",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_MeshType"
+  },
+  {
+    "FieldType": "System.UInt16",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_Partition"
+  },
+  {
+    "FieldType": "Game.Rendering.BatchRenderFlags",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_RenderFlags"
+  },
+  {
+    "FieldType": "System.Byte",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_LodCount"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private, Static, Literal, HasDefault",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "MAX_PROPERTY_COUNT1"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private, Static, Literal, HasDefault",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "MAX_PROPERTY_COUNT2"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "MAX_PROPERTY_COUNT"
+  },
+  {
+    "FieldType": "Game.Rendering.GroupData/<m_Properties>e__FixedBuffer",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.GroupData",
+    "Name": "m_Properties"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.InstanceData",
+    "Name": "m_Entity"
+  },
+  {
+    "FieldType": "System.Byte",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.InstanceData",
+    "Name": "m_MeshGroup"
+  },
+  {
+    "FieldType": "System.Byte",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.InstanceData",
+    "Name": "m_MeshIndex"
+  },
+  {
+    "FieldType": "System.Byte",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.InstanceData",
+    "Name": "m_TileIndex"
+  },
+  {
+    "FieldType": "System.UInt32",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "GPU_INSTANCE_MEMORY_DEFAULT"
+  },
+  {
+    "FieldType": "System.UInt32",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "GPU_INSTANCE_MEMORY_INCREMENT"
+  },
+  {
+    "FieldType": "System.UInt32",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "GPU_UPLOADER_CHUNK_SIZE"
+  },
+  {
+    "FieldType": "System.UInt32",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "GPU_UPLOADER_OPERATION_SIZE"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Public, Static, Literal, HasDefault",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "MAX_GROUP_BATCH_COUNT"
+  },
+  {
+    "FieldType": "Game.Rendering.RenderingSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_RenderingSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.ManagedBatchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_ManagedBatchSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.BatchDataSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_BatchDataSystem"
+  },
+  {
+    "FieldType": "Colossal.IO.AssetDatabase.VirtualTexturing.TextureStreamingSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_TextureStreamingSystem"
+  },
+  {
+    "FieldType": "Game.Prefabs.PrefabSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_PrefabSystem"
+  },
+  {
+    "FieldType": "Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeBatchGroups"
+  },
+  {
+    "FieldType": "Colossal.Rendering.NativeBatchInstances`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeBatchInstances"
+  },
+  {
+    "FieldType": "Colossal.Rendering.NativeSubBatches`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeSubBatches"
+  },
+  {
+    "FieldType": "Colossal.Rendering.ManagedBatches`1<Game.Rendering.OptionalProperties>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_ManagedBatches"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.PropertyData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_MaterialProperties"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.PropertyData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_ObjectProperties"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.PropertyData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NetProperties"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.PropertyData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_LaneProperties"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.PropertyData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_ZoneProperties"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Unity.Entities.Entity>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_MergeMeshes"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeParallelMultiHashMap`2<Unity.Entities.Entity,System.Int32>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_MergeGroups"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_MeshSettingsQuery"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_LastMotionVectorsEnabled"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_LastLodFadeEnabled"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_PropertiesChanged"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_MotionVectorsChanged"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_LodFadeChanged"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_VirtualTexturingChanged"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeBatchGroupsReadDependencies"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeBatchGroupsWriteDependencies"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeBatchInstancesReadDependencies"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeBatchInstancesWriteDependencies"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeSubBatchesReadDependencies"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_NativeSubBatchesWriteDependencies"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "m_MergeDependencies"
+  },
+  {
+    "FieldType": "Game.Rendering.BatchManagerSystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.BatchManagerSystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "Game.Common.BoundsMask",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "<visibleMask>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Common.BoundsMask",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "<becameVisible>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Common.BoundsMask",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "<becameHidden>k__BackingField"
+  },
+  {
+    "FieldType": "Game.Rendering.RenderingSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_RenderingSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.UndergroundViewSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_UndergroundViewSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.BatchMeshSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_BatchMeshSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.BatchDataSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_BatchDataSystem"
+  },
+  {
+    "FieldType": "Game.Objects.SearchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_ObjectSearchSystem"
+  },
+  {
+    "FieldType": "Game.Net.SearchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_NetSearchSystem"
+  },
+  {
+    "FieldType": "Game.Tools.ToolSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_ToolSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.CameraUpdateSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_CameraUpdateSystem"
+  },
+  {
+    "FieldType": "Game.Simulation.TerrainSystem",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_TerrainSystem"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_InitializeQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_EventQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_CullingInfoQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_TempQuery"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_PrevCameraPosition"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_PrevCameraDirection"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float3",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_PrevCameraDirectionRight"
+  },
+  {
+    "FieldType": "Unity.Mathematics.float4",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_PrevLodParameters"
+  },
+  {
+    "FieldType": "Game.Common.BoundsMask",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_PrevVisibleMask"
+  },
+  {
+    "FieldType": "Game.Rendering.PreCullingSystem/QueryFlags",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_PrevQueryFlags"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Rendering.PreCullingSystem/QueryFlags,Unity.Entities.EntityQuery>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_CullingQueries"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Rendering.PreCullingSystem/QueryFlags,Unity.Entities.EntityQuery>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_RelativeQueries"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Rendering.PreCullingSystem/QueryFlags,Unity.Entities.EntityQuery>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_RemoveQueries"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.PreCullingData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_CullingData"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Rendering.PreCullingData>",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_UpdatedData"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_FadeContainer"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_WriteDependencies"
+  },
+  {
+    "FieldType": "Unity.Jobs.JobHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_ReadDependencies"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_ResetPrevious"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "m_Loaded"
+  },
+  {
+    "FieldType": "Game.Rendering.PreCullingSystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Rendering.PreCullingSystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.MeshBatch",
+    "Name": "m_GroupIndex"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.MeshBatch",
+    "Name": "m_InstanceIndex"
+  },
+  {
+    "FieldType": "System.Byte",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.MeshBatch",
+    "Name": "m_MeshGroup"
+  },
+  {
+    "FieldType": "System.Byte",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.MeshBatch",
+    "Name": "m_MeshIndex"
+  },
+  {
+    "FieldType": "System.Byte",
+    "Attributes": "Public",
+    "Type": "Game.Rendering.MeshBatch",
+    "Name": "m_TileIndex"
+  },
+  {
+    "FieldType": "Game.Common.RaycastHit",
+    "Attributes": "Public",
+    "Type": "Game.Common.RaycastResult",
+    "Name": "m_Hit"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Public",
+    "Type": "Game.Common.RaycastResult",
+    "Name": "m_Owner"
+  },
+  {
+    "FieldType": "Colossal.Logging.ILog",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_UnlockingLog"
+  },
+  {
+    "FieldType": "System.Action",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "onContentAvailabilityChanged"
+  },
+  {
+    "FieldType": "Game.UpdateSystem",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_UpdateSystem"
+  },
+  {
+    "FieldType": "System.Collections.Generic.List`1<Game.Prefabs.PrefabBase>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_Prefabs"
+  },
+  {
+    "FieldType": "System.Collections.Generic.List`1<Game.Prefabs.PrefabSystem/ObsoleteData>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_ObsoleteIDs"
+  },
+  {
+    "FieldType": "System.Collections.Generic.List`1<Game.Prefabs.PrefabSystem/LoadedIndexData>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_LoadedIndexData"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Unity.Entities.Entity>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_UpdateMap"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,Unity.Entities.Entity>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_Entities"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabBase,System.Boolean>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_IsUnlockable"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Prefabs.ContentPrefab,System.Boolean>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_IsAvailable"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<System.String,Game.Prefabs.ContentPrefab>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_ModsContentPrefabs"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<System.Int32,Game.Prefabs.PrefabID>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_LoadedObsoleteIDs"
+  },
+  {
+    "FieldType": "System.Collections.Generic.Dictionary`2<Game.Prefabs.PrefabID,System.Int32>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_PrefabIndices"
+  },
+  {
+    "FieldType": "Unity.Entities.ComponentTypeSet",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.PrefabSystem",
+    "Name": "m_UnlockableTypes"
+  },
+  {
+    "FieldType": "Game.Tools.ToolSystem",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_ToolSystem"
+  },
+  {
+    "FieldType": "Game.City.CityConfigurationSystem",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_CityConfigurationSystem"
+  },
+  {
+    "FieldType": "Game.Prefabs.ReplacePrefabSystem/Finalize",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_FinalizeSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.BatchManagerSystem",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_BatchManagerSystem"
+  },
+  {
+    "FieldType": "Game.Rendering.ManagedBatchSystem",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_ManagedBatchSystem"
+  },
+  {
+    "FieldType": "Game.Prefabs.PrefabSystem",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_PrefabSystem"
+  },
+  {
+    "FieldType": "Game.Serialization.PrimaryPrefabReferencesSystem",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_PrimaryPrefabReferencesSystem"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_PrefabRefQuery"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_OldPrefab"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_NewPrefab"
+  },
+  {
+    "FieldType": "Unity.Entities.Entity",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_SourceInstance"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeList`1<Game.Prefabs.ReplacePrefabSystem/ReplaceMesh>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_MeshReplaces"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeQueue`1<Unity.Entities.Entity>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_UpdateInstances"
+  },
+  {
+    "FieldType": "Unity.Collections.NativeHashMap`2<Unity.Entities.Entity,Game.Prefabs.ReplacePrefabSystem/ReplacePrefabData>",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "m_ReplacePrefabData"
+  },
+  {
+    "FieldType": "Game.Prefabs.ReplacePrefabSystem/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "Game.Prefabs.ReplacePrefabSystem",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem/Finalize",
+    "Name": "m_ReplacePrefabSystem"
+  },
+  {
+    "FieldType": "Unity.Entities.EntityQuery",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem/Finalize",
+    "Name": "m_LaneContainerQuery"
+  },
+  {
+    "FieldType": "Game.Prefabs.ReplacePrefabSystem/Finalize/TypeHandle",
+    "Attributes": "Private",
+    "Type": "Game.Prefabs.ReplacePrefabSystem/Finalize",
+    "Name": "__TypeHandle"
+  },
+  {
+    "FieldType": "Colossal.Rendering.UnsafeBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>*",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.NativeBatchGroups`4",
+    "Name": "m_BatchData"
+  },
+  {
+    "FieldType": "Unity.Collections.Allocator",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.NativeBatchGroups`4",
+    "Name": "m_AllocatorLabel"
+  },
+  {
+    "FieldType": "Colossal.Rendering.UnsafeBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>*",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.NativeBatchInstances`4",
+    "Name": "m_BatchData"
+  },
+  {
+    "FieldType": "Unity.Collections.Allocator",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.NativeBatchInstances`4",
+    "Name": "m_AllocatorLabel"
+  },
+  {
+    "FieldType": "Colossal.Rendering.UnsafeBatches`4<TCullingData,TGroupData,TBatchData,TInstanceData>*",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter",
+    "Name": "m_BatchData"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeList`1<Colossal.Rendering.UnsafeBatchGroup`4<TCullingData,TGroupData,TBatchData,TInstanceData>>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_Groups"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashMap`2<System.Int32,System.UInt32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_GlobalOffsets"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashSet`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_UpdatedManagedBatches"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashSet`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_UpdatedInstances"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashSet`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_UpdatedSubBatches"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashSet`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_UpdatedBatchRenderers"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashSet`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_UpdatedProperties"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashSet`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_UpdatedMetaDatas"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashSet`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_AddedInstances"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeList`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_ObsoleteManagedBatches"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeList`1<UnityEngine.Rendering.BatchID>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_ObsoleteBatchRenderers"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeList`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_ActiveGroups"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeList`1<System.Int32>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_FreeGroups"
+  },
+  {
+    "FieldType": "Unity.Collections.LowLevel.Unsafe.UnsafeList`1<Colossal.Collections.UnsafeHeapBlock>",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_PropertyUploads"
+  },
+  {
+    "FieldType": "Colossal.Collections.UnsafeHeapAllocator",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_GpuAllocator"
+  },
+  {
+    "FieldType": "Colossal.Rendering.ThreadedSparseUploader",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_GpuUploader"
+  },
+  {
+    "FieldType": "Colossal.Collections.UnsafeHeapBlock",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_ZeroAllocation"
+  },
+  {
+    "FieldType": "Colossal.Collections.UnsafeHeapBlock",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_GlobalAllocation"
+  },
+  {
+    "FieldType": "Colossal.Mathematics.Bounds3",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_TotalBounds"
+  },
+  {
+    "FieldType": "System.Void*",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_GpuBuffer"
+  },
+  {
+    "FieldType": "System.UInt32",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_GpuMemorySize"
+  },
+  {
+    "FieldType": "System.UInt32",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_MaxUploadOperationSize"
+  },
+  {
+    "FieldType": "System.UInt32",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_UploadDataSize"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_MaxUploadOperationMatrices"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_UploadOpCount"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_ObjectToWorld"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_WorldToObject"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_MatrixPreviousM"
+  },
+  {
+    "FieldType": "Unity.Collections.Allocator",
+    "Attributes": "Assembly, InitOnly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_AllocatorLabel"
+  },
+  {
+    "FieldType": "System.Boolean",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Rendering.UnsafeBatches`4",
+    "Name": "m_GlobalsUpdated"
+  },
+  {
+    "FieldType": "Colossal.Collections.UnsafeHeapBlock",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Collections.NativeHeapBlock",
+    "Name": "m_Block"
+  },
+  {
+    "FieldType": "Colossal.Collections.UnsafeHeapAllocator*",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Collections.NativeHeapAllocator",
+    "Name": "m_HeapData"
+  },
+  {
+    "FieldType": "Unity.Collections.Allocator",
+    "Attributes": "Assembly",
+    "Type": "Colossal.Collections.NativeHeapAllocator",
+    "Name": "m_AllocatorLabel"
+  },
+  {
+    "FieldType": "Unity.Collections.UnsafeQueue`1<T>*",
+    "Attributes": "Private",
+    "Type": "Unity.Collections.NativeQueue`1",
+    "Name": "m_Queue"
+  },
+  {
+    "FieldType": "Unity.Entities.BufferHeader*",
+    "Attributes": "Private",
+    "Type": "Unity.Entities.DynamicBuffer`1",
+    "Name": "m_Buffer"
+  },
+  {
+    "FieldType": "System.Int32",
+    "Attributes": "Private",
+    "Type": "Unity.Entities.DynamicBuffer`1",
+    "Name": "m_InternalCapacity"
+  }
+]

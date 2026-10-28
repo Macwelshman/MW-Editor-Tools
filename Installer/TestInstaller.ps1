@@ -1,4 +1,4 @@
-﻿param([string]$ReleaseDirectory=(Join-Path $PSScriptRoot '../outputs/release-0.4.254'))
+param([string]$ReleaseDirectory=(Join-Path $PSScriptRoot '../outputs/release-0.4.257'))
 $ErrorActionPreference='Stop'
 $output=[IO.Path]::GetFullPath($ReleaseDirectory)
 $manifest=Join-Path $output 'payload.manifest'
@@ -17,6 +17,10 @@ $linked=Join-Path $linkHome 'Mods/MWEditorTools'
 New-Item -ItemType Directory -Path $actual,(Split-Path $linked) -Force | Out-Null
 Set-Content -LiteralPath (Join-Path $actual 'untouched.txt') -Value 'junction target must remain unchanged'
 New-Item -ItemType Junction -Path $linked -Target $actual | Out-Null
-& $test $fixture $linked
+$legacyTarget=Join-Path $linkHome 'legacy/Mods/MWEditorTools'
+$legacyLinked=Join-Path (Split-Path $legacyTarget) 'MWEditorEnvironment'
+New-Item -ItemType Directory -Path (Split-Path $legacyLinked) -Force | Out-Null
+New-Item -ItemType Junction -Path $legacyLinked -Target $actual | Out-Null
+& $test $fixture $linked $legacyTarget
 if($LASTEXITCODE -ne 0){throw 'Installer harness failed.'}
 Write-Output "Test fixtures retained at $fixture"

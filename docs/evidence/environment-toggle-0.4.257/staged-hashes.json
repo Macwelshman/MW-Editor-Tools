@@ -1,0 +1,22 @@
+[
+  {
+    "Algorithm": "SHA256",
+    "Hash": "6B38CE78CCB7DD30E34ED9933158CBE3DC54C8B6EB2A62AAF59C194BAA6BB244",
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\outputs\\test-package-0.4.257\\MWEditorTools\\MW.EditorTools.css"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "F1A1895382FDEC121E12404F7D0E84D6493CAB46DB47DD105420D012FEEB8425",
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\outputs\\test-package-0.4.257\\MWEditorTools\\MW.EditorTools.dll"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "9D5ED8419C3A1B74125B44612F7F201D361BCA6CDB442820A1C307D116B14B1B",
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\outputs\\test-package-0.4.257\\MWEditorTools\\MW.EditorTools.mjs"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "AE6D6B9F8E77B18DFCCF8944ED50A57C0F9B74A7E3012B4995BBBDE40DA9DFD9",
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Tools\\outputs\\test-package-0.4.257\\MWEditorTools\\RELEASE_NOTES.md"
+  }
+]

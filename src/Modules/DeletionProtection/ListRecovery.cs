@@ -134,7 +134,7 @@ namespace MW.EditorTools.Modules.DeletionProtection
         {
             settings = options; context = editorContext; history.SetDepth(settings.historyDepth);
             world = modWorld; thread = Thread.CurrentThread.ManagedThreadId;
-            if (active != null || typeof(InspectorPanelSystem).Module.ModuleVersionId.ToString() != "e15551e9-3dea-4855-8dde-1da3cea7d7ef" ||
+            if (active != null || !VerifiedGameBuild.Recovery(typeof(InspectorPanelSystem).Module.ModuleVersionId, typeof(World).Module.ModuleVersionId) ||
                 typeof(Harmony).Assembly.GetName().Version != new System.Version(2, 4, 2, 0))
                 throw new NotSupportedException("Unverified recovery runtime.");
             parentField = Field(typeof(InspectorPanelSystem), "m_ParentObject");

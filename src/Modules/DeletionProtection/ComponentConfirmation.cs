@@ -19,7 +19,6 @@ namespace MW.EditorTools.Modules.DeletionProtection
     public sealed partial class ComponentConfirmation : MonoBehaviour
     {
         private const string PatchId = DeletionPatchPolicy.ConfirmationOwner;
-        private const string SupportedMvid = "e15551e9-3dea-4855-8dde-1da3cea7d7ef";
         private const BindingFlags PrivateInstance = BindingFlags.NonPublic | BindingFlags.Instance;
         private static ComponentConfirmation active;
         private readonly ConfirmationGate gate = new ConfirmationGate();
@@ -64,7 +63,7 @@ namespace MW.EditorTools.Modules.DeletionProtection
             if (active != null) throw new InvalidOperationException("Another confirmation instance is active.");
             if (typeof(Harmony).Assembly.GetName().Version != new System.Version(2, 4, 2, 0))
                 throw new NotSupportedException("A different Harmony version is loaded; protection was not installed.");
-            if (typeof(InspectorPanelSystem).Module.ModuleVersionId.ToString() != SupportedMvid)
+            if (!VerifiedGameBuild.Game(typeof(InspectorPanelSystem).Module.ModuleVersionId))
                 throw new NotSupportedException("Unverified Game.dll build. Protection was not installed.");
 
             remove = typeof(InspectorPanelSystem).GetMethod("RemoveComponent", PrivateInstance,

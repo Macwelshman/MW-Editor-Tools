@@ -1,0 +1,1 @@
+PASS: original header focus conflict reproduced; navigation group accepts Undo/Close and unregisters exact keys without mismatch.

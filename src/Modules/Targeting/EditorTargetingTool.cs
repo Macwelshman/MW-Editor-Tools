@@ -40,7 +40,7 @@ namespace MW.EditorTools.Modules.Targeting
 
         internal void Initialize(EditorContextService value, ListRecovery history, Func<bool> canUse)
         {
-            if (typeof(PrefabBase).Module.ModuleVersionId.ToString() != "e15551e9-3dea-4855-8dde-1da3cea7d7ef")
+            if (!VerifiedGameBuild.Recovery(typeof(PrefabBase).Module.ModuleVersionId, typeof(World).Module.ModuleVersionId))
                 throw new NotSupportedException("Unverified targeting API build.");
             context = value; recovery = history; allowed = canUse; Enabled = false;
         }

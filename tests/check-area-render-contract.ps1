@@ -3,7 +3,7 @@ $ErrorActionPreference='Stop'
 Add-Type -LiteralPath (Join-Path $ManagedPath 'Colossal.Mono.Cecil.dll')
 $a=[Colossal.Mono.Cecil.AssemblyDefinition]::ReadAssembly((Join-Path $ManagedPath 'Game.dll'))
 try {
- if($a.MainModule.Mvid.ToString() -ne 'e15551e9-3dea-4855-8dde-1da3cea7d7ef'){throw 'Unverified Game build'}
+ if($a.MainModule.Mvid.ToString() -notin @('e15551e9-3dea-4855-8dde-1da3cea7d7ef','e8325128-556a-460d-a950-497d90b3627c')){throw 'Unverified Game build'}
  $type=$a.MainModule.Types|Where-Object FullName -eq 'Game.Rendering.AreaBatchSystem'
  $release=$type.NestedTypes|Where-Object Name -eq 'CullingActionJob'
  $allocate=$type.NestedTypes|Where-Object Name -eq 'BatchAllocationJob'

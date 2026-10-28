@@ -1,0 +1,1 @@
+PASS: 67 exact beta identities, stable IL comparisons, private field types and renderer dependency/property contracts. VERIFIED-STATIC; native acceptance pending.

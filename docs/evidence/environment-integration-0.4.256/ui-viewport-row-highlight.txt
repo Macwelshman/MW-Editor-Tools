@@ -1,0 +1,1 @@
+PASS: exact native row/path matching, duplicate names, open-only page reveal, automatic selected-list opening and search preservation, scroll without focus changes.

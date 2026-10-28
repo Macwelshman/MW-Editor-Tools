@@ -1,0 +1,22 @@
+[
+  {
+    "Algorithm": "SHA256",
+    "Hash": "D48656991A14072A958B0FB59E97945BCE11376DCA35CEA384CF06DDC86BB84E",
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Environment\\MWEditorEnvironment\\EditorEnvironmentSystem.cs"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "9C97ED4634125EF8E987B073D95B5B3403C97B29320B5A7694CEEB7600E00934",
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Environment\\MWEditorEnvironment\\SnowCoverage.cs"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "2CFC84C81A1BE89FCEF2CDEC225CC8CD303C7FA5FAB134A73CE046EE282D71B0",
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Environment\\MWEditorEnvironment\\Settings.cs"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "BD6D60135695C4053A14D34B0AA72FBD1F7441B888F81E7B16A8B84CCD6B2424",
+    "Path": "C:\\Users\\ian\\Documents\\Development\\MW Editor Environment\\MWEditorEnvironment\\Mod.cs"
+  }
+]

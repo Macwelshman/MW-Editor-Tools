@@ -1,0 +1,1 @@
+PASS: 17 actual-source Multi-Save queue/interlock checks with managed native-save stubs; no files saved.

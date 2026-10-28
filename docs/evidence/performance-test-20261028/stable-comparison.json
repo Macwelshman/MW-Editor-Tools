@@ -1,0 +1,826 @@
+[
+  {
+    "Method": "Colossal.Rendering.NativeBatchGroups`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::GetNativeBatchGroups(System.Boolean,Unity.Jobs.JobHandle&)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 15
+  },
+  {
+    "Method": "Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter<TCullingData,TGroupData,TBatchData,TInstanceData> Colossal.Rendering.NativeBatchInstances`4::AsParallelInstanceWriter()",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 4
+  },
+  {
+    "Method": "Colossal.Rendering.NativeBatchInstances`4<Game.Rendering.CullingData,Game.Rendering.GroupData,Game.Rendering.BatchData,Game.Rendering.InstanceData> Game.Rendering.BatchManagerSystem::GetNativeBatchInstances(System.Boolean,Unity.Jobs.JobHandle&)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 15
+  },
+  {
+    "Method": "System.Boolean Colossal.Rendering.NativeBatchGroups`4::IsValidGroup(System.Int32)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 5
+  },
+  {
+    "Method": "System.Boolean Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::GetPropertyValue(T&,System.Int32,System.Int32,System.Int32)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 8,
+        "Exact": true,
+        "File": "docs\\evidence\\targeting-0.4.230\\property-writer.txt"
+      }
+    ],
+    "BetaInstructions": 8
+  },
+  {
+    "Method": "System.Boolean Colossal.Rendering.UnsafeBatches`4::GetPropertyValue(T&,System.Int32,System.Int32,System.Int32)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 51
+  },
+  {
+    "Method": "System.Boolean Game.Prefabs.PrefabSystem::UpdatePrefabs()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 56,
+        "Exact": false,
+        "File": "docs\\evidence\\bulldozer-regeneration-api.txt"
+      },
+      {
+        "Instructions": 161,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 161
+  },
+  {
+    "Method": "System.Boolean Game.Rendering.GroupData::GetPropertyIndex(System.Int32,System.Int32&)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 15
+  },
+  {
+    "Method": "System.Boolean Game.Tools.BulldozeToolSystem::GetAllowApply()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 7,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 7
+  },
+  {
+    "Method": "System.Boolean Game.Tools.ObjectToolSystem::GetAllowApply()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 35,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 35
+  },
+  {
+    "Method": "System.Boolean Game.Tools.ToolBaseSystem::GetAllowApply()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 17,
+        "Exact": true,
+        "File": "docs\\evidence\\area-move-allow-native.txt"
+      },
+      {
+        "Instructions": 17,
+        "Exact": true,
+        "File": "docs\\evidence\\bulldozer-sync-api.txt"
+      }
+    ],
+    "BetaInstructions": 17
+  },
+  {
+    "Method": "System.Boolean Game.Tools.ToolRaycastSystem::GetRaycastResult(Game.Common.RaycastResult&)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 22,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\ray-il.txt"
+      }
+    ],
+    "BetaInstructions": 22
+  },
+  {
+    "Method": "System.Boolean Game.UI.Editor.InspectorPanelSystem::IsLocalizationReadOnly(Game.Prefabs.PrefabBase)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 9,
+        "Exact": true,
+        "File": "docs\\evidence\\pack-editing-0.4.181\\native.txt"
+      }
+    ],
+    "BetaInstructions": 9
+  },
+  {
+    "Method": "System.Boolean Game.UI.Editor.InspectorPanelSystem::SelectEntity(Unity.Entities.Entity)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 76,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 76
+  },
+  {
+    "Method": "System.Collections.Generic.IList`1<Game.UI.Widgets.IWidget> Game.UI.Editor.EditorPanelSystemBase::get_children()",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 3
+  },
+  {
+    "Method": "System.Int32 Colossal.Rendering.NativeBatchGroups`4::GetGroupCount()",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 4
+  },
+  {
+    "Method": "System.Int32 Colossal.Rendering.NativeBatchInstances`4::GetInstanceCount(System.Int32)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 5
+  },
+  {
+    "Method": "System.Type[] Game.UI.Editor.InspectorPanelSystem::CollectRequiringComponents(System.Type,Game.Prefabs.PrefabBase)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 68,
+        "Exact": true,
+        "File": "docs\\evidence\\paths.txt"
+      }
+    ],
+    "BetaInstructions": 68
+  },
+  {
+    "Method": "System.Void Colossal.Collections.NativeHeapAllocator::Release(Colossal.Collections.NativeHeapBlock)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 6
+  },
+  {
+    "Method": "System.Void Colossal.Rendering.NativeBatchInstances`4/ParallelInstanceWriter::SetPropertyValue(T,System.Int32,System.Int32,System.Int32)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 8,
+        "Exact": true,
+        "File": "docs\\evidence\\targeting-0.4.230\\property-writer.txt"
+      }
+    ],
+    "BetaInstructions": 8
+  },
+  {
+    "Method": "System.Void Colossal.Rendering.UnsafeBatches`4::SetPropertyValue(T,System.Int32,System.Int32,System.Int32)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 53
+  },
+  {
+    "Method": "System.Void Game.Common.SystemOrder::Initialize(Game.UpdateSystem)",
+    "ExactStableIL": false,
+    "StableEvidence": [
+      {
+        "Instructions": 4,
+        "Exact": false,
+        "File": "docs\\evidence\\surface-schedule-0.4.238\\area-batch-registration.txt"
+      }
+    ],
+    "BetaInstructions": 3045
+  },
+  {
+    "Method": "System.Void Game.Prefabs.PrefabSystem::OnUpdate()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 6,
+        "Exact": false,
+        "File": "docs\\evidence\\bulldozer-regeneration-api.txt"
+      },
+      {
+        "Instructions": 12,
+        "Exact": true,
+        "File": "docs\\evidence\\bulldozer-synchronous-finalization.txt"
+      },
+      {
+        "Instructions": 12,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 12
+  },
+  {
+    "Method": "System.Void Game.Prefabs.PrefabSystem::UpdatePrefab(Game.Prefabs.PrefabBase,Unity.Entities.Entity)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 2,
+        "Exact": false,
+        "File": "docs\\evidence\\bulldozer-regeneration-api.txt"
+      },
+      {
+        "Instructions": 6,
+        "Exact": true,
+        "File": "docs\\evidence\\bulldozer-sync-api.txt"
+      },
+      {
+        "Instructions": 6,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      },
+      {
+        "Instructions": 6,
+        "Exact": true,
+        "File": "docs\\evidence\\surface-replacement-0.4.235\\update-prefab-il.txt"
+      }
+    ],
+    "BetaInstructions": 6
+  },
+  {
+    "Method": "System.Void Game.Prefabs.ReplacePrefabSystem::ReplacePrefab(Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Entity)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 20,
+        "Exact": true,
+        "File": "docs\\evidence\\surface-paste-crash-0.4.233\\replace-il.txt"
+      }
+    ],
+    "BetaInstructions": 20
+  },
+  {
+    "Method": "System.Void Game.Prefabs.ReplacePrefabSystem/Finalize::OnUpdate()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 372,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 372
+  },
+  {
+    "Method": "System.Void Game.Rendering.AreaBatchSystem/BatchAllocationJob::Execute()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 153,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\batches-il.txt"
+      },
+      {
+        "Instructions": 153,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\native-il.txt"
+      },
+      {
+        "Instructions": 153,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\render-il.txt"
+      },
+      {
+        "Instructions": 153,
+        "Exact": true,
+        "File": "docs\\evidence\\surface-render-0.4.236\\area-batch-il.txt"
+      }
+    ],
+    "BetaInstructions": 153
+  },
+  {
+    "Method": "System.Void Game.Rendering.AreaBatchSystem/CullingActionJob::FailedCulling(Game.Rendering.AreaBatchSystem/CullingAction)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 98,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\batches-il.txt"
+      },
+      {
+        "Instructions": 98,
+        "Exact": true,
+        "File": "docs\\evidence\\surface-render-0.4.236\\area-batch-actions-il.txt"
+      }
+    ],
+    "BetaInstructions": 98
+  },
+  {
+    "Method": "System.Void Game.Rendering.PreCullingSystem::OnUpdate()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 1512,
+        "Exact": true,
+        "File": "docs\\evidence\\effect-culling-reset-native.txt"
+      }
+    ],
+    "BetaInstructions": 1512
+  },
+  {
+    "Method": "System.Void Game.Tools.ApplyAreasSystem/HandleTempEntitiesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 129,
+        "Exact": true,
+        "File": "docs\\evidence\\area-move-apply-native.txt"
+      }
+    ],
+    "BetaInstructions": 129
+  },
+  {
+    "Method": "System.Void Game.Tools.ApplyObjectsSystem/HandleTempEntitiesJob::Execute(Unity.Entities.ArchetypeChunk&,System.Int32,System.Boolean,Unity.Burst.Intrinsics.v128&)",
+    "ExactStableIL": false,
+    "StableEvidence": [
+      {
+        "Instructions": 24,
+        "Exact": false,
+        "File": "docs\\evidence\\move-undo-local-cache-native.txt"
+      }
+    ],
+    "BetaInstructions": 432
+  },
+  {
+    "Method": "System.Void Game.Tools.ApplyPrefabsSystem::OnUpdate()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 118,
+        "Exact": true,
+        "File": "docs\\evidence\\detail.txt"
+      }
+    ],
+    "BetaInstructions": 118
+  },
+  {
+    "Method": "System.Void Game.Tools.AreaToolSystem::set_recreate(Unity.Entities.Entity)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 4
+  },
+  {
+    "Method": "System.Void Game.Tools.ObjectToolSystem::StartMoving(Unity.Entities.Entity)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 51,
+        "Exact": true,
+        "File": "docs\\evidence\\area-move-tool-native.txt"
+      },
+      {
+        "Instructions": 51,
+        "Exact": true,
+        "File": "docs\\evidence\\move-undo-native-commit.txt"
+      }
+    ],
+    "BetaInstructions": 51
+  },
+  {
+    "Method": "System.Void Game.Tools.ToolBaseSystem::InitializeRaycast()",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 50
+  },
+  {
+    "Method": "System.Void Game.Tools.ToolBaseSystem::OnUpdate()",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 13
+  },
+  {
+    "Method": "System.Void Game.Tools.ToolRaycastSystem::OnUpdate()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 15,
+        "Exact": false,
+        "File": "docs\\evidence\\effect-refresh-consumers-native.txt"
+      },
+      {
+        "Instructions": 104,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\batches-il.txt"
+      },
+      {
+        "Instructions": 104,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\ray-il.txt"
+      },
+      {
+        "Instructions": 104,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\render-il.txt"
+      }
+    ],
+    "BetaInstructions": 104
+  },
+  {
+    "Method": "System.Void Game.UI.AppBindings::ShowConfirmationDialog(Game.UI.ConfirmationDialog,System.Action`1<System.Int32>)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 8,
+        "Exact": true,
+        "File": "docs\\evidence\\detail.txt"
+      }
+    ],
+    "BetaInstructions": 8
+  },
+  {
+    "Method": "System.Void Game.UI.AppBindings::ShowConfirmationDialog(Game.UI.DismissibleConfirmationDialog,System.Action`2<System.Int32,System.Boolean>)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 8,
+        "Exact": true,
+        "File": "docs\\evidence\\detail.txt"
+      }
+    ],
+    "BetaInstructions": 8
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.EditorHierarchyUISystem::OnUpdate()",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 36
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.InspectorPanelSystem::BuildLocalizationFields(Game.Prefabs.PrefabBase,System.Collections.Generic.List`1<Game.UI.Widgets.IWidget>)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 93,
+        "Exact": true,
+        "File": "docs\\evidence\\paths.txt"
+      },
+      {
+        "Instructions": 93,
+        "Exact": true,
+        "File": "docs\\evidence\\pack-editing-0.4.181\\native.txt"
+      }
+    ],
+    "BetaInstructions": 93
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.InspectorPanelSystem::OnCreate()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 117,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      },
+      {
+        "Instructions": 117,
+        "Exact": true,
+        "File": "docs\\evidence\\paths.txt"
+      },
+      {
+        "Instructions": 117,
+        "Exact": true,
+        "File": "docs\\evidence\\phase3-inspection.txt"
+      }
+    ],
+    "BetaInstructions": 117
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.InspectorPanelSystem::OnValueChanged(Game.UI.Widgets.IWidget)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 37,
+        "Exact": true,
+        "File": "docs\\evidence\\clear-widget-inspection.txt"
+      },
+      {
+        "Instructions": 37,
+        "Exact": true,
+        "File": "docs\\evidence\\effect-component-removal-refresh-native.txt"
+      },
+      {
+        "Instructions": 37,
+        "Exact": true,
+        "File": "docs\\evidence\\phase3-inspection.txt"
+      },
+      {
+        "Instructions": 37,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\native-il.txt"
+      }
+    ],
+    "BetaInstructions": 37
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.InspectorPanelSystem::RefreshSections()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 421,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      },
+      {
+        "Instructions": 421,
+        "Exact": true,
+        "File": "docs\\evidence\\phase3-inspection.txt"
+      },
+      {
+        "Instructions": 421,
+        "Exact": true,
+        "File": "docs\\evidence\\component-headings-0.4.174\\native.txt"
+      }
+    ],
+    "BetaInstructions": 421
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.InspectorPanelSystem::RemoveComponent(Game.Prefabs.ComponentBase)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 28,
+        "Exact": true,
+        "File": "docs\\evidence\\effect-component-removal-native.txt"
+      },
+      {
+        "Instructions": 28,
+        "Exact": true,
+        "File": "docs\\evidence\\effect-component-removal-refresh-native.txt"
+      },
+      {
+        "Instructions": 28,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      },
+      {
+        "Instructions": 28,
+        "Exact": true,
+        "File": "docs\\evidence\\paths.txt"
+      }
+    ],
+    "BetaInstructions": 28
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.InspectorPanelSystem::SelectObject(System.Object,System.String)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 25,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 25
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.InspectorPanelSystem::SelectPrefab(Game.Prefabs.PrefabBase)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 19,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 19
+  },
+  {
+    "Method": "System.Void Game.UI.Editor.InspectorPanelSystem::UpdateParent(System.Boolean)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 57,
+        "Exact": true,
+        "File": "docs\\evidence\\effect-component-removal-native.txt"
+      },
+      {
+        "Instructions": 57,
+        "Exact": true,
+        "File": "docs\\evidence\\effect-component-removal-refresh-native.txt"
+      },
+      {
+        "Instructions": 57,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      },
+      {
+        "Instructions": 57,
+        "Exact": true,
+        "File": "docs\\evidence\\phase3-inspection.txt"
+      },
+      {
+        "Instructions": 57,
+        "Exact": true,
+        "File": "docs\\evidence\\area-replacement-0.4.242\\native-il.txt"
+      }
+    ],
+    "BetaInstructions": 57
+  },
+  {
+    "Method": "System.Void Game.UI.Widgets.ArrayAdapter::DeleteElementInternal(System.Int32)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 36,
+        "Exact": true,
+        "File": "docs\\evidence\\finaltrace.txt"
+      },
+      {
+        "Instructions": 36,
+        "Exact": true,
+        "File": "docs\\evidence\\phase3-inspection.txt"
+      }
+    ],
+    "BetaInstructions": 36
+  },
+  {
+    "Method": "System.Void Game.UI.Widgets.ListAdapter::DeleteElementInternal(System.Int32)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 6,
+        "Exact": true,
+        "File": "docs\\evidence\\paths.txt"
+      },
+      {
+        "Instructions": 6,
+        "Exact": true,
+        "File": "docs\\evidence\\phase3-inspection.txt"
+      }
+    ],
+    "BetaInstructions": 6
+  },
+  {
+    "Method": "System.Void Game.UI.Widgets.PagedList::Clear()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 4,
+        "Exact": true,
+        "File": "docs\\evidence\\clear-list-inspection.txt"
+      },
+      {
+        "Instructions": 4,
+        "Exact": true,
+        "File": "docs\\evidence\\clear-widget-inspection.txt"
+      }
+    ],
+    "BetaInstructions": 4
+  },
+  {
+    "Method": "System.Void Unity.Collections.NativeQueue`1::Enqueue(T)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 5
+  },
+  {
+    "Method": "T Unity.Collections.NativeQueue`1::Dequeue()",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 4
+  },
+  {
+    "Method": "TGroupData Colossal.Rendering.NativeBatchGroups`4::GetGroupData(System.Int32)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 5
+  },
+  {
+    "Method": "TInstanceData Colossal.Rendering.NativeBatchInstances`4::GetInstanceData(System.Int32,System.Int32)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 6
+  },
+  {
+    "Method": "Unity.Collections.NativeArray`1/Enumerator<T> Unity.Entities.DynamicBuffer`1::GetEnumerator()",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 6,
+        "Exact": true,
+        "File": "docs\\evidence\\isolated-buffer-enumeration-native.txt"
+      },
+      {
+        "Instructions": 6,
+        "Exact": true,
+        "File": "docs\\evidence\\undo-0.4.96-native-enumeration.txt"
+      }
+    ],
+    "BetaInstructions": 6
+  },
+  {
+    "Method": "Unity.Collections.NativeArray`1<T> Unity.Entities.DynamicBuffer`1::ToNativeArray(Unity.Collections.AllocatorManager/AllocatorHandle)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 5
+  },
+  {
+    "Method": "Unity.Collections.NativeQueue`1/ParallelWriter<T> Unity.Collections.NativeQueue`1::AsParallelWriter()",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 7
+  },
+  {
+    "Method": "Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::Apply(Unity.Jobs.JobHandle,System.Boolean)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 753,
+        "Exact": true,
+        "File": "docs\\evidence\\area-move-tool-native.txt"
+      },
+      {
+        "Instructions": 280,
+        "Exact": false,
+        "File": "docs\\evidence\\effect-hover-marker-native.txt"
+      }
+    ],
+    "BetaInstructions": 753
+  },
+  {
+    "Method": "Unity.Jobs.JobHandle Game.Tools.AreaToolSystem::Cancel(Unity.Jobs.JobHandle,System.Boolean)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 368,
+        "Exact": true,
+        "File": "docs\\evidence\\area-move-cancel-native.txt"
+      },
+      {
+        "Instructions": 140,
+        "Exact": false,
+        "File": "docs\\evidence\\effect-hover-marker-native.txt"
+      }
+    ],
+    "BetaInstructions": 368
+  },
+  {
+    "Method": "Unity.Jobs.JobHandle Game.Tools.BulldozeToolSystem::Apply(Unity.Jobs.JobHandle)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 35,
+        "Exact": false,
+        "File": "docs\\evidence\\effect-hover-marker-native.txt"
+      },
+      {
+        "Instructions": 87,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      }
+    ],
+    "BetaInstructions": 87
+  },
+  {
+    "Method": "Unity.Jobs.JobHandle Game.Tools.ObjectToolSystem::Apply(Unity.Jobs.JobHandle,System.Boolean)",
+    "ExactStableIL": true,
+    "StableEvidence": [
+      {
+        "Instructions": 87,
+        "Exact": false,
+        "File": "docs\\evidence\\effect-hover-marker-native.txt"
+      },
+      {
+        "Instructions": 448,
+        "Exact": true,
+        "File": "docs\\evidence\\inspection.txt"
+      },
+      {
+        "Instructions": 167,
+        "Exact": false,
+        "File": "docs\\evidence\\move-undo-native-commit.txt"
+      },
+      {
+        "Instructions": 448,
+        "Exact": true,
+        "File": "docs\\evidence\\move-undo-tool-entrypoints.txt"
+      }
+    ],
+    "BetaInstructions": 448
+  },
+  {
+    "Method": "Unity.Jobs.JobHandle Game.Tools.ToolBaseSystem::OnUpdate(Unity.Jobs.JobHandle)",
+    "ExactStableIL": false,
+    "StableEvidence": [],
+    "BetaInstructions": 2
+  }
+]

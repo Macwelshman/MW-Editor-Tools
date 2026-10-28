@@ -12,11 +12,11 @@ namespace MWEditorToolsInstaller {
         internal byte[] Bytes;
     }
     internal sealed class InstallResult {
-        internal string Destination, Backup;
+        internal string Destination, Backup, EnvironmentBackup;
         internal int Files;
     }
     internal static class InstallerCore {
-        internal const string Version="0.4.254";
+        internal const string Version="0.4.257";
         internal static string DefaultDestination {
             get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),@"AppData\LocalLow\Colossal Order\Cities Skylines II\Mods\MWEditorTools"); }
         }
@@ -73,7 +73,14 @@ namespace MWEditorToolsInstaller {
             }
             foreach(var folder in Directory.GetDirectories(source))CopyTree(folder,Path.Combine(target,Path.GetFileName(folder)));
         }
-        internal static InstallResult Install(string path,PayloadFile[] files,Func<bool> running=null,Action<string> beforeWrite=null) {
+        private static string TreeHash(string path) {
+            CheckPath(path);
+            var entries=new List<string>();
+            foreach(var file in Directory.GetFiles(path)){CheckPath(file);entries.Add(Path.GetFileName(file)+":"+Hash(File.ReadAllBytes(file)));}
+            foreach(var folder in Directory.GetDirectories(path)){CheckPath(folder);entries.Add(Path.GetFileName(folder)+"/"+TreeHash(folder));}
+            return Hash(System.Text.Encoding.UTF8.GetBytes(String.Join("|",entries.OrderBy(s=>s,StringComparer.Ordinal))));
+        }
+        internal static InstallResult Install(string path,PayloadFile[] files,Func<bool> running=null,Action<string> beforeWrite=null,Action afterEnvironmentMove=null) {
             ValidatePayload(files);var target=Destination(path);running=running??GameRunning;
             if(running())throw new InvalidOperationException("Close Cities: Skylines II before installing.");
             var mods=Path.GetDirectoryName(target);var home=Path.GetDirectoryName(mods);
@@ -82,10 +89,18 @@ namespace MWEditorToolsInstaller {
             using(var installLock=new FileStream(lockPath,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None)) {
                 if(running())throw new InvalidOperationException("Close Cities: Skylines II before installing.");
                 string backup=null;
+                var backupRoot=Path.Combine(home,"MWEditorTools-backups",DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fff")+"-"+Guid.NewGuid().ToString("N").Substring(0,8));
+                // Only the known sibling standalone mod is migrated. All endpoints
+                // are canonical paths outside the game installation; backups are
+                // outside Mods and preserve every standalone file/subdirectory.
+                var legacy=Path.Combine(mods,"MWEditorEnvironment");CheckPath(legacy);
+                var migrate=File.Exists(Path.Combine(legacy,"MWEditorEnvironment.dll"));
+                string legacyCopy=null,legacyMoved=null;
                 if(Directory.Exists(target)) {
-                    backup=Path.Combine(home,"MWEditorTools-backups",DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fff")+"-"+Guid.NewGuid().ToString("N").Substring(0,8),"MWEditorTools");
+                    backup=Path.Combine(backupRoot,"MWEditorTools");
                     CopyTree(target,backup);
                 }
+                if(migrate){legacyCopy=Path.Combine(backupRoot,"MWEditorEnvironment");CopyTree(legacy,legacyCopy);}
                 var written=new List<string>();
                 try {
                     if(running())throw new InvalidOperationException("Cities2 started. Close it before installing.");
@@ -98,12 +113,28 @@ namespace MWEditorToolsInstaller {
                         if(Hash(File.ReadAllBytes(destination))!=file.Hash.ToUpperInvariant())throw new IOException("Installed checksum failed: "+file.Name);
                     }
                     foreach(var file in files)if(Hash(File.ReadAllBytes(Path.Combine(target,file.Name)))!=file.Hash.ToUpperInvariant())throw new IOException("Final installed checksum failed: "+file.Name);
-                    return new InstallResult{Destination=target,Backup=backup,Files=files.Length};
+                    if(migrate){
+                        if(running())throw new InvalidOperationException("Cities2 started before standalone Environment migration.");
+                        CheckPath(legacy);var disabled=Path.Combine(backupRoot,"disabled");CheckPath(disabled);Directory.CreateDirectory(disabled);
+                        var destination=Path.Combine(disabled,"MWEditorEnvironment");CheckPath(destination);
+                        if(TreeHash(legacy)!=TreeHash(legacyCopy))throw new IOException("Standalone Environment changed after backup.");
+                        Directory.Move(legacy,destination);legacyMoved=destination;
+                        if(afterEnvironmentMove!=null)afterEnvironmentMove();
+                        if(running())throw new InvalidOperationException("Cities2 started during standalone Environment migration.");
+                        if(TreeHash(legacyMoved)!=TreeHash(legacyCopy))throw new IOException("Archived Environment checksum failed.");
+                    }
+                    return new InstallResult{Destination=target,Backup=backup,EnvironmentBackup=legacyMoved,Files=files.Length};
                 } catch(Exception error) {
                     if(written.Count==0)throw;
                     // Do not write rollback files while the game is running either.
-                    if(running())throw new InvalidOperationException("Installation stopped because Cities2 started. Close the game before restoring the backup: "+(backup??"No previous installation; remove the newly created mod files with the game closed."),error);
+                    if(running())throw new InvalidOperationException("Installation stopped because Cities2 started. Close the game before restoring the backup: "+(backup??"No previous installation; remove the newly created mod files with the game closed.")+" Standalone Environment archive: "+(legacyMoved??legacyCopy??"none"),error);
                     var failures=new List<string>();
+                    if(legacyMoved!=null)try{
+                        CheckPath(legacyMoved);CheckPath(legacy);
+                        if(Directory.Exists(legacy))throw new IOException("Standalone destination changed; original remains archived at "+legacyMoved);
+                        Directory.Move(legacyMoved,legacy);
+                        if(TreeHash(legacy)!=TreeHash(legacyCopy))throw new IOException("Standalone rollback checksum mismatch.");
+                    }catch(Exception rollback){failures.Add("MWEditorEnvironment: "+rollback.Message);}
                     foreach(var name in written.AsEnumerable().Reverse())try {
                         var destination=Path.Combine(target,name);CheckPath(destination);
                         var prior=backup==null?null:Path.Combine(backup,name);

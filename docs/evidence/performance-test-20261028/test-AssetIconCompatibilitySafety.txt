@@ -1,0 +1,1 @@
+PASS: 35 actual-adapter/Harmony thumbnail preservation assertions. Native screenshot/save/Undo acceptance remains pending.

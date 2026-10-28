@@ -22,7 +22,7 @@ namespace MW.EditorTools.Modules.ComponentManager.Pack {
   private static LocalizationField.LocalizationFieldEntry[] Snapshot(LocalizationField field)=>field.localization.Select(e=>new LocalizationField.LocalizationFieldEntry(e.localeId,e.text)).ToArray();
   private static string Fingerprint(LocalizationField name,LocalizationField description)=>string.Join(";",new[]{name,description}.Select(f=>string.Join("|",f.localization.Select(e=>(e.localeId??"").Length+":"+e.localeId+":"+(e.text??"").Length+":"+e.text))));
   private static LocalizationField[] Fields(InspectorPanelSystem inspector,PrefabBase asset,bool writing){
-   if(typeof(InspectorPanelSystem).Module.ModuleVersionId.ToString()!="e15551e9-3dea-4855-8dde-1da3cea7d7ef"||Build==null||Cache==null||ReadOnly==null)throw new NotSupportedException("Localisation API build is unsupported.");
+   if(!VerifiedGameBuild.Game(typeof(InspectorPanelSystem).Module.ModuleVersionId)||Build==null||Cache==null||ReadOnly==null)throw new NotSupportedException("Localisation API build is unsupported.");
    if(writing&&(bool)ReadOnly.Invoke(inspector,new object[]{asset}))throw new InvalidOperationException("Destination localisation is read-only.");
    Build.Invoke(inspector,new object[]{asset,new List<IWidget>()});var cache=(IDictionary)Cache.GetValue(inspector);var entry=cache[asset];if(entry==null)throw new InvalidOperationException("Open the asset in Object Info first.");
    var t=entry.GetType();return new[]{(LocalizationField)t.GetField("m_NameLocalization").GetValue(entry),(LocalizationField)t.GetField("m_DescriptionLocalization").GetValue(entry)};

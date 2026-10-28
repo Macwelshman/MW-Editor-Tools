@@ -1,0 +1,1 @@
+PASS: 22 actual-source per-instance outline, identity, cleanup, dependency, priority and failure-isolation assertions. Native renderer acceptance pending.

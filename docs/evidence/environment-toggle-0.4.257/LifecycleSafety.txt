@@ -1,0 +1,1 @@
+PASS: 31 lifecycle assertions against actual Mod source with constructor bypass and fault injection. Native Options runtime test pending.

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 static class Probe {
-    public static bool RegisterFails, UnregisterFails, RemoveFails, MultiSaveFails,ColoursFails,ConfirmationFails,IconFails,TargetingFails,OutlineFails;
-    public static int Adds, Removes, Registered, Unregistered, UiReleases, RecoveryReleases, ConfirmationReleases, Destroyed, Errors, MultiSaveReleases,ColoursReleases,IconReleases,TargetingReleases,OutlineReleases;
-    public static void Reset() { RegisterFails=UnregisterFails=RemoveFails=MultiSaveFails=ColoursFails=ConfirmationFails=IconFails=TargetingFails=OutlineFails=false; Adds=Removes=Registered=Unregistered=UiReleases=RecoveryReleases=ConfirmationReleases=Destroyed=Errors=MultiSaveReleases=ColoursReleases=IconReleases=TargetingReleases=OutlineReleases=0; }
+    public static bool RegisterFails, UnregisterFails, RemoveFails, MultiSaveFails,ColoursFails,ConfirmationFails,IconFails,TargetingFails,OutlineFails,EnvironmentFails;
+    public static int Adds, Removes, Registered, Unregistered, UiReleases, RecoveryReleases, ConfirmationReleases, Destroyed, Errors, MultiSaveReleases,ColoursReleases,IconReleases,TargetingReleases,OutlineReleases,EnvironmentStops;
+    public static void Reset() { RegisterFails=UnregisterFails=RemoveFails=MultiSaveFails=ColoursFails=ConfirmationFails=IconFails=TargetingFails=OutlineFails=EnvironmentFails=false; Adds=Removes=Registered=Unregistered=UiReleases=RecoveryReleases=ConfirmationReleases=Destroyed=Errors=MultiSaveReleases=ColoursReleases=IconReleases=TargetingReleases=OutlineReleases=EnvironmentStops=0; }
 }
 class Program {
     static int checks;
     static void Check(bool result,string message) { if(!result) throw new Exception(message); checks++; }
     static MW.EditorTools.Mod Uninitialized() => (MW.EditorTools.Mod)RuntimeHelpers.GetUninitializedObject(typeof(MW.EditorTools.Mod));
     static void Main() {
-        Probe.Reset(); var empty=Uninitialized(); empty.OnDispose(); empty.OnDispose(); Check(Probe.Errors==0,"dispose before load tolerates skipped constructor");
+        Probe.Reset();Probe.EnvironmentFails=true;var envFailure=Uninitialized();envFailure.OnLoad(new Game.UpdateSystem());Check(Probe.Errors==1&&Probe.EnvironmentStops==1&&Probe.Registered==1,"environment initialization failure stops partial system while preserving Options and editing modules");envFailure.OnDispose();Check(Probe.EnvironmentStops==1&&Probe.RecoveryReleases==1&&Probe.UiReleases==1,"environment failure cleanup is not repeated and Undo/UI survive");Probe.Reset();var env=Uninitialized();env.OnLoad(new Game.UpdateSystem());env.OnDispose();env.OnDispose();Check(Probe.EnvironmentStops==1,"environment ownership and callbacks stopped once on disposal");Probe.Reset(); var empty=Uninitialized(); empty.OnDispose(); empty.OnDispose(); Check(Probe.Errors==0,"dispose before load tolerates skipped constructor");
         Probe.Reset(); Probe.ConfirmationFails=true; var conflict=Uninitialized(); conflict.OnLoad(new Game.UpdateSystem()); Check(Probe.Errors==1 && Probe.Registered==1 && Probe.Destroyed==0 && Probe.ConfirmationReleases==1,"confirmation conflict isolated; partial hooks released and other tools loaded"); conflict.OnDispose(); Check(Probe.UiReleases==1 && Probe.RecoveryReleases==1 && Probe.MultiSaveReleases==1 && Probe.ColoursReleases==1,"all independent modules survived confirmation conflict"); Probe.ConfirmationFails=false; Probe.Reset(); Probe.IconFails=true; var iconConflict=Uninitialized(); iconConflict.OnLoad(new Game.UpdateSystem()); Check(Probe.Errors==1&&Probe.Registered==1&&Probe.Destroyed==0&&Probe.IconReleases==1,"thumbnail adapter startup failure releases its hooks without disabling other modules"); iconConflict.OnDispose(); Check(Probe.RecoveryReleases==1&&Probe.UiReleases==1&&Probe.ColoursReleases==1,"Undo and other modules survive thumbnail adapter failure"); Probe.Reset(); Probe.TargetingFails=true; var targetingFailure=Uninitialized(); targetingFailure.OnLoad(new Game.UpdateSystem()); Check(Probe.Errors==1&&Probe.Registered==1&&Probe.Destroyed==0&&Probe.TargetingReleases==1,"targeting startup failure releases its resources without disabling Undo or other modules");targetingFailure.OnDispose();Check(Probe.RecoveryReleases==1&&Probe.UiReleases==1,"Undo and UI dispose after targeting failure");Probe.Reset();Probe.OutlineFails=true;var outlineFailure=Uninitialized();outlineFailure.OnLoad(new Game.UpdateSystem());Check(Probe.Errors==1&&Probe.OutlineReleases==1&&Probe.Registered==1,"outline startup failure is isolated and partial renderer released");outlineFailure.OnDispose();Check(Probe.UiReleases==1&&Probe.RecoveryReleases==1&&Probe.TargetingReleases==1,"Undo, targeting and UI survive optional renderer failure");Probe.Reset(); var mod=Uninitialized(); mod.OnLoad(new Game.UpdateSystem());
         Check(Probe.Adds==2 && Probe.Registered==1 && Probe.Errors==0,"loader bypass still registers all locales and Options");
         Check(MW.EditorTools.Modules.ColourVariations.PaletteWindow.Instance!=null,"Colours controller registered on startup");
@@ -55,9 +55,9 @@ namespace Game.SceneFlow {
     public class GameManager {public static GameManager instance=new GameManager();public Localization localizationManager=new Localization();}
 }
 namespace MW.EditorTools.Settings {
-    public class EditorToolsSettings {public static EditorToolsSettings Load()=>new EditorToolsSettings();}
+    public class EnvironmentSettings {public static EnvironmentSettings Load(Game.Modding.IMod mod)=>new EnvironmentSettings();} public class EditorToolsSettings {public static EditorToolsSettings Load()=>new EditorToolsSettings();}
     public class RecordingAction {public bool shouldBeEnabled {get;set;}}
-    public class EditorToolsOptions {public EditorToolsOptions(Game.Modding.IMod mod,EditorToolsSettings settings,Modules.DeletionProtection.ListRecovery history,Action reset){}public void RegisterKeyBindings(){}public RecordingAction[] GetActions()=>new[]{new RecordingAction()};public void RegisterInOptionsUI(){Probe.Registered++;if(Probe.RegisterFails)throw new Exception("register");}public void UnregisterInOptionsUI(){Probe.Unregistered++;if(Probe.UnregisterFails)throw new Exception("unregister");}}
+    public class EditorToolsOptions {public EditorToolsOptions(Game.Modding.IMod mod,EditorToolsSettings settings,Modules.DeletionProtection.ListRecovery history,Action reset,EnvironmentSettings preset=null){}public void RegisterKeyBindings(){}public RecordingAction[] GetActions()=>new[]{new RecordingAction()};public void RegisterInOptionsUI(){Probe.Registered++;if(Probe.RegisterFails)throw new Exception("register");}public void UnregisterInOptionsUI(){Probe.Unregistered++;if(Probe.UnregisterFails)throw new Exception("unregister");}}
     public class OptionsLocale {public OptionsLocale(EditorToolsOptions options){} }
 }
 namespace MW.EditorTools.Services {public class EditorContextService {public bool DialogBusy=>false;public EditorContextService(Game.TestWorld world){}}}
@@ -77,3 +77,6 @@ namespace MW.EditorTools.Modules.PropReplacer {public class PropReplacerSystem {
 
 namespace MW.EditorTools.Modules.PropReplacer {public class SurfaceRenderSystem {public void Initialize(PropReplacerSystem replacer){} public void Release(){}}}
 namespace Game.Rendering {public class AreaBatchSystem {}}
+
+namespace MW.EditorTools.Modules.EditorEnvironment {public class EditorEnvironmentSystem {public bool Enabled;public void Initialize(MW.EditorTools.Settings.EnvironmentSettings settings){if(Probe.EnvironmentFails)throw new Exception("environment init");}public void Stop(){Probe.EnvironmentStops++;}}}
+namespace Game.Simulation {public class PlanetarySystem{}}

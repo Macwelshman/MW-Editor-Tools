@@ -15,7 +15,7 @@ namespace MW.EditorTools.Modules.ComponentManager.GameIntegration
         internal static Dictionary<ComponentBase, string> Read(InspectorPanelSystem inspector)
         {
             var result = new Dictionary<ComponentBase, string>();
-            if (typeof(InspectorPanelSystem).Module.ModuleVersionId.ToString() != "e15551e9-3dea-4855-8dde-1da3cea7d7ef") return result;
+            if (!VerifiedGameBuild.Game(typeof(InspectorPanelSystem).Module.ModuleVersionId)) return result;
             Walk(((IEditorPanel)inspector).children, "editorPanel", inspector, result, 0);
             return result;
         }
