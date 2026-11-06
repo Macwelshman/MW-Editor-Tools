@@ -1,4 +1,4 @@
-param([string]$ReleaseDirectory=(Join-Path $PSScriptRoot '../outputs/release-0.4.257'))
+param([string]$ReleaseDirectory=(Join-Path $PSScriptRoot '../outputs/release-0.4.259'))
 $ErrorActionPreference='Stop'
 $output=[IO.Path]::GetFullPath($ReleaseDirectory)
 $manifest=Join-Path $output 'payload.manifest'

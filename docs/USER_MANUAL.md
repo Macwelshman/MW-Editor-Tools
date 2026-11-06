@@ -1,6 +1,6 @@
 # MW Editor Tools — User Manual
 
-Version **0.4.257** · Cities: Skylines II Asset Editor
+Version **0.4.259** · Cities: Skylines II Asset Editor
 
 MW Editor Tools combines element replacement, component transfer, colour variations, workspace saving and supported Undo in one window.
 
@@ -21,13 +21,13 @@ MW Editor Tools combines element replacement, component transfer, colour variati
 
 ## Install or update
 
-Download the installer or manual ZIP from the [0.4.257 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.257). The repository contains development source; cloning it does not install the mod.
+Download the installer or manual ZIP from the [0.4.259 release](https://github.com/Macwelshman/MW-Editor-Tools/releases/tag/v0.4.259). The repository contains development source; cloning it does not install the mod.
 
 This version supports the previously verified stable game build and the audited **performance-test** beta, Steam build **26269843**. Check mod compatibility again after a game update.
 
 ### Windows installer
 
-Close Cities: Skylines II, run **MWEditorTools-0.4.257-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
+Close Cities: Skylines II, run **MWEditorTools-0.4.259-Setup.exe**, and choose **Install / update**. The default is your current Windows user's Mods folder; no administrator privileges are needed there. Use **Choose folder…** only for another user Mods folder. The installer refuses the game installation and linked folders.
 
 The installer verifies its embedded files, backs up the entire existing mod folder, and verifies every installed file. Backups are outside Mods, under **Cities Skylines II/MWEditorTools-backups** in the user data folder. The completion message gives the exact path. The installer does not change settings stored outside the mod folder. It is unsigned and requires .NET Framework 4.8.
 
@@ -402,7 +402,7 @@ The current release does **not** provide:
 - Universal component copying: opaque/private serialized payloads, native/runtime objects, unsupported third-party components and oversized/cyclic settings can be skipped.
 - Undo of files already written by Multi-Save.
 
-For release scope and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/RELEASE_READINESS_0.4.257.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
+For release scope and validation details, see [release readiness](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/docs/REGRESSION_AUDIT_0.4.259.md). For a shorter overview, return to the [README](https://github.com/Macwelshman/MW-Editor-Tools/blob/main/README.md).
 
 ## Screenshot guide
 

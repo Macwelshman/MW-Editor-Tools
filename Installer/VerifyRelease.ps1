@@ -1,8 +1,8 @@
-param([string]$ReleaseDirectory=(Join-Path $PSScriptRoot '../outputs/release-0.4.257'),[string]$InstalledFolder)
+param([string]$ReleaseDirectory=(Join-Path $PSScriptRoot '../outputs/release-0.4.259'),[string]$InstalledFolder)
 $ErrorActionPreference='Stop'
 $root=[IO.Path]::GetFullPath($ReleaseDirectory)
 $payload=Join-Path $root 'MWEditorTools'
-$exe=Join-Path $root 'MWEditorTools-0.4.257-Setup.exe'
+$exe=Join-Path $root 'MWEditorTools-0.4.259-Setup.exe'
 $assembly=[Reflection.Assembly]::LoadFile($exe)
 foreach($line in Get-Content -LiteralPath (Join-Path $root 'payload.manifest')){
  if(!$line){continue};$parts=$line -split '\|'
@@ -11,7 +11,7 @@ foreach($line in Get-Content -LiteralPath (Join-Path $root 'payload.manifest')){
  try{if([BitConverter]::ToString($sha.ComputeHash($stream)).Replace('-','') -ne $parts[1]){throw 'Installer embedded hash mismatch'}}finally{$sha.Dispose();$stream.Dispose()}
 }
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$zip=Join-Path $root 'MWEditorTools-0.4.257.zip'
+$zip=Join-Path $root 'MWEditorTools-0.4.259.zip'
 $archive=[IO.Compression.ZipFile]::OpenRead($zip)
 try{
  $entries=@($archive.Entries | Where-Object Name)

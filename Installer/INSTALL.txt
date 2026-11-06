@@ -1,6 +1,6 @@
-MW Editor Tools 0.4.257
+MW Editor Tools 0.4.259
 
-Recommended: close Cities: Skylines II, then run MWEditorTools-0.4.257-Setup.exe.
+Recommended: close Cities: Skylines II, then run MWEditorTools-0.4.259-Setup.exe.
 The installer needs .NET Framework 4.8 and installs for the current Windows user.
 No administrator rights are needed for the default user Mods folder.
 
